@@ -13,6 +13,7 @@ using Asp.NetCore_WebPage.Model.Repository;
 using Microsoft.Extensions.PlatformAbstractions;
 using System.IO;
 using Swashbuckle.AspNetCore.Swagger;
+using Asp.NetCore_WebPage.Middleware;
 
 namespace Asp.NetCore_WebPage
 {
@@ -79,7 +80,7 @@ namespace Asp.NetCore_WebPage
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-
+            app.UsePermission(@"/login");
             app.UseStaticFiles();
             app.UseSwagger(c =>
             {

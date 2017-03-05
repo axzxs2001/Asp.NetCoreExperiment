@@ -4,30 +4,29 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Asp.NetCore_WebPage.Model.Repository;
+using System.Security.Claims;
 
 namespace Asp.NetCore_WebPage.Controllers
 {
     public class HomeController : Controller
     {
-    
+
+        [HttpGet]
         public IActionResult Index()
         {
 
             return View();
         }
-
-        public IActionResult About()
+        [HttpGet("login")]
+        public IActionResult Login()
         {
-            ViewData["Message"] = "Your application description page.";
-
             return View();
         }
-
-        public IActionResult Contact()
+        [HttpPost("login")]
+        public IActionResult Login(string username, string password)
         {
-            ViewData["Message"] = "Your contact page.";
-
             return View();
+            //return Redirect("/");
         }
 
         public IActionResult Error()
