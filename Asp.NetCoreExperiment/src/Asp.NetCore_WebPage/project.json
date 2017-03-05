@@ -19,7 +19,11 @@
     "Microsoft.Extensions.Logging.Debug": "1.1.0",
     "Microsoft.Extensions.Options.ConfigurationExtensions": "1.1.0",
     "Microsoft.NETCore.App": "1.1.0",
-    "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.1.0"
+    "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.1.0",
+    "Swashbuckle.AspNetCore": "1.0.0-rc3",
+    "Swashbuckle.AspNetCore.Swagger": "1.0.0-rc3",
+    "Swashbuckle.AspNetCore.SwaggerGen": "1.0.0-rc3",
+    "Swashbuckle.AspNetCore.SwaggerUI": "1.0.0-rc3"
   },
 
   "tools": {
@@ -38,7 +42,8 @@
 
   "buildOptions": {
     "emitEntryPoint": true,
-    "preserveCompilationContext": true
+    "preserveCompilationContext": true,
+    "xmlDoc": true
   },
 
   "runtimeOptions": {

@@ -19,19 +19,31 @@ namespace Asp.NetCore_WebPage.Controllers
         {
             _permissionResitory = permissionResitory;
         }
-
+        /// <summary>
+        /// 添加用户get
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("adduser")]
         public IActionResult AddUser()
         {
             return View();
         }
+        /// <summary>
+        /// 添加用户post
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
         [HttpPost("adduser")]
         public IActionResult AddUser(string userName,string password)
         {
           var result=  _permissionResitory.AddUser(new User { UserName = userName, Password = password });
             return View();
         }
-
+        /// <summary>
+        /// 用户列表get
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("users")]
         public IActionResult Users()
         {

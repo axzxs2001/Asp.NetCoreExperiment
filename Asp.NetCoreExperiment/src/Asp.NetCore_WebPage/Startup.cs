@@ -10,6 +10,9 @@ using Microsoft.Extensions.Logging;
 using Asp.NetCore_WebPage.Model;
 using Microsoft.EntityFrameworkCore;
 using Asp.NetCore_WebPage.Model.Repository;
+using Microsoft.Extensions.PlatformAbstractions;
+using System.IO;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace Asp.NetCore_WebPage
 {
@@ -38,6 +41,27 @@ namespace Asp.NetCore_WebPage
 
 
             services.AddMvc();
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info
+                {
+                    Title = "Asp.NetCore_WebPage",
+                    Version = "v1",
+                    Description = "Asp.NetCore_WebPage RESTful API ",
+                    TermsOfService = "None",
+                    Contact = new Contact
+                    {
+                        Name = "桂素伟",
+                        Email = "axzxs2001@163.com"
+                    },
+                });
+                //设置xml注释文档，注意名称一定要与项目名称相同
+                var filePath = Path.Combine(PlatformServices.Default.Application.ApplicationBasePath, "Asp.NetCore_WebPage.xml");
+                c.IncludeXmlComments(filePath);
+                //处理复杂名称
+                c.CustomSchemaIds((type) => type.FullName);
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -57,7 +81,21 @@ namespace Asp.NetCore_WebPage
             }
 
             app.UseStaticFiles();
-
+            app.UseSwagger(c =>
+            {
+                //设置json路径
+                c.RouteTemplate = "docs/{documentName}/swagger.json";
+            });
+            app.UseSwaggerUI(c =>
+            {
+                //访问swagger UI的路由，如http://localhost:端口/docs
+                c.RoutePrefix = "docs";
+                c.SwaggerEndpoint("/docs/v1/swagger.json", "Asp.NetCore_WebPage V1");
+                //更改UI样式
+                c.InjectStylesheet("/swagger-ui/custom.css");
+                //引入UI变更js
+                c.InjectOnCompleteJavaScript("/swagger-ui/custom.js");
+            });
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
