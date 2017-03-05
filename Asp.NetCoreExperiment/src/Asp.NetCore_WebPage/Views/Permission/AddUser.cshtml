@@ -1,0 +1,30 @@
+﻿@{
+    ViewData["Title"] = "添加用户";
+}
+@section css{
+    <style>
+        .row {
+            margin-top: 5px;
+        }
+    </style>
+}
+<div class="container">
+
+    <form action="adduser" method="post">
+        <div class="row">
+            <div class="col-md-12">
+                <input class="form-control" placeholder="用户名" name="userName" type="text" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <input class="form-control" placeholder="密码" name="password" type="text" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <button class="btn btn-success">保存</button>
+            </div>
+        </div>
+    </form>
+</div>

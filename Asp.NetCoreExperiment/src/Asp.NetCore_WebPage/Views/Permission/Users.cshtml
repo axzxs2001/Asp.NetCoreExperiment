@@ -1,0 +1,39 @@
+﻿@model List<Asp.NetCore_WebPage.Model.User>
+@{
+    ViewData["Title"] = "添加用户";
+}
+@section css{
+    <style>
+        .row {
+            margin-top: 5px;
+        }
+    </style>
+}
+<div class="container">
+
+    <table class="table table-bordered table-condensed table-hover table-responsive table-striped">
+        <thead>
+            <tr>
+                <th>编号</th>
+                <th>用户名</th>
+                <th>密码</th>
+                <th style="width:110px">操作</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.ID</td>
+                <td>@user.UserName</td>
+                <td>******</td>
+                <td>
+                    <button class="btn btn-primary btn-sm">修改</button>
+                    <button class="btn btn-danger btn-sm">删除</button>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table> 
+</div>

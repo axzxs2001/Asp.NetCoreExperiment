@@ -7,6 +7,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Asp.NetCore_WebPage.Model;
+using Microsoft.EntityFrameworkCore;
+using Asp.NetCore_WebPage.Model.Repository;
 
 namespace Asp.NetCore_WebPage
 {
@@ -27,7 +30,13 @@ namespace Asp.NetCore_WebPage
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // Add framework services.
+            //添加数据操作
+            var connection = Configuration.GetConnectionString("DefaultConnection");
+            services.AddDbContext<ExperimentPageContext>(options => options.UseSqlServer(connection));
+            //添加权限模块
+            services.AddScoped<IPermissionResitory, PermissionResitory>();
+
+
             services.AddMvc();
         }
 
