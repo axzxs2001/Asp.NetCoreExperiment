@@ -36,7 +36,7 @@ namespace Asp.NetCore_WebPage
             //添加数据操作
             var connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<ExperimentPageContext>(options => options.UseSqlServer(connection));
-            //添加权限模块
+            ////添加权限模块
             services.AddScoped<IPermissionResitory, PermissionResitory>();
 
 

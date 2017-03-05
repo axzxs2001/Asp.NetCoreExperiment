@@ -9,6 +9,10 @@ namespace Asp.NetCore_WebPage.Model
     /// </summary>
     public class ExperimentPageContext : DbContext
     {
+        /// <summary>
+        /// page数据库对象
+        /// </summary>
+        /// <param name="opt"></param>
         public ExperimentPageContext(DbContextOptions<ExperimentPageContext> opt) : base(opt)
         {
         }
@@ -16,6 +20,8 @@ namespace Asp.NetCore_WebPage.Model
         {
             //确定UserRole表中的两个字段是联合主键
             modelBuilder.Entity<UserRole>().HasKey(u => new { u.UserID, u.RoleID });
+
+            modelBuilder.Entity<RolePermission>().HasKey(u => new { u.PermissionID, u.RoleID });
         }
         /// <summary>
         /// 用户
@@ -32,78 +38,19 @@ namespace Asp.NetCore_WebPage.Model
         /// </summary>
         public DbSet<UserRole> UserRoles
         { get; set; }
+
+        /// <summary>
+        /// 权限
+        /// </summary>
+        public DbSet<Permission> Permissions
+        { get; set; }
+        /// <summary>
+        /// 角色权限
+        /// </summary>
+        public DbSet<RolePermission> RolePermissions
+        { get; set; }
     }
-    /// <summary>
-    /// 用户表
-    /// </summary>
-    public class User
-    {
-        /// <summary>
-        /// ID
-        /// </summary>
-        [Key]        
-        public int ID
-        { get; set; }
-        /// <summary>
-        /// 用户名
-        /// </summary>
-        public string UserName
-        { get; set; }
-        /// <summary>
-        /// 密码
-        /// </summary>
-        public string Password
-        { get; set; }
-        /// <summary>
-        /// 用户角色集合
-        /// </summary>
-        public List<UserRole> UserRoles { get; set; }
-    }
-    /// <summary>
-    /// 角色表
-    /// </summary>
-    public class Role
-    {
-        /// <summary>
-        /// ID
-        /// </summary>
-        [Key]
-        public int ID
-        { get; set; }
-        /// <summary>
-        /// 角色名
-        /// </summary>
-        public string RoleName
-        {
-            get; set;
-        }
-        /// <summary>
-        /// 用户角色列表
-        /// </summary>
-        public List<UserRole> UserRoles { get; set; }
-    }
-    /// <summary>
-    /// 用户角色关系
-    /// </summary>
-    public class UserRole
-    {
-        /// <summary>
-        /// 用户ID
-        /// </summary>
-        public int UserID
-        { get; set; }
-        /// <summary>
-        /// 角色ID
-        /// </summary>
-        public int RoleID
-        { get; set; }
-        /// <summary>
-        /// 用户
-        /// </summary>
-        public User User { get; set; }
-        /// <summary>
-        /// 角色
-        /// </summary>
-        public Role Role { get; set; }
-    }
+  
+
+
 }
