@@ -28,8 +28,17 @@ namespace Asp.NetCore_WebPage.Controllers
             return View();
             //return Redirect("/");
         }
-
+        [HttpGet("error")]
         public IActionResult Error()
+        {
+            return View();
+        }
+        /// <summary>
+        /// 无权限
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("nopermission")]
+        public IActionResult NoPermission()
         {
             return View();
         }

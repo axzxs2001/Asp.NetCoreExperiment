@@ -8,7 +8,7 @@ using Asp.NetCore_WebPage.Model;
 namespace Asp.NetCore_WebPage.Migrations
 {
     [DbContext(typeof(ExperimentPageContext))]
-    [Migration("20170305124853_ExperimentPageMigration")]
+    [Migration("20170306030107_ExperimentPageMigration")]
     partial class ExperimentPageMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

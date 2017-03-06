@@ -15,12 +15,12 @@ namespace Asp.NetCore_WebPage.Middleware
         /// 引入权限中间件
         /// </summary>
         /// <param name="builder">扩展类型</param>
-        /// <param name="login">登录页</param>
+        /// <param name="option">权限中间件配置选项</param>
         /// <returns></returns>
         public static IApplicationBuilder UsePermission(
-              this IApplicationBuilder builder,string login)
+              this IApplicationBuilder builder, PermissionMiddlewareOption option)
         {
-            return builder.UseMiddleware<PermissionMiddleware>(login);
+            return builder.UseMiddleware<PermissionMiddleware>(option);
         }
 
     }

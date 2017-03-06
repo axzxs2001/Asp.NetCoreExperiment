@@ -38,7 +38,7 @@ namespace Asp.NetCore_WebPage
             var connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<ExperimentPageContext>(options => options.UseSqlServer(connection));
             ////添加权限模块
-            services.AddScoped<IPermissionResitory, PermissionResitory>();
+            services.AddTransient<IPermissionResitory, PermissionResitory>();
 
 
             services.AddMvc();
@@ -80,7 +80,11 @@ namespace Asp.NetCore_WebPage
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-            app.UsePermission(@"/login");
+            app.UsePermission(new PermissionMiddlewareOption()
+            {
+                LoginAction = @"/login",
+                 NoPermissionAction=@"/nopermission"
+            });
             app.UseStaticFiles();
             app.UseSwagger(c =>
             {
