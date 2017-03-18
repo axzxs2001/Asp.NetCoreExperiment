@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
+using System.Text;
 
 namespace Asp.NetCore_WebPage
 {
@@ -11,6 +12,7 @@ namespace Asp.NetCore_WebPage
     {
         public static void Main(string[] args)
         {
+            System.Text.Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             var host = new WebHostBuilder()
                 .UseKestrel()
                 .UseContentRoot(Directory.GetCurrentDirectory())

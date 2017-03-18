@@ -37,10 +37,9 @@ namespace Asp.NetCore_WebPage
             //添加数据操作
             var connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<ExperimentPageContext>(options => options.UseSqlServer(connection));
-            ////添加权限模块
+            //添加权限模块
             services.AddTransient<IPermissionResitory, PermissionResitory>();
-
-
+          
             services.AddMvc();
 
             services.AddSwaggerGen(c =>
@@ -80,6 +79,10 @@ namespace Asp.NetCore_WebPage
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+            //添加websocket中间件
+            app.UseWebSockets();
+            app.UseWebSocketNotify();
+
             app.UsePermission(new PermissionMiddlewareOption()
             {
                 LoginAction = @"/login",

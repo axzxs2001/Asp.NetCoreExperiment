@@ -48,7 +48,7 @@ namespace Asp.NetCore_WebPage.Middleware
         public Task Invoke(HttpContext context)
         {             
             //过滤客户端文件和无权限页面
-            if (!Path.HasExtension(context.Request.Path.Value)&& context.Request.Path.Value != _option.NoPermissionAction)
+            if (!Path.HasExtension(context.Request.Path.Value)&& context.Request.Path.Value != _option.NoPermissionAction&&context.Request.Path.Value!=@"/ws")
             {
                 var cookie = context.Request.Cookies["login"];
                 if (cookie == null)
