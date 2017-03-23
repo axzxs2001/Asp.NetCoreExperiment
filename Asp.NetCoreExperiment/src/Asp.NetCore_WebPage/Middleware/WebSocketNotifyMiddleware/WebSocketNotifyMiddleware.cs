@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.WebSockets;
 using System.Threading;
 using System.Threading.Tasks;
@@ -32,10 +30,12 @@ namespace Asp.NetCore_WebPage.Middleware
         /// <returns></returns>
         public Task Invoke(HttpContext context)
         {
+            //判断是否为websocket请求
             if (context.WebSockets.IsWebSocketRequest)
             {
-
+                //接收客户端
                 var webSocket = context.WebSockets.AcceptWebSocketAsync().Result;
+                //启用一个线程处理接收客户端数据
                 new Thread(Accept).Start(webSocket);
                 while (webSocket.State == WebSocketState.Open)
                 {
@@ -46,9 +46,13 @@ namespace Asp.NetCore_WebPage.Middleware
             return this._next(context);
 
         }
+        /// <summary>
+        /// 接收客户端数据方法
+        /// </summary>
+        /// <param name="obj"></param>
         void Accept(object obj)
         {
-            WebSocket webSocket = obj as WebSocket;
+            var webSocket = obj as WebSocket;
             while (true)
             {
                 var acceptArr = new byte[1024];
