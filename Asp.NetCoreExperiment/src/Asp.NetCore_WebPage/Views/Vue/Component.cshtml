@@ -1,0 +1,49 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>首页</title>
+
+    <script src="~/lib/vue/dist/vue.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <script>
+
+    </script>
+</head>
+<body>
+
+    <div id="component-div" class="container">
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr><th>编号</th><th>名称</th></tr>
+            </thead>
+            <tbody>
+                <tr is="component-name" v-for="item in list" v-bind:todo="item"></tr>
+            </tbody>
+        </table>
+    </div>
+
+
+    <script>
+        Vue.component("component-name", {
+            props: ["todo"],
+            template: '<tr><td>{{todo.ID}}</td><td>{{todo.Name}}</td></tr>'
+        }) 
+        $.get("/students", {}, function (result) {
+            new Vue({
+                el: "#component-div",
+                data: { list: result }
+            })
+        })
+    </script>
+</body>
+</html>
