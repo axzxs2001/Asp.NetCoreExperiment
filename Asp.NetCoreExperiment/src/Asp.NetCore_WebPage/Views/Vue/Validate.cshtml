@@ -1,0 +1,48 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>验证</title>
+    <script src="~/lib/vue/dist/vue.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+
+</head>
+<body>
+
+    <div id="example" class="container">
+        <div class="row">
+            <input class="form-control" v-model="email" placeholder="请输入邮箱地址" />
+            <span style="color:red">{{ validateMessage }}</span>
+        </div>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: '#example',
+            data: {
+                email: ''
+            },
+            computed: {//计算属性
+                validateMessage: function () {
+                    var reg = /\w+[@@]{1}\w+[.]\w+/;
+                    var result = "";
+                    if (reg.test(this.email)) {
+                        result = "";
+                    } else {
+                        result = this.email + "不是一个有效的邮箱"
+                    }
+                    return result;
+                }
+            }
+        })
+    </script>
+</body>
+</html>

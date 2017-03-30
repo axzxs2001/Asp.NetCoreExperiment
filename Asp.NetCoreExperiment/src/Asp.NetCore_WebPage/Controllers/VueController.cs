@@ -45,5 +45,17 @@ namespace Asp.NetCore_WebPage.Controllers
         }
         #endregion
 
+
+        #region 验证
+        /// <summary>
+        /// 验证
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("validate")]
+        public IActionResult Validate()
+        {
+            return View();
+        }
+        #endregion
     }
 }
