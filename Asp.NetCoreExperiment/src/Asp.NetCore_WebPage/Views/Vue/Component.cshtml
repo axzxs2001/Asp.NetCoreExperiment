@@ -10,17 +10,13 @@
     <meta name="viewport" content="width=device-width" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>首页</title>
-
     <script src="~/lib/vue/dist/vue.js"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
     <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
-    <script>
 
-    </script>
 </head>
 <body>
-
     <div id="component-div" class="container">
         <table class="table table-bordered table-hover">
             <thead>
@@ -31,18 +27,44 @@
             </tbody>
         </table>
     </div>
-
-
     <script>
         Vue.component("component-name", {
             props: ["todo"],
             template: '<tr><td>{{todo.ID}}</td><td>{{todo.Name}}</td></tr>'
-        }) 
+        })
         $.get("/students", {}, function (result) {
             new Vue({
                 el: "#component-div",
                 data: { list: result }
             })
+        })
+    </script>
+
+
+    <div id="key-example" class="container">
+        <h1>计算（methods）属性</h1>
+        <template v-if="loginType === 'username'">
+            <label>用户名</label>
+            <input placeholder="请输入username">
+        </template>
+        <template v-else>
+            <label>密码</label>
+            <input placeholder="请输入email address">
+        </template>
+        <button class="btn btn-primary" v-on:click="toggleLoginType">变化</button>
+    </div>
+    <script>
+
+        var keyexample = new Vue({
+            el: '#key-example',
+            data: {
+                loginType: 'username'
+            },
+            methods: {
+                toggleLoginType: function (event) {                   
+                    return this.loginType = this.loginType === 'username' ? 'email' : 'username'
+                }
+            }
         })
     </script>
 </body>

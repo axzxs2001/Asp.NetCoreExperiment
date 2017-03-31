@@ -57,5 +57,18 @@ namespace Asp.NetCore_WebPage.Controllers
             return View();
         }
         #endregion
+
+
+        #region todolist
+        /// <summary>
+        /// ап╠М
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("todolist")]
+        public IActionResult ToDoListComponent()
+        {
+            return View();
+        }
+        #endregion
     }
 }
