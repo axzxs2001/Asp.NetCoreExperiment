@@ -37,9 +37,9 @@
             template: '\
     <li>\
       {{ title }}\
-      <button class="btn btn-danger btn-sm" v-on:click="$emit(\'remove\')">X</button>\
+      <button class="btn btn-danger btn-sm" v-on:click="$emit(\'remove\')"><span class="glyphicon glyphicon glyphicon-remove" aria-hidden="true"></span></button>\
     </li>\
-  ',
+  ', 
             props: ['title']
         })
         new Vue({
