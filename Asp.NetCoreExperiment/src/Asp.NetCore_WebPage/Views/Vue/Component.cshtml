@@ -75,7 +75,7 @@
         Vue.component('child', {
             props: {
                 myMessage: {
-                    validator: function (value) {                      
+                    validator: function (value) {
                         return value.length > 5;
                     }
                 }
@@ -122,6 +122,129 @@
             }
         })
     </script>
+    <hr style="border:1px solid #f00" />
+    <div id="counter-event-example-1">
+        <button-counter-1 v-on:click.native="incrementTotal"></button-counter-1>
+        <button-counter-1 v-on:click="incrementTotal"></button-counter-1>
+    </div>
+    <script>
+        Vue.component('button-counter-1', {
+            template: '<button v-on:click="increment">点我</button>',
+            methods: {
+                increment: function () {
+                    alert("内部")
+                }
+            },
+        })
 
+        new Vue({
+            el: '#counter-event-example-1',
+
+            methods: {
+                incrementTotal: function () {
+                    alert("外部")
+                }
+            }
+        })
+    </script>
+
+    <hr style="border:1px solid #f00" />
+    <div id="counter-event-example-2">
+        <currency-input v-model="price"></currency-input>
+    </div>
+    <script>
+        Vue.component('currency-input', {
+            template: '<span>$<input class="form-control" ref="input" v-bind:value="value" v-on:input="updateValue($event.target.value)"></span>',
+            props: ['value'],
+            methods: {
+                // 不是直接更新值，而是使用此方法来对输入值进行格式化和位数限制
+                updateValue: function (value) {
+                    var formattedValue = value
+                        // 删除两侧的空格符
+                        .trim()
+                        // 保留 2 小数位
+                        .slice(0, value.indexOf('.') + 3)
+                    // 如果值不统一，手动覆盖以保持一致
+                    if (formattedValue !== value) {
+                        this.$refs.input.value = formattedValue
+                    }
+                    // 通过 input 事件发出数值
+                    this.$emit('input', Number(formattedValue))
+                }
+            }
+        })
+        new Vue({
+            el: '#counter-event-example-2'
+
+        })
+    </script>
+    <hr style="border:1px solid #f00" />
+    <div id="app">
+        <currency-input label="Price" v-model="price"></currency-input>
+        <currency-input label="Shipping" v-model="shipping"></currency-input>
+        <currency-input label="Handling" v-model="handling"></currency-input>
+        <currency-input label="Discount" v-model="discount"></currency-input>
+        <p>Total: ${{ total }}</p>
+    </div>
+    <script src="https://cdn.rawgit.com/chrisvfritz/5f0a639590d6e648933416f90ba7ae4e/raw/98739fb8ac6779cb2da11aaa9ab6032e52f3be00/currency-validator.js"></script>
+    <script>
+        Vue.component('currency-input', {
+            template: '<div><label v-if="label">{{label}}</label>$<input ref="input" v-bind:value="value" v-on:input="updateValue($event.target.value)" v-on:focus="selectAll" v-on:blur="formatValue"></div>',
+            props: {
+                value: {
+                    type: Number,
+                    default: 0
+                },
+                label: {
+                    type: String,
+                    default: ''
+                }
+            },
+            mounted: function () {
+                this.formatValue()
+            },
+            methods: {
+                updateValue: function (value) {
+
+                    //var result = currencyValidator.parse(value, this.value)
+                    //if (result.warning) {
+                    //    this.$refs.input.value = result.value
+                    //}
+                    //      this.$emit('input', result.value)
+
+                    this.$emit('input', value)
+                },
+                formatValue: function () {
+                    this.$refs.input.value = currencyValidator.format(this.value)
+          
+                },
+                selectAll: function (event) {
+                    setTimeout(function () {
+                        event.target.select()
+                    }, 0)
+                }
+            }
+        })
+
+        new Vue({
+            el: '#app',
+            data: {
+                price: 0,
+                shipping: 0,
+                handling: 0,
+                discount: 0
+            },
+            computed: {
+                total: function () {
+                    return ((
+                        this.price * 100 +
+                        this.shipping * 100 +
+                        this.handling * 100 -
+                        this.discount * 100
+                    ) / 100).toFixed(2)
+                }
+            }
+        })
+    </script>
 </body>
 </html>
