@@ -70,5 +70,13 @@ namespace Asp.NetCore_WebPage.Controllers
             return View();
         }
         #endregion
+
+
+        #region Form±íµ¥
+        public IActionResult Form()
+        {
+            return View();
+        }
+        #endregion
     }
 }
