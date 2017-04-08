@@ -11,6 +11,15 @@ namespace Asp.NetCore_WebPage.Controllers
     /// </summary>
     public class VueController : Controller
     {
+        #region Base
+        public IActionResult Base()
+        {
+            return View();
+        }
+        #endregion
+
+
+
         #region table
         /// <summary>
         /// 加载后台数据生成表格
