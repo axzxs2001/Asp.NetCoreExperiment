@@ -33,7 +33,14 @@
             <button class="btn btn-primary" v-on:click="reverseMessage">反转</button>
         </div>
         <hr style="border:1px red solid;" />
-
+        <h1>html</h1>
+        <div class="row" id="example-4">
+            <p>
+              {{html}}
+            </p>
+            <p v-html="html">
+            </p>
+        </div>
         <hr style="border:1px red solid;" />
 
         <hr style="border:1px red solid;" />
@@ -67,6 +74,14 @@
                 reverseMessage: function () {
                     this.message = this.message.split('').reverse().join('')
                 }
+            }
+        })
+
+
+        var app4 = new Vue({
+            el: "#example-4",
+            data: {
+               html:'<a href="www.baidu.com">html礼品卡</a>'
             }
         })
     </script>

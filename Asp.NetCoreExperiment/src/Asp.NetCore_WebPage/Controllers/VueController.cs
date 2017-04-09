@@ -87,5 +87,13 @@ namespace Asp.NetCore_WebPage.Controllers
             return View();
         }
         #endregion
+
+
+        #region Computed
+        public IActionResult Computed()
+        {
+            return View();
+        }
+        #endregion
     }
 }

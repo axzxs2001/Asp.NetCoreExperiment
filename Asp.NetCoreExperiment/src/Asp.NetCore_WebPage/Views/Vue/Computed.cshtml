@@ -1,0 +1,52 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>基础</title>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <script src="~/lib/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="example-1">
+        <p>Original message: "{{ message }}"</p>
+        <p>Computed reversed message: "{{ reversedMessage }}"</p>
+        <p>{{time0}}</p>
+        <p>{{time1}}</p>
+        <p>{{time2}}</p>
+    </div>
+    <script>
+       var app1= new Vue({
+            el: '#example-1',
+            data: {
+                message: "123456",
+                time0: Date.now()
+            },
+            computed: {
+                reversedMessage: function () {
+                    return this.message.split('').reverse().join('')
+                },
+                time1: function () {
+                    return Date.now();
+                }
+            },
+            methods:
+            {
+                time2: function () {
+                    return Date.now();
+
+                }
+
+            }
+        })
+    </script>
+</body>
+</html>
