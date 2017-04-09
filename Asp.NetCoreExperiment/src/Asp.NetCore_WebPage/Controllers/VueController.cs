@@ -94,6 +94,29 @@ namespace Asp.NetCore_WebPage.Controllers
         {
             return View();
         }
+        /// <summary>
+        /// »ñÈ¡×Ö·û´®
+        /// </summary>
+        /// <param name="value">×Ö·û</param>
+        /// <returns></returns>
+        [HttpGet("/answerquestion")]
+        public string GetString(string value="ÎÞ")
+        {
+            return new Random().Next(1, 100) + value;
+        }
+        /// <summary>
+        /// »ñÈ¡×Ö·û´®
+        /// </summary>
+        /// <param name="value">×Ö·û</param>
+        /// <returns></returns>
+        [HttpGet("/validusername")]
+        public bool ValidUserName(string userName)
+        {
+            var arr = new string[] {"abc","aaa","bbb","ccc"};
+            return arr.Contains(userName);           
+        }
         #endregion
+
+
     }
 }
