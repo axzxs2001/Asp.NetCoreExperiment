@@ -100,7 +100,7 @@ namespace Asp.NetCore_WebPage.Controllers
         /// <param name="value">×Ö·û</param>
         /// <returns></returns>
         [HttpGet("/answerquestion")]
-        public string GetString(string value="ÎÞ")
+        public string GetString(string value = "ÎÞ")
         {
             return new Random().Next(1, 100) + value;
         }
@@ -112,11 +112,17 @@ namespace Asp.NetCore_WebPage.Controllers
         [HttpGet("/validusername")]
         public bool ValidUserName(string userName)
         {
-            var arr = new string[] {"abc","aaa","bbb","ccc"};
-            return arr.Contains(userName);           
+            var arr = new string[] { "abc", "aaa", "bbb", "ccc" };
+            return arr.Contains(userName);
         }
         #endregion
 
 
+        #region ClassStyle
+        public IActionResult ClassStyle()
+        {
+            return View();
+        }
+        #endregion
     }
 }
