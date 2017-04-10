@@ -1,0 +1,89 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>基础</title>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <script src="~/lib/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div class="container">
+        <hr style="border:1px red solid;" />
+        <div class="row" id="example-1">
+            <p>Message is: {{message}}</p>
+        </div>
+        <hr style="border:1px red solid;" />
+        <div class="row" id="example-2">           
+                <p v-for="item in items" v-if="item.age>1">
+                    姓名：{{item.name}} 年龄：{{item.age}}
+                </p>        
+        </div>
+        <hr style="border:1px red solid;" />
+        <div class="row" id="example-3">
+            <p style="font-size:2em">{{message}}</p>
+            <button class="btn btn-primary" v-on:click="reverseMessage">反转</button>
+        </div>
+        <hr style="border:1px red solid;" />
+        <h1>html</h1>
+        <div class="row" id="example-4">
+            <p>
+              {{html}}
+            </p>
+            <p v-html="html">
+            </p>
+        </div>
+        <hr style="border:1px red solid;" />
+
+        <hr style="border:1px red solid;" />
+
+        <hr style="border:1px red solid;" />
+    </div>
+    <script>
+        var app1 = new Vue({
+            el: "#example-1",
+            data: {
+                message: "test"
+            }
+        });
+     
+        var app2 = new Vue({
+            el: "#example-2",
+            data: {
+                items: [
+                    { 'name':'张三', 'age':1 },
+                    { 'name':'李四', 'age':2 }
+                ]
+            }
+        })
+
+        var app3 = new Vue({
+            el: "#example-3",
+            data: {
+                message:"1234567"
+            },
+            methods: {
+                reverseMessage: function () {
+                    this.message = this.message.split('').reverse().join('')
+                }
+            }
+        })
+
+
+        var app4 = new Vue({
+            el: "#example-4",
+            data: {
+               html:'<a href="www.baidu.com">html礼品卡</a>'
+            }
+        })
+    </script>
+</body>
+</html>

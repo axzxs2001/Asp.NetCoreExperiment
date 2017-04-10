@@ -1,0 +1,53 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>首页</title>
+
+    <script src="~/lib/vue/dist/vue.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <script>
+
+    </script>
+</head>
+<body>
+
+    <div id="app-4">
+        <table class="table table-bordered table-hover table-responsive table-responsive table-striped">
+            <tr>
+                <th>编号</th>
+                <th>内容</th>
+            </tr>
+            <tr v-for="todo in todos">
+                <td>
+                    {{ todo.ID }}
+                </td>
+                <td>
+                    {{ todo.Name }}
+                </td>
+            </tr>
+        </table>
+    </div>
+  
+
+    <script>
+        $.get("/students", {}, function (result) {
+            var app4 = new Vue({
+                el: '#app-4',
+                data: {
+                    todos: result
+                }
+            })
+        })
+    </script>
+</body>
+</html>

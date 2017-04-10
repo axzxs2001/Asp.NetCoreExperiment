@@ -1,0 +1,65 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>基础</title>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <script src="~/lib/vue/dist/vue.js"></script>
+    <style>
+        .text-danger {
+            background-color: green;
+            width: 800px;
+            height: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <hr style="border:1px red solid;" />
+        <div class="row" id="example-1">
+            <div class="static"
+                 v-bind:class="{ 'text-danger': hasError }">
+            </div>
+        </div>
+        <hr style="border:1px red solid;" />
+        <div id="example-2">
+            <div v-bind:style="{color:activeColor,background:bgColor,fontSize: fontSize + 'px',width:width+'px',height:height+'px'}">
+                div
+            </div>
+        </div>
+        <hr style="border:1px red solid;" />
+
+        <hr style="border:1px red solid;" />
+
+        <hr style="border:1px red solid;" />
+    </div>
+    <script>
+        var app1 = new Vue({
+            el: "#example-1",
+            data: {
+                hasError: true
+            }
+        });
+        var app2 = new Vue({
+            el: "#example-2",
+            data: {
+                bgColor:'green',
+                activeColor: 'red',
+                fontSize: 30,
+                width: 100,
+                height:30
+            }
+        });
+
+    </script>
+</body>
+</html>
