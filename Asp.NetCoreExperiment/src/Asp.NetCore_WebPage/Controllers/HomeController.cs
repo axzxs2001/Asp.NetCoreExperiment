@@ -84,5 +84,16 @@ namespace Asp.NetCore_WebPage.Controllers
             Response.Body.Dispose();
             return File(ms.ToArray(), @"image/png");
         }
+        /// <summary>
+        /// 验证验证码是否正确
+        /// </summary>
+        /// <param name="yzm"></param>
+        /// <returns></returns>
+        [HttpGet("validateyzm")]
+        public bool ValidateYZM(string yzm)
+        {
+            return HttpContext.Session.GetString("LoginValidateCode") == yzm;
+
+        }
     }
 }

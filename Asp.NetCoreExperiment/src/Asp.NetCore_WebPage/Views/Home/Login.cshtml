@@ -22,11 +22,44 @@
         </div>
         <div class="row">
             <div class="col-md-12">
+                <input style="width:80px;" type="text" id="yzm" />
+                <img id="imgVerify" src="/validatecode" alt="看不清？点击更换" onclick="this.src = this.src + '?'" style="vertical-align:middle;" />
                 <button class="btn btn-success">登录</button>
+                <br />
+                <span id="message"></span>
             </div>
         </div>
         <div class="row">
-           <img id="imgVerify" src="/validatecode" alt="看不清？点击更换" onclick="this.src = this.src + '?'" style="vertical-align:middle;" />
+            <div class="col-md-12">
+
+            </div>
         </div>
     </form>
 </div>
+@section scripts{
+    <script>
+        $(function () {
+
+            $("#yzm").keyup(function () {
+                if ($(this).val().length >= 4) {
+
+                    $.get('/validateyzm', { yzm: $(this).val() }, function (result) {
+                        if (result) {
+                            $("#message").html("验证码正确");
+                            $("#message").attr("style", "color:green");
+                        }
+                        else {
+                            $("#message").html("验证码错误");
+                            $("#message").attr("style", "color:red");
+                        }
+
+                    })
+                }
+                else {
+                    $("#message").html("");
+                }
+            });
+        })
+    </script>
+
+}
