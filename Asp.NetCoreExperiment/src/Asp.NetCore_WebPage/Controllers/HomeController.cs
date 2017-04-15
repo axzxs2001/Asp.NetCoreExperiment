@@ -7,6 +7,8 @@ using Asp.NetCore_WebPage.Model.Repository;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 using System.Reflection;
+using Asp.NetCore_WebPage.Model;
+
 namespace Asp.NetCore_WebPage.Controllers
 {
     public class HomeController : Controller
@@ -21,7 +23,7 @@ namespace Asp.NetCore_WebPage.Controllers
         [HttpGet("login")]
         public IActionResult Login()
         {
-            HandleJL<HomeController>(Request.Form,"jl_");
+           // HandleJL<HomeController>(Request.Form,"jl_");
             return View();
         }
         /// <summary>
@@ -67,6 +69,20 @@ namespace Asp.NetCore_WebPage.Controllers
         public IActionResult NoPermission()
         {
             return View();
+        }
+
+        /// <summary>
+        /// 图形验证码
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("validatecode")]
+        public IActionResult ValidateCode([FromServices]VierificationCodeServices _vierificationCodeServices)
+        {
+            string code = "";
+            var ms = _vierificationCodeServices.Create(out code);
+            HttpContext.Session.SetString("LoginValidateCode", code);
+            Response.Body.Dispose();
+            return File(ms.ToArray(), @"image/png");
         }
     }
 }

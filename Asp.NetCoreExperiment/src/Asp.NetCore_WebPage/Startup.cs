@@ -39,8 +39,23 @@ namespace Asp.NetCore_WebPage
             //services.AddDbContext<ExperimentPageContext>(options => options.UseSqlServer(connection));
             //添加权限模块
             //services.AddTransient<IPermissionResitory, PermissionResitory>();
-          
+            //添加验证服务
+            services.AddTransient<VierificationCodeServices, VierificationCodeServices>();
+
             services.AddMvc();
+
+            #region 添加session
+            // Adds a default in-memory implementation of IDistributedCache.
+            services.AddDistributedMemoryCache();
+
+            services.AddSession(options =>
+            {
+                // Set a short timeout for easy testing.
+                options.IdleTimeout = TimeSpan.FromSeconds(10);
+                options.CookieHttpOnly = true;
+            });
+            #endregion
+
 
             services.AddSwaggerGen(c =>
             {
@@ -79,6 +94,9 @@ namespace Asp.NetCore_WebPage
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+            //添加session
+            app.UseSession();
+
             //添加websocket中间件
             //app.UseWebSockets();
             //app.UseWebSocketNotify();
