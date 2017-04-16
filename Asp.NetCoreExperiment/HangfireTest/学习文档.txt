@@ -1,0 +1,2 @@
+﻿url
+http://koukouge-hangfire.daoapp.io/background-methods/calling-methods-in-background.html
