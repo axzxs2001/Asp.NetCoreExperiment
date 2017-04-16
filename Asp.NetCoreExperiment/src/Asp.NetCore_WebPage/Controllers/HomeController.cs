@@ -51,10 +51,19 @@ namespace Asp.NetCore_WebPage.Controllers
             return list;
         }
         [HttpPost("login")]
-        public IActionResult Login(string username, string password)
+        public IActionResult Login(string username, string password,string validatecode)
         {
-            return View();
-            //return Redirect("/");
+            var validateCode = HttpContext.Session.GetString("LoginValidateCode");
+
+            if (!string.IsNullOrEmpty(validateCode)&&validateCode== validatecode)
+            {
+                return Redirect("/");
+            }
+            else
+            {
+                ViewData["error"] = "验证不正确";
+                return View();
+            }
         }
         [HttpGet("error")]
         public IActionResult Error()
