@@ -53,7 +53,7 @@ namespace HangfireTest
                     var jobId = BackgroundJob.Enqueue(() => Console.WriteLine("Fire-and-forget!"));
                 }
             }
-            RecurringJob.AddOrUpdate(() => Console.WriteLine("Recurring!"), Cron.Minutely, queue: "test");
+            RecurringJob.AddOrUpdate(() => Console.WriteLine("Recurring!"), "*/6 * * * *", queue: "test");
 
             if (env.IsDevelopment())
             {
