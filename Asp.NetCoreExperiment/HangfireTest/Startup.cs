@@ -10,6 +10,8 @@ using Microsoft.Extensions.Logging;
 using Hangfire.Server;
 using Hangfire;
 using Hangfire.Storage;
+using HangfireTest.Model.Repository;
+using HangfireTest.Model;
 
 namespace HangfireTest
 {
@@ -31,8 +33,11 @@ namespace HangfireTest
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddHangfire(x => x.UseSqlServerStorage("Data Source=.;Initial Catalog=ExperimentPageDb;Persist Security Info=True;User ID=sa;Password=gsw123"));
-            // Add framework services.
+           // services.AddSingleton<IFunction, Function>();
+
+            services.AddHangfire(x => x.UseSqlServerStorage("Data Source=.;Initial Catalog=TestDB;Persist Security Info=True;User ID=sa;Password=gsw123"));
+   
+
             services.AddMvc();
         }
 
@@ -41,19 +46,12 @@ namespace HangfireTest
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
-            app.UseHangfireServer();//启动Hangfire服务
-            app.UseHangfireDashboard();//启动hangfire面板
 
-            using (var connection = JobStorage.Current.GetConnection())
-            {
-                var storageConnection = connection as JobStorageConnection;
-                if (storageConnection != null)
-                {
-                    //立即启动
-                    var jobId = BackgroundJob.Enqueue(() => Console.WriteLine("Fire-and-forget!"));
-                }
-            }
-            RecurringJob.AddOrUpdate(() => Console.WriteLine("Recurring!"), "*/6 * * * *", queue: "test");
+            app.UseHangfireServer();//启动Hangfire服务
+            app.UseHangfireDashboard();//启动hangfire面板      
+                                       // RecurringJob.AddOrUpdate(() => Console.WriteLine("Recurring!"), "*/6 * * * *", queue: "test");
+
+        
 
             if (env.IsDevelopment())
             {
@@ -74,5 +72,7 @@ namespace HangfireTest
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
         }
+
+      
     }
 }

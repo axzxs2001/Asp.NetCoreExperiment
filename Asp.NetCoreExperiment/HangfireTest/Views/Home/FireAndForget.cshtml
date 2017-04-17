@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewData["Title"] = "FireAndForget";
+}
+
+<button class="btn" id="but">一次执行</button>
+<button class="btn" id="but1">延时执行</button>
+<span id="mes"></span>
+@section scripts{
+
+<script>
+    $(function () {
+
+        $("#but").click(function () {
+            $.post("/onetimes", {}, function (result) {
+                $("#mes").html(result);
+            })
+        })
+
+
+        $("#but").click(function () {
+            $.post("/dealy", {}, function (result) {
+                $("#mes").html(result);
+            })
+        })
+    })
+</script>
+}
