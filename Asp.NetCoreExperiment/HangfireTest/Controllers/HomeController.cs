@@ -69,9 +69,18 @@ namespace HangfireTest.Controllers
         [HttpPost("onetimes1")]
         public bool FireAndForget1(int? id)
         {
-            //简单执行一项任务在开始时
-            //立即启动
-            var jobId = BackgroundJob.Enqueue<TestClass>(x => x.Once1("这是一个参数"));
+            using (var connection = JobStorage.Current.GetConnection())
+            {
+
+                var storageConnection = connection as JobStorageConnection;
+                if (storageConnection != null)
+                {
+                    //简单执行一项任务在开始时
+                    //立即启动
+                    var jobId = BackgroundJob.Enqueue<TestClass>(x => x.Once1("这是一个参数"));
+                }
+            }
+
             return true;
         }
         [HttpPost("dealy")]

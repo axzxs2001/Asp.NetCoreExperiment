@@ -34,10 +34,9 @@ namespace HangfireTest
         {
 
            // services.AddSingleton<IFunction, Function>();
-
-            services.AddHangfire(x => x.UseSqlServerStorage("Data Source=.;Initial Catalog=TestDB;Persist Security Info=True;User ID=sa;Password=gsw123"));
-
    
+            services.AddHangfire(x => x.UseSqlServerStorage("Data Source=.;Initial Catalog=TestDB;Persist Security Info=True;User ID=sa;Password=gsw123"));
+            services.AddSingleton<TestClass, TestClass>();
             services.AddMvc();
         }
 
@@ -46,10 +45,8 @@ namespace HangfireTest
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
-
-            app.UseHangfireServer();//启动Hangfire服务
-            app.UseHangfireDashboard();//启动hangfire面板      
-
+    
+            
 
             if (env.IsDevelopment())
             {
@@ -69,6 +66,12 @@ namespace HangfireTest
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+
+            app.UseHangfireServer();//启动Hangfire服务
+            app.UseHangfireDashboard();//启动hangfire面板  
+
+            BatchJob.StartNew
         }
 
       
