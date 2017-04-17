@@ -4,7 +4,12 @@
 }
 
 <button class="btn" id="but">一次执行</button>
+<button class="btn" id="sbut">一次执行</button>
 <button class="btn" id="but1">延时执行</button>
+<button class="btn" id="sbut1">延时执行</button>
+<button class="btn" id="but2">周期执行</button>
+<button class="btn" id="sbut2">周期执行</button>
+<br />
 <span id="mes"></span>
 @section scripts{
 
@@ -13,14 +18,32 @@
 
         $("#but").click(function () {
             $.post("/onetimes", {}, function (result) {
-                $("#mes").html(result);
+                $("#mes").html("一次调用结果："+result);
             })
         })
-
-
-        $("#but").click(function () {
+        $("#sbut").click(function () {
+            $.post("/onetimes1", {}, function (result) {
+                $("#mes").html("一次调用结果：" + result);
+            })
+        })
+        $("#but1").click(function () {
             $.post("/dealy", {}, function (result) {
-                $("#mes").html(result);
+                $("#mes").html("延时调用结果：" +result);
+            })
+        })
+        $("#sbut1").click(function () {
+            $.post("/dealy1", {}, function (result) {
+                $("#mes").html("延时调用结果：" + result);
+            })
+        })
+        $("#but2").click(function () {
+            $.post("/cycle", {}, function (result) {
+                $("#mes").html("周期调用结果：" + result);
+            })
+        })
+        $("#sbut2").click(function () {
+            $.post("/cycle1", {}, function (result) {
+                $("#mes").html("周期调用结果：" + result);
             })
         })
     })

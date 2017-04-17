@@ -36,8 +36,8 @@ namespace HangfireTest
            // services.AddSingleton<IFunction, Function>();
 
             services.AddHangfire(x => x.UseSqlServerStorage("Data Source=.;Initial Catalog=TestDB;Persist Security Info=True;User ID=sa;Password=gsw123"));
-   
 
+   
             services.AddMvc();
         }
 
@@ -49,9 +49,7 @@ namespace HangfireTest
 
             app.UseHangfireServer();//启动Hangfire服务
             app.UseHangfireDashboard();//启动hangfire面板      
-                                       // RecurringJob.AddOrUpdate(() => Console.WriteLine("Recurring!"), "*/6 * * * *", queue: "test");
 
-        
 
             if (env.IsDevelopment())
             {

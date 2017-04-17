@@ -61,21 +61,48 @@ namespace HangfireTest.Controllers
                 if (storageConnection != null)
                 {
                     //立即启动
-                    var jobId = BackgroundJob.Enqueue(() => TestClass.FFF());
-                    //loggerFactory.CreateLogger("aaa").LogInformation($"JobID:{jobId}");
+                    var jobId = BackgroundJob.Enqueue(() => TestClass.Once("这是一个参数"));
                 }
             }
             return true;
         }
-
+        [HttpPost("onetimes1")]
+        public bool FireAndForget1(int? id)
+        {
+            //简单执行一项任务在开始时
+            //立即启动
+            var jobId = BackgroundJob.Enqueue<TestClass>(x => x.Once1("这是一个参数"));
+            return true;
+        }
         [HttpPost("dealy")]
         public bool FireAndForget(string id)
         {
-            BackgroundJob.Schedule(
-    () => Console.WriteLine("延时===================="),
+            //延迟执行
+            BackgroundJob.Schedule(() => TestClass.Dealy("这是一个参数"),
     TimeSpan.FromSeconds(30));
             return true;
         }
-
+        [HttpPost("dealy1")]
+        public bool FireAndForget1(string id)
+        {
+            //延迟执行
+            BackgroundJob.Schedule<TestClass>(x => x.Dealy1("这是一个参数"),
+    TimeSpan.FromSeconds(30));
+            return true;
+        }
+        [HttpPost("cycle")]
+        public bool FireAndForget(double a)
+        {
+            //周期执行
+            RecurringJob.AddOrUpdate(() => TestClass.Cycle("这是一个参数"), "* * * * *", queue: "test");
+            return true;
+        }
+        [HttpPost("cycle1")]
+        public bool FireAndForget1(double a)
+        {
+            //周期执行
+            RecurringJob.AddOrUpdate<TestClass>(x => x.Cycle1("这是一个参数"), "* * * * *", queue: "test");
+            return true;
+        }
     }
 }
