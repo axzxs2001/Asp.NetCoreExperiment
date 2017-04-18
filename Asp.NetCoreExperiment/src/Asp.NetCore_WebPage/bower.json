@@ -8,6 +8,7 @@
     "jquery-validation-unobtrusive": "3.2.6",
     "vue": "v2.2.6",
     "vue-router": "v2.3.1",
-    "vue-async-data": "v1.0.2"
+    "vue-async-data": "v1.0.2",
+    "jquery.metadata": "*"
   }
 }

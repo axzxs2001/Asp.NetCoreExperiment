@@ -1,0 +1,14 @@
+{
+  "name": "jquery.metadata",
+  "homepage": "https://github.com/jquery-orphans/jquery-metadata",
+  "_release": "e5a9e43156",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "e5a9e4315675bf4d68716872ca754e858088f8ab"
+  },
+  "_source": "https://github.com/jquery-orphans/jquery-metadata.git",
+  "_target": "*",
+  "_originalSource": "jquery.metadata",
+  "_direct": true
+}

@@ -71,7 +71,6 @@ namespace HangfireTest
             app.UseHangfireServer();//启动Hangfire服务
             app.UseHangfireDashboard();//启动hangfire面板  
 
-            BatchJob.StartNew
         }
 
       

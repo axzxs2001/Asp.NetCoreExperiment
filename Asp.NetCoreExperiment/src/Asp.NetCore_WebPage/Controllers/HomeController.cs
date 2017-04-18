@@ -104,5 +104,18 @@ namespace Asp.NetCore_WebPage.Controllers
             return HttpContext.Session.GetString("LoginValidateCode") == yzm;
 
         }
+
+
+        [HttpGet("valid")]
+        public IActionResult ValidatePage()
+        {
+            return View();
+        }
+
+        [HttpPost("valid")]
+        public string ValidatePage(string mobile,string name)
+        {
+            return $"姓名：{name} 手机：{mobile}";
+        }
     }
 }
