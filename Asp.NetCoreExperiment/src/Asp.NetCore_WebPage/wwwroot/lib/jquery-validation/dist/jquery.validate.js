@@ -242,7 +242,7 @@ $.extend( $.validator, {
 		rules: {},
 		errorClass: "error",
 		validClass: "valid",
-		errorElement: "label",
+		errorElement: "div",
 		focusCleanup: false,
 		focusInvalid: true,
 		errorContainer: $( [] ),
@@ -354,9 +354,9 @@ $.extend( $.validator, {
 			this.valueCache = {};
 			this.pendingRequest = 0;
 			this.pending = {};
-			this.invalid = {};
-			this.reset();
-
+            this.invalid = {};
+            this.reset();
+           
 			var groups = ( this.groups = {} ),
 				rules;
 			$.each( this.settings.groups, function( key, value ) {
@@ -446,7 +446,8 @@ $.extend( $.validator, {
 
 			if ( !this.numberOfInvalids() ) {
 				// Hide error containers on last error
-				this.toHide = this.toHide.add( this.containers );
+                this.toHide = this.toHide.add(this.containers);
+        
 			}
 			this.showErrors();
 			return result;
@@ -462,7 +463,7 @@ $.extend( $.validator, {
 					this.errorList.push({
 						message: errors[ name ],
 						element: this.findByName( name )[ 0 ]
-					});
+                    });               
 				}
 				// remove items from success list
 				this.successList = $.grep( this.successList, function( element ) {
@@ -580,7 +581,8 @@ $.extend( $.validator, {
 		},
 
 		errors: function() {
-			var errorClass = this.settings.errorClass.split( " " ).join( "." );
+            var errorClass = this.settings.errorClass.split(" ").join(".");
+       
 			return $( this.settings.errorElement + "." + errorClass, this.errorContext );
 		},
 
@@ -741,7 +743,8 @@ $.extend( $.validator, {
 				error = this.errorList[ i ];
 				if ( this.settings.highlight ) {
 					this.settings.highlight.call( this, error.element, this.settings.errorClass, this.settings.validClass );
-				}
+                }
+     
 				this.showLabel( error.element, error.message );
 			}
 			if ( this.errorList.length ) {
@@ -767,7 +770,8 @@ $.extend( $.validator, {
 		},
 
 		invalidElements: function() {
-			return $( this.errorList ).map(function() {
+            return $(this.errorList).map(function () {
+               
 				return this.element;
 			});
 		},
@@ -785,9 +789,11 @@ $.extend( $.validator, {
 			} else {
 				// create error element
 				error = $( "<" + this.settings.errorElement + ">" )
-					.attr( "id", elementID + "-error" )
-					.addClass( this.settings.errorClass )
-					.html( message || "" );
+                    .attr("id", elementID + "-error")
+                    .attr("data-content","▲")
+                    .addClass(this.settings.errorClass)
+                    .addClass("tip")
+                    .html(message || "");
 
 				// Maintain reference to the element to be placed into the DOM
 				place = error;

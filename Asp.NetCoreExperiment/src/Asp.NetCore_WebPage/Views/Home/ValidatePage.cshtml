@@ -13,56 +13,49 @@
     <title>ValidatePage</title>
     <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
     <style>
-       
         input.error {
             border: 1px solid red;
         }
 
-        label.error {
-            background: url("./demo/images/unchecked.gif") no-repeat 0px 0px;
-            padding-left: 16px;
-            padding-bottom: 2px;
-            font-weight: bold;
-            color: #EA5200;
-            /*padding: 5px 10px;
+        .tip {
+            padding: 5px 10px;
             margin-left: 15px;
             border: 1px solid #F8D19F;
             border-radius: 3px;
             background-color: #FDFBB8;
             color: #D07807;
             font-size: 12px;
-            top:0;
-            left:400px;
             position: absolute;
-            display: block;*/
+            display: block;
+            z-index: 999999;
+            /*top: 3px;*/
+            left: 0px;
         }
-            label.error:before,label.error:after {
+
+            .tip:before, .tip:after {
                 content: attr(data-content);
                 font-family: xms;
                 position: absolute;
             }
 
-            label.error:before {
+            .tip:before {
                 color: #F8D19F;
-                left: -10px;
+                left: 0px;
+                top: -12px;
             }
 
-            label.error:after {
+            .tip:after {
                 color: #FDFBB8;
-                left: -8px;
-                top: 5px;
+                left: 0px;
+                top: -10px;
             }
-
-        label.checked {
-            background: url("./demo/images/checked.gif") no-repeat 0px 0px;
-        }
     </style>
     <script src="~/lib/jquery/dist/jquery.js" type="text/javascript"></script>
     <script src="~/lib/jquery-validation/dist/jquery.validate.js" type="text/javascript"></script>
 
-    <script src="~/lib/jquery.metadata/jquery.metadata.js"></script>
+    @*<script src="~/lib/jquery.metadata/jquery.metadata.js"></script>*@
     <script src="~/lib/bootstrap/dist/js/bootstrap.js" type="text/javascript"></script>
-    <script language="javascript" type="text/javascript" src="http://red-apple.blog.163.com/blog/js1/jquery.metadata.js"></script>
+
     <script type="text/javascript">
         //$.validator.setDefaults({
         //    submitHandler: function (form) {
@@ -74,6 +67,7 @@
         //});
         $(function () {
             $("#myform").validate();
+            $("#modelform").validate();
         });
 
         $.extend($.validator.messages, {
@@ -99,7 +93,7 @@
         $.validator.addMethod("mobile", function (value, element) {
             var score = /^1[34578]\d{9}$/;
             return this.optional(element) || (score.test(value));
-        }, "<font color='red'>手机格式不正确</font>");
+        }, "<font color='#D07807'>手机格式不正确</font>");
 
         function sava() {
 
@@ -109,14 +103,24 @@
                 })
             }
         }
+        function sava1() {
+
+            if ($("#modeform").valid()) {
+                $.post("/valid", { mobile: $("#mobile").val(), name: $("#name").val() }, function (result) {
+                    alert(result);
+                })
+            }
+        }
     </script>
 </head>
 <body>
     <form id="myform" method="post" action="">
+
         <div class="container">
+
             <div class="row">
                 <div class="col-md-6">
-                    <input class="form-control required" data-content="&#x25c0;" id="mobile" name="mobile" placeholder="手机" />
+                    <input class="form-control required" id="mobile" name="mobile" placeholder="手机" />
                 </div>
                 <div class="col-md-6">
                     <input class="form-control required" id="name" name="name" placeholder="姓名" />
@@ -125,12 +129,51 @@
             <div class="row">
                 <div class="col-md-12">
                     <input type="button" name="sub1" onclick="sava()" class="btn" value="确定" />
-                    <input type="button" name="sub2" onclick="sava()"  class="btn" value="确定" />
-                    <input type="button" name="sub3" onclick="sava()"  class="btn" value="确定" />
+                    <input type="button" name="sub2" onclick="sava()" class="btn" value="确定" />
+                    <input type="button" name="sub3" onclick="sava()" class="btn" value="确定" />
+                </div>
+            </div>
+            @*<div class="row">
+                    <div class="col-md-12">
+                        <div class="tip" data-content="&#x25b2;">dddddddddd</div>
+                    </div>
+                </div>*@
+            <div class="row">
+                <div class="col-md-12">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">Large modal</button>
+
+                </div>
+
+            </div>
+        </div>
+
+    </form>
+    <form id="modeform">
+        <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Modal title</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input class="form-control required mobile" id="mobile1" name="mobile1" placeholder="手机" />
+                            </div>
+                            <div class="col-md-6">
+                                <input class="form-control required" id="name1" name="name1" placeholder="姓名" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                        <input type="button" name="sub3" onclick="sava1()" class="btn  btn-primary" value="确定" />
+                    </div>
                 </div>
             </div>
         </div>
     </form>
-
 </body>
 </html>
