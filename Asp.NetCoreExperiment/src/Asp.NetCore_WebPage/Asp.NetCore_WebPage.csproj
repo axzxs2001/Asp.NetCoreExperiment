@@ -13,8 +13,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Include="wwwroot\gsw.pdf" />
+    <Content Include="wwwroot\js\pdfobject.min.js" />
     <Content Include="wwwroot\js\WebSocketNotify.js" />
     <Content Include="wwwroot\lib\vue\dist\vue.js" />
+    <Content Include="wwwroot\桂素伟简介.pdf" />
   </ItemGroup>
 
   <ItemGroup>

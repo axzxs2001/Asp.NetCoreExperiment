@@ -23,7 +23,7 @@ namespace Asp.NetCore_WebPage.Controllers
         [HttpGet("login")]
         public IActionResult Login()
         {
-           // HandleJL<HomeController>(Request.Form,"jl_");
+            // HandleJL<HomeController>(Request.Form,"jl_");
             return View();
         }
         /// <summary>
@@ -33,14 +33,14 @@ namespace Asp.NetCore_WebPage.Controllers
         /// <param name="form"></param>
         /// <param name="beforeStr"></param>
         /// <returns></returns>
-        List<T> HandleJL<T>(IFormCollection form,string beforeStr) where T : class, new()
+        List<T> HandleJL<T>(IFormCollection form, string beforeStr) where T : class, new()
         {
             var list = new List<T>();
             foreach (var f in form)
             {
                 if (f.Key.Contains(beforeStr))
                 {
-                    var id =Convert.ToInt32( f.Key.Split(new string[] { "_" }, StringSplitOptions.None)[1]);
+                    var id = Convert.ToInt32(f.Key.Split(new string[] { "_" }, StringSplitOptions.None)[1]);
                     var type = typeof(T);
                     var t = Activator.CreateInstance(typeof(T)) as T;
                     type.GetProperty("ID").SetValue(t, id);
@@ -51,11 +51,11 @@ namespace Asp.NetCore_WebPage.Controllers
             return list;
         }
         [HttpPost("login")]
-        public IActionResult Login(string username, string password,string validatecode)
+        public IActionResult Login(string username, string password, string validatecode)
         {
             var validateCode = HttpContext.Session.GetString("LoginValidateCode");
 
-            if (!string.IsNullOrEmpty(validateCode)&&validateCode== validatecode)
+            if (!string.IsNullOrEmpty(validateCode) && validateCode == validatecode)
             {
                 return Redirect("/");
             }
@@ -113,9 +113,13 @@ namespace Asp.NetCore_WebPage.Controllers
         }
 
         [HttpPost("valid")]
-        public string ValidatePage(string mobile,string name)
+        public string ValidatePage(string mobile, string name)
         {
             return $"姓名：{name} 手机：{mobile}";
         }
+
+        [HttpGet("showpdf")]
+        public IActionResult ShowPDF()
+        { return View(); }
     }
 }

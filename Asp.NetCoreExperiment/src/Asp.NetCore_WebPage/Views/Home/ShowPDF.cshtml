@@ -1,0 +1,34 @@
+﻿@{
+    ViewData["Title"] = "PDF";
+}
+@section css{
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        .row {
+            margin-top: 5px;
+        }
+    </style>
+    <style>
+        .pdfobject-container {
+            height: 800px;
+        }
+        .pdfobject {
+            border: 1px solid #666;
+        }
+    </style>
+}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <a href="~/gsw.pdf">下载PDF</a>
+            <div id="example1"></div>
+        </div>
+    </div>
+</div>
+@section scripts
+{
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="~/js/pdfobject.min.js"></script>
+    <script>PDFObject.embed("/gsw.pdf", "#example1");</script>
+}
