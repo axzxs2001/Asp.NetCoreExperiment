@@ -105,7 +105,6 @@ namespace Asp.NetCore_WebPage.Controllers
 
         }
 
-
         [HttpGet("valid")]
         public IActionResult ValidatePage()
         {
@@ -120,6 +119,8 @@ namespace Asp.NetCore_WebPage.Controllers
 
         [HttpGet("showpdf")]
         public IActionResult ShowPDF()
-        { return View(); }
+        {
+            return View();
+        }
     }
 }
