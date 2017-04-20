@@ -11,7 +11,7 @@ namespace DesignPatterns
             while (true)
             {
                 Console.WriteLine("==================================");
-                Console.WriteLine("1、简单工厂  2、策略模式  3、装饰模式");
+                Console.WriteLine("1、简单工厂  2、策略模式  3、装饰模式  4、代理模式");
                 Console.WriteLine("==================================");
                 Console.WriteLine("选择模式编号：");
                 switch (Console.ReadLine())
@@ -24,6 +24,9 @@ namespace DesignPatterns
                         break;
                     case "3":
                         Invock3();
+                        break;
+                    case "4":
+                        Invock4();
                         break;
                 }
             }
@@ -55,6 +58,14 @@ namespace DesignPatterns
             dA.Component = c;
             dB.Component = dA;
             dB.Operation();
+        }
+        /// <summary>
+        /// 代理模式客户端
+        /// </summary>
+        static void Invock4()
+        {
+            var proxy = new Proxy();
+            proxy.Request();
         }
     }
 }
