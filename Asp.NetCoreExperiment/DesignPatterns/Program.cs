@@ -11,7 +11,7 @@ namespace DesignPatterns
             while (true)
             {
                 Console.WriteLine("==================================");
-                Console.WriteLine("1、简单工厂  2、策略模式  3、装饰模式  4、代理模式");
+                Console.WriteLine("1、简单工厂  2、策略模式  3、装饰模式  4、代理模式  5、工厂方法");
                 Console.WriteLine("==================================");
                 Console.WriteLine("选择模式编号：");
                 switch (Console.ReadLine())
@@ -28,28 +28,27 @@ namespace DesignPatterns
                     case "4":
                         Invock4();
                         break;
+                    case "5":
+                        Invock5();
+                        break;
                 }
             }
         }
-        /// <summary>
-        /// 简单工厂客户端
-        /// </summary>
+        #region 简单工厂客户端      
         static void Invock1()
         {
             var opertion = OperationFactory.CreateOperate(1);
             opertion.GetResult();
         }
-        /// <summary>
-        /// 策略模式客户端
-        /// </summary>
+        #endregion
+        #region 策略模式客户端    
         static void Invock2()
         {
             var context = new Context("1");
             context.GetCompute();
         }
-        /// <summary>
-        /// 装饰模式客户端
-        /// </summary>
+        #endregion
+        #region 装饰模式客户端   
         static void Invock3()
         {
             var c = new ConcreteComponent();
@@ -59,13 +58,25 @@ namespace DesignPatterns
             dB.Component = dA;
             dB.Operation();
         }
-        /// <summary>
-        /// 代理模式客户端
-        /// </summary>
+        #endregion
+        #region 代理模式客户端  
         static void Invock4()
         {
             var proxy = new Proxy();
             proxy.Request();
         }
+        #endregion
+        #region 工厂方法客户端  
+        static void Invock5()
+        {
+            IFactory funFactoryA = new FactoryA();
+            Function functionA = funFactoryA.CreateFuntion();
+            functionA.Operation();
+
+            IFactory funFactoryB = new FactoryB();
+            Function functionB = funFactoryB.CreateFuntion();
+            functionB.Operation();
+        }
+        #endregion
     }
 }
