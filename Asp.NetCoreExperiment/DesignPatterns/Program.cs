@@ -11,7 +11,7 @@ namespace DesignPatterns
             while (true)
             {
                 Console.WriteLine("==================================");
-                Console.WriteLine("1、简单工厂  2、策略模式  3、装饰模式  4、代理模式  5、工厂方法  6、原型模式");
+                Console.WriteLine("1、简单工厂  2、策略模式  3、装饰模式  4、代理模式  5、工厂方法  6、原型模式  7、模板方法");
                 Console.WriteLine("==================================");
                 Console.WriteLine("选择模式编号：");
                 switch (Console.ReadLine())
@@ -33,6 +33,9 @@ namespace DesignPatterns
                         break;
                     case "6":
                         Invock6();
+                        break;
+                    case "7":
+                        Invock7();
                         break;
                 }
             }
@@ -88,6 +91,17 @@ namespace DesignPatterns
             ConcretePrototype1 p1 = new ConcretePrototype1("abc");
             ConcretePrototype1 c1 = (ConcretePrototype1)p1.Clone();
             Console.WriteLine($"Cloned:{c1.ID}");
+        }
+        #endregion
+        #region 模板方法模式客户端  
+        static void Invock7()
+        {
+            AbstractClass abC;
+            abC = new ConcreteClassA();
+            abC.TemplateMethod();
+
+            abC = new ConcreteClassB();
+            abC.TemplateMethod();
         }
         #endregion
     }
