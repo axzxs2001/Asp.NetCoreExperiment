@@ -11,7 +11,7 @@ namespace DesignPatterns
             while (true)
             {
                 Console.WriteLine("==================================");
-                Console.WriteLine("1、简单工厂  2、策略模式  3、装饰模式  4、代理模式  5、工厂方法  6、原型模式  7、模板方法");
+                Console.WriteLine("1、简单工厂  2、策略模式  3、装饰模式  4、代理模式  5、工厂方法  6、原型模式  7、模板方法  8、外观模式");
                 Console.WriteLine("==================================");
                 Console.WriteLine("选择模式编号：");
                 switch (Console.ReadLine())
@@ -36,6 +36,9 @@ namespace DesignPatterns
                         break;
                     case "7":
                         Invock7();
+                        break;
+                    case "8":
+                        Invock8();
                         break;
                 }
             }
@@ -102,6 +105,14 @@ namespace DesignPatterns
 
             abC = new ConcreteClassB();
             abC.TemplateMethod();
+        }
+        #endregion
+        #region 外观模式客户端  
+        static void Invock8()
+        {
+            var facade = new Facade();
+            facade.FacadeOne();
+            facade.FacadeTow();
         }
         #endregion
     }
