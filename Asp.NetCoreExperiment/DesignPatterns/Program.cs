@@ -11,7 +11,7 @@ namespace DesignPatterns
             while (true)
             {
                 Console.WriteLine("===================================================");
-                Console.WriteLine("1、简单工厂  2、策略模式  3、装饰模式  4、代理模式  5、工厂方法  6、原型模式  7、模板方法  8、外观模式  9、建造者模式");
+                Console.WriteLine("1、简单工厂  2、策略模式  3、装饰模式  4、代理模式  5、工厂方法  6、原型模式  7、模板方法  8、外观模式  9、建造者模式  10、观察者模式");
                 Console.WriteLine("==================================================");
                 Console.WriteLine("选择模式编号：");
                 switch (Console.ReadLine())
@@ -42,6 +42,9 @@ namespace DesignPatterns
                         break;
                     case "9":
                         Invock9();
+                        break;
+                    case "10":
+                        Invock10();
                         break;
                 }
             }
@@ -90,7 +93,6 @@ namespace DesignPatterns
             functionB.Operation();
         }
         #endregion
-
         #region 原型模式客户端  
         static void Invock6()
         {
@@ -124,6 +126,21 @@ namespace DesignPatterns
             var shapBuilder = new CircleBuilder();
             var shapeDirector = new ShapeDirector(shapBuilder);
             shapeDirector.DrawShape();
+        }
+        #endregion
+        #region 观察者模式客户端  
+        static void Invock10()
+        {
+            var aObsSub = new AObsSubject();
+            aObsSub.Attach(new AObserver(aObsSub));
+            aObsSub.Attach(new BObserver(aObsSub));
+            aObsSub.Notify();
+
+            var bObsSub = new AObsSubject();
+            bObsSub.Attach(new AObserver(bObsSub));
+            bObsSub.Attach(new BObserver(bObsSub));
+            bObsSub.Attach(new AObserver(bObsSub));
+            bObsSub.Notify();
         }
         #endregion
     }
