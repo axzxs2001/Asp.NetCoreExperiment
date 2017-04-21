@@ -11,7 +11,7 @@ namespace DesignPatterns
             while (true)
             {
                 Console.WriteLine("===================================================");
-                Console.WriteLine("1、简单工厂  2、策略模式  3、装饰模式  4、代理模式  5、工厂方法  6、原型模式  7、模板方法  8、外观模式  9、建造者模式  10、观察者模式");
+                Console.WriteLine("1、简单工厂  2、策略模式  3、装饰模式  4、代理模式  5、工厂方法  6、原型模式  7、模板方法  8、外观模式  9、建造者模式  10、观察者模式  11、抽象工厂");
                 Console.WriteLine("==================================================");
                 Console.WriteLine("选择模式编号：");
                 switch (Console.ReadLine())
@@ -45,6 +45,9 @@ namespace DesignPatterns
                         break;
                     case "10":
                         Invock10();
+                        break;
+                    case "11":
+                        Invock11();
                         break;
                 }
             }
@@ -141,6 +144,18 @@ namespace DesignPatterns
             bObsSub.Attach(new BObserver(bObsSub));
             bObsSub.Attach(new AObserver(bObsSub));
             bObsSub.Notify();
+        }
+        #endregion
+
+        #region 抽象工厂模式客户端  
+        static void Invock11()
+        {
+            var department = new Department();
+            IDataBaseFactory factory = new OracleFactory();// new SqlserverFactory();
+            IDepartment departmentOpt = factory.CreateDepartment();
+            departmentOpt.Insert(department);
+            departmentOpt.GetDepartment(10);
+
         }
         #endregion
     }
