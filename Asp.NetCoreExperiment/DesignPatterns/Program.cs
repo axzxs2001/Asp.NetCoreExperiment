@@ -10,9 +10,9 @@ namespace DesignPatterns
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             while (true)
             {
-                Console.WriteLine("==================================");
-                Console.WriteLine("1、简单工厂  2、策略模式  3、装饰模式  4、代理模式  5、工厂方法  6、原型模式  7、模板方法  8、外观模式");
-                Console.WriteLine("==================================");
+                Console.WriteLine("===================================================");
+                Console.WriteLine("1、简单工厂  2、策略模式  3、装饰模式  4、代理模式  5、工厂方法  6、原型模式  7、模板方法  8、外观模式  9、建造者模式");
+                Console.WriteLine("==================================================");
                 Console.WriteLine("选择模式编号：");
                 switch (Console.ReadLine())
                 {
@@ -39,6 +39,9 @@ namespace DesignPatterns
                         break;
                     case "8":
                         Invock8();
+                        break;
+                    case "9":
+                        Invock9();
                         break;
                 }
             }
@@ -113,6 +116,14 @@ namespace DesignPatterns
             var facade = new Facade();
             facade.FacadeOne();
             facade.FacadeTow();
+        }
+        #endregion
+        #region 建造者模式客户端  
+        static void Invock9()
+        {
+            var shapBuilder = new CircleBuilder();
+            var shapeDirector = new ShapeDirector(shapBuilder);
+            shapeDirector.DrawShape();
         }
         #endregion
     }
