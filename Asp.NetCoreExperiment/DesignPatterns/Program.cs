@@ -11,7 +11,7 @@ namespace DesignPatterns
             while (true)
             {
                 Console.WriteLine("===================================================");
-                Console.WriteLine("1、简单工厂  2、策略模式  3、装饰模式  4、代理模式  5、工厂方法  6、原型模式  7、模板方法  8、外观模式  \r\n9、建造者模式  10、观察者模式  11、抽象工厂  12、状态模式  13、适配模式  14、备忘录模式  15、组合模式  \r\n16、迭代器模式  17、单例模式");
+                Console.WriteLine("1、简单工厂  2、策略模式  3、装饰模式  4、代理模式  5、工厂方法  6、原型模式  7、模板方法  8、外观模式  \r\n9、建造者模式  10、观察者模式  11、抽象工厂  12、状态模式  13、适配模式  14、备忘录模式  15、组合模式  \r\n16、迭代器模式  17、单例模式  18、桥接模式");
                 Console.WriteLine("==================================================");
                 Console.WriteLine("选择模式编号：");
                 switch (Console.ReadLine())
@@ -66,6 +66,9 @@ namespace DesignPatterns
                         break;
                     case "17":
                         Invock17();
+                        break;
+                    case "18":
+                        Invock18();
                         break;
                 }
             }
@@ -273,6 +276,17 @@ namespace DesignPatterns
             {
                 Console.WriteLine("s1!=s2");
             }
+        }
+        #endregion
+        #region 桥接模式客户端  
+        static void Invock18()
+        {
+
+            Abstraction abs = new RefinedAbstraction();
+            abs.SetImplementor(new ImplementorA());
+            abs.Operation();
+            abs.SetImplementor(new ImplementorB());
+            abs.Operation();
         }
         #endregion
         
