@@ -11,7 +11,7 @@ namespace DesignPatterns
             while (true)
             {
                 Console.WriteLine("===================================================");
-                Console.WriteLine("1、简单工厂  2、策略模式  3、装饰模式  4、代理模式  5、工厂方法  6、原型模式  7、模板方法  8、外观模式  9、建造者模式  10、观察者模式  11、抽象工厂  12、状态模式  13、适配模式  14、备忘录模式  15、组合模式");
+                Console.WriteLine("1、简单工厂  2、策略模式  3、装饰模式  4、代理模式  5、工厂方法  6、原型模式  7、模板方法  8、外观模式  \r\n9、建造者模式  10、观察者模式  11、抽象工厂  12、状态模式  13、适配模式  14、备忘录模式  15、组合模式  \r\n16、迭代器模式");
                 Console.WriteLine("==================================================");
                 Console.WriteLine("选择模式编号：");
                 switch (Console.ReadLine())
@@ -60,6 +60,9 @@ namespace DesignPatterns
                         break;
                     case "15":
                         Invock15();
+                        break;
+                    case "16":
+                        Invock16();
                         break;
                 }
             }
@@ -231,6 +234,27 @@ namespace DesignPatterns
             root.Add(new Leaf("Leaf D"));
 
             root.Display(1);
+        }
+        #endregion
+        #region 迭代器模式客户端  
+        static void Invock16()
+        {
+            ConcreteAggregate conAgg = new ConcreteAggregate();
+            conAgg[0] = "aaaa";
+            conAgg[1] = "bbbb";
+            conAgg[2] = "cccc";
+            conAgg[3] = "dddd";
+            conAgg[4] = "eeee";
+            conAgg[5] = "ffff";
+            conAgg[6] = "hhhh";
+
+            Iterator iterator = new ConcreteIterator(conAgg);
+            object item = iterator.First();
+            while(!iterator.IsDone())
+            {
+                Console.WriteLine($"{iterator.CurrentItem()}来了");
+                iterator.Next();
+            }
         }
         #endregion
     }
