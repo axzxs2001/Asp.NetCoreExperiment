@@ -1,5 +1,6 @@
 ﻿using StackExchange.Redis;
 using System;
+using System.Collections.Generic;
 
 namespace RedisDemo
 {
@@ -14,7 +15,17 @@ namespace RedisDemo
             db.StringSet("mykey", value);
             string value1 = db.StringGet("mykey");
             Console.WriteLine(value1); // writes: "abcdefg"
+
+            var list = new List<Item>();
+            list.Add(new Item { ID = 1, Name = "name1" });
+            list.Add(new Item { ID = 2, Name = "name2" });
+            db.ListLeftPush("list",Newtonsoft.Json.JsonConvert.SerializeObject(list));
             Console.ReadLine();
         }
+    }
+    class Item
+    {
+        public int ID { get; set; }
+        public string Name { get; set; }
     }
 }
