@@ -11,7 +11,7 @@ namespace DesignPatterns
             while (true)
             {
                 Console.WriteLine("===================================================");
-                Console.WriteLine("1、简单工厂  2、策略模式  3、装饰模式  4、代理模式  5、工厂方法  6、原型模式  7、模板方法  8、外观模式  \r\n9、建造者模式  10、观察者模式  11、抽象工厂  12、状态模式  13、适配模式  14、备忘录模式  15、组合模式  \r\n16、迭代器模式  17、单例模式  18、桥接模式  19、命令模式");
+                Console.WriteLine("1、简单工厂  2、策略模式  3、装饰模式  4、代理模式  5、工厂方法  6、原型模式  7、模板方法  8、外观模式  \r\n9、建造者模式  10、观察者模式  11、抽象工厂  12、状态模式  13、适配模式  14、备忘录模式  15、组合模式  \r\n16、迭代器模式  17、单例模式  18、桥接模式  19、命令模式  20、职责链模式");
                 Console.WriteLine("==================================================");
                 Console.WriteLine("选择模式编号：");
                 switch (Console.ReadLine())
@@ -72,6 +72,9 @@ namespace DesignPatterns
                         break;
                     case "19":
                         Invock19();
+                        break;
+                    case "20":
+                        Invock20();
                         break;
                 }
             }
@@ -213,7 +216,7 @@ namespace DesignPatterns
             ori.State = "关";
             ori.Show();
 
-         
+
             ori.SetMemento(car.Memento);
             ori.Show();
 
@@ -259,7 +262,7 @@ namespace DesignPatterns
 
             Iterator iterator = new ConcreteIterator(conAgg);
             object item = iterator.First();
-            while(!iterator.IsDone())
+            while (!iterator.IsDone())
             {
                 Console.WriteLine($"{iterator.CurrentItem()}来了");
                 iterator.Next();
@@ -272,10 +275,11 @@ namespace DesignPatterns
 
             Singleton s1 = Singleton.GetInstance();
             Singleton s2 = Singleton.GetInstance();
-            if(s1==s2)
+            if (s1 == s2)
             {
                 Console.WriteLine("s1==s2");
-            }else
+            }
+            else
             {
                 Console.WriteLine("s1!=s2");
             }
@@ -296,12 +300,27 @@ namespace DesignPatterns
         static void Invock19()
         {
             Receiver rec = new Receiver();
-            Command cmd =new ConcreteCommand(rec);
+            Command cmd = new ConcreteCommand(rec);
             Invoker inv = new Invoker();
             inv.SetCommand(cmd);
             inv.ExecuteCommand();
         }
         #endregion
+        #region 职责链模式客户端  
+        static void Invock20()
+        {
 
+            var h1 = new ConcreteHandler1();
+            var h2 = new ConcreteHandler2();
+            var h3 = new ConcreteHandler3();
+            h1.SetSuccessor(h2);
+            h2.SetSuccessor(h3);
+            var requests = new int[] { 3, 5, 7, 12, 19, 22, 23, 29 };
+            foreach (var i in requests)
+            {
+                h1.HandleRequest(i);
+            }
+        }
+        #endregion
     }
 }
