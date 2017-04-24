@@ -15,7 +15,9 @@ namespace DesignPatterns
     {
         public abstract void Send(string message, Colleague colleague);
     }
-
+    /// <summary>
+    /// 中介使用对象类
+    /// </summary>
     public abstract class Colleague
     {
         protected Mediator _mediator;
@@ -53,6 +55,9 @@ namespace DesignPatterns
             Console.WriteLine($"ConcreteColleague2.Notify(message:{message})");
         }
     }
+    /// <summary>
+    /// 具体中介类
+    /// </summary>
     public class ConcreteMediator:Mediator
     {
         ConcreteColleague1 _colleague1;
