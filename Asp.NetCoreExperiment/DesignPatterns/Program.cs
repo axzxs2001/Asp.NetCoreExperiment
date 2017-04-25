@@ -9,6 +9,10 @@ namespace DesignPatterns
         static void Main(string[] args)
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+
+            职责链模式.职责链模式_挂号.Start();
+            return;
+          
             while (true)
             {
                 Console.WriteLine("===================================================");

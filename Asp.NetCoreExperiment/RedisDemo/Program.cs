@@ -11,15 +11,18 @@ namespace RedisDemo
             Console.WriteLine("Hello World!");
             ConnectionMultiplexer redis = ConnectionMultiplexer.Connect("127.0.0.1:6379");
             IDatabase db = redis.GetDatabase();
-            string value = "abcdefg";
-            db.StringSet("mykey", value);
-            string value1 = db.StringGet("mykey");
-            Console.WriteLine(value1); // writes: "abcdefg"
+            //string value = "abcdefg";
+            //db.StringSet("mykey", value);
+            //string value1 = db.StringGet("mykey");
+            //Console.WriteLine(value1); // writes: "abcdefg"
 
             var list = new List<Item>();
             list.Add(new Item { ID = 1, Name = "name1" });
             list.Add(new Item { ID = 2, Name = "name2" });
-            db.ListLeftPush("list",Newtonsoft.Json.JsonConvert.SerializeObject(list));
+            db.StringSet("list",Newtonsoft.Json.JsonConvert.SerializeObject(list));
+
+
+
             Console.ReadLine();
         }
     }
