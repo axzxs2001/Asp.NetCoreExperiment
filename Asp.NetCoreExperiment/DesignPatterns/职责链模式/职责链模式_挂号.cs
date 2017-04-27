@@ -192,7 +192,7 @@ namespace DesignPatterns.职责链模式
 
             clinicRegister.Register(clinicRegisterEntity);
         }
-
+       
     }
 
 

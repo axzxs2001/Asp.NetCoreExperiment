@@ -8,6 +8,8 @@ namespace DesignPatterns
     {
         static void Main(string[] args)
         {
+            装饰模式.装饰模式_A.Start();
+            return;
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
             职责链模式.职责链模式_挂号.Start();
@@ -113,8 +115,11 @@ namespace DesignPatterns
         #region 装饰模式客户端   
         static void Invock3()
         {
+            //基础功能类
             var c = new ConcreteComponent();
+            //装饰A类
             var dA = new ConcreteDecoratorA();
+            //装饰B类
             var dB = new ConcreteDecoratorB();
             dA.Component = c;
             dB.Component = dA;
