@@ -14,6 +14,7 @@ using Microsoft.Extensions.PlatformAbstractions;
 using System.IO;
 using Swashbuckle.AspNetCore.Swagger;
 using Asp.NetCore_WebPage.Middleware;
+using Asp.NetCore_WebPage.Model.生成最大编号;
 
 namespace Asp.NetCore_WebPage
 {
@@ -34,6 +35,9 @@ namespace Asp.NetCore_WebPage
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //注入连接字符串类
+            services.Configure<ConnectionSetting>(Configuration.GetSection("ConnectionStrings"));
+            services.AddTransient<ICreateSN, CreateSN>();
             //添加数据操作
             var connection = Configuration.GetConnectionString("DefaultConnection");
             //services.AddDbContext<ExperimentPageContext>(options => options.UseSqlServer(connection));

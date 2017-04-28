@@ -8,11 +8,16 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 using System.Reflection;
 using Asp.NetCore_WebPage.Model;
+using Asp.NetCore_WebPage.Model.生成最大编号;
 
 namespace Asp.NetCore_WebPage.Controllers
 {
     public class HomeController : Controller
     {
+        public HomeController(ICreateSN createSn)
+        {
+            var maxyz = createSn.GetSN("YZ");
+        }
 
         [HttpGet]
         public IActionResult Index()
