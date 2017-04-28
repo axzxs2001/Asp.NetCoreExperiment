@@ -35,7 +35,7 @@ namespace DesignPatterns.装饰模式
             protected get;
         }
         /// <summary>
-        /// 用方法来扩展和调用父方法，实现串联
+        /// 用方法来扩展和调用父方法，实现串联   
         /// </summary>
         public override void F()
         {
