@@ -1,23 +1,23 @@
 ﻿--创建表
 CREATE TABLE [dbo].[SNs](
-	[[typename] [varchar](4) NOT NULL,
+	[typename] [varchar](4) NOT NULL,
 	[MaxSN] [bigint] NULL,
 	[SNDate] [date] NULL,
  CONSTRAINT [PK_Lshs] PRIMARY KEY CLUSTERED 
 (
-	[LX] ASC
+	[typename] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
 GO
 SET ANSI_PADDING OFF
 GO
-INSERT [dbo].[Lshs] ([typename], [MaxSN], [SNDate]) VALUES (N'CG', 699, CAST(0xBE3C0B00 AS Date))
-INSERT [dbo].[Lshs] ([typename], [MaxSN], [SNDate]) VALUES (N'XS', 669, CAST(0xBE3C0B00 AS Date))
-INSERT [dbo].[Lshs] ([typename], [MaxSN], [SNDate]) VALUES (N'YZ', 632, CAST(0xBE3C0B00 AS Date))
+INSERT [dbo].[SNs] ([typename], [MaxSN], [SNDate]) VALUES (N'CG', 699, CAST(0xBE3C0B00 AS Date))
+INSERT [dbo].[SNs] ([typename], [MaxSN], [SNDate]) VALUES (N'XS', 669, CAST(0xBE3C0B00 AS Date))
+INSERT [dbo].[SNs] ([typename], [MaxSN], [SNDate]) VALUES (N'YZ', 632, CAST(0xBE3C0B00 AS Date))
 
 --创建存储过程
-CREATE PROC getlsh
+CREATE PROC GetSN
     @typename VARCHAR(6) ,
     @sn VARCHAR(30) OUTPUT
 AS
@@ -50,7 +50,7 @@ AS
 		--锁行
 		UPDATE  SNs
         SET    @tempsn = maxsn= CASE WHEN sndate=CONVERT(VARCHAR(10),GETDATE(),126) THEN maxsn+1 ELSE 1 end ,sndate=CONVERT(VARCHAR(10),GETDATE(),126)
-        WHERE   lx = @lx 
+        WHERE   typename = @typename
 		--获取编号
 		SET @sn=@typename+REPLACE(CONVERT(VARCHAR(10),GETDATE(),126),'-','')+REPLICATE('0',6-LEN(@tempsn))+CONVERT(VARCHAR(10),@tempsn)
 
