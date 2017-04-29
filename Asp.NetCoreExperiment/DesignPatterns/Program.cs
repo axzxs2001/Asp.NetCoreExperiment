@@ -7,88 +7,19 @@ namespace DesignPatterns
 {
     class Program
     {
-        static Dictionary<string, string> yz_dic = new Dictionary<string, string>();
-        static Dictionary<string, string> xs_dic = new Dictionary<string, string>();
-        static Dictionary<string, string> cg_dic = new Dictionary<string, string>();
-        static void GetID()
-        {
-
-            Console.WriteLine("begin");
-            void BuildLsh(object obj)
-            {
-
-                //定义一个时间对象
-                System.Diagnostics.Stopwatch oTime = new System.Diagnostics.Stopwatch();
-                oTime.Start(); //记录开始时间
-                using (var con = new SqlConnection("Data Source=.;Initial Catalog=testlsh;Persist Security Info=True;User ID=sa;Password=gsw123;Max Pool Size=10000"))
-                {
-                    var cmd = new SqlCommand();
-                    cmd.Connection = con;
-                    cmd.CommandText = "getlsh";
-                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                    var lxnum = DateTime.Now.Millisecond % 3;
-                    var lx = "YZ";
-                    switch (lxnum)
-                    {
-                        case 0:
-                            lx = "YZ";
-                            break;
-                        case 1:
-                            lx = "XS";
-                            break;
-                        case 2:
-                            lx = "CG";
-                            break;
-                    }
-
-                    cmd.Parameters.Add(new SqlParameter() { ParameterName = "@lx", Value = lx });
-                    var par = new SqlParameter();
-                    par.ParameterName = "@lsh";
-                    par.Direction = System.Data.ParameterDirection.Output;
-                    par.SqlDbType = System.Data.SqlDbType.VarChar;
-                    par.Size = 30;
-                    cmd.Parameters.Add(par);
-                    con.Open();
-                    cmd.ExecuteReader();
-                    var lsh = par.Value.ToString();
-
-                    switch (lxnum)
-                    {
-                        case 0:
-                            yz_dic.Add(lsh, obj.ToString());
-                            break;
-                        case 1:
-                            xs_dic.Add(lsh, obj.ToString());
-                            break;
-                        case 2:
-                            cg_dic.Add(lsh, obj.ToString());
-                            break;
-                    }
-
-                }
-                oTime.Stop();   //记录结束时间
-                                //输出运行时间。
-                Console.WriteLine($"---{obj}---程序的运行时间：{ oTime.Elapsed.TotalMilliseconds} 毫秒");
-
-            }
-            for (int i = 0; i < 2000; i++)
-            {
-                new System.Threading.Thread(BuildLsh).Start(i);
-            }
-
-        }
+      
 
         static void Main(string[] args)
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-            GetID();
-            return;
-            装饰模式.装饰模式_A.Start();
-            return;
+        
+  
+            装饰模式.装饰模式_Tax.Start();
+           // return;
 
 
-            职责链模式.职责链模式_挂号.Start();
-            return;
+           // 职责链模式.职责链模式_挂号.Start();
+           // return;
 
             while (true)
             {

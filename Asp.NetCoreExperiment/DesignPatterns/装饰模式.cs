@@ -39,6 +39,7 @@ namespace DesignPatterns
             if (Component != null)
             {
                 Component.Operation();
+                Console.WriteLine("Decorator.Operation");
             }
         }
     }
@@ -51,7 +52,7 @@ namespace DesignPatterns
         {
             base.Operation();
             Console.WriteLine("ConcreteDecoratorA.Operation");
-            A();
+            //A();
         }
         void A()
         {
@@ -67,7 +68,7 @@ namespace DesignPatterns
         {
             base.Operation();
             Console.WriteLine("ConcreteDecoratorB.Operation");
-            B();
+           // B();
         }
         void B()
         {
