@@ -67,8 +67,8 @@ namespace DesignPatterns
     /// </summary>
     public class BObserver : Observer
     {
-        AObsSubject _coSub;
-        public BObserver(AObsSubject coSub)
+        ObsSubject _coSub;
+        public BObserver(ObsSubject coSub)
         {
             _coSub = coSub;
         }
