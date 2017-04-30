@@ -12,14 +12,15 @@ namespace DesignPatterns
         static void Main(string[] args)
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-        
-  
+            //观察者模式
+            观察者模式.观察者模式_消息通知.Start();
+
             //装饰模式.装饰模式_Tax.Start();
-           // return;
+            // return;
 
 
-           // 职责链模式.职责链模式_挂号.Start();
-           // return;
+            // 职责链模式.职责链模式_挂号.Start();
+            // return;
 
             while (true)
             {
