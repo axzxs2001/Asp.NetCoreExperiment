@@ -14,7 +14,7 @@ namespace DesignPatterns
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
         
   
-            装饰模式.装饰模式_Tax.Start();
+            //装饰模式.装饰模式_Tax.Start();
            // return;
 
 

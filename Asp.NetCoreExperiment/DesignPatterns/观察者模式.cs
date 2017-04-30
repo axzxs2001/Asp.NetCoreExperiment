@@ -10,31 +10,34 @@ namespace DesignPatterns
     ****************************************************************************/
 
     /// <summary>
-    /// 观察者主题对象
+    /// 观察者主体对象
     /// </summary>
     public abstract class ObsSubject
     {
-        IList<Observer> observers = new List<Observer>();
+        IList<Observer> _observers;
+        public ObsSubject()
+        {
+            _observers = new List<Observer>();
+        }
 
         public void Attach(Observer observer)
         {
-            observers.Add(observer);
+            _observers.Add(observer);
         }
         public void Detach(Observer observer)
         {
-            observers.Remove(observer);
+            _observers.Remove(observer);
         }
         /// <summary>
         /// 通知
         /// </summary>
         public void Notify()
         {
-            foreach (var obs in observers)
+            foreach (var obs in _observers)
             {
                 obs.Update();
             }
         }
-
     }
     public class AObsSubject : ObsSubject
     {  
