@@ -29,23 +29,22 @@ namespace HangfireTest
 
         public IConfigurationRoot Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
 
-           // services.AddSingleton<IFunction, Function>();
-   
-            services.AddHangfire(x => x.UseSqlServerStorage("Data Source=.;Initial Catalog=TestDB;Persist Security Info=True;User ID=sa;Password=gsw123"));
+            //注入handfire类和功能类
+            services.AddHangfire(x => x.UseSqlServerStorage("Data Source=.;Initial Catalog=TestDB;Persist Security Info=True;User ID=sa;Password=1"));
             services.AddSingleton<TestClass, TestClass>();
+
+
             services.AddMvc();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
-    
             
 
             if (env.IsDevelopment())
@@ -57,7 +56,7 @@ namespace HangfireTest
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-
+            //引用中间件
             app.UseStaticFiles();
 
             app.UseMvc(routes =>
@@ -67,12 +66,13 @@ namespace HangfireTest
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
 
-
-            app.UseHangfireServer();//启动Hangfire服务
-            app.UseHangfireDashboard();//启动hangfire面板  
+            //启动Hangfire服务
+            app.UseHangfireServer();
+            //启动hangfire面板  
+            app.UseHangfireDashboard();
 
         }
 
-      
+
     }
 }

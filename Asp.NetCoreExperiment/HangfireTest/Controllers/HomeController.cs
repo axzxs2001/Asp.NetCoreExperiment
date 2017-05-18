@@ -27,21 +27,6 @@ namespace HangfireTest.Controllers
         {
             return View();
         }
-
-        public IActionResult About()
-        {
-            ViewData["Message"] = "Your application description page.";
-
-            return View();
-        }
-
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your contact page.";
-
-            return View();
-        }
-
         public IActionResult Error()
         {
             return View();
@@ -54,7 +39,7 @@ namespace HangfireTest.Controllers
         [HttpPost("onetimes")]
         public bool FireAndForget(int? id)
         {
-            //简单执行一项任务在开始时
+            //简单执行一项任务在开始时，静态方式
             using (var connection = JobStorage.Current.GetConnection())
             {
                 var storageConnection = connection as JobStorageConnection;
@@ -75,7 +60,7 @@ namespace HangfireTest.Controllers
                 var storageConnection = connection as JobStorageConnection;
                 if (storageConnection != null)
                 {
-                    //简单执行一项任务在开始时
+                    //简单执行一项任务在开始时，实例化方式
                     //立即启动
                     var jobId = BackgroundJob.Enqueue<TestClass>(x => x.Once1("这是一个参数"));
                 }
