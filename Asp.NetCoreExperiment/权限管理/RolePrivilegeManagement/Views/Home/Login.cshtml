@@ -1,0 +1,18 @@
+﻿@*@model PrivilegeManagement.Controllers.LoginUser;*@
+@{
+  
+    Layout = null;
+}
+<html>
+<head>
+
+</head>
+<body>
+    <form action="/login" method="post">
+        User name: <input name="username" type="text" />
+        Password: <input name="password" type="password" />
+        @*<input type="hidden" name="returnUrl" value="@Model" />*@
+        <input name="submit" value="Login" type="submit" />    
+    </form>
+</body>
+</html>

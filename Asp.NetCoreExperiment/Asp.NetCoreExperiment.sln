@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26403.7
+VisualStudioVersion = 15.0.26730.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{57C13718-7CA8-4CD7-819F-0F4DE3A14709}"
 EndProject
@@ -11,11 +11,19 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Asp.NetCore_WebPage", "src\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Asp.NetCore_WebAPI", "src\Asp.NetCore_WebAPI\Asp.NetCore_WebAPI.csproj", "{D46C37E6-E5E2-4F84-9B16-C4DCC8F44F73}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HangfireTest", "HangfireTest\HangfireTest.csproj", "{8C25A77F-643D-4F9B-9055-B059C8A66995}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HangfireTest", "HangfireTest\HangfireTest.csproj", "{8C25A77F-643D-4F9B-9055-B059C8A66995}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesignPatterns", "DesignPatterns\DesignPatterns.csproj", "{D23FE658-777A-452A-B130-4A61F73BFBA9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DesignPatterns", "DesignPatterns\DesignPatterns.csproj", "{D23FE658-777A-452A-B130-4A61F73BFBA9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedisDemo", "RedisDemo\RedisDemo.csproj", "{2CC7BD81-630A-4D2D-ADD7-D41C4A3D7F3D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedisDemo", "RedisDemo\RedisDemo.csproj", "{2CC7BD81-630A-4D2D-ADD7-D41C4A3D7F3D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "权限管理", "权限管理", "{41B51527-B645-4966-A126-8755EDB19E73}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PolicyPrivilegeManagement", "权限管理\PolicyPrivilegeManagement\PolicyPrivilegeManagement.csproj", "{77504B63-2E07-4703-8694-AEBBF58B75B9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrivilegeManagement", "权限管理\PrivilegeManagement\PrivilegeManagement.csproj", "{2D5E5412-1243-4283-A058-78DEE9AB6EED}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RolePrivilegeManagement", "权限管理\RolePrivilegeManagement\RolePrivilegeManagement.csproj", "{4027DAE5-F4EC-4B2A-9219-E6568041ED5D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,6 +51,18 @@ Global
 		{2CC7BD81-630A-4D2D-ADD7-D41C4A3D7F3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2CC7BD81-630A-4D2D-ADD7-D41C4A3D7F3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2CC7BD81-630A-4D2D-ADD7-D41C4A3D7F3D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77504B63-2E07-4703-8694-AEBBF58B75B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77504B63-2E07-4703-8694-AEBBF58B75B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77504B63-2E07-4703-8694-AEBBF58B75B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77504B63-2E07-4703-8694-AEBBF58B75B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D5E5412-1243-4283-A058-78DEE9AB6EED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D5E5412-1243-4283-A058-78DEE9AB6EED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D5E5412-1243-4283-A058-78DEE9AB6EED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D5E5412-1243-4283-A058-78DEE9AB6EED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4027DAE5-F4EC-4B2A-9219-E6568041ED5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4027DAE5-F4EC-4B2A-9219-E6568041ED5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4027DAE5-F4EC-4B2A-9219-E6568041ED5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4027DAE5-F4EC-4B2A-9219-E6568041ED5D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -51,5 +71,11 @@ Global
 		{90DE1E8A-74C2-4FBA-9928-A23FBFB3AAF1} = {57C13718-7CA8-4CD7-819F-0F4DE3A14709}
 		{D46C37E6-E5E2-4F84-9B16-C4DCC8F44F73} = {57C13718-7CA8-4CD7-819F-0F4DE3A14709}
 		{8C25A77F-643D-4F9B-9055-B059C8A66995} = {57C13718-7CA8-4CD7-819F-0F4DE3A14709}
+		{77504B63-2E07-4703-8694-AEBBF58B75B9} = {41B51527-B645-4966-A126-8755EDB19E73}
+		{2D5E5412-1243-4283-A058-78DEE9AB6EED} = {41B51527-B645-4966-A126-8755EDB19E73}
+		{4027DAE5-F4EC-4B2A-9219-E6568041ED5D} = {41B51527-B645-4966-A126-8755EDB19E73}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
 	EndGlobalSection
 EndGlobal
