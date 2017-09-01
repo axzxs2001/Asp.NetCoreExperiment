@@ -22,20 +22,16 @@ namespace RolePrivilegeManagement
 
 
         public void ConfigureServices(IServiceCollection services)
-        {
+        {        
             services.AddMvc();
+            //添加认证Cookie信息
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
              .AddCookie(options =>
              {
                  options.LoginPath = new PathString("/login");
                  options.AccessDeniedPath = new PathString("/denied");
-
-             }
-             );
-
-
+             });
         }
-
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
@@ -48,7 +44,6 @@ namespace RolePrivilegeManagement
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-
             app.UseStaticFiles();
             //验证中间件
             app.UseAuthentication();

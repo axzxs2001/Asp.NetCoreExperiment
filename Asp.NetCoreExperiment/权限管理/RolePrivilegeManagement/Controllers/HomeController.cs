@@ -12,31 +12,29 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace RolePrivilegeManagement.Controllers
 {
-    [Authorize(Roles ="admin")]
+    [Authorize(Roles = "admin,system")]
     public class HomeController : Controller
     {
         public IActionResult Index()
         {
             return View();
         }
-
+        [Authorize(Roles = "admin")]
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";
             return View();
         }
-       
+        [Authorize(Roles = "system")]
         public IActionResult Contact()
         {
             ViewData["Message"] = "Your contact page.";
             return View();
         }
-
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-
         [AllowAnonymous]
         [HttpGet("login")]
         public IActionResult Login(string returnUrl = null)
@@ -48,11 +46,19 @@ namespace RolePrivilegeManagement.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login(string userName, string password, string returnUrl = null)
         {
-            if (password == "bbb")
+            var list = new List<dynamic> {
+                new { UserName = "gsw", Password = "111111", Role = "admin",Name="桂素伟" },
+                new { UserName = "aaa", Password = "222222", Role = "system",Name="测试A" }
+            };
+            var user = list.SingleOrDefault(s => s.UserName == userName && s.Password == password);
+            if (user!=null)
             {
+                //用户标识
                 var identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme);
-                identity.AddClaim(new Claim(ClaimTypes.Name, userName));
-                identity.AddClaim(new Claim(ClaimTypes.Role, userName == "aaa" ? "admin" : "system"));
+                identity.AddClaim(new Claim(ClaimTypes.Sid, userName));
+                identity.AddClaim(new Claim(ClaimTypes.Name, user.Name));
+                identity.AddClaim(new Claim(ClaimTypes.Role, user.Role));
+
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(identity));
                 if (returnUrl == null)
                 {

@@ -1,18 +1,55 @@
-﻿@*@model PrivilegeManagement.Controllers.LoginUser;*@
-@{
-  
+﻿@{
     Layout = null;
 }
 <html>
 <head>
-
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>用户登录</title>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        .row {
+            margin-top: 10px;
+        }
+    </style>
 </head>
 <body>
     <form action="/login" method="post">
-        User name: <input name="username" type="text" />
-        Password: <input name="password" type="password" />
-        @*<input type="hidden" name="returnUrl" value="@Model" />*@
-        <input name="submit" value="Login" type="submit" />    
+        <div class="row">
+            <div class="col-md-5"></div>
+            <div class="col-md-2">
+                <div class="panel panel-default" style="padding:30px;">
+                    <div class="panel-body">
+                        <div class="row" style="margin-top:20px;margin-bottom:50px;">
+                            <img src="~/images/user.jpg" width="60%" class="img-circle" style="display:block;margin:0 auto;">
+                        </div>
+                        <div class="row">
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon1">用户名</span>
+                                <input type="text" name="username" class="form-control" placeholder="请输入用户名" aria-describedby="basic-addon1">
+                            </div>
+
+                        </div>
+                        <div class="row">
+
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon1">密　码</span>
+                                <input type="password" name="password" class="form-control" placeholder="请输入密码" aria-describedby="basic-addon1">
+                            </div>
+
+                        </div>
+                        <div class="row">
+
+                            <input class="btn btn-default" name="submit" value="登录" type="submit" style="float:right;width:80px;" />
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5"></div>
+        </div>
     </form>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
 </body>
 </html>

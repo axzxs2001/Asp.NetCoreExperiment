@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - PrivilegeManagement</title>
+    <title>@ViewData["Title"] - RolePrivilegeManagement</title>
 
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
@@ -15,6 +15,29 @@
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
     </environment>
+    <style>
+
+        /* 未访问的链接 */
+        a.logout:link {
+            color: #9d9d9d
+        }
+        /* 已访问的链接 */
+        a.logout:visited {
+            color: #9d9d9d
+        }
+        /* 当有鼠标悬停在链接上 */
+        a.logout:hover {
+            color: #ffffff
+        }
+        /* 被选择的链接 */
+        a.logout:active {
+            color: #9d9d9d
+        }
+        a.logout{
+            text-decoration:none;
+        }
+        
+    </style>
 </head>
 <body>
     <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -26,7 +49,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">PrivilegeManagement</a>
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">RolePrivilegeManagement</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
@@ -40,19 +63,18 @@
                             <span style="color:#ffffff">当前用户：@User.Identity.Name</span>
                         </div>
                         <div style="float:left;line-height:50px;">
-                            <a asp-area="" asp-controller="Home" asp-action="Logout">注销</a>
+                            <a asp-area="" asp-controller="Home" asp-action="Logout" class="logout">注销</a>
                         </div>
-                    </li>              
+                    </li>
                 </ul>
             </div>
-
         </div>
     </nav>
     <div class="container body-content">
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; 2017 - PrivilegeManagement</p>
+            <p>&copy; 2017 - RolePrivilegeManagement</p>
         </footer>
     </div>
 

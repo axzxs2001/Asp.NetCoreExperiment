@@ -15,6 +15,29 @@
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
     </environment>
+    <style>
+
+        /* 未访问的链接 */
+        a.logout:link {
+            color: #9d9d9d
+        }
+        /* 已访问的链接 */
+        a.logout:visited {
+            color: #9d9d9d
+        }
+        /* 当有鼠标悬停在链接上 */
+        a.logout:hover {
+            color: #ffffff
+        }
+        /* 被选择的链接 */
+        a.logout:active {
+            color: #9d9d9d
+        }
+        a.logout{
+            text-decoration:none;
+        }
+        
+    </style>
 </head>
 <body>
     <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -40,7 +63,7 @@
                             <span style="color:#ffffff">当前用户：@User.Identity.Name</span>
                         </div>
                         <div style="float:left;line-height:50px;">
-                            <a asp-area="" asp-controller="Home" asp-action="Logout">注销</a>
+                            <a asp-area="" asp-controller="Home" asp-action="Logout" class="logout">注销</a>
                         </div>
                     </li>
                 </ul>

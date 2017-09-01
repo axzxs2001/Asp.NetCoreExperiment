@@ -51,14 +51,15 @@ namespace PrivilegeManagement.Middleware
         {
             //请求Url
             var questUrl = context.Request.Path.Value.ToLower();
-            //用户名
-            var userName = context.User.Identity.Name;
+       
             //是否经过验证
             var isAuthenticated = context.User.Identity.IsAuthenticated;
             if (isAuthenticated)
             {
                 if (_userPermissions.GroupBy(g=>g.Url).Where(w => w.Key.ToLower() == questUrl).Count() > 0)
                 {
+                    //用户名
+                    var userName = context.User.Claims.SingleOrDefault(s => s.Type == ClaimTypes.Sid).Value;
                     if (_userPermissions.Where(w => w.UserName == userName&&w.Url.ToLower()==questUrl).Count() > 0)
                     {
                         return this._next(context);
