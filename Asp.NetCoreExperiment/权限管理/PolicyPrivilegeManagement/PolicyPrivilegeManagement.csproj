@@ -13,7 +13,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Update="Views\Shared\_Layout.cshtml">
+    <Content Update="Views\Home\Denied.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\Home\Login.cshtml">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
   </ItemGroup>

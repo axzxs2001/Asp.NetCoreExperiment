@@ -26,7 +26,7 @@ namespace PolicyPrivilegeManagement.Controllers
 
             return View();
         }
-        [Authorize(Roles = "me")]
+
         public IActionResult Contact()
         {
             ViewData["Message"] = "Your contact page.";
@@ -49,11 +49,20 @@ namespace PolicyPrivilegeManagement.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login(string userName, string password, string returnUrl = null)
         {
-            if (password == "bbb")
+            var list = new List<dynamic> {
+                new { UserName = "gsw", Password = "111111", Role = "admin",Name="桂素伟",Country="中国"},
+                new { UserName = "aaa", Password = "222222", Role = "system",Name="测试A" ,Country="美国"}
+            };
+            var user = list.SingleOrDefault(s => s.UserName == userName && s.Password == password);
+            if (user != null)
             {
+                //用户标识
                 var identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme);
-                identity.AddClaim(new Claim(ClaimTypes.Name, userName));
-                identity.AddClaim(new Claim(ClaimTypes.Role, userName == "aaa" ? "admin" : "system"));
+                identity.AddClaim(new Claim(ClaimTypes.Sid, userName));
+                identity.AddClaim(new Claim(ClaimTypes.Name, user.Name));
+                identity.AddClaim(new Claim(ClaimTypes.Role, user.Role));
+                identity.AddClaim(new Claim(ClaimTypes.Country, user.Country));
+
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(identity));
                 if (returnUrl == null)
                 {

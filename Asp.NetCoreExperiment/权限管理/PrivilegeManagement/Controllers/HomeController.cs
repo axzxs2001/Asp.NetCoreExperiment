@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Authentication;
 
 namespace PrivilegeManagement.Controllers
 {
- 
+
     public class HomeController : BaseController
     {
         public IActionResult Index()
@@ -23,7 +23,7 @@ namespace PrivilegeManagement.Controllers
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";
-            
+
             return View();
         }
 
@@ -47,11 +47,11 @@ namespace PrivilegeManagement.Controllers
         }
         [AllowAnonymous]
         [HttpPost("login")]
-        public async Task<IActionResult> Login(string userName,string password, string returnUrl = null)
+        public async Task<IActionResult> Login(string userName, string password, string returnUrl = null)
         {
             var list = new List<dynamic> {
-                new { UserName = "gsw", Password = "111111", Role = "admin",Name="桂素伟" },
-                new { UserName = "aaa", Password = "222222", Role = "system",Name="测试A" }
+                new { UserName = "gsw", Password = "111111", Role = "admin",Name="桂素伟"},
+                new { UserName = "aaa", Password = "222222", Role = "system",Name="测试A"}
             };
             var user = list.SingleOrDefault(s => s.UserName == userName && s.Password == password);
             if (user != null)
@@ -61,6 +61,7 @@ namespace PrivilegeManagement.Controllers
                 identity.AddClaim(new Claim(ClaimTypes.Sid, userName));
                 identity.AddClaim(new Claim(ClaimTypes.Name, user.Name));
                 identity.AddClaim(new Claim(ClaimTypes.Role, user.Role));
+            
 
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(identity));
                 if (returnUrl == null)
@@ -95,5 +96,5 @@ namespace PrivilegeManagement.Controllers
         }
     }
 
- 
+
 }

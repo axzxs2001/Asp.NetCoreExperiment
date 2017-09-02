@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
+using System.Security.Claims;
 
 namespace PolicyPrivilegeManagement
 {
@@ -26,7 +27,15 @@ namespace PolicyPrivilegeManagement
             services.AddMvc();
             services.AddAuthorization(options =>
             {
-                options.AddPolicy("RequireAdministratorRole", policy => policy.RequireRole("admin", "system"));
+                //基于角色的策略
+                //options.AddPolicy("RequireAdministratorRole", policy => policy.RequireRole("admin", "system"));
+                //基于用户名
+                //options.AddPolicy("RequireAdministratorRole", policy => policy.RequireUserName("桂素伟"));
+                //基于Claim
+                //options.AddPolicy("RequireAdministratorRole", policy => policy.RequireClaim(ClaimTypes.Country,"中国"));
+
+                options.AddPolicy("RequireAdministratorRole", policy => policy.RequireClaim("date",""));
+
             }).AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>{
                 options.LoginPath = new PathString("/login");
                 options.AccessDeniedPath = new PathString("/denied");
