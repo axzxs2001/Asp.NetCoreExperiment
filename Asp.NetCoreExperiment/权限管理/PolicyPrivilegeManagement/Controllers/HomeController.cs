@@ -12,7 +12,8 @@ using System.Security.Claims;
 
 namespace PolicyPrivilegeManagement.Controllers
 {
-    [Authorize(Policy = "RequireAdministratorRole")]
+    [Authorize(Policy = "Permission")]
+    //[Authorize(Policy = "RequireClaim")]
     public class HomeController : Controller
     {
         public IActionResult Index()
@@ -25,6 +26,14 @@ namespace PolicyPrivilegeManagement.Controllers
             ViewData["Message"] = "Your application description page.";
 
             return View();
+        }
+
+        [HttpPost("addpermission")]
+        public IActionResult AddPermission(string url,string userName)
+        {
+            //添加权限
+            PermissionRequirement.UserPermissions.Add(new UserPermission { Url = url, UserName = userName });
+            return Content("添加成功");
         }
 
         public IActionResult Contact()
@@ -50,8 +59,8 @@ namespace PolicyPrivilegeManagement.Controllers
         public async Task<IActionResult> Login(string userName, string password, string returnUrl = null)
         {
             var list = new List<dynamic> {
-                new { UserName = "gsw", Password = "111111", Role = "admin",Name="桂素伟",Country="中国"},
-                new { UserName = "aaa", Password = "222222", Role = "system",Name="测试A" ,Country="美国"}
+                new { UserName = "gsw", Password = "111111", Role = "admin",Name="桂素伟",Country="中国",Date="2017-09-02",BirthDay="1979-06-22"},
+                new { UserName = "aaa", Password = "222222", Role = "system",Name="测试A" ,Country="美国",Date="2017-09-03",BirthDay="1999-06-22"}
             };
             var user = list.SingleOrDefault(s => s.UserName == userName && s.Password == password);
             if (user != null)
@@ -62,6 +71,7 @@ namespace PolicyPrivilegeManagement.Controllers
                 identity.AddClaim(new Claim(ClaimTypes.Name, user.Name));
                 identity.AddClaim(new Claim(ClaimTypes.Role, user.Role));
                 identity.AddClaim(new Claim(ClaimTypes.Country, user.Country));
+                identity.AddClaim(new Claim("date", user.Date));
 
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(identity));
                 if (returnUrl == null)

@@ -9,6 +9,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
+using PolicyPrivilegeManagement.Models;
 
 namespace PolicyPrivilegeManagement
 {
@@ -28,18 +30,31 @@ namespace PolicyPrivilegeManagement
             services.AddAuthorization(options =>
             {
                 //基于角色的策略
-                //options.AddPolicy("RequireAdministratorRole", policy => policy.RequireRole("admin", "system"));
+                //options.AddPolicy("RequireClaim", policy => policy.RequireRole("admin", "system"));
                 //基于用户名
-                //options.AddPolicy("RequireAdministratorRole", policy => policy.RequireUserName("桂素伟"));
+                //options.AddPolicy("RequireClaim", policy => policy.RequireUserName("桂素伟"));
                 //基于Claim
-                //options.AddPolicy("RequireAdministratorRole", policy => policy.RequireClaim(ClaimTypes.Country,"中国"));
+                //options.AddPolicy("RequireClaim", policy => policy.RequireClaim(ClaimTypes.Country,"中国"));
+                //自定义值
+                // options.AddPolicy("RequireClaim", policy => policy.RequireClaim("date","2017-09-02"));
+                //自定义Requirement
+                PermissionRequirement.UserPermissions = new List<UserPermission> {
+                              new UserPermission {  Url="/", UserName="gsw"},
+                              new UserPermission {  Url="/home/about", UserName="gsw"},
+                              new UserPermission {  Url="/", UserName="aaa"},
+                              new UserPermission {  Url="/home/contact", UserName="aaa"}
+                          };
 
-                options.AddPolicy("RequireAdministratorRole", policy => policy.RequireClaim("date",""));
+                options.AddPolicy("Permission",
+                          policy => policy.Requirements.Add(new PermissionRequirement("/denied")));
 
             }).AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>{
                 options.LoginPath = new PathString("/login");
                 options.AccessDeniedPath = new PathString("/denied");
+
             });
+
+            services.AddSingleton<IAuthorizationHandler, PermissionHandler>();
         }
 
 

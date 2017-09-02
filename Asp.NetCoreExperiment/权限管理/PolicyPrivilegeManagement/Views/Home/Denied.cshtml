@@ -10,7 +10,7 @@
 </head>
 <body>
     <h3>对不起，你没有权限！</h3>
-    <span id="second">5</span>秒后<a href="#" onclick="backPage()">返回</a>!
+    <span id="second">5</span>秒后<a href="#" onclick="window.history.back()">返回</a>!
     <script>
         var interval = 5;
         var timer = window.setInterval(backPage, 1000);    
