@@ -38,7 +38,7 @@ namespace PolicyPrivilegeManagement
                 //自定义值
                 // options.AddPolicy("RequireClaim", policy => policy.RequireClaim("date","2017-09-02"));
                 //自定义Requirement
-                PermissionRequirement.UserPermissions = new List<UserPermission> {
+                var userPermission= new List<UserPermission> {
                               new UserPermission {  Url="/", UserName="gsw"},
                               new UserPermission {  Url="/home/about", UserName="gsw"},
                               new UserPermission {  Url="/", UserName="aaa"},
@@ -46,7 +46,7 @@ namespace PolicyPrivilegeManagement
                           };
 
                 options.AddPolicy("Permission",
-                          policy => policy.Requirements.Add(new PermissionRequirement("/denied")));
+                          policy => policy.Requirements.Add(new PermissionRequirement("/denied", userPermission)));
 
             }).AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>{
                 options.LoginPath = new PathString("/login");

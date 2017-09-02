@@ -16,6 +16,11 @@ namespace PolicyPrivilegeManagement.Controllers
     //[Authorize(Policy = "RequireClaim")]
     public class HomeController : Controller
     {
+        PermissionHandler _permissionHandler;
+        public HomeController(IAuthorizationHandler permissionHandler)
+        {
+            _permissionHandler = permissionHandler as PermissionHandler;
+        }
         public IActionResult Index()
         {
             return View();
@@ -30,9 +35,9 @@ namespace PolicyPrivilegeManagement.Controllers
 
         [HttpPost("addpermission")]
         public IActionResult AddPermission(string url,string userName)
-        {
+        {       
             //添加权限
-            PermissionRequirement.UserPermissions.Add(new UserPermission { Url = url, UserName = userName });
+            _permissionHandler.UserPermissions.Add(new UserPermission { Url = url, UserName = userName });
             return Content("添加成功");
         }
 
