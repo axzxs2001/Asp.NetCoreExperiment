@@ -30,17 +30,17 @@ namespace PolicyPrivilegeManagement
             services.AddAuthorization(options =>
             {
                 //基于角色的策略
-                //options.AddPolicy("RequireClaim", policy => policy.RequireRole("admin", "system"));
+                // options.AddPolicy("RequireClaim", policy => policy.RequireRole("admin", "system"));
                 //基于用户名
                 //options.AddPolicy("RequireClaim", policy => policy.RequireUserName("桂素伟"));
                 //基于Claim
                 //options.AddPolicy("RequireClaim", policy => policy.RequireClaim(ClaimTypes.Country,"中国"));
                 //自定义值
                 // options.AddPolicy("RequireClaim", policy => policy.RequireClaim("date","2017-09-02"));
-                //自定义Requirement
-                var userPermission= new List<UserPermission> {
+                //自定义Requirement,userPermission可从数据库中获得
+                var userPermission = new List<UserPermission> {
                               new UserPermission {  Url="/", UserName="gsw"},
-                              new UserPermission {  Url="/home/about", UserName="gsw"},
+                              new UserPermission {  Url="/home/permissionadd", UserName="gsw"},
                               new UserPermission {  Url="/", UserName="aaa"},
                               new UserPermission {  Url="/home/contact", UserName="aaa"}
                           };
@@ -53,6 +53,7 @@ namespace PolicyPrivilegeManagement
                 options.AccessDeniedPath = new PathString("/denied");
 
             });
+            //注入授权Handler
             services.AddSingleton<IAuthorizationHandler, PermissionHandler>();
         }
 

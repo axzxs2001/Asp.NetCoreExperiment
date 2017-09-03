@@ -55,10 +55,10 @@ namespace PrivilegeManagement
                 //这个集合从数据库中查出所有用户的全部权限
                 UserPerssions = new List<UserPermission>()
                  {
-                     new UserPermission { Url="/", UserName="gsw"},
-                     new UserPermission { Url="/home/contact", UserName="gsw"},
-                     new UserPermission { Url="/home/about", UserName="aaa"},
-                     new UserPermission { Url="/", UserName="aaa"}
+                    new UserPermission {  Url="/", UserName="gsw"},
+                    new UserPermission {  Url="/home/permissionadd", UserName="gsw"},
+                    new UserPermission {  Url="/", UserName="aaa"},
+                    new UserPermission {  Url="/home/contact", UserName="aaa"}
                  }
             });
             app.UseMvc(routes =>

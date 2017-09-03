@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
+using PrivilegeManagement.Middleware;
 
 namespace PrivilegeManagement.Controllers
 {
@@ -20,11 +21,17 @@ namespace PrivilegeManagement.Controllers
             return View();
         }
 
-        public IActionResult About()
+        public IActionResult PermissionAdd()
         {
-            ViewData["Message"] = "Your application description page.";
-
             return View();
+        }
+
+        [HttpPost("addpermission")]
+        public IActionResult AddPermission(string url, string userName)
+        {
+            //添加权限
+            PermissionMiddleware._userPermissions.Add(new UserPermission { Url = url, UserName = userName });
+            return Content("添加成功");
         }
 
         public IActionResult Contact()

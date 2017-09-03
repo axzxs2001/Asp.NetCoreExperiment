@@ -1,0 +1,20 @@
+﻿@{
+    ViewData["Title"] = "权限添加";
+}
+<h2>@ViewData["Title"]</h2>
+
+<input placeholder="action名称" type="text" id="url" />
+<input placeholder="用户名" type="text" id="username" />
+<button onclick="add()">添加权限</button>
+<span id="message" style="color:red;"></span>
+@section Scripts{
+    <script>
+        function add() {
+            $.post("/addpermission", { url: $("#url").val(), username: $("#username").val() }, function (result) {
+                $("#message").html(result);
+               
+            })
+
+        }
+    </script>
+}
