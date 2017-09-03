@@ -53,7 +53,6 @@ namespace PolicyPrivilegeManagement
                 options.AccessDeniedPath = new PathString("/denied");
 
             });
-
             services.AddSingleton<IAuthorizationHandler, PermissionHandler>();
         }
 

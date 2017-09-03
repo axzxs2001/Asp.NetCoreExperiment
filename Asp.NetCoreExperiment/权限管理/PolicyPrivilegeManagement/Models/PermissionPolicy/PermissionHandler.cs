@@ -8,41 +8,20 @@ using System.Threading.Tasks;
 namespace PolicyPrivilegeManagement.Models
 {
     /// <summary>
-    /// 用户权限
+    /// 权限授权Handler
     /// </summary>
-    public class UserPermission
-    {
-        /// <summary>
-        /// 用户名
-        /// </summary>
-        public string UserName
-        { get; set; }
-        /// <summary>
-        /// 请求Url
-        /// </summary>
-        public string Url
-        { get; set; }
-    }
-    public class PermissionRequirement : IAuthorizationRequirement
-    {
-        public  List<UserPermission> UserPermissions { get;private set; }
-
-        public string DeniedAction { get; set; }
-
-        public PermissionRequirement(string deniedAction, List<UserPermission> userPermissions)
-        {
-            DeniedAction = deniedAction;
-            UserPermissions = userPermissions;
-        }
-    }
     public class PermissionHandler : AuthorizationHandler<PermissionRequirement>
     {
-        public List<UserPermission> UserPermissions { get; set;}
+        /// <summary>
+        /// 用户权限
+        /// </summary>
+        public List<UserPermission> UserPermissions { get; set; }
 
         protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, PermissionRequirement requirement)
         {
-
+            //赋值用户权限
             UserPermissions = requirement.UserPermissions;
+            //从AuthorizationHandlerContext转成HttpContext，以便取出表求信息
             var httpContext = (context.Resource as Microsoft.AspNetCore.Mvc.Filters.AuthorizationFilterContext).HttpContext;
             //请求Url
             var questUrl = httpContext.Request.Path.Value.ToLower();

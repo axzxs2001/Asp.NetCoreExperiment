@@ -40,7 +40,7 @@ namespace PolicyPrivilegeManagement.Controllers
             _permissionHandler.UserPermissions.Add(new UserPermission { Url = url, UserName = userName });
             return Content("添加成功");
         }
-
+        
         public IActionResult Contact()
         {
             ViewData["Message"] = "Your contact page.";
