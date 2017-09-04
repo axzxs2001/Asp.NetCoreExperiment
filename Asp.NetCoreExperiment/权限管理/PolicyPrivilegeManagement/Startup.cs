@@ -11,14 +11,17 @@ using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using PolicyPrivilegeManagement.Models;
+using Microsoft.Extensions.FileProviders;
+using System.IO;
 
 namespace PolicyPrivilegeManagement
 {
     public class Startup
     {
+     
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            Configuration = configuration;       
         }
 
         public IConfiguration Configuration { get; }
@@ -26,8 +29,7 @@ namespace PolicyPrivilegeManagement
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();       
-          
+            services.AddMvc();     
 
             services.AddAuthorization(options =>
             {
@@ -72,7 +74,8 @@ namespace PolicyPrivilegeManagement
                 app.UseExceptionHandler("/Home/Error");
             }
 
-            app.UseStaticFiles();
+            app.UseStaticFiles();         
+
             //验证中间件
             app.UseAuthentication();
             app.UseMvc(routes =>

@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Security.Claims;
 using System.IO.Compression;
-
+using Microsoft.Extensions.FileProviders;
 
 namespace PolicyPrivilegeManagement.Controllers
 {
@@ -18,7 +18,7 @@ namespace PolicyPrivilegeManagement.Controllers
     public class HomeController : Controller
     {
         PermissionHandler _permissionHandler;
-        public HomeController(IAuthorizationHandler permissionHandler)
+        public HomeController(IAuthorizationHandler permissionHandler,IFileProvider provider)
         {
             _permissionHandler = permissionHandler as PermissionHandler;
         }
