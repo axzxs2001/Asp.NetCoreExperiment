@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Security.Claims;
+using System.IO.Compression;
+
 
 namespace PolicyPrivilegeManagement.Controllers
 {
@@ -21,7 +23,10 @@ namespace PolicyPrivilegeManagement.Controllers
             _permissionHandler = permissionHandler as PermissionHandler;
         }
         public IActionResult Index()
-        {
+        {           
+            //var file= System.IO.Directory.GetCurrentDirectory()+"//aa";
+            //var zfile= System.IO.Directory.GetCurrentDirectory() + "//aa.zpi";
+            //ZipFile.CreateFromDirectory(file, zfile);
             return View();
         }
 

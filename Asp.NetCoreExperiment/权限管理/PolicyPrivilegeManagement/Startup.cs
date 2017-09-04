@@ -26,7 +26,9 @@ namespace PolicyPrivilegeManagement
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            services.AddMvc();       
+          
+
             services.AddAuthorization(options =>
             {
                 //基于角色的策略
