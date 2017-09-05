@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Security.Claims;
 using System.IO.Compression;
 using Microsoft.Extensions.FileProviders;
+using Microsoft.AspNetCore.Hosting;
 
 namespace PolicyPrivilegeManagement.Controllers
 {
@@ -18,31 +19,33 @@ namespace PolicyPrivilegeManagement.Controllers
     public class HomeController : Controller
     {
         PermissionHandler _permissionHandler;
-        public HomeController(IAuthorizationHandler permissionHandler,IFileProvider provider)
+        IHostingEnvironment _host;
+        public HomeController(IAuthorizationHandler permissionHandler, IHostingEnvironment host)
         {
+            _host = host;
             _permissionHandler = permissionHandler as PermissionHandler;
         }
         public IActionResult Index()
-        {           
-            //var file= System.IO.Directory.GetCurrentDirectory()+"//aa";
-            //var zfile= System.IO.Directory.GetCurrentDirectory() + "//aa.zpi";
+        {
+            //var file= _host.WebRootPath+"/要压缩的文件压";
+            //var zfile= _host.WebRootPath + "/压缩文件名.zip";
             //ZipFile.CreateFromDirectory(file, zfile);
             return View();
         }
 
         public IActionResult PermissionAdd()
-        {           
+        {
             return View();
         }
 
         [HttpPost("addpermission")]
-        public IActionResult AddPermission(string url,string userName)
-        {       
+        public IActionResult AddPermission(string url, string userName)
+        {
             //添加权限
             _permissionHandler.UserPermissions.Add(new UserPermission { Url = url, UserName = userName });
             return Content("添加成功");
         }
-        
+
         public IActionResult Contact()
         {
             ViewData["Message"] = "Your contact page.";

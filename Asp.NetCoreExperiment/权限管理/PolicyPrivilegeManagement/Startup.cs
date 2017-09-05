@@ -29,7 +29,8 @@ namespace PolicyPrivilegeManagement
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();     
+            services.AddMvc();
+         
 
             services.AddAuthorization(options =>
             {
