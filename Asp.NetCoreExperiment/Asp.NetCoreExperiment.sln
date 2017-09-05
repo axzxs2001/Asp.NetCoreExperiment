@@ -25,7 +25,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrivilegeManagement", "权�
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RolePrivilegeManagement", "权限管理\RolePrivilegeManagement\RolePrivilegeManagement.csproj", "{4027DAE5-F4EC-4B2A-9219-E6568041ED5D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignalRDemo", "SignalRDemo\SignalRDemo.csproj", "{FE3D28AA-6638-40B1-9919-B681187984F6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SignalRDemo", "SignalRDemo\SignalRDemo.csproj", "{FE3D28AA-6638-40B1-9919-B681187984F6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "过滤器", "过滤器", "{4DD4891C-A575-46E6-9A6E-44200DAE183B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FilterDemo", "过滤器\FilterDemo\FilterDemo.csproj", "{4E3BB14B-5F7B-4081-92A0-831E8B160F69}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -69,6 +73,10 @@ Global
 		{FE3D28AA-6638-40B1-9919-B681187984F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FE3D28AA-6638-40B1-9919-B681187984F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FE3D28AA-6638-40B1-9919-B681187984F6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E3BB14B-5F7B-4081-92A0-831E8B160F69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E3BB14B-5F7B-4081-92A0-831E8B160F69}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E3BB14B-5F7B-4081-92A0-831E8B160F69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E3BB14B-5F7B-4081-92A0-831E8B160F69}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -80,6 +88,7 @@ Global
 		{77504B63-2E07-4703-8694-AEBBF58B75B9} = {41B51527-B645-4966-A126-8755EDB19E73}
 		{2D5E5412-1243-4283-A058-78DEE9AB6EED} = {41B51527-B645-4966-A126-8755EDB19E73}
 		{4027DAE5-F4EC-4B2A-9219-E6568041ED5D} = {41B51527-B645-4966-A126-8755EDB19E73}
+		{4E3BB14B-5F7B-4081-92A0-831E8B160F69} = {4DD4891C-A575-46E6-9A6E-44200DAE183B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
