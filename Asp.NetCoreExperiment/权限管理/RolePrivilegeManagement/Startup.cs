@@ -30,6 +30,7 @@ namespace RolePrivilegeManagement
              {
                  options.LoginPath = new PathString("/login");
                  options.AccessDeniedPath = new PathString("/denied");
+                
              });
         }
 
