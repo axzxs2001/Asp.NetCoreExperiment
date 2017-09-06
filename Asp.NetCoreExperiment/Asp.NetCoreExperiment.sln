@@ -29,7 +29,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SignalRDemo", "SignalRDemo\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "过滤器", "过滤器", "{4DD4891C-A575-46E6-9A6E-44200DAE183B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FilterDemo", "过滤器\FilterDemo\FilterDemo.csproj", "{4E3BB14B-5F7B-4081-92A0-831E8B160F69}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FilterDemo", "过滤器\FilterDemo\FilterDemo.csproj", "{4E3BB14B-5F7B-4081-92A0-831E8B160F69}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SwaggerDemo", "SwaggerDemo\SwaggerDemo.csproj", "{C8DEAFE1-F222-4C27-B3C0-1B1653D428FF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -77,6 +79,10 @@ Global
 		{4E3BB14B-5F7B-4081-92A0-831E8B160F69}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4E3BB14B-5F7B-4081-92A0-831E8B160F69}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4E3BB14B-5F7B-4081-92A0-831E8B160F69}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C8DEAFE1-F222-4C27-B3C0-1B1653D428FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8DEAFE1-F222-4C27-B3C0-1B1653D428FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8DEAFE1-F222-4C27-B3C0-1B1653D428FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8DEAFE1-F222-4C27-B3C0-1B1653D428FF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
