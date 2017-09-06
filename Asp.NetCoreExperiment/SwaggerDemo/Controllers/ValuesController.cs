@@ -19,6 +19,7 @@ namespace SwaggerDemo.Controllers
         [HttpGet]
         public IEnumerable<string> Get()
         {
+            var url = Url.Action("list");
             return new string[] { "value1", "value2" };
         }
         /// <summary>
