@@ -12,6 +12,12 @@ namespace SwaggerDemo.Controllers
     [Route("api/[controller]")]
     public class HomeController : Controller
     {
+        [Route("aaa")]
+        public string AAA()
+        {
+            return "";
+        }
+
         /// <summary>
         /// 获取
         /// </summary>

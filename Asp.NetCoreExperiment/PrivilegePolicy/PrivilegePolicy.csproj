@@ -1,0 +1,39 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <AssemblyVersion>1.0.0.3</AssemblyVersion>
+    <FileVersion>1.0.0.3</FileVersion>
+    <Version>1.0.0.3</Version>
+    <Description>支持asp.net core 2.0的权限策略。
+        public void ConfigureServices(IServiceCollection services)
+        {
+            services.AddMvc();    
+            services.AddAuthorization(options =&gt;
+            {                        
+                //自定义Requirement,userPermission可从数据库中获得
+                var userPermission = new List&lt;UserPermission&gt; {
+                              new UserPermission {  Url="/", UserName="gsw"},
+                              new UserPermission {  Url="/home/permissionadd", UserName="gsw"},
+                              new UserPermission {  Url="/", UserName="aaa"},
+                              new UserPermission {  Url="/home/contact", UserName="aaa"}
+                          };
+                options.AddPolicy("Permission",
+                          policy =&gt; policy.Requirements.Add(new PermissionRequirement("/denied", userPermission)));
+            }).AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =&gt;{
+                options.LoginPath = new PathString("/login");
+                options.AccessDeniedPath = new PathString("/denied");
+            });
+            //注入授权Handler
+            services.AddSingleton&lt;IAuthorizationHandler, PermissionHandler&gt;();
+        }</Description>
+    <PackageProjectUrl>https://github.com/axzxs2001/Asp.NetCoreExperiment/tree/master/Asp.NetCoreExperiment/权限管理</PackageProjectUrl>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <Authors>桂素伟</Authors>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.0.0" />
+  </ItemGroup>
+
+</Project>

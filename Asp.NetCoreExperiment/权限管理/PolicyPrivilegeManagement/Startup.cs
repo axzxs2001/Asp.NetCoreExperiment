@@ -1,18 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
-using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using PolicyPrivilegeManagement.Models;
-using Microsoft.Extensions.FileProviders;
-using System.IO;
 
 namespace PolicyPrivilegeManagement
 {
@@ -30,7 +24,7 @@ namespace PolicyPrivilegeManagement
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-         
+       
 
             services.AddAuthorization(options =>
             {
@@ -43,6 +37,7 @@ namespace PolicyPrivilegeManagement
                 //自定义值
                 // options.AddPolicy("RequireClaim", policy => policy.RequireClaim("date","2017-09-02"));
                 //自定义Requirement,userPermission可从数据库中获得
+   
                 var userPermission = new List<UserPermission> {
                               new UserPermission {  Url="/", UserName="gsw"},
                               new UserPermission {  Url="/home/permissionadd", UserName="gsw"},
