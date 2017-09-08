@@ -33,6 +33,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FilterDemo", "过滤器\Fil
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SwaggerDemo", "SwaggerDemo\SwaggerDemo.csproj", "{C8DEAFE1-F222-4C27-B3C0-1B1653D428FF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RouteDemo", "RouteDemo\RouteDemo.csproj", "{594BF8A5-653C-4722-8490-13E38D4EABDD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -83,6 +85,10 @@ Global
 		{C8DEAFE1-F222-4C27-B3C0-1B1653D428FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C8DEAFE1-F222-4C27-B3C0-1B1653D428FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C8DEAFE1-F222-4C27-B3C0-1B1653D428FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{594BF8A5-653C-4722-8490-13E38D4EABDD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{594BF8A5-653C-4722-8490-13E38D4EABDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{594BF8A5-653C-4722-8490-13E38D4EABDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{594BF8A5-653C-4722-8490-13E38D4EABDD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
