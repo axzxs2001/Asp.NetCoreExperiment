@@ -22,9 +22,10 @@ namespace SignalRDemo.Controllers
             return View();
         }
 
-        public IActionResult Contact()
+        [HttpGet("/home/contact/{weight:double?}")]
+        public IActionResult Contact(double? weight)
         {
-            ViewData["Message"] = "Your contact page.";
+            ViewData["Message"] = "Your contact page."+ weight;
 
             return View();
         }
