@@ -9,7 +9,7 @@ using System.Text;
 
 namespace TokenWebApi001.Controllers
 {
-    [Authorize]
+    [Authorize(Roles ="admin")]
     [Route("api/v1/[controller]/[action]")]
     public class AccountController : Controller
     {
@@ -29,7 +29,7 @@ namespace TokenWebApi001.Controllers
         [AllowAnonymous]
         public IActionResult Login()
         {
-            return View();
+            return Content("abcde");
         }
         /// <summary>
         /// 登录action
