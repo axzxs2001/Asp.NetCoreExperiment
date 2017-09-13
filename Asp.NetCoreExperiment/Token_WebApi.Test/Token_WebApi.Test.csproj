@@ -4,14 +4,13 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{01B66A5D-B9DC-427F-8A38-081B8E0AD8EC}</ProjectGuid>
+    <ProjectGuid>{4939A081-9E09-4A9C-A5C9-98BCB34DEB06}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>TokenWebApi001.Test</RootNamespace>
-    <AssemblyName>TokenWebApi001.Test</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <RootNamespace>Token_WebApi.Test</RootNamespace>
+    <AssemblyName>Token_WebApi.Test</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>

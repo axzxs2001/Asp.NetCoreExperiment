@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // 有关程序集的一般信息由以下
 // 控制。更改这些特性值可修改
 // 与程序集关联的信息。
-[assembly: AssemblyTitle("TokenWebApi001.Test")]
+[assembly: AssemblyTitle("Token_WebApi.Test")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("TokenWebApi001.Test")]
+[assembly: AssemblyProduct("Token_WebApi.Test")]
 [assembly: AssemblyCopyright("Copyright ©  2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // 如果此项目向 COM 公开，则下列 GUID 用于类型库的 ID
-[assembly: Guid("01b66a5d-b9dc-427f-8a38-081b8e0ad8ec")]
+[assembly: Guid("4939a081-9e09-4a9c-a5c9-98bcb34deb06")]
 
 // 程序集的版本信息由下列四个值组成: 
 //
