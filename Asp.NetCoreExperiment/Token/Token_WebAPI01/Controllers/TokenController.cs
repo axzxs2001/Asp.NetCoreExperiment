@@ -21,17 +21,18 @@ namespace Token_WebAPI01.Controllers
 
         public TokenController(IAuthorizationHandler authorizationHander)
         {
-            requirement=(authorizationHander as PermissionHandler).Requirement;
+            requirement = (authorizationHander as PermissionHandler).Requirement;
         }
- 
+
         [HttpPost]
         public IActionResult Post()
         {
-            var username =HttpContext.Request.Form["username"];
+            HttpContext.SignOutAsync(JwtBearerDefaults.AuthenticationScheme);
+            var username = HttpContext.Request.Form["username"];
             var password = HttpContext.Request.Form["password"];
-
-            var identity1 = GetIdentity(username, password);
-            if (identity1 == null)
+            var role = HttpContext.Request.Form["role"];
+            var isValidated = username == "gsw" && password == "111111";
+            if (!isValidated)
             {
                 return new JsonResult(new
                 {
@@ -42,32 +43,31 @@ namespace Token_WebAPI01.Controllers
             //用户标识
             var identity = new ClaimsIdentity(JwtBearerDefaults.AuthenticationScheme);
             //如果是基于角色的授权策略，这里要添加用户
-            identity.AddClaim(new Claim(ClaimTypes.Name,username));
+            identity.AddClaim(new Claim(ClaimTypes.Name, username));
             //如果是基于角色的授权策略，这里要添加角色
-            identity.AddClaim(new Claim(ClaimTypes.Role, "admin"));
+            identity.AddClaim(new Claim(ClaimTypes.Role, role));
             HttpContext.SignInAsync(JwtBearerDefaults.AuthenticationScheme, new ClaimsPrincipal(identity));
-            var token = GetJwt(username);
+            var token = GetJwt(username,role);
             return new JsonResult(token);
         }
-    
-
-        private Task<ClaimsIdentity> GetIdentity(string username, string password)
+        [AllowAnonymous]
+        [HttpGet("/api/denied")]
+        public IActionResult Denied()
         {
-            var isValidated = username == "gsw" && password == "111111";
-
-            if (isValidated)
+            return new JsonResult(new
             {
-                return Task.FromResult(new ClaimsIdentity(new System.Security.Principal.GenericIdentity(username, "Token"), new Claim[] { }));
-
-            }
-            return Task.FromResult<ClaimsIdentity>(null);
+                Status = false,
+                Message = "认证失败"
+            });
         }
+
+
         /// <summary>
         /// get the jwt
         /// </summary>
         /// <param name="username"></param>
         /// <returns></returns>
-        private dynamic GetJwt(string username)
+        private dynamic GetJwt(string username,string role)
         {
             var now = DateTime.UtcNow;
 
@@ -80,7 +80,7 @@ namespace Token_WebAPI01.Controllers
                 //用户名
                 new Claim(ClaimTypes.Name,username),
                 //角色
-                new Claim(ClaimTypes.Role,"admin")
+                new Claim(ClaimTypes.Role,role)
             };
 
             var jwt = new JwtSecurityToken(

@@ -60,12 +60,12 @@ namespace Token_WebAPI01
                 //这个集合模拟用户权限表,可从数据库中查询出来
                 var permission = new List<Permission> {
                               new Permission {  Url="/", Name="admin"},
-                              new Permission {  Url="/home/permissionadd", Name="admin"},
+                              new Permission {  Url="/api/values", Name="admin"},
                               new Permission {  Url="/", Name="system"},
-                              new Permission {  Url="/home/contact", Name="system"}
+                              new Permission {  Url="/api/values1", Name="system"}
                           };
                 //如果第三个参数，是ClaimTypes.Role，上面集合的每个元素的Name为角色名称，如果ClaimTypes.Name，即上面集合的每个元素的Name为用户名
-                var permissionRequirement = new PermissionRequirement("/denied", permission, ClaimTypes.Role, "test", "test", signingCredentials);
+                var permissionRequirement = new PermissionRequirement("/api/denied", permission, ClaimTypes.Role, "test", "test", signingCredentials);
 
                 options.AddPolicy("Permission",
                           policy => policy.Requirements.Add(permissionRequirement));
