@@ -22,7 +22,7 @@ namespace Token_WebApi.Test
                 switch (mark)
                 {
                     case "1":
-                        var loginClient = new RestClient("http://localhost:49557");
+                        var loginClient = new RestClient("http://localhost:56609");
                         var loginRequest = new RestRequest("/api/token", Method.POST);
                         loginRequest.AddParameter("username", "gsw");
                         loginRequest.AddParameter("password", "111111");
@@ -34,9 +34,9 @@ namespace Token_WebApi.Test
                         token = Newtonsoft.Json.JsonConvert.DeserializeObject(loginContent);
                         break;
                     case "2":
-                        var client = new RestClient("http://localhost:49557");
+                        var client = new RestClient("http://localhost:56609");
                         //这里要在获取的令牌字符串前加Bearer
-                        string tk = "Bearer " + Convert.ToString(token?.access_token);
+                        string tk = "Bearer "+ Convert.ToString(token?.access_token);
                         client.AddDefaultHeader("Authorization", tk);
                         var request = new RestRequest("/api/values", Method.GET);
                         IRestResponse response = client.Execute(request);

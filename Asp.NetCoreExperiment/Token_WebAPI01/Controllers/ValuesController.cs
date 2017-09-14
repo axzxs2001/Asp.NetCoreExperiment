@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 
-namespace Token_WebAPI.Controllers
+namespace Token_WebAPI01.Controllers
 {
-    [Authorize]
+    [Authorize("Permission")]
     [Route("api/[controller]")]
     public class ValuesController : Controller
     {
@@ -42,7 +42,5 @@ namespace Token_WebAPI.Controllers
         public void Delete(int id)
         {
         }
-
-
     }
 }
