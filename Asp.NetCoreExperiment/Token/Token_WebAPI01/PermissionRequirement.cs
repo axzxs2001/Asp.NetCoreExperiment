@@ -22,16 +22,18 @@ namespace Token_WebAPI01
         /// <summary>
         /// 认证授权类型
         /// </summary>
-        public string ClaimType{ internal get; set; }
-
-
+        public string ClaimType{ internal get; set; } 
         /// <summary>
         /// 请求路径
         /// </summary>
-        public string Path { get; set; } = "/Api/Token";
-
+        public string LoginPath { get; set; } = "/Api/Login";
+        /// <summary>
+        /// 发行人
+        /// </summary>
         public string Issuer { get; set; }
-
+        /// <summary>
+        /// 订阅人
+        /// </summary>
         public string Audience { get; set; }
         /// <summary>
         /// 过期时间

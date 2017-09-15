@@ -44,7 +44,7 @@ namespace Token_WebAPI01.Test
         static dynamic NullLogin()
         {
             var loginClient = new RestClient("http://localhost:56609");
-            var loginRequest = new RestRequest("/api/token", Method.POST);
+            var loginRequest = new RestRequest("/api/login", Method.POST);
             loginRequest.AddParameter("username", "gswaa");
             loginRequest.AddParameter("password", "111111");
             //或用用户名密码查询对应角色
@@ -57,7 +57,7 @@ namespace Token_WebAPI01.Test
         static dynamic SystemLogin()
         {
             var loginClient = new RestClient("http://localhost:56609");
-            var loginRequest = new RestRequest("/api/token", Method.POST);
+            var loginRequest = new RestRequest("/api/login", Method.POST);
             loginRequest.AddParameter("username", "gsw");
             loginRequest.AddParameter("password", "111111");
             //或用用户名密码查询对应角色
@@ -70,7 +70,7 @@ namespace Token_WebAPI01.Test
         static dynamic AdminLogin()
         {
             var loginClient = new RestClient("http://localhost:56609");
-            var loginRequest = new RestRequest("/api/token", Method.POST);
+            var loginRequest = new RestRequest("/api/login", Method.POST);
             loginRequest.AddParameter("username", "gsw");
             loginRequest.AddParameter("password", "111111");
             //或用用户名密码查询对应角色

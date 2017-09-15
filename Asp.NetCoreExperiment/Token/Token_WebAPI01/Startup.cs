@@ -27,33 +27,23 @@ namespace Token_WebAPI01
 
 
         public void ConfigureServices(IServiceCollection services)
-        {
+        {           
             var audienceConfig = Configuration.GetSection("Audience");
             var symmetricKeyAsBase64 = audienceConfig["Secret"];
             var keyByteArray = Encoding.ASCII.GetBytes(symmetricKeyAsBase64);
             var signingKey = new SymmetricSecurityKey(keyByteArray);
 
             var tokenValidationParameters = new TokenValidationParameters
-            {
-
-                // The signing key must match!
+            {                
                 ValidateIssuerSigningKey = true,
-                IssuerSigningKey = signingKey,
-
-                // Validate the JWT Issuer (iss) claim
+                IssuerSigningKey = signingKey,           
                 ValidateIssuer = true,
-                ValidIssuer = audienceConfig["Issuer"],
-
-                // Validate the JWT Audience (aud) claim
+                ValidIssuer = audienceConfig["Issuer"],              
                 ValidateAudience = true,
-                ValidAudience = audienceConfig["Audience"],
-
-                // Validate the token expiry
+                ValidAudience = audienceConfig["Audience"],               
                 ValidateLifetime = true,
-
                 ClockSkew = TimeSpan.Zero
             };
-
             var signingCredentials = new SigningCredentials(signingKey, SecurityAlgorithms.HmacSha256);
             services.AddAuthorization(options =>
             {
@@ -65,8 +55,7 @@ namespace Token_WebAPI01
                               new Permission {  Url="/api/values1", Name="system"}
                           };
                 //如果第三个参数，是ClaimTypes.Role，上面集合的每个元素的Name为角色名称，如果ClaimTypes.Name，即上面集合的每个元素的Name为用户名
-                var permissionRequirement = new PermissionRequirement("/api/denied", permission, ClaimTypes.Role, "test", "test", signingCredentials);
-
+                var permissionRequirement = new PermissionRequirement("/api/denied", permission, ClaimTypes.Role, audienceConfig["Issuer"], audienceConfig["Audience"], signingCredentials);
                 options.AddPolicy("Permission",
                           policy => policy.Requirements.Add(permissionRequirement));
             }).AddAuthentication(options =>
@@ -80,20 +69,17 @@ namespace Token_WebAPI01
                 o.RequireHttpsMetadata = false;
                 o.TokenValidationParameters = tokenValidationParameters;
             });
-
             //注入授权Handler
             services.AddSingleton<IAuthorizationHandler, PermissionHandler>();
             services.AddMvc();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-            }
-
+            }           
             app.UseMvc();
         }
     }
