@@ -24,6 +24,7 @@ namespace Token_WebAPI01.Controllers
         {
             requirement = (authorizationHander as PermissionHandler).Requirement;
         }
+        [AllowAnonymous]
         [HttpPost("/api/login")]
         public IActionResult Login(string username,string password,string role)
         { 
