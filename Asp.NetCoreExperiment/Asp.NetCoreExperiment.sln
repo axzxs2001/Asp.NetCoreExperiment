@@ -49,6 +49,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Token_WebAPI01", "Token\Tok
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Token_WebAPI01.Test", "Token\Token_WebAPI01.Test\Token_WebAPI01.Test.csproj", "{8BE0AE85-3717-45CF-AD8D-1DF7FEC9C0C8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScriptClient", "Token\ScriptClient\ScriptClient.csproj", "{3F40D075-C44F-482F-9267-CD78BD046DCC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -127,6 +129,10 @@ Global
 		{8BE0AE85-3717-45CF-AD8D-1DF7FEC9C0C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8BE0AE85-3717-45CF-AD8D-1DF7FEC9C0C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8BE0AE85-3717-45CF-AD8D-1DF7FEC9C0C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F40D075-C44F-482F-9267-CD78BD046DCC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F40D075-C44F-482F-9267-CD78BD046DCC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F40D075-C44F-482F-9267-CD78BD046DCC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F40D075-C44F-482F-9267-CD78BD046DCC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -145,6 +151,7 @@ Global
 		{8EC00330-A0C1-4B40-A4AE-289BEBD6E066} = {F58883E3-D498-4681-AE8D-B28C332667DF}
 		{3A7BEE94-B2B0-4EA2-835C-F4CAE32DC09B} = {F58883E3-D498-4681-AE8D-B28C332667DF}
 		{8BE0AE85-3717-45CF-AD8D-1DF7FEC9C0C8} = {F58883E3-D498-4681-AE8D-B28C332667DF}
+		{3F40D075-C44F-482F-9267-CD78BD046DCC} = {F58883E3-D498-4681-AE8D-B28C332667DF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
