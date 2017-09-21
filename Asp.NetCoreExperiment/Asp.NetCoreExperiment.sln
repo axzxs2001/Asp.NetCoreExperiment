@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.15
+VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{57C13718-7CA8-4CD7-819F-0F4DE3A14709}"
 EndProject
@@ -49,7 +49,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Token_WebAPI01", "Token\Tok
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Token_WebAPI01.Test", "Token\Token_WebAPI01.Test\Token_WebAPI01.Test.csproj", "{8BE0AE85-3717-45CF-AD8D-1DF7FEC9C0C8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScriptClient", "Token\ScriptClient\ScriptClient.csproj", "{3F40D075-C44F-482F-9267-CD78BD046DCC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScriptClient", "Token\ScriptClient\ScriptClient.csproj", "{3F40D075-C44F-482F-9267-CD78BD046DCC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SSO", "SSO", "{B35B45F6-F387-4339-AB8C-8C815C1F16A2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthenticationCenter", "SSO\AuthenticationCenter\AuthenticationCenter.csproj", "{046BAB77-BFBC-4860-9686-F0EC0AE214E4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -133,6 +137,10 @@ Global
 		{3F40D075-C44F-482F-9267-CD78BD046DCC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3F40D075-C44F-482F-9267-CD78BD046DCC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3F40D075-C44F-482F-9267-CD78BD046DCC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{046BAB77-BFBC-4860-9686-F0EC0AE214E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{046BAB77-BFBC-4860-9686-F0EC0AE214E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{046BAB77-BFBC-4860-9686-F0EC0AE214E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{046BAB77-BFBC-4860-9686-F0EC0AE214E4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -152,6 +160,7 @@ Global
 		{3A7BEE94-B2B0-4EA2-835C-F4CAE32DC09B} = {F58883E3-D498-4681-AE8D-B28C332667DF}
 		{8BE0AE85-3717-45CF-AD8D-1DF7FEC9C0C8} = {F58883E3-D498-4681-AE8D-B28C332667DF}
 		{3F40D075-C44F-482F-9267-CD78BD046DCC} = {F58883E3-D498-4681-AE8D-B28C332667DF}
+		{046BAB77-BFBC-4860-9686-F0EC0AE214E4} = {B35B45F6-F387-4339-AB8C-8C815C1F16A2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
