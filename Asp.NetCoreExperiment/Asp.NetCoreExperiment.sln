@@ -55,6 +55,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SSO", "SSO", "{B35B45F6-F38
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthenticationCenter", "SSO\AuthenticationCenter\AuthenticationCenter.csproj", "{046BAB77-BFBC-4860-9686-F0EC0AE214E4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo1", "Demo1\Demo1.csproj", "{4F69BAAF-B21F-44F1-AF9D-89DDD1ABD09A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -141,6 +143,10 @@ Global
 		{046BAB77-BFBC-4860-9686-F0EC0AE214E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{046BAB77-BFBC-4860-9686-F0EC0AE214E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{046BAB77-BFBC-4860-9686-F0EC0AE214E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F69BAAF-B21F-44F1-AF9D-89DDD1ABD09A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F69BAAF-B21F-44F1-AF9D-89DDD1ABD09A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F69BAAF-B21F-44F1-AF9D-89DDD1ABD09A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F69BAAF-B21F-44F1-AF9D-89DDD1ABD09A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -161,6 +167,7 @@ Global
 		{8BE0AE85-3717-45CF-AD8D-1DF7FEC9C0C8} = {F58883E3-D498-4681-AE8D-B28C332667DF}
 		{3F40D075-C44F-482F-9267-CD78BD046DCC} = {F58883E3-D498-4681-AE8D-B28C332667DF}
 		{046BAB77-BFBC-4860-9686-F0EC0AE214E4} = {B35B45F6-F387-4339-AB8C-8C815C1F16A2}
+		{4F69BAAF-B21F-44F1-AF9D-89DDD1ABD09A} = {B35B45F6-F387-4339-AB8C-8C815C1F16A2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
