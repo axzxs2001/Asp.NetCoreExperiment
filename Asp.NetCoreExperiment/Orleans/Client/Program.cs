@@ -4,12 +4,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Grains;
+using IGrains;
 
 namespace Client
 {
     class Program
     {
-        static void Main(string[] args)
+         static void Main(string[] args)
         {
             Console.ReadKey();
             Run();
@@ -19,7 +21,7 @@ namespace Client
         {
             var config = Orleans.Runtime.Configuration.ClientConfiguration.LocalhostSilo(1234);
             GrainClient.Initialize(config);
-            var agrain = GrainClient.GrainFactory.GetGrain<IGrains.IBasic>(314);
+            var agrain = GrainClient.GrainFactory.GetGrain<IGrains.IBasic>(1314);
             var result = await agrain.SayHello("你好");
             Console.WriteLine(result);
         }

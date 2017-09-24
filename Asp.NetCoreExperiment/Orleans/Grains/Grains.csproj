@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{91EFA804-1E62-4B3E-959C-917623D2F22B}</ProjectGuid>
+    <ProjectGuid>{F3767B82-515C-42FC-9C91-1ADF98E10BDB}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>IGrains</RootNamespace>
-    <AssemblyName>IGrains</AssemblyName>
+    <RootNamespace>Grains</RootNamespace>
+    <AssemblyName>Grains</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>
@@ -164,7 +164,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IBasic.cs" />
+    <Compile Include="BasicGrain.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -174,6 +174,12 @@
   <ItemGroup>
     <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />
     <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\IGrains\IGrains.csproj">
+      <Project>{91efa804-1e62-4b3e-959c-917623d2f22b}</Project>
+      <Name>IGrains</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\packages\Microsoft.Orleans.OrleansHost.1.5.1\build\Microsoft.Orleans.OrleansHost.targets" Condition="Exists('..\..\packages\Microsoft.Orleans.OrleansHost.1.5.1\build\Microsoft.Orleans.OrleansHost.targets')" />
