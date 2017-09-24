@@ -12,7 +12,7 @@ namespace OrleansHost
     {
         static void Main(string[] args)
         {
-            var config = ClusterConfiguration.LocalhostPrimarySilo(22223,22222);
+            var config = ClusterConfiguration.LocalhostPrimarySilo(2234,22222);
             var silohost = new SiloHost("Ba", config);
             silohost.InitializeOrleansSilo();
             silohost.StartOrleansSilo();

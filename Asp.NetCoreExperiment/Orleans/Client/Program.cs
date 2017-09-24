@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Grains;
 using IGrains;
+using Orleans.Runtime.Configuration;
 
 namespace Client
 {
@@ -13,15 +14,15 @@ namespace Client
     {
          static void Main(string[] args)
         {
-            Console.ReadKey();
             Run();
             Console.ReadKey();
         }
         static async void Run()
         {
-            var config = Orleans.Runtime.Configuration.ClientConfiguration.LocalhostSilo(1234);
+            var config = ClientConfiguration.LocalhostSilo(22222);
             GrainClient.Initialize(config);
-            var agrain = GrainClient.GrainFactory.GetGrain<IGrains.IBasic>(1314);
+       
+            var agrain = GrainClient.GrainFactory.GetGrain<IGrains.IBasic>(321) ;
             var result = await agrain.SayHello("你好");
             Console.WriteLine(result);
         }
