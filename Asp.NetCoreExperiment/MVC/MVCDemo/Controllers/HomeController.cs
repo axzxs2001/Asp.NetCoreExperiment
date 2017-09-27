@@ -33,5 +33,30 @@ namespace MVCDemo.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        [HttpGet("addblog")]
+        public IActionResult AddBlog()
+        {
+            return View();
+        }
+        [HttpPost("addblog")]
+        public IActionResult AddBlog(BlogViewModel blog)
+        {
+            return View();
+        }
+
+        [HttpGet("blogs")]
+        public IActionResult Blogs()
+        {
+            var blogs = new List<BlogViewModel>()
+            {
+               new BlogViewModel{ Title="第一篇", Author="桂素伟", ViewTimes=10, Content="内容内容内容内容内容内容内容"},
+               new BlogViewModel{ Title="第二篇", Author="桂素伟", ViewTimes=10, Content="内容内容内容内容内容内容内容"},
+               new BlogViewModel{ Title="第三篇", Author="桂素伟", ViewTimes=10, Content="内容内容内容内容内容内容内容"},
+               new BlogViewModel{ Title="第四篇", Author="桂素伟", ViewTimes=10, Content="内容内容内容内容内容内容内容"},
+
+            };
+            return View(blogs);
+        }
     }
 }
