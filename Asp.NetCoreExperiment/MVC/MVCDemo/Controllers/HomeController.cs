@@ -44,6 +44,16 @@ namespace MVCDemo.Controllers
         {
             return View();
         }
+        [HttpGet("editblog")]
+        public IActionResult EditBlog(string id)
+        {
+            return View(new BlogViewModel {  Title = "第一篇", Author = "桂素伟", ViewTimes = 10, Content = "内容内容内容内容内容内容内容" });
+        }
+        [HttpPost("editblog")]
+        public IActionResult EditBlog(BlogViewModel blog)
+        {
+            return View();
+        }
 
         [HttpGet("blogs")]
         public IActionResult Blogs()
