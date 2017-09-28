@@ -44,8 +44,8 @@
             </td>
             <td>
                 @Html.ActionLink("Edit", "EditBlog", new {  id=item.Title }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                @Html.ActionLink("Details", "Details", new { id = item.Title }) |
+                @Html.ActionLink("Delete", "DeleteBlob", new { id = item.Title })
             </td>
         </tr>
 }
