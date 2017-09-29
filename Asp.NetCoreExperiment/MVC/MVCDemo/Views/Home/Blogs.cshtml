@@ -1,53 +1,51 @@
 ﻿@model IEnumerable<MVCDemo.Models.BlogViewModel>
-
 @{
     ViewData["Title"] = "Blogs";
 }
-
 <h2>Blogs</h2>
-
 <p>
     <a asp-action="addblog">Create New</a>
 </p>
 <table class="table">
     <thead>
         <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Title)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Author)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ViewTimes)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Content)
-                </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Author)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ViewTimes)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Content)
+            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Author)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ViewTimes)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Content)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "EditBlog", new {  id=item.Title }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Title }) |
-                @Html.ActionLink("Delete", "DeleteBlob", new { id = item.Title })
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Author)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ViewTimes)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Content)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "EditBlog", new { id = item.Title }) |
+                    @Html.ActionLink("Details", "DetailBlog", new { id = item.Title }) |
+                    @Html.ActionLink("Delete", "DeleteBlob", new { id = item.Title })
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
