@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using UserManagerDemo.Controllers;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace UserManagerDemo
 {
@@ -22,14 +23,12 @@ namespace UserManagerDemo
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
-        {
-           // services.AddIdentity<ApplicationUser, IdentityRole>()
-                
-                          //.AddEntityFrameworkStores<ApplicationDbContext>()
-                          //.AddDefaultTokenProviders();
+        {            
+            services.AddDbContext<ApplicationDbContext>(options => options.UseInMemoryDatabase(Guid.NewGuid().ToString()));
 
-            // Add application services.
-         
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
 
             services.AddMvc();
         }

@@ -43,7 +43,5 @@ namespace UserManagerDemo.Controllers
         }
     }
 
-    public class ApplicationUser: IdentityUser
-    {
-    }
+  
 }
