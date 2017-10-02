@@ -73,6 +73,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MVCDemo", "MVC\MVCDemo\MVCD
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserManagerDemo", "MVC\UserManagerDemo\UserManagerDemo.csproj", "{05F928F8-9A8F-4587-9009-B82399B7AF52}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SpringCloud", "SpringCloud", "{E206D1B0-13CA-462D-A720-90F7D0829FB7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eureka_Steeltoe", "SpringCloud\Eureka_Steeltoe\Eureka_Steeltoe.csproj", "{CCE17023-9DBC-4781-82B3-B2AB3E173927}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -187,6 +191,10 @@ Global
 		{05F928F8-9A8F-4587-9009-B82399B7AF52}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{05F928F8-9A8F-4587-9009-B82399B7AF52}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{05F928F8-9A8F-4587-9009-B82399B7AF52}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CCE17023-9DBC-4781-82B3-B2AB3E173927}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CCE17023-9DBC-4781-82B3-B2AB3E173927}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CCE17023-9DBC-4781-82B3-B2AB3E173927}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CCE17023-9DBC-4781-82B3-B2AB3E173927}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -214,6 +222,7 @@ Global
 		{91EFA804-1E62-4B3E-959C-917623D2F22B} = {1DCFA250-2AC5-4E37-849C-5D788BCD21F8}
 		{9AC0DD8C-5290-4BAE-87A6-39952B78FC49} = {DED10F83-C87D-4CA1-8339-6AC820EC44FC}
 		{05F928F8-9A8F-4587-9009-B82399B7AF52} = {DED10F83-C87D-4CA1-8339-6AC820EC44FC}
+		{CCE17023-9DBC-4781-82B3-B2AB3E173927} = {E206D1B0-13CA-462D-A720-90F7D0829FB7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
