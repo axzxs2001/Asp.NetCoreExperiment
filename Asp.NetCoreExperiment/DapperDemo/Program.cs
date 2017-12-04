@@ -2,7 +2,7 @@
 using System.Data.SqlClient;
 using Dapper;
 using System.Linq;
-using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 namespace DapperDemo
 {
     class Program
@@ -20,13 +20,34 @@ namespace DapperDemo
         {
             using (var conn = new SqlConnection("server=.;database=test;uid=sa;pwd=1"))
             {
+                //生成Json
                 var sig = conn.Query<dynamic>("select * from ftable").FirstOrDefault();
-
-                var s = Newtonsoft.Json.JsonConvert.SerializeObject(sig, new JsonSerializerSettings { });
+                var s = Newtonsoft.Json.JsonConvert.SerializeObject(sig);
                 Console.WriteLine(s);
-                var o = Newtonsoft.Json.JsonConvert.DeserializeObject<dynamic>(s);
 
-                var ss = conn.Execute("update ftable set age=@age where timespan=@timespan", new { age = 49, timespan = (byte[])o.timespan });
+
+                //字符串动态生成dapper参数
+                var str = Newtonsoft.Json.JsonConvert.SerializeObject(sig.timespan);
+                var jsonstr = "{\"id\":1,\"name\":\"aa11\",\"age\":11,\"timespan\":" + str + "}";
+                dynamic o = Newtonsoft.Json.JsonConvert.DeserializeObject<dynamic>(jsonstr);
+                var pars = new DynamicParameters();
+                foreach (var v in (o as JObject).Children())
+                {
+                    if (v.Type == JTokenType.Property)
+                    {
+                        if (((v as JProperty).Value as JValue).Path == "timespan")
+                        {
+                            var value = (v as JProperty).Value as JValue;
+                           
+                            pars.Add(((v as JProperty).Value as JValue).Path,(byte[])value);
+                        }
+                        else
+                        {
+                            pars.Add(((v as JProperty).Value as JValue).Path, ((v as JProperty).Value as JValue).Value);
+                        }
+                    }
+                }
+                var ss = conn.Execute("update ftable set age=@age where id=@id and timespan=@timespan", pars);
 
             }
         }
