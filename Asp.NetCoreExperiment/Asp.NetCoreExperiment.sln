@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.16
+VisualStudioVersion = 15.0.27004.2010
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{57C13718-7CA8-4CD7-819F-0F4DE3A14709}"
 EndProject
@@ -75,7 +75,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserManagerDemo", "MVC\User
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SpringCloud", "SpringCloud", "{E206D1B0-13CA-462D-A720-90F7D0829FB7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eureka_Steeltoe", "SpringCloud\Eureka_Steeltoe\Eureka_Steeltoe.csproj", "{CCE17023-9DBC-4781-82B3-B2AB3E173927}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Eureka_Steeltoe", "SpringCloud\Eureka_Steeltoe\Eureka_Steeltoe.csproj", "{CCE17023-9DBC-4781-82B3-B2AB3E173927}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dapper", "Dapper", "{282C0114-704A-4506-890B-C326A67419B4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DapperDemo", "DapperDemo\DapperDemo.csproj", "{8DBC8B5A-7757-46DF-BAF3-8860D1E04CBA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -195,6 +199,10 @@ Global
 		{CCE17023-9DBC-4781-82B3-B2AB3E173927}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CCE17023-9DBC-4781-82B3-B2AB3E173927}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CCE17023-9DBC-4781-82B3-B2AB3E173927}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8DBC8B5A-7757-46DF-BAF3-8860D1E04CBA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8DBC8B5A-7757-46DF-BAF3-8860D1E04CBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8DBC8B5A-7757-46DF-BAF3-8860D1E04CBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8DBC8B5A-7757-46DF-BAF3-8860D1E04CBA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -223,6 +231,7 @@ Global
 		{9AC0DD8C-5290-4BAE-87A6-39952B78FC49} = {DED10F83-C87D-4CA1-8339-6AC820EC44FC}
 		{05F928F8-9A8F-4587-9009-B82399B7AF52} = {DED10F83-C87D-4CA1-8339-6AC820EC44FC}
 		{CCE17023-9DBC-4781-82B3-B2AB3E173927} = {E206D1B0-13CA-462D-A720-90F7D0829FB7}
+		{8DBC8B5A-7757-46DF-BAF3-8860D1E04CBA} = {282C0114-704A-4506-890B-C326A67419B4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
