@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2010
+VisualStudioVersion = 15.0.27130.2024
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{57C13718-7CA8-4CD7-819F-0F4DE3A14709}"
 EndProject
@@ -83,7 +83,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DapperDemo", "DapperDemo\Da
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SignalR", "SignalR", "{DC04B391-371A-4258-AC46-BE4D2CE89AD5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignalRDemo01", "SignalRDemo01\SignalRDemo01.csproj", "{A37E626B-470F-468E-87D6-77A511B676ED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SignalRDemo01", "SignalRDemo01\SignalRDemo01.csproj", "{A37E626B-470F-468E-87D6-77A511B676ED}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AOP", "AOP", "{6D890CDC-ECED-4E68-977D-1D829D3E39D6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AOPDemo", "AOP\AOPDemo\AOPDemo.csproj", "{DC976D9E-1D51-4080-9977-68D9FDA001D0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -211,6 +215,10 @@ Global
 		{A37E626B-470F-468E-87D6-77A511B676ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A37E626B-470F-468E-87D6-77A511B676ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A37E626B-470F-468E-87D6-77A511B676ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DC976D9E-1D51-4080-9977-68D9FDA001D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC976D9E-1D51-4080-9977-68D9FDA001D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC976D9E-1D51-4080-9977-68D9FDA001D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC976D9E-1D51-4080-9977-68D9FDA001D0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -242,6 +250,7 @@ Global
 		{CCE17023-9DBC-4781-82B3-B2AB3E173927} = {E206D1B0-13CA-462D-A720-90F7D0829FB7}
 		{8DBC8B5A-7757-46DF-BAF3-8860D1E04CBA} = {282C0114-704A-4506-890B-C326A67419B4}
 		{A37E626B-470F-468E-87D6-77A511B676ED} = {DC04B391-371A-4258-AC46-BE4D2CE89AD5}
+		{DC976D9E-1D51-4080-9977-68D9FDA001D0} = {6D890CDC-ECED-4E68-977D-1D829D3E39D6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
