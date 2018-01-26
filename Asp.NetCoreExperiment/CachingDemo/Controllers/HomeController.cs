@@ -12,9 +12,11 @@ namespace CachingDemo.Controllers
     public class HomeController : Controller
     {
         private readonly IEasyCachingProvider _provider;
-        public HomeController(IEasyCachingProvider provider)
+        private readonly IDateTimeService _service;
+        public HomeController(IEasyCachingProvider provider, IDateTimeService service)
         {
             this._provider = provider;
+            this._service = service;
         }
         public IActionResult Index()
         {
@@ -24,14 +26,14 @@ namespace CachingDemo.Controllers
 
         public IActionResult About()
         {
-            ViewData["Message"] = "Your application description page."  + _provider.Get<string>("demo"); ;
+            ViewData["Message"] = "Your application description page." + _provider.Get<string>("demo"); ;
 
             return View();
         }
 
-        public IActionResult Contact()
+        public IActionResult Contact(string name)
         {
-            ViewData["Message"] = "Your contact page.";
+            ViewData["Message"] = "Your contact page." +  _service.GetCurrentUtcTime(name); 
 
             return View();
         }

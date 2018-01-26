@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using EasyCaching.Core.Internal;
 using EasyCaching.InMemory;
+using EasyCaching.Interceptor.Castle;
 using EasyCaching.Memcached;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -21,10 +23,13 @@ namespace CachingDemo
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        public IServiceProvider ConfigureServices(IServiceCollection services)
         {
+            services.AddTransient<IDateTimeService, DateTimeService>();
+
             services.AddMvc();
             services.AddDefaultInMemoryCache();
+            return services.ConfigureCastleInterceptor();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,6 +53,20 @@ namespace CachingDemo
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
            // app.UseDefaultMemcached();
+        }
+    }
+
+    public interface IDateTimeService
+    {
+        string GetCurrentUtcTime(string name);
+    }
+
+    public class DateTimeService : IDateTimeService, IEasyCaching
+    {
+        [EasyCachingInterceptor(Expiration = 10)]
+        public string GetCurrentUtcTime(string name)
+        {
+            return System.DateTime.UtcNow.ToString()+"--------"+name;
         }
     }
 }

@@ -5,8 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="EasyCaching.Core" Version="0.1.1" />
     <PackageReference Include="EasyCaching.InMemory" Version="0.1.1" />
+    <PackageReference Include="EasyCaching.Interceptor.Castle" Version="0.1.0" />
     <PackageReference Include="EasyCaching.Memcached" Version="0.1.1" />
+    <PackageReference Include="EasyCaching.Serialization.MessagePack" Version="0.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.5" />
   </ItemGroup>
 
