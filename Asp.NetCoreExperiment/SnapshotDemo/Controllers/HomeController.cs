@@ -31,9 +31,13 @@ namespace SnapshotDemo.Controllers
 
         public IActionResult Contact()
         {
+
+            var kv = new ConsulSharp.KV.KVGovern();
+            var result = kv.ReadKey(new ConsulSharp.KV.ReadKeyParmeter { DC = "dc1", Key = "keyname" }).GetAwaiter().GetResult();
+            var decodeValue = result[0].DecodeValue;
             ViewData["Message"] = "Your contact page.";
             //写入配置的值
-            _con.GetSection("appsetting").GetSection("par1").Value = DateTime.Now.ToString("yyyyMMddHHmmssfff");
+            _con.GetSection("appsetting").GetSection("par1").Value = DateTime.Now.ToString("yyyyMMddHHmmssfff")+ decodeValue;
             return View();
         }
 

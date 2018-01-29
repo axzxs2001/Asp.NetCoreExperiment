@@ -63,6 +63,11 @@ namespace CachingDemo
 
     public class DateTimeService : IDateTimeService, IEasyCaching
     {
+        /// <summary>
+        /// 参数不同，缓存结果也不相同
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
         [EasyCachingInterceptor(Expiration = 10)]
         public string GetCurrentUtcTime(string name)
         {
