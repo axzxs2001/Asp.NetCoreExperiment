@@ -109,6 +109,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PostgresqlDemo01", "LuceneD
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomerAnalysis", "LuceneDemo\CustomerAnalysis\CustomerAnalysis.csproj", "{B84A5931-B4FC-4FA2-B9A4-88A0B81A2A0D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyAnalysis", "MyAnalysis\MyAnalysis.csproj", "{D45B2D05-CBED-41B8-952B-3144C7E7D4BB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -271,6 +273,10 @@ Global
 		{B84A5931-B4FC-4FA2-B9A4-88A0B81A2A0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B84A5931-B4FC-4FA2-B9A4-88A0B81A2A0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B84A5931-B4FC-4FA2-B9A4-88A0B81A2A0D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D45B2D05-CBED-41B8-952B-3144C7E7D4BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D45B2D05-CBED-41B8-952B-3144C7E7D4BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D45B2D05-CBED-41B8-952B-3144C7E7D4BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D45B2D05-CBED-41B8-952B-3144C7E7D4BB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -308,6 +314,7 @@ Global
 		{7862FC92-1F34-4E2F-B572-47A349CBD71E} = {82169DF9-545A-4050-ADF9-17FD3E0752A6}
 		{9544FFCB-0D36-4048-A507-1F57D39645AC} = {D19ADB59-C958-4716-953D-86F1611E6289}
 		{B84A5931-B4FC-4FA2-B9A4-88A0B81A2A0D} = {D19ADB59-C958-4716-953D-86F1611E6289}
+		{D45B2D05-CBED-41B8-952B-3144C7E7D4BB} = {D19ADB59-C958-4716-953D-86F1611E6289}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}

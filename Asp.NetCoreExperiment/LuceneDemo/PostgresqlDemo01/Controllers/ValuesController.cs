@@ -83,10 +83,14 @@ namespace PostgresqlDemo01.Controllers
             return new JsonResult("");
         }
 
-
+        static Dictionary<int, char> dic = new Dictionary<int, char> { [1] = 'a', [2] = 'b', [3] = 'c', [4] = 'd', [5] = 'e', [6] = 'f' };
         [HttpGet("/query4")]
         public IActionResult Query4(string name)
         {
+            //var radon = new Random();
+            //var i=radon.Next(1, 7);
+            //var result= _cx.Read(name+dic[i]);
+            //Console.WriteLine(name + dic[i]+"="+result.Count);
             return new JsonResult(_cx.Read(name));
         }
 
