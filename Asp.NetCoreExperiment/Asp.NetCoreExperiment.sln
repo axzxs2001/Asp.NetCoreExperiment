@@ -111,6 +111,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomerAnalysis", "LuceneD
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyAnalysis", "MyAnalysis\MyAnalysis.csproj", "{D45B2D05-CBED-41B8-952B-3144C7E7D4BB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProtoActorDemo", "ProtoActorDemo\ProtoActorDemo.csproj", "{8DF780C4-B717-4841-9466-5B0BF7CC2709}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -277,6 +279,10 @@ Global
 		{D45B2D05-CBED-41B8-952B-3144C7E7D4BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D45B2D05-CBED-41B8-952B-3144C7E7D4BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D45B2D05-CBED-41B8-952B-3144C7E7D4BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8DF780C4-B717-4841-9466-5B0BF7CC2709}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8DF780C4-B717-4841-9466-5B0BF7CC2709}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8DF780C4-B717-4841-9466-5B0BF7CC2709}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8DF780C4-B717-4841-9466-5B0BF7CC2709}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
