@@ -38,7 +38,7 @@ namespace CustomerAnalysis
 
     public class CX
     {
-       // Dictionary<char, string> _cxDic;
+        // Dictionary<char, string> _cxDic;
         public CX()
         {
             //_cxDic = new Dictionary<char, string>();
@@ -177,12 +177,13 @@ namespace CustomerAnalysis
         public MyAnalyzer(LuceneVersion matchVersion)
         {
             this.matchVersion = matchVersion;
-            this.stopwordSet = new CharArraySet(matchVersion,new List<string>(), true);
+            this.stopwordSet = new CharArraySet(matchVersion, new List<string>(), true);
         }
         protected override TokenStreamComponents CreateComponents(string fieldName, TextReader reader)
         {
-            var ts = new MyTokenizer(matchVersion, reader);
-            var stream = new MyFilter(matchVersion, ts);
+            var ts = new MyCharTokenizer(matchVersion, reader);
+            // var stream = new MyFilter(matchVersion, ts);        
+            TokenStream stream = new LowerCaseFilter(matchVersion, ts);
             return new TokenStreamComponents(ts, stream);
 
             // Tokenizer tokenizer = new NGramTokenizer(matchVersion, reader, 1, 2);
@@ -192,6 +193,17 @@ namespace CustomerAnalysis
         }
     }
 
+    public class MyCharTokenizer : CharTokenizer
+    {
+        public MyCharTokenizer(LuceneVersion matchVersion, TextReader reader) : base(matchVersion, reader)
+        {
+
+        }
+        protected override bool IsTokenChar(int c)
+        {
+            return true;
+        }
+    }
 
     public sealed class MyFilter : TokenFilter
     {
