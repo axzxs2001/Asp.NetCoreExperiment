@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Butterfly.Client.AspNetCore;
 
 namespace ButterflyDemo2
 {
@@ -23,6 +24,11 @@ namespace ButterflyDemo2
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddButterfly(option =>
+            {
+                option.CollectorUrl = "http://localhost:9618";
+                option.Service = "my service";
+            });
             services.AddMvc();
         }
 
