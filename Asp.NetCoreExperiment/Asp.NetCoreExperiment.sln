@@ -113,9 +113,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyAnalysis", "MyAnalysis\My
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProtoActorDemo", "ProtoActorDemo\ProtoActorDemo.csproj", "{8DF780C4-B717-4841-9466-5B0BF7CC2709}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ButterflyDemo", "ButterflyDemo\ButterflyDemo.csproj", "{F991D93C-B748-4516-BF71-5AA888529874}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ButterflyDemo", "ButterflyDemo\ButterflyDemo.csproj", "{F991D93C-B748-4516-BF71-5AA888529874}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ButterflyDemo2", "ButterflyDemo2\ButterflyDemo2.csproj", "{D430B209-28C4-431D-A73E-7759F2E7BEEA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ButterflyDemo2", "ButterflyDemo2\ButterflyDemo2.csproj", "{D430B209-28C4-431D-A73E-7759F2E7BEEA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PollyDemo", "PollyDemo\PollyDemo.csproj", "{2D6E21F1-AAA8-4EB4-B3A6-B515A62434CC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -295,6 +297,10 @@ Global
 		{D430B209-28C4-431D-A73E-7759F2E7BEEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D430B209-28C4-431D-A73E-7759F2E7BEEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D430B209-28C4-431D-A73E-7759F2E7BEEA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D6E21F1-AAA8-4EB4-B3A6-B515A62434CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D6E21F1-AAA8-4EB4-B3A6-B515A62434CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D6E21F1-AAA8-4EB4-B3A6-B515A62434CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D6E21F1-AAA8-4EB4-B3A6-B515A62434CC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
