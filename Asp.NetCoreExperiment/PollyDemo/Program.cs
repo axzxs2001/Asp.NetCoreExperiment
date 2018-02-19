@@ -8,9 +8,9 @@ namespace PollyDemo
         static void Main(string[] args)
         {
 
-            Demo2();
+            Demo4();
         }
-        #region demo1
+        #region 默认策略
 
         static void Demo1()
         {
@@ -44,7 +44,7 @@ namespace PollyDemo
         #endregion
 
 
-        #region demo2
+        #region 重试策略
 
         static void Demo2()
         {
@@ -92,6 +92,54 @@ namespace PollyDemo
 
         #endregion
 
+        #region 反馈策略
+        static string ThrowException()
+        {
+            throw new Exception();
+        }
+        static void Demo3()
+        {
+            var fallBackPolicy =
+                Policy<string>
+                    .Handle<Exception>()
+                    .Fallback("执行失败，返回Fallback");
+
+            var fallBack = fallBackPolicy.Execute(() =>
+            {
+                return ThrowException();
+            });
+            Console.WriteLine(fallBack);
+        }
+        #endregion
+
+        #region 包裹策略
+        static void Demo4()
+        {
+            var fallBackPolicy =
+                Policy<string>
+                    .Handle<Exception>()
+                    .Fallback("执行失败，返回Fallback");
+
+            var fallBack = fallBackPolicy.Execute(() =>
+            {
+                return ThrowException();
+            });
+            Console.WriteLine(fallBack);
+
+            var politicaWaitAndRetry =
+                Policy<string>
+                    .Handle<Exception>()
+                    .Retry(3, (ex, count) =>
+                    {
+                        Console.WriteLine("执行失败! 重试次数 {0}", count);
+                        Console.WriteLine("异常来自 {0}", ex.GetType().Name);
+                    });
+
+            var mixedPolicy = Policy.Wrap(fallBackPolicy, politicaWaitAndRetry);
+            var mixedResult = mixedPolicy.Execute(ThrowException);
+            Console.WriteLine($"执行结果: {mixedResult}");
+        }
+        #endregion
 
     }
 }
