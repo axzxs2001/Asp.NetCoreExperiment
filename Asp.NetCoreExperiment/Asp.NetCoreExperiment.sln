@@ -117,7 +117,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ButterflyDemo", "ButterflyD
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ButterflyDemo2", "ButterflyDemo2\ButterflyDemo2.csproj", "{D430B209-28C4-431D-A73E-7759F2E7BEEA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PollyDemo", "PollyDemo\PollyDemo.csproj", "{2D6E21F1-AAA8-4EB4-B3A6-B515A62434CC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PollyDemo", "PollyDemo\PollyDemo.csproj", "{2D6E21F1-AAA8-4EB4-B3A6-B515A62434CC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PollyWebDemo", "PollyWebDemo\PollyWebDemo.csproj", "{6158477F-10F2-4270-9FDC-A27B22175BF8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -301,6 +303,10 @@ Global
 		{2D6E21F1-AAA8-4EB4-B3A6-B515A62434CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2D6E21F1-AAA8-4EB4-B3A6-B515A62434CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2D6E21F1-AAA8-4EB4-B3A6-B515A62434CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6158477F-10F2-4270-9FDC-A27B22175BF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6158477F-10F2-4270-9FDC-A27B22175BF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6158477F-10F2-4270-9FDC-A27B22175BF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6158477F-10F2-4270-9FDC-A27B22175BF8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
