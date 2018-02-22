@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2026
+VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{57C13718-7CA8-4CD7-819F-0F4DE3A14709}"
 EndProject
@@ -119,7 +119,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ButterflyDemo2", "Butterfly
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PollyDemo", "PollyDemo\PollyDemo.csproj", "{2D6E21F1-AAA8-4EB4-B3A6-B515A62434CC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PollyWebDemo", "PollyWebDemo\PollyWebDemo.csproj", "{6158477F-10F2-4270-9FDC-A27B22175BF8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PollyWebDemo", "PollyWebDemo\PollyWebDemo.csproj", "{6158477F-10F2-4270-9FDC-A27B22175BF8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "QuartzNetDemo", "QuartzNetDemo", "{C0B0DB24-83DF-4E4E-8799-1E832397BE76}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuartzNetDemo1", "QuartzNetDemo1\QuartzNetDemo1.csproj", "{12F79FE2-1C72-40C6-B94B-7F426C427D7A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuartzNetDemo2", "QuartzNetDemo2\QuartzNetDemo2.csproj", "{CD5BF453-8A84-4ACB-B1FF-3693978662C9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -307,6 +313,14 @@ Global
 		{6158477F-10F2-4270-9FDC-A27B22175BF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6158477F-10F2-4270-9FDC-A27B22175BF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6158477F-10F2-4270-9FDC-A27B22175BF8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12F79FE2-1C72-40C6-B94B-7F426C427D7A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12F79FE2-1C72-40C6-B94B-7F426C427D7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12F79FE2-1C72-40C6-B94B-7F426C427D7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12F79FE2-1C72-40C6-B94B-7F426C427D7A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD5BF453-8A84-4ACB-B1FF-3693978662C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD5BF453-8A84-4ACB-B1FF-3693978662C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD5BF453-8A84-4ACB-B1FF-3693978662C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD5BF453-8A84-4ACB-B1FF-3693978662C9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -345,6 +359,8 @@ Global
 		{9544FFCB-0D36-4048-A507-1F57D39645AC} = {D19ADB59-C958-4716-953D-86F1611E6289}
 		{B84A5931-B4FC-4FA2-B9A4-88A0B81A2A0D} = {D19ADB59-C958-4716-953D-86F1611E6289}
 		{D45B2D05-CBED-41B8-952B-3144C7E7D4BB} = {D19ADB59-C958-4716-953D-86F1611E6289}
+		{12F79FE2-1C72-40C6-B94B-7F426C427D7A} = {C0B0DB24-83DF-4E4E-8799-1E832397BE76}
+		{CD5BF453-8A84-4ACB-B1FF-3693978662C9} = {C0B0DB24-83DF-4E4E-8799-1E832397BE76}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
