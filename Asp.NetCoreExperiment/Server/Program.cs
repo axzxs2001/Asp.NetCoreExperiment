@@ -30,7 +30,6 @@ akka {
     }
 }
 ");
-
             using (var system = ActorSystem.Create("MyServer", config))
             {
                 system.ActorOf<GreetingActor>("Greeting");
@@ -39,21 +38,17 @@ akka {
             }
         }
     }
-    public class GreetingActor :ActorBase
-    {     
-
+    public class GreetingActor : ActorBase
+    {
         protected override bool Receive(object message)
         {
             if (message is SayHellowMessage)
             {
                 Console.WriteLine("收到信息");
-
                 Console.WriteLine((message as SayHellowMessage).Name);
-
                 Console.WriteLine((message as SayHellowMessage).Content);
             }
             return true;
-           
         }
     }
 }

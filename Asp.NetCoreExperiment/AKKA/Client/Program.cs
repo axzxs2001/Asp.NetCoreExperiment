@@ -34,16 +34,12 @@ akka {
             using (var system = ActorSystem.Create("MyClient", config))
             {
                 var greeting = system.ActorSelection("akka.tcp://MyServer@localhost:8081/user/Greeting");
-
                 while (true)
                 {
                     var input = Console.ReadLine();
-
                     greeting.Tell(new Common.SayHellowMessage() { Name = "桂素伟", Content = $"这是一个测试，输入内容：{input}" });
-
                 }
             }
-
         }
     }
 }
