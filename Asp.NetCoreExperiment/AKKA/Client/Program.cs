@@ -1,5 +1,6 @@
 ﻿using Akka.Actor;
 using Akka.Configuration;
+using Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,7 +38,7 @@ akka {
                 while (true)
                 {
                     var input = Console.ReadLine();
-                    greeting.Tell(new Common.SayHellowMessage() { Name = "桂素伟", Content = $"这是一个测试，输入内容：{input}" });
+                    greeting.Tell(new SayHellowMessage() { Name = "桂素伟", Content = $"这是一个测试，输入内容：{input}" });
                 }
             }
         }

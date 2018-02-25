@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Akka.Actor;
+using Akka.Configuration;
+using StandardCommon;
+using System;
 
 namespace CoreClient
 {
@@ -6,7 +9,33 @@ namespace CoreClient
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Console.Title = "Client";
+            var config = ConfigurationFactory.ParseString(@"
+akka {  
+    actor {
+        provider = ""Akka.Remote.RemoteActorRefProvider, Akka.Remote""
+    }
+    remote {
+        helios.tcp {
+            transport-class = ""Akka.Remote.Transport.Helios.HeliosTcpTransport, Akka.Remote""
+            applied-adapters = []
+            transport-protocol = tcp
+            port = 0
+            hostname = localhost
+        }
+    }
+}
+");
+
+            using (var system = ActorSystem.Create("MyClient", config))
+            {
+                var greeting = system.ActorSelection("akka.tcp://MyServer@localhost:8081/user/Greeting");
+                while (true)
+                {
+                    var input = Console.ReadLine();
+                    greeting.Tell(new SayHellowMessage() { Name = "桂素伟", Content = $"这是一个测试，输入内容：{input}" });
+                }
+            }
         }
     }
 }
