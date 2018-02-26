@@ -19,7 +19,7 @@ namespace TestAPI
 
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .UseUrls("http://localhost:4999")
+                .UseUrls("http://*:5577")
                 .UseStartup<Startup>()
                 .Build();
     }

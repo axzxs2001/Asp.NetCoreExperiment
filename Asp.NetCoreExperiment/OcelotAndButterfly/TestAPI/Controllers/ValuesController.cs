@@ -24,9 +24,9 @@ namespace TestAPI.Controllers
             switch (id)
             {
                 case 1:
-                    return await client.GetStringAsync("http://localhost:5001/api/values");                    
+                    return await client.GetStringAsync("http://localhost:5000/api001/values");                    
                 case 2:
-                    return await client.GetStringAsync("http://localhost:5002/api/values");                  
+                    return await client.GetStringAsync("http://localhost:5000/api002/values");                  
             }
             return  null;
         }
