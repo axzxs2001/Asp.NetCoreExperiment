@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
-namespace API001
+namespace TestAPI
 {
     public class Program
     {
@@ -19,7 +19,7 @@ namespace API001
 
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-               .UseUrls("http://*:5001")
+                .UseUrls("http://localhost:4999")
                 .UseStartup<Startup>()
                 .Build();
     }

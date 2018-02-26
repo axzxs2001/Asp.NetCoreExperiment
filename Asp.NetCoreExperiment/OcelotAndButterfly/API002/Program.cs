@@ -19,7 +19,8 @@ namespace API002
 
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>()
-                .Build();
+            .UseUrls("http://*:5002")
+            .UseStartup<Startup>()
+            .Build();
     }
 }

@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
-using AspectCore.Extensions.DependencyInjection;
 using Butterfly.Client.AspNetCore;
+using Butterfly.Client.Tracing;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -11,7 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace API001
+namespace TestAPI
 {
     public class Startup
     {
@@ -22,22 +23,20 @@ namespace API001
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
-        public IServiceProvider ConfigureServices(IServiceCollection services)
+        public void ConfigureServices(IServiceCollection services)
         {
+          
             services.AddMvc();
             services.AddButterfly(option =>
             {
                 option.CollectorUrl = "http://localhost:9618";
-                option.Service = "API001";
+                option.Service = "testapi";
             });
-            return services.BuildAspectCoreServiceProvider();
+            services.AddSingleton<HttpClient>(p => new HttpClient(p.GetService<HttpTracingHandler>()));
         }
-
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+ 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-       
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

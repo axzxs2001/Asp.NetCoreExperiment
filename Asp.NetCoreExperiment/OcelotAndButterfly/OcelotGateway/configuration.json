@@ -1,58 +1,52 @@
 ﻿{
   "ReRoutes": [
     {
-      "DownstreamPathTemplate": "/",
-      "UpstreamPathTemplate": "/",
-      "UpstreamHttpMethod": [
-        "Get"
-      ],
-      "AddHeadersToRequest": {},
-      "AddClaimsToRequest": {},
-      "RouteClaimsRequirement": {},
-      "AddQueriesToRequest": {},
-      "RequestIdKey": "",
-      "FileCacheOptions": {
-        "TtlSeconds": 0,
-        "Region": ""
-      },
-      "ReRouteIsCaseSensitive": false,
-      "ServiceName": "",
+      "DownstreamPathTemplate": "/api/values",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 51876
+          "Port": 5001
         }
       ],
+      "UpstreamPathTemplate": "/api001/values",
+      "UpstreamHttpMethod": [ "Get" ],
       "QoSOptions": {
-        "ExceptionsAllowedBeforeBreaking": 0,
-        "DurationOfBreak": 0,
-        "TimeoutValue": 0
-      },
-      "LoadBalancer": "",
-      "RateLimitOptions": {
-        "ClientWhitelist": [],
-        "EnableRateLimiting": false,
-        "Period": "",
-        "PeriodTimespan": 0,
-        "Limit": 0
-      },
-      "AuthenticationOptions": {
-        "AuthenticationProviderKey": "",
-        "AllowedScopes": []
+        "ExceptionsAllowedBeforeBreaking": 3,
+        "DurationOfBreak": 10,
+        "TimeoutValue": 5000
       },
       "HttpHandlerOptions": {
-        "AllowAutoRedirect": true,
-        "UseCookieContainer": true,
         "UseTracing": true
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/api/values",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5002
+        }
+      ],
+      "UpstreamPathTemplate": "/api002/values",
+      "UpstreamHttpMethod": [ "Get" ],
+      "QoSOptions": {
+        "ExceptionsAllowedBeforeBreaking": 3,
+        "DurationOfBreak": 10,
+        "TimeoutValue": 5000
       },
-      "UseServiceDiscovery": false
+      "HttpHandlerOptions": {
+        "UseTracing": true
+      }
     }
   ],
   "GlobalConfiguration": {
-    "ServiceDiscoveryProvider": {
-      "Host": "localhost",
-      "Port": 9500
-    }
+    //"RateLimitOptions": {
+    //  "ClientIdHeader": "client_id",
+    //  "QuotaExceededMessage": "访问受限",
+    //  "DisableRateLimitHeaders": false
+    //}
+    "RequestIdKey":"ot-traceid"
   }
 }

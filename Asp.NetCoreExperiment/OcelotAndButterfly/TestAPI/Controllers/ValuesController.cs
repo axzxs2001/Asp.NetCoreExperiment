@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace OcelotGateway.Controllers
+namespace TestAPI.Controllers
 {
     [Route("api/[controller]")]
     public class ValuesController : Controller
@@ -18,9 +19,16 @@ namespace OcelotGateway.Controllers
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
+        public async Task<string> Get([FromServices]HttpClient client, int id)
+        {       
+            switch (id)
+            {
+                case 1:
+                    return await client.GetStringAsync("http://localhost:5001/api/values");                    
+                case 2:
+                    return await client.GetStringAsync("http://localhost:5002/api/values");                  
+            }
+            return  null;
         }
 
         // POST api/values

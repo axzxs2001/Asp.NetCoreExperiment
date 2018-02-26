@@ -16,30 +16,31 @@ namespace OcelotGateway
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IHostingEnvironment env)
         {
-            Configuration = configuration;
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(env.ContentRootPath)
+                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
+                .AddJsonFile("configuration.json")
+                .AddEnvironmentVariables();
+            Configuration = builder.Build();
         }
+        public IConfigurationRoot Configuration { get; }
 
-        public IConfiguration Configuration { get; }
-
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services
             .AddOcelot(Configuration)
             .AddOpenTracing(option =>
-            {
-                //this is the url that the butterfly collector server is running on...
+            {           
                 option.CollectorUrl = "http://localhost:9618";
                 option.Service = "Ocelot";
             });
         }
-
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             app.UseOcelot().Wait();
-        }
+        }                  
     }
 }
