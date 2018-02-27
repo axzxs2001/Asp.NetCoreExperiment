@@ -40,13 +40,5 @@
         "UseTracing": true
       }
     }
-  ],
-  "GlobalConfiguration": {
-    //"RateLimitOptions": {
-    //  "ClientIdHeader": "client_id",
-    //  "QuotaExceededMessage": "访问受限",
-    //  "DisableRateLimitHeaders": false
-    //}
-    "RequestIdKey":"ot-traceid"
-  }
+  ]
 }

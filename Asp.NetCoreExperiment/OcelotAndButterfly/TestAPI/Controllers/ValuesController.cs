@@ -20,15 +20,8 @@ namespace TestAPI.Controllers
         // GET api/values/5
         [HttpGet("{id}")]
         public async Task<string> Get([FromServices]HttpClient client, int id)
-        {       
-            switch (id)
-            {
-                case 1:
-                    return await client.GetStringAsync("http://localhost:5000/api001/values");                    
-                case 2:
-                    return await client.GetStringAsync("http://localhost:5000/api002/values");                  
-            }
-            return  null;
+        {
+            return await client.GetStringAsync("http://localhost:5000/api001/values");
         }
 
         // POST api/values
