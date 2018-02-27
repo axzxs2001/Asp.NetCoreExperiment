@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2026
+VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{57C13718-7CA8-4CD7-819F-0F4DE3A14709}"
 EndProject
@@ -128,6 +128,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuartzNetDemo2", "QuartzNetDemo2\QuartzNetDemo2.csproj", "{CD5BF453-8A84-4ACB-B1FF-3693978662C9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OcelotAndButterfly", "OcelotAndButterfly", "{3A8B0086-ADC5-4A35-9A97-28B3187667C8}"
+	ProjectSection(SolutionItems) = preProject
+		ReadMe.txt = ReadMe.txt
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ProtoActor", "ProtoActor", "{42B39E88-504B-4F8D-B595-9141269ABF2E}"
 EndProject
@@ -159,7 +162,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "API002", "OcelotAndButterfl
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "API001", "OcelotAndButterfly\API001\API001.csproj", "{93A94D05-4F72-40BB-8687-FFF6C824A44A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestAPI", "OcelotAndButterfly\TestAPI\TestAPI.csproj", "{2803EA39-43BD-448B-A936-0A56026D68EC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestAPI", "OcelotAndButterfly\TestAPI\TestAPI.csproj", "{2803EA39-43BD-448B-A936-0A56026D68EC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ocelot", "OcelotAndButterfly\Ocelot\Ocelot.csproj", "{5FCAB369-4A82-4B98-972F-662C3250FBD8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -399,6 +404,10 @@ Global
 		{2803EA39-43BD-448B-A936-0A56026D68EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2803EA39-43BD-448B-A936-0A56026D68EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2803EA39-43BD-448B-A936-0A56026D68EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5FCAB369-4A82-4B98-972F-662C3250FBD8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5FCAB369-4A82-4B98-972F-662C3250FBD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5FCAB369-4A82-4B98-972F-662C3250FBD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5FCAB369-4A82-4B98-972F-662C3250FBD8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -456,6 +465,7 @@ Global
 		{12D2BFCA-35C7-45F0-A5C7-B13128D052AC} = {3A8B0086-ADC5-4A35-9A97-28B3187667C8}
 		{93A94D05-4F72-40BB-8687-FFF6C824A44A} = {3A8B0086-ADC5-4A35-9A97-28B3187667C8}
 		{2803EA39-43BD-448B-A936-0A56026D68EC} = {3A8B0086-ADC5-4A35-9A97-28B3187667C8}
+		{5FCAB369-4A82-4B98-972F-662C3250FBD8} = {3A8B0086-ADC5-4A35-9A97-28B3187667C8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}

@@ -11,9 +11,9 @@ namespace API002.Controllers
     {
         // GET api/values
         [HttpGet]
-        public IEnumerable<string> Get()
+        public string Get()
         {
-            return new string[] { "api002", "api002:" + DateTime.Now.ToString() };
+            return $"api002项目，端口：5002  时间：{DateTime.Now.ToString() }";
         }
 
         // GET api/values/5

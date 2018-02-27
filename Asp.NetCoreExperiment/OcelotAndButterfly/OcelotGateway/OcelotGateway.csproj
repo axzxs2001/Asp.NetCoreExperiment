@@ -9,13 +9,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Butterfly.Client.AspNetCore" Version="0.0.8" />
+    <PackageReference Include="Butterfly.Client.AspNetCore" Version="0.0.7" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.5" />
-    <PackageReference Include="Ocelot" Version="3.2.0-unstable0002" />
   </ItemGroup>
 
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Ocelot\Ocelot.csproj" />
   </ItemGroup>
 
   <ItemGroup>

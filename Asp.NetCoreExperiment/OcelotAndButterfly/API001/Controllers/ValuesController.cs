@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,9 +12,10 @@ namespace API001.Controllers
     {
         // GET api/values
         [HttpGet]
-        public IEnumerable<string> Get()
+        public string Get([FromServices]HttpClient httpClient)
         {
-            return new string[] { "api001", "api001:"+DateTime .Now .ToString() };
+            var result= httpClient.GetStringAsync("http://localhost:5000/api002/values").GetAwaiter().GetResult();
+            return $"api001项目，端口5001， 时间:{DateTime .Now .ToString()}  {result}";
         }
 
         // GET api/values/5
