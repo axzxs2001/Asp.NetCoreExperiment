@@ -1,0 +1,11 @@
+{"watches":[{
+  "type": "checks", 
+  "handler_type": "http",
+  "http_handler_config": {
+    "path":"http://localhost:5001/abc",
+    "method": "POST",
+    "timeout": "10s",
+	"header": {"Authorization":["Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiZ2dnIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoic3lzdGVtIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9leHBpcmF0aW9uIjoiMjAxNy8xMi8zMCA0OjA5OjIwIiwibmJmIjoxNTE0NTQyMTYwLCJleHAiOjE1MTQ1NzgxNjAsImlzcyI6ImdzdyIsImF1ZCI6ImdzdyJ9.SAX0mgQwOJAps1aDipN3NZDa_AcK66a2NFG0XsjMa9M"]}
+  }
+}]
+}

@@ -1,0 +1,7 @@
+alive: s1 192.168.1.101:8301
+event-clock: 1
+alive: s2 192.168.1.126:8301
+clock: 1
+alive: s1 192.168.1.101:8301
+alive: s2 192.168.1.126:8301
+event-clock: 2

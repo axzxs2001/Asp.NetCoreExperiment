@@ -1,0 +1,49 @@
+{
+    "encrypt": "7TnJPB4lKtjEcCWWjN6jSA==",
+    "services": [{
+    "id":"lisapi001",
+    "name":"lisapi",
+    "tags":["lisapi"],
+    "address": "192.168.1.15",
+    "port": 5002,
+    "checks": [
+    {
+	    "id":"lisapicheck001",
+	    "name":"lisapicheck001",
+        "http": "http://192.168.1.15:5002/health",
+        "interval": "10s",
+        "tls_skip_verify": false,
+        "method": "GET",  
+        "timeout": "1s"
+    },
+	   {
+	    "id":"lisapicheck003",
+	    "name":"lisapicheck003",
+        "http": "http://192.168.1.15:5002",
+        "interval": "10s",
+        "tls_skip_verify": false,
+        "method": "GET",  
+        "timeout": "1s"
+    }
+    ]
+    },
+    {
+    "id":"risapi001",
+    "name":"risapi",
+    "tags":["risapi"],
+    "address": "192.168.1.15",
+    "port": 5004,
+    "checks": [
+    {
+	    "id":"risapicheck001",
+	    "name":"risapicheck001",
+        "http": "http://192.168.1.15:5004/health",
+        "interval": "10s",
+        "tls_skip_verify": false,
+        "method": "GET",  
+        "timeout": "1s"
+    }
+    ]
+    }
+	]
+}

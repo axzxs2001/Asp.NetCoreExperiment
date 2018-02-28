@@ -1,0 +1,12 @@
+{"watches":[{
+  "type": "checks", 
+  "handler_type": "http",
+  "state":"critical",
+  "http_handler_config": {
+    "path":"http://localhost:5003/notice",
+    "method": "POST",
+    "timeout": "10s",
+	"header": {"Authorization":["Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiZ3N3IiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiYWRtaW4iLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL2V4cGlyYXRpb24iOiIyMDIyLzEyLzMxIDEyOjM2OjEyIiwibmJmIjoxNTE0Njk0OTcyLCJleHAiOjE1MTQ3MzA5NzIsImlzcyI6ImdzdyIsImF1ZCI6ImdzdyJ9.jPu1yZ8jORN5QgCuPV50sYOKvX88GLSDiRX_0fpEzU4"]}
+  }
+}]
+}
