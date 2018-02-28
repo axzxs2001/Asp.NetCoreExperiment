@@ -185,6 +185,13 @@ Project("{911E67C6-3D85-4FCE-B560-20A9C3E3FF48}") = "consul", "ConsulOcelot\cons
 		AttachLaunchAction = No
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "conf", "conf", "{7C580099-E98A-4F7E-80FF-D6A01740C396}"
+	ProjectSection(SolutionItems) = preProject
+		ConsulOcelot\consul\conf\service.json = ConsulOcelot\consul\conf\service.json
+		ConsulOcelot\consul\conf\watchs.json = ConsulOcelot\consul\conf\watchs.json
+		ConsulOcelot\consul\conf\xacl.json = ConsulOcelot\consul\conf\xacl.json
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -632,6 +639,7 @@ Global
 		{9909DC13-7656-4BD8-98D0-53878BD588A1} = {DD25A49B-CB15-4487-8F1E-AC6BC1083EEF}
 		{611D1178-0D17-4175-A806-17F4B2A80C0D} = {DD25A49B-CB15-4487-8F1E-AC6BC1083EEF}
 		{4F0D80E4-1918-47B9-87D1-BE197DA8CC61} = {611D1178-0D17-4175-A806-17F4B2A80C0D}
+		{7C580099-E98A-4F7E-80FF-D6A01740C396} = {611D1178-0D17-4175-A806-17F4B2A80C0D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}

@@ -1,20 +1,19 @@
 ﻿{
   "ReRoutes": [
     {
-      "DownstreamPathTemplate": "/lisapi/lisuser",
+      "DownstreamPathTemplate": "/api/values",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 5002
+          "Port": 5001
         }
-
       ],
-      "UpstreamPathTemplate": "/lisapi/lisuser",
-      "UpstreamHttpMethod": [ "Get", "Post" ],
-      //"ServiceName": "lisapi",
-      //"LoadBalancer": "RoundRobin",
-      //"UseServiceDiscovery": true,
+      "UpstreamPathTemplate": "/api001/values",
+      "UpstreamHttpMethod": [ "Get"],
+      "ServiceName": "API001",
+      "LoadBalancer": "RoundRobin",
+      "UseServiceDiscovery": true,
       "ReRouteIsCaseSensitive": false,
       "QoSOptions": {
         "ExceptionsAllowedBeforeBreaking": 3,
@@ -27,11 +26,11 @@
         "UseTracing": false
       },
       "AuthenticationOptions": {
-        "AuthenticationProviderKey": "GSWBearer",
+        "AuthenticationProviderKey": "",
         "AllowedScopes": []
       },
       "RateLimitOptions": {
-        "ClientWhitelist": [ "clientId1" ],
+        "ClientWhitelist": [],
         "EnableRateLimiting": true,
         "Period": "1m",
         "PeriodTimespan": 15,
@@ -39,7 +38,7 @@
       }
     },
     {
-      "DownstreamPathTemplate": "/index.html",
+      "DownstreamPathTemplate": "/api/values",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -47,17 +46,16 @@
           "Port": 5002
         }
       ],
-      "UpstreamPathTemplate": "/index.html",
-      "UpstreamHttpMethod": [ "Get", "Post" ],
-      "ServiceName": "lisapi",
-      "LoadBalancer": "LeastConnection",
-      "UseServiceDiscovery": true,
-      "ReRouteIsCaseSensitive": false,
+      "UpstreamPathTemplate": "/API002/values",
+      "UpstreamHttpMethod": [ "Get" ],
       "QoSOptions": {
         "ExceptionsAllowedBeforeBreaking": 3,
         "DurationOfBreak": 10,
         "TimeoutValue": 5000
       },
+      "ServiceName": "API002",
+      "LoadBalancer": "RoundRobin",
+      "UseServiceDiscovery": true,
       "HttpHandlerOptions": {
         "AllowAutoRedirect": false,
         "UseCookieContainer": false
@@ -66,178 +64,17 @@
         "AuthenticationProviderKey": "",
         "AllowedScopes": []
       }
-    },
-    {
-      "DownstreamPathTemplate": "/lisapi/denied",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5002
-        }
-      ],
-      "UpstreamPathTemplate": "/lisapi/denied",
-      "UpstreamHttpMethod": [ "Get" ],
-      //"ServiceName": "lisapi",
-      //"LoadBalancer": "LeastConnection",
-      //"UseServiceDiscovery": true,
-      "QoSOptions": {
-        "ExceptionsAllowedBeforeBreaking": 3,
-        "DurationOfBreak": 10,
-        "TimeoutValue": 5000
-      },
-      "HttpHandlerOptions": {
-        "UseTracing": true
-      },
-      "AuthenticationOptions": {
-      }
-    },
-    {
-      "DownstreamPathTemplate": "/",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5002
-        }
-      ],
-      "UpstreamPathTemplate": "/",
-      "UpstreamHttpMethod": [ "Get" ],
-      "ServiceName": "lisapi",
-      "LoadBalancer": "LeastConnection",
-      "UseServiceDiscovery": true,
-      "QoSOptions": {
-        "ExceptionsAllowedBeforeBreaking": 3,
-        "DurationOfBreak": 10,
-        "TimeoutValue": 5000
-      },
-
-      "AuthenticationOptions": {
-      }
-    },
-    {
-      "DownstreamPathTemplate": "/docs/",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5002
-        }
-      ],
-      "UpstreamPathTemplate": "/lisapi/docs/",
-      "UpstreamHttpMethod": [ "Get" ],
-      "ServiceName": "lisapi",
-      "LoadBalancer": "LeastConnection",
-      "UseServiceDiscovery": true,
-      "QoSOptions": {
-        "ExceptionsAllowedBeforeBreaking": 3,
-        "DurationOfBreak": 10,
-        "TimeoutValue": 5000
-      }
-    },
-    {
-      "DownstreamPathTemplate": "/hisapi/hisuser",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5001
-        }
-      ],
-      "UpstreamPathTemplate": "/hisapi/hisuser",
-      "UpstreamHttpMethod": [ "Get" ],
-      "QoSOptions": {
-        "ExceptionsAllowedBeforeBreaking": 3,
-        "DurationOfBreak": 10,
-        "TimeoutValue": 5000
-      },
-      "HttpHandlerOptions": {
-        "AllowAutoRedirect": false,
-        "UseCookieContainer": false
-      },
-      "AuthenticationOptions": {
-        "AuthenticationProviderKey": "GSWBearer",
-        "AllowedScopes": []
-      }
-    },
-    {
-      "DownstreamPathTemplate": "/hisapi/getfeeitems",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5001
-        }
-      ],
-      "UpstreamPathTemplate": "/hisapi/getfeeitems",
-      "UpstreamHttpMethod": [ "Get" ],
-      "QoSOptions": {
-        "ExceptionsAllowedBeforeBreaking": 3,
-        "DurationOfBreak": 10,
-        "TimeoutValue": 300000
-      },
-      "HttpHandlerOptions": {
-        "AllowAutoRedirect": false,
-        "UseCookieContainer": false
-      },
-      "AuthenticationOptions": {
-        "AuthenticationProviderKey": "GSWBearer",
-        "AllowedScopes": []
-      }
-    },
-    {
-      "DownstreamPathTemplate": "/hisapi/denied",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5001
-        }
-      ],
-      "UpstreamPathTemplate": "/hisapi/denied",
-      "UpstreamHttpMethod": [ "Get" ],
-      "QoSOptions": {
-        "ExceptionsAllowedBeforeBreaking": 3,
-        "DurationOfBreak": 10,
-        "TimeoutValue": 5000
-      },
-      "HttpHandlerOptions": {
-        "UseTracing": true
-      },
-      "AuthenticationOptions": {
-      }
-    },
-    {
-      "DownstreamPathTemplate": "/authapi/login",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5003
-        }
-      ],
-      "UpstreamPathTemplate": "/authapi/login",
-      "UpstreamHttpMethod": [ "Get", "Post" ],
-      "QoSOptions": {
-        "ExceptionsAllowedBeforeBreaking": 3,
-        "DurationOfBreak": 10,
-        "TimeoutValue": 5000
-      },
-      "AuthenticationOptions": {
-      }
-    }
+    }   
   ],
   "GlobalConfiguration": {
-    //"ServiceDiscoveryProvider": {
-    //  "Host": "localhost",
-    //  "Port": 8500
-    //},
+    "ServiceDiscoveryProvider": {
+      "Host": "localhost",
+      "Port": 8500
+    },
     "RateLimitOptions": {
       "ClientIdHeader": "client_id",
       "QuotaExceededMessage": "访问受限",
       "DisableRateLimitHeaders": false
-    }
-    //"RequestIdKey":"ot-traceid"
-  
+    }  
   }
 }
