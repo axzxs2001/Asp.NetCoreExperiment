@@ -38,6 +38,33 @@
       }
     },
     {
+      "DownstreamPathTemplate": "/notice",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5001
+        }
+      ],
+      "UpstreamPathTemplate": "/notice",
+      "UpstreamHttpMethod": [ "Post" ],      
+      "ReRouteIsCaseSensitive": false,
+      "QoSOptions": {
+        "ExceptionsAllowedBeforeBreaking": 3,
+        "DurationOfBreak": 10,
+        "TimeoutValue": 5000
+      },
+      "HttpHandlerOptions": {
+        "AllowAutoRedirect": false,
+        "UseCookieContainer": false,
+        "UseTracing": false
+      },
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "",
+        "AllowedScopes": []
+      }    
+    },
+    {
       "DownstreamPathTemplate": "/api/values",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
