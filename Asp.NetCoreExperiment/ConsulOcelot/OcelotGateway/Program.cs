@@ -31,6 +31,7 @@ namespace OcelotGateway
                     conbuilder.AddJsonFile("appsettings.json");
                     conbuilder.AddJsonFile("configuration.json");
                 })
+        
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseKestrel()
                 .UseUrls("http://*:5000")
