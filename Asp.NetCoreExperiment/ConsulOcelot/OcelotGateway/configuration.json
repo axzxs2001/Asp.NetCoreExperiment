@@ -10,7 +10,7 @@
         }
       ],
       "UpstreamPathTemplate": "/api001/values",
-      "UpstreamHttpMethod": [ "Get"],
+      "UpstreamHttpMethod": [ "Get" ],
       "ServiceName": "API001",
       "LoadBalancer": "RoundRobin",
       "UseServiceDiscovery": true,
@@ -30,7 +30,7 @@
         "AllowedScopes": []
       },
       "RateLimitOptions": {
-        "ClientWhitelist": [],
+        "ClientWhitelist": [ "admin" ],
         "EnableRateLimiting": true,
         "Period": "1m",
         "PeriodTimespan": 15,
@@ -63,8 +63,15 @@
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "",
         "AllowedScopes": []
+      },
+      "RateLimitOptions": {
+        "ClientWhitelist": [ "user" ],
+        "EnableRateLimiting": true,
+        "Period": "1m",
+        "PeriodTimespan": 15,
+        "Limit": 5
       }
-    }   
+    }
   ],
   "GlobalConfiguration": {
     "ServiceDiscoveryProvider": {
@@ -73,8 +80,8 @@
     },
     "RateLimitOptions": {
       "ClientIdHeader": "client_id",
-      "QuotaExceededMessage": "访问受限",
+      "QuotaExceededMessage": "Too Many Requests!!!",
       "DisableRateLimitHeaders": false
-    }  
+    }
   }
 }

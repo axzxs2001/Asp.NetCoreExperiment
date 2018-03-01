@@ -12,7 +12,7 @@ namespace API002.Controllers
         [HttpGet]
         public string Get()
         {
-            return $"API002:{DateTime.Now.ToString()}";
+            return $"API002:{DateTime.Now.ToString()}  { Environment.MachineName + " OS:" + Environment.OSVersion.VersionString}";
         }
 
         [HttpGet("/health")]
