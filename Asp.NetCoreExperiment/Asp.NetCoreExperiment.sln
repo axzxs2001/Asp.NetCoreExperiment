@@ -164,9 +164,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConfigurationDemo02", "Conf
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfigurationDemo03", "ConfigurationDemo\ConfigurationDemo03\ConfigurationDemo03.csproj", "{7862FC92-1F34-4E2F-B572-47A349CBD71E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OcelotGateway", "ConsulOcelot\OcelotGateway\OcelotGateway.csproj", "{6FA1C4D1-74CC-4437-9388-E176C591F6D2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OcelotGateway", "ConsulOcelot\OcelotGateway\OcelotGateway.csproj", "{6FA1C4D1-74CC-4437-9388-E176C591F6D2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API002", "ConsulOcelot\API002\API002.csproj", "{422496BC-A150-4667-90C5-AFE394CD0A0D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "API002", "ConsulOcelot\API002\API002.csproj", "{422496BC-A150-4667-90C5-AFE394CD0A0D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "API001", "ConsulOcelot\API001\API001.csproj", "{9909DC13-7656-4BD8-98D0-53878BD588A1}"
 EndProject
@@ -192,7 +192,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "conf", "conf", "{7C580099-E
 		ConsulOcelot\consul\conf\xacl.json = ConsulOcelot\consul\conf\xacl.json
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestClient", "ConsulOcelot\TestClient\TestClient.csproj", "{C6A76982-0936-4681-9565-0D27E5B89534}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestClient", "ConsulOcelot\TestClient\TestClient.csproj", "{C6A76982-0936-4681-9565-0D27E5B89534}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ExceptionlessDemo", "ExceptionlessDemo", "{3154B798-4FDF-4A9B-8539-BC99B448FA64}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExceptionlessDemo01", "ExceptionlessDemo\ExceptionlessDemo01\ExceptionlessDemo01.csproj", "{33DB47E4-3588-40B7-8AD9-1AFC8AF5A391}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -586,6 +590,14 @@ Global
 		{C6A76982-0936-4681-9565-0D27E5B89534}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C6A76982-0936-4681-9565-0D27E5B89534}.Release|x64.ActiveCfg = Release|Any CPU
 		{C6A76982-0936-4681-9565-0D27E5B89534}.Release|x64.Build.0 = Release|Any CPU
+		{33DB47E4-3588-40B7-8AD9-1AFC8AF5A391}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33DB47E4-3588-40B7-8AD9-1AFC8AF5A391}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33DB47E4-3588-40B7-8AD9-1AFC8AF5A391}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{33DB47E4-3588-40B7-8AD9-1AFC8AF5A391}.Debug|x64.Build.0 = Debug|Any CPU
+		{33DB47E4-3588-40B7-8AD9-1AFC8AF5A391}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33DB47E4-3588-40B7-8AD9-1AFC8AF5A391}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33DB47E4-3588-40B7-8AD9-1AFC8AF5A391}.Release|x64.ActiveCfg = Release|Any CPU
+		{33DB47E4-3588-40B7-8AD9-1AFC8AF5A391}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -651,6 +663,7 @@ Global
 		{4F0D80E4-1918-47B9-87D1-BE197DA8CC61} = {611D1178-0D17-4175-A806-17F4B2A80C0D}
 		{7C580099-E98A-4F7E-80FF-D6A01740C396} = {611D1178-0D17-4175-A806-17F4B2A80C0D}
 		{C6A76982-0936-4681-9565-0D27E5B89534} = {DD25A49B-CB15-4487-8F1E-AC6BC1083EEF}
+		{33DB47E4-3588-40B7-8AD9-1AFC8AF5A391} = {3154B798-4FDF-4A9B-8539-BC99B448FA64}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
