@@ -17,6 +17,9 @@ namespace ExceptionlessDemo01.Controllers
             try
             {
 
+                ExceptionlessClient.Default.SubmitLog("Logging made easy",Exceptionless.Logging.LogLevel.Warn);
+
+
                 throw new Exception("我的异常"+DateTime .Now);
             }
             catch(Exception exc)
