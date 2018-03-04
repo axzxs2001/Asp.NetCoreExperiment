@@ -38,8 +38,10 @@ namespace RouteDemo
 
         private static void Main()
         {
-            TestBroadcastGroup();
-           // TestBroadcastPool();
+            //TestBroadcastGroup();
+            //System.Threading.Thread.Sleep(3000);
+            Console.WriteLine("------------------------------");
+            TestBroadcastPool();
 
             //TestRandomPool();
             //TestRandomGroup();
@@ -52,6 +54,9 @@ namespace RouteDemo
 
             Console.ReadLine();
         }
+        /// <summary>
+        ///分别调用 
+        /// </summary>
 
         private static void TestBroadcastGroup()
         {
@@ -59,6 +64,7 @@ namespace RouteDemo
                 Actor.Spawn(MyActorProps),
                 Actor.Spawn(MyActorProps),
                 Actor.Spawn(MyActorProps),
+
                 Actor.Spawn(MyActorProps)
             );
             for (var i = 0; i < 10; i++)
@@ -73,7 +79,7 @@ namespace RouteDemo
         /// </summary>
         private static void TestBroadcastPool()
         {
-            var props = Router.NewBroadcastPool(MyActorProps, 5);
+            var props = Router.NewBroadcastPool(MyActorProps, 2);
             var pid = Actor.Spawn(props);
             for (var i = 0; i < 10; i++)
             {
@@ -92,7 +98,7 @@ namespace RouteDemo
             var pid = Actor.Spawn(props);
             for (var i = 0; i < 10; i++)
             {
-                pid.Tell(new Message { Text = $"{i % 4}" });
+                pid.Tell(new Message { Text = $"{i}" });
             }
         }
 
