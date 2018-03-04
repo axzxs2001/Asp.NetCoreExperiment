@@ -7,6 +7,7 @@
 
   <ItemGroup>
     <PackageReference Include="Proto.Actor" Version="0.1.16" />
+    <PackageReference Include="Proto.Router" Version="0.1.16" />
   </ItemGroup>
 
 </Project>

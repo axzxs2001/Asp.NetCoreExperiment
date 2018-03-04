@@ -9,8 +9,25 @@ namespace ProtoActorDemo
     {
         static void Main(string[] args)
         {           
-            Test3();           
+            Test4();           
             Console.ReadKey();
+        }
+        static void Test4()
+        {
+            var props = Actor.FromFunc(ctx =>
+            {
+                if (ctx.Message is string)
+                {
+                    Console.WriteLine(ctx.Message);
+                    ctx.Respond("hey");
+                }
+                return Actor.Done;
+            });
+            var pid = Actor.Spawn(props);
+
+            var reply = pid.RequestAsync<object>("hello").Result;
+            Console.WriteLine(reply);
+            Console.ReadLine();
         }
         static void Test3()
         {
@@ -23,6 +40,7 @@ namespace ProtoActorDemo
                 Who = "Alex"
             });
         }
+
 
         static void Test2()
         {
