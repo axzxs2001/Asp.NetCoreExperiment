@@ -10,16 +10,99 @@ namespace Demo01
         static void Main(string[] args)
         {
             var system = ActorSystem.Create("mysystem");
-            //有参
-            var myActor = system.ActorOf(DemoActor.Props(42));
-            myActor.Tell(8);
-            //无参
-            var myActor1 = system.ActorOf<DemoActor>("myactor");
-            myActor1.Tell(9);
 
+            #region  DemoActor
+            ////有参
+            //var demoActor = system.ActorOf(DemoActor.Props(42));
+            //demoActor.Tell(8);
+            ////无参
+            //var demoActor1 = system.ActorOf<DemoActor>("myactor");
+            //demoActor1.Tell(9);
+            #endregion
+            //Console.WriteLine("================================");
+            #region DemoMessagesActor
+           // var demoMessagesActor = system.ActorOf(DemoMessagesActor.Props());
+            //demoMessagesActor.Tell(DemoMessagesActor.Goodbye.Instance);
+            //var result=demoMessagesActor.Ask(new DemoMessagesActor.Greeting("greeting参数")).Result;
+            //Console.WriteLine(result);
+            #endregion
+            //Console.WriteLine("================================");
+            #region FirstActor
+            var firstActor = system.ActorOf<FirstActor>("firstActor");
+            firstActor.Tell("123");
+            Console.WriteLine("================================");
+            firstActor.Tell(456);
+            #endregion
             Console.ReadLine();
         }
     }
+    public class FirstActor : ReceiveActor
+    {
+        IActorRef secondActor = Context.ActorOf<SecondActor>("secondActor");
+        public FirstActor()
+        {
+            Receive<int>(x =>
+            {
+                //无参构造的Receive
+                Console.WriteLine($"FirstActor.Receive:参数{x}");
+                secondActor.Tell("字符串");
+            });
+        }
+        public class SecondActor : ReceiveActor
+        {
+            public SecondActor()
+            {
+                Receive<string>(s =>
+                {
+                //无参构造的Receive
+                Console.WriteLine($"SecondActor.Receive:参数{s}");
+                });
+            }
+        }
+
+        protected override SupervisorStrategy SupervisorStrategy()
+        {
+          
+            Console.WriteLine("SupervisorStrategy");
+            return base.SupervisorStrategy();
+            
+        }
+        protected override void Unhandled(object message)
+        {
+            base.Unhandled(message);
+            Console.WriteLine("Unhandled方法：" + message);
+        }
+
+        protected override void PreStart()
+        {          
+            Console.WriteLine("FirstActor.PreStart");
+        }
+
+        protected override void PreRestart(Exception reason, object message)
+        {
+            Console.WriteLine("FirstActor.PreRestart");
+            foreach (IActorRef each in Context.GetChildren())
+            {
+                Context.Unwatch(each);
+                Context.Stop(each);
+            }
+            PostStop();
+        }
+
+        protected override void PostRestart(Exception reason)
+        {
+            Console.WriteLine("FirstActor.PostRestart");
+            PreStart();
+        }
+
+        protected override void PostStop()
+        {
+            Console.WriteLine("FirstActor.PostStop");
+        } 
+    }
+
+
+
     public class DemoActor : ReceiveActor
     {
         /// <summary>
@@ -30,8 +113,8 @@ namespace Demo01
             Receive<int>(x =>
             {
                 //无参构造的Receive
-                Console.WriteLine("无参构造的Receive");
-                Console.WriteLine(x);
+                Console.WriteLine($"无参构造的Receive:参数{x}");
+
             });
         }
 
@@ -43,8 +126,7 @@ namespace Demo01
             Receive<int>(x =>
             {
                 //有参构造的Receive  
-                Console.WriteLine("有参构造的Receive");
-                Console.WriteLine(x);
+                Console.WriteLine($"有参构造的Receive:参数{x}");
                 if (x < 20)
                 {
                     Sender.Tell(x + _magicNumber, Self);
@@ -63,7 +145,7 @@ namespace Demo01
         public class Greeting
         {
             public Greeting(string from)
-            {
+            {               
                 From = from;
             }
             public string From { get; }
@@ -82,13 +164,19 @@ namespace Demo01
         {
             Receive<Greeting>(greeting =>
             {
-                Sender.Tell($"I was greeted by {greeting.From}", Self);
+                Console.WriteLine($"传入参数Greeting：{greeting.From}");
+                Sender.Tell($"返回值", Self);
             });
 
             Receive<Goodbye>(_ =>
             {
                 log.Info("Someone said goodbye to me.");
             });
+        }
+
+        public static Props Props()
+        {
+            return Akka.Actor.Props.Create(() => new DemoMessagesActor());
         }
     }
 
