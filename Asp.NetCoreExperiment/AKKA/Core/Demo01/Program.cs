@@ -9,18 +9,32 @@ namespace Demo01
     {
         static void Main(string[] args)
         {
-            var system = ActorSystem.Create("demo");
-            IActorRef myActor = system.ActorOf(DemoActor.Props(42));
+            var system = ActorSystem.Create("mysystem");
+            //有参
+            var myActor = system.ActorOf(DemoActor.Props(42));
             myActor.Tell(8);
+            //无参
+            var myActor1 = system.ActorOf<DemoActor>("myactor");
+            myActor1.Tell(9);
 
-         
             Console.ReadLine();
         }
     }
     public class DemoActor : ReceiveActor
     {
+        /// <summary>
+        /// 无参构造
+        /// </summary>
+        public DemoActor()
+        {
+            Receive<int>(x =>
+            {
+                //无参构造的Receive
+                Console.WriteLine("无参构造的Receive");
+                Console.WriteLine(x);
+            });
+        }
 
-   
         private readonly int _magicNumber;
 
         public DemoActor(int magicNumber)
@@ -28,9 +42,13 @@ namespace Demo01
             _magicNumber = magicNumber;
             Receive<int>(x =>
             {
+                //有参构造的Receive  
+                Console.WriteLine("有参构造的Receive");
                 Console.WriteLine(x);
-         
-                Sender.Tell(x+ _magicNumber,Self);
+                if (x < 20)
+                {
+                    Sender.Tell(x + _magicNumber, Self);
+                }
             });
         }
 
@@ -48,7 +66,6 @@ namespace Demo01
             {
                 From = from;
             }
-
             public string From { get; }
         }
 
