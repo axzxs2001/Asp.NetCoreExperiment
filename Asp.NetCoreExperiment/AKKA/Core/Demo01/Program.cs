@@ -21,21 +21,54 @@ namespace Demo01
             #endregion
             //Console.WriteLine("================================");
             #region DemoMessagesActor
-           // var demoMessagesActor = system.ActorOf(DemoMessagesActor.Props());
+            // var demoMessagesActor = system.ActorOf(DemoMessagesActor.Props());
             //demoMessagesActor.Tell(DemoMessagesActor.Goodbye.Instance);
             //var result=demoMessagesActor.Ask(new DemoMessagesActor.Greeting("greeting参数")).Result;
             //Console.WriteLine(result);
             #endregion
             //Console.WriteLine("================================");
             #region FirstActor
-            var firstActor = system.ActorOf<FirstActor>("firstActor");
-            firstActor.Tell("123");
-            Console.WriteLine("================================");
-            firstActor.Tell(456);
+            //var firstActor = system.ActorOf<FirstActor>("firstActor");
+            //firstActor.Tell("123");
+            //Console.WriteLine("================================");
+            //firstActor.Tell(456);
             #endregion
+
+            #region WatchActor
+            var firstActor = system.ActorOf<WatchActor>("WatchActor");
+            var result = firstActor.Ask("kill").Result;
+            Console.WriteLine(result);
+            #endregion
+
+
             Console.ReadLine();
         }
     }
+
+    public class WatchActor : ReceiveActor
+    {
+        private IActorRef child = Context.ActorOf(Props.Empty, "child");
+        private IActorRef lastSender = Context.System.DeadLetters;
+
+        public WatchActor()
+        {
+            Context.Watch(child); // <-- this is the only call needed for registration
+
+            Receive<string>(s => s.Equals("kill"), msg =>
+            {
+                Console.WriteLine("kill");
+                Context.Stop(child);
+                lastSender = Sender;
+            });
+
+            Receive<Terminated>(t => t.ActorRef.Equals(child), msg =>
+            {
+                Console.WriteLine("Terminated.Receive");
+                lastSender.Tell("finished");
+            });
+        }
+    }
+
     public class FirstActor : ReceiveActor
     {
         IActorRef secondActor = Context.ActorOf<SecondActor>("secondActor");
@@ -43,8 +76,9 @@ namespace Demo01
         {
             Receive<int>(x =>
             {
+
                 //无参构造的Receive
-                Console.WriteLine($"FirstActor.Receive:参数{x}");
+                Console.WriteLine($"FirstActor.Receive:参数{x},Self.Path={this.Self.Path },Sender.Path={Sender.Path}");
                 secondActor.Tell("字符串");
             });
         }
@@ -54,18 +88,18 @@ namespace Demo01
             {
                 Receive<string>(s =>
                 {
-                //无参构造的Receive
-                Console.WriteLine($"SecondActor.Receive:参数{s}");
+                    //无参构造的Receive
+                    Console.WriteLine($"SecondActor.Receive:参数{s}");
                 });
             }
         }
 
         protected override SupervisorStrategy SupervisorStrategy()
         {
-          
+
             Console.WriteLine("SupervisorStrategy");
             return base.SupervisorStrategy();
-            
+
         }
         protected override void Unhandled(object message)
         {
@@ -74,7 +108,7 @@ namespace Demo01
         }
 
         protected override void PreStart()
-        {          
+        {
             Console.WriteLine("FirstActor.PreStart");
         }
 
@@ -98,7 +132,7 @@ namespace Demo01
         protected override void PostStop()
         {
             Console.WriteLine("FirstActor.PostStop");
-        } 
+        }
     }
 
 
@@ -145,7 +179,7 @@ namespace Demo01
         public class Greeting
         {
             public Greeting(string from)
-            {               
+            {
                 From = from;
             }
             public string From { get; }
