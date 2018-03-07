@@ -32,17 +32,142 @@ namespace Demo01
             //firstActor.Tell("123");
             //Console.WriteLine("================================");
             //firstActor.Tell(456);
+
+            //var firstActor2 = system.ActorOf<FirstActor>();
+            //firstActor2.Tell("123");
+            //Console.WriteLine("================================");
+            //firstActor2.Tell(456);
+
             #endregion
 
             #region WatchActor
-            var firstActor = system.ActorOf<WatchActor>("WatchActor");
-            var result = firstActor.Ask("kill").Result;
-            Console.WriteLine(result);
+            //var watchActor = system.ActorOf<WatchActor>("WatchActor");
+            //var result = watchActor.Ask("kill").Result;
+            //Console.WriteLine(result);
+            #endregion
+
+            #region Follower
+            //var demoActor1 = system.ActorOf<FollowDemoActor>("another");
+            //var follower = system.ActorOf(Follower.Props(demoActor1),"follower");
             #endregion
 
 
+            #region Swapper
+      
+            var swapper = system.ActorOf<Swapper>();
+            swapper.Tell(Swapper.Swap.Instance);
+            swapper.Tell(Swapper.Swap.Instance);
+            swapper.Tell(Swapper.Swap.Instance);
+            swapper.Tell(Swapper.Swap.Instance);
+            swapper.Tell(Swapper.Swap.Instance);
+            swapper.Tell(Swapper.Swap.Instance);
+            #endregion
+
             Console.ReadLine();
         }
+    }
+
+
+    public class Swapper : ReceiveActor
+    {
+        public class Swap
+        {
+            public static Swap Instance = new Swap();
+            private Swap() { }
+        }
+
+        private ILoggingAdapter log = Context.GetLogger();
+
+        public Swapper()
+        {
+            Receive<Swap>(swap1 =>
+            {
+                log.Info("Hi");
+
+                BecomeStacked(() =>
+                {
+                    Receive<Swap>(swap2 =>
+                    {
+                        log.Info("Ho");
+                        UnbecomeStacked();
+                    });
+                });
+            });
+        }
+    }
+
+    public class Follower : ReceiveActor
+    {
+        private readonly IActorRef _probe;
+        private string identifyId = "1";
+        private IActorRef _another;
+
+        public Follower(IActorRef probe)
+        {            
+            _probe = probe;
+
+            var selection = Context.ActorSelection("/user/another");
+            selection.Tell(new Identify(identifyId), Self);
+           
+            Receive<ActorIdentity>(identity =>
+            {
+               
+                if (identity.MessageId.Equals(identifyId))
+                {
+                    var subject = identity.Subject;
+
+                    if (subject == null)
+                    {
+                        Context.Stop(Self);
+                    }
+                    else
+                    {
+                        _another = subject;
+                        Context.Watch(_another);
+                        //_another.Tell(123);
+                        _probe.Tell(subject, Self);
+                        //_probe.Tell(111, Self);
+                    }
+                }
+            });
+
+            Receive<Terminated>(t =>
+            {
+                if (t.ActorRef.Equals(_another))
+                {
+                    Context.Stop(Self);
+                }
+            });
+
+        }
+        public static Props Props(IActorRef probe)
+        {
+            return Akka.Actor.Props.Create(() => new Follower(probe));
+        }
+    }
+    public class FollowDemoActor : ReceiveActor
+    {
+        /// <summary>
+        /// 无参构造
+        /// </summary>
+        public FollowDemoActor()
+        {     
+            Receive<int>(x =>
+            {
+                //无参构造的Receive
+                Console.WriteLine($"无参构造的Receive:参数{x}");
+            });
+        }
+
+        protected override void Unhandled(object message)
+        {
+            Console.WriteLine(message);
+            base.Unhandled(message);
+        }
+        //public static Props Props(int magicNumber)
+        //{
+        //    return Akka.Actor.Props.Create(() => new DemoActor(magicNumber));
+        //}
     }
 
     public class WatchActor : ReceiveActor
@@ -89,7 +214,7 @@ namespace Demo01
                 Receive<string>(s =>
                 {
                     //无参构造的Receive
-                    Console.WriteLine($"SecondActor.Receive:参数{s}");
+                    Console.WriteLine($"SecondActor.Receive:参数{s}，Self.Path={this.Self.Path },Sender.Path={Sender.Path}");
                 });
             }
         }
