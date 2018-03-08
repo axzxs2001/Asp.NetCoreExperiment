@@ -49,11 +49,17 @@ namespace Demo02
             #endregion
 
             #region RoundRobinPool
-            // var system = ActorSystem.Create("mysystem");
-            //var router = system.ActorOf(Props.Create<Worker>().WithRouter(new RoundRobinPool(2)), "workers");
+            //var system = ActorSystem.Create("mysystem");
+            //var router = system.ActorOf(Props.Create<Worker>().WithRouter(new RoundRobinPool(3)), "workers");
             //router.Tell(123);
             //router.Tell(456);
             //router.Tell(789);
+            //router.Tell(123);
+            //router.Tell(123);
+            //router.Tell(456);
+            //router.Tell(789);
+            //router.Tell(123);
+            //router.Tell(123);
             #endregion
 
             #region RoundRobinGroup
@@ -89,20 +95,84 @@ namespace Demo02
             //var router = system.ActorOf(Props.Create<Worker>().WithRouter(new BroadcastPool(5)), "some-pool");
             //router.Tell(111);
 
-            #endregion 
+            #endregion
             #region broadcast-group 配置文件  
-            var config = ConfigurationFactory.ParseString(@"akka.actor.deployment {
-  /some-group {
-    router = broadcast-group
-    routees.paths = [""/user/a1"",""/user/a2"", ""/user/a3""]
-  }
-    }");
-            var system = ActorSystem.Create("mysystem", config);
-            system.ActorOf<Worker>("a1");
-            system.ActorOf<Worker>("a2");
-            system.ActorOf<Worker>("a3");
-            var router = system.ActorOf(Props.Empty.WithRouter(FromConfig.Instance), "some-group");
-            router.Tell(111);
+            //          var config = ConfigurationFactory.ParseString(@"akka.actor.deployment {
+            ///some-group {
+            //  router = broadcast-group
+            //  routees.paths = [""/user/a1"",""/user/a2"", ""/user/a3""]
+            //}
+            //  }");
+            //          var system = ActorSystem.Create("mysystem", config);
+            //          system.ActorOf<Worker>("a1");
+            //          system.ActorOf<Worker>("a2");
+            //          system.ActorOf<Worker>("a3");
+            //          var router = system.ActorOf(Props.Empty.WithRouter(FromConfig.Instance), "some-group");
+            //          router.Tell(111);
+            #endregion
+            #region broadcast-group   
+
+            //var system = ActorSystem.Create("mysystem");
+            //system.ActorOf<Worker>("a1");
+            //system.ActorOf<Worker>("a2");
+            //system.ActorOf<Worker>("a3");
+            //var actors = new[] { "/user/a1", "/user/a2", "/user/a3" };
+            //var router = system.ActorOf(Props.Empty.WithRouter(new BroadcastGroup(actors)), "some-group");
+
+            //router.Tell(111);
+            #endregion
+            #region  random-pool 配置文件
+            //            var config = ConfigurationFactory.ParseString(@"akka.actor.deployment {
+            //  /some-pool {
+            //    router = random-pool
+            //    nr-of-instances = 2
+            //  }
+            //}");
+            //            var system = ActorSystem.Create("mysystem", config);
+            //            var router = system.ActorOf(Props.Create<Worker>().WithRouter(FromConfig.Instance), "some-pool");
+            //            router.Tell(111);
+            //            router.Tell(222);
+            //            router.Tell(333);
+            #endregion
+            #region random-pool        
+            //var system = ActorSystem.Create("mysystem");
+            //var router = system.ActorOf(Props.Create<Worker>().WithRouter(new RandomPool(2)), "some-pool");
+            //router.Tell(111);
+            //router.Tell(222);
+            //router.Tell(333);
+            #endregion
+
+            #region random-group 配置文件
+            //          var config = ConfigurationFactory.ParseString(@"akka.actor.deployment {
+            ///some-group {
+            //  router = random-group
+            //  routees.paths = [""/user/w1"", ""/user/w2"", ""/user/w3""]
+            //}
+            //  }");
+            //          var system = ActorSystem.Create("mysystem", config);
+            //          system.ActorOf<Worker>("w1");
+            //          system.ActorOf<Worker>("w2");
+            //          system.ActorOf<Worker>("w3");
+            //          var router = system.ActorOf(Props.Empty.WithRouter(FromConfig.Instance), "some-group");
+            //          router.Tell(111);
+            //          router.Tell(222);
+            //          router.Tell(333);
+            #endregion
+            #region random-group 
+
+            //var system = ActorSystem.Create("mysystem");
+            //var workers = new[] { "/user/w1", "/user/w2", "/user/w3" };
+            //var router = system.ActorOf(Props.Empty.WithRouter(new RandomGroup(workers)), "workers");
+            //system.ActorOf<Worker>("w1");
+            //system.ActorOf<Worker>("w2");
+            //system.ActorOf<Worker>("w3");
+
+            //router.Tell(111);
+            //router.Tell(222);
+            //router.Tell(333);
+            //router.Tell(111);
+            //router.Tell(222);
+            //router.Tell(333);
             #endregion
 
             Console.ReadLine();
@@ -118,6 +188,7 @@ namespace Demo02
             {
                 Receive<int>(x =>
                 {
+                    Thread.Sleep(2000);
                     _log.Info($"无参构造的Receive:参数{x},Self={Self},Sender={Sender}");
                 });
             }
