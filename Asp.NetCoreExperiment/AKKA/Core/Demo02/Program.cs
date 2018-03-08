@@ -11,7 +11,7 @@ namespace Demo02
     {
         static void Main(string[] args)
         {
-            var system = ActorSystem.Create("mysystem");
+
             #region router
             //var system = ActorSystem.Create("mysystem");
             ////var props = Props.Create<Worker>().WithRouter(new RoundRobinPool(5));
@@ -48,14 +48,16 @@ namespace Demo02
             //actor1.Tell(123);
             #endregion
 
-            #region 
-            var router = system.ActorOf(Props.Create<Worker>().WithRouter(new RoundRobinPool(2)), "workers");
-            router.Tell(123);
-            router.Tell(456);
-            router.Tell(789);
+            #region RoundRobinPool
+            // var system = ActorSystem.Create("mysystem");
+            //var router = system.ActorOf(Props.Create<Worker>().WithRouter(new RoundRobinPool(2)), "workers");
+            //router.Tell(123);
+            //router.Tell(456);
+            //router.Tell(789);
             #endregion
 
             #region RoundRobinGroup
+            // var system = ActorSystem.Create("mysystem");
             //system.ActorOf<Worker>("workers1");
             //system.ActorOf<Worker>("workers2");
             //system.ActorOf<Worker>("workers3");
@@ -70,6 +72,38 @@ namespace Demo02
             //router.Tell(789);
             #endregion
 
+            #region  broadcast-pool 配置文件
+            //            var config = ConfigurationFactory.ParseString(@"akka.actor.deployment {
+            //  /some-pool {
+            //    router = broadcast-pool
+            //    nr-of-instances = 5
+            //  }
+            //");
+            //            var system = ActorSystem.Create("mysystem", config);
+            //            var router = system.ActorOf(Props.Create<Worker>().WithRouter(FromConfig.Instance), "some-pool");
+            //            router.Tell(111);
+
+            #endregion
+            #region  broadcast-pool
+            //var system = ActorSystem.Create("mysystem");
+            //var router = system.ActorOf(Props.Create<Worker>().WithRouter(new BroadcastPool(5)), "some-pool");
+            //router.Tell(111);
+
+            #endregion 
+            #region broadcast-group 配置文件  
+            var config = ConfigurationFactory.ParseString(@"akka.actor.deployment {
+  /some-group {
+    router = broadcast-group
+    routees.paths = [""/user/a1"",""/user/a2"", ""/user/a3""]
+  }
+    }");
+            var system = ActorSystem.Create("mysystem", config);
+            system.ActorOf<Worker>("a1");
+            system.ActorOf<Worker>("a2");
+            system.ActorOf<Worker>("a3");
+            var router = system.ActorOf(Props.Empty.WithRouter(FromConfig.Instance), "some-group");
+            router.Tell(111);
+            #endregion
 
             Console.ReadLine();
         }
@@ -84,7 +118,7 @@ namespace Demo02
             {
                 Receive<int>(x =>
                 {
-                    _log.Info($"无参构造的Receive:参数{x},Self={Self},Sender={Sender}");   
+                    _log.Info($"无参构造的Receive:参数{x},Self={Self},Sender={Sender}");
                 });
             }
 
