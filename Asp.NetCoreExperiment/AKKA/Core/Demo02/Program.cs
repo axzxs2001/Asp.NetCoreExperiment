@@ -232,78 +232,107 @@ namespace Demo02
             #endregion
 
             #region consistent-hashing-group 配置文件
-//            var config = ConfigurationFactory.ParseString(@"akka.actor.deployment {
-//  /some-group {
-//    router = consistent-hashing-group
-//    routees.paths = [""/user/w1"", ""/user/w2"", ""/user/w3"",""/user/w4"", ""/user/w5"", ""/user/w6"",""/user/w7"", ""/user/w8"", ""/user/w9""]
-//    virtual-nodes-factor = 10
-//  }
-//}");
-//            var system = ActorSystem.Create("mysystem", config);
-//            var router = system.ActorOf(Props.Create<Worker1>().WithRouter(FromConfig.Instance), "some-group");
-//            system.ActorOf<Worker1>("w1");
-//            system.ActorOf<Worker1>("w2");
-//            system.ActorOf<Worker1>("w3");
-//            system.ActorOf<Worker1>("w4");
-//            system.ActorOf<Worker1>("w5");
-//            system.ActorOf<Worker1>("w6");
-//            system.ActorOf<Worker1>("w7");
-//            system.ActorOf<Worker1>("w8");
-//            system.ActorOf<Worker1>("w9");
-//            var guid1 = Guid.NewGuid();
-//            var originalMsg1 = new SomeMessage { GroupID = guid1 };
-//            var msg1 = new ConsistentHashableEnvelope(originalMsg1, originalMsg1.GroupID);
+            //            var config = ConfigurationFactory.ParseString(@"akka.actor.deployment {
+            //  /some-group {
+            //    router = consistent-hashing-group
+            //    routees.paths = [""/user/w1"", ""/user/w2"", ""/user/w3"",""/user/w4"", ""/user/w5"", ""/user/w6"",""/user/w7"", ""/user/w8"", ""/user/w9""]
+            //    virtual-nodes-factor = 10
+            //  }
+            //}");
+            //            var system = ActorSystem.Create("mysystem", config);
+            //            var router = system.ActorOf(Props.Create<Worker1>().WithRouter(FromConfig.Instance), "some-group");
+            //            system.ActorOf<Worker1>("w1");
+            //            system.ActorOf<Worker1>("w2");
+            //            system.ActorOf<Worker1>("w3");
+            //            system.ActorOf<Worker1>("w4");
+            //            system.ActorOf<Worker1>("w5");
+            //            system.ActorOf<Worker1>("w6");
+            //            system.ActorOf<Worker1>("w7");
+            //            system.ActorOf<Worker1>("w8");
+            //            system.ActorOf<Worker1>("w9");
+            //            var guid1 = Guid.NewGuid();
+            //            var originalMsg1 = new SomeMessage { GroupID = guid1 };
+            //            var msg1 = new ConsistentHashableEnvelope(originalMsg1, originalMsg1.GroupID);
 
-//            var originalMsg2 = new SomeMessage { GroupID = guid1 };
-//            var msg2 = new ConsistentHashableEnvelope(originalMsg2, originalMsg2.GroupID);
+            //            var originalMsg2 = new SomeMessage { GroupID = guid1 };
+            //            var msg2 = new ConsistentHashableEnvelope(originalMsg2, originalMsg2.GroupID);
 
-//            var originalMsg3 = new SomeMessage { GroupID = Guid.NewGuid() };
-//            var msg3 = new ConsistentHashableEnvelope(originalMsg3, originalMsg3.GroupID);
+            //            var originalMsg3 = new SomeMessage { GroupID = Guid.NewGuid() };
+            //            var msg3 = new ConsistentHashableEnvelope(originalMsg3, originalMsg3.GroupID);
 
-//            var originalMsg4 = new SomeMessage { GroupID = Guid.NewGuid() };
-//            var msg4 = new ConsistentHashableEnvelope(originalMsg4, originalMsg4.GroupID);
+            //            var originalMsg4 = new SomeMessage { GroupID = Guid.NewGuid() };
+            //            var msg4 = new ConsistentHashableEnvelope(originalMsg4, originalMsg4.GroupID);
 
 
-//            router.Tell(msg1);
-//            router.Tell(msg2);
-//            router.Tell(msg3);
-//            router.Tell(msg4);
+            //            router.Tell(msg1);
+            //            router.Tell(msg2);
+            //            router.Tell(msg3);
+            //            router.Tell(msg4);
 
             #endregion
 
             #region consistent-hashing-group
-//            var system = ActorSystem.Create("mysystem");
-//            var workers = new[] { "/user/w1", "/user/w2", "/user/w3", "/user/w4", "/user/w5", "/user/w6", "/user/w7", "/user/w8", "/user/w9" };
-//var router = system.ActorOf(Props.Empty.WithRouter(new ConsistentHashingGroup(workers)), "some-group");
-//            system.ActorOf<Worker1>("w1");
-//            system.ActorOf<Worker1>("w2");
-//            system.ActorOf<Worker1>("w3");
-//            system.ActorOf<Worker1>("w4");
-//            system.ActorOf<Worker1>("w5");
-//            system.ActorOf<Worker1>("w6");
-//            system.ActorOf<Worker1>("w7");
-//            system.ActorOf<Worker1>("w8");
-//            system.ActorOf<Worker1>("w9");
-//            var guid1 = Guid.NewGuid();
-//            var originalMsg1 = new SomeMessage { GroupID = guid1 };
-//            var msg1 = new ConsistentHashableEnvelope(originalMsg1, originalMsg1.GroupID);
+            //var system = ActorSystem.Create("mysystem");
+            //var workers = new[] { "/user/w1", "/user/w2", "/user/w3", "/user/w4", "/user/w5", "/user/w6", "/user/w7", "/user/w8", "/user/w9" };
+            //var router = system.ActorOf(Props.Empty.WithRouter(new ConsistentHashingGroup(workers)), "some-group");
+            //system.ActorOf<Worker1>("w1");
+            //system.ActorOf<Worker1>("w2");
+            //system.ActorOf<Worker1>("w3");
+            //system.ActorOf<Worker1>("w4");
+            //system.ActorOf<Worker1>("w5");
+            //system.ActorOf<Worker1>("w6");
+            //system.ActorOf<Worker1>("w7");
+            //system.ActorOf<Worker1>("w8");
+            //system.ActorOf<Worker1>("w9");
+            //var guid1 = Guid.NewGuid();
+            //var originalMsg1 = new SomeMessage { GroupID = guid1 };
+            //var msg1 = new ConsistentHashableEnvelope(originalMsg1, originalMsg1.GroupID);
 
-//            var originalMsg2 = new SomeMessage { GroupID = guid1 };
-//            var msg2 = new ConsistentHashableEnvelope(originalMsg2, originalMsg2.GroupID);
+            //var originalMsg2 = new SomeMessage { GroupID = guid1 };
+            //var msg2 = new ConsistentHashableEnvelope(originalMsg2, originalMsg2.GroupID);
 
-//            var originalMsg3 = new SomeMessage { GroupID = Guid.NewGuid() };
-//            var msg3 = new ConsistentHashableEnvelope(originalMsg3, originalMsg3.GroupID);
+            //var originalMsg3 = new SomeMessage { GroupID = Guid.NewGuid() };
+            //var msg3 = new ConsistentHashableEnvelope(originalMsg3, originalMsg3.GroupID);
 
-//            var originalMsg4 = new SomeMessage { GroupID = Guid.NewGuid() };
-//            var msg4 = new ConsistentHashableEnvelope(originalMsg4, originalMsg4.GroupID);
+            //var originalMsg4 = new SomeMessage { GroupID = Guid.NewGuid() };
+            //var msg4 = new ConsistentHashableEnvelope(originalMsg4, originalMsg4.GroupID);
 
 
-//            router.Tell(msg1);
-//            router.Tell(msg2);
-//            router.Tell(msg3);
-//            router.Tell(msg4);
+            //router.Tell(msg1);
+            //router.Tell(msg2);
+            //router.Tell(msg3);
+            //router.Tell(msg4);
             #endregion
 
+
+            #region tail-chopping-pool 配置文件
+            //var config = ConfigurationFactory.ParseString(@"akka.actor.deployment {
+            //  /some-pool {
+            //    router = tail-chopping-pool
+            //    nr-of-instances = 5
+            //    within = 10s
+            //    tail-chopping-router.interval = 20ms
+            //  }
+            //}");
+
+            //var system = ActorSystem.Create("mysystem", config);
+            //var router = system.ActorOf(Props.Create<Worker>().WithRouter(FromConfig.Instance), "some-pool");
+
+            //router.Tell(123);
+
+
+            #endregion
+            #region tail-chopping-pool
+            var system = ActorSystem.Create("mysystem");
+            var within = TimeSpan.FromSeconds(10);
+            var interval = TimeSpan.FromMilliseconds(20);
+            var router = system.ActorOf(Props.Create<Worker2>().WithRouter(new TailChoppingPool(3, within, interval)), "some-pool");
+      
+           
+            var result = router.Ask(123).Result;
+            Console.WriteLine($"{router.Path}   返回：{result}");
+
+            #endregion
 
 
             Console.ReadLine();
@@ -343,6 +372,24 @@ namespace Demo02
                 {
                     Thread.Sleep(2000);
                     _log.Info($"无参构造的Receive:参数{x},Self={Self},Sender={Sender}");
+                });
+            }
+
+        }
+
+        public class Worker2 : ReceiveActor
+        {
+            private readonly ILoggingAdapter _log = Context.GetLogger();
+            /// <summary>
+            /// 无参构造
+            /// </summary>
+            public Worker2()
+            {
+                Receive<int>(x =>
+                {
+                    Thread.Sleep(2000);
+                    _log.Info($"无参构造的Receive:参数{x},Self={Self},Sender={Sender}");
+                    Sender.Tell("完成！");
                 });
             }
 
