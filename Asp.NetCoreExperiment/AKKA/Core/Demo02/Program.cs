@@ -323,17 +323,51 @@ namespace Demo02
 
             #endregion
             #region tail-chopping-pool
-            var system = ActorSystem.Create("mysystem");
-            var within = TimeSpan.FromSeconds(10);
-            var interval = TimeSpan.FromMilliseconds(20);
-            var router = system.ActorOf(Props.Create<Worker2>().WithRouter(new TailChoppingPool(3, within, interval)), "some-pool");
-      
-           
-            var result = router.Ask(123).Result;
-            Console.WriteLine($"{router.Path}   返回：{result}");
+            //var system = ActorSystem.Create("mysystem");
+            //var within = TimeSpan.FromSeconds(10);
+            //var interval = TimeSpan.FromMilliseconds(20);
+            //var router = system.ActorOf(Props.Create<Worker2>().WithRouter(new TailChoppingPool(3, within, interval)), "some-pool");
+
+
+            //var result = router.Ask(123).Result;
+            //Console.WriteLine($"{router.Path}   返回：{result}");
 
             #endregion
 
+            #region tail-chopping-group 配置文件
+            //var config = ConfigurationFactory.ParseString(@"akka.actor.deployment {
+            //  /some-group {
+            //    router = tail-chopping-group
+            //    routees.paths = [""/user/w1"", ""/user/w2"", ""/user/w3""]
+            //    within = 10s
+            //    tail-chopping-router.interval = 20ms
+            //  }
+            //}");
+
+            //var system = ActorSystem.Create("mysystem", config);
+            //var router = system.ActorOf(Props.Create<Worker2>().WithRouter(FromConfig.Instance), "some-group");
+            //system.ActorOf<Worker2>("w1");
+            //system.ActorOf<Worker2>("w2");
+            //system.ActorOf<Worker2>("w3");
+
+            //var result = router.Ask(123).Result;
+            //Console.WriteLine(result);
+
+
+            #endregion
+
+            #region tail-chopping-group 配置文件    
+
+            var system = ActorSystem.Create("mysystem");
+            var workers = new[]{"/user/w1","/user/w2","/user/w3"};
+            var within = TimeSpan.FromSeconds(10);
+            var interval = TimeSpan.FromMilliseconds(20);
+            var router = system.ActorOf(Props.Create<Worker2>().WithRouter(new TailChoppingGroup(workers, within, interval)), "some-group");
+          
+            var result = router.Ask(123).Result;
+            Console.WriteLine(result);
+
+            #endregion
 
             Console.ReadLine();
         }
