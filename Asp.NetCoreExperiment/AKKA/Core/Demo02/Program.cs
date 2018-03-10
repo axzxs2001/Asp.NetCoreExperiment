@@ -356,19 +356,87 @@ namespace Demo02
 
             #endregion
 
-            #region tail-chopping-group 配置文件    
+            #region tail-chopping-group   
 
-            var system = ActorSystem.Create("mysystem");
-            var workers = new[]{"/user/w1","/user/w2","/user/w3"};
-            var within = TimeSpan.FromSeconds(10);
-            var interval = TimeSpan.FromMilliseconds(20);
-            var router = system.ActorOf(Props.Create<Worker2>().WithRouter(new TailChoppingGroup(workers, within, interval)), "some-group");
-          
-            var result = router.Ask(123).Result;
-            Console.WriteLine(result);
+            //var system = ActorSystem.Create("mysystem");
+            //var workers = new[]{"/user/w1","/user/w2","/user/w3"};
+            //var within = TimeSpan.FromSeconds(10);
+            //var interval = TimeSpan.FromMilliseconds(20);
+            //var router = system.ActorOf(Props.Create<Worker2>().WithRouter(new TailChoppingGroup(workers, within, interval)), "some-group");
+
+            //var result = router.Ask(123).Result;
+            //Console.WriteLine(result);
 
             #endregion
 
+            #region scatter-gather-pool 配置文件  
+            //            var config = ConfigurationFactory.ParseString(@"akka.actor.deployment {
+            //  /some-pool {
+            //    router = scatter-gather-pool
+            //    nr-of-instances = 5
+            //    within = 10s
+            //  }
+            //}");
+            //            var system = ActorSystem.Create("mysystem", config);
+            //            var router = system.ActorOf(Props.Create<Worker2>().WithRouter(FromConfig.Instance), "some-pool");
+            //            var result = router.Ask(123).Result;
+            //            Console.WriteLine($"{router.Path}   返回：{result}");
+            #endregion
+
+            #region scatter-gather-pool    
+            //var system = ActorSystem.Create("mysystem");
+            //var within = TimeSpan.FromSeconds(10);
+            //var router = system.ActorOf(Props.Create<Worker2>().WithRouter(new ScatterGatherFirstCompletedPool(5, within)), "some-pool");
+            //var result = router.Ask(123).Result;
+            //Console.WriteLine($"{router.Path}   返回：{result}");
+            #endregion
+            #region sscatter-gather-group 配置文件  
+            //            var config = ConfigurationFactory.ParseString(@"akka.actor.deployment {
+            //  /some-group {
+            //    router = scatter-gather-group
+            //    routees.paths = [""/user/w1"", ""/user/w2"", ""/user/w3""]
+            //    within = 10s
+            //  }
+            //}");
+            //            var system = ActorSystem.Create("mysystem", config);
+            //            var router = system.ActorOf(Props.Create<Worker2>().WithRouter(FromConfig.Instance), "some-group");
+            //            var result = router.Ask(123).Result;
+            //            Console.WriteLine($"{router.Path}   返回：{result}");
+            #endregion
+            #region sscatter-gather-group  
+            //var workers = new[] { "/user/w1", "/user/w2", "/user/w3" };
+            //var within = TimeSpan.FromSeconds(10);
+            //var system = ActorSystem.Create("mysystem");
+            //var router = system.ActorOf(Props.Create<Worker2>().WithRouter(new ScatterGatherFirstCompletedGroup(workers, within)), "some-group");
+            //system.ActorOf<Worker2>("w1");
+            //system.ActorOf<Worker2>("w2");
+            //system.ActorOf<Worker2>("w3");
+            //var result = router.Ask(123).Result;
+            //Console.WriteLine($"{router.Path}   返回：{result}");
+            #endregion
+
+            #region SmallestMailbox
+            var config = ConfigurationFactory.ParseString(@"akka.actor.deployment {
+  /some-pool {
+    router = smallest-mailbox-pool
+    nr-of-instances = 5
+  }
+}");
+            var system = ActorSystem.Create("mysystem", config);
+            var router = system.ActorOf(Props.Create<Worker2>().WithRouter(FromConfig.Instance), "some-pool");
+            var result1 = router.Ask(123).Result;
+            Console.WriteLine($"{router.Path}   返回：{result1}");
+            var result2 = router.Ask(123).Result;
+            Console.WriteLine($"{router.Path}   返回：{result2}");
+            var result3 = router.Ask(123).Result;
+            Console.WriteLine($"{router.Path}   返回：{result3}");
+            var result4 = router.Ask(123).Result;
+            Console.WriteLine($"{router.Path}   返回：{result4}");
+            var result5 = router.Ask(123).Result;
+            Console.WriteLine($"{router.Path}   返回：{result5}");
+            var result6 = router.Ask(123).Result;
+            Console.WriteLine($"{router.Path}   返回：{result6}");
+            #endregion
             Console.ReadLine();
         }
         public class SomeMessage
