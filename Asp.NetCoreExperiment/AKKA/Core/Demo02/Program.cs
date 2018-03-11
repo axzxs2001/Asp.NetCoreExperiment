@@ -3,6 +3,7 @@ using Akka.Configuration;
 using Akka.Event;
 using Akka.Routing;
 using System;
+using System.Linq;
 using System.Threading;
 
 namespace Demo02
@@ -416,27 +417,90 @@ namespace Demo02
             #endregion
 
             #region SmallestMailbox
-            var config = ConfigurationFactory.ParseString(@"akka.actor.deployment {
-  /some-pool {
-    router = smallest-mailbox-pool
-    nr-of-instances = 5
-  }
-}");
-            var system = ActorSystem.Create("mysystem", config);
-            var router = system.ActorOf(Props.Create<Worker2>().WithRouter(FromConfig.Instance), "some-pool");
-            var result1 = router.Ask(123).Result;
-            Console.WriteLine($"{router.Path}   返回：{result1}");
-            var result2 = router.Ask(123).Result;
-            Console.WriteLine($"{router.Path}   返回：{result2}");
-            var result3 = router.Ask(123).Result;
-            Console.WriteLine($"{router.Path}   返回：{result3}");
-            var result4 = router.Ask(123).Result;
-            Console.WriteLine($"{router.Path}   返回：{result4}");
-            var result5 = router.Ask(123).Result;
-            Console.WriteLine($"{router.Path}   返回：{result5}");
-            var result6 = router.Ask(123).Result;
-            Console.WriteLine($"{router.Path}   返回：{result6}");
+            //            var config = ConfigurationFactory.ParseString(@"akka.actor.deployment {
+            //  /some-pool {
+            //    router = smallest-mailbox-pool
+            //    nr-of-instances = 5
+            //  }
+            //}");
+            //            var system = ActorSystem.Create("mysystem", config);
+            //            var router = system.ActorOf(Props.Create<Worker2>().WithRouter(FromConfig.Instance), "some-pool");
+            //            var result1 = router.Ask(123).Result;
+            //            Console.WriteLine($"{router.Path}   返回：{result1}");
+            //            var result2 = router.Ask(123).Result;
+            //            Console.WriteLine($"{router.Path}   返回：{result2}");
+            //            var result3 = router.Ask(123).Result;
+            //            Console.WriteLine($"{router.Path}   返回：{result3}");
+            //            var result4 = router.Ask(123).Result;
+            //            Console.WriteLine($"{router.Path}   返回：{result4}");
+            //            var result5 = router.Ask(123).Result;
+            //            Console.WriteLine($"{router.Path}   返回：{result5}");
+            //            var result6 = router.Ask(123).Result;
+            //            Console.WriteLine($"{router.Path}   返回：{result6}");
             #endregion
+
+
+            #region PoisonPill
+            //var actorSystem = ActorSystem.Create("mysystem");
+
+            //actorSystem.ActorOf(Props.Create<Worker3>(), "worker1");
+            //actorSystem.ActorOf(Props.Create<Worker3>(), "worker2");
+            //actorSystem.ActorOf(Props.Create<Worker3>(), "worker3");
+
+
+            //var workers = new[] { "/user/worker1", "/user/worker2", "/user/worker3" };
+            // var router = actorSystem.ActorOf(Props.Create<Worker3>().WithRouter(new RoundRobinGroup(workers)), "workers");
+
+
+            //// this sends to individual worker
+            //router.Tell("Hello, worker1");
+            //router.Tell("Hello, worker2");
+            //router.Tell("Hello, worker3");
+            //Thread.Sleep(2000);
+            //Console.WriteLine("---------------------------------");
+
+            //// this sends to all workers
+            // router.Tell(new Broadcast("Hello, workers"));
+
+
+            #endregion
+
+            #region PoisonPill
+            //var actorSystem = ActorSystem.Create("mysystem");
+            //actorSystem.ActorOf(Props.Create<Worker3>(), "worker1");
+            //actorSystem.ActorOf(Props.Create<Worker3>(), "worker2");
+            //actorSystem.ActorOf(Props.Create<Worker3>(), "worker3");
+
+            //var workers = new[] { "/user/worker1", "/user/worker2", "/user/worker3" };
+            //var router = actorSystem.ActorOf(Props.Create<Worker3>().WithRouter(new RoundRobinGroup(workers)), "workers");
+
+            //router.Tell("Hello, worker1");
+            //router.Tell("Hello, worker2");
+            //router.Tell("Hello, worker3");
+
+            //// this sends PoisonPill message to all routees
+            //router.Tell(new Broadcast(PoisonPill.Instance));
+
+            //router.Tell("Hello, worker1");
+            //router.Tell("Hello, worker2");
+            //router.Tell("Hello, worker3");
+            #endregion
+
+            #region Router Logic
+            var system = ActorSystem.Create("mysystem");
+            var routees = Enumerable
+    .Range(1, 5)
+    .Select(i => new ActorRefRoutee(system.ActorOf<Worker3>("w" + i)))
+    .ToArray();
+
+            var router = new Router(new RoundRobinRoutingLogic(), routees);
+
+            for (var i = 0; i < 10; i++)
+                router.Route("msg #" + i, ActorRefs.NoSender);
+
+       
+            #endregion
+
             Console.ReadLine();
         }
         public class SomeMessage
@@ -444,7 +508,22 @@ namespace Demo02
             public Guid GroupID { get; set; }
         }
 
+        public class Worker3 : ReceiveActor
+        {
+            private readonly ILoggingAdapter _log = Context.GetLogger();
+            /// <summary>
+            /// 无参构造
+            /// </summary>
+            public Worker3()
+            {
+                Receive<string>(s =>
+                {
+                    // Thread.Sleep(2000);
+                    _log.Info($"无参构造的Receive:参数{s},Self={Self},Sender={Sender}");
+                });
+            }
 
+        }
         public class Worker1 : ReceiveActor
         {
             private readonly ILoggingAdapter _log = Context.GetLogger();
@@ -472,7 +551,7 @@ namespace Demo02
             {
                 Receive<int>(x =>
                 {
-                    Thread.Sleep(2000);
+                    // Thread.Sleep(2000);
                     _log.Info($"无参构造的Receive:参数{x},Self={Self},Sender={Sender}");
                 });
             }
