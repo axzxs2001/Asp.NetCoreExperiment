@@ -1,4 +1,5 @@
 ﻿using Akka.Actor;
+using Akka.Event;
 using Akka.Persistence;
 using System;
 using System.Collections.Immutable;
@@ -10,21 +11,33 @@ namespace Demo06
         static void Main(string[] args)
         {
             var system = ActorSystem.Create("PersistAsync");
-            var persistentActor = system.ActorOf<PersistentActor>();     
+            var persistentActor = system.ActorOf<PersistentActor>();
 
+            var handler = system.ActorOf(Props.Create<MyEventHandler>());
+            system.EventStream.Subscribe(handler, typeof(Evt));
 
             persistentActor.Tell(new Cmd("cmd data 1"));
             persistentActor.Tell(new Cmd("cmd data 2"));
+            persistentActor.Tell("snap");
             persistentActor.Tell(new Cmd("cmd data 3"));
             persistentActor.Tell(new Cmd("cmd data 4"));
             persistentActor.Tell(new Cmd("cmd data 5"));
-            persistentActor.Tell("snap");
-
+            
             persistentActor.Tell("print");
             Console.ReadLine();
         }
     }
-
+    public class MyEventHandler : UntypedActor
+    {
+        ILoggingAdapter log = Context.GetLogger();
+        protected override void OnReceive(object message)
+        {
+            if (message is Evt)
+            {
+                log.Info($"接收：{(message as Evt).Data}");
+            }
+        }
+    }
     public class Cmd
     {
         public Cmd(string data)
@@ -93,18 +106,23 @@ namespace Demo06
                     _state = (ExampleState)snapshot.Snapshot;
                     break;
                 case RecoveryCompleted recoveryCompleted:
-                   
+                    Console.WriteLine("Recovery Completed");
                     break;
             }
         }
 
         protected override void OnCommand(object message)
         {
+           
             switch (message)
             {
                 case Cmd cmd:
+                    if("cmd data 3"==cmd.Data)
+                    {
+                        return;
+                    }
                     Persist(new Evt($"{cmd.Data}-{NumEvents}"), UpdateState);
-                    Persist(new Evt($"{cmd.Data}-{NumEvents + 1}"), evt =>
+                    Persist(new Evt($"发布-{cmd.Data}-{NumEvents + 1}"), evt =>
                     {
                         UpdateState(evt);
                         Context.System.EventStream.Publish(evt);
@@ -120,5 +138,8 @@ namespace Demo06
         }
 
         public override string PersistenceId { get; } = "sample-id-1";
+
+       // public override Recovery Recovery => new Recovery(fromSnapshot:SnapshotSelectionCriteria.None);
+       // public override Recovery Recovery => Recovery.None;
     }
 }

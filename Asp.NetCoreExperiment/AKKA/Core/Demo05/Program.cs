@@ -1,4 +1,5 @@
 ﻿using Akka.Actor;
+using Akka.Event;
 using Akka.Persistence;
 using System;
 
@@ -9,64 +10,98 @@ namespace Demo05
         static void Main(string[] args)
         {
             MainApp();
-
-
-
             Console.ReadLine();
         }
 
         public static void MainApp()
         {
             var system = ActorSystem.Create("PersistAsync");
-            var persistentActor = system.ActorOf<MyPersistentActor>();
+            var persistentActor = system.ActorOf<MyPersistentActor>("persistentActor");
+
+
 
             // usage
-            //var result1=persistentActor.Ask("a").Result;
-            //var result2 = persistentActor.Ask("b").Result;
-
+            //var result1 = persistentActor.Ask("a").Result;
             //Console.WriteLine(result1);
-
+            //var result2 = persistentActor.Ask("b").Result;
             //Console.WriteLine(result2);
 
-
             persistentActor.Tell("a");
-            
-            // possible order of received messages:
-            // a
-            // b
-            // evt-a-1
-            // evt-a-2
-            // evt-b-1
-            // evt-b-2
+         
+            persistentActor.Tell("b");
+
         }
     }
-
+    public class MyEventHandler : UntypedActor
+    {
+        ILoggingAdapter log = Context.GetLogger();
+        protected override void OnReceive(object message)
+        {
+            log.Info(message.ToString());
+        }
+    }
     public class MyPersistentActor : UntypedPersistentActor
     {
         public override string PersistenceId => "my-stable-persistence-id";
 
         protected override void OnRecover(object message)
         {
-            if (message is Akka.Persistence.RecoveryCompleted cm)
+            if (message is RecoveryCompleted cm)
             {
-               
                 Console.WriteLine($"OnRecover.message={message}");
-            }
-            // handle recovery here
+            }          
         }
 
+       
         protected override void OnCommand(object message)
         {
+            //if (message is string c)
+            //{
+            //    Console.WriteLine(c);
+            //    //PersistAsync($"evt-{c}-1", e => Console.WriteLine(e));
+            //    //PersistAsync($"evt-{c}-2", e => Console.WriteLine(e));
+            //    //PersistAsync($"evt-{c}-3", e => Console.WriteLine(e));
+            //    Persist($"evt-{c}-1", e => Console.WriteLine(e));
+            //    Persist($"evt-{c}-2", e => Console.WriteLine(e));
+            //    Persist($"evt-{c}-3", e => Console.WriteLine(e));
+            //    DeferAsync($"evt-{c}-4", e => Console.WriteLine(e));
+            //}
+
+            //if (message is string c)
+            //{              
+            //    Console.WriteLine(c);
+            //    Persist($"{message}-1-outer", outer1 =>
+            //    {
+            //        //Sender.Tell(outer1, Self);
+            //        Console.WriteLine(outer1);
+            //        Persist($"{c}-1-inner", inner1 => Console.WriteLine(inner1));
+            //    });
+
+            //    Persist($"{message}-2-outer", outer2 =>
+            //    {
+            //        Console.WriteLine(outer2);
+            //        Persist($"{c}-2-inner", inner2 => Console.WriteLine(inner2));
+            //    });
+            //}
+
+
             if (message is string c)
             {
-                Sender.Tell($"htis is a {c}");
-                Persist($"evt-{c}-1", e => Sender.Tell(e));
-                Persist($"evt-{c}-2", e => Sender.Tell(e));
-                DeferAsync($"evt-{c}-3", e => Sender.Tell(e));
-       
+                Console.WriteLine(c);
+                Persist($"{message}-1-outer", outer1 =>
+                {                    
+                    Console.WriteLine(outer1);
+                    PersistAsync($"{c}-1-inner", inner1 => Console.WriteLine(inner1));
+                });
+
+                Persist($"{message}-2-outer", outer2 =>
+                {
+                    Console.WriteLine(outer2);
+                    PersistAsync($"{c}-2-inner", inner2 => Console.WriteLine(inner2));
+                });
             }
         }
     }
 
- 
+
 }
