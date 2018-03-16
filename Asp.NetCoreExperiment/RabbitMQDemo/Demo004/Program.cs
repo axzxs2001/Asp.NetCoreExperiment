@@ -13,12 +13,12 @@ class Receive
         using (var connection = factory.CreateConnection())
         using (var channel = connection.CreateModel())
         {          
-            channel.QueueDeclare(queue: "task_queue",
-                                 durable: false,
+            channel.QueueDeclare(queue: "task_queue_persistent",
+                                 durable: true,
                                  exclusive: false,
                                  autoDelete: false,
                                  arguments: null);
-
+            channel.BasicQos(prefetchSize: 0, prefetchCount: 1, global: false);
             var consumer = new EventingBasicConsumer(channel);
             consumer.Received += (model, ea) =>
             {
@@ -32,8 +32,8 @@ class Receive
                 Console.WriteLine(" [x] Done");
                 channel.BasicAck(deliveryTag: ea.DeliveryTag, multiple: false);
             };
-            channel.BasicConsume(queue: "task_queue",
-                                 autoAck: true,
+            channel.BasicConsume(queue: "task_queue_persistent",
+                                 autoAck: false,                                
                                  consumer: consumer);
 
             Console.WriteLine(" Press [enter] to exit.");

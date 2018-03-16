@@ -16,13 +16,13 @@ namespace Demo003
             using (var connection = factory.CreateConnection())
             using (var channel = connection.CreateModel())
             {
-                channel.QueueDeclare(queue: "task_queue",
-                                     durable: false,
+                channel.QueueDeclare(queue: "task_queue_persistent",
+                                     durable: true,
                                      exclusive: false,
                                      autoDelete: false,
                                      arguments: null);
 
-                var args = new string[] { "First message.", "Second message..", "Third message...", "Fourth message....", "Fifth message....." };
+                var args = new string[] { "5 message........", "1 message.", "2 message..", "3 message...", "4 message...."};
                 foreach (var arg in args)
                 {
                     var message = GetMessage(arg);
@@ -31,14 +31,10 @@ namespace Demo003
                     var properties = channel.CreateBasicProperties();
                     properties.Persistent = true;
 
-                    //channel.BasicAcks += Channel_BasicAcks;
-                    //channel.BasicNacks += Channel_BasicNacks;
-                    //channel.BasicRecoverOk += Channel_BasicRecoverOk;
-                    //channel.BasicReturn += Channel_BasicReturn;
                    
                     channel.BasicPublish(
                         exchange: "", 
-                        routingKey: "task_queue", 
+                        routingKey: "task_queue_persistent", 
                         basicProperties: properties, 
                         body: body);
 
@@ -48,28 +44,7 @@ namespace Demo003
 
             Console.WriteLine(" Press [enter] to exit.");
             Console.ReadLine();
-        }
-
-        private static void Channel_BasicReturn(object sender, RabbitMQ.Client.Events.BasicReturnEventArgs e)
-        {
-            Console.WriteLine(e.ReplyText);
-        }
-
-        private static void Channel_BasicRecoverOk(object sender, EventArgs e)
-        {
-            Console.WriteLine("Channel_BasicRecoverOk");
-        }
-
-        private static void Channel_BasicNacks(object sender, RabbitMQ.Client.Events.BasicNackEventArgs e)
-        {
-            Console.WriteLine(e.DeliveryTag);
-        }
-
-        private static void Channel_BasicAcks(object sender, RabbitMQ.Client.Events.BasicAckEventArgs e)
-        {
-            Console.WriteLine(e.DeliveryTag);
-        }
-
+        }      
       
 
         private static string GetMessage(string args)
