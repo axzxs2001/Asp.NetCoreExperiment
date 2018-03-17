@@ -7,7 +7,7 @@ class RPCServer
 {
     public static void Main()
     {
-        var factory = new ConnectionFactory() { HostName = "localhost" };
+        var factory = new ConnectionFactory() { HostName = "localhost", VirtualHost="testVH", UserName="gsw",Password="gsw" };
         using (var connection = factory.CreateConnection())
         using (var channel = connection.CreateModel())
         {

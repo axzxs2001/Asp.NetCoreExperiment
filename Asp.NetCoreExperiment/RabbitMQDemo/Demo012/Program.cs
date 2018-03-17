@@ -15,7 +15,7 @@ public class RpcClient
 
     public RpcClient()
     {
-        var factory = new ConnectionFactory() { HostName = "localhost" };
+        var factory = new ConnectionFactory() { HostName = "localhost", VirtualHost = "testVH", UserName = "gsw", Password = "gsw" };
 
         connection = factory.CreateConnection();
         channel = connection.CreateModel();
@@ -67,13 +67,15 @@ public class Rpc
     {
         while (true)
         {
-            Console.WriteLine("请输入一个整数：");
-
+          
+            //var random = new Random();
+            //var i = random.Next(10, 30);
+            //Console.WriteLine("请输入一个整数：{0}",i);
             var rpcClient = new RpcClient();
-            var response = rpcClient.Call(Console.ReadLine());
+            var response = rpcClient.Call("1");
             Console.WriteLine(" [.] Got '{0}'", response);
             rpcClient.Close();
-      
+
         }
     }
 }
