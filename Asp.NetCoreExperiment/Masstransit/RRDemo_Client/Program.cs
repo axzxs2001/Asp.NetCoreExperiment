@@ -1,4 +1,5 @@
-﻿using MassTransit;
+﻿using GreenPipes;
+using MassTransit;
 using RRDemo_Entity;
 using System;
 using System.Threading.Tasks;
@@ -17,7 +18,22 @@ namespace RRDemo_Client
                 {
                     hst.Username("guest");
                     hst.Password("guest");
-                });               
+                });
+                //重试
+                cfg.UseRetry(ret =>
+                {
+                    ret.Interval(3, 10);
+                });
+               //限流
+                cfg.UseRateLimit(1000, TimeSpan.FromSeconds(100));
+                //熔断
+                cfg.UseCircuitBreaker(cb =>
+                {
+                    cb.TrackingPeriod = TimeSpan.FromSeconds(60);
+                    cb.TripThreshold = 15;
+                    cb.ActiveThreshold = 10;
+                    
+                });
             });
             bus.Start();
 
