@@ -235,7 +235,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Masstransit", "Masstransit"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo001", "Masstransit\Demo001\Demo001.csproj", "{4801A744-ACC9-4D99-8A36-786B3D4CB3E4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo0002", "Masstransit\Demo0002\Demo0002.csproj", "{F0D1314E-607C-481C-98C1-1EC5B90A9588}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo002", "Masstransit\Demo0002\Demo002.csproj", "{F0D1314E-607C-481C-98C1-1EC5B90A9588}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
