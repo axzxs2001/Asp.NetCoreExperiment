@@ -261,9 +261,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DDD", "DDD", "{2C867451-88A
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo.Application", "DDD\Demo.Application\Demo.Application.csproj", "{F9F3BB67-5640-43F4-83B1-0C19477805EF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo.Domain", "DDD\Demo.Domain\Demo.Domain.csproj", "{43374717-8681-4A27-B8C3-ED084DEC660B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo.Domain", "DDD\Demo.Domain\Demo.Domain.csproj", "{43374717-8681-4A27-B8C3-ED084DEC660B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo.Infrastructure", "DDD\Demo.Infrastructure\Demo.Infrastructure.csproj", "{44046A3D-9EF1-44DF-9344-ABBBA775668C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo.Infrastructure", "DDD\Demo.Infrastructure\Demo.Infrastructure.csproj", "{44046A3D-9EF1-44DF-9344-ABBBA775668C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MediatRSample", "MediatRSample", "{C686181D-E016-4CA8-976A-3307776406A2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediatRDemo", "MediatRDemo\MediatRDemo.csproj", "{1BADEC94-4E35-41BD-A6DE-008C3D6B410E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -955,6 +959,14 @@ Global
 		{44046A3D-9EF1-44DF-9344-ABBBA775668C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{44046A3D-9EF1-44DF-9344-ABBBA775668C}.Release|x64.ActiveCfg = Release|Any CPU
 		{44046A3D-9EF1-44DF-9344-ABBBA775668C}.Release|x64.Build.0 = Release|Any CPU
+		{1BADEC94-4E35-41BD-A6DE-008C3D6B410E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1BADEC94-4E35-41BD-A6DE-008C3D6B410E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1BADEC94-4E35-41BD-A6DE-008C3D6B410E}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{1BADEC94-4E35-41BD-A6DE-008C3D6B410E}.Debug|x64.Build.0 = Debug|Any CPU
+		{1BADEC94-4E35-41BD-A6DE-008C3D6B410E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1BADEC94-4E35-41BD-A6DE-008C3D6B410E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1BADEC94-4E35-41BD-A6DE-008C3D6B410E}.Release|x64.ActiveCfg = Release|Any CPU
+		{1BADEC94-4E35-41BD-A6DE-008C3D6B410E}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1058,6 +1070,7 @@ Global
 		{F9F3BB67-5640-43F4-83B1-0C19477805EF} = {2C867451-88A8-4743-B818-8D31C94D0A1F}
 		{43374717-8681-4A27-B8C3-ED084DEC660B} = {2C867451-88A8-4743-B818-8D31C94D0A1F}
 		{44046A3D-9EF1-44DF-9344-ABBBA775668C} = {2C867451-88A8-4743-B818-8D31C94D0A1F}
+		{1BADEC94-4E35-41BD-A6DE-008C3D6B410E} = {C686181D-E016-4CA8-976A-3307776406A2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
