@@ -1,22 +1,22 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp2.0</TargetFramework>
-		<LangVersion>latest</LangVersion>
+    <AssemblyName>TTT.ABC.MediatRDemo</AssemblyName>
+    <OutputType>Exe</OutputType>
+    <PackageId>TTT.ABC.MediatRDemo</PackageId>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="FluentValidation" Version="7.5.2" />
     <PackageReference Include="MediatR" Version="4.1.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.0.0" />
-    <PackageReference Include="Scrutor" Version="2.2.2" />
+    <PackageReference Include="Scrutor" Version="2.1.2" />
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="Microsoft.Extensions.DependencyInjection">
-      <HintPath>..\..\..\..\..\..\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.extensions.dependencyinjection\2.0.0\lib\netstandard2.0\Microsoft.Extensions.DependencyInjection.dll</HintPath>
-    </Reference>
+    <ProjectReference Include="..\TTT.ABC\TTT.ABC.csproj" />
   </ItemGroup>
 
 </Project>
