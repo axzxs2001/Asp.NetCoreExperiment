@@ -265,7 +265,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo.Domain", "DDD\Demo.Dom
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo.Infrastructure", "DDD\Demo.Infrastructure\Demo.Infrastructure.csproj", "{44046A3D-9EF1-44DF-9344-ABBBA775668C}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MediatRSample", "MediatRSample", "{C686181D-E016-4CA8-976A-3307776406A2}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MediatRSample和FluentValidation", "MediatRSample和FluentValidation", "{C686181D-E016-4CA8-976A-3307776406A2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediatRDemo", "MediatRDemo\MediatRDemo.csproj", "{1BADEC94-4E35-41BD-A6DE-008C3D6B410E}"
 EndProject

@@ -1,4 +1,6 @@
-﻿using MediatR;
+﻿using FluentValidation;
+using FluentValidation.Results;
+using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -9,14 +11,43 @@ using System.Threading.Tasks;
 
 namespace MediatRDemo
 {
+    public class CustomerValidator : AbstractValidator<Customer>
+    {
+        public CustomerValidator()
+        {
+            RuleFor(customer => customer.Surname).NotEmpty();
+            RuleFor(customer => customer.Forename).NotEmpty().WithMessage("Please specify a first name");
+            RuleFor(customer => customer.Discount).NotEqual(0).When(customer => customer.HasDiscount);
+            RuleFor(customer => customer.Address).Length(20, 250);
+            RuleFor(customer => customer.Postcode).Must(BeAValidPostcode).WithMessage("Please specify a valid postcode");
+        }
+
+        private bool BeAValidPostcode(string postcode)
+        {
+            // custom postcode validating logic goes here
+            return true;
+        }
+    }
     public static class Program
     {
         public static Task Main(string[] args)
         {
+            TestFluentValidation();
             var writer = Console.Out;
             return Run(CreateMediator(writer), writer);
         }
-        static  IMediator CreateMediator(TextWriter writer)
+        static void TestFluentValidation()
+        {
+            Customer customer = new Customer();
+            CustomerValidator validator = new CustomerValidator();
+            ValidationResult results = validator.Validate(customer);
+
+            bool validationSucceeded = results.IsValid;
+            IList<ValidationFailure> failures = results.Errors;
+        }
+
+
+        static IMediator CreateMediator(TextWriter writer)
         {
 
             IServiceCollection services = new ServiceCollection();
@@ -37,12 +68,12 @@ namespace MediatRDemo
         static async Task Run(IMediator mediator, TextWriter writer)
         {
             writer.WriteLine("请求：Request");
-            var yindDa = await mediator.Send(new Request { Message = "Request" });
-            writer.WriteLine("应答: " + yindDa.Message);
+            var response = await mediator.Send(new Request { Message = "Request" });
+            writer.WriteLine("应答: " + response.Message);
             writer.WriteLine("------------------------------");
 
 
-            await mediator.Publish(new MyDomainEvent { ID=1,Name="你好" });
+            await mediator.Publish(new MyDomainEvent { ID = 1, Name = "你好" });
             Console.ReadLine();
         }
 
@@ -50,6 +81,17 @@ namespace MediatRDemo
         {
             return (IEnumerable<object>)provider.GetRequiredService(typeof(IEnumerable<>).MakeGenericType(serviceType));
         }
+    }
+
+    public class Customer
+    {
+        public string Surname { get; set; }
+
+        public string Forename { get; set; }
+        public bool HasDiscount { get; set; }
+        public int? Discount { get; set; }
+        public string Address { get; set; }
+        public string Postcode { get; set; }
     }
 
     #region Request/Response
