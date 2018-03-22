@@ -14,6 +14,10 @@ namespace MediatRDemo
         public static Task Main(string[] args)
         {
             var writer = Console.Out;
+            return Run(CreateMediator(writer), writer);
+        }
+        static  IMediator CreateMediator(TextWriter writer)
+        {
 
             IServiceCollection services = new ServiceCollection();
             services.AddScoped<SingleInstanceFactory>(p => p.GetRequiredService);
@@ -22,21 +26,23 @@ namespace MediatRDemo
             services.AddSingleton<TextWriter>(writer);
 
             services.Scan(scan => scan
-                .FromAssembliesOf(typeof(IMediator), typeof(QingQiu))
+                .FromAssembliesOf(typeof(IMediator), typeof(Request))
                 .AddClasses()
                 .AsImplementedInterfaces());
 
             var provider = services.BuildServiceProvider();
             var mediator = provider.GetRequiredService<IMediator>();
-            return Run(mediator, writer);
+            return mediator;
         }
         static async Task Run(IMediator mediator, TextWriter writer)
         {
-            writer.WriteLine("请求：QingQiu");
-            var yindDa = await mediator.Send(new QingQiu { Message = "QingQiu" });
+            writer.WriteLine("请求：Request");
+            var yindDa = await mediator.Send(new Request { Message = "Request" });
             writer.WriteLine("应答: " + yindDa.Message);
             writer.WriteLine("------------------------------");
-            await mediator.Publish(new Pinged());
+
+
+            await mediator.Publish(new MyDomainEvent { ID=1,Name="你好" });
             Console.ReadLine();
         }
 
@@ -46,52 +52,78 @@ namespace MediatRDemo
         }
     }
 
+    #region Request/Response
 
-    public class QingQiu : IRequest<YindDa>
+    public class Request : IRequest<Response>
     {
         public string Message
         { get; set; }
     }
 
-    public class YindDa
+    public class Response
     {
         public string Message { get; set; }
 
     }
-    public class PingHandler : IRequestHandler<QingQiu, YindDa>
+    public class PingHandler : IRequestHandler<Request, Response>
     {
         private readonly TextWriter _writer;
-
         public PingHandler(TextWriter writer)
         {
             _writer = writer;
         }
-
-        public async Task<YindDa> Handle(QingQiu request, CancellationToken cancellationToken)
+        public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
         {
-            await _writer.WriteLineAsync($"--- 这里收到请求： {request.Message}");
-            return new YindDa { Message = request.Message + " YindDa" };
+            await _writer.WriteLineAsync($"这里收到请求： {request.Message}");
+            return new Response { Message = request.Message + " Response" };
         }
     }
-    
+    #endregion
 
+    #region Notification
 
-    public class PingedHandler : INotificationHandler<Pinged>
+    public class NotificationHandler1 : INotificationHandler<MyDomainEvent>
     {
         private readonly TextWriter _writer;
 
-        public PingedHandler(TextWriter writer)
+        public NotificationHandler1(TextWriter writer)
         {
             _writer = writer;
         }
 
-        public Task Handle(Pinged notification, CancellationToken cancellationToken)
+        public Task Handle(MyDomainEvent notification, CancellationToken cancellationToken)
         {
-            return _writer.WriteLineAsync("INotification pinged async.");
+            return _writer.WriteLineAsync($"NotificationHandler1处理：{notification}");
         }
     }
-    public class Pinged : INotification
+
+    public class NotificationHandler2 : INotificationHandler<MyDomainEvent>
     {
+        private readonly TextWriter _writer;
+
+        public NotificationHandler2(TextWriter writer)
+        {
+            _writer = writer;
+        }
+
+        public Task Handle(MyDomainEvent notification, CancellationToken cancellationToken)
+        {
+            return _writer.WriteLineAsync($"NotificationHandler2处理：{notification}");
+        }
+    }
+    public class MyDomainEvent : INotification
+    {
+        public int ID
+        { get; set; }
+
+        public string Name
+        { get; set; }
+
+        public override string ToString()
+        {
+            return $"ID={ID},Name={Name}";
+        }
 
     }
+    #endregion
 }
