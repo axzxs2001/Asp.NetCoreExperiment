@@ -1,8 +1,9 @@
-﻿using System;
+﻿using Demo.Domain.SeedWork;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Demo.Domain
+namespace Demo.Domain.AggregatesModel.OrderAggregate
 {
     public class Address : ValueObject
     {

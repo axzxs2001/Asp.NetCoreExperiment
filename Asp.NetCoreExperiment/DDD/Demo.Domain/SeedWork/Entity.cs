@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Demo.Domain
+namespace Demo.Domain.SeedWork
 {
     /// <summary>
     /// 领域对象实体父类

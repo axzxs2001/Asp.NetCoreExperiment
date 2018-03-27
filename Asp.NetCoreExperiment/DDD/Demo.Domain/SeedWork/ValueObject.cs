@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Demo.Domain
+namespace Demo.Domain.SeedWork
 {
     /// <summary>
     /// 值对象父类
