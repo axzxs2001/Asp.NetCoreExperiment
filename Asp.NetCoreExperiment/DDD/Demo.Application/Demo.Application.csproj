@@ -9,11 +9,17 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="MediatR" Version="4.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.6" />
   </ItemGroup>
 
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Demo.Domain\Demo.Domain.csproj" />
+    <ProjectReference Include="..\Demo.Infrastructure\Demo.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
