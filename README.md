@@ -1,3 +1,9 @@
 # Asp.NetCoreExperiment
 本项目是用来学习，试验asp.net core
 ### 项目介绍
+1. akka.net
+2. aop
+3. butterfly
+4. Consul
+5. orm
+6 .exceptionless
