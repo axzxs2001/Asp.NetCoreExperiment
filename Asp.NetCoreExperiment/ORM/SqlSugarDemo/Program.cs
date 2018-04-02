@@ -4,11 +4,17 @@ using System.Collections.Generic;
 
 namespace SqlSugarDemo
 {
+    //https://www.codeisbug.com/doc/
     //https://github.com/sunkaixuan/SqlSugar
     class Program
     {
         static void Main(string[] args)
         {
+            //添加
+
+            var db = new DbContext();
+            db.Db.Insertable(new Orders { ID = "abcd123", OrderTime = DateTime.Now, OrderUserID = "user001" }).ExecuteCommand();
+            //查询
             var bus = new Business();
             foreach(var order in bus.GetOrders())
             {
