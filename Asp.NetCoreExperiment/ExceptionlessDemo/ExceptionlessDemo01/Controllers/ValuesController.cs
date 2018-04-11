@@ -19,6 +19,12 @@ namespace ExceptionlessDemo01.Controllers
 
                 ExceptionlessClient.Default.SubmitLog("Logging made easy",Exceptionless.Logging.LogLevel.Warn);
 
+                var data = new Exceptionless.Models.DataDictionary();
+                data.Add("data1key", "data1value");
+                ExceptionlessClient.Default.SubmitEvent(new Exceptionless.Models.Event { Count = 1, Date = DateTime.Now, Data = data , Geo="geo", Message="message", ReferenceId="referencelId", Source="source", Tags=new Exceptionless.Models.TagSet() { "tags" },Type="type", Value=1.2m });
+                ExceptionlessClient.Default.SubmitFeatureUsage("feature");
+                ExceptionlessClient.Default.SubmitNotFound("notfound");
+               
 
                 throw new Exception("我的异常"+DateTime .Now);
             }
