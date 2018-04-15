@@ -10,6 +10,7 @@ namespace Client
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("回车开始请求！");
             Console.ReadLine();
             Go().GetAwaiter().GetResult();
             Console.ReadLine();
@@ -25,9 +26,16 @@ namespace Client
             }
 
             // request token
-            var tokenClient = new TokenClient(disco.TokenEndpoint, "client", "secret");
-            var tokenResponse = await tokenClient.RequestClientCredentialsAsync("api1");
+            //var tokenClient = new TokenClient(disco.TokenEndpoint, "client", "secret");
+            //var tokenResponse = await tokenClient.RequestClientCredentialsAsync("api1");
 
+            //用户名密码方式
+            Console.WriteLine("用户名");
+            var username = Console.ReadLine();
+            Console.WriteLine("密码");
+            var password = Console.ReadLine();
+            var tokenClient = new TokenClient(disco.TokenEndpoint, "ro.client", "secret");
+            var tokenResponse = await tokenClient.RequestResourceOwnerPasswordAsync(username, password, "api1");
             if (tokenResponse.IsError)
             {
                 Console.WriteLine(tokenResponse.Error);
