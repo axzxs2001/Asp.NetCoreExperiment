@@ -8,7 +8,7 @@ namespace PSDemo_SubscriberA
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("SubscriberA");
+            Console.Title="订阅者A";
 
             var bus= Bus.Factory.CreateUsingRabbitMq(cfg =>
             {
@@ -20,30 +20,28 @@ namespace PSDemo_SubscriberA
 
                 cfg.ReceiveEndpoint(host, "gswPSA", e =>
                 {
-                    e.Consumer<GreetingEventConsumerA>();
-                    e.Consumer<GreetingEventConsumerB>();
+                    e.Consumer<ConsumerA>();
+                    e.Consumer<ConsumerB>();
                 });
             });        
 
-            bus.Start();
-            Console.WriteLine("Listening for Greeting events.. Press enter to exit");
+            bus.Start();        
             Console.ReadLine();
-
             bus.Stop();
         }
     }
-    public class GreetingEventConsumerA : IConsumer<PSDemo_Entity.Entity>
+    public class ConsumerA : IConsumer<PSDemo_Entity.Entity>
     {
         public async Task Consume(ConsumeContext<PSDemo_Entity.Entity> context)
         {
-            await Console.Out.WriteLineAsync($"receive PSDemo_SubscriberA GreetingEventConsumerA: {context.Message.Name}  {context.Message.Time}");
+            await Console.Out.WriteLineAsync($"订阅者A  ConsumerA收到信息: {context.Message.Name}  {context.Message.Time} 类型：{context.Message.GetType()}");
         }
     }
-    public class GreetingEventConsumerB : IConsumer<PSDemo_Entity.ChildEntity>
+    public class ConsumerB : IConsumer<PSDemo_Entity.ChildEntity>
     {
         public async Task Consume(ConsumeContext<PSDemo_Entity.ChildEntity> context)
         {
-            await Console.Out.WriteLineAsync($"receive PSDemo_SubscriberA GreetingEventConsumerB: {context.Message.Name}  {context.Message.Time}");
+            await Console.Out.WriteLineAsync($"订阅者A  ConsumerB收到信息: {context.Message.Name}  {context.Message.Time} 类型：{context.Message.GetType()}");
         }
     }
 }

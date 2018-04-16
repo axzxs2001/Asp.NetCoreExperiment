@@ -8,7 +8,7 @@ namespace PSDemo_SubscriberB
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("SubscriberB");
+            Console.Title="订阅者B";
 
             var bus = Bus.Factory.CreateUsingRabbitMq(cfg =>
             {
@@ -20,22 +20,20 @@ namespace PSDemo_SubscriberB
 
                 cfg.ReceiveEndpoint(host, "gswPSB", e =>
                 {
-                    e.Consumer<GreetingEventConsumerA>();
+                    e.Consumer<ConsumerA>();
                 });
             });
 
-            bus.Start();
-            Console.WriteLine("Listening for Greeting events.. Press enter to exit");
+            bus.Start();     
             Console.ReadLine();
-
             bus.Stop();
         }
     }
-    public class GreetingEventConsumerA : IConsumer<PSDemo_Entity.Entity>
+    public class ConsumerA : IConsumer<PSDemo_Entity.Entity>
     {
         public async Task Consume(ConsumeContext<PSDemo_Entity.Entity> context)
         {
-            await Console.Out.WriteLineAsync($"receive PSDemo_SubscriberB:  {context.Message.Name}  {context.Message.Time}");
+            await Console.Out.WriteLineAsync($"订阅者B  ConsumerA收到信息:  {context.Message.Name}  {context.Message.Time}  类型：{context.Message.GetType()}");
         }
     }
 }

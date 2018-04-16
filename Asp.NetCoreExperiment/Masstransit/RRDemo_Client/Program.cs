@@ -10,7 +10,7 @@ namespace RRDemo_Client
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Press 'Enter' to send a message.To exit, Ctrl + C");
+            Console.Title = "请求方";
 
             var bus = Bus.Factory.CreateUsingRabbitMq(cfg =>
             {
@@ -24,7 +24,7 @@ namespace RRDemo_Client
                 {
                     ret.Interval(3, 10);
                 });
-               //限流
+                //限流
                 cfg.UseRateLimit(1000, TimeSpan.FromSeconds(100));
                 //熔断
                 cfg.UseCircuitBreaker(cb =>
@@ -32,28 +32,30 @@ namespace RRDemo_Client
                     cb.TrackingPeriod = TimeSpan.FromSeconds(60);
                     cb.TripThreshold = 15;
                     cb.ActiveThreshold = 10;
-                    
+
                 });
             });
             bus.Start();
 
-            var serviceAddress = new Uri($"rabbitmq://localhost/rrgsw");
+            var serviceAddress = new Uri($"rabbitmq://localhost/reqresgsw");
             var client = bus.CreateRequestClient<IRequestEntity, IResponseEntity>(serviceAddress, TimeSpan.FromSeconds(10));
 
-            for (; ; )
+            while (true)
             {
-                Console.Write("Enter customer id (quit exits): ");
-                string customerId = Console.ReadLine();
-                if (customerId == "quit")
+                Console.WriteLine("请出请按q,否则请按其他键！");
+                string value = Console.ReadLine();
+                if (value.ToLower() == "q")
+                {
                     break;
+                }
 
-                // this is run as a Task to avoid weird console application issues
                 Task.Run(async () =>
                 {
                     var request = new RequestEntity() { ID = 1, Name = "张三" };
                     var response = await client.Request(request);
 
-                    Console.WriteLine($"请求ID={request.ID},Name={request.Name}  应签ID={response.ID},Name={response.Name},RequestID={response.RequestID}");
+                    Console.WriteLine($"请求ID={request.ID},Name={request.Name}");
+                    Console.WriteLine($"应签ID={response.ID},Name={response.Name},RequestID={response.RequestID}");
                 }).Wait();
             }
 
