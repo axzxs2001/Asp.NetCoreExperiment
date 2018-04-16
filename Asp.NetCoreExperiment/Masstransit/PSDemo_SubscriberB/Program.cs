@@ -21,13 +21,10 @@ namespace PSDemo_SubscriberB
                 cfg.ReceiveEndpoint(host, "gswPSB", e =>
                 {
                     e.Consumer<GreetingEventConsumerA>();
-
                 });
             });
 
-
             bus.Start();
-
             Console.WriteLine("Listening for Greeting events.. Press enter to exit");
             Console.ReadLine();
 

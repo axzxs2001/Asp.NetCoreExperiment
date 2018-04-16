@@ -8,35 +8,33 @@ namespace MEDemo_Producer
     {
         static void Main(string[] args)
         {
-            Console.Title = "Hierarchy message producer";
+            Console.Title = "发布方";
 
-            var bus =   Bus.Factory.CreateUsingRabbitMq(cfg =>
-            {
-                var host = cfg.Host(new Uri("rabbitmq://localhost"), hst =>
-                {
-                    hst.Username("guest");
-                    hst.Password("guest");
-                });
-              
-            });
+            var bus = Bus.Factory.CreateUsingRabbitMq(cfg =>
+          {
+              var host = cfg.Host(new Uri("rabbitmq://localhost"), hst =>
+              {
+                  hst.Username("guest");
+                  hst.Password("guest");
+              });
+
+          });
             bus.Start();
-
             do
             {
-                Console.WriteLine("Enter message (or quit to exit)");
-                Console.Write("> ");
+                Console.WriteLine("请出请按q,否则请按其他键！");
+              
                 string value = Console.ReadLine();
 
-                if ("quit".Equals(value, StringComparison.OrdinalIgnoreCase))
+                if (value.ToLower() == "q")
+                {
                     break;
-                bus.Publish(new MyEntity() {ID=1,  Age=10, Name="张三" });          
+                }
+
+                bus.Publish(new MyEntity() { ID = 1, Age = 10, Name = "张三", Time = DateTime.Now });
             }
-            while (true);
-
-
-            Console.WriteLine("Publish Hierarchy events.. Press enter to exit");
-            Console.ReadLine();
-
+            while (true);       
+       
             bus.Stop();
         }
     }

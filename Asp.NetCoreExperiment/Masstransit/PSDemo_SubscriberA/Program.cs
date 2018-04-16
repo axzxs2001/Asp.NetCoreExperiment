@@ -23,11 +23,9 @@ namespace PSDemo_SubscriberA
                     e.Consumer<GreetingEventConsumerA>();
                     e.Consumer<GreetingEventConsumerB>();
                 });
-            });
-        
+            });        
 
             bus.Start();
-
             Console.WriteLine("Listening for Greeting events.. Press enter to exit");
             Console.ReadLine();
 

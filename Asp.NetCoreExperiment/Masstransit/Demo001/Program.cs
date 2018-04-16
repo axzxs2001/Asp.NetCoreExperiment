@@ -21,12 +21,13 @@ namespace Demo001
                 cfg.ReceiveEndpoint(host, "gsw", e =>
                 {
                     e.Consumer<ConsumerABC>();
+                    e.Consumer<ConsumerABC1>();
 
                 });
             });
           
             bus.Start();
-            Console.WriteLine("Listening for Greeting commands.. Press enter to exit");
+            Console.WriteLine("按任意键退出！");
             Console.ReadLine();
             bus.Stop();
         }
@@ -36,14 +37,24 @@ namespace Demo001
     {
         public async Task Consume(ConsumeContext<ABC> context)
         {
-            await Console.Out.WriteLineAsync($"receive greeting commmandB: {context.Message.Name},{context.Message.Time}");
+            await Console.Out.WriteLineAsync($"收到信息: {context.Message.Name},{context.Message.Birthday},{context.Message.Message}");
         }
     
     }
+    public class ConsumerABC1 : IConsumer<ABC>
+    {
+        public async Task Consume(ConsumeContext<ABC> context)
+        {
+            await Console.Out.WriteLineAsync($"收到信息1: {context.Message.Name},{context.Message.Birthday},{context.Message.Message}");
+        }
+
+    }
     public class ABC
     {
-        public DateTime Time { get; set; }
+        public DateTime Birthday { get; set; }
         public string Name { get; set; }
+
+        public string Message { get; set; }
     }
 
 }
