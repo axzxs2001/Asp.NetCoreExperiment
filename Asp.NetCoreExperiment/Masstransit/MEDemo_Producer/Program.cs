@@ -31,7 +31,7 @@ namespace MEDemo_Producer
                     break;
                 }
 
-                bus.Publish(new MyEntity() { ID = 1, Age = 10, Name = "张三", Time = DateTime.Now });
+                bus.Publish(new Entity() { ID = 1, Name = "张三", Time = DateTime.Now });
             }
             while (true);       
        

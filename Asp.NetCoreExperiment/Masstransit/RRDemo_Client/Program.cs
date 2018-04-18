@@ -32,13 +32,14 @@ namespace RRDemo_Client
                     cb.TrackingPeriod = TimeSpan.FromSeconds(60);
                     cb.TripThreshold = 15;
                     cb.ActiveThreshold = 10;
+                    cb.ResetInterval = TimeSpan.FromMinutes(5);
 
                 });
             });
             bus.Start();
 
             var serviceAddress = new Uri($"rabbitmq://localhost/reqresgsw");
-            var client = bus.CreateRequestClient<IRequestEntity, IResponseEntity>(serviceAddress, TimeSpan.FromSeconds(10));
+            var client = bus.CreateRequestClient<IRequestEntity, IResponseEntity>(serviceAddress, TimeSpan.FromHours(10));
 
             while (true)
             {

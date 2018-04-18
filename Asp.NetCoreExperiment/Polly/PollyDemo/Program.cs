@@ -31,11 +31,12 @@ namespace PollyDemo
             }
             catch (DivideByZeroException e)
             {
-                Console.WriteLine($"Excuted Failed,Message: ({e.Message})");
+                Console.WriteLine($"异常,Message: ({e.Message})");
 
             }
             #endregion
         }
+
         static int Compute()
         {
             var a = 0;
@@ -67,7 +68,7 @@ namespace PollyDemo
             }
             catch (Exception e)
             {
-                Console.WriteLine($"Executed Failed,Message:({e.Message})");
+                Console.WriteLine($"异常,Message:({e.Message})");
             }
         
         }
