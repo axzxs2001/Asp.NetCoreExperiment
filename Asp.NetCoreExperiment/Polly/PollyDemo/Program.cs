@@ -13,10 +13,7 @@ namespace PollyDemo
         {
 
             TimeOut();
-        }
-
-
-
+        }   
 
 
         #region Retry
@@ -68,9 +65,6 @@ namespace PollyDemo
             Console.WriteLine(fallBack);
         }
         #endregion
-
-
-
 
         #region CircuitBreaker
 
@@ -156,10 +150,6 @@ namespace PollyDemo
         }
         #endregion
 
-
-
-
-
         #region WaitAndRetry
 
         static void WaitAndRetry()
@@ -234,8 +224,6 @@ namespace PollyDemo
         }
         #endregion
 
-
-
         #region 组合
         static void Group()
         {
@@ -282,8 +270,7 @@ namespace PollyDemo
         }
         #endregion
 
-
-        #region cache
+        #region TimeOut
         public static void TimeOut()
         {
             try
