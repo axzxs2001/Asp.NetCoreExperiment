@@ -107,21 +107,21 @@ namespace RefitDemo1
             Console.WriteLine(result);           
         }
     }
-
+    [Headers("Authorization: Bearer")]
     public interface IUserManage
     {
 
         [Post("/authapi/login")]
         Task<Result> Login(string username, string password);
-        [Headers("Authorization: Bearer")]
+      
         [Get("/users")]
         Task<List<User>> GetUsers();
 
-        [Headers("Authorization: Bearer")]
+     
         [Get("/users")]
         Task<List<dynamic>> GetUsers1();
 
-        [Headers("Authorization: Bearer")]
+    
         [Post("/adduser")]
         Task<bool> AddUser([Body]User user);
 
