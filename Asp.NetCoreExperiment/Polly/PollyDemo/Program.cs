@@ -61,7 +61,7 @@ namespace PollyDemo
 
             var fallBack = policy.Execute(() =>
             {
-                throw new Exception("我和异常！");
+                throw new Exception("我是异常！");
             });
             Console.WriteLine(fallBack);
         }
@@ -83,7 +83,7 @@ namespace PollyDemo
             var breaker = Policy
                 .Handle<DivideByZeroException>()
                 //测试三次，熔断后5秒后再重试
-                .CircuitBreaker(5, TimeSpan.FromSeconds(3), onBreak, onReset);
+                .CircuitBreaker(5, TimeSpan.FromSeconds(10), onBreak, onReset);
 
             var times = 0;
             while (true)
@@ -300,7 +300,7 @@ namespace PollyDemo
         {
             try
             {                
-                var policy = Policy.Bulkhead(7,2, context => {
+                var policy = Policy.Bulkhead(5,2, context => {
                     Console.WriteLine(Thread.CurrentThread.ManagedThreadId + "---" + context.CorrelationId);
                 });
                 var arr = new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
