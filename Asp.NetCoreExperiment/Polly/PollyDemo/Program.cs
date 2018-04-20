@@ -4,6 +4,7 @@ using Polly;
 using System;
 
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace PollyDemo
 {
@@ -11,9 +12,8 @@ namespace PollyDemo
     {
         static void Main(string[] args)
         {
-
-            TimeOut();
-        }   
+            Bulkhead();
+        }
 
 
         #region Retry
@@ -32,12 +32,13 @@ namespace PollyDemo
                         Console.WriteLine(excetpion.Message);
                         Console.WriteLine(index);
                         Console.WriteLine(context);
-                    });    //故障的处理方法
+                    });
+
                 //开始执行
                 policy.Execute(() =>
                 {
                     Console.WriteLine("开始");
-                    throw new IndexOutOfRangeException("除零");
+                    throw new IndexOutOfRangeException("越界");
                 });
             }
             catch (Exception exc)
@@ -287,10 +288,62 @@ namespace PollyDemo
                     }
                 }, cts.Token);
             }
-            catch(Exception exc)
+            catch (Exception exc)
             {
                 Console.WriteLine(exc.Message);
             }
+        }
+        #endregion
+
+        #region Bulkhead Isolation
+        public static void Bulkhead()
+        {
+            try
+            {                
+                var policy = Policy.Bulkhead(7,2, context => {
+                    Console.WriteLine(Thread.CurrentThread.ManagedThreadId + "---" + context.CorrelationId);
+                });
+                var arr = new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+                Parallel.ForEach(arr, (p) =>
+                {
+                    try
+                    {
+                        //开始执行
+                        policy.Execute(() =>
+                        {
+                            Console.WriteLine($"{DateTime .Now}  元素:{p}  线程ID:{Thread.CurrentThread.ManagedThreadId}");
+                        });
+                    }
+                    catch (Exception exc)
+                    {
+                        Console.WriteLine("内部:" + exc.Message);
+                    }
+
+                });
+                //for (int i = 0; i < 10; i++)
+                //{
+                //    new Thread(() =>
+                //    {
+                //        try
+                //        {
+                //            //开始执行
+                //            policy.Execute(() =>
+                //            {
+                //                Console.WriteLine("开始" + Thread.CurrentThread.ManagedThreadId + "---" + DateTime.Now);
+                //            });
+                //        }
+                //        catch(Exception exc)
+                //        {
+                //            Console.WriteLine("内部:"+exc.Message);
+                //        }
+                //    }).Start();
+                //}
+            }
+            catch (Exception exc)
+            {
+                Console.WriteLine($"{exc.GetType().FullName}   Excepiton:{exc.Message}");
+            }
+            Console.ReadLine();
         }
         #endregion
 
