@@ -1,0 +1,40 @@
+﻿
+@model string
+@{
+    ViewData["Title"] = "Home Page";
+}
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer Localizer
+
+<div class="row" style="margin-top:20px;">
+    <div class="col-md-3">
+
+        <form action="/" method="post" id="form1">
+            <select class="form-control" name="culture" id="culture" onchange="selectSubmit()">
+                <option selected value="zh">中文</option>
+                <option value="ja">日文</option>
+                <option value="en">英文</option>
+            </select>
+
+        </form>
+    </div>
+</div>
+<h1>Controller:@Model</h1>
+
+<h2>View:@Localizer["index_test"]</h2>
+@section Scripts
+    {
+    <script type="text/javascript" src="/js/jquery.cookie.js"></script>
+    <script>
+        $(function () {
+            if ($.cookie('.AspNetCore.Culture') != '') {
+                var culture = $.cookie('.AspNetCore.Culture').split("|")[0].split("=")[1];
+                $("#culture").val(culture);
+            }
+
+        })
+        function selectSubmit() {
+
+            $("#form1").submit();
+        }
+    </script>
+}
