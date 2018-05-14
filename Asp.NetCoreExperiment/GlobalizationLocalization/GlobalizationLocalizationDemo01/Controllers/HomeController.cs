@@ -14,13 +14,19 @@ namespace GlobalizationLocalizationDemo01.Controllers
     public class HomeController : Controller
     {
         readonly IStringLocalizer<HomeController> _localizer;
-        public HomeController(IStringLocalizer<HomeController> localizer)
+        readonly IStringLocalizer<SharedResource> _sharedLocalizer;
+        public HomeController(IStringLocalizer<HomeController> localizer,IStringLocalizer<SharedResource> sharedLocalizer)
         {
             _localizer = localizer;
+            _sharedLocalizer = sharedLocalizer;
 
         }
         public IActionResult Index()
         {
+
+            ViewData["ok"] = _sharedLocalizer["ok"].Value;
+            ViewData["no"] = _sharedLocalizer["no"].Value;
+            ViewData["cancel"] = _sharedLocalizer["cancel"].Value;
             var content = _localizer["controller_test"].Value;
             return View(model: content);
         }

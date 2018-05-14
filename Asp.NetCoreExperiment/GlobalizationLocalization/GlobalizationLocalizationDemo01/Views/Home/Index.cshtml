@@ -21,6 +21,15 @@
 <h1>Controller:@Model</h1>
 
 <h2>View:@Localizer["index_test"]</h2>
+<div class="row">
+    <div class="col-md-3">
+        <button class="btn btn-default">@ViewData["ok"]</button>
+   
+        <button class="btn btn-default">@ViewData["no"]</button>
+    
+        <button class="btn btn-default">@ViewData["cancel"]</button>
+    </div>
+</div>
 @section Scripts
     {
     <script type="text/javascript" src="/js/jquery.cookie.js"></script>

@@ -1,7 +1,9 @@
 ﻿@{
     ViewData["Title"] = "About";
 }
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer Localizer
+
 <h2>@ViewData["Title"]</h2>
 <h3>@ViewData["Message"]</h3>
 
-<p>Use this area to provide additional information.</p>
+<p>@Localizer["about_content"]</p>
