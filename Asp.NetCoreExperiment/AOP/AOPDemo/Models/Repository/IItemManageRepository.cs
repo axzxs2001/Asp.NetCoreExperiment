@@ -9,6 +9,6 @@ namespace AOPDemo.Models.Repository
     [RepositoryInterceptor]
     public interface IItemManageRepository
     {
-        bool AddItem(Item item, string token = "");
+        string AddItem(Item item, string token = "");
     }
 }

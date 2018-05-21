@@ -36,20 +36,20 @@ namespace AOPDemo
             services.AddDistributedMemoryCache();
 
             services.AddSession(options => {
-                options.Cookie.Name = ".AdventureWorks.Session";
+                //options.Cookie.Name = ".AdventureWorks.Session";
                 options.IdleTimeout = TimeSpan.FromMinutes(20);
-                options.Cookie.HttpOnly = true;              
+               // options.Cookie.HttpOnly = true;              
             });
 
             //cookie验证
-            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-                .AddCookie(opt =>
-                {
-                    opt.LoginPath = "/login";
-                    opt.LogoutPath = "/";
-                    opt.ExpireTimeSpan = TimeSpan.FromMinutes(20);
-
-                });
+            services.AddAuthentication(opts =>
+            {
+                opts.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            }).AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, opt =>
+            {
+                opt.LoginPath = "/login";
+                opt.Cookie.Path = "/";
+            });
 
             services.AddTransient<IItemManageRepository, ItemManageRepository>();
             services.AddMvc();

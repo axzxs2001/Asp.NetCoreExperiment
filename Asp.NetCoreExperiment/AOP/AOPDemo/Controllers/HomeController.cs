@@ -14,7 +14,6 @@ using System.Text;
 
 namespace AOPDemo.Controllers
 {
-    [Authorize]
     public class HomeController : Controller
     {
         IItemManageRepository _imteManageRepository;
@@ -24,7 +23,7 @@ namespace AOPDemo.Controllers
         }
         [AllowAnonymous]
         public IActionResult Index()
-        {            
+        {
             return View();
         }
         [AllowAnonymous]
@@ -33,47 +32,20 @@ namespace AOPDemo.Controllers
         {
 
             //写Session
-            HttpContext.Session.Set(username, Encoding.UTF8.GetBytes("我是Token:"+ username));
+            HttpContext.Session.Set(username, Encoding.UTF8.GetBytes("我是Token:" + username));
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, username),
                 new Claim("FullName", "桂素伟"),
-                new Claim(ClaimTypes.Role,"管理员")
+                new Claim(ClaimTypes.Role,"Leader")
             };
 
             var claimsIdentity = new ClaimsIdentity(
                 claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
-            var authProperties = new AuthenticationProperties
-            {
-                //AllowRefresh = <bool>,
-                // Refreshing the authentication session should be allowed.
 
-                //ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(10),
-                // The time at which the authentication ticket expires. A 
-                // value set here overrides the ExpireTimeSpan option of 
-                // CookieAuthenticationOptions set with AddCookie.
-
-                //IsPersistent = true,
-                // Whether the authentication session is persisted across 
-                // multiple requests. Required when setting the 
-                // ExpireTimeSpan option of CookieAuthenticationOptions 
-                // set with AddCookie. Also required when setting 
-                // ExpiresUtc.
-
-                //IssuedUtc = <DateTimeOffset>,
-                // The time at which the authentication ticket was issued.
-
-                //RedirectUri = <string>
-                // The full path or absolute URI to be used as an http 
-                // redirect response value.
-            };
-
-            await HttpContext.SignInAsync(
-                CookieAuthenticationDefaults.AuthenticationScheme,
-                new ClaimsPrincipal(claimsIdentity),
-                authProperties);
-            return View();
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(new ClaimsIdentity(claims)));
+            return new RedirectResult("/home/Contact");
         }
 
         public IActionResult About()
@@ -85,8 +57,8 @@ namespace AOPDemo.Controllers
 
         public IActionResult Contact()
         {
-            ViewData["Message"] = "Your contact page.";
-            _imteManageRepository.AddItem(null);
+            ViewData["Message"] = "Your contact page." + _imteManageRepository.AddItem(null);
+
             return View();
         }
 

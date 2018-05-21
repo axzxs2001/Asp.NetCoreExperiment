@@ -28,7 +28,7 @@ namespace AOPDemo.Models
     /// </summary>
     public class RepositoryInterceptorAttribute : AbstractInterceptorAttribute
     {
-        string _userName;
+
 
         [FromContainer]
         public ILogger<RepositoryInterceptorAttribute> Logger { get; set; }
@@ -36,12 +36,11 @@ namespace AOPDemo.Models
 
         [FromContainer]
         public IHttpContextAccessor HttpContextAccessor { get; set; }
-        //[FromContainer]
-        //public dynamic DBF { get; set; }
+
         public async override Task Invoke(AspectContext context, AspectDelegate next)
         {
             try
-            {             
+            {
                 Logger.LogInformation($"{context.Implementation}. { context.ProxyMethod.Name} 开始执行！");
                 SetTokenValue(context);
                 await next(context);
@@ -65,24 +64,25 @@ namespace AOPDemo.Models
         private void SetTokenValue(AspectContext context)
         {
             //获取用户名
-            _userName = HttpContextAccessor.HttpContext.User?.Identity?.Name;
-            if (!string.IsNullOrEmpty(_userName))
+            var userName = HttpContextAccessor.HttpContext.User?.Identity?.Name;
+
+            if (!string.IsNullOrEmpty(userName))
             {
                 //按类父接口RepositoryInterceptorAttribute特性设置值
                 foreach (var interfaceItem in context.ImplementationMethod.ReflectedType.GetInterfaces())
                 {
-                    if (SetTokenValueByType(context, interfaceItem))
+                    if (SetTokenValueByType(context, interfaceItem, userName))
                     {
                         return;
                     }
                 }
                 //按类RepositoryInterceptorAttribute特性设置值
-                if (SetTokenValueByType(context, context.ImplementationMethod.ReflectedType))
+                if (SetTokenValueByType(context, context.ImplementationMethod.ReflectedType, userName))
                 {
                     return;
                 }
                 //按方法RepositoryInterceptorAttribute特性设置值
-                if (SetTokenValueByMethod(context, context.ProxyMethod))
+                if (SetTokenValueByMethod(context, context.ProxyMethod, userName))
                 {
                     return;
                 }
@@ -95,7 +95,7 @@ namespace AOPDemo.Models
         /// <param name="context">Aspect上下文</param>
         /// <param name="type">类型</param>
         /// <returns></returns>
-        private bool SetTokenValueByType(AspectContext context, Type type)
+        private bool SetTokenValueByType(AspectContext context, Type type, string userName)
         {
             foreach (var atr in type.GetCustomAttributes(false))
             {
@@ -108,7 +108,7 @@ namespace AOPDemo.Models
                         //参数名为token的切面输入token
                         if (par.Name == "token")
                         {
-                            context.Parameters[index] = GetToken(HttpContextAccessor.HttpContext, _userName);
+                            context.Parameters[index] = GetToken(HttpContextAccessor.HttpContext, userName);
                             return true;
                         }
                         index++;
@@ -123,7 +123,7 @@ namespace AOPDemo.Models
         /// <param name="context">Aspect上下文</param>
         /// <param name="methodInfo">方法</param>
         /// <returns></returns>
-        private bool SetTokenValueByMethod(AspectContext context, System.Reflection.MethodInfo methodInfo)
+        private bool SetTokenValueByMethod(AspectContext context, System.Reflection.MethodInfo methodInfo, string userName)
         {
             foreach (var atr in methodInfo.GetCustomAttributes(false))
             {
@@ -136,7 +136,7 @@ namespace AOPDemo.Models
                         //参数名为token的切面输入token
                         if (par.Name == "token")
                         {
-                            context.Parameters[index] = GetToken(HttpContextAccessor.HttpContext, _userName);
+                            context.Parameters[index] = GetToken(HttpContextAccessor.HttpContext, userName);
                             return true;
                         }
                         index++;
