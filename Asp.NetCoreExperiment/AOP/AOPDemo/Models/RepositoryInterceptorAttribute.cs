@@ -1,6 +1,7 @@
 ﻿using AOPDemo.Models.Repository;
 using AspectCore.DynamicProxy;
 using AspectCore.Injector;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -27,24 +28,135 @@ namespace AOPDemo.Models
     /// </summary>
     public class RepositoryInterceptorAttribute : AbstractInterceptorAttribute
     {
+        string _userName;
+
         [FromContainer]
         public ILogger<RepositoryInterceptorAttribute> Logger { get; set; }
 
+
+        [FromContainer]
+        public IHttpContextAccessor HttpContextAccessor { get; set; }
+        //[FromContainer]
+        //public dynamic DBF { get; set; }
         public async override Task Invoke(AspectContext context, AspectDelegate next)
         {
             try
-            {               
-                Logger.LogInformation($"{context.Implementation}. { context.ProxyMethod.Name} 开始执行！");           
+            {             
+                Logger.LogInformation($"{context.Implementation}. { context.ProxyMethod.Name} 开始执行！");
+                SetTokenValue(context);
                 await next(context);
             }
             catch (Exception exc)
             {
-                Logger.LogError($"异常发生：{exc.Message}");         
+                Logger.LogError($"异常发生：{exc.Message}");
                 throw exc;
             }
             finally
             {
-                Logger.LogInformation($"{context.Implementation}. { context.ProxyMethod.Name} 执行结束！");         
+                Logger.LogInformation($"{context.Implementation}. { context.ProxyMethod.Name} 执行结束！");
+            }
+        }
+
+
+        /// <summary>
+        /// 综合设置token值
+        /// </summary>
+        /// <param name="context"></param>
+        private void SetTokenValue(AspectContext context)
+        {
+            //获取用户名
+            _userName = HttpContextAccessor.HttpContext.User?.Identity?.Name;
+            if (!string.IsNullOrEmpty(_userName))
+            {
+                //按类父接口RepositoryInterceptorAttribute特性设置值
+                foreach (var interfaceItem in context.ImplementationMethod.ReflectedType.GetInterfaces())
+                {
+                    if (SetTokenValueByType(context, interfaceItem))
+                    {
+                        return;
+                    }
+                }
+                //按类RepositoryInterceptorAttribute特性设置值
+                if (SetTokenValueByType(context, context.ImplementationMethod.ReflectedType))
+                {
+                    return;
+                }
+                //按方法RepositoryInterceptorAttribute特性设置值
+                if (SetTokenValueByMethod(context, context.ProxyMethod))
+                {
+                    return;
+                }
+
+            }
+        }
+        /// <summary>
+        /// 按类型RepositoryInterceptorAttribute特性设置token值
+        /// </summary>
+        /// <param name="context">Aspect上下文</param>
+        /// <param name="type">类型</param>
+        /// <returns></returns>
+        private bool SetTokenValueByType(AspectContext context, Type type)
+        {
+            foreach (var atr in type.GetCustomAttributes(false))
+            {
+                //获取上RepositoryInterceptorAttribute的方法
+                if (atr is RepositoryInterceptorAttribute)
+                {
+                    int index = 0;
+                    foreach (var par in context.ProxyMethod.GetParameters())
+                    {
+                        //参数名为token的切面输入token
+                        if (par.Name == "token")
+                        {
+                            context.Parameters[index] = GetToken(HttpContextAccessor.HttpContext, _userName);
+                            return true;
+                        }
+                        index++;
+                    }
+                }
+            }
+            return false;
+        }
+        /// <summary>
+        /// 按方法RepositoryInterceptorAttribute特性设置token值
+        /// </summary>
+        /// <param name="context">Aspect上下文</param>
+        /// <param name="methodInfo">方法</param>
+        /// <returns></returns>
+        private bool SetTokenValueByMethod(AspectContext context, System.Reflection.MethodInfo methodInfo)
+        {
+            foreach (var atr in methodInfo.GetCustomAttributes(false))
+            {
+                //获取上RepositoryInterceptorAttribute的方法
+                if (atr is RepositoryInterceptorAttribute)
+                {
+                    int index = 0;
+                    foreach (var par in context.ProxyMethod.GetParameters())
+                    {
+                        //参数名为token的切面输入token
+                        if (par.Name == "token")
+                        {
+                            context.Parameters[index] = GetToken(HttpContextAccessor.HttpContext, _userName);
+                            return true;
+                        }
+                        index++;
+                    }
+                }
+            }
+            return false;
+        }
+
+        public string GetToken(HttpContext httpContext, string userName)
+        {
+            var arr = new byte[1024];
+            if (httpContext.Session.TryGetValue(userName, out arr))
+            {
+                return Encoding.UTF8.GetString(arr).Trim();
+            }
+            else
+            {
+                return "";
+
             }
         }
     }

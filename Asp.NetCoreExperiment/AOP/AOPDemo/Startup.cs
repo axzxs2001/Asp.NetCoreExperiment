@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AOPDemo.Models.Repository;
 using AspectCore.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -30,6 +31,26 @@ namespace AOPDemo
         //}
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
+
+            //使用Session,支持内存，Redis、SqlServer存储方式
+            services.AddDistributedMemoryCache();
+
+            services.AddSession(options => {
+                options.Cookie.Name = ".AdventureWorks.Session";
+                options.IdleTimeout = TimeSpan.FromMinutes(20);
+                options.Cookie.HttpOnly = true;              
+            });
+
+            //cookie验证
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(opt =>
+                {
+                    opt.LoginPath = "/login";
+                    opt.LogoutPath = "/";
+                    opt.ExpireTimeSpan = TimeSpan.FromMinutes(20);
+
+                });
+
             services.AddTransient<IItemManageRepository, ItemManageRepository>();
             services.AddMvc();
             services.AddDynamicProxy();
@@ -49,7 +70,8 @@ namespace AOPDemo
             }
 
             app.UseStaticFiles();
-
+            app.UseSession();
+            app.UseAuthentication();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

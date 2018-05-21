@@ -5,9 +5,10 @@ using System.Threading.Tasks;
 
 namespace AOPDemo.Models.Repository
 {
+
     [RepositoryInterceptor]
     public interface IItemManageRepository
     {
-         bool AddItem(Item item);
+        bool AddItem(Item item, string token = "");
     }
 }
