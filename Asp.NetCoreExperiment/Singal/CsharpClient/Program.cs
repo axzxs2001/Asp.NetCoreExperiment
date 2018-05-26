@@ -12,6 +12,7 @@ namespace CsharpClient
     {
         static async Task Main(string[] args)
         {
+            Console.WriteLine("按回车开始");
             Console.ReadLine();
             var connection = new HubConnectionBuilder()
                 .WithUrl("http://localhost:8989/stocks")
@@ -53,7 +54,7 @@ namespace CsharpClient
 
             connection.On("marketReset", () =>
             {
-                // We don't care if the market rest
+                Console.WriteLine("marketReset");
             });
 
             var channel = await connection.StreamAsChannelAsync<Stock>("StreamStocks", CancellationToken.None);
