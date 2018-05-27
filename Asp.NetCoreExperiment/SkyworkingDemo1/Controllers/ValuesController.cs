@@ -17,12 +17,12 @@ namespace SkyworkingDemo1.Controllers
             return new string[] { "value1", "value2" };
         }
 
+
      
         [HttpGet("{id}")]
-        public async Task<string> Get(int id, [FromServices] IHttpClientFactory httpClientFactory)
+        public string Get(int id)
         {
-            var httpClient = httpClientFactory.CreateClient("sw-tracing");
-            return await httpClient.GetStringAsync("http://localhost:5002/values");
+            return "aaa";
         }
 
 
