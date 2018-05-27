@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using SkyWalking.AspNetCore;
 
 namespace SkywalkingDemo2
 {
@@ -23,6 +24,15 @@ namespace SkywalkingDemo2
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSkyWalking(option =>
+            {
+                // Application code is showed in sky-walking-ui
+                option.ApplicationCode = "SkywalkingDemo2";
+
+                //Collector agent_gRPC/grpc service addresses.
+                option.DirectServers = "localhost:11800";
+
+            });
             services.AddMvc();
         }
 

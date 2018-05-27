@@ -33,6 +33,7 @@ namespace SkyworkingDemo1
                 option.DirectServers = "localhost:11800";
 
             });
+
             services.AddMvc();
         }
 
