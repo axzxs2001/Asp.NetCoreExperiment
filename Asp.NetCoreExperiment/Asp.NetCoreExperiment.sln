@@ -326,15 +326,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Demo04", "Demo04", "{691EF4
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Demo05", "Demo05", "{4EC1F7DC-7EF1-450C-9C9E-69B7C17DC534}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObserverPublish", "Masstransit\ObserverPublish\ObserverPublish.csproj", "{8BD54C20-17E2-4DC3-B700-B94890A5A304}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ObserverPublish", "Masstransit\ObserverPublish\ObserverPublish.csproj", "{8BD54C20-17E2-4DC3-B700-B94890A5A304}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObserverSubscriber", "Masstransit\ObserverSubscriber\ObserverSubscriber.csproj", "{AB369110-C1FF-4C7E-AEFF-6F3E56FD8DD8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ObserverSubscriber", "Masstransit\ObserverSubscriber\ObserverSubscriber.csproj", "{AB369110-C1FF-4C7E-AEFF-6F3E56FD8DD8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Demo06", "Demo06", "{A85D5C17-DAB0-47AF-ADED-D39F587A4A63}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Automatonymous", "Automatonymous", "{BEAD9949-B251-4367-B73B-BC6588CB18C1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutomatonymousDemo01", "Automatonymous\AutomatonymousDemo01\AutomatonymousDemo01.csproj", "{550A39A1-579C-4CA5-B741-82166A9D95F6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutomatonymousDemo01", "Automatonymous\AutomatonymousDemo01\AutomatonymousDemo01.csproj", "{550A39A1-579C-4CA5-B741-82166A9D95F6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Refit", "Refit", "{7545207E-7548-4292-9BB1-B2B664A61DD5}"
 EndProject
@@ -360,21 +360,23 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Brighter", "Brighter", "{EA
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BrighterDemo01", "Brighter\BrighterDemo01\BrighterDemo01.csproj", "{547EB932-B140-4587-AA3A-5EC9D960E64F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrighterDemo02", "BrighterDemo02\BrighterDemo02.csproj", "{DDD8127E-EBCE-4995-8B59-6A45964E3DEF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BrighterDemo02", "BrighterDemo02\BrighterDemo02.csproj", "{DDD8127E-EBCE-4995-8B59-6A45964E3DEF}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SignalRDemo02", "Singal\SignalRDemo02\SignalRDemo02.csproj", "{DB4EEA1F-29CD-4983-977B-A4F723C43FE1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsFormsSample", "Singal\WindowsFormsSample\WindowsFormsSample\WindowsFormsSample.csproj", "{BDB97E88-B2C0-44C5-982E-D9CF0EBCA451}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockTickR", "Singal\StockTickR\StockTickR.csproj", "{663A15F5-C1B6-49D2-93A1-CB56412AA30F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StockTickR", "Singal\StockTickR\StockTickR.csproj", "{663A15F5-C1B6-49D2-93A1-CB56412AA30F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CsharpClient", "Singal\CsharpClient\CsharpClient.csproj", "{BB68EDAF-13CD-4301-AC7B-5973A7686480}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CsharpClient", "Singal\CsharpClient\CsharpClient.csproj", "{BB68EDAF-13CD-4301-AC7B-5973A7686480}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ML", "ML", "{72684F7B-729B-45A6-8DE2-AA8A2CC89451}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ML_Demo001", "ML\ML_Demo001\ML_Demo001.csproj", "{DD7B1798-12C8-401B-B1A2-A0E123508E4C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaxiFarePrediction", "ML\TaxiFarePrediction\TaxiFarePrediction.csproj", "{CB92FE5A-5E7E-45E3-AC38-54F03494E7B2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaxiFarePrediction", "ML\TaxiFarePrediction\TaxiFarePrediction.csproj", "{CB92FE5A-5E7E-45E3-AC38-54F03494E7B2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DapperPostgreSqlJson", "DapperDemo\DapperPostgreSqlJson\DapperPostgreSqlJson.csproj", "{CFB8962B-E2D4-4A1A-A454-A239D5522C0B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -1338,6 +1340,14 @@ Global
 		{CB92FE5A-5E7E-45E3-AC38-54F03494E7B2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CB92FE5A-5E7E-45E3-AC38-54F03494E7B2}.Release|x64.ActiveCfg = Release|Any CPU
 		{CB92FE5A-5E7E-45E3-AC38-54F03494E7B2}.Release|x64.Build.0 = Release|Any CPU
+		{CFB8962B-E2D4-4A1A-A454-A239D5522C0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CFB8962B-E2D4-4A1A-A454-A239D5522C0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CFB8962B-E2D4-4A1A-A454-A239D5522C0B}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{CFB8962B-E2D4-4A1A-A454-A239D5522C0B}.Debug|x64.Build.0 = Debug|Any CPU
+		{CFB8962B-E2D4-4A1A-A454-A239D5522C0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CFB8962B-E2D4-4A1A-A454-A239D5522C0B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CFB8962B-E2D4-4A1A-A454-A239D5522C0B}.Release|x64.ActiveCfg = Release|Any CPU
+		{CFB8962B-E2D4-4A1A-A454-A239D5522C0B}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1485,6 +1495,7 @@ Global
 		{BB68EDAF-13CD-4301-AC7B-5973A7686480} = {DC04B391-371A-4258-AC46-BE4D2CE89AD5}
 		{DD7B1798-12C8-401B-B1A2-A0E123508E4C} = {72684F7B-729B-45A6-8DE2-AA8A2CC89451}
 		{CB92FE5A-5E7E-45E3-AC38-54F03494E7B2} = {72684F7B-729B-45A6-8DE2-AA8A2CC89451}
+		{CFB8962B-E2D4-4A1A-A454-A239D5522C0B} = {282C0114-704A-4506-890B-C326A67419B4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
