@@ -1,14 +1,14 @@
 {
-  "watches": [
+  watches: [
     {
-      "type": "checks",
-      "handler_type": "http",
-      "state": "critical",
-      "http_handler_config": {
-        "path": "http://192.168.1.99:5000/notice",
-        "method": "POST",
-        "timeout": "10s",
-        "header": { "Authorization": [ "token" ] }
+      type: checks,
+      handler_type: http,
+      state: critical,
+      http_handler_config: {
+        path: http://192.168.1.99:5000/notice,
+        method: POST,
+        timeout: 10s,
+        header: { Authorization: [ token ] }
       }
     }
   ]
