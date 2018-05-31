@@ -378,7 +378,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaxiFarePrediction", "ML\Ta
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DapperPostgreSqlJson", "DapperDemo\DapperPostgreSqlJson\DapperPostgreSqlJson.csproj", "{CFB8962B-E2D4-4A1A-A454-A239D5522C0B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeapperDemo002", "DapperDemo\DeapperDemo002\DeapperDemo002.csproj", "{7DC4D2DB-3A08-431B-8C2C-13BB37380051}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeapperDemo002", "DapperDemo\DeapperDemo002\DeapperDemo002.csproj", "{7DC4D2DB-3A08-431B-8C2C-13BB37380051}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DapperDemo0003", "DapperDemo\DapperDemo0003\DapperDemo0003.csproj", "{3374BCB0-6018-4AC5-AA74-D8480A2E0170}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -1358,6 +1360,14 @@ Global
 		{7DC4D2DB-3A08-431B-8C2C-13BB37380051}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7DC4D2DB-3A08-431B-8C2C-13BB37380051}.Release|x64.ActiveCfg = Release|Any CPU
 		{7DC4D2DB-3A08-431B-8C2C-13BB37380051}.Release|x64.Build.0 = Release|Any CPU
+		{3374BCB0-6018-4AC5-AA74-D8480A2E0170}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3374BCB0-6018-4AC5-AA74-D8480A2E0170}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3374BCB0-6018-4AC5-AA74-D8480A2E0170}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{3374BCB0-6018-4AC5-AA74-D8480A2E0170}.Debug|x64.Build.0 = Debug|Any CPU
+		{3374BCB0-6018-4AC5-AA74-D8480A2E0170}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3374BCB0-6018-4AC5-AA74-D8480A2E0170}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3374BCB0-6018-4AC5-AA74-D8480A2E0170}.Release|x64.ActiveCfg = Release|Any CPU
+		{3374BCB0-6018-4AC5-AA74-D8480A2E0170}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1507,6 +1517,7 @@ Global
 		{CB92FE5A-5E7E-45E3-AC38-54F03494E7B2} = {72684F7B-729B-45A6-8DE2-AA8A2CC89451}
 		{CFB8962B-E2D4-4A1A-A454-A239D5522C0B} = {282C0114-704A-4506-890B-C326A67419B4}
 		{7DC4D2DB-3A08-431B-8C2C-13BB37380051} = {282C0114-704A-4506-890B-C326A67419B4}
+		{3374BCB0-6018-4AC5-AA74-D8480A2E0170} = {282C0114-704A-4506-890B-C326A67419B4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
