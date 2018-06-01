@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="wwwroot\lib\signalr\signalr.js" />
+    <Content Remove="wwwroot\lib\signalr\signalr.js.map" />
+    <Content Remove="wwwroot\lib\signalr\signalr.min.js" />
+    <Content Remove="wwwroot\lib\signalr\signalr.min.js.map" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\lib\signalr\signalr.js" />
+    <None Include="wwwroot\lib\signalr\signalr.js.map" />
+    <None Include="wwwroot\lib\signalr\signalr.min.js" />
+    <None Include="wwwroot\lib\signalr\signalr.min.js.map" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.0.0" />
+  </ItemGroup>
+
+</Project>
