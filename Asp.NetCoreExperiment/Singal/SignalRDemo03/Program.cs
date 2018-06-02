@@ -19,6 +19,7 @@ namespace SignalRDemo03
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+                .UseUrls("http://localhost:55830")
                 .UseStartup<Startup>();
     }
 }
