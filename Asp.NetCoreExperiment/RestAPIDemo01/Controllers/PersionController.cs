@@ -18,7 +18,7 @@ namespace RestAPIDemo01.Controllers
         }
 
         // GET api/values/5
-        [HttpGet("{id}",Name ="GetPerson")]
+        [HttpGet("{id}")]
         public ActionResult GetPersion(int id)
         {
             var list = new List<Person>() {
@@ -35,7 +35,7 @@ namespace RestAPIDemo01.Controllers
         public IActionResult Post([FromBody] Person person)
         {
             person.ID = 4;
-            return  CreatedAtRoute("GetPersion", new { id = 4 },person);
+            return  CreatedAtAction("GetPersion", new { id = 4 },person);
         }
 
         // PUT api/values/5
