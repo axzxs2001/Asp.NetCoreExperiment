@@ -12,9 +12,14 @@ namespace RestAPIDemo01.Controllers
     {
         // GET api/values
         [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        public ActionResult<IEnumerable<Person>> Get()
         {
-            return new string[] { "value1", "value2" };
+            return new Person[] {
+                new Person {ID=1,Name="1111"},
+                new Person {ID=2,Name="2222"},
+                new Person {ID=3,Name="3333"},
+                new Person {ID=4,Name="4444"},
+            };
         }
 
         // GET api/values/5
@@ -27,7 +32,7 @@ namespace RestAPIDemo01.Controllers
                 new Person {ID=3,Name="3333"},
                 new Person {ID=4,Name="4444"},
             };
-            return Ok(list.SingleOrDefault(s=>s.ID==id));
+            return Ok(list.SingleOrDefault(s => s.ID == id));
         }
 
         // POST api/values
@@ -35,12 +40,12 @@ namespace RestAPIDemo01.Controllers
         public IActionResult Post([FromBody] Person person)
         {
             person.ID = 4;
-            return  CreatedAtAction("GetPersion", new { id = 4 },person);
+            return CreatedAtAction("GetPersion", new { id = 4 }, person);
         }
 
         // PUT api/values/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public void Put(int id, [FromBody]Person person)
         {
         }
 
