@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.Net.Http;
 
 namespace RestAPIDemo01
 {
@@ -33,13 +34,22 @@ namespace RestAPIDemo01
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            if (env.IsDevelopment())
+          //  if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+                //app.UseDeveloperExceptionPage();
             }
-            else
+            //else
             {
                 app.UseHsts();
+                app.UseExceptionHandler(builder =>
+                {
+                    builder.Run(async context =>
+                    {
+                        var arr = System.Text.Encoding.UTF8.GetBytes("错了");
+                        context.Response.StatusCode = 500;
+                        await context.Response.Body.WriteAsync(arr, 0,arr.Length);
+                    });
+                });
             }
 
             //app.UseHttpsRedirection();
