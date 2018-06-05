@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -27,7 +28,12 @@ namespace RestAPIDemo01
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc(options =>
-            options.ReturnHttpNotAcceptable = true
+            {
+                //请求响应的格式，支持xml，默认json，想返回xml，需要在请求的header中添加accept application/xml，请求不支持的格式返加4.6 not acceptable
+                options.ReturnHttpNotAcceptable = true;
+                options.OutputFormatters.Add(new XmlDataContractSerializerOutputFormatter());
+            }
+         
             ).SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 

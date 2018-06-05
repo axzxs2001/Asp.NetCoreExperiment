@@ -12,14 +12,14 @@ namespace RestAPIDemo01.Controllers
     {
         // GET api/values
         [HttpGet]
-        public ActionResult<IEnumerable<Person>> Get()
+        public IActionResult Get()
         {
-            return new Person[] {
+            return Ok(new Person[] {
                 new Person {ID=1,Name="1111"},
                 new Person {ID=2,Name="2222"},
                 new Person {ID=3,Name="3333"},
                 new Person {ID=4,Name="4444"},
-            };
+            });
         }
 
         // GET api/values/5
