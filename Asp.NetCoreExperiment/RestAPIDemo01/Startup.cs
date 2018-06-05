@@ -32,6 +32,7 @@ namespace RestAPIDemo01
                 //请求响应的格式，支持xml，默认json，想返回xml，需要在请求的header中添加accept application/xml，请求不支持的格式返加4.6 not acceptable
                 options.ReturnHttpNotAcceptable = true;
                 options.OutputFormatters.Add(new XmlDataContractSerializerOutputFormatter());
+                options.InputFormatters.Add(new XmlSerializerInputFormatter(new MvcOptions() {  }));
             }
          
             ).SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
