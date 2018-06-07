@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,10 +20,29 @@ namespace FilterDemo.Models
 
         public override void OnResultExecuting(ResultExecutingContext context)
         {
-        
+            Console.WriteLine("AddHeaderAttribute的action进来了");
             context.HttpContext.Response.Headers.Add(
                 _name, new string[] { _value });
             base.OnResultExecuting(context);
+        }
+    }
+
+    /// <summary>
+    /// 注入action特性 在ConfigService中注入
+    /// </summary>
+    public class AllAddAttribute : ResultFilterAttribute
+    {
+
+        private readonly ILogger<AllAddAttribute> _logger;
+        public AllAddAttribute(ILogger<AllAddAttribute> logger)
+        {
+            _logger = logger;
+        }
+
+        public override void OnResultExecuting(ResultExecutingContext context)
+        {
+
+            _logger.LogInformation("AllAddAttribute的action进来了");
         }
     }
 }

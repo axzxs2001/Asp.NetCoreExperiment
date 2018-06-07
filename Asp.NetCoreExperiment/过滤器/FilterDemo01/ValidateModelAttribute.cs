@@ -10,7 +10,7 @@ namespace FilterDemo01
     //第一步：创建action过滤器特性类
 
     /// <summary>
-    /// 验证action的参数的过滤器
+    /// 验证action的参数的过滤器 用       [ServiceFilter(typeof(ValidateModelAttribute))]方式在Action方法上
     /// </summary>
     public class ValidateModelAttribute : ActionFilterAttribute
     {
@@ -45,7 +45,9 @@ namespace FilterDemo01
     }
 
 
-
+    /// <summary>
+    /// 用  [Validate1Model]方式在Action方法上
+    /// </summary>
     public class Validate1ModelAttribute : TypeFilterAttribute
     {
         public Validate1ModelAttribute() : base(typeof(MyFilterAttributeImpl))
@@ -84,5 +86,8 @@ namespace FilterDemo01
 
             }
         }
+
+
+
     }
 }
