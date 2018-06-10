@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using System;
+using System.Collections.Generic;
 
 namespace FluentValidationDemo
 {
@@ -7,43 +8,81 @@ namespace FluentValidationDemo
     {
         static void Main(string[] args)
         {
-            var customer = new Customer() { AginPassword = "111" };
+            var customer = new Customer() {
+                Address =new Address ()
+            };
             var validator = new CustomerValidator();
-            var results = validator.Validate(customer, ruleSet: "Names");
-            foreach (var error in results.Errors)
+            var results = validator.Validate(customer);
+            if (!results.IsValid)
             {
-                Console.WriteLine(error.ErrorMessage);
+                foreach (var error in results.Errors)
+                {
+                    Console.WriteLine(error.ErrorMessage);
+                }
             }
         }
     }
+    /// <summary>
+    /// 验证体
+    /// </summary>
     public class CustomerValidator : AbstractValidator<Customer>
     {
         public CustomerValidator()
         {
-            RuleSet("Names", () =>
+            RuleFor(customer => customer.Name).NotEmpty().WithMessage(x => "姓名不能为空！");
+            RuleFor(customer => customer.ID).GreaterThan(0).WithName(x => "编号");
+            RuleFor(customer => customer.Password).NotEmpty().WithMessage("密码不能为空");
+            RuleFor(customer => customer.SurePassword).Equal(customer => customer.Password).WithMessage("确认密码要与密码相同");
+            RuleFor(customer => customer.Age).Custom((age, context) =>
             {
-                RuleFor(x => x.Surname).NotNull().WithName(x => "ddd");
-                RuleFor(x => x.Forename).NotNull().WithMessage("surname empty");
-                RuleFor(x => x.Password).NotNull().NotEmpty().WithMessage("不能为空");
-                RuleFor(x => x.AginPassword).NotEmpty().NotNull().Equal(x => x.Password).WithMessage("要和Password相等");
-                RuleFor(x => x.Surname).Must(surname =>
+                if(age<18||age>45)
                 {
-                    return surname.Length > 0;
-
-                });
+                    context.AddFailure("年龄必需在18和45之间");
+                }
             });
-            //RuleFor(customer => customer.Surname).NotNull();
+
+            RuleForEach(customer => customer.Titles).NotEmpty().WithMessage("每个Title不能为空");
+
+            RuleFor(customer => customer.Address).SetValidator(new AddressValidator());
+
         }
     }
+    public class AddressValidator : AbstractValidator<Address>
+    {
+        public AddressValidator()
+        {
+            RuleFor(address => address.Postcode).NotEmpty().WithMessage("地址邮编不能为空");
+       
+        }
+    }
+    /// <summary>
+    /// 实体类
+    /// </summary>
     public class Customer
     {
-        public int Id { get; set; }
-        public string Surname { get; set; }
-        public string Forename { get; set; }
-        public decimal Discount { get; set; }
-        public string Address { get; set; }
+        public int ID { get; set; }
+        public string Name { get; set; }
 
         public string Password { get; set; }
-        public string AginPassword { get; set; }
+
+        public string SurePassword { get; set; }
+
+        public int Age { get; set; }
+
+        public List<string> Titles { get; set; } = new List<string>() {"厂长",""};
+
+        public Address Address { get; set; }
+
+    }
+
+    public class Address
+    {
+        public string Postcode
+        { get; set; }
+        public string County
+        { get; set; }
+
+        public string Town
+        { get; set; }
     }
 }
