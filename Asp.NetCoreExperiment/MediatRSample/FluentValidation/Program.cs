@@ -12,6 +12,8 @@ namespace FluentValidationDemo
             {
                 SurePassword = "1",
                 Address = new Address(),
+                Sex = false,
+                N1="a",
                 Positions = new List<Position> {
                     new Position{ NO="no001"},
                     new Position{Name="name001"}
@@ -28,6 +30,8 @@ namespace FluentValidationDemo
                     Console.WriteLine("");
                 }
             }
+
+
         }
     }
     /// <summary>
@@ -62,7 +66,16 @@ namespace FluentValidationDemo
 
             //where是移除不作验证的
             RuleFor(customer => customer.Positions).SetCollectionValidator(new PositionValidator()).Where(x => x.NO != null);
+            //条件验证
+            When(customer => customer.Sex == true, () =>
+            {
+                RuleFor(customer => customer.Age).GreaterThan(20);
+            });
 
+            RuleFor(customer => customer.N1).NotNull().DependentRules(() =>
+            {
+                RuleFor(customer => customer.N2).NotNull();
+            });
         }
     }
     public class AddressValidator : AbstractValidator<Address>
@@ -102,6 +115,12 @@ namespace FluentValidationDemo
         public Address Address { get; set; }
 
         public List<Position> Positions { get; set; }
+
+        public bool Sex { get; set; }
+
+        public string N1 { get; set; }
+        public string N2 { get; set; }
+
 
     }
     public class Position
