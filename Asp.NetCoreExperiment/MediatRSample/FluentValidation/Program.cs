@@ -13,7 +13,7 @@ namespace FluentValidationDemo
                 SurePassword = "1",
                 Address = new Address(),
                 Sex = false,
-                N1="a",
+                N1 = "a",
                 Positions = new List<Position> {
                     new Position{ NO="no001"},
                     new Position{Name="name001"}
@@ -76,6 +76,8 @@ namespace FluentValidationDemo
             {
                 RuleFor(customer => customer.N2).NotNull();
             });
+            // RuleFor(customer => customer.CascadeString).NotNull().WithMessage("CascadeString为Null了").NotEmpty().WithMessage("CascadeString 空了").NotEqual("foo").WithMessage("CascadeString等于foo了");
+            RuleFor(customer => customer.CascadeString).Cascade(CascadeMode.StopOnFirstFailure).NotNull().WithMessage("CascadeString为Null了").NotEmpty().WithMessage("CascadeString 空了").NotEqual("foo").WithMessage("CascadeString等于foo了");
         }
     }
     public class AddressValidator : AbstractValidator<Address>
@@ -120,6 +122,8 @@ namespace FluentValidationDemo
 
         public string N1 { get; set; }
         public string N2 { get; set; }
+
+        public string CascadeString { get; set; }
 
 
     }
