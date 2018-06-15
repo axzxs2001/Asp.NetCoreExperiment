@@ -26,15 +26,20 @@ namespace SwaggerDemo
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-           var section= Configuration.GetSection("DefaultConnectionString");
+            var section = Configuration.GetSection("DefaultConnectionString");
             services.AddMvc();
-            services.AddSwaggerGen(c =>
+            services.AddSwaggerGen(options =>
             {
-                c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
+                options.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
                 // Set the comments path for the Swagger JSON and UI.
                 var basePath = PlatformServices.Default.Application.ApplicationBasePath;
                 var xmlPath = Path.Combine(basePath, "SwaggerDemo.xml");
-                c.IncludeXmlComments(xmlPath);
+                options.IncludeXmlComments(xmlPath);
+                //如果用Token验证，会在Swagger界面上有难证
+                options.AddSecurityDefinition("Bearer", new ApiKeyScheme { In = "header", Description = "请输入带有Bearer的Token", Name = "Authorization", Type = "apiKey" });
+                options.AddSecurityRequirement(new Dictionary<string, IEnumerable<string>> {
+                { "Bearer", Enumerable.Empty<string>() }});
+
             });
         }
 
@@ -45,11 +50,12 @@ namespace SwaggerDemo
             {
                 app.UseDeveloperExceptionPage();
             }
-            app.UseSwagger(s=> {
-                
+            app.UseSwagger(s =>
+            {
+
             });
 
-         
+
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
