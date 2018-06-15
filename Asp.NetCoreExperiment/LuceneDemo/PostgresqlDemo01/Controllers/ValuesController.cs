@@ -18,10 +18,10 @@ namespace PostgresqlDemo01.Controllers
     {
 
         CXDic _cx;
-        public ValuesController(CXDic cx)
-        {
-            _cx = cx;
-        }
+        //public ValuesController(CXDic cx)
+        //{
+        //    _cx = cx;
+        //}
 
         // GET api/values
         [HttpGet]
@@ -48,13 +48,13 @@ namespace PostgresqlDemo01.Controllers
         }
 
         [HttpGet("/query1")]
-        public IActionResult Query1(string name)
+        public IActionResult Query1(string name="")
         {
-            var connString = "Host=127.0.0.1;Username=postgres;Password=gsw790622;Database=testdb01;";
+            var connString = "Server=127.0.0.1;Port=5432;UserId=postgres;Password=postgres2018;Database=TestDB;";
             using (var conn = new NpgsqlConnection(connString))
             {
-                var result = conn.Query(@"select  fname,fnumber,fsize,fpy from public.t_bx_feeitem where
-  fname like '%" + name + "%' or fpy like  '%" + name + "%' LIMIT 100 ");
+                //  var result = conn.Query(@"select * from tb where info like '%5821ab%' ");
+                var result = conn.Query(@"select * from tb where info ~ '"+name+"'");
                 return new JsonResult(result);
             }
         }
@@ -62,11 +62,19 @@ namespace PostgresqlDemo01.Controllers
         [HttpGet("/query2")]
         public IActionResult Query2(string name)
         {
-            using (var conn = new SqlConnection("server=.;database=testdb;uid=sa;pwd=1;"))
+            var connString = "Server=127.0.0.1;Port=5432;UserId=postgres;Password=postgres2018;Database=TestDB;";
+            using (var conn = new NpgsqlConnection(connString))
             {
-                var result = conn.Query(@"select top 100  fname,fnumber,fsize,fpy from t_bx_feeitem where  fname like '%" + name + "%' or fpy like  '%" + name + "%'");
+                  var result = conn.Query(@"select * from tb where info like '%"+name+"%' ");
+               // var result = conn.Query(@"select * from tb where info ~ '5821ab'");
                 return new JsonResult(result);
             }
+
+            //using (var conn = new SqlConnection("server=.;database=testdb;uid=sa;pwd=1;"))
+            //{
+            //    var result = conn.Query(@"select top 100  fname,fnumber,fsize,fpy from t_bx_feeitem where  fname like '%" + name + "%' or fpy like  '%" + name + "%'");
+            //    return new JsonResult(result);
+            //}
         }
         [HttpGet("/query3")]
         public IActionResult Query3(string name)

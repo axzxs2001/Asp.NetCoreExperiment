@@ -35,9 +35,9 @@ namespace PostgresqlDemo01
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var cx = new CXDic();
-            cx.Write();
-            services.AddSingleton(cx);
+           // var cx = new CXDic();
+           // cx.Write();
+            //services.AddSingleton(cx);
             services.AddMvc();
         }
 
