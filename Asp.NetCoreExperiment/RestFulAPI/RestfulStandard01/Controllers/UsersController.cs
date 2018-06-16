@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using RestfulStandard01.Model;
 
 namespace RestfulStandard01.Controllers
@@ -16,22 +17,47 @@ namespace RestfulStandard01.Controllers
     public class UsersController : ControllerBase
     {
         /// <summary>
-        /// 获取用户
+        /// 
         /// </summary>
-        /// <param name="userId">用户ID</param>
-        /// <returns></returns>
-        [HttpGet("{userId}")]
-        public ActionResult GetUser(int userId)
+        readonly ILogger<UsersController> _logger;
+        /// <summary>
+        /// 
+        /// </summary>
+        readonly IUserRepository _userRepository;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="logger"></param>
+        /// <param name="userRepository"></param>
+        public UsersController(ILogger<UsersController> logger, IUserRepository userRepository)
         {
-            return Ok(new User
-            {
-                ID = 1,
-                UserName = "gsw",
-                Password = "1111111"
-            });
+            _userRepository = userRepository;
+            _logger = logger;
         }
 
+        /// <summary>
+        /// 获取用户
+        /// 资源应该使用名词, 它是个东西, 不是动作.
+        /// api/getusers 就是不正确的.
+        /// GET api/users 就是正确的
+        /// GET api/users/{userId}
+        /// </summary>
+        /// <param name="id">用户ID</param>
+        /// <returns></returns>
+        [HttpGet("{id}")]
+        public ActionResult GetUser(int id)
+        {       
+            var user = _userRepository.GetUserByID(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                return Ok(user);
+            }
 
-
+        }
     }
 }
