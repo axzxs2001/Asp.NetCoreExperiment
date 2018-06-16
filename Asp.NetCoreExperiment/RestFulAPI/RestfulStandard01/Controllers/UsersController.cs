@@ -47,7 +47,7 @@ namespace RestfulStandard01.Controllers
         /// <returns></returns>
         [HttpGet("{id}")]
         public ActionResult GetUser(int id)
-        {       
+        {
             var user = _userRepository.GetUserByID(id);
             if (user == null)
             {
@@ -58,6 +58,24 @@ namespace RestfulStandard01.Controllers
                 return Ok(user);
             }
 
+        }
+        /// <summary>
+        /// 按用户获取帐号
+        /// </summary>
+        /// <param name="userId">用户ID</param>
+        /// <returns></returns>
+        [HttpGet("{userId}/accounts")]
+        public ActionResult GetAccounts(int userId)
+        {
+            var accounts = _userRepository.GetAccountsByUserID(userId);
+            if (accounts == null || accounts.Count == 0)
+            {
+                return NotFound();
+            }
+            else
+            {
+                return Ok(accounts);
+            }
         }
     }
 }

@@ -32,5 +32,16 @@ namespace RestfulStandard01.Model
                 return user;
             }
         }
+        /// <summary>
+        /// 按用户ID获取帐号
+        /// </summary>
+        /// <param name="userId">用户ID</param>
+        /// <returns></returns>
+        public IList<Account> GetAccountsByUserID(int userId)
+        {
+            return new List<Account>() {
+                new Account { ID=1, AccountNo="123445", AccountType="QQ" }
+            };
+        }
     }
 }

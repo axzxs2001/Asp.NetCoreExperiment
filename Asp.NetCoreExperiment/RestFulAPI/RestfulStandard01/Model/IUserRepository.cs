@@ -16,5 +16,12 @@ namespace RestfulStandard01.Model
         /// <param name="id">ID</param>
         /// <returns></returns>
         User GetUserByID(int id);
+
+        /// <summary>
+        /// 按用户ID获取帐号
+        /// </summary>
+        /// <param name="userId">用户ID</param>
+        /// <returns></returns>
+        IList<Account> GetAccountsByUserID(int userId);
     }
 }
