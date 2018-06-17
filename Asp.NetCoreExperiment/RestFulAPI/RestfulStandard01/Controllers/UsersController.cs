@@ -11,7 +11,7 @@ namespace RestfulStandard01.Controllers
 
     /// <summary>
     /// 用户Controller
-    /// </summary>
+    /// </summary>  
     [Route("api/[controller]")]
     [ApiController]
     public class UsersController : ControllerBase
@@ -77,5 +77,26 @@ namespace RestfulStandard01.Controllers
                 return Ok(accounts);
             }
         }
+        /// <summary>
+        /// 按用户ID和帐户ID查询帐户
+        /// </summary>
+        /// <param name="userId">用户ID</param>
+        /// <param name="accountId">帐户ID</param>
+        /// <returns></returns>
+
+        [HttpGet("{userId}/accounts/{accountId}")]
+        public IActionResult GetAccount(int userId, int accountId)
+        {
+            var account = _userRepository.GetAccountByID(userId, accountId);
+            if (account == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                return Ok(account);
+            }
+        }
     }
+
 }

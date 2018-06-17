@@ -22,5 +22,10 @@ namespace RestfulStandard01.Model
         /// 
         /// </summary>
         public string AccountNo { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public int UserID { get; set; }
     }
 }
