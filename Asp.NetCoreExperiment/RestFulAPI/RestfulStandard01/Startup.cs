@@ -17,6 +17,7 @@ using RestfulStandard01.Model;
 using System.Text;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace RestfulStandard01
 {
@@ -48,23 +49,24 @@ namespace RestfulStandard01
 
             services.AddSwaggerGen(options =>
             {
-                options.SwaggerDoc("RestfulStandard01", new Info { Title = "API接口", Version = "v1", Contact = new Contact { Email = "", Name = "NetStars", Url = "" }, Description = "医API"  });
+                options.SwaggerDoc("RestfulStandard01", new Info { Title = "API接口", Version = "v1", Contact = new Contact { Email = "", Name = "NetStars", Url = "" }, Description = "医API" });
                 var basePath = PlatformServices.Default.Application.ApplicationBasePath;
                 var xmlPath = Path.Combine(basePath, $"RestfulStandard01.xml");
                 options.IncludeXmlComments(xmlPath);
-                
 
-
-                //var api = new ApiKeyScheme { In = "header", Description = "请输入带有Bearer的Token", Name = "Authorization", Type = "apiKey" };
-                //options.AddSecurityDefinition("Bearer", api);
-                //options.AddSecurityRequirement(new Dictionary<string, IEnumerable<string>> {
-                //{ "Bearer", Enumerable.Empty<string>() },
-                //});
+                var api = new ApiKeyScheme { In = "header", Description = "请输入带有Bearer的Token", Name = "Authorization", Type = "apiKey" };
+                options.AddSecurityDefinition("Bearer", api);
+                options.AddSecurityRequirement(new Dictionary<string, IEnumerable<string>> {
+                { "Bearer", Enumerable.Empty<string>() },
+                });
 
             });
-            services.AddMvc(options => {
+            services.AddMvc(options =>
+            {
                 options.ReturnHttpNotAcceptable = true;
+                //设置支持XML格式输入输出
                 options.OutputFormatters.Add(new XmlDataContractSerializerOutputFormatter());
+                options.InputFormatters.Add(new XmlDataContractSerializerInputFormatter(options));
             }).SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
@@ -76,7 +78,7 @@ namespace RestfulStandard01
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
 
-           // env.EnvironmentName = EnvironmentName.Production;
+            env.EnvironmentName = EnvironmentName.Production;
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -106,13 +108,11 @@ namespace RestfulStandard01
             app.UseMvc().UseSwagger(options =>
             {
                 options.RouteTemplate = "{documentName}/swagger.json";
-               
             })
                 .UseSwaggerUI(options =>
                 {
                     options.DocumentTitle = "RestfulStandard01.API";
                     options.SwaggerEndpoint("/RestfulStandard01/swagger.json", "RestfulStandard01");
-               
                 }); ;
         }
     }

@@ -45,6 +45,7 @@ namespace RestfulStandard01.Controllers
         /// </summary>
         /// <param name="id">用户ID</param>
         /// <returns></returns>
+        [ProducesResponseType(typeof(User), 200)]
         [HttpGet("{id}")]
         public ActionResult GetUser(int id)
         {
@@ -64,6 +65,7 @@ namespace RestfulStandard01.Controllers
         /// </summary>
         /// <param name="userId">用户ID</param>
         /// <returns></returns>
+        [ProducesResponseType(typeof(IEnumerable<Account>), 200)]
         [HttpGet("{userId}/accounts")]
         public ActionResult GetAccounts(int userId)
         {
@@ -83,7 +85,7 @@ namespace RestfulStandard01.Controllers
         /// <param name="userId">用户ID</param>
         /// <param name="accountId">帐户ID</param>
         /// <returns></returns>
-
+        [ProducesResponseType(typeof(Account), 200)]
         [HttpGet("{userId}/accounts/{accountId}")]
         public IActionResult GetAccount(int userId, int accountId)
         {
