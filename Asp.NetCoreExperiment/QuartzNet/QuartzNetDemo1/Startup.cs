@@ -8,6 +8,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Quartz;
+using QuartzNetDemo1.Model;
 
 namespace QuartzNetDemo1
 {
@@ -20,21 +22,23 @@ namespace QuartzNetDemo1
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            services.AddSingleton<IMigrationRepository, MigrationRepository>();
+            services.UseQuartz(typeof(MigrationJob));
+           // services.AddMvc();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+    
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IScheduler scheduler)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
-
-            app.UseMvc();
+            //每天23点执行一次OrderEventJob的Execute方法   "0 0 23 * * ?"
+            QuartzServicesUtilities.StartJob<MigrationJob>(scheduler, "*/3 * * * * ?");
+            //app.UseMvc();
         }
     }
 }
