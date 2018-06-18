@@ -108,10 +108,7 @@ namespace RestfulStandard01.Controllers
         [HttpPost]
         public IActionResult AddAccount([FromBody]Account account)
         {
-            account.ID = 10;         
-            var arr = new byte[Request.Body.Length];
-            Request.Body.Read(arr, 0, arr.Length);
-            return Ok(account);
+            return Ok(_userRepository.AddAccount(account));
         }
     }
 

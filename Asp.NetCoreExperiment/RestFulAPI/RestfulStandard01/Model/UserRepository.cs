@@ -59,5 +59,16 @@ namespace RestfulStandard01.Model
                 UserID=1
             };
         }
+        /// <summary>
+        /// 添加帐户
+        /// </summary>
+        /// <param name="account">帐户</param>
+        /// <returns></returns>
+        public Account AddAccount(Account account)
+        {
+            account.ID = new Random().Next(10, 500);
+            return account;
+        }
+
     }
 }

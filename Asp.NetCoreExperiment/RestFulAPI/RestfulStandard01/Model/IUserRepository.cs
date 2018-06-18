@@ -31,5 +31,12 @@ namespace RestfulStandard01.Model
         /// <param name="accountId">帐户ID</param>
         /// <returns></returns>
         Account GetAccountByID(int userId, int accountId);
+
+        /// <summary>
+        /// 添加帐户
+        /// </summary>
+        /// <param name="account">帐户</param>
+        /// <returns></returns>
+        Account AddAccount(Account account);
     }
 }
