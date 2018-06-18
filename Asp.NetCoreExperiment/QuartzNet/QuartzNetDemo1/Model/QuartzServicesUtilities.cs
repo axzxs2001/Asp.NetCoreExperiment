@@ -13,14 +13,12 @@ namespace QuartzNetDemo1.Model
             where TJob : IJob
         {
             var jobName = typeof(TJob).FullName;
-
             var job = JobBuilder.Create<TJob>()
                 .WithIdentity(jobName)
                 .Build();
-
             var trigger = TriggerBuilder.Create()
                 .WithIdentity($"{jobName}.trigger")
-                .StartNow()//每天23点执行一次
+                .StartNow()
                 .WithCronSchedule(cronExpression)
                 .Build();
             await scheduler.ScheduleJob(job, trigger);

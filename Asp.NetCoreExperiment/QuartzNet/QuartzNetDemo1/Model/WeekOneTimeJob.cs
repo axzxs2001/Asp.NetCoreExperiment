@@ -5,16 +5,19 @@ using System.Threading.Tasks;
 
 namespace QuartzNetDemo1.Model
 {
-    public class MigrationJob : IJob
+    /// <summary>
+    /// 每周执行一次的工作
+    /// </summary>
+    public class WeekOneTimeJob : IJob
     {
 
         static int _times = 0;
         static object obj=new object();
-        IMigrationRepository _migrationRepository;
+        IBackgroundRepository _backgroundRepository;
 
-        public MigrationJob(IMigrationRepository migrationRepository)
+        public WeekOneTimeJob(IBackgroundRepository backgroundRepository)
         {
-            _migrationRepository = migrationRepository;
+            _backgroundRepository = backgroundRepository;
         }
         public Task Execute(IJobExecutionContext context)
         {
@@ -22,7 +25,7 @@ namespace QuartzNetDemo1.Model
             {
                 try
                 {
-                    _migrationRepository.Migration();
+                    _backgroundRepository.FeeOneTimePerWeek();
                     _times = 0;
                 }
                 catch (Exception exc)
@@ -39,7 +42,7 @@ namespace QuartzNetDemo1.Model
                     else
                     {
                         Console.ForegroundColor = ConsoleColor.DarkYellow;
-                        Console.WriteLine($"{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff")}:开始发警报");
+                        Console.WriteLine($"{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff")}: 【每周执行一次】发生三次异常警报");
                         Console.ForegroundColor = ConsoleColor.White;
                         _times = 0;
                     }
