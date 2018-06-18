@@ -99,6 +99,20 @@ namespace RestfulStandard01.Controllers
                 return Ok(account);
             }
         }
+        /// <summary>
+        /// 添加帐户
+        /// </summary>
+        /// <param name="account">帐户</param>
+        /// <returns></returns>         
+        [ProducesResponseType(typeof(Account), 200)]
+        [HttpPost]
+        public IActionResult AddAccount([FromBody]Account account)
+        {
+            account.ID = 10;         
+            var arr = new byte[Request.Body.Length];
+            Request.Body.Read(arr, 0, arr.Length);
+            return Ok(account);
+        }
     }
 
 }

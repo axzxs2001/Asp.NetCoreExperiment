@@ -18,6 +18,9 @@ using System.Text;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
+using System.Xml.Linq;
+using System.Threading;
 
 namespace RestfulStandard01
 {
@@ -64,10 +67,10 @@ namespace RestfulStandard01
             services.AddMvc(options =>
             {
                 options.ReturnHttpNotAcceptable = true;
-                //设置支持XML格式输入输出
-                options.OutputFormatters.Add(new XmlDataContractSerializerOutputFormatter());
-                options.InputFormatters.Add(new XmlDataContractSerializerInputFormatter(options));
-            }).SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            })
+            .AddXmlSerializerFormatters() //设置支持XML格式输入输出
+            .AddJsonOptions(op => op.SerializerSettings.ContractResolver = new DefaultContractResolver())//大小写不转换
+            .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
         /// <summary>
@@ -78,7 +81,7 @@ namespace RestfulStandard01
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
 
-            env.EnvironmentName = EnvironmentName.Production;
+            // env.EnvironmentName = EnvironmentName.Production;
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -114,6 +117,29 @@ namespace RestfulStandard01
                     options.DocumentTitle = "RestfulStandard01.API";
                     options.SwaggerEndpoint("/RestfulStandard01/swagger.json", "RestfulStandard01");
                 }); ;
+        }
+    }
+
+    public class XDocumentInputFormatter : InputFormatter, IInputFormatter, IApiRequestFormatMetadataProvider
+    {
+        public XDocumentInputFormatter()
+        {
+            SupportedMediaTypes.Add("application/xml");
+        }
+
+        protected override bool CanReadType(Type type)
+        {
+            if (type.IsAssignableFrom(typeof(XDocument)))
+            {
+                return true;
+            }
+            return base.CanReadType(type);
+        }
+
+        public override async Task<InputFormatterResult> ReadRequestBodyAsync(InputFormatterContext context)
+        {
+            var xmlDoc = await XDocument.LoadAsync(context.HttpContext.Request.Body, LoadOptions.None, CancellationToken.None);
+            return InputFormatterResult.Success(xmlDoc);
         }
     }
 }
