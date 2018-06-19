@@ -50,7 +50,7 @@ namespace PostgresqlDemo01.Controllers
         [HttpGet("/query1")]
         public IActionResult Query1(string name="")
         {
-            var connString = "Server=127.0.0.1;Port=5432;UserId=postgres;Password=postgres2018;Database=TestDB;";
+            var connString = "Server=127.0.0.1;Port=5432;UserId=postgres;Password=postgres2018;Database=TestDB;Pool Size=8;";
             using (var conn = new NpgsqlConnection(connString))
             {
                 //  var result = conn.Query(@"select * from tb where info like '%5821ab%' ");
@@ -62,10 +62,12 @@ namespace PostgresqlDemo01.Controllers
         [HttpGet("/query2")]
         public IActionResult Query2(string name)
         {
-            var connString = "Server=127.0.0.1;Port=5432;UserId=postgres;Password=postgres2018;Database=TestDB;";
+            var connString = "Server=127.0.0.1;Port=5432;UserId=postgres;Password=postgres2018;Database=TestDB;Minimum Pool Size=8;";
             using (var conn = new NpgsqlConnection(connString))
             {
-                  var result = conn.Query(@"select * from tb where info like '%"+name+"%' ");
+                
+                var no = new Random().Next(10, 99);
+                  var result = conn.Query(@"select * from tb where info like '%"+name+no+"%'");
                // var result = conn.Query(@"select * from tb where info ~ '5821ab'");
                 return new JsonResult(result);
             }
