@@ -15,9 +15,9 @@ namespace QuartzNetDemo1.Model
         {
             if (new Random().Next(1, 3) % 2 == 0)
             {
-                throw new Exception(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff") + ":一周结算一次异常");
+                throw new Exception(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff") + ":一月结算一次异常");
             }
-            Console.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff") + ":一周结算一次成功执行！");
+            Console.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff") + ":一月结算一次成功执行！");
             return true;
         }
         /// <summary>

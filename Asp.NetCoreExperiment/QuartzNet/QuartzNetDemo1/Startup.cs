@@ -24,29 +24,27 @@ namespace QuartzNetDemo1
 
         public void ConfigureServices(IServiceCollection services)
         {
+            var cronJobs = new Dictionary<string,string>();
+            Configuration.GetSection("CronJob").Bind(cronJobs);
+            
+            services.AddSingleton(cronJobs);
             services.AddSingleton<IBackgroundRepository, BackgroundRepository>();
-            services.UseQuartz(typeof(MigrationJob), typeof(MonthOneTimeJob), typeof(MonthTwoTimeJob), typeof(WeekOneTimeJob));
+            // services.UseQuartz(typeof(MigrationJob), typeof(MonthOneTimeJob), typeof(MonthTwoTimeJob), typeof(WeekOneTimeJob));
+             services.UseQuartz(typeof(BackgroundJob));
             services.AddMvc();
         }
 
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IScheduler scheduler)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IScheduler scheduler, Dictionary<string, string> cronJobs)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
-            //每天23点执行一次OrderEventJob的Execute方法   "0 0 23 * * ?"
-            QuartzServicesUtilities.StartJob<MigrationJob>(scheduler, "0 0 0 * * ?");
-
-            //每月1号凌晨2点，5点，8点执行一次：0 0 2,5,8 1 * ?
-            QuartzServicesUtilities.StartJob<MonthOneTimeJob>(scheduler, "0 0 2,5,8 1 * ?");
-
-            //每月1号，16号凌晨1点，4点，7点执行一次：0 0 1,4,7 1,16 * ?
-            QuartzServicesUtilities.StartJob<MonthTwoTimeJob>(scheduler, "0 0 1,4,7 1,16 * ?");
-
-            //每周星期一凌晨3点，6点，9点执行一次：0 0 3,6,9 ? * 2
-            QuartzServicesUtilities.StartJob<WeekOneTimeJob>(scheduler, "0 0 3,6,9 ? * 2");
+            foreach(var key in cronJobs.Keys)
+            {
+                QuartzServicesUtilities.StartJob<BackgroundJob>(scheduler, cronJobs[key], key);
+            }      
             app.UseMvc();
         }
     }
