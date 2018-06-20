@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using RestfulStandard01.Model;
@@ -78,10 +79,27 @@ namespace RestfulStandard01.Controllers
             }
             else
             {
-                return CreatedAtAction("GetUser",new { id=backUser.ID},backUser);
+                return CreatedAtAction("GetUser", new { id = backUser.ID }, backUser);
             }
         }
 
+        /// <summary>
+        /// 如果POST到单个资源的地址 测试
+        /// </summary>
+        /// <param name="userid">用户ID=1时存在</param>
+        /// <returns></returns>
+        [HttpPost("careateuser/{userid}")]
+        public IActionResult CreateUser(int userid)
+        {
+            if (userid != 1)
+            {
+                return NotFound();
+            }
+            else
+            {
+                return StatusCode(StatusCodes.Status409Conflict);
+            }
+        }
 
 
     }
