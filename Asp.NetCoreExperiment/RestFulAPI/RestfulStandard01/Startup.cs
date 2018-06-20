@@ -49,7 +49,7 @@ namespace RestfulStandard01
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<IUserRepository, UserRepository>();
-
+            services.AddScoped<IAccountRepository, AccountRepository>();
             services.AddSwaggerGen(options =>
             {
                 options.SwaggerDoc("RestfulStandard01", new Info { Title = "API接口", Version = "v1", Contact = new Contact { Email = "", Name = "NetStars", Url = "" }, Description = "医API" });

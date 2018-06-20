@@ -32,42 +32,16 @@ namespace RestfulStandard01.Model
                 return user;
             }
         }
+
         /// <summary>
-        /// 按用户ID获取帐号
+        /// 添加用户
         /// </summary>
-        /// <param name="userId">用户ID</param>
+        /// <param name="user">用户</param>
         /// <returns></returns>
-        public IList<Account> GetAccountsByUserID(int userId)
+        public User AddUser(User user)
         {
-            return new List<Account>() {
-                new Account { ID=1, AccountNo="123445", AccountType="QQ" }
-            };
-        }
-        /// <summary>
-        /// 按用户ID，帐户ID获取帐户
-        /// </summary>
-        /// <param name="userId">用户ID</param>
-        /// <param name="accountId">帐户ID</param>
-        /// <returns></returns>
-        public Account GetAccountByID(int userId, int accountId)
-        {
-            return new Account()
-            {
-                ID = 10,
-                AccountNo = "12334567",
-                AccountType = "QQ",
-                UserID=1
-            };
-        }
-        /// <summary>
-        /// 添加帐户
-        /// </summary>
-        /// <param name="account">帐户</param>
-        /// <returns></returns>
-        public Account AddAccount(Account account)
-        {
-            account.ID = new Random().Next(10, 500);
-            return account;
+            user.ID = new Random().Next(10, 500);
+            return user;
         }
 
     }

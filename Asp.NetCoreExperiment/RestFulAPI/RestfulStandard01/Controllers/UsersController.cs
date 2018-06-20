@@ -12,7 +12,7 @@ namespace RestfulStandard01.Controllers
     /// <summary>
     /// 用户Controller
     /// </summary>  
-    [Route("api/[controller]")]
+    [Route("api/users")]
     [ApiController]
     public class UsersController : ControllerBase
     {
@@ -47,6 +47,8 @@ namespace RestfulStandard01.Controllers
         /// <returns></returns>
         [ProducesResponseType(typeof(User), 200)]
         [HttpGet("{id}")]
+        [HttpHead("{id}")]
+        [HttpOptions("{id}")]
         public ActionResult GetUser(int id)
         {
             var user = _userRepository.GetUserByID(id);
@@ -61,55 +63,27 @@ namespace RestfulStandard01.Controllers
 
         }
         /// <summary>
-        /// 按用户获取帐号
+        /// 添加用户
         /// </summary>
-        /// <param name="userId">用户ID</param>
+        /// <param name="user"></param>
         /// <returns></returns>
-        [ProducesResponseType(typeof(IEnumerable<Account>), 200)]
-        [HttpGet("{userId}/accounts")]
-        public ActionResult GetAccounts(int userId)
-        {
-            var accounts = _userRepository.GetAccountsByUserID(userId);
-            if (accounts == null || accounts.Count == 0)
-            {
-                return NotFound();
-            }
-            else
-            {
-                return Ok(accounts);
-            }
-        }
-        /// <summary>
-        /// 按用户ID和帐户ID查询帐户
-        /// </summary>
-        /// <param name="userId">用户ID</param>
-        /// <param name="accountId">帐户ID</param>
-        /// <returns></returns>
-        [ProducesResponseType(typeof(Account), 200)]
-        [HttpGet("{userId}/accounts/{accountId}")]
-        public IActionResult GetAccount(int userId, int accountId)
-        {
-            var account = _userRepository.GetAccountByID(userId, accountId);
-            if (account == null)
-            {
-                return NotFound();
-            }
-            else
-            {
-                return Ok(account);
-            }
-        }
-        /// <summary>
-        /// 添加帐户
-        /// </summary>
-        /// <param name="account">帐户</param>
-        /// <returns></returns>         
-        [ProducesResponseType(typeof(Account), 200)]
+        [ProducesResponseType(typeof(User), 200)]
         [HttpPost]
-        public IActionResult AddAccount([FromBody]Account account)
+        public ActionResult AddUser([FromBody]User user)
         {
-            return Ok(_userRepository.AddAccount(account));
+            var backUser = _userRepository.AddUser(user);
+            if (backUser == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                return CreatedAtAction("GetUser",new { id=backUser.ID},backUser);
+            }
         }
+
+
+
     }
 
 }
