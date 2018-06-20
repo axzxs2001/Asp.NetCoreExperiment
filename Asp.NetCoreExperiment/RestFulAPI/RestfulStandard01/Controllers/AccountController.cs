@@ -158,7 +158,30 @@ namespace RestfulStandard01.Controllers
                 return NotFound();
             }
         }
- 
+        /// <summary>
+        /// 修改帐户
+        /// </summary>
+        /// <param name="userId">用户ID</param>
+        /// <param name="accountId">帐户ID</param>
+        /// <param name="account">帐户</param>
+        /// <returns></returns>
+        [ProducesResponseType(typeof(int), 200)]
+        [HttpPut("{accountId}")]
+        public IActionResult UpdateAccount(int userId, int accountId, [FromBody]Account account)
+        {
+            if (string.IsNullOrEmpty(account.AccountNo) || string.IsNullOrEmpty(account.AccountType))
+            {
+                return BadRequest();
+            }
+            if (userId == 1 && accountId == 1)
+            {
+                return NoContent();
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
     }
 
 }
