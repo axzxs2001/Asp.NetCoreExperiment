@@ -125,9 +125,29 @@ namespace RestfulStandard01.Controllers
                         pros.Add(operation.path, "");
                         break;
                 }
-            }         
-            var sql = $"update table1 set {string.Join(',', pros.Select(s => s.Key + "='" + s.Value + "'"))} where id={id}";            
+            }
+            var sql = $"update table1 set {string.Join(',', pros.Select(s => s.Key + "='" + s.Value + "'"))} where id={id}";
             return Content(sql);
+        }
+
+        /// <summary>
+        /// 修改帐户
+        /// </summary>
+        /// <param name="id">用户ID</param>
+        /// <param name="user">用户</param>
+        /// <returns></returns>
+        [ProducesResponseType(typeof(int), 200)]
+        [HttpPut("{id}")]
+        public IActionResult UpdateAccount(int id, [FromBody]User user)
+        {
+            if (id == 1)
+            {
+                return NoContent();
+            }
+            else
+            {
+                return NotFound();
+            }
         }
     }
 
