@@ -139,6 +139,26 @@ namespace RestfulStandard01.Controllers
                 return Ok(accounts);
             }
         }
+        /// <summary>
+        /// 删除帐户
+        /// </summary>
+        /// <param name="userId">用户ID</param>
+        /// <param name="accountId">帐户ID</param>
+        /// <returns></returns>
+        [ProducesResponseType(typeof(int), 200)]
+        [HttpDelete("{accountId}")]
+        public IActionResult DeleteAccount(int userId, int accountId)
+        {
+            if (userId == 1 && accountId == 1)
+            {
+                return NoContent();
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
+ 
     }
 
 }
