@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.AspNetCore.JsonPatch.Operations;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using RestfulStandard01.Model;
@@ -100,8 +102,33 @@ namespace RestfulStandard01.Controllers
                 return StatusCode(StatusCodes.Status409Conflict);
             }
         }
-
-
+        /// <summary>
+        /// 局部修改用户
+        /// </summary>
+        /// <param name="id">用户ID</param>
+        /// <param name="jsonPatchDocument">用户</param>
+        /// <returns></returns>
+        [ProducesResponseType(typeof(JsonPatchDocument<User>), 200)]
+        [HttpPatch("{id}")]
+        public IActionResult ModifyUser(int id, [FromBody]JsonPatchDocument<User> jsonPatchDocument)
+        {
+            var pros = new Dictionary<string, dynamic>();
+            foreach (var operation in jsonPatchDocument.Operations)
+            {
+                switch (operation.OperationType)
+                {
+                    case OperationType.Add:
+                    case OperationType.Replace:
+                        pros.Add(operation.path, operation.value);
+                        break;
+                    case OperationType.Remove:
+                        pros.Add(operation.path, "");
+                        break;
+                }
+            }         
+            var sql = $"update table1 set {string.Join(',', pros.Select(s => s.Key + "='" + s.Value + "'"))} where id={id}";            
+            return Content(sql);
+        }
     }
 
 }

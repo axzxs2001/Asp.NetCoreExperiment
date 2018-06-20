@@ -22,5 +22,10 @@ namespace RestfulStandard01.Model
         /// 
         /// </summary>
         public string Password { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string Name { get; set; }
     }
 }
