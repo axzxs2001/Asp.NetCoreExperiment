@@ -31,5 +31,20 @@ namespace RestfulStandard01.Model
         /// <param name="account">帐户</param>
         /// <returns></returns>
         Account AddAccount(Account account);
+
+        /// <summary>
+        /// 添加帐户集合
+        /// </summary>
+        /// <param name="userId">用户ID</param>
+        /// <param name="accounts">帐户集合</param>
+        /// <returns></returns>
+        IEnumerable<Account> AddAccounts(int userId, IEnumerable<Account> accounts);
+
+        /// <summary>
+        /// 按照ID获取帐户
+        /// </summary>
+        /// <param name="ids">IDs</param>
+        /// <returns></returns>
+        IEnumerable<Account> GetAccounts(int[] ids);
     }
 }

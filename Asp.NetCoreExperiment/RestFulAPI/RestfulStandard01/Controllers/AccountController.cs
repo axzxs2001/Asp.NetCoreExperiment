@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -94,7 +95,48 @@ namespace RestfulStandard01.Controllers
             }
             else
             {
-                return CreatedAtAction("GetAccount", new { userId=backAccount.UserID, accountId = backAccount.ID }, backAccount);
+                return CreatedAtAction("GetAccount", new { userId = backAccount.UserID, accountId = backAccount.ID }, backAccount);
+            }
+        }
+
+        /// <summary>
+        /// 批量添加帐户
+        /// </summary>
+        /// <param name="userId">用户ID</param>
+        /// <param name="accounts">批量帐户</param>
+        /// <returns></returns>         
+        [ProducesResponseType(typeof(IEnumerable<Account>), 200)]
+        [HttpPost("batch")]
+        public IActionResult AddAccount(int userId, [FromBody]IEnumerable<Account> accounts)
+        {
+            var backAccounts = _accountRepository.AddAccounts(userId, accounts);
+            if (backAccounts == null && backAccounts.Count() == 0)
+            {
+                return NotFound();
+            }
+            else
+            {
+                return CreatedAtAction("GetAccounts", new { ids = string.Join(',', backAccounts.Select(s => s.ID)) }, backAccounts);
+            }
+        }
+        /// <summary>
+        /// 按照ids获取帐户
+        /// </summary>
+        /// <param name="ids">IDs</param>
+        /// <returns></returns>
+        [ProducesResponseType(typeof(IEnumerable<Account>), 200)]
+        [HttpGet("({ids})")]
+        public IActionResult GetAccounts(string ids)
+        {
+            var idarr = ids.Split(',', StringSplitOptions.RemoveEmptyEntries).Select(s => Convert.ToInt32(s)).ToArray();
+            var accounts = _accountRepository.GetAccounts(idarr);
+            if (accounts == null && accounts.Count() > 0)
+            {
+                return NotFound();
+            }
+            else
+            {
+                return Ok(accounts);
             }
         }
     }
