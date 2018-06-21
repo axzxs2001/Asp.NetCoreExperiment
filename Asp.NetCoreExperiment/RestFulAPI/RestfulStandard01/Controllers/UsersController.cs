@@ -40,6 +40,16 @@ namespace RestfulStandard01.Controllers
         }
 
         /// <summary>
+        /// 异常发生
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("/exception")]
+        public IActionResult GetException()
+        {
+            throw new Exception("发生在User中的一个异常！");
+        }
+
+        /// <summary>
         /// 获取用户
         /// 资源应该使用名词, 它是个东西, 不是动作.
         /// api/getusers 就是不正确的.
@@ -74,6 +84,11 @@ namespace RestfulStandard01.Controllers
         [HttpPost]
         public ActionResult AddUser([FromBody]User user)
         {
+            if(ModelState.IsValid)
+            {
+                return new UnprocessableEntityObjectResult(ModelState);
+            }
+
             var backUser = _userRepository.AddUser(user);
             if (backUser == null)
             {
@@ -107,8 +122,7 @@ namespace RestfulStandard01.Controllers
         /// </summary>
         /// <param name="id">用户ID</param>
         /// <param name="jsonPatchDocument">用户</param>
-        /// <returns></returns>
-        [ProducesResponseType(typeof(JsonPatchDocument<User>), 200)]
+        /// <returns></returns>   
         [HttpPatch("{id}")]
         public IActionResult ModifyUser(int id, [FromBody]JsonPatchDocument<User> jsonPatchDocument)
         {

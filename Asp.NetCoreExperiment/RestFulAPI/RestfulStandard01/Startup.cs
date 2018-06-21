@@ -21,6 +21,9 @@ using Newtonsoft.Json.Serialization;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using System.Xml.Linq;
 using System.Threading;
+using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using Microsoft.AspNetCore.Diagnostics;
 
 namespace RestfulStandard01
 {
@@ -67,6 +70,10 @@ namespace RestfulStandard01
             services.AddMvc(options =>
             {
                 options.ReturnHttpNotAcceptable = true;
+                //通过此设置来确定是否启用ViewModel验证
+                options.MaxModelValidationErrors = 200;
+
+                options.AllowValidatingTopLevelNodes = false;
             })
             .AddXmlSerializerFormatters() //设置支持XML格式输入输出
             .AddJsonOptions(op => op.SerializerSettings.ContractResolver = new DefaultContractResolver())//大小写不转换
@@ -77,11 +84,11 @@ namespace RestfulStandard01
         /// 
         /// </summary>
         /// <param name="app"></param>
-        /// <param name="env"></param>
+        /// <param name="Class.csenv"></param>
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
 
-            // env.EnvironmentName = EnvironmentName.Production;
+             env.EnvironmentName = EnvironmentName.Production;
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -89,26 +96,47 @@ namespace RestfulStandard01
             else
             {
                 //用中间件来处理Action的异常
-                app.Use(async (context, next) =>
+                //app.Use(async (context, next) =>
+                //{
+                //    try
+                //    {
+                //        await next.Invoke();
+                //    }
+                //    catch (Exception exc)
+                //    {
+                //        var logger = app.ApplicationServices.GetService(typeof(ILogger<Startup>)) as ILogger;
+                //        logger.LogCritical(exc, exc.Message);
+                //        var result = "一个错误发生";
+                //        var data = Encoding.UTF8.GetBytes(result);
+                //        context.Response.StatusCode = 500;
+                //        context.Response.ContentType = "application/json";
+                //        context.Response.Body.Write(data, 0, data.Length);
+                //    }
+                //});
+                //通过异常处理机制
+                app.UseExceptionHandler(builder =>
                 {
-                    try
+                    builder.Run(async context =>
                     {
-                        await next.Invoke();
-                    }
-                    catch (Exception exc)
-                    {
-                        var logger = app.ApplicationServices.GetService(typeof(ILogger<Startup>)) as ILogger;
-                        logger.LogCritical(exc, exc.Message);
+                        var exceptionHandlerFeature = context.Features.Get<IExceptionHandlerFeature>();
+                        if (exceptionHandlerFeature != null)
+                        {
+                            var logger = app.ApplicationServices.GetService(typeof(ILogger<Startup>)) as ILogger;
+                            logger.LogError(exceptionHandlerFeature.Error.Message);
+                        }
                         var result = "一个错误发生";
                         var data = Encoding.UTF8.GetBytes(result);
                         context.Response.StatusCode = 500;
                         context.Response.ContentType = "application/json";
-                        context.Response.Body.Write(data, 0, data.Length);
-                    }
+                        await context.Response.Body.WriteAsync(data, 0, data.Length);
+                    });
                 });
 
             }
-            app.UseMvc().UseSwagger(options =>
+            app.UseMvc(options =>
+            {
+
+            }).UseSwagger(options =>
             {
                 options.RouteTemplate = "{documentName}/swagger.json";
             })
@@ -142,4 +170,6 @@ namespace RestfulStandard01
             return InputFormatterResult.Success(xmlDoc);
         }
     }
+
+
 }
