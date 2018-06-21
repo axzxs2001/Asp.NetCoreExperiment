@@ -408,6 +408,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestfulStandard01", "RestFu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SnapshotConfig", "ConfigurationDemo\SnapshotConfig\SnapshotConfig.csproj", "{5E9580DB-B84C-480E-9325-3CB61CB3CD7D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuartzNetDemo3", "QuartzNet\QuartzNetDemo3\QuartzNetDemo3.csproj", "{068CAD0E-3C5F-4763-B34A-1B9F97FFFC74}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -1490,6 +1492,14 @@ Global
 		{5E9580DB-B84C-480E-9325-3CB61CB3CD7D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5E9580DB-B84C-480E-9325-3CB61CB3CD7D}.Release|x64.ActiveCfg = Release|Any CPU
 		{5E9580DB-B84C-480E-9325-3CB61CB3CD7D}.Release|x64.Build.0 = Release|Any CPU
+		{068CAD0E-3C5F-4763-B34A-1B9F97FFFC74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{068CAD0E-3C5F-4763-B34A-1B9F97FFFC74}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{068CAD0E-3C5F-4763-B34A-1B9F97FFFC74}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{068CAD0E-3C5F-4763-B34A-1B9F97FFFC74}.Debug|x64.Build.0 = Debug|Any CPU
+		{068CAD0E-3C5F-4763-B34A-1B9F97FFFC74}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{068CAD0E-3C5F-4763-B34A-1B9F97FFFC74}.Release|Any CPU.Build.0 = Release|Any CPU
+		{068CAD0E-3C5F-4763-B34A-1B9F97FFFC74}.Release|x64.ActiveCfg = Release|Any CPU
+		{068CAD0E-3C5F-4763-B34A-1B9F97FFFC74}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1652,6 +1662,7 @@ Global
 		{4F2FB748-195C-492F-A87B-72D33B1EA2DE} = {C686181D-E016-4CA8-976A-3307776406A2}
 		{3A7BB915-5579-4EFD-BDBE-E79A1819A78B} = {08122BD9-F09E-47EE-B25B-B234426851B1}
 		{5E9580DB-B84C-480E-9325-3CB61CB3CD7D} = {82169DF9-545A-4050-ADF9-17FD3E0752A6}
+		{068CAD0E-3C5F-4763-B34A-1B9F97FFFC74} = {C0B0DB24-83DF-4E4E-8799-1E832397BE76}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
