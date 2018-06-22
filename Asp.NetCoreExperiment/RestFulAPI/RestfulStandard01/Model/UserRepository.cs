@@ -44,5 +44,20 @@ namespace RestfulStandard01.Model
             return user;
         }
 
+        /// <summary>
+        /// 返回分页数据
+        /// </summary>
+        /// <param name="paginationBase">分页</param>
+        /// <returns></returns>
+        public PaginatedList<User> GetPagingUser(PaginationBase paginationBase)
+        {
+            var users = new List<User>();
+            for (int i = 1; i < 105; i++)
+            {
+                users.Add(new User { ID = i, Name = "user" + i, Password = "111111", UserName = "username" + i });
+            }
+            var pageinatedList = new PaginatedList<User>(paginationBase.PageIndex, paginationBase.PageSize, users.Count, users.Skip(paginationBase.PageIndex * paginationBase.PageSize).Take(paginationBase.PageSize));
+            return pageinatedList;
+        }
     }
 }

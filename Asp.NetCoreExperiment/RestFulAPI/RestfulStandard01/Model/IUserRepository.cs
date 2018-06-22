@@ -16,12 +16,20 @@ namespace RestfulStandard01.Model
         /// <param name="id">ID</param>
         /// <returns></returns>
         User GetUserByID(int id);
-        
+
         /// <summary>
         /// 添加用户
         /// </summary>
         /// <param name="user">用户</param>
         /// <returns></returns>
         User AddUser(User user);
+
+        /// <summary>
+        /// 返回分页数据
+        /// </summary>
+        /// <param name="pageIndex">分页索引</param>
+        /// <param name="pageSize">每页记录数</param>
+        /// <returns></returns>
+        PaginatedList<User> GetPagingUser(PaginationBase paginationBase);
     }
 }

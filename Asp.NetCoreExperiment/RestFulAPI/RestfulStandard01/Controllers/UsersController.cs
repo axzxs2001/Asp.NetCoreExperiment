@@ -6,7 +6,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.JsonPatch.Operations;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using RestfulStandard01.Model;
 
 namespace RestfulStandard01.Controllers
@@ -28,13 +30,17 @@ namespace RestfulStandard01.Controllers
         /// </summary>
         readonly IUserRepository _userRepository;
 
+        readonly IUrlHelper _urlHelper;
+
         /// <summary>
         /// 
         /// </summary>
         /// <param name="logger"></param>
         /// <param name="userRepository"></param>
-        public UsersController(ILogger<UsersController> logger, IUserRepository userRepository)
+        /// <param name="urlHelper"></param>
+        public UsersController(ILogger<UsersController> logger, IUserRepository userRepository, IUrlHelper urlHelper)
         {
+            _urlHelper = urlHelper;
             _userRepository = userRepository;
             _logger = logger;
         }
@@ -84,7 +90,7 @@ namespace RestfulStandard01.Controllers
         [HttpPost]
         public ActionResult AddUser([FromBody]User user)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 return new UnprocessableEntityObjectResult(ModelState);
             }
@@ -161,6 +167,58 @@ namespace RestfulStandard01.Controllers
             else
             {
                 return NotFound();
+            }
+        }
+
+        /// <summary>
+        /// 获取分页数据
+        /// </summary>
+        /// <param name="paginationBase">分页信息</param>
+        /// <returns></returns>
+        [HttpGet]
+        public ActionResult GetUsers([FromQuery]PaginationBase paginationBase)
+        {
+            var pageUsers = _userRepository.GetPagingUser(paginationBase);
+            if (pageUsers == null || pageUsers.Count == 0)
+            {
+                return NotFound();
+            }
+            else
+            {
+                var previousLink = pageUsers.HasPrevious ? CreateUserUri(paginationBase, PaginationResourceUriType.PreviousPage) : null;
+                var nextLink = pageUsers.HasNext ? CreateUserUri(paginationBase, PaginationResourceUriType.NextPage) : null;
+
+                var meta = new
+                {
+                    pageUsers.TotalItemCount,
+                    pageUsers.PaginationBase.PageIndex,
+                    pageUsers.PaginationBase.PageSize,
+                    pageUsers.PageCount,
+                    PreviousPageLink = previousLink,
+                    NextPageLink = nextLink
+                };
+                Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(meta));
+                return Ok(pageUsers);
+            }
+
+        }
+
+        string CreateUserUri(PaginationBase paginationBase, PaginationResourceUriType paginationResourceUriType)
+        {
+
+            switch (paginationResourceUriType)
+            {
+                case PaginationResourceUriType.PreviousPage:
+                    var previousParmeters = paginationBase.Clone();
+                    previousParmeters.PageIndex--;
+                    var res = _urlHelper.RouteUrl(previousParmeters);
+                    return res;
+                case PaginationResourceUriType.NextPage:
+                    var nextParmeters = paginationBase.Clone();
+                    nextParmeters.PageIndex++;
+                    return _urlHelper.RouteUrl( nextParmeters);
+                default:
+                    return _urlHelper.RouteUrl(paginationBase);
             }
         }
     }

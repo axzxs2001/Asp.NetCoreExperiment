@@ -24,6 +24,8 @@ using System.Threading;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.AspNetCore.Mvc.Routing;
 
 namespace RestfulStandard01
 {
@@ -67,6 +69,14 @@ namespace RestfulStandard01
                 });
 
             });
+            services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
+            services.AddScoped<IUrlHelper>(factory =>
+            {
+                var actionContext = factory.GetService<IActionContextAccessor>()
+                .ActionContext;
+                return new UrlHelper(actionContext);
+            });
+
             services.AddMvc(options =>
             {
                 options.ReturnHttpNotAcceptable = true;
