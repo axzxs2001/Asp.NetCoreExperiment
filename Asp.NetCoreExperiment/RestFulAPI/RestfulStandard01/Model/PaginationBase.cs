@@ -52,7 +52,7 @@ namespace RestfulStandard01.Model
         /// <summary>
         /// 
         /// </summary>
-        public bool HasPrevious => PaginationBase.PageSize > 0;
+        public bool HasPrevious => PaginationBase.PageIndex > 0;
         /// <summary>
         /// 
         /// </summary>
