@@ -27,9 +27,8 @@ namespace RestfulStandard01.Model
         /// <summary>
         /// 返回分页数据
         /// </summary>
-        /// <param name="pageIndex">分页索引</param>
-        /// <param name="pageSize">每页记录数</param>
+        /// <param name="userPagination"></param>
         /// <returns></returns>
-        PaginatedList<User> GetPagingUser(PaginationBase paginationBase);
+        PaginatedList<User> GetPagingUser(UserPagination  userPagination);
     }
 }

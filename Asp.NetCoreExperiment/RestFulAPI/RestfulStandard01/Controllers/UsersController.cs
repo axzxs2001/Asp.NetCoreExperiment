@@ -173,20 +173,20 @@ namespace RestfulStandard01.Controllers
         /// <summary>
         /// 获取分页数据
         /// </summary>
-        /// <param name="paginationBase">分页信息</param>
+        /// <param name="userPagination">分页信息</param>
         /// <returns></returns>
         [HttpGet]
-        public ActionResult GetUsers([FromQuery]PaginationBase paginationBase)
+        public ActionResult GetUsers([FromQuery]UserPagination userPagination)
         {
-            var pageUsers = _userRepository.GetPagingUser(paginationBase);
+            var pageUsers = _userRepository.GetPagingUser(userPagination);
             if (pageUsers == null || pageUsers.Count == 0)
             {
                 return NotFound();
             }
             else
             {
-                var previousLink = pageUsers.HasPrevious ? CreateUserUri(paginationBase, PaginationResourceUriType.PreviousPage) : null;
-                var nextLink = pageUsers.HasNext ? CreateUserUri(paginationBase, PaginationResourceUriType.NextPage) : null;
+                var previousLink = pageUsers.HasPrevious ? CreateUserUri(userPagination, PaginationResourceUriType.PreviousPage) : null;
+                var nextLink = pageUsers.HasNext ? CreateUserUri(userPagination, PaginationResourceUriType.NextPage) : null;
 
                 var meta = new
                 {
@@ -203,22 +203,22 @@ namespace RestfulStandard01.Controllers
 
         }
 
-        string CreateUserUri(PaginationBase paginationBase, PaginationResourceUriType paginationResourceUriType)
+        string CreateUserUri(PaginationBase userPagination, PaginationResourceUriType paginationResourceUriType)
         {
 
             switch (paginationResourceUriType)
             {
                 case PaginationResourceUriType.PreviousPage:
-                    var previousParmeters = paginationBase.Clone();
+                    var previousParmeters = userPagination.Clone();
                     previousParmeters.PageIndex--;
                     var res = _urlHelper.RouteUrl(previousParmeters);
                     return res;
                 case PaginationResourceUriType.NextPage:
-                    var nextParmeters = paginationBase.Clone();
+                    var nextParmeters = userPagination.Clone();
                     nextParmeters.PageIndex++;
                     return _urlHelper.RouteUrl( nextParmeters);
                 default:
-                    return _urlHelper.RouteUrl(paginationBase);
+                    return _urlHelper.RouteUrl(userPagination);
             }
         }
     }
