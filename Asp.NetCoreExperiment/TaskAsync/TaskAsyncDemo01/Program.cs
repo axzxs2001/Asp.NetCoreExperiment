@@ -10,16 +10,16 @@ namespace TaskAsyncDemo01
         static async Task Main(string[] args)
         {
             //异常等待
-            //for (int i = 0; i < 1000; i++)
-            //{
-            //    await FAsync(i);
-            //}
-
-            ////异步不等待
             for (int i = 0; i < 1000; i++)
             {
-                FAsync(2000 + i);
+                await FAsync(i);
             }
+
+            //////异步不等待
+            //for (int i = 0; i < 1000; i++)
+            //{
+            //    FAsync(2000 + i);
+            //}
 
             ////等待
             //for (int i = 0; i < 6; i++)
