@@ -406,9 +406,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentValidateLocalization"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestfulStandard01", "RestFulAPI\RestfulStandard01\RestfulStandard01.csproj", "{3A7BB915-5579-4EFD-BDBE-E79A1819A78B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SnapshotConfig", "ConfigurationDemo\SnapshotConfig\SnapshotConfig.csproj", "{5E9580DB-B84C-480E-9325-3CB61CB3CD7D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SnapshotConfig", "ConfigurationDemo\SnapshotConfig\SnapshotConfig.csproj", "{5E9580DB-B84C-480E-9325-3CB61CB3CD7D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuartzNetDemo3", "QuartzNet\QuartzNetDemo3\QuartzNetDemo3.csproj", "{068CAD0E-3C5F-4763-B34A-1B9F97FFFC74}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuartzNetDemo3", "QuartzNet\QuartzNetDemo3\QuartzNetDemo3.csproj", "{068CAD0E-3C5F-4763-B34A-1B9F97FFFC74}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuartzNetDemo4", "QuartzNet\QuartzNetDemo4\QuartzNetDemo4.csproj", "{C78CEEDD-E1C8-4238-AD22-92F27DB8B3FC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -1500,6 +1502,14 @@ Global
 		{068CAD0E-3C5F-4763-B34A-1B9F97FFFC74}.Release|Any CPU.Build.0 = Release|Any CPU
 		{068CAD0E-3C5F-4763-B34A-1B9F97FFFC74}.Release|x64.ActiveCfg = Release|Any CPU
 		{068CAD0E-3C5F-4763-B34A-1B9F97FFFC74}.Release|x64.Build.0 = Release|Any CPU
+		{C78CEEDD-E1C8-4238-AD22-92F27DB8B3FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C78CEEDD-E1C8-4238-AD22-92F27DB8B3FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C78CEEDD-E1C8-4238-AD22-92F27DB8B3FC}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{C78CEEDD-E1C8-4238-AD22-92F27DB8B3FC}.Debug|x64.Build.0 = Debug|Any CPU
+		{C78CEEDD-E1C8-4238-AD22-92F27DB8B3FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C78CEEDD-E1C8-4238-AD22-92F27DB8B3FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C78CEEDD-E1C8-4238-AD22-92F27DB8B3FC}.Release|x64.ActiveCfg = Release|Any CPU
+		{C78CEEDD-E1C8-4238-AD22-92F27DB8B3FC}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1663,6 +1673,7 @@ Global
 		{3A7BB915-5579-4EFD-BDBE-E79A1819A78B} = {08122BD9-F09E-47EE-B25B-B234426851B1}
 		{5E9580DB-B84C-480E-9325-3CB61CB3CD7D} = {82169DF9-545A-4050-ADF9-17FD3E0752A6}
 		{068CAD0E-3C5F-4763-B34A-1B9F97FFFC74} = {C0B0DB24-83DF-4E4E-8799-1E832397BE76}
+		{C78CEEDD-E1C8-4238-AD22-92F27DB8B3FC} = {C0B0DB24-83DF-4E4E-8799-1E832397BE76}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
