@@ -33,5 +33,9 @@ namespace RestfulStandard01.Model
         [Required(AllowEmptyStrings = false, ErrorMessage = "不能为空")]
   
         public string Name { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public int UserType { get; set; }
     }
 }

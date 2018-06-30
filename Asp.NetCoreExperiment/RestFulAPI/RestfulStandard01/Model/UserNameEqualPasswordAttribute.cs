@@ -8,18 +8,34 @@ using System.Threading.Tasks;
 
 namespace RestfulStandard01
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class UserNameEqualPasswordAttribute : ValidationAttribute, IClientModelValidator
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="errorMessage"></param>
         public UserNameEqualPasswordAttribute(string errorMessage)
         {
             ErrorMessage = errorMessage;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
         public void AddValidation(ClientModelValidationContext context)
         {
             throw new NotImplementedException();
         }
-        public string ErrorMessage { get; private set; }
+     
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="validationContext"></param>
+        /// <returns></returns>
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
             var user = (User)validationContext.ObjectInstance;
