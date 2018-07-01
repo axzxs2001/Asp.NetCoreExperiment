@@ -1,0 +1,33 @@
+﻿{
+  "ReRoutes": [
+    //swagger配置
+    {
+      "DownstreamPathTemplate": "/SwaggerAPI01/swagger.json",
+      "DownstreamScheme": "http",
+      "UpstreamPathTemplate": "/SwaggerAPI01/swagger.json",
+      "UpstreamHttpMethod": [ "GET", "POST", "DELETE", "PUT" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5001
+        }
+      ]
+    },
+    //swagger配置
+    {
+      "DownstreamPathTemplate": "/SwaggerAPI02/swagger.json",
+      "DownstreamScheme": "http",
+      "UpstreamPathTemplate": "/SwaggerAPI02/swagger.json",
+      "UpstreamHttpMethod": [ "GET", "POST", "DELETE", "PUT" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5002
+        }
+      ]
+    }   
+  ],
+
+  "GlobalConfiguration": {
+  }
+}
