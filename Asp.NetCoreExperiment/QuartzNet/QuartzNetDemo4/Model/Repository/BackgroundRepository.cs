@@ -1,9 +1,5 @@
 ﻿
-using MailKit.Net.Smtp;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using MimeKit;
-using Renci.SshNet;
 using System;
 using System.Collections.Generic;
 using System.IO;

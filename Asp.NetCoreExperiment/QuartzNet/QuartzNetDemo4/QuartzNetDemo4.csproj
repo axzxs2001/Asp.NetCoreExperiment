@@ -10,16 +10,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="MailKit" Version="2.0.4" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="Npgsql" Version="4.0.0" />
     <PackageReference Include="Quartz" Version="3.0.5" />
-    <PackageReference Include="RestSharp" Version="106.3.1" />
-    <PackageReference Include="SSH.NET" Version="2016.1.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\DepperPlus\DapperPlus.csproj" />
   </ItemGroup>
 
 </Project>

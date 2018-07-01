@@ -30,8 +30,8 @@ namespace QuartzNetDemo4.Controllers
         [HttpGet("{date}")]
         public ActionResult<string> Get(string date)
         {
-            _backgroundRepository.StarPayDailyReport(DateTime.Parse(date));
-            return "value";
+            _backgroundRepository.StarPayDailyReport();
+            return  "value1";
         }
 
         // POST api/values
