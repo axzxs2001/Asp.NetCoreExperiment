@@ -46,7 +46,7 @@ namespace SwaggerAuthorize.Controllers
                     new Claim(ClaimTypes.Role, "admin"),
 
                 };
-                var token = _tokenBuilder.BuildJwtToken(claims) as TokenBuilder.Token;
+                var token = _tokenBuilder.BuildJwtToken(claims);
                 _logger.LogInformation($"{loginModel.UserName} login success，and generate token return");           
                 return new BackResult { Result = true, Data = token };               
             }
