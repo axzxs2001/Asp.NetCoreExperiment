@@ -60,7 +60,10 @@ namespace SwaggerAPI01
                     }
                 });
             });
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services
+                .AddMvc()
+                .AddXmlSerializerFormatters() //设置支持XML格式输入输出
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
         /// <summary>

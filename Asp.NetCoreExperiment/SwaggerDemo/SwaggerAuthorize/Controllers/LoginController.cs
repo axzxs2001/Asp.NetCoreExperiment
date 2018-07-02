@@ -34,6 +34,7 @@ namespace SwaggerAuthorize.Controllers
         /// </summary>
         /// <param name="loginModel">登录Model</param>
         /// <returns></returns>
+        [ProducesResponseType(typeof(LoginModel), 200)]
         [HttpPost]
         public IActionResult Login([FromBody]LoginModel loginModel)
         {

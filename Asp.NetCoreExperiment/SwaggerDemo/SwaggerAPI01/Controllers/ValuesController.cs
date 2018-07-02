@@ -20,9 +20,13 @@ namespace SwaggerAPI01.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        [ProducesResponseType(typeof(IEnumerable<API01Model>), 200)]
+        public ActionResult<IEnumerable<API01Model>> Get()
         {
-            return new string[] { "value1", "value2" };
+            return new API01Model[] {
+                new API01Model { ID=1, IsSure=true, Price=2.3m, Describe="test1" },
+                new API01Model { ID=2, IsSure=true, Price=1.3m, Describe="test2" },
+            };
         }
 
         /// <summary>
@@ -31,36 +35,44 @@ namespace SwaggerAPI01.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
+        [ProducesResponseType(typeof(API01Model), 200)]
+        public ActionResult<API01Model> Get(int id)
         {
-            return "value";
+            return new API01Model { ID = 1, IsSure = true, Price = 2.3m, Describe = "test1" };
         }
 
         /// <summary>
         /// Post方法
         /// </summary>
-        /// <param name="value"></param>
+        /// <param name="api01Model"></param>
         [HttpPost]
-        public void Post([FromBody] string value)
+        [ProducesResponseType(typeof(API01Model), 200)]
+        public API01Model Post([FromBody] API01Model api01Model)
         {
+            api01Model.ID = 100;
+            return api01Model;
         }
 
         /// <summary>
         /// Put方法
         /// </summary>
         /// <param name="id"></param>
-        /// <param name="value"></param>
+        /// <param name="api01Model"></param>
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [ProducesResponseType(typeof(int), 200)]
+        public bool Put(int id, [FromBody] API01Model api01Model)
         {
+            return true;
         }
         /// <summary>
         /// Delete方法
         /// </summary>
         /// <param name="id"></param>
+        [ProducesResponseType(typeof(int), 200)]
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public bool Delete(int id)
         {
+            return true;
         }
     }
 }
