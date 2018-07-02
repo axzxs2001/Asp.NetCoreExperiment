@@ -14,7 +14,7 @@ using Microsoft.Extensions.PlatformAbstractions;
 using Ocelot.JwtAuthorize;
 using Swashbuckle.AspNetCore.Swagger;
 
-namespace SwaggerAPI01
+namespace SwaggerAuthorize
 {
     /// <summary>
     /// 
@@ -34,33 +34,22 @@ namespace SwaggerAPI01
         /// </summary>
         public IConfiguration Configuration { get; }
 
+
         /// <summary>
         /// 
         /// </summary>
         /// <param name="services"></param>
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddApiJwtAuthorize((context) =>
-            {
-                return true;
-            });
-
+            services.AddTokenJwtAuthorize();
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddSwaggerGen(options =>
             {
-                options.SwaggerDoc("SwaggerAPI01", new Info { Title = "API01", Version = "v1", Contact = new Contact { Email = "285130205@qq.com", Name = "API01", Url = "http://0.0.0.0" }, Description = "API01项目" });
+                options.SwaggerDoc("SwaggerAuthorize", new Info { Title = "Authorize", Version = "v1", Contact = new Contact { Email = "285130205@qq.com", Name = "Authorize", Url = "http://0.0.0.0" }, Description = "Authorize项目" });
                 var basePath = PlatformServices.Default.Application.ApplicationBasePath;
-                var xmlPath = Path.Combine(basePath, "SwaggerAPI01.xml");
+                var xmlPath = Path.Combine(basePath, "SwaggerAuthorize.xml");
                 options.IncludeXmlComments(xmlPath);
-
-                options.AddSecurityDefinition("Bearer", new ApiKeyScheme { In = "header", Description = "请输入带有Bearer的Token", Name = "Authorization", Type = "apiKey" });
-                options.AddSecurityRequirement(new Dictionary<string, IEnumerable<string>> {
-                    {
-                        "Bearer",
-                        Enumerable.Empty<string>()
-                    }
-                });
             });
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
         /// <summary>
@@ -82,7 +71,7 @@ namespace SwaggerAPI01
                 })
                 .UseSwaggerUI(options =>
                 {
-                    options.SwaggerEndpoint("/SwaggerAPI01/swagger.json", "API01");
+                    options.SwaggerEndpoint("/SwaggerAuthorize/swagger.json", "Authorize");
                 });
         }
     }

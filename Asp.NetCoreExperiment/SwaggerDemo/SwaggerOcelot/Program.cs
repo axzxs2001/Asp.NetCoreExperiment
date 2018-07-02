@@ -24,7 +24,7 @@ namespace SwaggerOcelot
                      conbuilder.AddJsonFile("appsettings.json");
                      conbuilder.AddJsonFile("configuration.json");
                  })
-                .UseUrls("http://*:5000")
+                  .UseUrls("http://*:9000")
                 .UseStartup<Startup>();
     }
 }

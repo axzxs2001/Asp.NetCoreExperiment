@@ -1,15 +1,15 @@
 ﻿{
   "$schema": "http://json.schemastore.org/launchsettings.json",
   "iisSettings": {
-    "windowsAuthentication": false,
-    "anonymousAuthentication": true,
+    "windowsAuthentication": false, 
+    "anonymousAuthentication": true, 
     "iisExpress": {
-      "applicationUrl": "http://localhost:53119",
+      "applicationUrl": "http://localhost:58568",
       "sslPort": 0
     }
   },
   "profiles": {
-    "SwaggerAPI02": {
+    "SwaggerAuthorize": {
       "commandName": "Project",
       "launchBrowser": false,
       "launchUrl": "api/values",

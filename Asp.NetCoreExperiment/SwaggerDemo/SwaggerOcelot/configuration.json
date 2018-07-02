@@ -1,6 +1,6 @@
 ﻿{
   "ReRoutes": [
-    //swagger配置
+    //swagger API01配置
     {
       "DownstreamPathTemplate": "/SwaggerAPI01/swagger.json",
       "DownstreamScheme": "http",
@@ -13,7 +13,7 @@
         }
       ]
     },
-    //swagger配置
+    //swagger API02配置
     {
       "DownstreamPathTemplate": "/SwaggerAPI02/swagger.json",
       "DownstreamScheme": "http",
@@ -25,7 +25,95 @@
           "Port": 5002
         }
       ]
-    }   
+    },
+    //swagger 验证配置
+    {
+      "DownstreamPathTemplate": "/SwaggerAuthorize/swagger.json",
+      "DownstreamScheme": "http",
+      "UpstreamPathTemplate": "/SwaggerAuthorize/swagger.json",
+      "UpstreamHttpMethod": [ "GET", "POST", "DELETE", "PUT" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5000
+        }
+      ]
+    },
+    //验证项目配置
+    {
+      "DownstreamPathTemplate": "/auth/{url}",
+      "DownstreamScheme": "http",
+      "UpstreamPathTemplate": "/auth/{url}",
+      "UpstreamHttpMethod": [ "Get", "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5000
+        }
+      ],
+      "HttpHandlerOptions": {
+        "AllowAutoRedirect": true,
+        "UseCookieContainer": true,
+        "UseTracing": true
+      },
+      "QoSOptions": {
+        "ExceptionsAllowedBeforeBreaking": 3,
+        "DurationOfBreak": 10,
+        "TimeoutValue": 5000
+      },
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "",
+        "AllowedScopes": [
+        ]
+      }
+    },
+    //API01项目配置
+    {
+      "DownstreamPathTemplate": "/api01/{url}",
+      "DownstreamScheme": "http",
+      "UpstreamPathTemplate": "/api01/{url}",
+      "UpstreamHttpMethod": [ "Get", "Post", "Delete", "Put" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5001
+        }
+      ],
+
+      "QoSOptions": {
+        "ExceptionsAllowedBeforeBreaking": 3,
+        "DurationOfBreak": 10,
+        "TimeoutValue": 5000
+      },
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": [
+        ]
+      }
+    },
+    //API02项目配置
+    {
+      "DownstreamPathTemplate": "/api02/{url}",
+      "DownstreamScheme": "http",
+      "UpstreamPathTemplate": "/api02/{url}",
+      "UpstreamHttpMethod": [ "Get", "Post", "Delete", "Put" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5002
+        }
+      ],
+      "QoSOptions": {
+        "ExceptionsAllowedBeforeBreaking": 3,
+        "DurationOfBreak": 10,
+        "TimeoutValue": 5000
+      },
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": [
+        ]
+      }
+    }
   ],
 
   "GlobalConfiguration": {

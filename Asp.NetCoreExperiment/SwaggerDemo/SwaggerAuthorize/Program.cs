@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
-namespace SwaggerAPI01
+namespace SwaggerAuthorize
 {
     /// <summary>
     /// 
@@ -30,7 +30,7 @@ namespace SwaggerAPI01
         /// <returns></returns>
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .UseUrls("http://*:5001")
+                .UseUrls("http://*:5000")
                 .UseStartup<Startup>();
     }
 }

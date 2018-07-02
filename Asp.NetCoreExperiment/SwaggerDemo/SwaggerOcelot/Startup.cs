@@ -7,9 +7,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Ocelot.DependencyInjection;
+using Ocelot.JwtAuthorize;
 using Ocelot.Middleware;
 using Swashbuckle.AspNetCore.Swagger;
 
@@ -26,13 +25,14 @@ namespace SwaggerOcelot
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddOcelotJwtAuthorize();
             //注入Ocelot
             services.AddOcelot(Configuration);
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             services.AddSwaggerGen(options =>
             {
-                options.SwaggerDoc("ApiGateway", new Info { Title = "网关服务", Version = "v1", Contact = new Contact { Email = "285130205@qq.com", Name = "SwaggerOcelot", Url = "http://0.0.0.0" }, Description = "网关平台" });
+                options.SwaggerDoc("ApiGateway", new Info { Title = "网关服务", Version = "v1", Contact = new Contact { Email = "285130205@qq.com", Name = "SwaggerOcelot", Url = "http://10.10.10.10" }, Description = "网关平台" });
             });
         }
 
@@ -43,9 +43,9 @@ namespace SwaggerOcelot
                 app.UseDeveloperExceptionPage();
             }
 
-
             var apis = new Dictionary<string, string>(
                 new KeyValuePair<string, string>[] {
+                    KeyValuePair.Create("SwaggerAuthorize", "Authorize"),
                     KeyValuePair.Create("SwaggerAPI01", "API01"),
                     KeyValuePair.Create("SwaggerAPI02", "API02")
                 });
@@ -58,8 +58,7 @@ namespace SwaggerOcelot
                    {
                        options.SwaggerEndpoint($"/{key}/swagger.json", $"{apis[key]} -【{key}】");
                    });
-                   options.DocumentTitle = "*****平台";
-
+                   options.DocumentTitle = "Swagger测试平台";
                });
             await app.UseOcelot();
         }
