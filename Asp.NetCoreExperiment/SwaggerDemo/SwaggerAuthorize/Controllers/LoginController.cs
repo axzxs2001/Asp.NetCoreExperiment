@@ -34,9 +34,9 @@ namespace SwaggerAuthorize.Controllers
         /// </summary>
         /// <param name="loginModel">登录Model</param>
         /// <returns></returns>
-        [ProducesResponseType(typeof(LoginModel), 200)]
+        [ProducesResponseType(typeof(BackResult), 200)]
         [HttpPost]
-        public IActionResult Login([FromBody]LoginModel loginModel)
+        public BackResult Login([FromBody]LoginModel loginModel)
         {
             _logger.LogInformation($"{loginModel.UserName} login！");
             if (loginModel.UserName == "gsw" && loginModel.Password == "111111")
@@ -46,19 +46,21 @@ namespace SwaggerAuthorize.Controllers
                     new Claim(ClaimTypes.Role, "admin"),
 
                 };
-                var token = _tokenBuilder.BuildJwtToken(claims);
-                _logger.LogInformation($"{loginModel.UserName} login success，and generate token return");
-                return new JsonResult(new { Result = true, Data = token });
+                var token = _tokenBuilder.BuildJwtToken(claims) as TokenBuilder.Token;
+                _logger.LogInformation($"{loginModel.UserName} login success，and generate token return");           
+                return new BackResult { Result = true, Data = token };               
             }
             else
             {
                 _logger.LogInformation($"{loginModel.UserName} login faile");
-                return new JsonResult(new
+                return new BackResult
                 {
-                    Result = false,
-                    Message = "Authentication Failure"
-                });
+                    Result = false                  
+                };
             }
         }
     }
+
+
+   
 }

@@ -12,7 +12,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Ocelot" Version="7.0.6" />
-    <PackageReference Include="Ocelot.JwtAuthorize" Version="0.0.201" />
+    <PackageReference Include="Ocelot.JwtAuthorize" Version="0.0.211" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="2.5.0" />
   </ItemGroup>
 

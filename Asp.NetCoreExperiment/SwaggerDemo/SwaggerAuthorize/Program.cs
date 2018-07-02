@@ -20,7 +20,7 @@ namespace SwaggerAuthorize
         /// </summary>
         /// <param name="args"></param>
         public static void Main(string[] args)
-        {
+        { 
             CreateWebHostBuilder(args).Build().Run();
         }
         /// <summary>
