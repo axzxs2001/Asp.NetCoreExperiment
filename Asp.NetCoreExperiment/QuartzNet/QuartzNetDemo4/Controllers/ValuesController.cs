@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 using QuartzNetDemo4.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using QuartzNetDemo4.Model.DataModel;
+using Quartz;
+using System.IO;
 
 namespace QuartzNetDemo4.Controllers
 {
@@ -13,8 +16,12 @@ namespace QuartzNetDemo4.Controllers
     public class ValuesController : ControllerBase
     {
         IBackgroundRepository _backgroundRepository;
-        public ValuesController(IBackgroundRepository backgroundRepository)
+        IScheduler _scheduler;
+        IOptionsSnapshot<List<CronMethod>> _cronMethod;
+        public ValuesController(IBackgroundRepository backgroundRepository, IScheduler scheduler, IOptionsSnapshot<List<CronMethod>> cronMethod)
         {
+            _scheduler = scheduler;
+            _cronMethod = cronMethod;
             _backgroundRepository = backgroundRepository;
         }
 
@@ -22,17 +29,33 @@ namespace QuartzNetDemo4.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
-         
-            return new string[] { "value1", "value1"};
-        }
 
-        // GET api/values/5
-        [HttpGet("{date}")]
-        public ActionResult<string> Get(string date)
-        {
-            _backgroundRepository.StarPayDailyReport();
-            return  "value1";
+            return new string[] { "value1", "value1" };
         }
+        [HttpGet("{s}")]
+        public ActionResult Get(int s)
+        {
+            var path = System.IO.Directory.GetCurrentDirectory() + "/appsettings.json";
+            var json = System.IO.File.ReadAllText(path);
+            var obj = Newtonsoft.Json.JsonConvert.DeserializeObject<dynamic>(json);
+            obj.CronJob[0].CronExpression = $"0/{s} * * * * ?";
+            _scheduler.Clear().Wait();
+            foreach (var cronJob in obj.CronJob)
+            {              
+                Console.WriteLine($"{cronJob.MethodName},{cronJob.CronExpression}");
+                QuartzServicesUtilities.StartJob<BackgroundJob>(_scheduler, cronJob.CronExpression.ToString(), cronJob.MethodName.ToString());
+            }
+            json = Newtonsoft.Json.JsonConvert.SerializeObject(obj,Newtonsoft.Json.Formatting.Indented);
+            System.IO.File.WriteAllText(path, json);
+            return Ok();
+        }
+        // GET api/values/5
+        //[HttpGet("{date}")]
+        //public ActionResult<string> Get(string date)
+        //{
+        //    _backgroundRepository.StarPayDailyReport();
+        //    return "value1";
+        //}
 
         // POST api/values
         [HttpPost]

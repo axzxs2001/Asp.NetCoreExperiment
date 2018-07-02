@@ -12,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Quartz;
 using QuartzNetDemo4.Model.DataModel;
+using Microsoft.Extensions.Options;
 
 namespace QuartzNetDemo4
 {
@@ -27,12 +28,12 @@ namespace QuartzNetDemo4
 
         public void ConfigureServices(IServiceCollection services)
         {
-         
-            var cronJobs = new List<CronMethod>();
-            Configuration.GetSection("CronJob").Bind(cronJobs);
-            
-            services.AddSingleton(cronJobs);
 
+            //var cronJobs = new List<CronMethod>();
+            //Configuration.GetSection("CronJob").Bind(cronJobs);
+            //services.AddSingleton(cronJobs);
+
+            services.Configure<List<CronMethod>>(Configuration.GetSection("CronJob"));
 
             services.AddTransient<IBackgroundRepository, BackgroundRepository>();
 
@@ -41,15 +42,15 @@ namespace QuartzNetDemo4
         }
 
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IScheduler scheduler, List<CronMethod> cronJobs)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IScheduler scheduler, IOptionsSnapshot<List<CronMethod>> cronJobs)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
-            foreach (var cronJob in cronJobs)
+            foreach (var cronJob in cronJobs.Value)
             {
-                QuartzServicesUtilities.StartJob<BackgroundJob>(scheduler, cronJob.CronExpression,cronJob.MethodName);
+                QuartzServicesUtilities.StartJob<BackgroundJob>(scheduler, cronJob.CronExpression, cronJob.MethodName);
             }
 
             app.UseMvc();

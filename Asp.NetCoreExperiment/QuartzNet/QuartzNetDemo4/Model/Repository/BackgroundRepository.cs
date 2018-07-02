@@ -78,7 +78,8 @@ namespace QuartzNetDemo4.Model
         /// <returns></returns>
         public bool StarPayDailyReport()
         {
-    
+
+            Console.WriteLine($"{DateTime.Now}_______StarPayDailyReport");
             return true;
 
 

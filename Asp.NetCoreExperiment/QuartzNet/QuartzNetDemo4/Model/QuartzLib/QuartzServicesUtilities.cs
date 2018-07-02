@@ -12,6 +12,7 @@ namespace QuartzNetDemo4.Model
         public async static void StartJob<TJob>(IScheduler scheduler, string cronExpression, string methodName)
             where TJob : IJob
         {
+
             var jobName = $"{typeof(TJob).FullName}_{methodName}_{cronExpression}";
             var job = JobBuilder.Create<TJob>()
                 .WithIdentity(jobName)
