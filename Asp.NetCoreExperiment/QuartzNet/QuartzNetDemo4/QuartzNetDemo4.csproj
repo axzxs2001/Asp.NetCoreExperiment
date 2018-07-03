@@ -6,6 +6,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="test.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="test.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="wwwroot\" />
   </ItemGroup>
 

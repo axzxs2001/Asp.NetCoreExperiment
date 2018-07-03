@@ -8,6 +8,7 @@ using Microsoft.Extensions.Options;
 using QuartzNetDemo4.Model.DataModel;
 using Quartz;
 using System.IO;
+using Microsoft.Extensions.FileProviders;
 
 namespace QuartzNetDemo4.Controllers
 {
@@ -18,11 +19,13 @@ namespace QuartzNetDemo4.Controllers
         IBackgroundRepository _backgroundRepository;
         IScheduler _scheduler;
         IOptionsSnapshot<List<CronMethod>> _cronMethod;
-        public ValuesController(IBackgroundRepository backgroundRepository, IScheduler scheduler, IOptionsSnapshot<List<CronMethod>> cronMethod)
+        IFileProvider _fileProvider;
+        public ValuesController(IBackgroundRepository backgroundRepository, IScheduler scheduler, IOptionsSnapshot<List<CronMethod>> cronMethod, IFileProvider fileProvider)
         {
             _scheduler = scheduler;
             _cronMethod = cronMethod;
             _backgroundRepository = backgroundRepository;
+            _fileProvider = fileProvider;
         }
 
         // GET api/values
@@ -35,8 +38,14 @@ namespace QuartzNetDemo4.Controllers
         [HttpGet("{s}")]
         public ActionResult Get(int s)
         {
-            var path = System.IO.Directory.GetCurrentDirectory() + "/appsettings.json";
+            //获取路径方法
+            var content=_fileProvider.GetFileInfo("appsettings.json");
+            var path0=content.PhysicalPath;
+            var path1 = AppDomain.CurrentDomain.BaseDirectory + "appsettings.json"; 
+
+            var path =Directory.GetCurrentDirectory() + "/appsettings.json";
             var json = System.IO.File.ReadAllText(path);
+
             var obj = Newtonsoft.Json.JsonConvert.DeserializeObject<dynamic>(json);
             obj.CronJob[0].CronExpression = $"0/{s} * * * * ?";
             _scheduler.Clear().Wait();

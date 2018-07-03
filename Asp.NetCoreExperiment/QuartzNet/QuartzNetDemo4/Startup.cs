@@ -13,14 +13,18 @@ using Microsoft.Extensions.DependencyInjection;
 using Quartz;
 using QuartzNetDemo4.Model.DataModel;
 using Microsoft.Extensions.Options;
+using Microsoft.Extensions.FileProviders;
+using System.Reflection;
 
 namespace QuartzNetDemo4
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        IHostingEnvironment _hostingEnvironment;
+        public Startup(IConfiguration configuration, IHostingEnvironment hostingEnvironment)
         {
             Configuration = configuration;
+            _hostingEnvironment = hostingEnvironment;
         }
 
         public IConfiguration Configuration { get; }
@@ -39,6 +43,11 @@ namespace QuartzNetDemo4
 
             services.UseQuartz(typeof(BackgroundJob));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            var physicalProvider = _hostingEnvironment.ContentRootFileProvider;
+            var embeddedProvider = new EmbeddedFileProvider(Assembly.GetEntryAssembly());
+            var compositeProvider = new CompositeFileProvider(physicalProvider, embeddedProvider);
+            services.AddSingleton<IFileProvider>(compositeProvider);
         }
 
 
