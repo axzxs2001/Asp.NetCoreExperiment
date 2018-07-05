@@ -438,7 +438,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SwaggerAPI02", "SwaggerDemo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SwaggerAuthorize", "SwaggerDemo\SwaggerAuthorize\SwaggerAuthorize.csproj", "{B9A03AA0-DDC9-48EC-AFC9-CE4B97B4C32A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DapperSqlReConnection", "DapperDemo\DapperSqlReConnection\DapperSqlReConnection.csproj", "{2C964C39-6FC1-4AD8-B0A3-D245ABAC6B55}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DapperSqlReConnection", "DapperDemo\DapperSqlReConnection\DapperSqlReConnection.csproj", "{2C964C39-6FC1-4AD8-B0A3-D245ABAC6B55}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RaftDemo", "RaftDemo", "{DA65839C-00E4-4B72-9B68-E7358FF0909A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaftDemo01", "RaftDemo\RaftDemo01\RaftDemo01.csproj", "{8D7AE604-9432-4AD5-A9CD-D76C076A8904}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -1618,6 +1622,14 @@ Global
 		{2C964C39-6FC1-4AD8-B0A3-D245ABAC6B55}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2C964C39-6FC1-4AD8-B0A3-D245ABAC6B55}.Release|x64.ActiveCfg = Release|Any CPU
 		{2C964C39-6FC1-4AD8-B0A3-D245ABAC6B55}.Release|x64.Build.0 = Release|Any CPU
+		{8D7AE604-9432-4AD5-A9CD-D76C076A8904}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D7AE604-9432-4AD5-A9CD-D76C076A8904}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D7AE604-9432-4AD5-A9CD-D76C076A8904}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{8D7AE604-9432-4AD5-A9CD-D76C076A8904}.Debug|x64.Build.0 = Debug|Any CPU
+		{8D7AE604-9432-4AD5-A9CD-D76C076A8904}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D7AE604-9432-4AD5-A9CD-D76C076A8904}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D7AE604-9432-4AD5-A9CD-D76C076A8904}.Release|x64.ActiveCfg = Release|Any CPU
+		{8D7AE604-9432-4AD5-A9CD-D76C076A8904}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1795,6 +1807,7 @@ Global
 		{1BF7C307-6B28-4668-A92D-8B0AE6B9ED3A} = {E5C26E99-BDC7-4289-8519-854F22F0F8E1}
 		{B9A03AA0-DDC9-48EC-AFC9-CE4B97B4C32A} = {E5C26E99-BDC7-4289-8519-854F22F0F8E1}
 		{2C964C39-6FC1-4AD8-B0A3-D245ABAC6B55} = {282C0114-704A-4506-890B-C326A67419B4}
+		{8D7AE604-9432-4AD5-A9CD-D76C076A8904} = {DA65839C-00E4-4B72-9B68-E7358FF0909A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
