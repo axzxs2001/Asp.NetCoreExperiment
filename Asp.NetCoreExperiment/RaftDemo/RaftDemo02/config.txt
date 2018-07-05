@@ -1,0 +1,20 @@
+﻿EndPoint: 127.0.0.1,4250
+EndPoint: 127.0.0.1,4251
+EndPoint: 127.0.0.1,4252
+EndPoint: 127.0.0.1,4253
+EndPoint: 127.0.0.1,4254
+
+Entity: default
+VerboseRaft: false
+VerboseTransport: false
+DelayedPersistenceIsActive: true
+DelayedPersistenceMs: 10000
+InMemoryEntity: false
+InMemoryEntityStartSyncFromLatestEntity: false
+
+Entity: inMemory1
+VerboseRaft: true
+VerboseTransport: true
+DelayedPersistenceIsActive: false
+InMemoryEntity: true
+InMemoryEntityStartSyncFromLatestEntity: false
