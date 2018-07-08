@@ -50,7 +50,7 @@ namespace RaftyDemo02
 
             var _peers = new List<IPeer>();
             var peer1 = new NodePeer();
-    
+         
             _peers.Add(new NodePeer() { });
             var peersProvider = new InMemoryPeersProvider(_peers);
             var node = new Node(fsm, log, settings, peersProvider, loggerFactory);
