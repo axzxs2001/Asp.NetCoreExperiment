@@ -44,11 +44,28 @@
             $('#setcookie').click(function () {
                 console.log($("#username").val())
                 console.log($("#password").val())
-                $.post("http://localhost:5000/api/values", {
-                    username: $("#username").val(),
-                    password: $("#password").val()
-                },
-                    function (data) {
+                //$.post("/api/values", JSON.stringify( {
+                //    "UserName": $("#username").val(),
+                //    "Password": $("#password").val()
+                //}),
+                //    function (data) {
+                //        if (data.result) {
+                //            $.cookie('username', $("#username").val());
+                //            $.cookie('.AspNetCore.Culture', 'c=ja|uic=ja');
+                //            location.href = 'index.html'
+                //        } else {
+                //            alert(data.message)
+                //        }
+                //    })
+                $.ajax({
+                    url: "/api/values",
+                    type: "POST",
+                    data: JSON.stringify({
+                        "UserName": $("#username").val(),
+                        "Password": $("#password").val()
+                    }),
+                    contentType: "application/json",
+                    success: function (data) {
                         if (data.result) {
                             $.cookie('username', $("#username").val());
                             $.cookie('.AspNetCore.Culture', 'c=ja|uic=ja');
@@ -56,7 +73,8 @@
                         } else {
                             alert(data.message)
                         }
-                    },"json")
+                    }
+                })
 
             });
         });

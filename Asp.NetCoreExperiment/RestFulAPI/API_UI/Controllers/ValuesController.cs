@@ -29,21 +29,21 @@ namespace API_UI.Controllers
         //    {
         //        return new JsonResult(new { result = false, message = "用户名或密码不正确" });
         //    }
-        //}    
+        //}
 
-        [HttpPost]
-        public IActionResult Login([FromBody]User user)
+    [HttpPost]
+    public IActionResult Login([FromBody]User user)
+    {
+        if (user.UserName == "gsw" && user.Password == "111111")
         {
-            if (user.UserName == "gsw" && user.Password == "111111")
-            {
-                return new JsonResult(new { result = true, data = user.UserName });
-            }
-            else
-            {
-                return new JsonResult(new { result = false, message = "用户名或密码不正确" });
-            }
+            return new JsonResult(new { result = true, data = user.UserName });
+        }
+        else
+        {
+            return new JsonResult(new { result = false, message = "用户名或密码不正确" });
         }
     }
+}
     public class User
     {
         public string UserName
