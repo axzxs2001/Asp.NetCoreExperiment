@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Cors.Internal;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -19,12 +20,15 @@ namespace API_UI
             Configuration = configuration;
         }
         public IConfiguration Configuration { get; }
-    
+
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-        }
         
+        
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+         
+        }
+
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
@@ -32,8 +36,15 @@ namespace API_UI
                 app.UseDeveloperExceptionPage();
             }
             app.UseStaticFiles();
+        
+            //app.Use((del) =>
+            //{
+            //    var d = del.Method;
+            //    return del;
+            //});
 
             app.UseMvc();
+          
         }
     }
 }

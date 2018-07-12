@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API_UI.Controllers
@@ -17,29 +18,37 @@ namespace API_UI.Controllers
             return new string[] { "value1", "value2" };
         }
 
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
-        {
-            return "value";
-        }
+        //[HttpPost]
+        //public IActionResult Login([FromForm]User user)
+        //{
+        //    if (user.UserName == "gsw" && user.Password == "111111")
+        //    {
+        //        return new JsonResult(new { result = true, data = user.UserName });
+        //    }
+        //    else
+        //    {
+        //        return new JsonResult(new { result = false, message = "用户名或密码不正确" });
+        //    }
+        //}    
 
-        // POST api/values
         [HttpPost]
-        public void Post([FromBody] string value)
+        public IActionResult Login([FromBody]User user)
         {
+            if (user.UserName == "gsw" && user.Password == "111111")
+            {
+                return new JsonResult(new { result = true, data = user.UserName });
+            }
+            else
+            {
+                return new JsonResult(new { result = false, message = "用户名或密码不正确" });
+            }
         }
-
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+    }
+    public class User
+    {
+        public string UserName
+        { get; set; }
+        public string Password
+        { get; set; }
     }
 }

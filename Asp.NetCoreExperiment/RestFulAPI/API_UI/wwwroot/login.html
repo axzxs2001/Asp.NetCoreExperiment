@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Test</title>
+    <link href="bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-3">
+            </div>
+            <div class="col-6">
+                <h2 style="height: 80px;margin-top:20px;">用户登录</h2>
+            </div>
+        </div>
+        <div class="row" style="margin-top:10px;">
+            <div class="col-3">
+            </div>
+            <div class="col-6">
+                <input type="text" id="username" class="form-control" placeholder="请输入用户名" />
+            </div>
+        </div>
+        <div class="row" style="margin-top:10px;">
+            <div class="col-3">
+            </div>
+            <div class="col-6">
+                <input type="password" id="password" class="form-control" placeholder="请输入密码" />
+            </div>
+        </div>
+        <div class="row" style="margin-top:10px;">
+            <div class="col-3">
+            </div>
+            <div class="col-6" style="text-align:right;">
+                <input type="button" id="setcookie" name="setcookie" value="登录" class="btn btn-info" />
+            </div>
+        </div>
+    </div>
+    <script src="jquery-3.3.1.min.js"></script>
+    <script src="bootstrap.min.js"></script>
+    <script src="jquery.cookie.js"></script>
+    <script>
+        $(function () {
+            $('#setcookie').click(function () {
+                console.log($("#username").val())
+                console.log($("#password").val())
+                $.post("http://localhost:5000/api/values", {
+                    username: $("#username").val(),
+                    password: $("#password").val()
+                },
+                    function (data) {
+                        if (data.result) {
+                            $.cookie('username', $("#username").val());
+                            $.cookie('.AspNetCore.Culture', 'c=ja|uic=ja');
+                            location.href = 'index.html'
+                        } else {
+                            alert(data.message)
+                        }
+                    },"json")
+
+            });
+        });
+    </script>
+</body>
+</html>
