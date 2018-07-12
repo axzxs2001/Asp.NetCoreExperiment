@@ -28,7 +28,7 @@ namespace RaftDemo02_Web
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<RaftOpt>();
+            services.AddSingleton<RaftOption>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
@@ -43,10 +43,10 @@ namespace RaftDemo02_Web
         }
     }
 
-    public class RaftOpt
+    public class RaftOption
     {
         TcpRaftNode _node;
-        public RaftOpt(IConfiguration configuration)
+        public RaftOption(IConfiguration configuration)
         {
             var appSetting = configuration.GetSection("AppSetting");
             var port = Convert.ToInt32(appSetting.GetSection("Port").Value);
