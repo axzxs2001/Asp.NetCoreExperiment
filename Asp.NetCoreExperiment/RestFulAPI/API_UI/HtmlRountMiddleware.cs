@@ -12,7 +12,7 @@ namespace API_UI
     {
         private readonly RequestDelegate _next;
 
-        static List<string> _files;
+        public  static List<string> _files;
         public HtmlRountMiddleware(RequestDelegate next)
         {
             _next = next;

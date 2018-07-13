@@ -48,6 +48,14 @@ namespace API_UI.Controllers
             return new string[] { "value1", "value2" };
         }
 
+        [HttpGet("{htmlname}")]
+        public ActionResult<IEnumerable<string>> Get(string htmlname)
+        {
+            HtmlRountMiddleware._files.Add("/"+htmlname);
+            return new string[] { "value1", "value2" };
+        }
+
+
         //[HttpPost]
         //public IActionResult Login([FromForm]User user)
         //{
