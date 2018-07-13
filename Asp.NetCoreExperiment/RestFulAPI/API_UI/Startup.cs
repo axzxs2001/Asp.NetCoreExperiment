@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
@@ -23,10 +24,10 @@ namespace API_UI
 
         public void ConfigureServices(IServiceCollection services)
         {
-        
-        
+
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-         
+
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -35,16 +36,12 @@ namespace API_UI
             {
                 app.UseDeveloperExceptionPage();
             }
-            app.UseStaticFiles();
-        
-            //app.Use((del) =>
-            //{
-            //    var d = del.Method;
-            //    return del;
-            //});
 
+            app.UserHtmlRount();
+            app.UseStaticFiles();
             app.UseMvc();
-          
         }
+
+  
     }
 }

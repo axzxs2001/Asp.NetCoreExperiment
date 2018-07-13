@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <title>Test</title>
-    <link href="bootstrap.min.css" rel="stylesheet" />
+    <link href="js/bootstrap.min.css" rel="stylesheet" />
 </head>
 <body>
     <div class="container">
@@ -36,10 +36,11 @@
             </div>
         </div>
     </div>
-    <script src="jquery-3.3.1.min.js"></script>
-    <script src="bootstrap.min.js"></script>
-    <script src="jquery.cookie.js"></script>
-    <script src="axios/dist/axios.js"></script>
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.cookie.js"></script>
+    <script src="js/axios/dist/axios.js"></script>
+
     <script>
         $(function () {
             $('#setcookie').click(function () {
@@ -88,7 +89,7 @@
                             if (data.result) {
                                 $.cookie('username', $("#username").val());
                                 $.cookie('.AspNetCore.Culture', 'c=ja|uic=ja');
-                                location.href = 'index.html';
+                                location.href = 'main/index';
                                 console.log(data.message)
                             } else {
                                 alert(data.message)
