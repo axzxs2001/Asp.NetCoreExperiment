@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <title>Test</title>
-    <link href="js/bootstrap.min.css" rel="stylesheet" />
+    <link href="/js/bootstrap.min.css" rel="stylesheet" />
 </head>
 <body>
     <div class="container">
@@ -13,11 +13,7 @@
             <div class="col-3">
                 <h2 style="height: 80px;margin-top:20px;">用户登录</h2>
             </div>
-            <div class="col-3">
-                <select class="form-control" id="cult">
-                    <option value="zh" selected>中文</option>
-                    <option value="ja">日文</option>
-                </select>
+            <div class="col-3">          
             </div>
         </div>
         <div class="row" style="margin-top:10px;">
@@ -33,47 +29,29 @@
             </div>
             <div class="col-6">
                 <input type="password" id="password" class="form-control" placeholder="请输入密码" />
-                <span id="passwordspan"  style="font-size:8px;color:lightgray;"></span>
+                <span id="passwordspan" style="font-size:8px;color:lightgray;"></span>
             </div>
         </div>
         <div class="row" style="margin-top:10px;">
             <div class="col-3">
             </div>
             <div class="col-6" style="text-align:right;">
-                <input type="button" id="setcookie" name="setcookie" value="登录" class="btn btn-info" />
+                <input type="button" id="lgoin" name="lgoin" value="登录" class="btn btn-info" />
             </div>
         </div>
     </div>
-    <script src="js/jquery-3.3.1.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery.cookie.js"></script>
-    <script src="js/axios/dist/axios.js"></script>
+    <script src="/js/jquery-3.3.1.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/jquery.cookie.js"></script>
+    <script src="/js/axios/dist/axios.js"></script>
 
     <script>
 
-        var localizers = null;
+      
         $(function () {
-            var culture = $.cookie('.AspNetCore.Culture').split("|")[0].split("=")[1];
-            $("#cult").val(culture)
-            axios.get('/localizer', {})
-                .then(function (response) {
-                    if (response.status == 200) {
-                        localizers = response.data;
-                        $("#usernamespan").html(localizers.usernameempty);
-                        $("#passwordspan").html(localizers.passwordempty);
-                    }
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
 
-            $("#cult").change(function () {
-
-                $.cookie('.AspNetCore.Culture', 'c=' + $("#cult").val() + '|uic=' + $("#cult").val());
-                location.href = location.href
-            });
-
-            $('#setcookie').click(function () {
+  
+            $('#lgoin').click(function () {
                 if ($("#username").val() == "") {
                     alert(localizers.usernameempty);
                     return;
@@ -127,7 +105,7 @@
 
                                 $.cookie('username', $("#username").val());
                                 $.cookie('.AspNetCore.Culture', 'c=ja|uic=ja');
-                                location.href = 'main/index';
+                                location.href = 'main/body';
                                 console.log(data.message)
                             } else {
                                 alert(data.message)
@@ -141,6 +119,8 @@
 
             });
         });
+
+
     </script>
 </body>
 </html>

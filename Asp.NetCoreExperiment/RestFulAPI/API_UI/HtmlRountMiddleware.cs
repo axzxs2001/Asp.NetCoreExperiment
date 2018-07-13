@@ -12,7 +12,7 @@ namespace API_UI
     {
         private readonly RequestDelegate _next;
 
-        static string[] _files;
+        static List<string> _files;
         public HtmlRountMiddleware(RequestDelegate next)
         {
             _next = next;
@@ -22,15 +22,33 @@ namespace API_UI
             var dirpath = Directory.GetCurrentDirectory() + "/wwwroot";
             if (_files == null)
             {
-                _files = GetFiles(dirpath);
+                _files = GetFiles(dirpath);           
             }
             if (_files.Contains(context.Request.Path.Value.ToLower()) && context.Request.Path.HasValue)
             {
-                context.Request.Path = new Microsoft.AspNetCore.Http.PathString(context.Request.Path.Value + ".html");
+                context.Request.Path = new PathString(context.Request.Path.Value + ".html");
+                if (context.Request.Path == "/login.html")
+                {
+                    _next(context);
+                }
+                else
+                {
+                    if (context.Response.Body.CanWrite)
+                    {
+                        var index = File.ReadAllText(Directory.GetCurrentDirectory() + "/wwwroot/main/laout.html");
+                        var aaa = File.ReadAllText(Directory.GetCurrentDirectory() + "/wwwroot/" + context.Request.Path.Value);
+                        var all = index.Replace("#body", aaa);
+                        context.Response.WriteAsync(all);
+                    }
+                }
             }
-            return this._next(context);
+            else
+            {
+                _next(context);
+            }
+            return Task.CompletedTask;
         }
-        string[] GetFiles(string path, string basePath = null)
+        List<string> GetFiles(string path, string basePath = null)
         {
             if (string.IsNullOrEmpty(basePath))
             {
@@ -48,7 +66,7 @@ namespace API_UI
             {
                 files.AddRange(GetFiles(dir, basePath));
             }
-            return files.ToArray();
+            return files;
         }
     }
 

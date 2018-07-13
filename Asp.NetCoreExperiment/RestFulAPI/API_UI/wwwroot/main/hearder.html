@@ -1,0 +1,41 @@
+﻿<div class="col-3">
+    <select class="form-control" id="cult">
+        <option value="zh" selected>中文</option>
+        <option value="ja">日文</option>
+    </select>
+</div>
+<div class="col-3">
+    <h2 style="height: 80px;" id="title"></h2>
+</div>
+
+<script src="../js/axios/dist/axios.js"></script>
+<script>
+    var localizers = null;
+    function localLoad() {
+
+        if ($.cookie('username') == null) {
+            this.location.href = "/login";
+        } else {
+            $("#title").html('用户：' + $.cookie('username'))
+        }
+
+        axios.get('/localizer', {})
+            .then(function (response) {
+                if (response.status == 200) {
+                    localizers = response.data;
+                    if ($.cookie('.AspNetCore.Culture') != '') {
+                        var culture = $.cookie('.AspNetCore.Culture').split("|")[0].split("=")[1];
+                        $("#cult").val(culture)
+                        $("#cult").change(function () {
+                            $.cookie('.AspNetCore.Culture', 'c=' + $("#cult").val() + '|uic=' + $("#cult").val());
+                            location.href = location.href
+                        });
+                    }
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+
+</script>

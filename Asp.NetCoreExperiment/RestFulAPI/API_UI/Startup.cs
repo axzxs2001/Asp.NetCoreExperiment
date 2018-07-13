@@ -31,8 +31,8 @@ namespace API_UI
             services.AddLocalization(options =>
             {
                 options.ResourcesPath = "Resources";
-            }
-            );
+
+            });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
@@ -40,6 +40,9 @@ namespace API_UI
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+
+            app.UserHtmlRount();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -50,6 +53,7 @@ namespace API_UI
             supportedCultures.Add(new CultureInfo("ja"));
             app.UseRequestLocalization(new RequestLocalizationOptions
             {
+
                 DefaultRequestCulture = new RequestCulture(new CultureInfo("zh")),
                 // Formatting numbers, dates, etc.
                 SupportedCultures = supportedCultures,
@@ -57,11 +61,13 @@ namespace API_UI
                 SupportedUICultures = supportedCultures
             });
 
-            app.UserHtmlRount();
+
+
+
             app.UseStaticFiles();
             app.UseMvc();
         }
 
-  
+
     }
 }

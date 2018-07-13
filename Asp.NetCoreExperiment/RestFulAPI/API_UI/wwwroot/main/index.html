@@ -7,8 +7,10 @@
 </head>
 <body>
     <div class="container">
+        <div id="header" class="row"></div>
         <div class="row">
             <div class="col-3">
+
             </div>
             <div class="col-6">
                 <h2 style="height: 80px;margin-top:20px;" id="title"></h2>
@@ -23,18 +25,20 @@
                 <input type="button" id="getcookie" name="getcookie" value="获取本地化Cookie" class="btn btn-info" />
             </div>
         </div>
+        #body
     </div>
     <script src="/js/jquery-3.3.1.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/jquery.cookie.js"></script>
-    <script src="/js/websit.js"></script>
+
     <script>
+
         $(function () {
-            if ($.cookie('username') == null) {
-                this.location.href = "login.html";
-            } else {
-                $("#title").html('用户：' + $.cookie('username'))
-            }
+            $.get("/main/hearder", {}, function (html) {
+                $("#header").html(html);
+                localLoad();
+            })
+           
             $('#getcookie').click(function () {
                 alert($.cookie('.AspNetCore.Culture'));
             });
