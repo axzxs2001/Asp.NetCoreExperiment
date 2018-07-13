@@ -39,11 +39,13 @@
     <script src="jquery-3.3.1.min.js"></script>
     <script src="bootstrap.min.js"></script>
     <script src="jquery.cookie.js"></script>
+    <script src="axios/dist/axios.js"></script>
     <script>
         $(function () {
             $('#setcookie').click(function () {
                 console.log($("#username").val())
                 console.log($("#password").val())
+                //FromForm接收
                 //$.post("/api/values", JSON.stringify( {
                 //    "UserName": $("#username").val(),
                 //    "Password": $("#password").val()
@@ -57,24 +59,45 @@
                 //            alert(data.message)
                 //        }
                 //    })
-                $.ajax({
-                    url: "/api/values",
-                    type: "POST",
-                    data: JSON.stringify({
-                        "UserName": $("#username").val(),
-                        "Password": $("#password").val()
-                    }),
-                    contentType: "application/json",
-                    success: function (data) {
-                        if (data.result) {
-                            $.cookie('username', $("#username").val());
-                            $.cookie('.AspNetCore.Culture', 'c=ja|uic=ja');
-                            location.href = 'index.html'
-                        } else {
-                            alert(data.message)
-                        }
-                    }
+                //$.ajax({
+                //    url: "/api/values",
+                //    type: "POST",
+                //    data: JSON.stringify({
+                //        "UserName": $("#username").val(),
+                //        "Password": $("#password").val()
+                //    }),
+                //    contentType: "application/json",
+                //    success: function (data) {
+                //        if (data.result) {
+                //            $.cookie('username', $("#username").val());
+                //            $.cookie('.AspNetCore.Culture', 'c=ja|uic=ja');
+                //            location.href = 'index.html'
+                //        } else {
+                //            alert(data.message)
+                //        }
+                //    }
+                //})
+
+                axios.post('/api/values', {
+                    UserName: $("#username").val(),
+                    Password: $("#password").val()
                 })
+                    .then(function (response) {
+                        if (response.status == 200) {
+                            var data = response.data;
+                            if (data.result) {
+                                $.cookie('username', $("#username").val());
+                                $.cookie('.AspNetCore.Culture', 'c=ja|uic=ja');
+                                location.href = 'index.html';
+                                console.log(data.message)
+                            } else {
+                                alert(data.message)
+                            }
+                        }
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
 
             });
         });
