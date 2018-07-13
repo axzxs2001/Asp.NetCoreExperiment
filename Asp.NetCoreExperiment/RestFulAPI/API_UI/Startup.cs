@@ -40,9 +40,8 @@ namespace API_UI
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-
             app.UserHtmlRount();
-
+            
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -60,9 +59,6 @@ namespace API_UI
                 // UI strings that we have localized.
                 SupportedUICultures = supportedCultures
             });
-
-
-
 
             app.UseStaticFiles();
             app.UseMvc();

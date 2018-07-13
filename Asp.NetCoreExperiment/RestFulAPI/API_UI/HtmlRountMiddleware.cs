@@ -19,17 +19,17 @@ namespace API_UI
         }
         public Task InvokeAsync(HttpContext context)
         {
-            var dirpath = Directory.GetCurrentDirectory() + "/wwwroot";
             if (_files == null)
             {
-                _files = GetFiles(dirpath);           
+                var dirpath = Directory.GetCurrentDirectory() + "/wwwroot";
+                _files = GetFiles(dirpath);
             }
-            if (_files.Contains(context.Request.Path.Value.ToLower()) && context.Request.Path.HasValue)
+            if (context.Request.Path.HasValue && _files.Contains(context.Request.Path.Value.ToLower()))
             {
                 context.Request.Path = new PathString(context.Request.Path.Value + ".html");
                 if (context.Request.Path == "/login.html")
                 {
-                    _next(context);
+                    return _next(context);
                 }
                 else
                 {
@@ -40,13 +40,13 @@ namespace API_UI
                         var all = index.Replace("#body", aaa);
                         context.Response.WriteAsync(all);
                     }
+                    return Task.CompletedTask;
                 }
             }
             else
             {
-                _next(context);
+                return _next(context);
             }
-            return Task.CompletedTask;
         }
         List<string> GetFiles(string path, string basePath = null)
         {
