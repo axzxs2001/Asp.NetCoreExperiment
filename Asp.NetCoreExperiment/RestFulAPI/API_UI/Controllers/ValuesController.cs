@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 
 namespace API_UI.Controllers
 {
@@ -11,6 +12,26 @@ namespace API_UI.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
+
+        /// <summary>
+        /// 本地Controller化对象
+        /// </summary>
+        readonly IStringLocalizer<ValuesController> _localizer;
+        public ValuesController(IStringLocalizer<ValuesController> localizer)
+        {
+            _localizer = localizer;
+        }
+
+        [HttpGet("/localizer")]
+        public IActionResult GetLocalizer()
+        {
+            var dir = new Dictionary<string, string>();
+            dir.Add("usernameempty", _localizer["username empty"].Value);
+            dir.Add("passwordempty", _localizer["password empty"].Value);
+            return new JsonResult(dir);
+        }
+
+
         // GET api/values
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()

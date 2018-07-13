@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Cors.Internal;
 using Microsoft.Extensions.Configuration;
@@ -25,6 +27,12 @@ namespace API_UI
         public void ConfigureServices(IServiceCollection services)
         {
 
+            //区域性
+            services.AddLocalization(options =>
+            {
+                options.ResourcesPath = "Resources";
+            }
+            );
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
@@ -36,6 +44,18 @@ namespace API_UI
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            var supportedCultures = new List<CultureInfo>();
+            supportedCultures.Add(new CultureInfo("zh"));
+            supportedCultures.Add(new CultureInfo("ja"));
+            app.UseRequestLocalization(new RequestLocalizationOptions
+            {
+                DefaultRequestCulture = new RequestCulture(new CultureInfo("zh")),
+                // Formatting numbers, dates, etc.
+                SupportedCultures = supportedCultures,
+                // UI strings that we have localized.
+                SupportedUICultures = supportedCultures
+            });
 
             app.UserHtmlRount();
             app.UseStaticFiles();

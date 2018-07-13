@@ -10,8 +10,14 @@
         <div class="row">
             <div class="col-3">
             </div>
-            <div class="col-6">
+            <div class="col-3">
                 <h2 style="height: 80px;margin-top:20px;">用户登录</h2>
+            </div>
+            <div class="col-3">
+                <select class="form-control" id="cult">
+                    <option value="zh" selected>中文</option>
+                    <option value="ja">日文</option>
+                </select>
             </div>
         </div>
         <div class="row" style="margin-top:10px;">
@@ -19,6 +25,7 @@
             </div>
             <div class="col-6">
                 <input type="text" id="username" class="form-control" placeholder="请输入用户名" />
+                <span id="usernamespan" style="font-size:8px;color:lightgray;"></span>
             </div>
         </div>
         <div class="row" style="margin-top:10px;">
@@ -26,6 +33,7 @@
             </div>
             <div class="col-6">
                 <input type="password" id="password" class="form-control" placeholder="请输入密码" />
+                <span id="passwordspan"  style="font-size:8px;color:lightgray;"></span>
             </div>
         </div>
         <div class="row" style="margin-top:10px;">
@@ -42,10 +50,39 @@
     <script src="js/axios/dist/axios.js"></script>
 
     <script>
+
+        var localizers = null;
         $(function () {
+            var culture = $.cookie('.AspNetCore.Culture').split("|")[0].split("=")[1];
+            $("#cult").val(culture)
+            axios.get('/localizer', {})
+                .then(function (response) {
+                    if (response.status == 200) {
+                        localizers = response.data;
+                        $("#usernamespan").html(localizers.usernameempty);
+                        $("#passwordspan").html(localizers.passwordempty);
+                    }
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+
+            $("#cult").change(function () {
+
+                $.cookie('.AspNetCore.Culture', 'c=' + $("#cult").val() + '|uic=' + $("#cult").val());
+                location.href = location.href
+            });
+
             $('#setcookie').click(function () {
-                console.log($("#username").val())
-                console.log($("#password").val())
+                if ($("#username").val() == "") {
+                    alert(localizers.usernameempty);
+                    return;
+                }
+                if ($("#password").val() == "") {
+                    alert(localizers.passwordempty);
+                    return;
+                }
+                //#region $.post $.ajax
                 //FromForm接收
                 //$.post("/api/values", JSON.stringify( {
                 //    "UserName": $("#username").val(),
@@ -78,7 +115,7 @@
                 //        }
                 //    }
                 //})
-
+                //#endregion
                 axios.post('/api/values', {
                     UserName: $("#username").val(),
                     Password: $("#password").val()
@@ -87,6 +124,7 @@
                         if (response.status == 200) {
                             var data = response.data;
                             if (data.result) {
+
                                 $.cookie('username', $("#username").val());
                                 $.cookie('.AspNetCore.Culture', 'c=ja|uic=ja');
                                 location.href = 'main/index';
@@ -99,6 +137,7 @@
                     .catch(function (error) {
                         console.log(error);
                     });
+
 
             });
         });
