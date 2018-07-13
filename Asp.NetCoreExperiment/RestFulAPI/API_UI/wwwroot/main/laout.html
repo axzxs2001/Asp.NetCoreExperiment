@@ -33,24 +33,20 @@
     <script src="/js/jquery-3.3.1.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/jquery.cookie.js"></script>
-    <script src="../js/axios/dist/axios.js"></script>
+    <script src="/js/axios/dist/axios.js"></script>
     <script>
-
+        var localizers = null;      
         $(function () {
 
-            var localizers = null;
-            function localLoad() {
-
-                if ($.cookie('username') == null) {
-                    this.location.href = "/login";
-                } else {
-                    $("#title").html('用户：' + $.cookie('username'))
-                }
-
-                axios.get('/localizer', {})
+            if ($.cookie('username') == null) {
+                this.location.href = "/login";
+            }
+            else {          
+                axios.get('/localizer', { params: { culture: $.cookie('.AspNetCore.Culture').split("|")[0].split("=")[1] } })
                     .then(function (response) {
                         if (response.status == 200) {
-                            localizers = response.data;
+                            localizers = response.data;                     
+                            $("#title").html(localizers.username + $.cookie('username'))
                             if ($.cookie('.AspNetCore.Culture') != '') {
                                 var culture = $.cookie('.AspNetCore.Culture').split("|")[0].split("=")[1];
                                 $("#cult").val(culture)
@@ -65,7 +61,6 @@
                         console.log(error);
                     });
             }
-            localLoad();
             $('#getcookie').click(function () {
                 alert($.cookie('.AspNetCore.Culture'));
             });

@@ -22,7 +22,14 @@ namespace API_UI
             if (_files == null)
             {
                 var dirpath = Directory.GetCurrentDirectory() + "/wwwroot";
+                //获取静态文件
                 _files = GetFiles(dirpath);
+            }
+            if (context.Request.Path.HasValue && Path.GetExtension(context.Request.Path.Value).ToLower() == ".html")
+            {
+                context.Response.StatusCode = 404;
+              
+                return Task.CompletedTask;
             }
             if (context.Request.Path.HasValue && _files.Contains(context.Request.Path.Value.ToLower()))
             {

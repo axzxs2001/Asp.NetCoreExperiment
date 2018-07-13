@@ -117,16 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="oldpassword error" xml:space="preserve">
+  <data name="oldpassworderror" xml:space="preserve">
     <value>旧密码错误</value>
   </data>
-  <data name="password empty" xml:space="preserve">
+  <data name="passwordempty" xml:space="preserve">
     <value>密码不能为空</value>
   </data>
-  <data name="username empty" xml:space="preserve">
+  <data name="username" xml:space="preserve">
+    <value>用户名</value>
+  </data>
+  <data name="usernameempty" xml:space="preserve">
     <value>用户不能为空</value>
   </data>
-  <data name="username exist" xml:space="preserve">
+  <data name="usernameexist" xml:space="preserve">
     <value>用户名已存在</value>
   </data>
 </root>

@@ -25,15 +25,18 @@ namespace API_UI.Controllers
         }
 
         [HttpGet("/localizer")]
-        public IActionResult GetLocalizer()
+        public IActionResult GetLocalizer(string culture="zh")
         {
             Response.Cookies.Append(
                             CookieRequestCultureProvider.DefaultCookieName,
-                            CookieRequestCultureProvider.MakeCookieValue(new RequestCulture("zh")),
+                            CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),
                             new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) });
             var dir = new Dictionary<string, string>();
-            dir.Add("usernameempty", _localizer["username empty"].Value);
-            dir.Add("passwordempty", _localizer["password empty"].Value);
+
+            foreach(var name in _localizer.GetAllStrings())
+            {
+                dir.Add(name.Name, name.Value);
+            }
             return new JsonResult(dir);
         }
 
