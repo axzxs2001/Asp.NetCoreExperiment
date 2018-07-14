@@ -10,7 +10,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="Quartz" Version="3.0.5" />
+    <PackageReference Include="Quartz" Version="3.0.6" />
   </ItemGroup>
 
 </Project>
