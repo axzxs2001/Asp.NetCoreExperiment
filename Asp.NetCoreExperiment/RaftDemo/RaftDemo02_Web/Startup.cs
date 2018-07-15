@@ -49,10 +49,12 @@ namespace RaftDemo02_Web
         public RaftOption(IConfiguration configuration)
         {
             var appSetting = configuration.GetSection("AppSetting");
+            //设定端口
             var port = Convert.ToInt32(appSetting.GetSection("Port").Value);
             var name = appSetting.GetSection("Name").Value;
             Console.Title = name + "   port:" + port;
             var log = new Logger();
+            //读取配置文件
             var config = File.ReadAllText(Directory.GetCurrentDirectory() + @"\config.txt");
             _node = TcpRaftNode.GetFromConfig(1, config,
                            Directory.GetCurrentDirectory() + $@"\DBreeze\{name}", port, log,
@@ -61,6 +63,7 @@ namespace RaftDemo02_Web
                                Console.WriteLine($"{entityName}/{index} { Encoding.UTF8.GetString(data)}");
                                return true;
                            });
+            //to do现在的问题是，必需启动三个节点，另一个IP是通过配置文件来加载的，不够灵活。
             _node.Start();
         }
 
