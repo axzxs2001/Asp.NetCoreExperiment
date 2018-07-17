@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Distributed;
 
 namespace CacheDemo02.Controllers
 {
@@ -10,36 +11,51 @@ namespace CacheDemo02.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
-        // GET api/values
+        IDistributedCache _cache;
+        public ValuesController(IDistributedCache cache)
+        {
+            _cache = cache;
+        }
+    
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
-            return new string[] { "value1", "value2" };
+            return new string[] { "gsw", _cache.GetString("gsw") };
         }
 
-        // GET api/values/5
+
         [HttpGet("{id}")]
         public ActionResult<string> Get(int id)
         {
             return "value";
         }
 
-        // POST api/values
+
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post([FromBody]User user)
         {
+            _cache.SetString("gsw", Newtonsoft.Json.JsonConvert.SerializeObject(user),new DistributedCacheEntryOptions {
+                 SlidingExpiration=TimeSpan.FromSeconds(10)                  
+            });
         }
 
-        // PUT api/values/5
+  
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {
         }
 
-        // DELETE api/values/5
+     
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public void Delete(string id)
         {
+            _cache.Remove(id);
         }
+    }
+
+    public class  User
+    {
+        public int ID { get; set; }
+        public string UserName { get; set; }
     }
 }
