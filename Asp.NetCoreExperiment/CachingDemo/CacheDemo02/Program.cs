@@ -19,6 +19,7 @@ namespace CacheDemo02
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+                .UseApplicationInsights("d6a06b83-39d8-472a-b335-5eda2bb196c2")
                 .UseStartup<Startup>();
     }
 }

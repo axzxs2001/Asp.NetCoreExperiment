@@ -35,17 +35,18 @@ namespace CacheDemo02
             //    options.TableName = "TestCache";
             //});
             //内存缓存
-            //services.AddDistributedMemoryCache(options => {
+            services.AddDistributedMemoryCache(options =>
+            {
 
-            //});
+            });
             //redis缓存
             //Microsoft.Extensions.Caching.Redis
             //启动docker中的redis命令： docker run -d -p 6379:6379 --name redis01 redis 
-            services.AddDistributedRedisCache(options =>
-            {
-                options.Configuration = "localhost:6379";              
-                options.InstanceName = "SampleInstance";
-            });
+            //services.AddDistributedRedisCache(options =>
+            //{
+            //    options.Configuration = "localhost:6379";              
+            //    options.InstanceName = "SampleInstance";
+            //});
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
