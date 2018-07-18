@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using API_UI.Model;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
@@ -14,14 +15,18 @@ namespace API_UI.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
-
+        /// <summary>
+        /// 本地共享化对象
+        /// </summary>
+        private readonly IStringLocalizer<SharedResource> _sharedLocalizer;
         /// <summary>
         /// 本地Controller化对象
         /// </summary>
         readonly IStringLocalizer<ValuesController> _localizer;
-        public ValuesController(IStringLocalizer<ValuesController> localizer)
+        public ValuesController(IStringLocalizer<ValuesController> localizer, IStringLocalizer<SharedResource> sharedLocalizer)
         {
             _localizer = localizer;
+            _sharedLocalizer = sharedLocalizer;
         }
 
         [HttpGet("/localizer")]
@@ -32,8 +37,11 @@ namespace API_UI.Controllers
                             CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),
                             new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) });
             var dir = new Dictionary<string, string>();
-
             foreach(var name in _localizer.GetAllStrings())
+            {
+                dir.Add(name.Name, name.Value);
+            }
+            foreach (var name in _sharedLocalizer.GetAllStrings())
             {
                 dir.Add(name.Name, name.Value);
             }
