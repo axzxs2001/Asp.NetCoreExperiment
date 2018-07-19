@@ -1,0 +1,45 @@
+{
+  "C:\\MyFile\\Source\\Repos\\Asp.NetCoreExperiment\\Asp.NetCoreExperiment\\UnitTestDemo\\UnitTestDemo01\\bin\\Debug\\netcoreapp2.1\\TestProject01.dll": {
+    "C:\\MyFile\\Source\\Repos\\Asp.NetCoreExperiment\\Asp.NetCoreExperiment\\UnitTestDemo\\TestProject01\\TestClass.cs": {
+      "TestProject01.TestClass": {
+        "System.Int32 TestProject01.TestClass::Add(System.Int32,System.Int32)": {
+          "Lines": {
+            "8": 1,
+            "9": 1,
+            "10": 1
+          },
+          "Branches": []
+        },
+        "System.Boolean TestProject01.TestClass::Get(System.Int32)": {
+          "Lines": {
+            "13": 3,
+            "14": 3,
+            "15": 1,
+            "16": 1,
+            "19": 2,
+            "20": 2,
+            "22": 3
+          },
+          "Branches": [
+            {
+              "Line": 14,
+              "Offset": 7,
+              "EndOffset": 9,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 1
+            },
+            {
+              "Line": 14,
+              "Offset": 7,
+              "EndOffset": 14,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 2
+            }
+          ]
+        }
+      }
+    }
+  }
+}
