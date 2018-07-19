@@ -3,7 +3,7 @@
 2、从cmd中进入到测试项目源码目录
 
 3、dotnet test /p:CollectCoverage=true
-	默认json格式，如果使用opencover格式: 
+	生成测试结果的默认文件是json格式，如果使用opencover格式: 
 	dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
 
 4、在Nuget中引用ReportGenerator
@@ -16,4 +16,4 @@
 
 
 注：
-报告也可以用SonarCloud，它是一个云服务, 但是需要安装java环境, 我嫌麻烦就不介绍了.  https://sonarcloud.io/
+报告也可以用SonarCloud，它是一个云服务, 需要安装java环境,https://sonarcloud.io/
