@@ -10,9 +10,9 @@ namespace ProtoActorDemo
     {
         static void Main(string[] args)
         {
-            //HelloWord();
-            //Futures();
-            LifecycleEvents();
+            // HelloWord();
+            Futures();
+            //LifecycleEvents();
         }
 
         static void LifecycleEvents()
@@ -40,6 +40,7 @@ namespace ProtoActorDemo
         {
             var props = Actor.FromFunc(context =>
             {
+               
                 var msg = context.Message;
                 if (msg is Hello r)
                 {
