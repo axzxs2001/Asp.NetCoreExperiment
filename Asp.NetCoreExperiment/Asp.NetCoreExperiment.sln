@@ -95,6 +95,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OcelotAndButterfly", "Ocelo
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ProtoActor", "ProtoActor", "{42B39E88-504B-4F8D-B595-9141269ABF2E}"
+	ProjectSection(SolutionItems) = preProject
+		ProtoActor\proto文档.docx = ProtoActor\proto文档.docx
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AKKA", "AKKA", "{F72F8163-1934-4185-A43D-4CAB26E78786}"
 EndProject
@@ -476,7 +479,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTestDemo", "UnitTestDem
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestProject01", "UnitTestDemo\TestProject01\TestProject01.csproj", "{54400ACC-033A-4F68-8FC3-AA8579D8D21A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProtoDemo01", "ProtoActor\ProtoDemo01\ProtoDemo01.csproj", "{DDD6D87E-DC0A-49F0-AF36-BCC912DB5544}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProtoDemo01", "ProtoActor\ProtoDemo01\ProtoDemo01.csproj", "{DDD6D87E-DC0A-49F0-AF36-BCC912DB5544}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
