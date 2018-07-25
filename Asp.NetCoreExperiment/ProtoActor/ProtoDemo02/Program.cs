@@ -9,12 +9,14 @@ namespace ProtoDemo02
     {
         static void Main(string[] args)
         {
+
+
             var props = new Props()// the producer is a delegate that returns a new instance of an IActor
                 .WithProducer(() => new MyActor())
                 // the default dispatcher uses the thread pool and limits throughput to 300 messages per mailbox run
                 .WithDispatcher(new ThreadPoolDispatcher { Throughput = 300 })
                 // the default mailbox uses unbounded queues
-                .WithMailbox(() => UnboundedMailbox.Create())
+                .WithMailbox(() => UnboundedMailbox.Create(new MyMailboxStatistics()))
                 // the default strategy restarts child actors a maximum of 10 times within a 10 second window
                 .WithChildSupervisorStrategy(new OneForOneStrategy((who, reason) => SupervisorDirective.Restart, 10, TimeSpan.FromSeconds(10)))
                 // middlewares can be chained to intercept incoming and outgoing messages
@@ -52,6 +54,29 @@ namespace ProtoDemo02
             var pid = Actor.Spawn(props);
             pid.Tell(new Hello { Who = "孙菲菲" });
             Console.ReadLine();
+        }
+    }
+
+    public class MyMailboxStatistics : IMailboxStatistics
+    {
+        public void MailboxEmpty()
+        {
+            Console.WriteLine("我的类MyMailboxStatistics.MailboxEmpty");
+        }
+
+        public void MailboxStarted()
+        {
+            Console.WriteLine("我的类MyMailboxStatistics.MailboxStarted");
+        }
+
+        public void MessagePosted(object message)
+        {
+            Console.WriteLine("我的类MyMailboxStatistics.MessagePosted:" + message);
+        }
+
+        public void MessageReceived(object message)
+        {
+            Console.WriteLine("我的类MyMailboxStatistics.MessageReceived:" + message);
         }
     }
 
