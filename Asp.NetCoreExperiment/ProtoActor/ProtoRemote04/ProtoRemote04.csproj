@@ -9,8 +9,11 @@
     <PackageReference Include="Proto.Actor" Version="0.1.16" />
     <PackageReference Include="Proto.Remote" Version="0.1.16" />
     <PackageReference Include="Proto.Router" Version="0.1.16" />
-    <PackageReference Include="Proto.Serialization.Json" Version="0.1.14.1" />
     <PackageReference Include="Proto.Serialization.Wire" Version="0.1.16" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ProtoRemote03\ProtoRemote03.csproj" />
   </ItemGroup>
 
 </Project>

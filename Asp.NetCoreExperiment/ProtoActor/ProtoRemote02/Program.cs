@@ -1,8 +1,8 @@
-﻿using Messages;
-using Proto.Remote;
+﻿using Proto.Remote;
+using Proto.Serialization.Wire;
 using ProtoRemote01;
 using System;
-using ProtosReflection = Messages.ProtosReflection;
+
 namespace ProtoRemote02
 {
     class Program
@@ -12,13 +12,20 @@ namespace ProtoRemote02
             Console.Title = "客户端";
             Console.WriteLine("回车开始");
             Console.ReadLine();
-            Serialization.RegisterFileDescriptor(ProtosReflection.Descriptor);
+
+            var wire = new WireSerializer(new[] { typeof(HelloRequest), typeof(HelloResponse) });
+            Serialization.RegisterSerializer(wire, true);
+            //var json = new JsonSerializer();            
+            //Serialization.RegisterSerializer(json, true);
             Remote.Start("127.0.0.1", 12001);           
       
             var pid = Remote.SpawnNamedAsync("127.0.0.1:12000","remote","hello", TimeSpan.FromSeconds(5)).Result.Pid;
-            var res = pid.RequestAsync<HelloResponse>(new HelloRequest { }).Result;
-            Console.WriteLine(res.Message);
-            Console.ReadLine();
+            while (true)
+            {
+                var res = pid.RequestAsync<HelloResponse>(new HelloRequest { Message = "请求：我是客户端" }).Result;
+                Console.WriteLine(res.Message);
+                Console.ReadLine();
+            }      
         }
     }
 }

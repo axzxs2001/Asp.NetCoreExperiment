@@ -1,8 +1,10 @@
-﻿using Messages;
+﻿
 using Proto;
 using Proto.Remote;
+using Proto.Serialization.Wire;
 using System;
-using ProtosReflection = Messages.ProtosReflection;
+using Proto.Serialization.Json;
+
 namespace ProtoRemote01
 {
     class Program
@@ -12,13 +14,16 @@ namespace ProtoRemote01
             Console.Title = "服务端";
             Console.WriteLine("回车开始");
             Console.ReadLine();
-
-            Serialization.RegisterFileDescriptor(ProtosReflection.Descriptor);
+            var wire = new WireSerializer(new[] { typeof(HelloRequest), typeof(HelloResponse) });
+            Serialization.RegisterSerializer(wire, true);
+            //var json = new JsonSerializer();
+            //Serialization.RegisterSerializer(json, true);
             var props = Actor.FromFunc(ctx =>
             {
                 switch (ctx.Message)
                 {
                     case HelloRequest msg:
+                        Console.WriteLine(msg.Message);
                         ctx.Respond(new HelloResponse
                         {
                             Message = "回应：我是服务端",
@@ -38,17 +43,17 @@ namespace ProtoRemote01
     }
 
 
-    //public class HelloRequest
-    //{
-    //    public string Message
-    //    {
-    //        get; set;
-    //    }
-    //}
+    public class HelloRequest
+    {
+        public string Message
+        {
+            get; set;
+        }
+    }
 
-    //public class HelloResponse
-    //{
-    //    public string Message
-    //    { get; set; }
-    //}
+    public class HelloResponse
+    {
+        public string Message
+        { get; set; }
+    }
 }
