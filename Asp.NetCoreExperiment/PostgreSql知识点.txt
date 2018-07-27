@@ -1,0 +1,2 @@
+--生成一些常用扩展函数
+CREATE EXTENSION tablefunc;
