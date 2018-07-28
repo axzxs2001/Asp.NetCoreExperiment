@@ -5,4 +5,17 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Proto.Actor" Version="0.1.16" />
+    <PackageReference Include="Proto.Cluster" Version="0.1.16" />
+    <PackageReference Include="Proto.Cluster.Consul" Version="0.1.16" />
+    <PackageReference Include="Proto.Remote" Version="0.1.16" />
+    <PackageReference Include="Proto.Router" Version="0.1.16" />
+    <PackageReference Include="Proto.Serialization.Wire" Version="0.1.16" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ProtoActorClusterDemo01\ProtoActorClusterDemo01.csproj" />
+  </ItemGroup>
+
 </Project>
