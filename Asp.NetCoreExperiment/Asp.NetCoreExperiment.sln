@@ -498,9 +498,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PostgreSqlDemo", "PostgreSq
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PostgresqlDemo01", "PostgreSqlDemo\PostgresqlDemo01\PostgresqlDemo01.csproj", "{C024695D-E73F-4129-8567-B8BF5F75D72E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProtoActorClusterDemo01", "ProtoActor\ProtoActorClusterDemo01\ProtoActorClusterDemo01.csproj", "{F690105C-1CBE-4A86-89BB-AA487A53D5AD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProtoActorClusterDemo01", "ProtoActor\ProtoActorClusterDemo01\ProtoActorClusterDemo01.csproj", "{F690105C-1CBE-4A86-89BB-AA487A53D5AD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProtoActorClusterDemo02", "ProtoActor\ProtoActorClusterDemo02\ProtoActorClusterDemo02.csproj", "{97A8502A-4171-4CDF-AD85-93E6D2D179FC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProtoActorClusterDemo02", "ProtoActor\ProtoActorClusterDemo02\ProtoActorClusterDemo02.csproj", "{97A8502A-4171-4CDF-AD85-93E6D2D179FC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Rewrite", "Rewrite", "{8ECF434F-2553-45EF-AEB5-D5A03BDA72E4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RewriteDemo01", "Rewrite\RewriteDemo01\RewriteDemo01.csproj", "{8EAD7E1E-F832-4080-8EDA-E5DBC4FFED09}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -1850,6 +1854,14 @@ Global
 		{97A8502A-4171-4CDF-AD85-93E6D2D179FC}.Release|Any CPU.Build.0 = Release|Any CPU
 		{97A8502A-4171-4CDF-AD85-93E6D2D179FC}.Release|x64.ActiveCfg = Release|Any CPU
 		{97A8502A-4171-4CDF-AD85-93E6D2D179FC}.Release|x64.Build.0 = Release|Any CPU
+		{8EAD7E1E-F832-4080-8EDA-E5DBC4FFED09}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8EAD7E1E-F832-4080-8EDA-E5DBC4FFED09}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8EAD7E1E-F832-4080-8EDA-E5DBC4FFED09}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{8EAD7E1E-F832-4080-8EDA-E5DBC4FFED09}.Debug|x64.Build.0 = Debug|Any CPU
+		{8EAD7E1E-F832-4080-8EDA-E5DBC4FFED09}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8EAD7E1E-F832-4080-8EDA-E5DBC4FFED09}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8EAD7E1E-F832-4080-8EDA-E5DBC4FFED09}.Release|x64.ActiveCfg = Release|Any CPU
+		{8EAD7E1E-F832-4080-8EDA-E5DBC4FFED09}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -2050,6 +2062,7 @@ Global
 		{C024695D-E73F-4129-8567-B8BF5F75D72E} = {3F1A250E-4A20-43C0-839C-0B307DC143B0}
 		{F690105C-1CBE-4A86-89BB-AA487A53D5AD} = {42B39E88-504B-4F8D-B595-9141269ABF2E}
 		{97A8502A-4171-4CDF-AD85-93E6D2D179FC} = {42B39E88-504B-4F8D-B595-9141269ABF2E}
+		{8EAD7E1E-F832-4080-8EDA-E5DBC4FFED09} = {8ECF434F-2553-45EF-AEB5-D5A03BDA72E4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
