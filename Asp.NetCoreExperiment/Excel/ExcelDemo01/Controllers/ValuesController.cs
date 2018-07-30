@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -14,19 +15,19 @@ namespace ExcelDemo01.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
-        // GET api/values
-        [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
-        {
-            string filePath = $"{Directory.GetCurrentDirectory()}/test.xlsx";
-            var file = new FileInfo(filePath);
-            using (var package = new ExcelPackage(file))
-            {
-                var sheet = package.Workbook.Worksheets[1];
-            }
+        //// GET api/values
+        //[HttpGet]
+        //public ActionResult<IEnumerable<string>> Get()
+        //{
+        //    string filePath = $"{Directory.GetCurrentDirectory()}/test.xlsx";
+        //    var file = new FileInfo(filePath);
+        //    using (var package = new ExcelPackage(file))
+        //    {
+        //        var sheet = package.Workbook.Worksheets[1];
+        //    }
 
-            return new string[] { "value1", "value2" };
-        }
+        //    return new string[] { "value1", "value2" };
+        //}
 
         #region
         private static ExcelPackage CreateExcelPackage<T>(List<T> datas, Dictionary<string, string> columnNames, List<string> outOfColumns, string sheetName = "Sheet1", string title = "", int isProtected = 0)
@@ -86,6 +87,12 @@ namespace ExcelDemo01.Controllers
                 int column = 1;
                 foreach (PropertyInfo p in myPro.Where(info => !outOfColumns.Contains(info.Name)))
                 {
+                    worksheet.Cells[row, column].Style.Border.BorderAround(ExcelBorderStyle.Thin, Color.Black);//设置单元格所有边框
+                    worksheet.Cells[row, column].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                    worksheet.Cells[row, column].Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                    worksheet.Cells[row, column].Style.Border.Left.Style = ExcelBorderStyle.Thin;
+                    worksheet.Cells[row, column].Style.Border.Right.Style = ExcelBorderStyle.Thin;
+
                     worksheet.Cells[row, column].Value = p == null ? "" : Convert.ToString(p.GetValue(data, null));
                     column++;
                 }
@@ -108,16 +115,26 @@ namespace ExcelDemo01.Controllers
 
         public async Task<IActionResult> ToExcel(int isProtected = 0)
         {
-            var result = new List<dynamic>();
+            var result = new List<User>() {
+                new User{ Id = 1, UserName = "aaa", Remark = "无" },
+                new User{ Id = 2, UserName = "aaa", Remark = "无" },
+                new User{ Id = 3, UserName = "aaa", Remark = "无" }
+            };
             var columns = new Dictionary<string, string>() {
                 { "Id","序号"},
                 { "UserName","用户名"},
                 { "Remark","备注"}
             };
-            var fs = GetByteToExportExcel(result, columns, new List<string>(), "Sheet1", "", isProtected);
+            var fs = GetByteToExportExcel(result, columns, new List<string>(), "用户", "用户", isProtected);
             return File(fs, "application/vnd.android.package-archive", $"ExcelDemo.xlsx");
         }
 
         #endregion
+    }
+    public class User
+    {
+        public int Id { get; set; }
+        public string UserName { get; set; }
+        public string Remark { get; set; }
     }
 }
