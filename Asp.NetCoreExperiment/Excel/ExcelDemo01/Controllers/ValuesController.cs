@@ -19,6 +19,7 @@ namespace ExcelDemo01.Controllers
         //[HttpGet]
         //public ActionResult<IEnumerable<string>> Get()
         //{
+        //    //加载Excel文件
         //    string filePath = $"{Directory.GetCurrentDirectory()}/test.xlsx";
         //    var file = new FileInfo(filePath);
         //    using (var package = new ExcelPackage(file))
@@ -59,22 +60,24 @@ namespace ExcelDemo01.Controllers
             if (!string.IsNullOrWhiteSpace(title))
             {
                 titleRow = 1;
-                worksheet.Cells[1, 1, 1, columnNames.Count()].Merge = true;//合并单元格
+                worksheet.Cells[1, 1, 3, columnNames.Count()].Merge = true;//合并单元格
                 worksheet.Cells[1, 1].Value = title;
                 worksheet.Cells.Style.WrapText = true;
                 worksheet.Cells[1, 1].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;//水平居中
                 worksheet.Cells[1, 1].Style.VerticalAlignment = ExcelVerticalAlignment.Center;//垂直居中
-                worksheet.Row(1).Height = 30;//设置行高
+                //worksheet.Row(1).Height = 30;//设置行高
                 worksheet.Cells.Style.ShrinkToFit = true;//单元格自动适应大小
+                //合并后的单元格加边框。
+                worksheet.Cells[1, 1,3,columnNames.Count].Style.Border.BorderAround(ExcelBorderStyle.Thin,Color.Black);
             }
-
+            titleRow = 5;
             //获取要反射的属性,加载首行
-            Type myType = typeof(T);
-            List<PropertyInfo> myPro = new List<PropertyInfo>();
+            var myType = typeof(T);
+            var myPro = new List<PropertyInfo>();
             int i = 1;
             foreach (string key in columnNames.Keys)
             {
-                PropertyInfo p = myType.GetProperty(key);
+                var p = myType.GetProperty(key);
                 myPro.Add(p);
 
                 worksheet.Cells[1 + titleRow, i].Value = columnNames[key];
@@ -85,19 +88,23 @@ namespace ExcelDemo01.Controllers
             foreach (T data in datas)
             {
                 int column = 1;
-                foreach (PropertyInfo p in myPro.Where(info => !outOfColumns.Contains(info.Name)))
+                foreach (var p in myPro.Where(info => !outOfColumns.Contains(info.Name)))
                 {
                     worksheet.Cells[row, column].Style.Border.BorderAround(ExcelBorderStyle.Thin, Color.Black);//设置单元格所有边框
-                    worksheet.Cells[row, column].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
-                    worksheet.Cells[row, column].Style.Border.Top.Style = ExcelBorderStyle.Thin;
-                    worksheet.Cells[row, column].Style.Border.Left.Style = ExcelBorderStyle.Thin;
-                    worksheet.Cells[row, column].Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                    //worksheet.Cells[row, column].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                    //worksheet.Cells[row, column].Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                    //worksheet.Cells[row, column].Style.Border.Left.Style = ExcelBorderStyle.Thin;ww
+                    //worksheet.Cells[row, column].Style.Border.Right.Style = ExcelBorderStyle.Thin;
 
                     worksheet.Cells[row, column].Value = p == null ? "" : Convert.ToString(p.GetValue(data, null));
                     column++;
                 }
                 row++;
             }
+
+            //worksheet.Cells[1, 10].Style.WrapText = true;
+            worksheet.Cells[1, 10].Value = "123456789123456789";
+            worksheet.Column(10).Width = 100;
             return package;
         }
 
@@ -113,7 +120,7 @@ namespace ExcelDemo01.Controllers
             }
         }
 
-        public async Task<IActionResult> ToExcel(int isProtected = 0)
+        public async Task<IActionResult> GetExcel(int isProtected = 0)
         {
             var result = new List<User>() {
                 new User{ Id = 1, UserName = "aaa", Remark = "无" },
