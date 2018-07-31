@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using ExcelDemoClassLibrary01;
 using Microsoft.AspNetCore.Mvc;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
@@ -35,6 +36,7 @@ namespace ExcelDemo01.Controllers
         {
             var package = new ExcelPackage();
             var worksheet = package.Workbook.Worksheets.Add(sheetName);
+            worksheet.View.ShowGridLines = false;
             if (isProtected == 1)
             {
                 worksheet.Protection.IsProtected = true;//设置是否进行锁定
@@ -68,7 +70,7 @@ namespace ExcelDemo01.Controllers
                 //worksheet.Row(1).Height = 30;//设置行高
                 worksheet.Cells.Style.ShrinkToFit = true;//单元格自动适应大小
                 //合并后的单元格加边框。
-                worksheet.Cells[1, 1,3,columnNames.Count].Style.Border.BorderAround(ExcelBorderStyle.Thin,Color.Black);
+                worksheet.Cells[1, 1, 3, columnNames.Count].Style.Border.BorderAround(ExcelBorderStyle.Thin, Color.Black);
             }
             titleRow = 5;
             //获取要反射的属性,加载首行
@@ -105,6 +107,11 @@ namespace ExcelDemo01.Controllers
             //worksheet.Cells[1, 10].Style.WrapText = true;
             worksheet.Cells[1, 10].Value = "123456789123456789";
             worksheet.Column(10).Width = 100;
+            worksheet.Cells[5, 5, 10, 10].Merge = true;
+            worksheet.Cells[5, 5, 10, 10].Value = "2222";
+            worksheet.Cells[5, 5, 10, 10].Style.Border.BorderAround(ExcelBorderStyle.Thin, Color.Black);
+            worksheet.Cells[5, 5, 10, 10].Style.Fill.PatternType = ExcelFillStyle.Solid;
+            worksheet.Cells[5, 5, 10, 10].Style.Fill.BackgroundColor.SetColor(Color.FromArgb(255, 199, 206));
             return package;
         }
 
@@ -112,8 +119,10 @@ namespace ExcelDemo01.Controllers
         {
             using (var fs = new MemoryStream())
             {
-                using (var package = CreateExcelPackage(datas, columnNames, outOfColumn, sheetName, title, isProtected))
+                //using (var package = CreateExcelPackage(datas, columnNames, outOfColumn, sheetName, title, isProtected))
+                using (var package = new DomeExcel01().GetExcelPackage())
                 {
+
                     package.SaveAs(fs);
                     return fs.ToArray();
                 }
