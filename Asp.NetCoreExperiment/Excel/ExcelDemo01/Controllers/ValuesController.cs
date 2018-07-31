@@ -117,16 +117,28 @@ namespace ExcelDemo01.Controllers
 
         public static Byte[] GetByteToExportExcel<T>(List<T> datas, Dictionary<string, string> columnNames, List<string> outOfColumn, string sheetName = "Sheet1", string title = "", int isProtected = 0)
         {
-            using (var fs = new MemoryStream())
-            {
-                //using (var package = CreateExcelPackage(datas, columnNames, outOfColumn, sheetName, title, isProtected))
-                using (var package = new DomeExcel01().GetExcelPackage())
-                {
-
-                    package.SaveAs(fs);
-                    return fs.ToArray();
-                }
-            }
+            //using (var fs = new MemoryStream())
+            //{
+            //    var t = DateTime.Now;
+            //    //using (var package = CreateExcelPackage(datas, columnNames, outOfColumn, sheetName, title, isProtected))
+            //    var excel = new DomeExcel01();
+            //    for (int i = 0; i < 1000; i++)
+            //    {
+            //        excel.Data.AddRange(new Item[] {
+            //            new Item { Amount = 1000, Code = "0001", Memo = "无", Name = "一号", Rate = 0.02d, RateAmount = 1000, TimeSection = "1月" },
+            //            new Item { Amount = 1000, Code = "0002", Memo = "无", Name = "一号", Rate = 0.02d, RateAmount = 1000, TimeSection = "1月" },
+            //            new Item { Amount = 1000, Code = "0003", Memo = "无", Name = "一号", Rate = 0.02d, RateAmount = 1000, TimeSection = "1月" },
+            //            new Item { Amount = 1000, Code = "0004", Memo = "无", Name = "一号", Rate = 0.02d, RateAmount = 1000, TimeSection = "1月" } });
+            //    }
+               
+            //    using (var package = excel.GetExcelPackage())
+            //    {
+            //        package.SaveAs(fs);
+            //        Console.WriteLine("时间："+(DateTime.Now - t).TotalSeconds);
+            //        return fs.ToArray();
+            //    }
+            //}
+            return new DomoExcel02().GetExcelPackage().ToArray();
         }
 
         public async Task<IActionResult> GetExcel(int isProtected = 0)
@@ -143,6 +155,7 @@ namespace ExcelDemo01.Controllers
             };
             var fs = GetByteToExportExcel(result, columns, new List<string>(), "用户", "用户", isProtected);
             return File(fs, "application/vnd.android.package-archive", $"ExcelDemo.xlsx");
+            //return File(fs, "application/html", $"PDFDemo.html");
         }
 
         #endregion

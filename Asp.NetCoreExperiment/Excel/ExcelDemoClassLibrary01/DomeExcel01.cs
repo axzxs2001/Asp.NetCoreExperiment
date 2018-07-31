@@ -284,12 +284,12 @@ namespace ExcelDemoClassLibrary01
             #endregion
             #endregion
 
+         
+
             return package;
         }
 
     }
-
-
     public class AgentMessage
     {
         public string AgentCode { get; set; }
@@ -298,7 +298,6 @@ namespace ExcelDemoClassLibrary01
 
         public decimal? DemittanceAmount { get; set; }
     }
-
     public class AgentAccount
     {
         public string BankName { get; set; }
@@ -313,7 +312,6 @@ namespace ExcelDemoClassLibrary01
 
 
     }
-
     public class Item
     {
         public string Code { get; set; }
@@ -327,17 +325,5 @@ namespace ExcelDemoClassLibrary01
 
         public decimal RateAmount { get; set; }
         public string Memo { get; set; }
-    }
-    public class ContentCell
-    {
-        public int Row { get; private set; }
-        public int Column { get; private set; }
-
-        public int? ToRow { get; set; }
-        public int? ToColumn { get; set; }
-
-        public ExcelStyle Style { get; set; }
-        public string Content { get; set; }
-
-    }
+    }   
 }
