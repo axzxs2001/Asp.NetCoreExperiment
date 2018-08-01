@@ -130,15 +130,27 @@ namespace ExcelDemo01.Controllers
             //            new Item { Amount = 1000, Code = "0003", Memo = "无", Name = "一号", Rate = 0.02d, RateAmount = 1000, TimeSection = "1月" },
             //            new Item { Amount = 1000, Code = "0004", Memo = "无", Name = "一号", Rate = 0.02d, RateAmount = 1000, TimeSection = "1月" } });
             //    }
-               
+
             //    using (var package = excel.GetExcelPackage())
             //    {
             //        package.SaveAs(fs);
-            //        Console.WriteLine("时间："+(DateTime.Now - t).TotalSeconds);
+            //        Console.WriteLine("时间：" + (DateTime.Now - t).TotalSeconds);
             //        return fs.ToArray();
             //    }
             //}
-            return new DomoExcel02().GetExcelPackage().ToArray();
+            var t = DateTime.Now;
+            var excel = new DomoExcel021();
+            for (int i = 0; i < 10; i++)
+            {
+                excel.Data.AddRange(new Item[] {
+                        new Item { Amount = 1000, Code = "0001", Memo = "无", Name = "一号", Rate = 0.02d, RateAmount = 1000, TimeSection = "1月" },
+                        new Item { Amount = 1000, Code = "0002", Memo = "无", Name = "一号", Rate = 0.02d, RateAmount = 1000, TimeSection = "1月" },
+                        new Item { Amount = 1000, Code = "0003", Memo = "无", Name = "一号", Rate = 0.02d, RateAmount = 1000, TimeSection = "1月" },
+                        new Item { Amount = 1000, Code = "0004", Memo = "无", Name = "一号", Rate = 0.02d, RateAmount = 1000, TimeSection = "1月" } });
+            }
+            var arr = excel.GetExcelPackage().ToArray();
+            Console.WriteLine("时间：" + (DateTime.Now - t).TotalSeconds);
+            return arr;
         }
 
         public async Task<IActionResult> GetExcel(int isProtected = 0)
@@ -154,7 +166,7 @@ namespace ExcelDemo01.Controllers
                 { "Remark","备注"}
             };
             var fs = GetByteToExportExcel(result, columns, new List<string>(), "用户", "用户", isProtected);
-            return File(fs, "application/vnd.android.package-archive", $"ExcelDemo.xlsx");
+            return File(fs, "application/vnd.android.package-archive", $"{DateTime.Now.ToString("ddHHmmssfff")}.xlsx");
             //return File(fs, "application/html", $"PDFDemo.html");
         }
 
