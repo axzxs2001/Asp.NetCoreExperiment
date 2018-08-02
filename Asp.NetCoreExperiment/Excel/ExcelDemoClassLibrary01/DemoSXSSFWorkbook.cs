@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace ExcelDemoClassLibrary01
 {
-    public class DomoExcel021
+    public class DemoSXSSFWorkbook
     {
         /// <summary>
         /// 发行日期

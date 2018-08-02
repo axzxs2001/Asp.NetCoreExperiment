@@ -115,7 +115,7 @@ namespace ExcelDemo01.Controllers
             return package;
         }
 
-        public static Byte[] GetByteToExportExcel<T>(List<T> datas, Dictionary<string, string> columnNames, List<string> outOfColumn, string sheetName = "Sheet1", string title = "", int isProtected = 0)
+        public static Byte[] GetByteToExportExcel()
         {
             //using (var fs = new MemoryStream())
             //{
@@ -138,9 +138,43 @@ namespace ExcelDemo01.Controllers
             //        return fs.ToArray();
             //    }
             //}
+
+
+            //XSSFWorkbook
+            //var t = DateTime.Now;
+            //var excel = new DemoXSSFWorkbook();
+            //for (int i = 0; i < 20; i++)
+            //{
+            //    excel.Data.AddRange(new Item[] {
+            //            new Item { Amount = 1000, Code = "0001", Memo = "无", Name = "一号", Rate = 0.02d, RateAmount = 1000, TimeSection = "1月" },
+            //            new Item { Amount = 1000, Code = "0002", Memo = "无", Name = "一号", Rate = 0.02d, RateAmount = 1000, TimeSection = "1月" },
+            //            new Item { Amount = 1000, Code = "0003", Memo = "无", Name = "一号", Rate = 0.02d, RateAmount = 1000, TimeSection = "1月" },
+            //            new Item { Amount = 1000, Code = "0004", Memo = "无", Name = "一号", Rate = 0.02d, RateAmount = 1000, TimeSection = "1月" } });
+            //}
+            //var arr = excel.GetExcelPackage().ToArray();
+            //Console.WriteLine("时间：" + (DateTime.Now - t).TotalSeconds);
+            //return arr;
+
+            //SXSSFWorkbook
+            //var t = DateTime.Now;
+            //var excel = new DemoXSSFWorkbook();
+            //for (int i = 0; i < 20; i++)
+            //{
+            //    excel.Data.AddRange(new Item[] {
+            //            new Item { Amount = 1000, Code = "0001", Memo = "无", Name = "一号", Rate = 0.02d, RateAmount = 1000, TimeSection = "1月" },
+            //            new Item { Amount = 1000, Code = "0002", Memo = "无", Name = "一号", Rate = 0.02d, RateAmount = 1000, TimeSection = "1月" },
+            //            new Item { Amount = 1000, Code = "0003", Memo = "无", Name = "一号", Rate = 0.02d, RateAmount = 1000, TimeSection = "1月" },
+            //            new Item { Amount = 1000, Code = "0004", Memo = "无", Name = "一号", Rate = 0.02d, RateAmount = 1000, TimeSection = "1月" } });
+            //}
+            //var arr = excel.GetExcelPackage().ToArray();
+            //Console.WriteLine("时间：" + (DateTime.Now - t).TotalSeconds);
+            //return arr;
+
+
+            //HSSFWorkbook
             var t = DateTime.Now;
-            var excel = new DomoExcel021();
-            for (int i = 0; i < 100; i++)
+            var excel = new DemoHSSFWorkbook();
+            for (int i = 0; i < 1000; i++)
             {
                 excel.Data.AddRange(new Item[] {
                         new Item { Amount = 1000, Code = "0001", Memo = "无", Name = "一号", Rate = 0.02d, RateAmount = 1000, TimeSection = "1月" },
@@ -154,20 +188,10 @@ namespace ExcelDemo01.Controllers
         }
 
         public async Task<IActionResult> GetExcel(int isProtected = 0)
-        {
-            var result = new List<User>() {
-                new User{ Id = 1, UserName = "aaa", Remark = "无" },
-                new User{ Id = 2, UserName = "aaa", Remark = "无" },
-                new User{ Id = 3, UserName = "aaa", Remark = "无" }
-            };
-            var columns = new Dictionary<string, string>() {
-                { "Id","序号"},
-                { "UserName","用户名"},
-                { "Remark","备注"}
-            };
-            var fs = GetByteToExportExcel(result, columns, new List<string>(), "用户", "用户", isProtected);
-            return File(fs, "application/vnd.android.package-archive", $"{DateTime.Now.ToString("ddHHmmssfff")}.xlsx");
-            //return File(fs, "application/html", $"PDFDemo.html");
+        {      
+            var fs = GetByteToExportExcel();
+            //return File(fs, "application/vnd.android.package-archive", $"{DateTime.Now.ToString("ddHHmmssfff")}.xlsx");
+            return File(fs, "application/vnd.android.package-archive", $"{DateTime.Now.ToString("ddHHmmssfff")}.xls");
         }
 
         #endregion

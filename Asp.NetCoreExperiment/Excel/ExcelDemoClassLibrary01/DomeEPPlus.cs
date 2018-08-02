@@ -6,7 +6,7 @@ using System.Drawing;
 
 namespace ExcelDemoClassLibrary01
 {
-    public class DomeExcel01
+    public class DomeEPPlus
     {
         /// <summary>
         /// 发行日期

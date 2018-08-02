@@ -11,7 +11,7 @@ using System.Text;
 
 namespace ExcelDemoClassLibrary01
 {
-    public class DomoExcel02
+    public class DemoXSSFWorkbook
     {
         /// <summary>
         /// 发行日期
@@ -84,11 +84,10 @@ namespace ExcelDemoClassLibrary01
         public MemoryStream GetExcelPackage()
         {
             using (var fs = new MemoryStream())
-            {
-        
+            {            
                 var workbook = new XSSFWorkbook();
                 var sheet = workbook.CreateSheet(SheetName);
-                
+
                 sheet.DefaultColumnWidth = 4;
                 sheet.DisplayGridlines = false;
 
@@ -96,22 +95,22 @@ namespace ExcelDemoClassLibrary01
 
                 SetCell(workbook, sheet, 5, 11, 1, 13, $"{ToCompany}  御中", 10, true, BorderStyle.Medium, true);
 
-                SetCell(workbook, sheet, 5, 5, 17, 29, FromCompany, 12, false, BorderStyle.None, false);              
-               
-                SetCell(workbook, sheet, 6, 6, 17, 29, FromDepartment, 12, false, BorderStyle.None, true);
+                SetCell(workbook, sheet, 5, 5, 17, 29, FromCompany, 12, false, BorderStyle.None, false);
+
+                SetCell(workbook, sheet, 6, 6, 17, 29, FromDepartment, 12, false, BorderStyle.None, false);
 
 
                 //设置标题
                 var titleFont = workbook.CreateFont();
                 titleFont.FontHeightInPoints = 16;
                 titleFont.Underline = FontUnderlineType.Single;
-                SetCell(workbook, sheet, 16, 17, 0, 30,titleFont, titleFont, false, BorderStyle.None, true);
+                SetCell(workbook, sheet, 16, 17, 0, 30, Title, titleFont, false, BorderStyle.None, true);
 
                 //设置周期
                 var periodFont = workbook.CreateFont();
                 periodFont.FontHeightInPoints = 14;
                 periodFont.Underline = FontUnderlineType.Single;
-                SetCell(workbook, sheet, 20, 20, 1, 12, Period.ToString("yyyy年MM月度"), periodFont, false, BorderStyle.None, true);
+                SetCell(workbook, sheet, 20, 20, 1, 12, Period.ToString("yyyy年MM月度"), periodFont, false, BorderStyle.None, false);
 
                 #region  代理商信息
 
@@ -179,7 +178,7 @@ namespace ExcelDemoClassLibrary01
                 SetCell(workbook, sheet, rowIndex, rowIndex, 22, 25, total.ToString(), 12, true, BorderStyle.Thin, true);
                 SetCell(workbook, sheet, rowIndex, rowIndex, 26, 29, "", 12, true, BorderStyle.Thin, true);
                 #endregion
-                
+
                 workbook.Write(fs);
                 return fs;
             }
@@ -222,7 +221,7 @@ namespace ExcelDemoClassLibrary01
             var cell = row.CreateCell(c);
             if (value != null)
             {
-                cell.SetCellValue(value);
+                cell.SetCellValue(value.ToString());
             }
             var style = workbook.CreateCellStyle();
             //设置字体           
@@ -261,8 +260,8 @@ namespace ExcelDemoClassLibrary01
         void SetCell(IWorkbook workbook, ISheet sheet, int r, int tor, int c, int toc, dynamic value, short fontSize = 11, bool isBorder = false, BorderStyle borderStyle = BorderStyle.Medium, bool isCenter = false, short? rowHeight = null, short? color = null)
         {
             var rang = new CellRangeAddress(r, tor, c, toc);
-            sheet.AddMergedRegion(rang);     
-          
+            sheet.AddMergedRegion(rang);
+
             var row = sheet.GetRow(r) == null ? sheet.CreateRow(r) : sheet.GetRow(r);
             if (rowHeight.HasValue)
             {
