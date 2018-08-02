@@ -140,7 +140,7 @@ namespace ExcelDemo01.Controllers
             //}
             var t = DateTime.Now;
             var excel = new DomoExcel021();
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 100; i++)
             {
                 excel.Data.AddRange(new Item[] {
                         new Item { Amount = 1000, Code = "0001", Memo = "无", Name = "一号", Rate = 0.02d, RateAmount = 1000, TimeSection = "1月" },
