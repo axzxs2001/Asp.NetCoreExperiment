@@ -1,2 +1,8 @@
 --生成一些常用扩展函数
 CREATE EXTENSION tablefunc;
+
+
+--行转列
+SELECT * FROM crosstab('select  entname,tradetype, sum(orderamount) sumamount from wxbsrecord group by entname,tradetype order by 1'
+,'select distinct tradetype  from wxbsrecord order by 1') 
+AS ct(entname character varying,alipay bigint, dpay  bigint,linepay  bigint,micropay  bigint,qqwallet  bigint);
