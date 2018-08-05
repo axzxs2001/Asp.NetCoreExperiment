@@ -17,10 +17,4 @@
     <ProjectReference Include="..\ExcelDemoClassLibrary01\ExcelDemoClassLibrary01.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Update="test.xlsx">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
 </Project>
