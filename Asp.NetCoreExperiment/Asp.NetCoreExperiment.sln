@@ -526,6 +526,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceA", "ProtoActor\Serv
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceB", "ProtoActor\ServiceB\ServiceB.csproj", "{51720C35-FC5B-429F-9B99-A6A9B9C41302}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProtoPersistenceDemo", "ProtoActor\ProtoPersistenceDemo\ProtoPersistenceDemo.csproj", "{0A294C13-0588-45F1-8EEE-5E133F6B68CC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -1938,6 +1940,14 @@ Global
 		{51720C35-FC5B-429F-9B99-A6A9B9C41302}.Release|Any CPU.Build.0 = Release|Any CPU
 		{51720C35-FC5B-429F-9B99-A6A9B9C41302}.Release|x64.ActiveCfg = Release|Any CPU
 		{51720C35-FC5B-429F-9B99-A6A9B9C41302}.Release|x64.Build.0 = Release|Any CPU
+		{0A294C13-0588-45F1-8EEE-5E133F6B68CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A294C13-0588-45F1-8EEE-5E133F6B68CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A294C13-0588-45F1-8EEE-5E133F6B68CC}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{0A294C13-0588-45F1-8EEE-5E133F6B68CC}.Debug|x64.Build.0 = Debug|Any CPU
+		{0A294C13-0588-45F1-8EEE-5E133F6B68CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A294C13-0588-45F1-8EEE-5E133F6B68CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A294C13-0588-45F1-8EEE-5E133F6B68CC}.Release|x64.ActiveCfg = Release|Any CPU
+		{0A294C13-0588-45F1-8EEE-5E133F6B68CC}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -2147,6 +2157,7 @@ Global
 		{C350A7E0-795B-4EC3-B3A4-4992DD2063DE} = {7DAFC6DE-A8F2-4895-9BEC-9756043181A1}
 		{55A1B020-9287-4CB6-BACE-D03528A50932} = {7DAFC6DE-A8F2-4895-9BEC-9756043181A1}
 		{51720C35-FC5B-429F-9B99-A6A9B9C41302} = {7DAFC6DE-A8F2-4895-9BEC-9756043181A1}
+		{0A294C13-0588-45F1-8EEE-5E133F6B68CC} = {42B39E88-504B-4F8D-B595-9141269ABF2E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
