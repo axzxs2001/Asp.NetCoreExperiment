@@ -8,7 +8,7 @@ using System.Collections.Generic;
 
 namespace ProtoPersistenceDemo
 {
-    class A : IEventStore
+    class MyEventStore : IEventStore
     {
         Dictionary<string, dynamic> dic = new Dictionary<string, dynamic>();
         public Task DeleteEventsAsync(string actorName, long inclusiveToIndex)
@@ -43,8 +43,8 @@ namespace ProtoPersistenceDemo
         static void Main(string[] args)
         {
             var actorid = "this1234";
-            var a = new A();
-            var c = new Counter(new A(), actorid);
+            var a = new MyEventStore();
+            var c = new Counter(new MyEventStore(), actorid);
             var props = Actor.FromProducer(() => c);
             var pid = Actor.Spawn(props);
             for (int i = 0; i < 1; i++)

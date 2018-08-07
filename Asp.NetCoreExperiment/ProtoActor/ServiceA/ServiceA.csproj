@@ -9,6 +9,7 @@
     <PackageReference Include="Proto.Actor" Version="0.1.16" />
     <PackageReference Include="Proto.Remote" Version="0.1.16" />
     <PackageReference Include="Proto.Router" Version="0.1.16" />
+    <PackageReference Include="Proto.Serialization.Wire" Version="0.1.16" />
   </ItemGroup>
 
 </Project>
