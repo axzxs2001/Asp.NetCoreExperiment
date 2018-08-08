@@ -11,17 +11,22 @@ namespace ProtoPersistenceDemo01
     {
         static void Main(string[] args)
         {
+            //用sqlite持久化后
             var actorid = "this1234";
             var dbfile = @"C:\MyFile\Source\Repos\Asp.NetCoreExperiment\Asp.NetCoreExperiment\ProtoActor\ProtoPersistenceDemo01\data.sqlite";
             var sqliteProvider = new SqliteProvider(new SqliteConnectionStringBuilder() { DataSource= dbfile });            
-            var c = new Counter(sqliteProvider, actorid);
-            var props = Actor.FromProducer(() => c);
+            var counter = new Counter(sqliteProvider, actorid);
+            var props = Actor.FromProducer(() => counter);
             var pid = Actor.Spawn(props);
             for (int i = 0; i < 2; i++)
             {
                 var no = int.Parse(Console.ReadLine());
-                pid.Tell(new Added { Amount = no });
-            }          
+                pid.Tell(new Added { Amount = no });               
+            } 
+
+            Console.ReadLine();
+            //完成处理后清理持久化的操作          
+            sqliteProvider.DeleteEventsAsync(actorid, 10).Wait();
         }
     }
     public class Added
