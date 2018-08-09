@@ -1,4 +1,7 @@
-﻿using Proto;
+﻿using Microsoft.Data.Sqlite;
+using Proto;
+using Proto.Persistence;
+using Proto.Persistence.Sqlite;
 using Proto.Remote;
 using Proto.Serialization.Wire;
 using System;
@@ -11,84 +14,88 @@ namespace ServiceA
     {
         static void Main(string[] args)
         {
-            Console.Title = "服务端";          
-            var wire = new WireSerializer(new[] { typeof(Ping), typeof(Pong), typeof(StartRemote), typeof(Start) });
+            var wire = new WireSerializer(new[] { typeof(HelloRequest), typeof(HelloResponse) });
             Serialization.RegisterSerializer(wire, true);
 
-            Remote.Start("127.0.0.1", 12001);
-            var messageCount = 1000000;
-            var wg = new AutoResetEvent(false);
-            var props = Actor.FromProducer(() => new LocalActor(0, messageCount, wg));
 
-            var pid = Actor.Spawn(props);
-            var remote = new PID("127.0.0.1:12000", "remote");
-            remote.RequestAsync<Start>(new StartRemote { Sender = pid }).Wait();
+            Console.Title = "服务端";              
+            var actorid = "this1234";
+            var dbfile = @"C:\MyFile\Source\Repos\Asp.NetCoreExperiment\Asp.NetCoreExperiment\ProtoActor\ServiceA\data.sqlite";
+            var sqliteProvider = new SqliteProvider(new SqliteConnectionStringBuilder() { DataSource = dbfile });
 
-            var start = DateTime.Now;
-            Console.WriteLine("Starting to send");
-            var msg = new Ping();
-            for (var i = 0; i < messageCount; i++)
-            {
-                remote.SendSystemMessage(msg);
-            }
-            wg.WaitOne();
-            var elapsed = DateTime.Now - start;
-            Console.WriteLine("Elapsed {0}", elapsed);
+            var localActor = new LocalActor(sqliteProvider, actorid);
+            var props = Actor.FromProducer(()=>localActor);
 
-            var t = messageCount * 2.0 / elapsed.TotalMilliseconds * 1000;
-            Console.WriteLine("Throughput {0} msg / sec", t);
+            var props1 = Actor.FromFunc(ctx =>
+            {                
+                switch (ctx.Message)
+                {
+                    case HelloRequest msg:
+                        Console.WriteLine(msg.Message);
+                        ctx.Respond(new HelloResponse
+                        {
+                            Message = "回应：我是服务端",
+                        });
+                        break;
+                    default:
+                        break;
+                }
+                return Actor.Done;
+            });
+
+            Remote.RegisterKnownKind("hello", props);
+            Remote.Start("127.0.0.1", 12000);
+            Console.WriteLine("服务端开始……");
+            Console.ReadLine();
+
+
+
+
 
             Console.ReadLine();
         }
 
         public class LocalActor : IActor
         {
-            private int _count;
-            private readonly int _messageCount;
-            private readonly AutoResetEvent _wg;
-
-            public LocalActor(int count, int messageCount, AutoResetEvent wg)
-            {
-                _count = count;
-                _messageCount = messageCount;
-                _wg = wg;
+            private readonly Persistence _persistence;
+            public LocalActor(IEventStore eventStore, string actorId)
+            {                
+                _persistence = Persistence.WithEventSourcing(eventStore, actorId, ApplyEvent);
             }
+            private void ApplyEvent(Proto.Persistence.Event @event)
+            {
+                switch (@event.Data)
+                {
+                    case HelloRequest msg:
+                        
 
+                        break;
+                }
+            }
             public Task ReceiveAsync(IContext context)
             {
                 switch (context.Message)
                 {
-                    case Pong _:
-                        _count++;
-                        if (_count % 50000 == 0)
-                        {
-                            Console.WriteLine(_count);
-                        }
-                        if (_count == _messageCount)
-                        {
-                            _wg.Set();
-                        }
+                    case HelloRequest _:
+
                         break;
                 }
                 return Actor.Done;
             }
         }
 
-        public class Ping
+        public class HelloRequest
         {
+            public string Message
+            {
+                get; set;
+            }
         }
 
-        public class Pong
+        public class HelloResponse
         {
-        }
-
-        public class Start
-        {
-        }
-
-        public class StartRemote
-        {
-            public PID Sender { get; set; }
+            public string Message
+            { get; set; }
         }
     }
 
