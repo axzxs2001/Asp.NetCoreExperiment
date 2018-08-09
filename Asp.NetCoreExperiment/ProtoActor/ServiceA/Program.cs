@@ -4,6 +4,7 @@ using Proto.Persistence;
 using Proto.Persistence.Sqlite;
 using Proto.Remote;
 using Proto.Serialization.Wire;
+using ServiceEntity;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -24,24 +25,7 @@ namespace ServiceA
             var sqliteProvider = new SqliteProvider(new SqliteConnectionStringBuilder() { DataSource = dbfile });
 
             var localActor = new LocalActor(sqliteProvider, actorid);
-            var props = Actor.FromProducer(()=>localActor);
-
-            var props1 = Actor.FromFunc(ctx =>
-            {                
-                switch (ctx.Message)
-                {
-                    case HelloRequest msg:
-                        Console.WriteLine(msg.Message);
-                        ctx.Respond(new HelloResponse
-                        {
-                            Message = "回应：我是服务端",
-                        });
-                        break;
-                    default:
-                        break;
-                }
-                return Actor.Done;
-            });
+            var props = Actor.FromProducer(()=>localActor);            
 
             Remote.RegisterKnownKind("hello", props);
             Remote.Start("127.0.0.1", 12000);
@@ -77,26 +61,17 @@ namespace ServiceA
                 switch (context.Message)
                 {
                     case HelloRequest _:
-
+                        context.Respond(new HelloResponse
+                        {
+                            Message = "回应：我是服务端",
+                        });
                         break;
                 }
                 return Actor.Done;
             }
         }
 
-        public class HelloRequest
-        {
-            public string Message
-            {
-                get; set;
-            }
-        }
-
-        public class HelloResponse
-        {
-            public string Message
-            { get; set; }
-        }
+    
     }
 
 }

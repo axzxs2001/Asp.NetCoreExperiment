@@ -14,4 +14,8 @@
     <PackageReference Include="Proto.Serialization.Wire" Version="0.1.16" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ServiceEntity\ServiceEntity.csproj" />
+  </ItemGroup>
+
 </Project>
