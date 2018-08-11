@@ -516,9 +516,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PDF", "PDF", "{0F1697D1-6CF
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PDFDemo01", "PDF\PDFDemo01\PDFDemo01.csproj", "{E24168A4-AF02-46E3-A46D-9CD811259FCE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProtoactorDemo001", "ProtoActor\ProtoactorDemo001\ProtoactorDemo001.csproj", "{89C56147-893F-4C3B-8F03-10D115DFD986}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProtoactorDemo001", "ProtoActor\ProtoactorDemo001\ProtoactorDemo001.csproj", "{89C56147-893F-4C3B-8F03-10D115DFD986}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ServiceSample", "ServiceSample", "{7DAFC6DE-A8F2-4895-9BEC-9756043181A1}"
+	ProjectSection(SolutionItems) = preProject
+		doc.txt = doc.txt
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebProject", "ProtoActor\WebProject\WebProject.csproj", "{C350A7E0-795B-4EC3-B3A4-4992DD2063DE}"
 EndProject
@@ -530,7 +533,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProtoPersistenceDemo", "Pro
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProtoPersistenceDemo01", "ProtoActor\ProtoPersistenceDemo01\ProtoPersistenceDemo01.csproj", "{F69F21EB-F832-4461-A1DD-F1D27EEDAC83}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceEntity", "ProtoActor\ServiceEntity\ServiceEntity.csproj", "{684E3F59-C8D5-4A14-BF87-8F896782AB59}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceEntity", "ProtoActor\ServiceEntity\ServiceEntity.csproj", "{684E3F59-C8D5-4A14-BF87-8F896782AB59}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

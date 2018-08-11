@@ -41,19 +41,20 @@ namespace ServiceA
 
         public class LocalActor : IActor
         {
-            private int _value = 0;
+
             private readonly Persistence _persistence;
             public LocalActor(IEventStore eventStore, string actorId)
             {
                 _persistence = Persistence.WithEventSourcing(eventStore, actorId, ApplyEvent);
             }
-            private void ApplyEvent(Proto.Persistence.Event @event)
+            private  void ApplyEvent(Proto.Persistence.Event @event)
             {
                 switch (@event.Data)
                 {
-                    case HelloRequest msg:
-
-                        _value = _value + msg.Amount;
+                    case HelloRequest req:
+                         Handle(req);
+                        //处理成功后删除保存的状态
+                         _persistence.DeleteEventsAsync(2);
                         break;
                 }
             }
@@ -62,20 +63,29 @@ namespace ServiceA
                 switch (context.Message)
                 {
                     case Started _:
-                        await  _persistence.RecoverStateAsync();
+                        await _persistence.RecoverStateAsync();
                         break;
                     case HelloRequest req:
-                        if (req.Amount > 0)
+                        //首先把状态保存起来
+                        await _persistence.PersistEventAsync(new HelloRequest { Amount = req.Amount });
+                         Handle(req);
+                        //处理成功后删除保存的状态
+                        if (req.Amount != 5)
                         {
-                            await _persistence.PersistEventAsync(new HelloRequest { Amount = req.Amount });
+                            await _persistence.DeleteEventsAsync(100);
                         }
                         context.Respond(new HelloResponse
                         {
-                            Message = $"回应：我是服务端,Value={_value}",
+                            Message = $"回应：我是服务端,Time={DateTime.Now}",
                         });
                         break;
                 }
-        
+            }
+
+             void Handle(HelloRequest helloRequest)
+            {
+                Console.WriteLine($"处理：HelloRequest: Message={helloRequest.Message},Amount={helloRequest.Amount}");
+           
             }
         }
 
