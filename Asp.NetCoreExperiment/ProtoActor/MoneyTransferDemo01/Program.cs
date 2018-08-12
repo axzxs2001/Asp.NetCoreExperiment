@@ -3,6 +3,8 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using Proto.Persistence;
+
 namespace MoneyTransferDemo01
 {
     class Program
@@ -39,17 +41,18 @@ namespace MoneyTransferDemo01
 
         private Task AdjustBalance(PID replyTo, decimal amount)
         {
+            //永久拒绝
             if (RefusePermanently())
             {
                 _processedMessages.Add(replyTo, new Refused());
                 replyTo.Tell(new Refused());
             }
-
+            //忙
             if (Busy())
                 replyTo.Tell(new ServiceUnavailable());
 
             var behaviour = DetermineProcessingBehavior();
-            if (behaviour == Behavior.FailBeforeProcessing)
+            if (behaviour == Behaviors.FailBeforeProcessing)
                 return Failure(replyTo);
 
             // simulate potential slow service
@@ -59,32 +62,38 @@ namespace MoneyTransferDemo01
             _processedMessages.Add(replyTo, new OK());
 
 
-            if (behaviour == Behavior.FailAfterProcessing)
+            if (behaviour == Behaviors.FailAfterProcessing)
                 return Failure(replyTo);
 
             replyTo.Tell(new OK());
             return Actor.Done;
         }
 
-
+        //失败
         Task Failure(PID replyTo)
         {
             return Task.CompletedTask;
         }
+        //忙
         private bool Busy()
         {
             throw new NotImplementedException();
         }
-
+        //判断过程行为
         private dynamic DetermineProcessingBehavior()
         {
             throw new NotImplementedException();
         }
-
+        //永久拒绝
         private bool RefusePermanently()
         {
             throw new NotImplementedException();
         }
+    }
+    public enum Behaviors
+    {
+        FailBeforeProcessing,
+        FailAfterProcessing
     }
     public class OK
     {
@@ -102,7 +111,9 @@ namespace MoneyTransferDemo01
     {
 
     }
-
+    /// <summary>
+    /// 贷方
+    /// </summary>
     public class Credit
     {
         public Credit(decimal amount, PID sender)
@@ -114,9 +125,12 @@ namespace MoneyTransferDemo01
         public decimal Amount { get; set; }
 
     }
+    /// <summary>
+    /// 借方
+    /// </summary>
     public class Debit
     {
-        public Debit(decimal amount,PID sender)
+        public Debit(decimal amount, PID sender)
         {
             ReplyTo = sender;
             Amount = amount;
@@ -147,7 +161,7 @@ namespace MoneyTransferDemo01
                     context.CancelReceiveTimeout();
                     context.Parent.Tell(msg);
                     break;
-                case Refused msg:
+                case Refused msg://拒绝
                     context.CancelReceiveTimeout();
                     context.Parent.Tell(msg);
                     break;
@@ -165,18 +179,27 @@ namespace MoneyTransferDemo01
     public class TransferProcess : IActor
     {
         private readonly Behavior _behavior;
-
+        private readonly Persistence _persistence;
         private PID _from, _to;
         decimal _amount;
+        bool _processCompleted;
 
         public TransferProcess()
         {
             _behavior = new Behavior();
         }
 
-        public Task ReceiveAsync(IContext context)
+        public async Task ReceiveAsync(IContext context)
         {
-            return _behavior.ReceiveAsync(context);
+            switch (context.Message)
+            {
+                case Started msg:
+                    _behavior.Become(Starting);
+                    await _persistence.RecoverStateAsync();
+                    break;
+                    // ... 
+            }
+            await _behavior.ReceiveAsync(context);
         }
 
         private async Task Starting(IContext context)
@@ -184,10 +207,30 @@ namespace MoneyTransferDemo01
             if (context.Message is Started)
             {
                 context.SpawnNamed(TryDebit(_from, -_amount), "DebitAttempt");
-                _behavior.Become(AwaitingDebitConfirmation);
+                // _behavior.Become(AwaitingDebitConfirmation);
+                await _persistence.PersistEventAsync(new TransferStarted());
             }
         }
-
+        private void ApplyEvent(Event @event)
+        {
+            switch (@event.Data)
+            {
+                case TransferStarted msg:
+                    _behavior.Become(AwaitingDebitConfirmation);
+                    break;
+                case AccountDebited msg:
+                    _behavior.Become(AwaitingCreditConfirmation);
+                    break;
+                case CreditRefused msg:
+                    _behavior.Become(RollingBackDebit);
+                    break;
+                case AccountCredited _:
+                case DebitRolledBack _:
+                case TransferFailed _:
+                    _processCompleted = true;
+                    break;
+            }
+        }
         private Props TryDebit(PID targetActor, decimal amount) => Actor
                     .FromProducer(() => new AccountProxy(targetActor, sender => new Debit(amount, sender)));
 
@@ -255,6 +298,29 @@ namespace MoneyTransferDemo01
         {
             throw new NotImplementedException();
         }
+    }
+    public class TransferFailed
+    { }
+    public class DebitRolledBack
+    {
+
+    }
+    public class AccountCredited
+    {
+
+    }
+
+    public class CreditRefused
+    {
+
+    }
+    public class AccountDebited
+    {
+
+    }
+    public class TransferStarted
+    {
+
     }
 
 }
