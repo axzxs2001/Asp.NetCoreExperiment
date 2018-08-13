@@ -537,7 +537,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceEntity", "ProtoActor
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MoneyTransfer", "MoneyTransfer", "{63FA0869-0517-4034-B1D1-0D8AB66012A2}"
 	ProjectSection(SolutionItems) = preProject
-		..\..\..\..\..\Users\Guisuwei\Desktop\Money Transfer Saga.docx = ..\..\..\..\..\Users\Guisuwei\Desktop\Money Transfer Saga.docx
+		ProtoActor\Money Transfer Saga.docx = ProtoActor\Money Transfer Saga.docx
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MoneyTransferDemo01", "ProtoActor\MoneyTransferDemo01\MoneyTransferDemo01.csproj", "{6CAC6E13-B1E5-4F08-B4E3-1067041C42A4}"
