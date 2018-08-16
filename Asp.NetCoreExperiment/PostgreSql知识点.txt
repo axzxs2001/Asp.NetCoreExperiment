@@ -6,3 +6,9 @@ CREATE EXTENSION tablefunc;
 SELECT * FROM crosstab('select  entname,tradetype, sum(orderamount) sumamount from wxbsrecord group by entname,tradetype order by 1'
 ,'select distinct tradetype  from wxbsrecord order by 1') 
 AS ct(entname character varying,alipay bigint, dpay  bigint,linepay  bigint,micropay  bigint,qqwallet  bigint);
+
+--分析性能
+explain analyze  select * from tablename
+
+--经验
+数据比较时要用一样的类型比较
