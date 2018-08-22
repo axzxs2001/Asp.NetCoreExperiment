@@ -41,8 +41,7 @@ namespace Demo002
         private static async Task<IClusterClient> StartClientWithRetries()
         {
             attempt = 0;
-            IClusterClient client;
-            client = new ClientBuilder()
+            IClusterClient client = new ClientBuilder()
                 .UseLocalhostClustering()
                 .Configure<ClusterOptions>(options =>
                 {

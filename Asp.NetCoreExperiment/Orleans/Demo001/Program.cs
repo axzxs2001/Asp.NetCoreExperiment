@@ -81,7 +81,7 @@ namespace Demo001
 
         Task<IEnumerable<string>> GetGreetings();
     }
-    public interface IHello : Orleans.IGrainWithIntegerKey
+    public interface IHello : IGrainWithIntegerKey
     {
         Task<string> SayHello(string greeting);
     }
