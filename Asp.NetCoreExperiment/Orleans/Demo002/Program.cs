@@ -1,4 +1,6 @@
-﻿using Demo001;
+﻿
+using Demo001;
+using Microsoft.Extensions.Logging;
 using Orleans;
 using Orleans.Configuration;
 using Orleans.Runtime;
@@ -48,7 +50,7 @@ namespace Demo002
                     options.ClusterId = "dev";
                     options.ServiceId = "HelloWorldApp";
                 })
-                //.ConfigureLogging(logging => logging.AddConsole())
+                .ConfigureLogging(logging => logging.AddConsole())
                 .Build();
 
             await client.Connect(RetryFilter);
