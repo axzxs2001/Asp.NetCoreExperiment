@@ -8,7 +8,7 @@ namespace Demo003
     {
         static void Main(string[] args)
         {
-           
+
             Console.WriteLine("Hello World!");
         }
 
@@ -50,14 +50,20 @@ namespace Demo003
 
         public IPlayerGrain GetPlayerGrain()
         {
+            //定时器
+            var dis = RegisterTimer((obj) => Task.CompletedTask, new Program(), TimeSpan.FromSeconds(10), TimeSpan.FromMinutes(1));
+            //提醒
+            var rem = RegisterOrUpdateReminder(new Guid().ToString(), TimeSpan.FromMinutes(1), TimeSpan.FromMinutes(30)).Result;
+            UnregisterReminder(rem);
+
             IPlayerGrain player = GrainFactory.GetGrain<IPlayerGrain>(new Guid());
             return player;
         }
 
         // Game the player is currently in. May be null.
         public Task<IGameGrain> GetCurrentGame()
-        {           
-         
+        {
+
             return Task.FromResult(currentGame);
         }
 
