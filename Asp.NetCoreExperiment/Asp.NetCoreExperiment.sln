@@ -50,6 +50,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo1", "SSO\Demo1\Demo1.csproj", "{CA046D94-AB7F-4F6D-9B94-9824C2B4C33B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Orleans", "Orleans", "{1DCFA250-2AC5-4E37-849C-5D788BCD21F8}"
+	ProjectSection(SolutionItems) = preProject
+		Orleans\Orleans.docx = Orleans\Orleans.docx
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrleansHost", "Orleans\OrleansHost\OrleansHost.csproj", "{B707071A-9A8C-48BC-82AF-D2F5DC7F5A19}"
 EndProject
