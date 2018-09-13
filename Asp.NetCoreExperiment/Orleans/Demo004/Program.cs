@@ -9,23 +9,35 @@ namespace Demo004
     {
         static void Main(string[] args)
         {
-            var test = new TestGrain();
-            test.MyTest();
-            Console.ReadLine();
+          
+            var client = new ClientBuilder()
+                .UseLocalhostClustering()
+                .Build();
 
-             IGrainFactory
+            var test = client.GetGrain<TestGrain>(new Guid());
+            test.MyTest();
+
+            Console.ReadLine();
         }
     }
 
-    interface ITestGrain
+    interface ITestGrain : IGrainWithGuidKey
     {
         Task MyTest();
     }
     class TestGrain : Grain, ITestGrain
     {
+        IDisposable _dis;
         public Task MyTest()
         {
             Console.WriteLine("mytest");
+            object o = "123";
+            _dis = this.RegisterTimer((obj) =>
+             {
+                 Console.WriteLine(obj);
+                 return null;
+             }, o, TimeSpan.FromSeconds(3), TimeSpan.FromSeconds(1));
+
             return Task.CompletedTask;
         }
         public override Task OnActivateAsync()
