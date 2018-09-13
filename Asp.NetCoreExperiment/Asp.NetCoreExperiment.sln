@@ -577,11 +577,19 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SiloHost", "Orleans\Transfe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo004", "Orleans\Demo004\Demo004.csproj", "{70EBC6E3-5EF1-443F-846A-941655F7CF4D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orleans004_Observers", "Orleans\Orleans004_Observers\Orleans004_Observers.csproj", "{6016AE68-B2E7-4A39-834E-BBDC8C017EC7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Orleans004_Observers", "Orleans\Orleans004_Observers\Orleans004_Observers.csproj", "{6016AE68-B2E7-4A39-834E-BBDC8C017EC7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orleans005_Interceptors", "Orleans\Orleans005_Interceptors\Orleans005_Interceptors.csproj", "{56B47BE3-8948-402A-9EC3-62012D8F2323}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Orleans005_Interceptors", "Orleans\Orleans005_Interceptors\Orleans005_Interceptors.csproj", "{56B47BE3-8948-402A-9EC3-62012D8F2323}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orleans006_Reentrancy", "Orleans\Orleans006_Scheduler\Orleans006_Reentrancy.csproj", "{5EF7BC3B-332F-416C-86D5-61B601584C1E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Orleans006_Reentrancy", "Orleans\Orleans006_Scheduler\Orleans006_Reentrancy.csproj", "{5EF7BC3B-332F-416C-86D5-61B601584C1E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sample", "Sample", "{BCF60A7D-6084-44C6-B5D8-890087E62556}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimersAndReminders_Client", "Orleans\Sample\TimersAndReminders_Client\TimersAndReminders_Client.csproj", "{7C3EE407-6B6E-49A5-AE90-DD233562FE81}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimersAndReminders_SiloHost", "Orleans\Sample\TimersAndReminders_SiloHost\TimersAndReminders_SiloHost.csproj", "{E39BE6A4-D1B3-44D0-84E4-A97BE511E0F6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimersAndReminders_Lib", "Orleans\Sample\TimersAndReminders_Lib\TimersAndReminders_Lib.csproj", "{DFDF4D6C-0AA2-4B26-A344-B22D4391B1BF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -2139,6 +2147,30 @@ Global
 		{5EF7BC3B-332F-416C-86D5-61B601584C1E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5EF7BC3B-332F-416C-86D5-61B601584C1E}.Release|x64.ActiveCfg = Release|Any CPU
 		{5EF7BC3B-332F-416C-86D5-61B601584C1E}.Release|x64.Build.0 = Release|Any CPU
+		{7C3EE407-6B6E-49A5-AE90-DD233562FE81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C3EE407-6B6E-49A5-AE90-DD233562FE81}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C3EE407-6B6E-49A5-AE90-DD233562FE81}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{7C3EE407-6B6E-49A5-AE90-DD233562FE81}.Debug|x64.Build.0 = Debug|Any CPU
+		{7C3EE407-6B6E-49A5-AE90-DD233562FE81}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C3EE407-6B6E-49A5-AE90-DD233562FE81}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C3EE407-6B6E-49A5-AE90-DD233562FE81}.Release|x64.ActiveCfg = Release|Any CPU
+		{7C3EE407-6B6E-49A5-AE90-DD233562FE81}.Release|x64.Build.0 = Release|Any CPU
+		{E39BE6A4-D1B3-44D0-84E4-A97BE511E0F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E39BE6A4-D1B3-44D0-84E4-A97BE511E0F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E39BE6A4-D1B3-44D0-84E4-A97BE511E0F6}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{E39BE6A4-D1B3-44D0-84E4-A97BE511E0F6}.Debug|x64.Build.0 = Debug|Any CPU
+		{E39BE6A4-D1B3-44D0-84E4-A97BE511E0F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E39BE6A4-D1B3-44D0-84E4-A97BE511E0F6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E39BE6A4-D1B3-44D0-84E4-A97BE511E0F6}.Release|x64.ActiveCfg = Release|Any CPU
+		{E39BE6A4-D1B3-44D0-84E4-A97BE511E0F6}.Release|x64.Build.0 = Release|Any CPU
+		{DFDF4D6C-0AA2-4B26-A344-B22D4391B1BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DFDF4D6C-0AA2-4B26-A344-B22D4391B1BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFDF4D6C-0AA2-4B26-A344-B22D4391B1BF}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{DFDF4D6C-0AA2-4B26-A344-B22D4391B1BF}.Debug|x64.Build.0 = Debug|Any CPU
+		{DFDF4D6C-0AA2-4B26-A344-B22D4391B1BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DFDF4D6C-0AA2-4B26-A344-B22D4391B1BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DFDF4D6C-0AA2-4B26-A344-B22D4391B1BF}.Release|x64.ActiveCfg = Release|Any CPU
+		{DFDF4D6C-0AA2-4B26-A344-B22D4391B1BF}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -2369,6 +2401,10 @@ Global
 		{6016AE68-B2E7-4A39-834E-BBDC8C017EC7} = {C92666C1-E9C5-4BDF-AB0B-0FE62A220090}
 		{56B47BE3-8948-402A-9EC3-62012D8F2323} = {C92666C1-E9C5-4BDF-AB0B-0FE62A220090}
 		{5EF7BC3B-332F-416C-86D5-61B601584C1E} = {C92666C1-E9C5-4BDF-AB0B-0FE62A220090}
+		{BCF60A7D-6084-44C6-B5D8-890087E62556} = {1DCFA250-2AC5-4E37-849C-5D788BCD21F8}
+		{7C3EE407-6B6E-49A5-AE90-DD233562FE81} = {BCF60A7D-6084-44C6-B5D8-890087E62556}
+		{E39BE6A4-D1B3-44D0-84E4-A97BE511E0F6} = {BCF60A7D-6084-44C6-B5D8-890087E62556}
+		{DFDF4D6C-0AA2-4B26-A344-B22D4391B1BF} = {BCF60A7D-6084-44C6-B5D8-890087E62556}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}

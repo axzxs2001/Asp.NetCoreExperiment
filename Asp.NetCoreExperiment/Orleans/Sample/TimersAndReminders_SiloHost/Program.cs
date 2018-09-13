@@ -1,29 +1,30 @@
-﻿using Orleans;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using System;
-using Orleans.Hosting;
+﻿using Microsoft.Extensions.Logging;
+using Orleans;
 using Orleans.Configuration;
+using Orleans.Hosting;
+using System;
 using System.Net;
-using Microsoft.Extensions.Logging;
+using System.Threading.Tasks;
+using TimersAndReminders_Lib;
 
-namespace Demo001
+namespace TimersAndReminders_SiloHost
 {
     class Program
     {
         static int Main(string[] args)
         {
             Console.Title = "Server";
-            return RunMainAsync().Result;
+            var result = RunMainAsync().Result;
+            Console.ReadLine();
+            return result;
         }
         private static async Task<int> RunMainAsync()
         {
             try
             {
                 var host = await StartSilo();
-                Console.WriteLine("Press Enter to terminate...");
+                Console.WriteLine("回车结束...");
                 Console.ReadLine();
-
                 await host.StopAsync();
 
                 return 0;
@@ -37,37 +38,29 @@ namespace Demo001
 
         private static async Task<ISiloHost> StartSilo()
         {
-
-            // define the cluster configuration
+            var assambly = typeof(IHello).Assembly;
             var builder = new SiloHostBuilder()
                 .UseLocalhostClustering()
                 .Configure<ClusterOptions>(options =>
                 {
                     options.ClusterId = "dev";
-                    options.ServiceId = "HelloWorldApp";
+                    options.ServiceId = "TestApp";
                 })
                 .Configure<EndpointOptions>(options => options.AdvertisedIPAddress = IPAddress.Loopback)
-                .ConfigureApplicationParts(parts => parts.AddApplicationPart(typeof(HelloGrain).Assembly).WithReferences())
-                .ConfigureLogging(logging => logging.AddConsole());
+                .ConfigureApplicationParts(parts => parts.AddApplicationPart(assambly).WithReferences())
+                .ConfigureLogging(logging => logging.AddConsole())
+                .UseInMemoryReminderService()
+                .UseLocalhostClustering();
 
             var host = builder.Build();
             await host.StartAsync();
             return host;
         }
+
+
+
     }
 
 
-    public interface IHello : IGrainWithIntegerKey
-    {
-        Task<string> SayHello(string greeting);
-    }
-    public class HelloGrain : Grain, IHello
-    {
-        public Task<string> SayHello(string greeting)
-        {
-            Console.WriteLine($"SayHello message received: greeting = '{greeting}'");
-            return Task.FromResult($"You said: '{greeting}', I say: Hello!");
-        }
-    }
+
 }
-
