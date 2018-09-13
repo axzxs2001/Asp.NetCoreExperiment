@@ -1,9 +1,10 @@
-﻿using Orleans;
+﻿
+using Orleans;
 using Orleans.Runtime;
 using System;
 using System.Threading.Tasks;
 
-namespace TimersAndReminders_Lib
+namespace Observer_Lib
 {
     public interface IHello : IGrainWithGuidKey
     {
@@ -19,24 +20,9 @@ namespace TimersAndReminders_Lib
 
         public Task<string> SayHello(string greeting)
         {
-            //CreateTimer();
-            CreateRemider();
             Console.WriteLine($"收到: greeting = '{greeting}'");
             return Task.FromResult($"回复: '{greeting}'，{DateTime.Now}");
         }
-        void CreateRemider()
-        {
-            var reminder = this.RegisterOrUpdateReminder("testremider", TimeSpan.FromSeconds(3), TimeSpan.FromMinutes(1));
-        }
-
-        void CreateTimer()
-        {
-            object obj = 123;
-            var dis = this.RegisterTimer((obje) =>
-            {
-                Console.WriteLine($"定时器：{obje}");
-                return Task.CompletedTask;
-            }, obj, TimeSpan.FromSeconds(5), TimeSpan.FromSeconds(2));
-        }
+    
     }
 }
