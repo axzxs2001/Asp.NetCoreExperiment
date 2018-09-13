@@ -7,22 +7,46 @@ using System.Threading.Tasks;
 namespace Observer_Lib
 {
     public interface IHello : IGrainWithGuidKey
-    {
-        Task<string> SayHello(string greeting);
+    {    
+        Task SendUpdateMessage(string message);
+        Task Subscribe(IChat observer);
+        Task UnSubscribe(IChat observer);
     }
-    public class HelloGrain : Grain, IHello, IRemindable
+    public class HelloGrain : Grain, IHello
     {
-        public Task ReceiveReminder(string reminderName, TickStatus status)
-        {
-            Console.WriteLine($"{reminderName},谢谢提醒，差点忘了！FirstTickTime:{status.FirstTickTime},CurrentTickTime:{status.CurrentTickTime},Period:{status.Period.TotalSeconds}");
-            return Task.CompletedTask;
+        private GrainObserverManager<IChat> _subsManager;
+
+        public override async Task OnActivateAsync()
+        {        
+            _subsManager = new GrainObserverManager<IChat>();
+            _subsManager.ExpirationDuration = TimeSpan.FromSeconds(100);        
+            await base.OnActivateAsync();
         }
 
-        public Task<string> SayHello(string greeting)
+        public Task Subscribe(IChat observer)
         {
-            Console.WriteLine($"收到: greeting = '{greeting}'");
-            return Task.FromResult($"回复: '{greeting}'，{DateTime.Now}");
+            if (!_subsManager.IsSubscribed(observer))
+            {
+                _subsManager.Subscribe(observer);
+            }
+            return Task.CompletedTask;
         }
+        
+        public Task UnSubscribe(IChat observer)
+        {
+            if (_subsManager.IsSubscribed(observer))
+            {
+                _subsManager.Unsubscribe(observer);
+            }
+            return Task.CompletedTask;
+        }
+        public Task SendUpdateMessage(string message)
+        {
+            Console.WriteLine($"服务端收到消息：{message}");
+            _subsManager.Notify(s => s.ReceiveMessage(message));
+            return Task.CompletedTask;
+        }
+     
     
     }
 }

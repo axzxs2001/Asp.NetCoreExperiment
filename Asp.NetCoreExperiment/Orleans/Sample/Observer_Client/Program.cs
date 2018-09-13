@@ -27,6 +27,7 @@ namespace Observer_Client
                 using (var client = await StartClientWithRetries())
                 {
                     await DoClientWork(client);
+                    Console.WriteLine(DateTime.Now);
                     Console.ReadKey();
                 }
 
@@ -86,8 +87,10 @@ namespace Observer_Client
         private static async Task DoClientWork(IClusterClient client)
         {
             var friend = client.GetGrain<IHello>(new Guid());
-            var response = await friend.SayHello($"你好!{DateTime.Now}");
-            Console.WriteLine("\n\n{0}\n\n", response);
+            var chat = new Chat();
+            var obj = await client.CreateObjectReference<IChat>(chat);
+            await friend.Subscribe(obj);
+            await friend.SendUpdateMessage($"你好!{DateTime.Now}");     
         }
     }
 }
