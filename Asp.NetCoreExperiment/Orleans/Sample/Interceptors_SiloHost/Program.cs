@@ -1,6 +1,6 @@
-﻿
+﻿using Interceptors_Lib;
 using Microsoft.Extensions.Logging;
-using Observer_Lib;
+
 using Orleans;
 using Orleans.Configuration;
 using Orleans.Hosting;
@@ -9,7 +9,7 @@ using System.Net;
 using System.Threading.Tasks;
 
 
-namespace Observer_SiloHost
+namespace Interceptors_SiloHost
 {
     class Program
     {
@@ -58,5 +58,11 @@ namespace Observer_SiloHost
             await host.StartAsync();
             return host;
         }
+
+
+
     }
+
+
+
 }
