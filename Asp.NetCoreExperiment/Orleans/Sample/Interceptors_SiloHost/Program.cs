@@ -53,7 +53,8 @@ namespace Interceptors_SiloHost
                 .ConfigureLogging(logging => logging.AddConsole())
                 .UseInMemoryReminderService()
                 .UseLocalhostClustering();
-
+            //Silo内每个方法都会触发
+            // builder.AddIncomingGrainCallFilter<LoggingCallFilter>();
             var host = builder.Build();
             await host.StartAsync();
             return host;

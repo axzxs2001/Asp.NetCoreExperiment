@@ -86,10 +86,18 @@ namespace Interceptors_Client
         /// <returns></returns>
         private static async Task DoClientWork(IClusterClient client)
         {
-            var friend = client.GetGrain<IHello>(new Guid());
-            var response = await friend.SayHello($"你好!{DateTime.Now}");
-            Console.WriteLine("\n\n{0}\n\n", response);
-
+            try
+            {
+                var friend = client.GetGrain<IHello>(new Guid());
+                RequestContext.Set("isAdmin", false);
+                var result = await friend.GetFavoriteNumber("桂素伟");
+                Console.WriteLine($"GetFavoriteNumber的结果是：{result}");
+            }
+            catch (Exception exc)
+            {
+                Console.WriteLine($"有异常：{exc.Message}");
+            }
         }
     }
+
 }
