@@ -40,7 +40,7 @@ namespace Interceptors_SiloHost
 
         private static async Task<ISiloHost> StartSilo()
         {
-            var assambly = typeof(IHello).Assembly;
+            var assambly = typeof(IHelloGrain).Assembly;
             var builder = new SiloHostBuilder()
                 .UseLocalhostClustering()
                 .Configure<ClusterOptions>(options =>
@@ -53,8 +53,9 @@ namespace Interceptors_SiloHost
                 .ConfigureLogging(logging => logging.AddConsole())
                 .UseInMemoryReminderService()
                 .UseLocalhostClustering();
-            //Silo内每个方法都会触发
-            // builder.AddIncomingGrainCallFilter<LoggingCallFilter>();
+            //Silo内每个方法都会触发 前触发
+             builder.AddIncomingGrainCallFilter<LoggingCallFilter>();
+         
             var host = builder.Build();
             await host.StartAsync();
             return host;

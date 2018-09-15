@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace Interceptors_Lib
 {
-    public interface IHello : IGrainWithGuidKey
+    public interface IHelloGrain : IGrainWithGuidKey
     {
         Task<int> GetFavoriteNumber(string name);
+        Task Other();
     }
-    public class HelloGrain : Grain, IHello, IIncomingGrainCallFilter
+    public class HelloGrain : Grain, IHelloGrain, IIncomingGrainCallFilter
     {
         public async Task Invoke(IIncomingGrainCallContext context)
         {
@@ -34,7 +35,7 @@ namespace Interceptors_Lib
             //}
 
             //用特性的方式控制访问
-            var isAdminMethod = context.ImplementationMethod.GetCustomAttribute<AdminOnlyAttribute>()!=null;
+            var isAdminMethod = context.ImplementationMethod.GetCustomAttribute<AdminOnlyAttribute>() != null;
             if (isAdminMethod && !(bool)RequestContext.Get("isAdmin"))
             {
                 throw new Exception($"只有 admins 能访问 {context.ImplementationMethod.Name}!");
@@ -46,6 +47,13 @@ namespace Interceptors_Lib
         {
             Console.WriteLine($"GetFavoriteNumber方法内收到的参数为：{name}");
             return Task.FromResult(7);
+        }
+
+
+        public Task Other()
+        {
+            Console.WriteLine("调用了Other");
+            return Task.CompletedTask;
         }
     }
 

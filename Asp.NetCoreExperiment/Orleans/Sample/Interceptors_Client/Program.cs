@@ -52,7 +52,10 @@ namespace Interceptors_Client
                     options.ServiceId = "TestApp";
                 })
                 .ConfigureLogging(logging => logging.AddConsole())
-                .Build();
+                .AddOutgoingGrainCallFilter<LoggOutCallFilter>()
+                .Build();         
+  
+
 
             await client.Connect(RetryFilter);
             Console.WriteLine("Client成功连接服务端");
@@ -88,14 +91,14 @@ namespace Interceptors_Client
         {
             try
             {
-                var friend = client.GetGrain<IHello>(new Guid());
-                RequestContext.Set("isAdmin", false);
+                var friend = client.GetGrain<IHelloGrain>(new Guid());
+                RequestContext.Set("isAdmin", true);
                 var result = await friend.GetFavoriteNumber("桂素伟");
                 Console.WriteLine($"GetFavoriteNumber的结果是：{result}");
             }
             catch (Exception exc)
             {
-                Console.WriteLine($"有异常：{exc.Message}");
+                Console.WriteLine($"客户端收到异常：{exc.Message}");
             }
         }
     }
