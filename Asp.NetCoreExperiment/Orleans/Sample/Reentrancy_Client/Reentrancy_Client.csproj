@@ -10,4 +10,8 @@
     <PackageReference Include="Microsoft.Orleans.Core" Version="2.1.0-rc1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Reentrancy_Lib\Reentrancy_Lib.csproj" />
+  </ItemGroup>
+
 </Project>
