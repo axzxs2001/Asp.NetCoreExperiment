@@ -10,8 +10,4 @@
     <PackageReference Include="Microsoft.Orleans.Core" Version="2.1.0-rc1" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Interceptors_Lib\Interceptors_Lib.csproj" />
-  </ItemGroup>
-
 </Project>
