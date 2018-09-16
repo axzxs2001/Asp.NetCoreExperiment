@@ -47,6 +47,7 @@ namespace Reentrancy_SiloHost
                     options.ClusterId = "dev";
                     options.ServiceId = "TestApp";
                 })
+                .Configure<SchedulingOptions>(options => options.AllowCallChainReentrancy = true)
                 .Configure<EndpointOptions>(options => options.AdvertisedIPAddress = IPAddress.Loopback)
                 .ConfigureApplicationParts(parts => parts.AddApplicationPart(assambly).WithReferences())
                 .ConfigureLogging(logging => logging.AddConsole())

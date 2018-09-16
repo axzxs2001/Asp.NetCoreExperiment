@@ -85,9 +85,13 @@ namespace Reentrancy_Client
         /// <returns></returns>
         private static async Task DoClientWork(IClusterClient client)
         {
-            var friend = client.GetGrain<IHello>(new Guid());
-            var response = await friend.SayHello($"你好!{DateTime.Now}");
-            Console.WriteLine("\n\n{0}\n\n", response);
+            // var hello = client.GetGrain<IHello>(new Guid());
+            // await Task.WhenAll(hello.Method1(), hello.Method1(), hello.Method2());
+
+
+            var a = client.GetGrain<IA>(0);
+            var result=  await a.Go(6);
+            Console.WriteLine($"返回值：{result}");
         }
     }
 }
