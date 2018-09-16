@@ -89,9 +89,15 @@ namespace Reentrancy_Client
             // await Task.WhenAll(hello.Method1(), hello.Method1(), hello.Method2());
 
 
-            var a = client.GetGrain<IA>(0);
-            var result=  await a.Go(6);
-            Console.WriteLine($"返回值：{result}");
+            //var a = client.GetGrain<IA>(0);
+            //var result=  await a.Go(6);
+            //Console.WriteLine($"返回值：{result}");
+
+
+
+            var c = client.GetGrain<IC>(0);
+            var result = await c.Go(new MyParmeter { I = 5 });
+            Console.WriteLine($"返回值：{result.I}");
         }
     }
 }
