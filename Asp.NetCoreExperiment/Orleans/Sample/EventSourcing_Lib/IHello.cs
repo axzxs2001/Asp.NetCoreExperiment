@@ -2,6 +2,7 @@
 using Orleans;
 using Orleans.Concurrency;
 using Orleans.EventSourcing;
+using Orleans.LogConsistency;
 using Orleans.Providers;
 using Orleans.Runtime;
 using System;
@@ -55,22 +56,48 @@ namespace EventSourcing_Lib
                 User = "桂素伟",
                 Guid = new Guid()
             });
+
+
             await ConfirmEvents();
 
             await RetrieveConfirmedEvents(0, Version);
 
+            EnableStatsCollection();
+            DisableStatsCollection();
+            var state = GetStats();
+
+            var s = TentativeState;
+
             await Task.CompletedTask;
         }
-
-        public override Task OnActivateAsync()
+        protected override void OnStateChanged()
         {
-            return base.OnActivateAsync();
+            base.OnStateChanged();
         }
 
-
+        protected override void TransitionState(HelloState state, HelloEvent @event)
+        {
+            base.TransitionState(state, @event);
+        }
+        protected override void OnTentativeStateChanged()
+        {
+            base.OnTentativeStateChanged();
+        }
         public override void Participate(IGrainLifecycle lifecycle)
         {
+         
             base.Participate(lifecycle);
+        }
+
+        protected override void OnConnectionIssue(ConnectionIssue issue)
+        {
+            Console.WriteLine("OnConnectionIssue");
+            base.OnConnectionIssue(issue);
+        }
+        protected override void OnConnectionIssueResolved(ConnectionIssue issue)
+        {
+            Console.WriteLine("OnConnectionIssueResolved");
+            base.OnConnectionIssueResolved(issue);
         }
     }
 
