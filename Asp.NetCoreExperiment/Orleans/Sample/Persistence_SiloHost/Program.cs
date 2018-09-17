@@ -42,7 +42,7 @@ namespace Persistence_SiloHost
 
         private static async Task<ISiloHost> StartSilo()
         {
-            var assambly = typeof(IHello).Assembly;
+            var assambly = typeof(IHelloGrain).Assembly;
             var builder = new SiloHostBuilder()
                 .UseLocalhostClustering()
                 .Configure<ClusterOptions>(options =>
@@ -53,8 +53,17 @@ namespace Persistence_SiloHost
                 .Configure<EndpointOptions>(options => options.AdvertisedIPAddress = IPAddress.Loopback)
                 .ConfigureApplicationParts(parts => parts.AddApplicationPart(assambly).WithReferences())
                 .ConfigureLogging(logging => logging.AddConsole())
-                .UseInMemoryReminderService()
-                .UseLocalhostClustering();
+                //.UseInMemoryReminderService()
+                .AddMemoryGrainStorage("OrleansStorage", options => options.NumStorageGrains = 10);
+                //.AddAdoNetGrainStorage("SqlStore", options =>
+                //{
+
+                //    options.UseJsonFormat = true;
+                //    options.Invariant = "System.Data.SqlClient";
+                //    options.ConnectionString = "Data Source=127.0.0.1;Initial Catalog=orleansdb;Persist Security Info=True;User ID=sa;Password=sa;";
+                //    options.UseJsonFormat = true;
+                //})
+               // .UseLocalhostClustering();
 
             var host = builder.Build();
             await host.StartAsync();

@@ -86,9 +86,21 @@ namespace Persistence_Client
         /// <returns></returns>
         private static async Task DoClientWork(IClusterClient client)
         {
-            var hello = client.GetGrain<IHello>(new Guid());
-            await hello.Method1();
-         
+            var hello = client.GetGrain<IHelloGrain>(new Guid());
+            while (true)
+            {
+                Console.WriteLine("1、写入  2、读取");
+                switch (Console.ReadLine())
+                {
+                    case "1":
+                        await hello.Write();
+                        break;
+                    case "2":
+                        await hello.Read();
+                        break;
+                }
+            }
+
         }
     }
 }
