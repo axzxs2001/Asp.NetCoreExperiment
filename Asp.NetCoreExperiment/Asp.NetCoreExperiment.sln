@@ -611,11 +611,19 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Interceptors_SiloHost", "Or
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Reentrancy", "Reentrancy", "{9E4D837E-2210-4EEE-A7EE-10A374295A27}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reentrancy_Client", "Orleans\Sample\Reentrancy_Client\Reentrancy_Client.csproj", "{5BAB9FB0-2554-4457-8241-416A2B6E101C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reentrancy_Client", "Orleans\Sample\Reentrancy_Client\Reentrancy_Client.csproj", "{5BAB9FB0-2554-4457-8241-416A2B6E101C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reentrancy_SiloHost", "Orleans\Sample\Reentrancy_SiloHost\Reentrancy_SiloHost.csproj", "{91BA35B7-A1FA-4FA5-82BF-C8CFF8AFCF78}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reentrancy_SiloHost", "Orleans\Sample\Reentrancy_SiloHost\Reentrancy_SiloHost.csproj", "{91BA35B7-A1FA-4FA5-82BF-C8CFF8AFCF78}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reentrancy_Lib", "Orleans\Sample\Reentrancy_Lib\Reentrancy_Lib.csproj", "{4DCD7DE6-F10D-4B0A-BAE9-B314C7EB2183}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reentrancy_Lib", "Orleans\Sample\Reentrancy_Lib\Reentrancy_Lib.csproj", "{4DCD7DE6-F10D-4B0A-BAE9-B314C7EB2183}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Persistence", "Persistence", "{5DFBE49D-0062-426A-8276-6222F13D4404}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Persistence_Client", "Orleans\Sample\Persistence_Client\Persistence_Client.csproj", "{0D1C6E87-F3AF-4ACE-BB18-AA063228581D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Persistence_SiloHost", "Orleans\Sample\Persistence_SiloHost\Persistence_SiloHost.csproj", "{12DD9806-8E1B-4B69-BB3D-2F378FCB3E39}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Persistence_Lib", "Orleans\Sample\Persistence_Lib\Persistence_Lib.csproj", "{CA1E2216-0040-4CB0-AE53-7DF5ADBA9367}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -2269,6 +2277,30 @@ Global
 		{4DCD7DE6-F10D-4B0A-BAE9-B314C7EB2183}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4DCD7DE6-F10D-4B0A-BAE9-B314C7EB2183}.Release|x64.ActiveCfg = Release|Any CPU
 		{4DCD7DE6-F10D-4B0A-BAE9-B314C7EB2183}.Release|x64.Build.0 = Release|Any CPU
+		{0D1C6E87-F3AF-4ACE-BB18-AA063228581D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D1C6E87-F3AF-4ACE-BB18-AA063228581D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D1C6E87-F3AF-4ACE-BB18-AA063228581D}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{0D1C6E87-F3AF-4ACE-BB18-AA063228581D}.Debug|x64.Build.0 = Debug|Any CPU
+		{0D1C6E87-F3AF-4ACE-BB18-AA063228581D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D1C6E87-F3AF-4ACE-BB18-AA063228581D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D1C6E87-F3AF-4ACE-BB18-AA063228581D}.Release|x64.ActiveCfg = Release|Any CPU
+		{0D1C6E87-F3AF-4ACE-BB18-AA063228581D}.Release|x64.Build.0 = Release|Any CPU
+		{12DD9806-8E1B-4B69-BB3D-2F378FCB3E39}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12DD9806-8E1B-4B69-BB3D-2F378FCB3E39}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12DD9806-8E1B-4B69-BB3D-2F378FCB3E39}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{12DD9806-8E1B-4B69-BB3D-2F378FCB3E39}.Debug|x64.Build.0 = Debug|Any CPU
+		{12DD9806-8E1B-4B69-BB3D-2F378FCB3E39}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12DD9806-8E1B-4B69-BB3D-2F378FCB3E39}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12DD9806-8E1B-4B69-BB3D-2F378FCB3E39}.Release|x64.ActiveCfg = Release|Any CPU
+		{12DD9806-8E1B-4B69-BB3D-2F378FCB3E39}.Release|x64.Build.0 = Release|Any CPU
+		{CA1E2216-0040-4CB0-AE53-7DF5ADBA9367}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA1E2216-0040-4CB0-AE53-7DF5ADBA9367}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA1E2216-0040-4CB0-AE53-7DF5ADBA9367}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{CA1E2216-0040-4CB0-AE53-7DF5ADBA9367}.Debug|x64.Build.0 = Debug|Any CPU
+		{CA1E2216-0040-4CB0-AE53-7DF5ADBA9367}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA1E2216-0040-4CB0-AE53-7DF5ADBA9367}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA1E2216-0040-4CB0-AE53-7DF5ADBA9367}.Release|x64.ActiveCfg = Release|Any CPU
+		{CA1E2216-0040-4CB0-AE53-7DF5ADBA9367}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -2516,6 +2548,10 @@ Global
 		{5BAB9FB0-2554-4457-8241-416A2B6E101C} = {9E4D837E-2210-4EEE-A7EE-10A374295A27}
 		{91BA35B7-A1FA-4FA5-82BF-C8CFF8AFCF78} = {9E4D837E-2210-4EEE-A7EE-10A374295A27}
 		{4DCD7DE6-F10D-4B0A-BAE9-B314C7EB2183} = {9E4D837E-2210-4EEE-A7EE-10A374295A27}
+		{5DFBE49D-0062-426A-8276-6222F13D4404} = {BCF60A7D-6084-44C6-B5D8-890087E62556}
+		{0D1C6E87-F3AF-4ACE-BB18-AA063228581D} = {5DFBE49D-0062-426A-8276-6222F13D4404}
+		{12DD9806-8E1B-4B69-BB3D-2F378FCB3E39} = {5DFBE49D-0062-426A-8276-6222F13D4404}
+		{CA1E2216-0040-4CB0-AE53-7DF5ADBA9367} = {5DFBE49D-0062-426A-8276-6222F13D4404}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
