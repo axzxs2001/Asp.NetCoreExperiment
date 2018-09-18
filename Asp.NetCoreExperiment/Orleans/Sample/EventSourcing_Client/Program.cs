@@ -86,7 +86,12 @@ namespace EventSourcing_Client
         private static async Task DoClientWork(IClusterClient client)
         {
             var hello = client.GetGrain<IHelloGrain>(new Guid());
-            await hello.Write();
+            while (true)
+            {
+                Console.WriteLine("回画开始");
+                Console.ReadLine();
+                await hello.Write();
+            }
         }
     }
 }

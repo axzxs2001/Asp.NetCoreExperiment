@@ -53,7 +53,12 @@ namespace EventSourcing_SiloHost
                 .ConfigureApplicationParts(parts => parts.AddApplicationPart(assambly).WithReferences())
                 .ConfigureLogging(logging => logging.AddConsole())
                 .UseInMemoryReminderService()
-                .UseLocalhostClustering();
+                .UseLocalhostClustering()
+                .AddLogStorageBasedLogConsistencyProvider("LogStorage")
+                .AddStateStorageBasedLogConsistencyProvider("StateStorage")
+                //.AddCustomStorageBasedLogConsistencyProvider("CustomStorage")
+                .AddMemoryGrainStorage("OrleansStorage", options => options.NumStorageGrains = 10);
+
 
             var host = builder.Build();
             await host.StartAsync();

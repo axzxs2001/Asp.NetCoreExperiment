@@ -14,7 +14,7 @@ namespace EventSourcing_Lib
     {
         Task Write();
     }
-
+    [Serializable]
     public class HelloState
     {
         public int ID { get; set; }
@@ -30,6 +30,7 @@ namespace EventSourcing_Lib
             Console.WriteLine($"事件：{@event}");
         }
     }
+    [Serializable]
     public class HelloEvent
     {
         public Guid Guid { get; set; }
@@ -38,11 +39,13 @@ namespace EventSourcing_Lib
 
         public override string ToString()
         {
-            return $"Guid:{Guid.ToString()},User:{User},CreateTime:{CreateTime}";
+            return $"Guid:{Guid.NewGuid().ToString()},User:{User},CreateTime:{CreateTime}";
         }
 
     }
 
+    [LogConsistencyProvider(ProviderName = "LogStorage")]
+    [StorageProvider(ProviderName = "OrleansStorage")]
     public class HelloGrain : JournaledGrain<HelloState, HelloEvent>, IHelloGrain
     {
         public async Task Write()
@@ -56,36 +59,35 @@ namespace EventSourcing_Lib
                 User = "桂素伟",
                 Guid = new Guid()
             });
-
-
             await ConfirmEvents();
-
-            await RetrieveConfirmedEvents(0, Version);
-
-            EnableStatsCollection();
-            DisableStatsCollection();
-            var state = GetStats();
-
-            var s = TentativeState;
-
             await Task.CompletedTask;
+
+            //await RetrieveConfirmedEvents(0, Version);
+            //EnableStatsCollection();
+            //DisableStatsCollection();
+            //var state = GetStats();
+            //var s = TentativeState;
+
         }
         protected override void OnStateChanged()
         {
+            Console.WriteLine("OnStateChanged");
             base.OnStateChanged();
         }
 
         protected override void TransitionState(HelloState state, HelloEvent @event)
         {
+            Console.WriteLine("TransitionState");
             base.TransitionState(state, @event);
         }
         protected override void OnTentativeStateChanged()
         {
+            Console.WriteLine("OnTentativeStateChanged");
             base.OnTentativeStateChanged();
         }
         public override void Participate(IGrainLifecycle lifecycle)
         {
-         
+            Console.WriteLine("Participate");
             base.Participate(lifecycle);
         }
 
