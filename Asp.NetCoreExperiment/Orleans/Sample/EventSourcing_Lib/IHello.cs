@@ -20,6 +20,7 @@ namespace EventSourcing_Lib
         public int ID { get; set; }
         public string Name { get; set; }
 
+        public double Amount { get; set; }
         public override string ToString()
         {
             return $"ID:{ID},Name:{Name}";

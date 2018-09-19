@@ -57,8 +57,13 @@ namespace EventSourcing_SiloHost
                 .AddLogStorageBasedLogConsistencyProvider("LogStorage")
                 .AddStateStorageBasedLogConsistencyProvider("StateStorage")
                 //.AddCustomStorageBasedLogConsistencyProvider("CustomStorage")
-                .AddMemoryGrainStorage("OrleansStorage", options => options.NumStorageGrains = 10);
-
+                //.AddMemoryGrainStorage("OrleansStorage", options => options.NumStorageGrains = 10);
+                .AddAdoNetGrainStorage("OrleansStorage", options =>
+                 {
+                     options.UseJsonFormat = true;
+                     options.Invariant = "System.Data.SqlClient";
+                     options.ConnectionString = "Data Source=127.0.0.1;Initial Catalog=orleansdb;Persist Security Info=True;User ID=sa;Password=sa;";
+                 });
 
             var host = builder.Build();
             await host.StartAsync();
