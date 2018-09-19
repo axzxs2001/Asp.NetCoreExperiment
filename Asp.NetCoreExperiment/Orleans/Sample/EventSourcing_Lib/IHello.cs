@@ -1,6 +1,5 @@
 ﻿
 using Orleans;
-using Orleans.Concurrency;
 using Orleans.EventSourcing;
 using Orleans.LogConsistency;
 using Orleans.Providers;
@@ -12,7 +11,7 @@ namespace EventSourcing_Lib
 {
     public interface IHelloGrain : IGrainWithGuidKey
     {
-        Task Write();
+        Task<string> Write();
     }
     [Serializable]
     public class HelloState
@@ -49,7 +48,7 @@ namespace EventSourcing_Lib
     [StorageProvider(ProviderName = "OrleansStorage")]
     public class HelloGrain : JournaledGrain<HelloState, HelloEvent>, IHelloGrain
     {
-        public async Task Write()
+        public async Task<string> Write()
         {
             Console.WriteLine($"State  {this.State}");
             Console.WriteLine($"Version:{Version}");
@@ -61,7 +60,7 @@ namespace EventSourcing_Lib
                 Guid = new Guid()
             });
             await ConfirmEvents();
-            await Task.CompletedTask;
+            return await Task.FromResult("结果");
 
             //await RetrieveConfirmedEvents(0, Version);
             //EnableStatsCollection();
@@ -72,34 +71,34 @@ namespace EventSourcing_Lib
         }
         protected override void OnStateChanged()
         {
-            Console.WriteLine("OnStateChanged");
+            Console.WriteLine("测试 OnStateChanged");
             base.OnStateChanged();
         }
 
         protected override void TransitionState(HelloState state, HelloEvent @event)
         {
-            Console.WriteLine("TransitionState");
+            Console.WriteLine("测试 TransitionState");
             base.TransitionState(state, @event);
         }
         protected override void OnTentativeStateChanged()
         {
-            Console.WriteLine("OnTentativeStateChanged");
+            Console.WriteLine("测试 OnTentativeStateChanged");
             base.OnTentativeStateChanged();
         }
         public override void Participate(IGrainLifecycle lifecycle)
         {
-            Console.WriteLine("Participate");
+            Console.WriteLine("测试 Participate");
             base.Participate(lifecycle);
         }
 
         protected override void OnConnectionIssue(ConnectionIssue issue)
         {
-            Console.WriteLine("OnConnectionIssue");
+            Console.WriteLine("测试 OnConnectionIssue");
             base.OnConnectionIssue(issue);
         }
         protected override void OnConnectionIssueResolved(ConnectionIssue issue)
         {
-            Console.WriteLine("OnConnectionIssueResolved");
+            Console.WriteLine("测试 OnConnectionIssueResolved");
             base.OnConnectionIssueResolved(issue);
         }
     }

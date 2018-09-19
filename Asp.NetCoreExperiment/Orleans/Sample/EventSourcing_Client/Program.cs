@@ -90,7 +90,8 @@ namespace EventSourcing_Client
             {
                 Console.WriteLine("回画开始");
                 Console.ReadLine();
-                await hello.Write();
+                var result = await hello.Write();
+                Console.WriteLine(result);
             }
         }
     }

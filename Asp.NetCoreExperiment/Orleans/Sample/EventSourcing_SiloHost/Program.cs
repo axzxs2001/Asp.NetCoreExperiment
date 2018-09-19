@@ -62,7 +62,7 @@ namespace EventSourcing_SiloHost
                  {
                      options.UseJsonFormat = true;
                      options.Invariant = "System.Data.SqlClient";
-                     options.ConnectionString = "Data Source=127.0.0.1;Initial Catalog=orleansdb;Persist Security Info=True;User ID=sa;Password=sa;";
+                     options.ConnectionString = "Data Source=.;Initial Catalog=orleansdb;Persist Security Info=True;User ID=sa;Password=sa;";
                  });
 
             var host = builder.Build();
