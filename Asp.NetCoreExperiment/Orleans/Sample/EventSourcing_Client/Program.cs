@@ -29,7 +29,6 @@ namespace EventSourcing_Client
                     await DoClientWork(client);
                     Console.ReadKey();
                 }
-
                 return 0;
             }
             catch (Exception e)
@@ -88,10 +87,20 @@ namespace EventSourcing_Client
             var hello = client.GetGrain<IHelloGrain>(new Guid());
             while (true)
             {
-                Console.WriteLine("回画开始");
-                Console.ReadLine();
-                var result = await hello.Write();
-                Console.WriteLine(result);
+
+                Console.WriteLine("1、Method1  2、Method2  3、TTT");
+                switch (Console.ReadLine())
+                {
+                    case "1":
+                        Console.WriteLine(await hello.Method1());
+                        break;
+                    case "2":
+                        Console.WriteLine(await hello.Method2());
+                        break;
+                    case "3":
+                        await hello.TTT();
+                        break;
+                }
             }
         }
     }
