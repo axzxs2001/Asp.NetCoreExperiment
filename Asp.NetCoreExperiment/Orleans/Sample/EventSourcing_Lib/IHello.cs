@@ -80,7 +80,7 @@ namespace EventSourcing_Lib
             foreach (var @event in await RetrieveConfirmedEvents(1, 3))
             {
                 Console.WriteLine(@event);
-            }            
+            }
         }
 
         public async Task<string> Method1()
@@ -149,11 +149,19 @@ namespace EventSourcing_Lib
         protected override void OnConnectionIssue(ConnectionIssue issue)
         {
             Console.WriteLine("测试 OnConnectionIssue");
+            Console.WriteLine($"NumberOfConsecutiveFailures:{issue.NumberOfConsecutiveFailures}");
+            Console.WriteLine($"RetryDelay(s):{issue.RetryDelay.TotalSeconds}");
+            Console.WriteLine($"TimeOfFirstFailure:{issue.TimeOfFirstFailure}");
+            Console.WriteLine($"TimeStamp:{issue.TimeStamp}");
             base.OnConnectionIssue(issue);
         }
         protected override void OnConnectionIssueResolved(ConnectionIssue issue)
         {
             Console.WriteLine("测试 OnConnectionIssueResolved");
+            Console.WriteLine($"NumberOfConsecutiveFailures:{issue.NumberOfConsecutiveFailures}");
+            Console.WriteLine($"RetryDelay(s):{issue.RetryDelay.TotalSeconds}");
+            Console.WriteLine($"TimeOfFirstFailure:{issue.TimeOfFirstFailure}");
+            Console.WriteLine($"TimeStamp:{issue.TimeStamp}");
             base.OnConnectionIssueResolved(issue);
         }
 
