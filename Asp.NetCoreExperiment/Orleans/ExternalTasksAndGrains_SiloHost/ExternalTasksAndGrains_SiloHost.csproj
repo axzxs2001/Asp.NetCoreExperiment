@@ -8,10 +8,11 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="2.2.0-preview2-35157" />
     <PackageReference Include="Microsoft.Orleans.Core" Version="2.1.0-rc2" />
+    <PackageReference Include="Microsoft.Orleans.Server" Version="2.1.0-rc2" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Reentrancy_Lib\Reentrancy_Lib.csproj" />
+    <ProjectReference Include="..\ExternalTasksAndGrains_Lib\ExternalTasksAndGrains_Lib.csproj" />
   </ItemGroup>
 
 </Project>
