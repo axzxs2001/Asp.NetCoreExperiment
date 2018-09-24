@@ -1,101 +1,75 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using Orleans;
-using Orleans.Concurrency;
-using Orleans.Core;
+using Orleans.Configuration;
 using Orleans.Hosting;
-using Orleans.Runtime;
-using Orleans.Runtime.Services;
-using Orleans.Services;
+using GrainServices_Lib;
 using System;
+using System.Net;
 using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace GrainServices_SiloHost
 {
     class Program
     {
-        static void Main(string[] args)
+        static int Main(string[] args)
         {
+            Console.Title = "Server";
+            var result = RunMainAsync().Result;
+            Console.ReadLine();
+            return result;
+        }
+        private static async Task<int> RunMainAsync()
+        {
+            try
+            {
+                var host = await StartSilo();
+                Console.WriteLine("回车结束...");
+                Console.ReadLine();
+                await host.StopAsync();
+
+                return 0;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return 1;
+            }
+        }
+
+        private static async Task<ISiloHost> StartSilo()
+        {
+            var assambly = typeof(INormalGrain).Assembly;
             var builder = new SiloHostBuilder()
-                .AddGrainService<LightstreamerDataService>()  // Register GrainService
-                .ConfigureServices(s =>
-                {
-                    // Register Client of GrainService
-                    s.AddSingleton<IDataServiceClient, DataServiceClient>();
-                });
+                   .UseLocalhostClustering()
+                   .Configure<ClusterOptions>(options =>
+                   {
+                       options.ClusterId = "dev";
+                       options.ServiceId = "TestApp";
+                   })
+                   .Configure<EndpointOptions>(options => options.AdvertisedIPAddress = IPAddress.Loopback)
+                   .ConfigureApplicationParts(parts => parts.AddApplicationPart(assambly).WithReferences())
+                   .ConfigureLogging(logging => logging.AddConsole())
+                   .UseInMemoryReminderService()
+                   .UseLocalhostClustering()
+                   .AddMemoryGrainStorage("OrleansStorage", options => options.NumStorageGrains = 10)
+                   .AddGrainService<LightstreamerDataService>()  // Register GrainService
+                   .ConfigureServices(s =>
+                   {
+                       // Register Client of GrainService
+                       s.AddSingleton<IDataServiceClient, DataServiceClient>();
+                   });
+
+
+            var host = builder.Build();
+            await host.StartAsync();
+            return host;
         }
+
+
+
     }
 
 
-    public interface IDataService : IGrainService
-    {
-        Task MyMethod();
-    }
 
-
-    [Reentrant]
-
-    public class LightstreamerDataService : GrainService, IDataService
-    {
-
-        readonly IGrainFactory _grainFactory;
-
-        public LightstreamerDataService(IServiceProvider services, IGrainIdentity id, Silo silo, ILoggerFactory loggerFactory, IGrainFactory grainFactory) : base(id, silo, loggerFactory)
-        {
-            _grainFactory = grainFactory;
-        }
-
-        public override Task Init(IServiceProvider serviceProvider)
-        {
-            return base.Init(serviceProvider);
-        }
-
-        public override async Task Start()
-        {
-            await base.Start();
-        }
-
-        public override Task Stop()
-        {
-            return base.Stop();
-        }
-
-        public Task MyMethod()
-        {
-            Console.WriteLine("MyMethod");
-            return Task.CompletedTask;
-        }
-    }
-
-
-    public interface IDataServiceClient : IGrainServiceClient<IDataService>, IDataService
-    {
-    }
-
-    public class DataServiceClient : GrainServiceClient<IDataService>, IDataServiceClient
-    {
-
-        public DataServiceClient(IServiceProvider serviceProvider) : base(serviceProvider)
-        {
-        }
-
-        public Task MyMethod() => GrainService.MyMethod();
-    }
-
-    public interface INormalGrain
-    {
-    }
-    public class NormalGrainState
-    {
-    }
-    public class MyNormalGrain : Grain<NormalGrainState>, INormalGrain
-    {
-
-        readonly IDataServiceClient DataServiceClient;
-
-        public MyNormalGrain(IGrainActivationContext grainActivationContext, IDataServiceClient dataServiceClient)
-        {
-            DataServiceClient = dataServiceClient;
-        }
-    }
 }
