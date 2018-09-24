@@ -84,7 +84,7 @@ namespace ExternalTasksAndGrains_Client
         private static async Task DoClientWork(IClusterClient client)
         {
             var hello = client.GetGrain<IHelloGrain>(new Guid());
-            await hello.Method1();
+            await hello.Method2();
 
           
         }
