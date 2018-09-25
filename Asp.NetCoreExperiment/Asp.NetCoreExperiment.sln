@@ -643,15 +643,23 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StatelessWorkerGrain_Lib", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ExternalTasksAndGrains", "ExternalTasksAndGrains", "{B8BD3B58-16DF-49D7-8BE2-5BB62CBD0AB6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExternalTasksAndGrains_Client", "Orleans\ExternalTasksAndGrains_Client\ExternalTasksAndGrains_Client.csproj", "{03CE6ABB-D829-483F-A8AA-BB2867F716AE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExternalTasksAndGrains_Client", "Orleans\ExternalTasksAndGrains_Client\ExternalTasksAndGrains_Client.csproj", "{03CE6ABB-D829-483F-A8AA-BB2867F716AE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExternalTasksAndGrains_SiloHost", "Orleans\ExternalTasksAndGrains_SiloHost\ExternalTasksAndGrains_SiloHost.csproj", "{FB7F5F17-7BD1-4F52-8CDC-6DBDB43CC4A3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExternalTasksAndGrains_SiloHost", "Orleans\ExternalTasksAndGrains_SiloHost\ExternalTasksAndGrains_SiloHost.csproj", "{FB7F5F17-7BD1-4F52-8CDC-6DBDB43CC4A3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExternalTasksAndGrains_Lib", "Orleans\ExternalTasksAndGrains_Lib\ExternalTasksAndGrains_Lib.csproj", "{60347C39-340D-446B-BD2F-20474C0A1348}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExternalTasksAndGrains_Lib", "Orleans\ExternalTasksAndGrains_Lib\ExternalTasksAndGrains_Lib.csproj", "{60347C39-340D-446B-BD2F-20474C0A1348}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrainServices_Clinet", "Orleans\GrainServices_Clinet\GrainServices_Clinet.csproj", "{3A2D8E42-5B2E-48FD-A628-F74AE33FFF28}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GrainServices_Clinet", "Orleans\GrainServices_Clinet\GrainServices_Clinet.csproj", "{3A2D8E42-5B2E-48FD-A628-F74AE33FFF28}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrainServices_Lib", "Orleans\GrainServices_Lib\GrainServices_Lib.csproj", "{BEE765C4-BF79-46A1-822C-4F4B0D70BA6F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GrainServices_Lib", "Orleans\GrainServices_Lib\GrainServices_Lib.csproj", "{BEE765C4-BF79-46A1-822C-4F4B0D70BA6F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OrleansTransactions", "OrleansTransactions", "{B747BDF9-F216-45C5-900C-38D2C963DEA0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Transactions_Lib", "Orleans\Transactions_Lib\Transactions_Lib.csproj", "{66EB8472-8BD8-4107-81A3-AD3A5FE04BB9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Transactions_SiloHost", "Orleans\OrleansTransactions_SiloHost\Transactions_SiloHost.csproj", "{FFC73056-4E6A-4C30-A77B-63D9B5B04BA7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Transactions_Client", "Orleans\Transactions_Client\Transactions_Client.csproj", "{2BF9967D-07A6-4D3D-BD7A-8130CF235696}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -2409,6 +2417,30 @@ Global
 		{BEE765C4-BF79-46A1-822C-4F4B0D70BA6F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BEE765C4-BF79-46A1-822C-4F4B0D70BA6F}.Release|x64.ActiveCfg = Release|Any CPU
 		{BEE765C4-BF79-46A1-822C-4F4B0D70BA6F}.Release|x64.Build.0 = Release|Any CPU
+		{66EB8472-8BD8-4107-81A3-AD3A5FE04BB9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66EB8472-8BD8-4107-81A3-AD3A5FE04BB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66EB8472-8BD8-4107-81A3-AD3A5FE04BB9}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{66EB8472-8BD8-4107-81A3-AD3A5FE04BB9}.Debug|x64.Build.0 = Debug|Any CPU
+		{66EB8472-8BD8-4107-81A3-AD3A5FE04BB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66EB8472-8BD8-4107-81A3-AD3A5FE04BB9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66EB8472-8BD8-4107-81A3-AD3A5FE04BB9}.Release|x64.ActiveCfg = Release|Any CPU
+		{66EB8472-8BD8-4107-81A3-AD3A5FE04BB9}.Release|x64.Build.0 = Release|Any CPU
+		{FFC73056-4E6A-4C30-A77B-63D9B5B04BA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FFC73056-4E6A-4C30-A77B-63D9B5B04BA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FFC73056-4E6A-4C30-A77B-63D9B5B04BA7}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{FFC73056-4E6A-4C30-A77B-63D9B5B04BA7}.Debug|x64.Build.0 = Debug|Any CPU
+		{FFC73056-4E6A-4C30-A77B-63D9B5B04BA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FFC73056-4E6A-4C30-A77B-63D9B5B04BA7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FFC73056-4E6A-4C30-A77B-63D9B5B04BA7}.Release|x64.ActiveCfg = Release|Any CPU
+		{FFC73056-4E6A-4C30-A77B-63D9B5B04BA7}.Release|x64.Build.0 = Release|Any CPU
+		{2BF9967D-07A6-4D3D-BD7A-8130CF235696}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2BF9967D-07A6-4D3D-BD7A-8130CF235696}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2BF9967D-07A6-4D3D-BD7A-8130CF235696}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{2BF9967D-07A6-4D3D-BD7A-8130CF235696}.Debug|x64.Build.0 = Debug|Any CPU
+		{2BF9967D-07A6-4D3D-BD7A-8130CF235696}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2BF9967D-07A6-4D3D-BD7A-8130CF235696}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2BF9967D-07A6-4D3D-BD7A-8130CF235696}.Release|x64.ActiveCfg = Release|Any CPU
+		{2BF9967D-07A6-4D3D-BD7A-8130CF235696}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -2674,6 +2706,10 @@ Global
 		{60347C39-340D-446B-BD2F-20474C0A1348} = {B8BD3B58-16DF-49D7-8BE2-5BB62CBD0AB6}
 		{3A2D8E42-5B2E-48FD-A628-F74AE33FFF28} = {74874844-0621-43DA-A2B5-6E2E448770E9}
 		{BEE765C4-BF79-46A1-822C-4F4B0D70BA6F} = {74874844-0621-43DA-A2B5-6E2E448770E9}
+		{B747BDF9-F216-45C5-900C-38D2C963DEA0} = {BCF60A7D-6084-44C6-B5D8-890087E62556}
+		{66EB8472-8BD8-4107-81A3-AD3A5FE04BB9} = {B747BDF9-F216-45C5-900C-38D2C963DEA0}
+		{FFC73056-4E6A-4C30-A77B-63D9B5B04BA7} = {B747BDF9-F216-45C5-900C-38D2C963DEA0}
+		{2BF9967D-07A6-4D3D-BD7A-8130CF235696} = {B747BDF9-F216-45C5-900C-38D2C963DEA0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
