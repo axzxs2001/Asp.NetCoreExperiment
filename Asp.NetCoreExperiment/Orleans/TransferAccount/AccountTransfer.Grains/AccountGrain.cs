@@ -29,7 +29,7 @@ namespace AccountTransfer.Grains
         {
             this.balance.State.Value += amount;    
             var random = new Random();
-            if (random.Next(1, 10) % 2 == 0)
+            if (random.Next(1, 10) % 5 == 0)
             {
                 throw new Exception("11111");
             }

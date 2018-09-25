@@ -16,7 +16,7 @@ namespace Transactions_Client
     {
         static void Main(string[] args)
         {
-            Console.Title="Client";
+            Console.Title = "Client";
             RunMainAsync().Wait();
             Console.ReadLine();
         }
@@ -27,11 +27,13 @@ namespace Transactions_Client
             {
                 using (var client = await StartClientWithRetries())
                 {
-                    await DoClientWork(client);
-                    Console.ReadKey();
+                    while (true)
+                    {
+                        await DoClientWork(client);
+                        Console.WriteLine("回车重新开始");
+                        Console.ReadLine();
+                    }
                 }
-
-                return 0;
             }
             catch (Exception e)
             {
@@ -91,10 +93,13 @@ namespace Transactions_Client
             try
             {
                 await atm.Transfer(from, to, 100);
+                await atm.Transfer(from, to, 50);
             }
             catch (Exception exc)
             {
-                Console.WriteLine(exc.Message);
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine($"发生异常：{exc.Message}");
+                Console.ResetColor();
             }
             uint fromBalance = await client.GetGrain<IAccountGrain>(from).GetBalance();
             uint toBalance = await client.GetGrain<IAccountGrain>(to).GetBalance();
