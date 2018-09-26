@@ -1,0 +1,113 @@
+﻿using ADONETProviders_Lib;
+using Microsoft.Extensions.Logging;
+using Orleans;
+using Orleans.Configuration;
+using Orleans.Hosting;
+using Orleans.Runtime;
+using System;
+using System.Threading.Tasks;
+
+
+namespace ADONETProviders_Client
+{
+    class Program
+    {
+        const int initializeAttemptsBeforeFailing = 5;
+        private static int attempt = 0;
+
+        static int Main(string[] args)
+        {
+            Console.Title = "Client，回车开始";
+            return RunMainAsync().Result;
+        }
+
+        private static async Task<int> RunMainAsync()
+        {
+            try
+            {
+                using (var client = await StartClientWithRetries())
+                {
+                    await DoClientWork(client);
+                    Console.ReadKey();
+                }
+
+                return 0;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                Console.ReadKey();
+                return 1;
+            }
+        }
+
+        private static async Task<IClusterClient> StartClientWithRetries()
+        {
+            var invariant = "System.Data.SqlClient"; // for Microsoft SQL Server
+            var connectionString = "Data Source=.;Initial Catalog=orleansdb;Persist Security Info=True;User ID=sa;Password=sa;";
+            attempt = 0;
+            IClusterClient client = new ClientBuilder()
+                .UseLocalhostClustering()
+                .Configure<ClusterOptions>(options =>
+                {
+                    options.ClusterId = "dev";
+                    options.ServiceId = "TestApp";
+                })
+                .ConfigureLogging(logging => logging.AddConsole())
+                .UseAdoNetClustering(options =>
+                {
+                    options.Invariant = invariant;
+                    options.ConnectionString = connectionString;
+                })
+                .Build();
+
+            await client.Connect(RetryFilter);
+            Console.WriteLine("Client成功连接服务端");
+            return client;
+        }
+        /// <summary>
+        /// 重连
+        /// </summary>
+        /// <param name="exception"></param>
+        /// <returns></returns>
+        private static async Task<bool> RetryFilter(Exception exception)
+        {
+            if (exception.GetType() != typeof(SiloUnavailableException))
+            {
+                Console.WriteLine($"集群客户端失败连接，返回unexpected error.  Exception: {exception}");
+                return false;
+            }
+            attempt++;
+            Console.WriteLine($"集群客户端试图 {attempt}/{initializeAttemptsBeforeFailing} 失败连接.  Exception: {exception}");
+            if (attempt > initializeAttemptsBeforeFailing)
+            {
+                return false;
+            }
+            await Task.Delay(TimeSpan.FromSeconds(4));
+            return true;
+        }
+        /// <summary>
+        /// 发送
+        /// </summary>
+        /// <param name="client"></param>
+        /// <returns></returns>
+        private static async Task DoClientWork(IClusterClient client)
+        {
+            var hello = client.GetGrain<IHelloGrain>(new Guid());
+            while (true)
+            {
+                Console.WriteLine("1、写入  2、读取");
+                switch (Console.ReadLine())
+                {
+                    case "1":
+                        await hello.Write();
+                        break;
+                    case "2":
+                        await hello.Read();
+                        break;
+                }
+            }
+
+        }
+    }
+}
