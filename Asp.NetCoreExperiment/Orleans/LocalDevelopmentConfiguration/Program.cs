@@ -57,13 +57,25 @@ namespace LocalDevelopmentConfiguration
                     options.ServiceId = "AccountTransferApp";
                 })
                 // 配置连接
-                .Configure<EndpointOptions>(options => options.AdvertisedIPAddress = IPAddress.Loopback)
+                .Configure<EndpointOptions>(options =>
+                {
+                    //Silo到Silo通信端口
+                    options.SiloPort = 11111;
+                    //client到silo通信端口
+                    options.GatewayPort = 30000;
+                    //集群中通知端口
+                    options.AdvertisedIPAddress = IPAddress.Parse("172.16.0.42");
+                    //网关使用的套接字将绑定到此端点
+                    options.GatewayListeningEndpoint = new IPEndPoint(IPAddress.Any, 40000);
+                    //用于silo-to-silo的套接字将绑定到此端点 
+                    options.SiloListeningEndpoint = new IPEndPoint(IPAddress.Any, 50000);
+                })
                 //配置引用的Grain
                 .ConfigureApplicationParts(parts => parts.AddApplicationPart(typeof(MyGrain).Assembly).WithReferences())
                 //配置日志
                 .ConfigureLogging(logging => logging.AddConsole())
                 .Build();
-         
+
             await host.StartAsync();
             return host;
         }
