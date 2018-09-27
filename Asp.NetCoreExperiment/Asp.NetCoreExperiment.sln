@@ -665,19 +665,21 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Configuration", "Configurat
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LocalDevelopmentConfiguration", "Orleans\LocalDevelopmentConfiguration\LocalDevelopmentConfiguration.csproj", "{59938DBD-4465-486C-AA0D-0A73F750F02A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ADONETProviders_SiloHost", "Orleans\ADONETProviders_SiloHost\ADONETProviders_SiloHost.csproj", "{5411C48C-0345-47EA-99CE-E7A6AE1D99B6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ADONETProviders_SiloHost", "Orleans\ADONETProviders_SiloHost\ADONETProviders_SiloHost.csproj", "{5411C48C-0345-47EA-99CE-E7A6AE1D99B6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ADONETProviders_Lib", "Orleans\ADONETProviders_Lib\ADONETProviders_Lib.csproj", "{AA1A3355-97BF-4201-98EA-EB296CFDC1C3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ADONETProviders_Lib", "Orleans\ADONETProviders_Lib\ADONETProviders_Lib.csproj", "{AA1A3355-97BF-4201-98EA-EB296CFDC1C3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ADONETProviders_Client", "Orleans\ADONETProviders_Client\ADONETProviders_Client.csproj", "{01CF66F6-08C8-4D90-8A8A-C1BDD2C14058}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ADONETProviders_Client", "Orleans\ADONETProviders_Client\ADONETProviders_Client.csproj", "{01CF66F6-08C8-4D90-8A8A-C1BDD2C14058}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ADONETProviders_SiloHost001", "Orleans\ADONETProviders_SiloHost001\ADONETProviders_SiloHost001.csproj", "{38862893-5C58-4D84-BB4D-C31F1C92EE63}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ADONETProviders_SiloHost001", "Orleans\ADONETProviders_SiloHost001\ADONETProviders_SiloHost001.csproj", "{38862893-5C58-4D84-BB4D-C31F1C92EE63}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataProtection", "DataProtection", "{6FB23B7D-2409-48BF-A097-E60C15FD3311}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataProtectionDemo001", "DataProtection\DataProtectionDemo001\DataProtectionDemo001.csproj", "{F4BA9AFA-FE81-4E2B-9BB1-A46B799E0A79}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataProtectionDemo001", "DataProtection\DataProtectionDemo001\DataProtectionDemo001.csproj", "{F4BA9AFA-FE81-4E2B-9BB1-A46B799E0A79}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataProtectionDemo002", "DataProtection\DataProtectionDemo002\DataProtectionDemo002.csproj", "{C925A6F7-6DD2-43F8-B180-4FC66E93CBA9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataProtectionDemo002", "DataProtection\DataProtectionDemo002\DataProtectionDemo002.csproj", "{C925A6F7-6DD2-43F8-B180-4FC66E93CBA9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataProtectionDemo003", "DataProtection\DataProtectionDemo003\DataProtectionDemo003.csproj", "{96B57A25-A5C4-4EB7-91AD-0458FD2A07F4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -2515,6 +2517,14 @@ Global
 		{C925A6F7-6DD2-43F8-B180-4FC66E93CBA9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C925A6F7-6DD2-43F8-B180-4FC66E93CBA9}.Release|x64.ActiveCfg = Release|Any CPU
 		{C925A6F7-6DD2-43F8-B180-4FC66E93CBA9}.Release|x64.Build.0 = Release|Any CPU
+		{96B57A25-A5C4-4EB7-91AD-0458FD2A07F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96B57A25-A5C4-4EB7-91AD-0458FD2A07F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96B57A25-A5C4-4EB7-91AD-0458FD2A07F4}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{96B57A25-A5C4-4EB7-91AD-0458FD2A07F4}.Debug|x64.Build.0 = Debug|Any CPU
+		{96B57A25-A5C4-4EB7-91AD-0458FD2A07F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96B57A25-A5C4-4EB7-91AD-0458FD2A07F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96B57A25-A5C4-4EB7-91AD-0458FD2A07F4}.Release|x64.ActiveCfg = Release|Any CPU
+		{96B57A25-A5C4-4EB7-91AD-0458FD2A07F4}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -2792,6 +2802,7 @@ Global
 		{38862893-5C58-4D84-BB4D-C31F1C92EE63} = {9FCB4480-E9A8-4786-8D34-73F52112BEE6}
 		{F4BA9AFA-FE81-4E2B-9BB1-A46B799E0A79} = {6FB23B7D-2409-48BF-A097-E60C15FD3311}
 		{C925A6F7-6DD2-43F8-B180-4FC66E93CBA9} = {6FB23B7D-2409-48BF-A097-E60C15FD3311}
+		{96B57A25-A5C4-4EB7-91AD-0458FD2A07F4} = {6FB23B7D-2409-48BF-A097-E60C15FD3311}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}

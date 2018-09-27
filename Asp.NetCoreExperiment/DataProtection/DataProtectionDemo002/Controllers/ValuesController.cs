@@ -28,7 +28,7 @@ namespace DataProtectionDemo002.Controllers
         public ActionResult<string> Get()
         {
            // var endstring = _dataProtector.Protect("桂素伟");
-            var endstring = _timeLimitedDataProtector.Protect("桂素伟桂素伟桂素伟桂素伟桂素伟桂素伟桂素伟桂素伟桂素伟桂素伟桂素伟桂素伟桂素伟桂素伟桂素伟桂素伟桂素伟桂素伟桂素伟桂素伟桂素伟桂素伟桂素伟桂素伟桂素伟桂素伟桂素伟桂素伟桂素伟桂素伟桂素伟桂素伟桂素伟桂素伟桂素伟桂素伟桂素伟桂素伟桂素伟桂素伟桂素伟桂素伟桂素伟桂素伟", TimeSpan.FromSeconds(540));
+            var endstring = _timeLimitedDataProtector.Protect("桂素伟", TimeSpan.FromSeconds(54000));
             return endstring;
         }
 
@@ -54,7 +54,7 @@ namespace DataProtectionDemo002.Controllers
         [HttpPost]
         public void Post([FromBody] string value)
         {
-            var endstring = _dataProtector.Protect(Encoding.UTF8.GetBytes("桂素伟桂素伟桂素伟桂素伟桂素伟桂素伟桂素伟桂素伟桂素伟桂素伟桂素伟桂素伟桂素伟桂素伟桂素伟桂素伟桂素伟桂素伟桂素伟桂素伟桂素伟桂素伟桂素伟桂素伟桂素伟桂素伟桂素伟桂素伟桂素伟桂素伟桂素伟桂素伟桂素伟桂素伟桂素伟桂素伟桂素伟桂素伟桂素伟桂素伟桂素伟桂素伟桂素伟桂素伟"));
+            var endstring = _dataProtector.Protect(Encoding.UTF8.GetBytes("桂素伟"));
             IPersistedDataProtector persistedProtector = _dataProtector as IPersistedDataProtector;
             if (persistedProtector == null)
             {

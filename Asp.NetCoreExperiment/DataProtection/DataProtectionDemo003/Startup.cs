@@ -14,7 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace DataProtectionDemo002
+namespace DataProtectionDemo003
 {
     public class Startup
     {
@@ -45,6 +45,4 @@ namespace DataProtectionDemo002
             app.UseMvc();
         }
     }
-
-
 }
