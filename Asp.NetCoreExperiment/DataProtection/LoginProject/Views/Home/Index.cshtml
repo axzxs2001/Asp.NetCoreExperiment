@@ -1,0 +1,13 @@
+﻿@model LoginProject.Controllers.Project[]
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="container">
+    @foreach (var project in Model)
+    {
+        <p style="margin-top:20px">
+            <a href="@project.Url" target="_blank">@project.Name</a>
+        </p>
+    }
+</div>

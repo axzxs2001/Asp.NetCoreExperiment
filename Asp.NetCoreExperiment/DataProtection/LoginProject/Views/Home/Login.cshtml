@@ -1,0 +1,50 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+    <form action="/login" method="post">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3"></div>
+                <div class="col-md-6">
+                    <div style="height:80px"></div>
+                </div>
+                <div class="col-md-3"></div>
+            </div>
+            <div class="row" style="margin-top:12px">
+                <div class="col-md-3"></div>
+                <div class="col-md-6">
+                    <input class="form-control" name="username" type="text" placeholder="用户名" />
+                </div>
+                <div class="col-md-3"></div>
+            </div>
+            <div class="row" style="margin-top:12px">
+                <div class="col-md-3"></div>
+                <div class="col-md-6">
+                    <input class="form-control" name="password" type="password" placeholder="密码" />
+                </div>
+                <div class="col-md-3"></div>
+            </div>
+            <div class="row" style="margin-top:12px">
+                <div class="col-md-3"></div>
+                <div class="col-md-6" style="text-align:right;">
+                    <button class="btn btn-success" type="submit">登录</button>
+                </div>
+                <div class="col-md-3"></div>
+            </div>
+        </div>
+    </form>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+</body>
+</html>
