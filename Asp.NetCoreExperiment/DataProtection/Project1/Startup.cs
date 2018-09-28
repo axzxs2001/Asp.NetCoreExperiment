@@ -34,6 +34,7 @@ namespace Project1
             //添加认证Cookie信息
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
             {
+                options.Cookie.Name = "gsw";
                 options.ExpireTimeSpan = TimeSpan.FromHours(1);
                 options.LoginPath = new PathString("/login");
                 options.AccessDeniedPath = new PathString("/denied");

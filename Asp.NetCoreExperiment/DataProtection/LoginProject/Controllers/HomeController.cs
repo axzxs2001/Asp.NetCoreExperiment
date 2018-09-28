@@ -15,17 +15,20 @@ namespace LoginProject.Controllers
     [Authorize(Roles = "user")]
     public class HomeController : Controller
     {
-        readonly ITimeLimitedDataProtector _timeLimitedDataProtector;
+        //readonly ITimeLimitedDataProtector _timeLimitedDataProtector;
         readonly IKeyManager _keyManager;
+        readonly IDataProtectionProvider _provider;
         public HomeController(IDataProtectionProvider provider, IKeyManager keyManager)
         {
-            var dataProtector = provider.CreateProtector("W3E72EFS4MN9LOP0FDWJ7F6E0FSW");
-            _timeLimitedDataProtector = dataProtector.ToTimeLimitedDataProtector();
+            _provider = provider;
             _keyManager = keyManager;
         }
 
         public IActionResult Index()
         {
+            var dataProtector = _provider.CreateProtector("W3E72EFS4MN9LOP0FDWJ7F6E0FSW").CreateProtector(User.Identity.Name); 
+            var _timeLimitedDataProtector = dataProtector.ToTimeLimitedDataProtector();
+           
             var user1 = new { UserName = "gsw", Name = "桂素伟", Role = "admin" };
             var code1 = _timeLimitedDataProtector.Protect(Newtonsoft.Json.JsonConvert.SerializeObject(user1), TimeSpan.FromSeconds(1200));
             var project1 = new Project { Name = "项目一", Url = $"http://localhost:5000/login?code={code1}", Code = code1 };
@@ -37,13 +40,15 @@ namespace LoginProject.Controllers
         }
         [HttpGet("/overdue")]
         public IActionResult Overdue()
-        {
-            _keyManager.RevokeAllKeys(DateTimeOffset.Now, "Sample revocation.");
+        {           
+            _keyManager.RevokeAllKeys(DateTimeOffset.Now, "无理由取消");
             return Ok();
         }
         [HttpGet("/read")]
         public IActionResult Read(string code)
         {
+            var dataProtector = _provider.CreateProtector("W3E72EFS4MN9LOP0FDWJ7F6E0FSW").CreateProtector(User.Identity.Name);
+            var _timeLimitedDataProtector = dataProtector.ToTimeLimitedDataProtector();
             DateTimeOffset dateTimeOffset;
             var result = _timeLimitedDataProtector.Unprotect(code, out dateTimeOffset);
             return Content($"{result}:{dateTimeOffset.LocalDateTime}");
@@ -65,6 +70,15 @@ namespace LoginProject.Controllers
                 identity.AddClaim(new Claim(ClaimTypes.Sid, username));
                 identity.AddClaim(new Claim(ClaimTypes.Role, "user"));
                 identity.AddClaim(new Claim(ClaimTypes.Name, "桂素伟"));
+                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(identity));
+                return Redirect("/");
+            }
+            if (username == "ggg" && password == "222222")
+            {
+                var identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme);
+                identity.AddClaim(new Claim(ClaimTypes.Sid, username));
+                identity.AddClaim(new Claim(ClaimTypes.Role, "user"));
+                identity.AddClaim(new Claim(ClaimTypes.Name, "谁是谁"));
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(identity));
                 return Redirect("/");
             }

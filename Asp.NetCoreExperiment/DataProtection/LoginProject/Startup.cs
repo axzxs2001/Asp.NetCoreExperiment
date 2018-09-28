@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authentication.Cookies;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.DataProtection.KeyManagement;
@@ -12,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using PGRepository;
+using System;
 
 namespace LoginProject
 {
@@ -27,7 +24,10 @@ namespace LoginProject
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.Configure<KeyManagementOptions>(options => options.XmlRepository = new PostgreSqlDataProtRepository());
+            services.Configure<KeyManagementOptions>(options =>
+            {
+                options.XmlRepository = new PostgreSqlDataProtRepository();
+            });
             services.AddDataProtection().SetApplicationName("LoginProject");
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.DataProtection;
+using Microsoft.AspNetCore.DataProtection.KeyManagement;
 using Microsoft.AspNetCore.Mvc;
 using Project1.Models;
 using System;
@@ -16,10 +17,12 @@ namespace Project1.Controllers
     public class HomeController : Controller
     {
         readonly ITimeLimitedDataProtector _timeLimitedDataProtector;
-        public HomeController(IDataProtectionProvider provider)
+        readonly IKeyManager _keyManager;
+        public HomeController(IDataProtectionProvider provider, IKeyManager keyManager)
         {
-            var dataProtector = provider.CreateProtector("W3E72EFS4MN9LOP0FDWJ7F6E0FSW");
+            var dataProtector = provider.CreateProtector("W3E72EFS4MN9LOP0FDWJ7F6E0FSW").CreateProtector(User.Identity.Name);
             _timeLimitedDataProtector = dataProtector.ToTimeLimitedDataProtector();
+            _keyManager = keyManager;
         }
         [AllowAnonymous]
         [HttpGet("/login")]
@@ -44,7 +47,13 @@ namespace Project1.Controllers
                 return Redirect("/home/error");
             }
         }
-
+        [AllowAnonymous]
+        [HttpGet("/overdue")]
+        public IActionResult Overdue()
+        {
+            _keyManager.RevokeAllKeys(DateTimeOffset.Now, "无理由取消");
+            return Ok();
+        }
         public IActionResult Index()
         {
             return View();

@@ -29,6 +29,9 @@
 
     <script>
         function overdue() {
+            //$.get("http://localhost:5000/overdue", function (result) {
+            //    console.log(result);             
+            //})
             $.get("/overdue", function (result) {
                 console.log(result);
             })
