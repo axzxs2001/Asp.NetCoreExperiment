@@ -29,7 +29,13 @@ namespace Project1
         {
             services.Configure<KeyManagementOptions>(options => options.XmlRepository = new PostgreSqlDataProtRepository());
             services.AddDataProtection().SetApplicationName("LoginProject");
-
+            services.Configure<CookiePolicyOptions>(options =>
+            {
+                // This lambda determines whether user consent for non-essential cookies 
+                // is needed for a given request.
+                options.CheckConsentNeeded = context => true;
+                options.MinimumSameSitePolicy = SameSiteMode.None;
+            });
 
             //添加认证Cookie信息
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
@@ -57,6 +63,7 @@ namespace Project1
             }
 
             app.UseStaticFiles();
+            app.UseCookiePolicy();
             app.UseAuthentication();
 
             app.UseMvc(routes =>

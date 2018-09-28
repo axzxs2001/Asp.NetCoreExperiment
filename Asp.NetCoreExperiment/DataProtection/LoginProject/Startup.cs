@@ -30,13 +30,19 @@ namespace LoginProject
             });
             services.AddDataProtection().SetApplicationName("LoginProject");
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-
+            services.Configure<CookiePolicyOptions>(options =>
+            {
+                // This lambda determines whether user consent for non-essential cookies 
+                // is needed for a given request.
+                options.CheckConsentNeeded = context => true;
+                options.MinimumSameSitePolicy = SameSiteMode.None;
+            });
             //添加认证Cookie信息
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
             {
                 options.ExpireTimeSpan = TimeSpan.FromHours(1);
                 options.LoginPath = new PathString("/login");
-                options.AccessDeniedPath = new PathString("/login");
+                options.AccessDeniedPath = new PathString("/login");             
             });
         }
 
@@ -53,6 +59,7 @@ namespace LoginProject
             }
 
             app.UseStaticFiles();
+            app.UseCookiePolicy();
             app.UseAuthentication();
 
             app.UseMvc(routes =>

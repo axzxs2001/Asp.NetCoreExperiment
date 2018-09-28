@@ -20,7 +20,7 @@ namespace Project1.Controllers
         readonly IKeyManager _keyManager;
         public HomeController(IDataProtectionProvider provider, IKeyManager keyManager)
         {
-            var dataProtector = provider.CreateProtector("W3E72EFS4MN9LOP0FDWJ7F6E0FSW").CreateProtector(User.Identity.Name);
+            var dataProtector = provider.CreateProtector("W3E72EFS4MN9LOP0FDWJ7F6E0FSW");
             _timeLimitedDataProtector = dataProtector.ToTimeLimitedDataProtector();
             _keyManager = keyManager;
         }

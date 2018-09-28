@@ -14,10 +14,10 @@
 
         @foreach (var project in Model)
         {
-            <p style="margin-top:20px">
-                <a href="@project.Url" target="_blank">@project.Name</a><br />
-                <button class="btn btn-default" onclick="read('@project.Code')" target="_blank">@project.Name</button>
-            </p>
+        <p style="margin-top:20px">           
+            <button class="btn btn-success" onclick="goto('@project.Url')" >@project.Name</button>
+            <button class="btn btn-default" onclick="read('@project.Code')">@project.Name</button>
+        </p>
         }
 
     </div>
@@ -36,11 +36,13 @@
                 console.log(result);
             })
         }
-        function read(code) {
-            console.log(code)
+        function read(code) {           
             $.get("/read", { code: code }, function (result) {
                 $("#message").html(result);
             })
+        }
+        function goto(url) {
+            window.open(url, "_blank");       
         }
     </script>
 }
