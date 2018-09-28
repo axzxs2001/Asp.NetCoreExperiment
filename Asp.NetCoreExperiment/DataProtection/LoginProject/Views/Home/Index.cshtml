@@ -1,4 +1,4 @@
-﻿@model LoginProject.Controllers.Project[]
+﻿
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -10,15 +10,7 @@
 
         </div>
     </div>
-    <div class="row">
-
-        @foreach (var project in Model)
-        {
-        <p style="margin-top:20px">           
-            <button class="btn btn-success" onclick="goto('@project.Url')" >@project.Name</button>
-            <button class="btn btn-default" onclick="read('@project.Code')">@project.Name</button>
-        </p>
-        }
+    <div class="row" id="pros">     
 
     </div>
     <div>
@@ -28,21 +20,35 @@
 @section Scripts{
 
     <script>
+
+        function getProjects() {
+            $.get("/projects", function (projects) {
+                $("#pros").html('');
+                $.each(projects, function (index, ele) {
+                    $("#pros").append('<p style="margin-top:20px"> <button class="btn btn-success" onclick="goto(\'' + ele.url + '\')" >' + ele.name + '</button>&nbsp <button class="btn btn-default" onclick="read(\'' + ele.code + '\')">' + ele.name + '</button>       </p>');
+                })
+            })
+        }
+        $(function () {
+            getProjects();
+            setInterval(getProjects, 10000);            
+        })
+
         function overdue() {
             //$.get("http://localhost:5000/overdue", function (result) {
-            //    console.log(result);             
+            //    console.log(result);
             //})
             $.get("/overdue", function (result) {
                 console.log(result);
             })
         }
-        function read(code) {           
+        function read(code) {
             $.get("/read", { code: code }, function (result) {
                 $("#message").html(result);
             })
         }
         function goto(url) {
-            window.open(url, "_blank");       
+            window.open(url, "_blank");
         }
     </script>
 }

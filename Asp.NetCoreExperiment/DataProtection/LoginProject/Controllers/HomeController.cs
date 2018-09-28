@@ -28,16 +28,22 @@ namespace LoginProject.Controllers
 
         public IActionResult Index()
         {
+            return View();
+        }
 
+        [HttpGet("/projects")]
+        public IActionResult Projects()
+        {
             var user1 = new { UserName = "gsw", Name = "桂素伟", Role = "admin" };
-            var code1 = _timeLimitedDataProtector.Protect(Newtonsoft.Json.JsonConvert.SerializeObject(user1), TimeSpan.FromSeconds(1200));
+            var code1 = _timeLimitedDataProtector.Protect(Newtonsoft.Json.JsonConvert.SerializeObject(user1), TimeSpan.FromSeconds(10));
             var project1 = new Project { Name = "项目一", Url = $"http://localhost:5000/login?code={code1}", Code = code1 };
 
             var user2 = new { UserName = "ggg", Name = "谁是谁", Role = "system" };
-            var code2 = _timeLimitedDataProtector.Protect(Newtonsoft.Json.JsonConvert.SerializeObject(user2), TimeSpan.FromSeconds(2100));
+            var code2 = _timeLimitedDataProtector.Protect(Newtonsoft.Json.JsonConvert.SerializeObject(user2), TimeSpan.FromSeconds(10));
             var project2 = new Project { Name = "项目二", Url = $"http://localhost:5001/login?code={code2}", Code = code2 };
-            return View(new Project[] { project1, project2 });
+            return new JsonResult(new Project[] { project1, project2 });
         }
+
         [HttpGet("/overdue")]
         public IActionResult Overdue()
         {
