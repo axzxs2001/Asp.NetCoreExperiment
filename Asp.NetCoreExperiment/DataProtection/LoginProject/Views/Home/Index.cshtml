@@ -4,10 +4,40 @@
 }
 
 <div class="container">
-    @foreach (var project in Model)
-    {
-        <p style="margin-top:20px">
-            <a href="@project.Url" target="_blank">@project.Name</a>
-        </p>
-    }
+    <div class="row">
+        <div class="col-md-12">
+            <button class="btn btn-primary" onclick="overdue()">作废</button>
+
+        </div>
+    </div>
+    <div class="row">
+
+        @foreach (var project in Model)
+        {
+            <p style="margin-top:20px">
+                <a href="@project.Url" target="_blank">@project.Name</a><br />
+                <button class="btn btn-default" onclick="read('@project.Code')" target="_blank">@project.Name</button>
+            </p>
+        }
+
+    </div>
+    <div>
+        <span id="message"></span>
+    </div>
 </div>
+@section Scripts{
+
+    <script>
+        function overdue() {
+            $.get("/overdue", function (result) {
+                console.log(result);
+            })
+        }
+        function read(code) {
+            console.log(code)
+            $.get("/read", { code: code }, function (result) {
+                $("#message").html(result);
+            })
+        }
+    </script>
+}

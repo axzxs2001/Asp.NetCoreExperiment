@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.DataProtection;
+using Microsoft.AspNetCore.DataProtection.KeyManagement;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Diagnostics;
@@ -15,24 +16,38 @@ namespace LoginProject.Controllers
     public class HomeController : Controller
     {
         readonly ITimeLimitedDataProtector _timeLimitedDataProtector;
-        public HomeController(IDataProtectionProvider provider)
+        readonly IKeyManager _keyManager;
+        public HomeController(IDataProtectionProvider provider, IKeyManager keyManager)
         {
             var dataProtector = provider.CreateProtector("W3E72EFS4MN9LOP0FDWJ7F6E0FSW");
             _timeLimitedDataProtector = dataProtector.ToTimeLimitedDataProtector();
+            _keyManager = keyManager;
         }
-  
+
         public IActionResult Index()
         {
             var user1 = new { UserName = "gsw", Name = "桂素伟", Role = "admin" };
             var code1 = _timeLimitedDataProtector.Protect(Newtonsoft.Json.JsonConvert.SerializeObject(user1), TimeSpan.FromSeconds(1200));
-            var project1 = new Project { Name = "项目一", Url = $"http://localhost:5000/login?code={code1}" };
+            var project1 = new Project { Name = "项目一", Url = $"http://localhost:5000/login?code={code1}", Code = code1 };
 
             var user2 = new { UserName = "ggg", Name = "谁是谁", Role = "system" };
             var code2 = _timeLimitedDataProtector.Protect(Newtonsoft.Json.JsonConvert.SerializeObject(user2), TimeSpan.FromSeconds(2100));
-            var project2 = new Project { Name = "项目二", Url = $"http://localhost:5001/login?code={code2}" };
+            var project2 = new Project { Name = "项目二", Url = $"http://localhost:5001/login?code={code2}", Code = code2 };
             return View(new Project[] { project1, project2 });
         }
-     
+        [HttpGet("/overdue")]
+        public IActionResult Overdue()
+        {
+            _keyManager.RevokeAllKeys(DateTimeOffset.Now, "Sample revocation.");
+            return Ok();
+        }
+        [HttpGet("/read")]
+        public IActionResult Read(string code)
+        {
+            DateTimeOffset dateTimeOffset;
+            var result = _timeLimitedDataProtector.Unprotect(code, out dateTimeOffset);
+            return Content($"{result}:{dateTimeOffset.LocalDateTime}");
+        }
         [AllowAnonymous]
         [HttpGet("/login")]
         public IActionResult Login()
@@ -94,6 +109,9 @@ namespace LoginProject.Controllers
         public string Name
         { get; set; }
         public string Url
+        { get; set; }
+
+        public string Code
         { get; set; }
     }
 }

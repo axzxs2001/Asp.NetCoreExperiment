@@ -5,11 +5,13 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.DataProtection;
+using Microsoft.AspNetCore.DataProtection.KeyManagement;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using PGRepository;
 
 namespace LoginProject
 {
@@ -25,6 +27,7 @@ namespace LoginProject
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<KeyManagementOptions>(options => options.XmlRepository = new PostgreSqlDataProtRepository());
             services.AddDataProtection().SetApplicationName("LoginProject");
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
@@ -33,7 +36,7 @@ namespace LoginProject
             {
                 options.ExpireTimeSpan = TimeSpan.FromHours(1);
                 options.LoginPath = new PathString("/login");
-                options.AccessDeniedPath = new PathString("/denied");
+                options.AccessDeniedPath = new PathString("/login");
             });
         }
 

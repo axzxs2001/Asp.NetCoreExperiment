@@ -679,13 +679,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataProtectionDemo001", "Da
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataProtectionDemo002", "DataProtection\DataProtectionDemo002\DataProtectionDemo002.csproj", "{C925A6F7-6DD2-43F8-B180-4FC66E93CBA9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataProtectionDemo003", "DataProtection\DataProtectionDemo003\DataProtectionDemo003.csproj", "{96B57A25-A5C4-4EB7-91AD-0458FD2A07F4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataProtectionDemo003", "DataProtection\DataProtectionDemo003\DataProtectionDemo003.csproj", "{96B57A25-A5C4-4EB7-91AD-0458FD2A07F4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "单点登录", "单点登录", "{3F1D6B80-5CFD-45B6-BA0A-BB590E61E092}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoginProject", "DataProtection\LoginProject\LoginProject.csproj", "{7992EDAF-E3FF-4CFE-91A2-3D4A64CD1C53}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LoginProject", "DataProtection\LoginProject\LoginProject.csproj", "{7992EDAF-E3FF-4CFE-91A2-3D4A64CD1C53}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Project1", "DataProtection\Project1\Project1.csproj", "{063B6C23-4286-4C7D-85CB-95137286A3C7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Project1", "DataProtection\Project1\Project1.csproj", "{063B6C23-4286-4C7D-85CB-95137286A3C7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PGRepository", "DataProtection\MyRepository\PGRepository.csproj", "{1B96D2E2-D98F-451E-B629-B8DE8F17816D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -2547,6 +2549,14 @@ Global
 		{063B6C23-4286-4C7D-85CB-95137286A3C7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{063B6C23-4286-4C7D-85CB-95137286A3C7}.Release|x64.ActiveCfg = Release|Any CPU
 		{063B6C23-4286-4C7D-85CB-95137286A3C7}.Release|x64.Build.0 = Release|Any CPU
+		{1B96D2E2-D98F-451E-B629-B8DE8F17816D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B96D2E2-D98F-451E-B629-B8DE8F17816D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B96D2E2-D98F-451E-B629-B8DE8F17816D}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{1B96D2E2-D98F-451E-B629-B8DE8F17816D}.Debug|x64.Build.0 = Debug|Any CPU
+		{1B96D2E2-D98F-451E-B629-B8DE8F17816D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B96D2E2-D98F-451E-B629-B8DE8F17816D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B96D2E2-D98F-451E-B629-B8DE8F17816D}.Release|x64.ActiveCfg = Release|Any CPU
+		{1B96D2E2-D98F-451E-B629-B8DE8F17816D}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -2828,6 +2838,7 @@ Global
 		{3F1D6B80-5CFD-45B6-BA0A-BB590E61E092} = {6FB23B7D-2409-48BF-A097-E60C15FD3311}
 		{7992EDAF-E3FF-4CFE-91A2-3D4A64CD1C53} = {3F1D6B80-5CFD-45B6-BA0A-BB590E61E092}
 		{063B6C23-4286-4C7D-85CB-95137286A3C7} = {3F1D6B80-5CFD-45B6-BA0A-BB590E61E092}
+		{1B96D2E2-D98F-451E-B629-B8DE8F17816D} = {3F1D6B80-5CFD-45B6-BA0A-BB590E61E092}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
