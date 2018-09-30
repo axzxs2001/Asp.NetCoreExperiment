@@ -655,9 +655,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GrainServices_Lib", "Orlean
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OrleansTransactions", "OrleansTransactions", "{B747BDF9-F216-45C5-900C-38D2C963DEA0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Transactions_Lib", "Orleans\Transactions_Lib\Transactions_Lib.csproj", "{66EB8472-8BD8-4107-81A3-AD3A5FE04BB9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Transactions_Lib", "Orleans\Transactions_Lib\Transactions_Lib.csproj", "{66EB8472-8BD8-4107-81A3-AD3A5FE04BB9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Transactions_SiloHost", "Orleans\OrleansTransactions_SiloHost\Transactions_SiloHost.csproj", "{FFC73056-4E6A-4C30-A77B-63D9B5B04BA7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Transactions_SiloHost", "Orleans\OrleansTransactions_SiloHost\Transactions_SiloHost.csproj", "{FFC73056-4E6A-4C30-A77B-63D9B5B04BA7}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Transactions_Client", "Orleans\Transactions_Client\Transactions_Client.csproj", "{2BF9967D-07A6-4D3D-BD7A-8130CF235696}"
 EndProject
@@ -687,7 +687,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LoginProject", "DataProtect
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Project1", "DataProtection\Project1\Project1.csproj", "{063B6C23-4286-4C7D-85CB-95137286A3C7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PGRepository", "DataProtection\MyRepository\PGRepository.csproj", "{1B96D2E2-D98F-451E-B629-B8DE8F17816D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PGRepository", "DataProtection\MyRepository\PGRepository.csproj", "{1B96D2E2-D98F-451E-B629-B8DE8F17816D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Serialization", "Serialization", "{788D2627-5BF1-4CF9-982D-E34D61216A2B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Serialization_Client", "Serialization_Client\Serialization_Client.csproj", "{85F23B63-DB82-426A-9C19-B22F8FAAAA14}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -2557,6 +2561,14 @@ Global
 		{1B96D2E2-D98F-451E-B629-B8DE8F17816D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1B96D2E2-D98F-451E-B629-B8DE8F17816D}.Release|x64.ActiveCfg = Release|Any CPU
 		{1B96D2E2-D98F-451E-B629-B8DE8F17816D}.Release|x64.Build.0 = Release|Any CPU
+		{85F23B63-DB82-426A-9C19-B22F8FAAAA14}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{85F23B63-DB82-426A-9C19-B22F8FAAAA14}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{85F23B63-DB82-426A-9C19-B22F8FAAAA14}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{85F23B63-DB82-426A-9C19-B22F8FAAAA14}.Debug|x64.Build.0 = Debug|Any CPU
+		{85F23B63-DB82-426A-9C19-B22F8FAAAA14}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{85F23B63-DB82-426A-9C19-B22F8FAAAA14}.Release|Any CPU.Build.0 = Release|Any CPU
+		{85F23B63-DB82-426A-9C19-B22F8FAAAA14}.Release|x64.ActiveCfg = Release|Any CPU
+		{85F23B63-DB82-426A-9C19-B22F8FAAAA14}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -2839,6 +2851,8 @@ Global
 		{7992EDAF-E3FF-4CFE-91A2-3D4A64CD1C53} = {3F1D6B80-5CFD-45B6-BA0A-BB590E61E092}
 		{063B6C23-4286-4C7D-85CB-95137286A3C7} = {3F1D6B80-5CFD-45B6-BA0A-BB590E61E092}
 		{1B96D2E2-D98F-451E-B629-B8DE8F17816D} = {3F1D6B80-5CFD-45B6-BA0A-BB590E61E092}
+		{788D2627-5BF1-4CF9-982D-E34D61216A2B} = {BCF60A7D-6084-44C6-B5D8-890087E62556}
+		{85F23B63-DB82-426A-9C19-B22F8FAAAA14} = {788D2627-5BF1-4CF9-982D-E34D61216A2B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
