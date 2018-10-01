@@ -53,8 +53,10 @@ namespace Serialization_Client
                     options.ClusterId = "dev";
                     options.ServiceId = "TestApp";
 
-                }).Configure<SerializationProviderOptions>(options =>
+                })
+                .Configure<SerializationProviderOptions>(options =>
                 {
+                    //添加格式化器
                     options.SerializationProviders.Add(typeof(ProtobufSerializer).GetTypeInfo());
                 })
 
@@ -99,26 +101,5 @@ namespace Serialization_Client
         }
     }
 
-    public class MySerializer : IExternalSerializer
-    {
-        public object DeepCopy(object source, ICopyContext context)
-        {
-            throw new NotImplementedException();
-        }
 
-        public object Deserialize(Type expectedType, IDeserializationContext context)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool IsSupportedType(Type itemType)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Serialize(object item, ISerializationContext context, Type expectedType)
-        {
-            throw new NotImplementedException();
-        }
-    }
 }
