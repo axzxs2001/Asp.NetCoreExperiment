@@ -1,11 +1,48 @@
 ﻿using Orleans.CodeGeneration;
 using Orleans.Serialization;
 using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Runtime.Serialization;
 
 namespace Serialization_Client
 {
+    #region 方法一
+    class Goods
+    {
+        public int ID { get; set; }
+
+        public string Name { get; set; }
+
+        public decimal Price { get; set; }
+        public double Quantity { get; set; }
+
+        [CopierMethod]
+        static private object Copy(object input, ICopyContext context)
+        {
+            var inputCopy = context.CheckObjectWhileCopying(input);
+
+            if (inputCopy == null)
+            {
+                context.RecordCopy(input, inputCopy);
+            }
+            var copy = SerializationManager.DeepCopyInner(input, context);
+            return copy;
+        }
+
+        [SerializerMethod]
+        static private void Serialize(object input, ISerializationContext context, Type expected)
+        {
+            SerializationManager.SerializeInner(input, context, expected);
+        }
+
+        [DeserializerMethod]
+        static private object Deserialize(Type expected, IDeserializationContext context)
+        {
+            return SerializationManager.DeserializeInner(expected, context);
+        }
+    }
+    #endregion
+
+    #region 方法二
     public class MySerializer : IExternalSerializer
     {
         public object DeepCopy(object source, ICopyContext context)
@@ -29,8 +66,9 @@ namespace Serialization_Client
             throw new NotImplementedException();
         }
     }
+    #endregion
 
-
+    #region 方法三
     public class User
     {
         public User BestFriend { get; set; }
@@ -55,10 +93,10 @@ namespace Serialization_Client
             context.RecordCopy(original, result);
 
             // Deep-copy each of the fields.
-            result.BestFriend =(User)SerializationManager.DeepCopyInner(input.BestFriend,context);
+            result.BestFriend = (User)SerializationManager.DeepCopyInner(input.BestFriend, context);
             result.NickName = input.NickName; // strings in .NET are immutable, so they can be shallow-copied.
             result.FavoriteNumber = input.FavoriteNumber; // ints are primitive value types, so they can be shallow-copied.
-            result.BirthDate = (DateTimeOffset)SerializationManager.DeepCopyInner(input.BirthDate,context);
+            result.BirthDate = (DateTimeOffset)SerializationManager.DeepCopyInner(input.BirthDate, context);
 
             return result;
         }
@@ -91,6 +129,38 @@ namespace Serialization_Client
             result.BirthDate = SerializationManager.DeserializeInner<DateTimeOffset>(context);
 
             return result;
+        }
+    }
+    #endregion
+
+
+    [Serializable]
+    public class MyCustomException : Exception
+    {
+        public string MyProperty { get; }
+
+        public MyCustomException(string myProperty, string message)
+            : base(message)
+        {
+            this.MyProperty = myProperty;
+        }
+
+        public MyCustomException(string transactionId, string message, Exception innerException)
+            : base(message, innerException)
+        {
+            this.MyProperty = transactionId;
+        }
+
+        public MyCustomException(SerializationInfo info, StreamingContext context)
+            : base(info, context)
+        {
+            this.MyProperty = info.GetString(nameof(this.MyProperty));
+        }
+
+        public override void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            base.GetObjectData(info, context);
+            info.AddValue(nameof(this.MyProperty), this.MyProperty);
         }
     }
 }
