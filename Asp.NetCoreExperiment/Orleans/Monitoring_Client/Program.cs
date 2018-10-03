@@ -51,7 +51,7 @@ namespace Monitoring_Client
                     options.ClusterId = "dev";
                     options.ServiceId = "TestApp";
                 })
-                .ConfigureLogging(logging => logging.AddConsole())
+                .ConfigureLogging(logging => logging.AddConsole())    
                 .Configure<TelemetryOptions>(options => options.AddConsumer<AITelemetryConsumer>())
                 .Build();
 

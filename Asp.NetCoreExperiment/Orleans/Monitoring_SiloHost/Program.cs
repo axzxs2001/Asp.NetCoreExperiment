@@ -6,12 +6,10 @@ using Monitoring_Lib;
 using Orleans;
 using Orleans.Configuration;
 using Orleans.Hosting;
-using Orleans.Runtime;
 using Orleans.TelemetryConsumers.AI;
 using System;
 using System.Net;
 using System.Threading.Tasks;
-
 
 namespace Monitoring_SiloHost
 {
@@ -63,9 +61,15 @@ namespace Monitoring_SiloHost
                 .ConfigureLogging(logging => logging.AddConsole())
                 .UseInMemoryReminderService()
                 .UseLocalhostClustering()
-                .Configure<TelemetryOptions>(options => options.AddConsumer<AITelemetryConsumer>());   
+                //.UseConsulClustering(opt =>
+                //{
+                //    opt.Address = new Uri("");
+                //    opt.KvRootFolder = "";
+                //    opt.AclClientToken = "";
+                //})
+                .Configure<TelemetryOptions>(options => options.AddConsumer<AITelemetryConsumer>());
 
-            
+
             var host = builder.Build();
             await host.StartAsync();
             return host;
