@@ -703,11 +703,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Monitoring_SiloHost", "Orle
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HelloWorld", "HelloWorld", "{30DF39A4-81CF-4518-9B9B-F025E9E10E49}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloWorld_Client", "Orleans\HelloWorld_Client\HelloWorld_Client.csproj", "{EF351878-CC01-48FB-9F29-37D754D16BE2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HelloWorld_Client", "Orleans\HelloWorld_Client\HelloWorld_Client.csproj", "{EF351878-CC01-48FB-9F29-37D754D16BE2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloWorld_Lib", "Orleans\HelloWorld_Lib\HelloWorld_Lib.csproj", "{42A40DC6-EF1B-4B78-823A-9BD15E4C8286}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HelloWorld_Lib", "Orleans\HelloWorld_Lib\HelloWorld_Lib.csproj", "{42A40DC6-EF1B-4B78-823A-9BD15E4C8286}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloWorld_SiloHost", "Orleans\HelloWorld_SiloHost\HelloWorld_SiloHost.csproj", "{C3C94959-EA3D-4BE0-B803-F87C3DD8E922}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HelloWorld_SiloHost", "Orleans\HelloWorld_SiloHost\HelloWorld_SiloHost.csproj", "{C3C94959-EA3D-4BE0-B803-F87C3DD8E922}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
