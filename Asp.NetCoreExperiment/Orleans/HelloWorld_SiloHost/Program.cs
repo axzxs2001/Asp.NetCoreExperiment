@@ -1,14 +1,16 @@
 ﻿
 
+using HelloWorld_Lib;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Logging;
 using Orleans;
 using Orleans.Configuration;
 using Orleans.Hosting;
 using System;
+using System.IO;
 using System.Net;
 using System.Threading.Tasks;
-using Microsoft.Extensions.DependencyInjection;
-using HelloWorld_Lib;
 
 namespace HelloWorld_SiloHost
 {
@@ -53,10 +55,18 @@ namespace HelloWorld_SiloHost
                    .ConfigureApplicationParts(parts => parts.AddApplicationPart(assambly).WithReferences())
                    .ConfigureLogging(logging => logging.AddConsole())
                    .UseInMemoryReminderService()
+                   .UseServiceProviderFactory(opt =>
+                   {                      
+
+                      
+                       opt.AddTransient<IAAA, AAA>();
+                       return opt.BuildServiceProvider();
+                   })
                    .UseLocalhostClustering();
 
 
             var host = builder.Build();
+
             await host.StartAsync();
             return host;
         }
@@ -64,6 +74,7 @@ namespace HelloWorld_SiloHost
 
 
     }
+
 
 
 
