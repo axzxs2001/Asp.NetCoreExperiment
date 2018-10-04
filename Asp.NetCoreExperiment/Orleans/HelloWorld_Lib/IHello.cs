@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.FileProviders;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.FileProviders;
 using Newtonsoft.Json.Linq;
 using Orleans;
 using Orleans.Runtime;
@@ -39,12 +40,16 @@ namespace HelloWorld_Lib
     }
     public class AAA : IAAA
     {
+        readonly IConfiguration _configuration;
+        public AAA(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
         public Task F()
-        {           
-            var jsonFile = $"{Directory.GetCurrentDirectory()}/appsettings.json";
-            var content = File.ReadAllText(jsonFile, Encoding.Default);
-            var jsonObj = Newtonsoft.Json.JsonConvert.DeserializeObject<JObject>(content);
-            Console.WriteLine($"这是AAA里的F方法，读取配置文件:{jsonObj.GetValue("name")}");
+        {
+            Console.WriteLine($"这是AAA里的F方法，读取配置文件:{_configuration.GetSection("name").Value}");
+            Console.WriteLine($"这是AAA里的F方法，读取配置文件:{_configuration.GetSection("a").GetSection("a2").GetSection("a21").Value}");
+            Console.WriteLine($"这是AAA里的F方法，读取配置文件:{_configuration.GetSection("a:a2:a22").Value}");
             return Task.CompletedTask;
         }
     }

@@ -1,8 +1,8 @@
 ﻿
 
 using HelloWorld_Lib;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Logging;
 using Orleans;
 using Orleans.Configuration;
@@ -41,8 +41,15 @@ namespace HelloWorld_SiloHost
             }
         }
 
+
         private static async Task<ISiloHost> StartSilo()
         {
+            var config = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                .Build();
+
+
             var assambly = typeof(IHelloWorldGrain).Assembly;
             var builder = new SiloHostBuilder()
                    .UseLocalhostClustering()
@@ -54,11 +61,13 @@ namespace HelloWorld_SiloHost
                    .Configure<EndpointOptions>(options => options.AdvertisedIPAddress = IPAddress.Loopback)
                    .ConfigureApplicationParts(parts => parts.AddApplicationPart(assambly).WithReferences())
                    .ConfigureLogging(logging => logging.AddConsole())
+                   .ConfigureAppConfiguration(context =>
+                   {
+                       context.AddConfiguration(config);
+                   })
                    .UseInMemoryReminderService()
                    .UseServiceProviderFactory(opt =>
-                   {                      
-
-                      
+                   {
                        opt.AddTransient<IAAA, AAA>();
                        return opt.BuildServiceProvider();
                    })
