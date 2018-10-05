@@ -250,3 +250,5 @@ paket-files/
 # JetBrains Rider
 .idea/
 *.sln.iml
+/Asp.NetCoreExperiment/Orleans/WebSample/WebSiloHost/OrleansAdoNetContent
+/Asp.NetCoreExperiment/Orleans/HelloWorld_SiloHost/OrleansAdoNetContent
