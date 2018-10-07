@@ -7,7 +7,8 @@ namespace GrainHub
     {
         public Task<bool> Settlement(DateTime dateTime)
         {
-            throw new NotImplementedException();
+            Console.WriteLine(dateTime);
+            return Task.FromResult(true) ;
         }
     }
 }
