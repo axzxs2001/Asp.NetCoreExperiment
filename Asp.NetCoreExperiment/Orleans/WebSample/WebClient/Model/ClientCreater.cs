@@ -33,7 +33,7 @@ namespace WebClient.Model
                  .Build();
 
             await client.Connect(RetryFilter);
-            ;
+         
             return client;
         }
 

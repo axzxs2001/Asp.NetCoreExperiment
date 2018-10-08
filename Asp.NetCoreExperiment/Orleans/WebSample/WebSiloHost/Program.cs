@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using GrainHub;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Orleans;
@@ -50,7 +51,8 @@ namespace WebSiloHost
             var invariant = "System.Data.SqlClient";
             var connectionString = config.GetConnectionString("DefaultConnectionString");
 
-            var assambly = typeof(Program).Assembly;
+            var assambly = typeof(ISettlementGrain).Assembly;
+
             var builder = new SiloHostBuilder()
                 .UseLocalhostClustering()
                    .Configure<ClusterOptions>(options =>
@@ -93,7 +95,6 @@ namespace WebSiloHost
 
 
             var host = builder.Build();
-
             await host.StartAsync();
             return host;
         }

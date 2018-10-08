@@ -9,11 +9,11 @@ namespace WebClient.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ValuesController : ControllerBase
+    public class SettlementController : ControllerBase
     {
 
         readonly ISettlementRepository _settlementRepository;
-        public ValuesController(ISettlementRepository settlementRepository)
+        public SettlementController(ISettlementRepository settlementRepository)
         {
             _settlementRepository = settlementRepository;
         }

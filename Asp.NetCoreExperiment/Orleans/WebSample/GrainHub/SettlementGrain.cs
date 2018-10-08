@@ -1,14 +1,17 @@
-﻿using System;
+﻿using Orleans;
+using Orleans.Providers;
+using System;
 using System.Threading.Tasks;
 
 namespace GrainHub
 {
-    public class SettlementGrain : ISettlementGrain
+    [StorageProvider(ProviderName = "SettlementStore")]
+    public class SettlementGrain :Grain, ISettlementGrain
     {
         public Task<bool> Settlement(DateTime dateTime)
         {
             Console.WriteLine(dateTime);
-            return Task.FromResult(true) ;
+            return Task.FromResult(true);
         }
     }
 }
