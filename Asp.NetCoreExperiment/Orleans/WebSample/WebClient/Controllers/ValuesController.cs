@@ -19,7 +19,7 @@ namespace WebClient.Controllers
         }
 
 
-        [HttpPost("settlement")]
+        [HttpGet("/settlement")]
         public async Task<IActionResult> Settlement()
         {
             var result = await _settlementRepository.Settlement();

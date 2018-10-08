@@ -715,7 +715,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebSiloHost", "Orleans\WebS
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GrainHub", "Orleans\WebSample\GrainHub\GrainHub.csproj", "{EB491C5D-A6B2-42D2-BF43-97406A426EA8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebClient", "Orleans\WebSample\WebClient\WebClient.csproj", "{DCDFFD40-2AE5-44F4-A577-75E5D688A39E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebClient", "Orleans\WebSample\WebClient\WebClient.csproj", "{DCDFFD40-2AE5-44F4-A577-75E5D688A39E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
