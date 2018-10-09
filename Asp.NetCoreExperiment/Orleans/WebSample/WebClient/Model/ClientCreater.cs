@@ -1,24 +1,26 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using Orleans;
 using Orleans.Configuration;
+using Orleans.Hosting;
 using Orleans.Runtime;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace WebClient.Model
 {
-    public class ClientCreater: IClientCreater
+    public class ClientCreater : IClientCreater
     {
+        const string invariant = "System.Data.SqlClient";
         readonly ILogger<ClientCreater> _logger;
         readonly int initializeAttemptsBeforeFailing = 5;
+        readonly string _connectionString;
         private int attempt = 0;
-        public ClientCreater(ILogger<ClientCreater> logger)
+        public ClientCreater(ILogger<ClientCreater> logger, IConfiguration configuration)
         {
-            _logger = logger;
+            _logger = logger;            
+            _connectionString = configuration.GetConnectionString("DefaultConnectionString");        
         }
-
         public async Task<IClusterClient> CreateClient(string clusterId, string serviceId)
         {
             attempt = 0;
@@ -29,11 +31,16 @@ namespace WebClient.Model
                      options.ClusterId = clusterId;
                      options.ServiceId = serviceId;
                  })
+                 .UseAdoNetClustering(options =>
+                 {
+                     options.Invariant = invariant;
+                     options.ConnectionString = _connectionString;
+                 })
                  .ConfigureLogging(logging => logging.AddConsole())
                  .Build();
 
             await client.Connect(RetryFilter);
-         
+
             return client;
         }
 
