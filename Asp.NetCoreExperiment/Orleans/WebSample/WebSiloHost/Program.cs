@@ -63,6 +63,8 @@ namespace WebSiloHost
                    .Configure<EndpointOptions>(options => options.AdvertisedIPAddress = IPAddress.Loopback)
                    .ConfigureApplicationParts(parts => parts.AddApplicationPart(assambly).WithReferences())
                    .ConfigureLogging(logging => logging.AddConsole())
+                   .AddLogStorageBasedLogConsistencyProvider("LogStorage")
+                   .AddStateStorageBasedLogConsistencyProvider("StateStorage")
                    .ConfigureAppConfiguration(context =>
                    {
                        context.AddConfiguration(config);
@@ -89,6 +91,7 @@ namespace WebSiloHost
                    //use AdoNet for Persistence
                    .AddAdoNetGrainStorage("SettlementStore", options =>
                    {
+                       options.UseJsonFormat = true;
                        options.Invariant = invariant;
                        options.ConnectionString = connectionString;
                    });

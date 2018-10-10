@@ -117,24 +117,24 @@ namespace EventSourcing_Lib
             base.OnStateChanged();
         }
 
-        //protected override void TransitionState(HelloState state, IHelloEvent @event)
-        //{
-        //    //在这里根据事件更新状态
-        //    Console.WriteLine("测试 TransitionState");
-        //    switch (@event.ID)
-        //    {
-        //        case 1:
-        //            state.UpdateTime = DateTime.Now;
-        //            state.Amount += 10;
-        //            break;
-        //        case 2:
-        //            state.UpdateTime = DateTime.Now;
-        //            state.Amount += 100;
-        //            break;
-        //    }
+        protected override void TransitionState(HelloState state, IHelloEvent @event)
+        {
+            //在这里根据事件更新状态
+            Console.WriteLine("测试 TransitionState");
+            switch (@event.ID)
+            {
+                case 1:
+                    state.UpdateTime = DateTime.Now;
+                    state.Amount += 10;
+                    break;
+                case 2:
+                    state.UpdateTime = DateTime.Now;
+                    state.Amount += 100;
+                    break;
+            }
 
-        //    base.TransitionState(state, @event);
-        //}
+            base.TransitionState(state, @event);
+        }
         protected override void OnTentativeStateChanged()
         {
             Console.WriteLine("测试 OnTentativeStateChanged");

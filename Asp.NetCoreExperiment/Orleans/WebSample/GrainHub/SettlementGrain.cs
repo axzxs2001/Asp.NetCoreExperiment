@@ -1,82 +1,98 @@
-﻿using Orleans;
+﻿using Orleans.EventSourcing;
 using Orleans.Providers;
+
 using System;
 using System.Threading.Tasks;
 
 namespace GrainHub
 {
+    [LogConsistencyProvider(ProviderName = "LogStorage")]
     [StorageProvider(ProviderName = "SettlementStore")]
-    public class SettlementGrain : Grain<SettlementGrainState>, ISettlementGrain
+    public class SettlementGrain : JournaledGrain<SettlementGrainState, ISettlementEvent>, ISettlementGrain
     {
         public async Task<string> Settlement(SettlementModel settlement)
         {
-            await base.ReadStateAsync();
-            if (State.SettlementID == settlement.SettlementID)
+            this.State.SettlementID = settlement.SettlementID;
+            switch (this.State.Status)
             {
-                
-                switch (State.Status)
-                {
-                    case 0:
-                        await SettlementBegin(settlement);
-                        break;
-                    case 1:
-                        await SettlementEnd(settlement);
-                        break;
-                    case 2:
-                        await SettlementComplete(settlement);
-                        break;
-                }
-                return await Task.FromResult(Newtonsoft.Json.JsonConvert.SerializeObject(State));
+                case 0:
+                    RaiseEvent(new SettlementBeginEvent
+                    {
+                        SettlementModel = settlement
+                    });
+                    RaiseEvent(new SettlementEndEvent
+                    {
+                        SettlementModel = settlement
+                    });
+                    RaiseEvent(new SettlementCompleteEvent
+                    {
+                        SettlementModel = settlement
+                    });
+                    break;
+                case 1:
+                    RaiseEvent(new SettlementEndEvent
+                    {
+                        SettlementModel = settlement
+                    });
+                    RaiseEvent(new SettlementCompleteEvent
+                    {
+                        SettlementModel = settlement
+                    });
+                    break;
+                case 2:
+                    RaiseEvent(new SettlementCompleteEvent
+                    {
+                        SettlementModel = settlement
+                    });
+                    break;
             }
-            else
+            await ConfirmEvents();
+            return null;
+        }
+        protected override void TransitionState(SettlementGrainState state, ISettlementEvent @event)
+        {
+
+            switch (@event.ID)
             {
-                if (await SettlementBegin(settlement))
-                {
-                    return await Task.FromResult(Newtonsoft.Json.JsonConvert.SerializeObject(State));
-                }
-                else
-                {
-                    throw new Exception("出错了!");
-                }
+                case "SettlementBeginEvent":
+                    SettlementBegin((@event as SettlementBeginEvent).SettlementModel).Wait();
+
+                    break;
+                case "SettlementEndEvent":
+                    SettlementEnd((@event as SettlementEndEvent).SettlementModel).Wait();
+                    break;
+                case "SettlementCompleteEvent":
+                    SettlementComplete((@event as SettlementCompleteEvent).SettlementModel).Wait();
+                    break;
             }
         }
 
         async Task<bool> SettlementBegin(SettlementModel settlement)
         {
-            if (RadomNo())
-            {
-                throw new Exception("SettlementBegin异常");
-            }
-
-            State.CreateTime = DateTime.UtcNow;
+            //if (RadomNo())
+            //{
+            //    throw new Exception("SettlementBegin异常");
+            //}
             State.Status = 1;
-            State.SettlementID = settlement.SettlementID;
-            await base.WriteStateAsync();
-            return await SettlementEnd(settlement);
+            return await Task.FromResult(true);
         }
         async Task<bool> SettlementEnd(SettlementModel settlement)
         {
-            if (RadomNo())
-            {
-                throw new Exception("SettlementEnd异常");
-            }
-            State.CreateTime = DateTime.UtcNow;
+            //if (RadomNo())
+            //{
+            //    throw new Exception("SettlementEnd异常");
+            //}
             State.Status = 2;
-            State.SettlementID = settlement.SettlementID;
-            await base.WriteStateAsync();
-            return await SettlementComplete(settlement);
+            return await Task.FromResult(true);
         }
         async Task<bool> SettlementComplete(SettlementModel settlement)
         {
-            if (RadomNo())
-            {
-                throw new Exception("SettlementComplete异常");
-            }
-            State.CreateTime = DateTime.UtcNow;
+            //if (RadomNo())
+            //{
+            //    throw new Exception("SettlementComplete异常");
+            //}
             State.Status = 3;
-            State.SettlementID = settlement.SettlementID;
-            await base.WriteStateAsync();
-            return true;
+            return await Task.FromResult(true);
         }
 
         bool RadomNo()

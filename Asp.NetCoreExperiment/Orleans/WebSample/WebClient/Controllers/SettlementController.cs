@@ -16,12 +16,12 @@ namespace WebClient.Controllers
             _settlementRepository = settlementRepository;
         }
         
-        [HttpGet("/settlement")]
-        public async Task<IActionResult> Settlement()
+        [HttpPost("/settlement")]
+        public async Task<IActionResult> Settlement([FromBody]string settlementID)
         {
             var result = await _settlementRepository.Settlement(new GrainHub.SettlementModel
             {
-                SettlementID = "gsw_settlement",
+                SettlementID = settlementID,
                 SettlementCycle = "2018-08-01 to 2018-08-31",
                 SettlementTime = DateTime.UtcNow
             });
