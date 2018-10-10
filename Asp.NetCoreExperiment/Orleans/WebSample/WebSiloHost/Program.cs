@@ -57,8 +57,8 @@ namespace WebSiloHost
                 .UseLocalhostClustering()
                    .Configure<ClusterOptions>(options =>
                    {
-                       options.ClusterId = "SettlementClusterID";
-                       options.ServiceId = "settlementServiceID";
+                       options.ClusterId = config.GetSection("Cluster").GetSection("ClusterID").Value;
+                       options.ServiceId = config.GetSection("Cluster").GetSection("ServiceID").Value;
                    })
                    .Configure<EndpointOptions>(options => options.AdvertisedIPAddress = IPAddress.Loopback)
                    .ConfigureApplicationParts(parts => parts.AddApplicationPart(assambly).WithReferences())

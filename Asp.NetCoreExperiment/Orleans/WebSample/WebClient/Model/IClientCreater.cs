@@ -8,6 +8,6 @@ namespace WebClient.Model
 {
     public interface IClientCreater
     {
-        Task<IClusterClient> CreateClient(string clusterId, string serviceId);
+        Task<IClusterClient> CreateClient();
     }
 }

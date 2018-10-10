@@ -5,6 +5,7 @@ namespace GrainHub
 {
     public interface ISettlementGrain : IGrainWithGuidKey
     {
-        Task<bool> Settlement(DateTime dateTime);
+        Task<string> Settlement(SettlementModel  settlement);
+ 
     }
 }

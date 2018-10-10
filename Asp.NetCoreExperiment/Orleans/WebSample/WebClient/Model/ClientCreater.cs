@@ -15,14 +15,18 @@ namespace WebClient.Model
         readonly ILogger<ClientCreater> _logger;
         readonly int initializeAttemptsBeforeFailing = 5;
         readonly string _connectionString;
+        readonly IConfiguration _configuration;
         private int attempt = 0;
         public ClientCreater(ILogger<ClientCreater> logger, IConfiguration configuration)
         {
-            _logger = logger;            
-            _connectionString = configuration.GetConnectionString("DefaultConnectionString");        
+            _logger = logger;
+            _configuration = configuration;
+            _connectionString = configuration.GetConnectionString("DefaultConnectionString");
         }
-        public async Task<IClusterClient> CreateClient(string clusterId, string serviceId)
+        public async Task<IClusterClient> CreateClient()
         {
+            var clusterId = _configuration.GetSection("Cluster").GetSection("ClusterID").Value; ;
+            var serviceId = _configuration.GetSection("Cluster").GetSection("ServiceID").Value; ;
             attempt = 0;
             var client = new ClientBuilder()
                  .UseLocalhostClustering()

@@ -1,16 +1,11 @@
 ﻿using GrainHub;
 using Microsoft.Extensions.Logging;
-using Orleans;
-using Orleans.Configuration;
-using Orleans.Runtime;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace WebClient.Model
 {
-    public class SettlementRepository: ISettlementRepository
+    public class SettlementRepository : ISettlementRepository
     {
 
         readonly ILogger<SettlementRepository> _logger;
@@ -21,16 +16,17 @@ namespace WebClient.Model
             _clientCreater = clientCreater;
         }
 
-
         /// <summary>
         /// 结算
         /// </summary>
         /// <returns></returns>
-        public async Task<bool> Settlement()
+        public async Task<string> Settlement(SettlementModel settlement)
         {
-            var client = await _clientCreater.CreateClient("SettlementClusterID", "settlementServiceID");
-            var settlement = client.GetGrain<ISettlementGrain>(new Guid());
-            return await settlement.Settlement(DateTime.Now);
+            var client = await _clientCreater.CreateClient();
+            var settlementGrain = client.GetGrain<ISettlementGrain>(new Guid());
+            return await settlementGrain.Settlement(settlement);
         }
+
     }
 }
+ 

@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
 using WebClient.Model;
 
 namespace WebClient.Controllers
@@ -17,13 +15,19 @@ namespace WebClient.Controllers
         {
             _settlementRepository = settlementRepository;
         }
-
-
+        
         [HttpGet("/settlement")]
         public async Task<IActionResult> Settlement()
         {
-            var result = await _settlementRepository.Settlement();
+            var result = await _settlementRepository.Settlement(new GrainHub.SettlementModel
+            {
+                SettlementID = "gsw_settlement",
+                SettlementCycle = "2018-08-01 to 2018-08-31",
+                SettlementTime = DateTime.UtcNow
+            });
             return new JsonResult(new { Result = result });
         }
+
+
     }
 }
