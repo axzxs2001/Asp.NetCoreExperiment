@@ -70,4 +70,62 @@ namespace WebClient.Model
             return true;
         }
     }
+
+
+    //public class ClientCreater1 
+    //{
+    //    const string invariant = "System.Data.SqlClient";
+    
+    //    static  int initializeAttemptsBeforeFailing = 5;
+    //    static   string _connectionString= "Server=.;DataBase=OrleansDB;uid=sa;pwd=sa;";
+    
+    //    private static int attempt = 0;
+     
+    //    public static async Task<IClusterClient> CreateClient()
+    //    {
+    //        var clusterId = "SettlementClusterID";
+    //        var serviceId = "settlementServiceID";
+    //        attempt = 0;
+    //        var client = new ClientBuilder()
+    //             .UseLocalhostClustering()
+    //             .Configure<ClusterOptions>(options =>
+    //             {
+    //                 options.ClusterId = clusterId;
+    //                 options.ServiceId = serviceId;
+    //             })
+    //             .UseAdoNetClustering(options =>
+    //             {
+    //                 options.Invariant = invariant;
+    //                 options.ConnectionString = _connectionString;
+    //             })
+    //             .ConfigureLogging(logging => logging.AddConsole())
+    //             .Build();
+
+    //        await client.Connect(RetryFilter);
+
+    //        return client;
+    //    }
+
+    //    /// <summary>
+    //    /// 重连
+    //    /// </summary>
+    //    /// <param name="exception"></param>
+    //    /// <returns></returns>
+    //    private static  async Task<bool> RetryFilter(Exception exception)
+    //    {
+    //        if (exception.GetType() != typeof(SiloUnavailableException))
+    //        {
+             
+    //            return false;
+    //        }
+    //        attempt++;
+           
+    //        if (attempt > initializeAttemptsBeforeFailing)
+    //        {
+    //            return false;
+    //        }
+    //        await Task.Delay(TimeSpan.FromSeconds(4));
+    //        return true;
+    //    }
+    //}
 }

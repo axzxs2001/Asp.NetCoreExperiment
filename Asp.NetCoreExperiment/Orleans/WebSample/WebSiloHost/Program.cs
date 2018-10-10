@@ -64,7 +64,7 @@ namespace WebSiloHost
                    .ConfigureApplicationParts(parts => parts.AddApplicationPart(assambly).WithReferences())
                    .ConfigureLogging(logging => logging.AddConsole())
                    .AddLogStorageBasedLogConsistencyProvider("LogStorage")
-                   .AddStateStorageBasedLogConsistencyProvider("StateStorage")
+                   //.AddStateStorageBasedLogConsistencyProvider("StateStorage")
                    .ConfigureAppConfiguration(context =>
                    {
                        context.AddConfiguration(config);
