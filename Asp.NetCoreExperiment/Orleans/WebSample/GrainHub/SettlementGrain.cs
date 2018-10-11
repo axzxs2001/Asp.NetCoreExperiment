@@ -18,32 +18,17 @@ namespace GrainHub
         }
         public Task<bool> Settlement(SettlementModel settlement)
         {
-
             switch (this.State.Status)
             {
                 case 0:
                     RaiseEvent(
-                      new SettlementBeginEvent
-                      {
-                          SettlementModel = settlement
-                      }
-                 );
+                      new SettlementBeginEvent { SettlementModel = settlement });
                     break;
                 case 1:
-                    RaiseEvent(
-                       new SettlementEndEvent
-                       {
-                           SettlementModel = settlement
-
-                       }
-                   );
+                    RaiseEvent(new SettlementEndEvent { SettlementModel = settlement });
                     break;
                 case 2:
-                    RaiseEvent(
-                         new SettlementCompleteEvent
-                         {
-                             SettlementModel = settlement
-                         });
+                    RaiseEvent(new SettlementCompleteEvent { SettlementModel = settlement });
                     break;
             }
             ConfirmEvents();
@@ -60,22 +45,14 @@ namespace GrainHub
                         settlement = (@event as SettlementBeginEvent).SettlementModel;
                         if (SettlementBegin(state, settlement))
                         {
-                            RaiseEvent(
-                                 new SettlementEndEvent
-                                 {
-                                     SettlementModel = settlement
-                                 });
+                            RaiseEvent(new SettlementEndEvent { SettlementModel = settlement });
                         }
                         break;
                     case "SettlementEndEvent":
                         settlement = (@event as SettlementEndEvent).SettlementModel;
                         if (SettlementEnd(state, settlement))
                         {
-                            RaiseEvent(
-                                 new SettlementCompleteEvent
-                                 {
-                                     SettlementModel = settlement
-                                 });
+                            RaiseEvent(new SettlementCompleteEvent { SettlementModel = settlement });
                         }
                         break;
                     case "SettlementCompleteEvent":
