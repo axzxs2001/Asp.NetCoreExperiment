@@ -4,6 +4,7 @@ using System.Text;
 
 namespace GrainHub
 {
+    [Serializable]
     public  class SettlementModel
     {
         /// <summary>
@@ -21,5 +22,6 @@ namespace GrainHub
         /// </summary>
         public string SettlementCycle
         { get; set; }
+    
     }
 }

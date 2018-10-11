@@ -26,4 +26,10 @@ namespace GrainHub
         public string ID { get { return "SettlementCompleteEvent"; } }
         public SettlementModel SettlementModel { get; set; }
     }
+    [Serializable]
+    public class SettlementOkEvent : ISettlementEvent
+    {
+        public string ID { get { return "SettlementOkEvent"; } }
+        public SettlementModel SettlementModel { get; set; }
+    }
 }

@@ -6,6 +6,7 @@ namespace GrainHub
     public interface ISettlementGrain : IGrainWithGuidKey
     {
         Task<string> Settlement(SettlementModel  settlement);
- 
+
+        Task<int> GetStatus();
     }
 }

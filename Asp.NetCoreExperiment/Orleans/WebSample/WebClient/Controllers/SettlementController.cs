@@ -15,7 +15,7 @@ namespace WebClient.Controllers
         {
             _settlementRepository = settlementRepository;
         }
-        
+
         [HttpPost("/settlement")]
         public async Task<IActionResult> Settlement([FromBody]string settlementID)
         {
@@ -23,8 +23,15 @@ namespace WebClient.Controllers
             {
                 SettlementID = settlementID,
                 SettlementCycle = "2018-08-01 to 2018-08-31",
-                SettlementTime = DateTime.UtcNow
+                SettlementTime = DateTime.UtcNow             
             });
+            return new JsonResult(new { Result = result });
+        }
+
+        [HttpGet("/status")]
+        public async Task<IActionResult> Status(string settlementID)
+        {
+            var result = await _settlementRepository.GetStatus(settlementID);
             return new JsonResult(new { Result = result });
         }
 

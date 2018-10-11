@@ -9,6 +9,6 @@ namespace WebClient.Model
     public interface ISettlementRepository
     {
         Task<string> Settlement(SettlementModel settlement);
-     
+        Task<int> GetStatus(string settlementID);
     }
 }

@@ -23,8 +23,19 @@ namespace WebClient.Model
         public async Task<string> Settlement(SettlementModel settlement)
         {
             var client = await _clientCreater.CreateClient();
-            var settlementGrain = client.GetGrain<ISettlementGrain>(new Guid());
+            var guid = Guid.Parse(settlement.SettlementID);
+            var settlementGrain = client.GetGrain<ISettlementGrain>(guid);
             return await settlementGrain.Settlement(settlement);
+
+        }
+
+        public async Task<int> GetStatus(string settlementID)
+        {
+            var client = await _clientCreater.CreateClient();
+            var guid = Guid.Parse(settlementID);
+            var settlementGrain = client.GetGrain<ISettlementGrain>(guid);
+            return await settlementGrain.GetStatus();
+
         }
 
     }

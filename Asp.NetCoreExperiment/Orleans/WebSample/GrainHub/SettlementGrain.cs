@@ -10,102 +10,120 @@ namespace GrainHub
     [StorageProvider(ProviderName = "SettlementStore")]
     public class SettlementGrain : JournaledGrain<SettlementGrainState, ISettlementEvent>, ISettlementGrain
     {
-        public async Task<string> Settlement(SettlementModel settlement)
+        Random random = new Random();
+
+        public Task<int> GetStatus()
         {
-            //switch (this.State.Status)
-            //{
-            //    case 0:
-            //        RaiseEvent(new SettlementBeginEvent
-            //        {
-            //            SettlementModel = settlement
-            //        });
-            //        RaiseEvent(new SettlementEndEvent
-            //        {
-            //            SettlementModel = settlement
-            //        });
-            //        RaiseEvent(new SettlementCompleteEvent
-            //        {
-            //            SettlementModel = settlement
-            //        });
-            //        break;
-            //    case 1:
-            //        RaiseEvent(new SettlementEndEvent
-            //        {
-            //            SettlementModel = settlement
-            //        });
-            //        RaiseEvent(new SettlementCompleteEvent
-            //        {
-            //            SettlementModel = settlement
-            //        });
-            //        break;
-            //    case 2:
-            //        RaiseEvent(new SettlementCompleteEvent
-            //        {
-            //            SettlementModel = settlement
-            //        });
-            //        break;
-            //}
-
-            RaiseEvent(new SettlementCompleteEvent
+            return Task.FromResult(State.Status);
+        }
+        public Task<string> Settlement(SettlementModel settlement)
+        {
+            switch (this.State.Status)
             {
-                SettlementModel = settlement
-            });
+                case 0:
+                    RaiseEvent(
+                      new SettlementBeginEvent
+                      {
+                          SettlementModel = settlement
+                      }
+                 );
+                    break;
+                case 1:
+                    RaiseEvent(
+                       new SettlementEndEvent
+                       {
+                           SettlementModel = settlement
 
-            await ConfirmEvents();
-            return null;
+                       }
+                   );
+                    break;
+                case 2:
+                    RaiseEvent(
+                         new SettlementCompleteEvent
+                         {
+                             SettlementModel = settlement
+                         });
+                    break;
+            }
+            ConfirmEvents();
+            return Task.FromResult("Call Success");
         }
         protected override void TransitionState(SettlementGrainState state, ISettlementEvent @event)
         {
-
-            switch (@event.ID)
+            SettlementModel settlement = null;
+            try
             {
-                case "SettlementBeginEvent":
-                    SettlementBegin((@event as SettlementBeginEvent).SettlementModel).Wait();
-                    break;
-                case "SettlementEndEvent":
-                    SettlementEnd((@event as SettlementEndEvent).SettlementModel).Wait();
-                    break;
-                case "SettlementCompleteEvent":
-                    SettlementComplete((@event as SettlementCompleteEvent).SettlementModel).Wait();
-                    break;
+                switch (@event.ID)
+                {
+                    case "SettlementBeginEvent":
+                        settlement = (@event as SettlementBeginEvent).SettlementModel;
+                        if (SettlementBegin(state, settlement))
+                        {
+                            RaiseEvent(
+                                 new SettlementEndEvent
+                                 {
+                                     SettlementModel = settlement
+                                 });
+                        }
+                        break;
+                    case "SettlementEndEvent":
+                        settlement = (@event as SettlementEndEvent).SettlementModel;
+                        if (SettlementEnd(state, settlement))
+                        {
+                            RaiseEvent(
+                                 new SettlementCompleteEvent
+                                 {
+                                     SettlementModel = settlement
+                                 });
+                        }
+                        break;
+                    case "SettlementCompleteEvent":
+                        settlement = (@event as SettlementCompleteEvent).SettlementModel;
+                        if (SettlementComplete(state, settlement))
+                        {
+                            RaiseConditionalEvent(new SettlementOkEvent());
+                        }
+                        break;
+                }
+            }
+            catch (Exception exc)
+            {
+                Console.WriteLine(exc.Message);
             }
         }
 
-        async Task<bool> SettlementBegin(SettlementModel settlement)
+        bool SettlementBegin(SettlementGrainState state, SettlementModel settlement)
         {
-            //if (RadomNo())
-            //{
-            //    throw new Exception("SettlementBegin异常");
-            //}
-            //State.Status = 1;
-            //State.SettlementID = settlement.SettlementID;
-            return await Task.FromResult(true);
+            if (RadomNo())
+            {
+                throw new Exception("SettlementBegin异常");
+            }
+            state.Status = 1;
+            return true;
         }
-        async Task<bool> SettlementEnd(SettlementModel settlement)
+        bool SettlementEnd(SettlementGrainState state, SettlementModel settlement)
         {
-            //if (RadomNo())
-            //{
-            //    throw new Exception("SettlementEnd异常");
-            //}
-            //State.Status = 2;
-            //State.SettlementID = settlement.SettlementID;
-            return await Task.FromResult(true);
+            if (RadomNo())
+            {
+                throw new Exception("SettlementEnd异常");
+            }
+            state.Status = 2;
+            return true;
         }
-        async Task<bool> SettlementComplete(SettlementModel settlement)
+        bool SettlementComplete(SettlementGrainState state, SettlementModel settlement)
         {
-            //if (RadomNo())
-            //{
-            //    throw new Exception("SettlementComplete异常");
-            //}
-            //State.Status = 3;
-            //State.SettlementID = settlement.SettlementID;
-            return await Task.FromResult(true);
+            if (RadomNo())
+            {
+                throw new Exception("SettlementComplete异常");
+            }
+            state.Status = 3;
+            return true;
         }
-
         bool RadomNo()
         {
-            var random = new Random();
-            return random.Next(1, 4) % 3 == 0 ? true : false;
+            var num = random.Next(1, 7);
+            Console.WriteLine($"随机采生的数字是：{num}");
+            return num % 7 == 0;
         }
     }
 }
