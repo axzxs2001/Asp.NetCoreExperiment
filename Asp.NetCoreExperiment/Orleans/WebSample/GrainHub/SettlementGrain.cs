@@ -12,79 +12,45 @@ namespace GrainHub
     {
         public async Task<string> Settlement(SettlementModel settlement)
         {
-            if (this.State.SettlementID == settlement.SettlementID)
+            //switch (this.State.Status)
+            //{
+            //    case 0:
+            //        RaiseEvent(new SettlementBeginEvent
+            //        {
+            //            SettlementModel = settlement
+            //        });
+            //        RaiseEvent(new SettlementEndEvent
+            //        {
+            //            SettlementModel = settlement
+            //        });
+            //        RaiseEvent(new SettlementCompleteEvent
+            //        {
+            //            SettlementModel = settlement
+            //        });
+            //        break;
+            //    case 1:
+            //        RaiseEvent(new SettlementEndEvent
+            //        {
+            //            SettlementModel = settlement
+            //        });
+            //        RaiseEvent(new SettlementCompleteEvent
+            //        {
+            //            SettlementModel = settlement
+            //        });
+            //        break;
+            //    case 2:
+            //        RaiseEvent(new SettlementCompleteEvent
+            //        {
+            //            SettlementModel = settlement
+            //        });
+            //        break;
+            //}
+
+            RaiseEvent(new SettlementCompleteEvent
             {
-                switch (this.State.Status)
-                {
-                    case 0:
-                        RaiseEvent(new SettlementBeginEvent
-                        {
-                            SettlementModel = settlement
-                        });
-                        RaiseEvent(new SettlementEndEvent
-                        {
-                            SettlementModel = settlement
-                        });
-                        RaiseEvent(new SettlementCompleteEvent
-                        {
-                            SettlementModel = settlement
-                        });
-                        break;
-                    case 1:
-                        RaiseEvent(new SettlementEndEvent
-                        {
-                            SettlementModel = settlement
-                        });
-                        RaiseEvent(new SettlementCompleteEvent
-                        {
-                            SettlementModel = settlement
-                        });
-                        break;
-                    case 2:
-                        RaiseEvent(new SettlementCompleteEvent
-                        {
-                            SettlementModel = settlement
-                        });
-                        break;
-                }
-            }
-            else
-            {
-                this.State.Status = 0;
-                switch (this.State.Status)
-                {
-                    case 0:
-                        RaiseEvent(new SettlementBeginEvent
-                        {
-                            SettlementModel = settlement
-                        });
-                        RaiseEvent(new SettlementEndEvent
-                        {
-                            SettlementModel = settlement
-                        });
-                        RaiseEvent(new SettlementCompleteEvent
-                        {
-                            SettlementModel = settlement
-                        });
-                        break;
-                    case 1:
-                        RaiseEvent(new SettlementEndEvent
-                        {
-                            SettlementModel = settlement
-                        });
-                        RaiseEvent(new SettlementCompleteEvent
-                        {
-                            SettlementModel = settlement
-                        });
-                        break;
-                    case 2:
-                        RaiseEvent(new SettlementCompleteEvent
-                        {
-                            SettlementModel = settlement
-                        });
-                        break;
-                }
-            }
+                SettlementModel = settlement
+            });
+
             await ConfirmEvents();
             return null;
         }
@@ -111,8 +77,8 @@ namespace GrainHub
             //{
             //    throw new Exception("SettlementBegin异常");
             //}
-            State.Status = 1;
-            State.SettlementID = settlement.SettlementID;
+            //State.Status = 1;
+            //State.SettlementID = settlement.SettlementID;
             return await Task.FromResult(true);
         }
         async Task<bool> SettlementEnd(SettlementModel settlement)
@@ -121,8 +87,8 @@ namespace GrainHub
             //{
             //    throw new Exception("SettlementEnd异常");
             //}
-            State.Status = 2;
-            State.SettlementID = settlement.SettlementID;
+            //State.Status = 2;
+            //State.SettlementID = settlement.SettlementID;
             return await Task.FromResult(true);
         }
         async Task<bool> SettlementComplete(SettlementModel settlement)
@@ -131,8 +97,8 @@ namespace GrainHub
             //{
             //    throw new Exception("SettlementComplete异常");
             //}
-            State.Status = 3;
-            State.SettlementID = settlement.SettlementID;
+            //State.Status = 3;
+            //State.SettlementID = settlement.SettlementID;
             return await Task.FromResult(true);
         }
 
