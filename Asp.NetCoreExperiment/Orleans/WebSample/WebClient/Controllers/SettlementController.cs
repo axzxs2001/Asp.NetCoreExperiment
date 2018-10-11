@@ -19,21 +19,35 @@ namespace WebClient.Controllers
         [HttpPost("/settlement")]
         public async Task<IActionResult> Settlement([FromBody]string settlementID)
         {
-            var result = await _settlementRepository.Settlement(new GrainHub.SettlementModel
+            var status = 0;
+            var times = 1;
+            do
             {
-                SettlementID = settlementID,
-                SettlementCycle = "2018-08-01 to 2018-08-31",
-                SettlementTime = DateTime.UtcNow             
-            });
-            return new JsonResult(new { Result = result });
+                var result = await _settlementRepository.Settlement(new GrainHub.SettlementModel
+                {
+                    SettlementID = settlementID,
+                    SettlementCycle = "2018-08-01 to 2018-08-31",
+                    SettlementTime = DateTime.UtcNow
+                });
+                System.Threading.Thread.Sleep(500);
+                status = await _settlementRepository.GetStatus(settlementID);
+                if (status == 3)
+                {
+                    break;
+                }
+                else
+                if (times == 3)
+                {
+                    break;
+                }
+                else
+                {
+                    times++;
+                }
+            } while (true);
+            return new JsonResult(new { Status = status });
         }
 
-        [HttpGet("/status")]
-        public async Task<IActionResult> Status(string settlementID)
-        {
-            var result = await _settlementRepository.GetStatus(settlementID);
-            return new JsonResult(new { Result = result });
-        }
 
 
     }

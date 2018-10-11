@@ -20,7 +20,7 @@ namespace WebClient.Model
         /// 结算
         /// </summary>
         /// <returns></returns>
-        public async Task<string> Settlement(SettlementModel settlement)
+        public async Task<bool> Settlement(SettlementModel settlement)
         {
             var client = await _clientCreater.CreateClient();
             var guid = Guid.Parse(settlement.SettlementID);

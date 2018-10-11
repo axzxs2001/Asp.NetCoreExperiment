@@ -16,8 +16,9 @@ namespace GrainHub
         {
             return Task.FromResult(State.Status);
         }
-        public Task<string> Settlement(SettlementModel settlement)
+        public Task<bool> Settlement(SettlementModel settlement)
         {
+
             switch (this.State.Status)
             {
                 case 0:
@@ -46,7 +47,7 @@ namespace GrainHub
                     break;
             }
             ConfirmEvents();
-            return Task.FromResult("Call Success");
+            return Task.FromResult(true);
         }
         protected override void TransitionState(SettlementGrainState state, ISettlementEvent @event)
         {
@@ -121,9 +122,9 @@ namespace GrainHub
         }
         bool RadomNo()
         {
-            var num = random.Next(1, 7);
+            var num = random.Next(1, 4);
             Console.WriteLine($"随机采生的数字是：{num}");
-            return num % 7 == 0;
+            return num % 3 == 0;
         }
     }
 }
