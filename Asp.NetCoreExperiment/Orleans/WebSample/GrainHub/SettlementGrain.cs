@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace GrainHub
 {
+   
     [LogConsistencyProvider(ProviderName = "LogStorage")]
     [StorageProvider(ProviderName = "SettlementStore")]
     public class SettlementGrain : JournaledGrain<SettlementGrainState, ISettlementEvent>, ISettlementGrain
