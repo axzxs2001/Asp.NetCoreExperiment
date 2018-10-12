@@ -25,10 +25,13 @@ namespace Monitoring_Client
         {
             try
             {
-                using (var client = await StartClientWithRetries())
+                while (true)
                 {
-                    await DoClientWork(client);
-                    Console.ReadKey();
+                    using (var client = await StartClientWithRetries())
+                    {
+                        await DoClientWork(client);
+                        Console.ReadKey();
+                    }
                 }
 
                 return 0;
@@ -50,6 +53,14 @@ namespace Monitoring_Client
                 {
                     options.ClusterId = "dev";
                     options.ServiceId = "TestApp";
+                })
+                .Configure<ApplicationInsightsTelemetryConsumerOptions>(opt => {
+                    opt.InstrumentationKey = "";
+
+                })              
+                .Configure<TelemetryOptions>(options =>
+                {
+                    options.AddConsumer<AITelemetryConsumer>();
                 })
                 .ConfigureLogging(logging => logging.AddConsole())    
                 .Configure<TelemetryOptions>(options => options.AddConsumer<AITelemetryConsumer>())

@@ -61,13 +61,20 @@ namespace Monitoring_SiloHost
                 .ConfigureLogging(logging => logging.AddConsole())
                 .UseInMemoryReminderService()
                 .UseLocalhostClustering()
+                .Configure<ApplicationInsightsTelemetryConsumerOptions>(opt => {
+                    opt.InstrumentationKey = ""; 
+                   
+                })
                 //.UseConsulClustering(opt =>
                 //{
                 //    opt.Address = new Uri("");
                 //    opt.KvRootFolder = "";
                 //    opt.AclClientToken = "";
                 //})
-                .Configure<TelemetryOptions>(options => options.AddConsumer<AITelemetryConsumer>());
+                .Configure<TelemetryOptions>(options =>
+                {
+                    options.AddConsumer<AITelemetryConsumer>();              
+                });
 
 
             var host = builder.Build();
