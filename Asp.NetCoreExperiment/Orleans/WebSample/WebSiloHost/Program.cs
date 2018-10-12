@@ -60,12 +60,13 @@ namespace WebSiloHost
                        options.ClusterId = config.GetSection("Cluster").GetSection("ClusterID").Value;
                        options.ServiceId = config.GetSection("Cluster").GetSection("ServiceID").Value;
                    })
-                 .Configure<EndpointOptions>(options =>
-                 {                 
-                     options.SiloPort = 11111;               
-                     options.GatewayPort = 30000;                
-                     options.AdvertisedIPAddress = IPAddress.Parse(config.GetSection("IP").Value);  
-                 })
+                   .Configure<EndpointOptions>(options =>
+                   {
+                       //配置本地套节字
+                       options.SiloPort = 11111;
+                       options.GatewayPort = 30000;
+                       options.AdvertisedIPAddress = IPAddress.Parse(config.GetSection("IP").Value);
+                   })
                    .ConfigureApplicationParts(parts => parts.AddApplicationPart(assambly).WithReferences())
                    .ConfigureLogging(logging => logging.AddConsole())
                    .AddLogStorageBasedLogConsistencyProvider("LogStorage")
