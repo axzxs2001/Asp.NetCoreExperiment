@@ -43,6 +43,7 @@ namespace WebSiloHost
 
         private static async Task<ISiloHost> StartSilo()
         {
+            Console.WriteLine(IPAddress.Loopback);
             var config = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
@@ -54,13 +55,17 @@ namespace WebSiloHost
             var assambly = typeof(ISettlementGrain).Assembly;
 
             var builder = new SiloHostBuilder()
-                .UseLocalhostClustering()
                    .Configure<ClusterOptions>(options =>
                    {
                        options.ClusterId = config.GetSection("Cluster").GetSection("ClusterID").Value;
                        options.ServiceId = config.GetSection("Cluster").GetSection("ServiceID").Value;
                    })
-                   .Configure<EndpointOptions>(options => options.AdvertisedIPAddress = IPAddress.Loopback)
+                 .Configure<EndpointOptions>(options =>
+                 {                 
+                     options.SiloPort = 11111;               
+                     options.GatewayPort = 30000;                
+                     options.AdvertisedIPAddress = IPAddress.Parse(config.GetSection("IP").Value);  
+                 })
                    .ConfigureApplicationParts(parts => parts.AddApplicationPart(assambly).WithReferences())
                    .ConfigureLogging(logging => logging.AddConsole())
                    .AddLogStorageBasedLogConsistencyProvider("LogStorage")
@@ -69,7 +74,7 @@ namespace WebSiloHost
                    {
                        context.AddConfiguration(config);
                    })
-                   .UseInMemoryReminderService()
+                   // .UseInMemoryReminderService()
                    //依赖注入
                    .UseServiceProviderFactory(opt =>
                    {

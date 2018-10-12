@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using GrainHub;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Orleans;
 using Orleans.Configuration;
@@ -29,7 +30,6 @@ namespace WebClient.Model
             var serviceId = _configuration.GetSection("Cluster").GetSection("ServiceID").Value; ;
             attempt = 0;
             var client = new ClientBuilder()
-                 .UseLocalhostClustering()
                  .Configure<ClusterOptions>(options =>
                  {
                      options.ClusterId = clusterId;
@@ -40,6 +40,7 @@ namespace WebClient.Model
                      options.Invariant = invariant;
                      options.ConnectionString = _connectionString;
                  })
+                 .ConfigureApplicationParts(parts => parts.AddApplicationPart(typeof(ISettlementGrain).Assembly))
                  .ConfigureLogging(logging => logging.AddConsole())
                  .Build();
 
@@ -75,12 +76,12 @@ namespace WebClient.Model
     //public class ClientCreater1 
     //{
     //    const string invariant = "System.Data.SqlClient";
-    
+
     //    static  int initializeAttemptsBeforeFailing = 5;
     //    static   string _connectionString= "Server=.;DataBase=OrleansDB;uid=sa;pwd=sa;";
-    
+
     //    private static int attempt = 0;
-     
+
     //    public static async Task<IClusterClient> CreateClient()
     //    {
     //        var clusterId = "SettlementClusterID";
@@ -115,11 +116,11 @@ namespace WebClient.Model
     //    {
     //        if (exception.GetType() != typeof(SiloUnavailableException))
     //        {
-             
+
     //            return false;
     //        }
     //        attempt++;
-           
+
     //        if (attempt > initializeAttemptsBeforeFailing)
     //        {
     //            return false;
