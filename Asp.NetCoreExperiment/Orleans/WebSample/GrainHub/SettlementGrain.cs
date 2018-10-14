@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 namespace GrainHub
 {
    
+    /// <summary>
+    /// 数据存储和日志存储
+    /// </summary>
     [LogConsistencyProvider(ProviderName = "LogStorage")]
     [StorageProvider(ProviderName = "SettlementStore")]
     public class SettlementGrain : JournaledGrain<SettlementGrainState, ISettlementEvent>, ISettlementGrain
@@ -19,6 +22,7 @@ namespace GrainHub
         }
         public Task<bool> Settlement(SettlementModel settlement)
         {
+            //调用事件，为Event Sourse作准备
             switch (this.State.Status)
             {
                 case 0:
@@ -35,6 +39,11 @@ namespace GrainHub
             ConfirmEvents();
             return Task.FromResult(true);
         }
+        /// <summary>
+        /// 处理事件
+        /// </summary>
+        /// <param name="state"></param>
+        /// <param name="event"></param>
         protected override void TransitionState(SettlementGrainState state, ISettlementEvent @event)
         {
             SettlementModel settlement = null;

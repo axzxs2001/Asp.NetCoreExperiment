@@ -2,6 +2,9 @@
 
 namespace GrainHub
 {
+    /// <summary>
+    /// Grain状态
+    /// </summary>
     [Serializable]
     public class SettlementGrainState
     {     

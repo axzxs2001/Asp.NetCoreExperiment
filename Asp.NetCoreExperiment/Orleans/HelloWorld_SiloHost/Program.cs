@@ -49,7 +49,7 @@ namespace HelloWorld_SiloHost
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                 .Build();
 
-
+            //Grain的程序集
             var assambly = typeof(IHelloWorldGrain).Assembly;
             var builder = new SiloHostBuilder()
                    .UseLocalhostClustering()

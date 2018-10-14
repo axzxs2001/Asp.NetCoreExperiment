@@ -2,10 +2,16 @@
 
 namespace GrainHub
 {
+    /// <summary>
+    /// 事件接口
+    /// </summary>
     public interface ISettlementEvent
     {
         string ID { get; }
     }
+    /// <summary>
+    /// 开始结算事件
+    /// </summary>
     [Serializable]
     public class SettlementBeginEvent : ISettlementEvent
     {
@@ -13,6 +19,9 @@ namespace GrainHub
 
         public SettlementModel SettlementModel { get; set; }
     }
+    /// <summary>
+    /// 结束结算事件
+    /// </summary>
     [Serializable]
     public class SettlementEndEvent : ISettlementEvent
     {
@@ -26,6 +35,9 @@ namespace GrainHub
         public string ID { get { return "SettlementCompleteEvent"; } }
         public SettlementModel SettlementModel { get; set; }
     }
+    /// <summary>
+    /// 结算完成事件
+    /// </summary>
     [Serializable]
     public class SettlementOkEvent : ISettlementEvent
     {

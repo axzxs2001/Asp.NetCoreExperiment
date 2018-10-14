@@ -4,6 +4,9 @@ using System.Text;
 
 namespace GrainHub
 {
+    /// <summary>
+    /// 数据模型
+    /// </summary>
     [Serializable]
     public  class SettlementModel
     {
