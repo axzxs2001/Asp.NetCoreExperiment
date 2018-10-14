@@ -44,6 +44,7 @@ namespace WebSiloHost
         private static async Task<ISiloHost> StartSilo()
         {
             Console.WriteLine(IPAddress.Loopback);
+            //注入配置文件
             var config = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
@@ -62,6 +63,7 @@ namespace WebSiloHost
                    })
                    //.UseLocalhostClustering()
                    //.ConfigureEndpoints(siloPort: 11111, gatewayPort: 30000)
+                   //设置端口
                    .Configure<EndpointOptions>(options =>
                    {
                        //配置本地套节字
@@ -84,19 +86,19 @@ namespace WebSiloHost
                        opt.AddTransient<ISettlementRepository, SettlementRepository>();
                        return opt.BuildServiceProvider();
                    })
-                   //use AdoNet for clustering 
+                   //用AdoNet集群 
                    .UseAdoNetClustering(options =>
                    {
                        options.Invariant = invariant;
                        options.ConnectionString = connectionString;
                    })
-                   //use AdoNet for reminder service
+                   //用AdoNet作为提醒服务
                    .UseAdoNetReminderService(options =>
                    {
                        options.Invariant = invariant;
                        options.ConnectionString = connectionString;
                    })
-                   //use AdoNet for Persistence
+                   //用AdoNet持久化
                    .AddAdoNetGrainStorage("SettlementStore", options =>
                    {
                        options.UseJsonFormat = true;
