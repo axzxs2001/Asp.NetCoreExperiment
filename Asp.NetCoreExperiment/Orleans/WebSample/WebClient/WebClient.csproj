@@ -12,8 +12,8 @@
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
     <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="2.1.1" />
-    <PackageReference Include="Microsoft.Orleans.Clustering.AdoNet" Version="2.1.0" />
-    <PackageReference Include="Microsoft.Orleans.Core" Version="2.1.0" />
+    <PackageReference Include="Microsoft.Orleans.Clustering.AdoNet" Version="2.1.2" />
+    <PackageReference Include="Microsoft.Orleans.Core" Version="2.1.2" />
   </ItemGroup>
 
   <ItemGroup>
