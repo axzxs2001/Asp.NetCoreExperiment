@@ -3,7 +3,6 @@ using Microsoft.Extensions.Logging;
 using Orleans;
 using Orleans.Configuration;
 using Orleans.Hosting;
-using Orleans.Providers.Streams.Generator;
 using StreamLib;
 using System;
 using System.Net;
@@ -57,10 +56,16 @@ namespace StreamSiloHost
                    .ConfigureLogging(logging => logging.AddConsole())
                    .UseInMemoryReminderService()
                    .UseLocalhostClustering()
-                  // .AddPersistentStreams("SMSProvider",
-                  //GeneratorAdapterFactory.Create,
-                  // providerConfigurator => providerConfigurator.Configure<HashRingStreamQueueMapperOptions>(ob => ob.Configure( options => { options.TotalQueueCount = 1;})))
+                   //.AddPersistentStreams("SMSProvider",
+                   //GeneratorAdapterFactory.Create,
+                   // providerConfigurator => providerConfigurator.Configure<HashRingStreamQueueMapperOptions>(ob => ob.Configure( options => { options.TotalQueueCount = 1;})))
                    .AddSimpleMessageStreamProvider("SMSProvider")
+                   //RabbitMq实现队列订阅通知
+                   //.AddRabbitMqStream("RMQProvider", configurator =>
+                   //{
+                   //    configurator.ConfigureRabbitMq(host: "localhost", port: 5672, virtualHost: "/",
+                   //                                   user: "guest", password: "guest", queueName: "test");
+                   //})
                    .AddMemoryGrainStorage("PubSubStore");
 
 

@@ -9,6 +9,8 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="2.1.1" />
     <PackageReference Include="Microsoft.Orleans.OrleansServiceBus" Version="2.1.2" />
     <PackageReference Include="Microsoft.Orleans.Server" Version="2.1.2" />
+    <PackageReference Include="Microsoft.Orleans.Streaming.AzureStorage" Version="2.1.2" />
+    <PackageReference Include="Orleans.Streams.RabbitMqStreamProvider" Version="2.0.0.33202" />
   </ItemGroup>
 
   <ItemGroup>

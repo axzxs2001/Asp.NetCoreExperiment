@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using Orleans;
 using Orleans.Configuration;
 using Orleans.Hosting;
+using Orleans.Providers.Streams.AzureQueue;
 using Orleans.Runtime;
 using StreamLib;
 using System;
@@ -57,6 +58,12 @@ namespace StreamClient
                 })
                 .ConfigureLogging(logging => logging.AddConsole())
                 .AddSimpleMessageStreamProvider("SMSProvider")
+                //RabbitMq实现队列订阅通知
+                //.AddRabbitMqStream("RMQProvider", configurator =>
+                //{
+                //    configurator.ConfigureRabbitMq(host: "localhost", port: 5672, virtualHost: "/",
+                //                                   user: "guest", password: "guest", queueName: "test");
+                //})             
                 .Build();
 
             await client.Connect(RetryFilter);
@@ -91,10 +98,18 @@ namespace StreamClient
         /// <returns></returns>
         private static async Task DoClientWork(IClusterClient client)
         {
+            var random = client.GetGrain<IRandomReceiver>(new Guid());
+            var streamProvider = client.GetStreamProvider("SMSProvider");
+            var stream = streamProvider.GetStream<string>(random.GetPrimaryKey(), "StreamLib");
+         
+            await stream.SubscribeAsync(new AsyncObserver());
+            while (true)
+            {
+                Console.WriteLine("输入发送的值：");
+                var content = Console.ReadLine();
+                await random.Method1(content);
+            }
 
-            var hello = client.GetGrain<IRandomReceiver>(new Guid());
-            await hello.Method1();
-            await hello.Method1();
         }
     }
 }
