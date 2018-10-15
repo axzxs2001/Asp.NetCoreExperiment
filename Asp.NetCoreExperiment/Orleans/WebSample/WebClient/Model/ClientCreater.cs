@@ -42,10 +42,11 @@ namespace WebClient.Model
                  })
                  .ConfigureApplicationParts(parts => parts.AddApplicationPart(typeof(ISettlementGrain).Assembly))
                  .ConfigureLogging(logging => logging.AddConsole())
+                 .AddSimpleMessageStreamProvider("SMSProvider")
                  .Build();
 
             await client.Connect(RetryFilter);
-
+   
             return client;
         }
 

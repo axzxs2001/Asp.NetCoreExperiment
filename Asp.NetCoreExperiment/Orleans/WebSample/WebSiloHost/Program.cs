@@ -45,7 +45,7 @@ namespace WebSiloHost
         {
 
 
-            
+
             Console.WriteLine(IPAddress.Loopback);
             //注入配置文件
             var config = new ConfigurationBuilder()
@@ -63,14 +63,14 @@ namespace WebSiloHost
                    {
                        options.ClusterId = config.GetSection("Cluster").GetSection("ClusterID").Value;
                        options.ServiceId = config.GetSection("Cluster").GetSection("ServiceID").Value;
-                   })             
+                   })
                    //设置端口
                    .Configure<EndpointOptions>(options =>
                    {
                        //配置本地套节字
                        options.SiloPort = 11111;
                        options.GatewayPort = 30000;
-                       options.AdvertisedIPAddress =IPAddress.Parse(config.GetSection("IP").Value); 
+                       options.AdvertisedIPAddress = IPAddress.Parse(config.GetSection("IP").Value);
                        options.SiloListeningEndpoint = new IPEndPoint(IPAddress.Any, 11111);
                        options.GatewayListeningEndpoint = new IPEndPoint(IPAddress.Any, 30000);
 
@@ -93,7 +93,7 @@ namespace WebSiloHost
                    })
                    //用AdoNet集群 
                    .UseAdoNetClustering(options =>
-                   {                       
+                   {
                        options.Invariant = invariant;
                        options.ConnectionString = connectionString;
                    })
@@ -109,12 +109,13 @@ namespace WebSiloHost
                        options.UseJsonFormat = true;
                        options.Invariant = invariant;
                        options.ConnectionString = connectionString;
-                   });
+                   })
+                   .AddSimpleMessageStreamProvider(name: "SMSProvider");
 
-            
+
 
             var host = builder.Build();
-        
+
             await host.StartAsync();
             return host;
         }
