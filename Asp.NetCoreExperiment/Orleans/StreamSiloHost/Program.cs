@@ -3,8 +3,10 @@ using Microsoft.Extensions.Logging;
 using Orleans;
 using Orleans.Configuration;
 using Orleans.Hosting;
+using Orleans.Providers.Streams.AzureQueue;
 using StreamLib;
 using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -41,16 +43,18 @@ namespace StreamSiloHost
         private static async Task<ISiloHost> StartSilo()
         {
 
-
+            var connectionString = "";
             //Grain的程序集
             var assambly = typeof(IRandomReceiver).Assembly;
             var builder = new SiloHostBuilder()
                    .UseLocalhostClustering()
+                   //.UseAzureStorageClustering(options => options.ConnectionString = connectionString)
                    .Configure<ClusterOptions>(options =>
                    {
                        options.ClusterId = "dev";
                        options.ServiceId = "TestApp";
                    })
+             
                    .Configure<EndpointOptions>(options => options.AdvertisedIPAddress = IPAddress.Loopback)
                    .ConfigureApplicationParts(parts => parts.AddApplicationPart(assambly).WithReferences())
                    .ConfigureLogging(logging => logging.AddConsole())
@@ -61,15 +65,21 @@ namespace StreamSiloHost
                    // providerConfigurator => providerConfigurator.Configure<HashRingStreamQueueMapperOptions>(ob => ob.Configure( options => { options.TotalQueueCount = 1;})))
 
                    .AddSimpleMessageStreamProvider("SMSProvider")
-                   //RabbitMq实现队列订阅通知
-                   //.AddRabbitMqStream("SMSProvider", configurator =>
-                   //{
-                   //    configurator.ConfigureRabbitMq(host: "127.0.0.1", port: 5672, virtualHost: "/",
-                   //                                   user: "guest", password: "guest", queueName: "test1");
-                   //})
+                    //RabbitMq实现队列订阅通知
+                    //.AddRabbitMqStream("SMSProvider", configurator =>
+                    //{
+                    //    configurator.ConfigureRabbitMq(host: "127.0.0.1", port: 5672, virtualHost: "/",
+                    //                                   user: "guest", password: "guest", queueName: "test1");
+                    //})
+                   
+                    //.AddAzureQueueStreams<AzureQueueDataAdapterV2>("SMSProvider", b => b.Configure(opt =>
+                    //{
+                    //    opt.ConnectionString = connectionString;
+                    //    opt.QueueNames = new List<string>() { "orleantest" };
+                    //}))
                    .AddMemoryGrainStorage("PubSubStore");
 
-
+       
             var host = builder.Build();
 
             await host.StartAsync();

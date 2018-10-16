@@ -6,12 +6,8 @@ using Orleans.Configuration;
 using Orleans.Hosting;
 using Orleans.Runtime;
 using Orleans.Serialization;
-using Orleans.Streams.BatchContainer;
 using StreamLib;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace StreamClient
@@ -52,22 +48,32 @@ namespace StreamClient
 
         private static async Task<IClusterClient> StartClientWithRetries()
         {
+            var connectionString = "";
             attempt = 0;
             IClusterClient client = new ClientBuilder()
-                .UseLocalhostClustering()
+                 .UseLocalhostClustering()
+                //.UseAzureStorageClustering(options => options.ConnectionString = connectionString)
                 .Configure<ClusterOptions>(options =>
                 {
                     options.ClusterId = "dev";
                     options.ServiceId = "TestApp";
                 })
+                //.Configure<SerializationProviderOptions>(opt =>{
+                //    opt.SerializationProviders.Add(typeof(MySerializer).GetTypeInfo());
+                //})
                 .ConfigureLogging(logging => logging.AddConsole())
-                .AddSimpleMessageStreamProvider("SMSProvider")
+                  .AddSimpleMessageStreamProvider("SMSProvider")
                 //RabbitMq实现队列订阅通知
                 //.AddRabbitMqStream("SMSProvider", configurator =>
                 //{
                 //    configurator.ConfigureRabbitMq(host: "127.0.0.1", port: 5672, virtualHost: "/",
                 //                                   user: "guest", password: "guest", queueName: "test1");
                 //})
+                //.AddAzureQueueStreams<AzureQueueDataAdapterV2>("SMSProvider", b => b.Configure(opt =>
+                //{
+                //    opt.ConnectionString = connectionString;
+                //    opt.QueueNames = new List<string>() { "orleantest" };
+                //}))
                 .Build();
 
             await client.Connect(RetryFilter);
@@ -102,7 +108,7 @@ namespace StreamClient
         /// <returns></returns>
         private static async Task DoClientWork(IClusterClient client)
         {
-            var random = client.GetGrain<IRandomReceiver>(new Guid());      
+            var random = client.GetGrain<IRandomReceiver>(new Guid());
 
             var streamProvider = client.GetStreamProvider("SMSProvider");
             var stream = streamProvider.GetStream<Message>(random.GetPrimaryKey(), "StreamLib");
@@ -114,6 +120,30 @@ namespace StreamClient
                 var content = Console.ReadLine();
                 await random.Method1(new Message { Content = content });
             }
+
+        }
+    }
+
+    public class MySerializer : IExternalSerializer
+    {
+        public object DeepCopy(object source, ICopyContext context)
+        {
+            var fooCopy = SerializationManager.DeepCopyInner(source, context);
+            throw new NotImplementedException();
+        }
+
+        public object Deserialize(Type expectedType, IDeserializationContext context)
+        {
+            return null;
+        }
+
+        public bool IsSupportedType(Type itemType)
+        {
+            return true;
+        }
+
+        public void Serialize(object item, ISerializationContext context, Type expectedType)
+        {
 
         }
     }
