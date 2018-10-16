@@ -4,10 +4,14 @@ using Microsoft.Extensions.Logging;
 using Orleans;
 using Orleans.Configuration;
 using Orleans.Hosting;
+using Orleans.Providers.Streams.AzureQueue;
+using Orleans.Providers.Streams.Common;
 using Orleans.Runtime;
 using Orleans.Serialization;
 using StreamLib;
 using System;
+using System.Collections.Generic;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace StreamClient
@@ -58,17 +62,20 @@ namespace StreamClient
                     options.ClusterId = "dev";
                     options.ServiceId = "TestApp";
                 })
-                //.Configure<SerializationProviderOptions>(opt =>{
-                //    opt.SerializationProviders.Add(typeof(MySerializer).GetTypeInfo());
-                //})
+                .Configure<SerializationProviderOptions>(opt =>
+                {
+                    opt.SerializationProviders.Add(typeof(MySerializer).GetTypeInfo());
+                })
                 .ConfigureLogging(logging => logging.AddConsole())
-                  .AddSimpleMessageStreamProvider("SMSProvider")
+                //简单通知
+                //.AddSimpleMessageStreamProvider("SMSProvider")
                 //RabbitMq实现队列订阅通知
-                //.AddRabbitMqStream("SMSProvider", configurator =>
-                //{
-                //    configurator.ConfigureRabbitMq(host: "127.0.0.1", port: 5672, virtualHost: "/",
-                //                                   user: "guest", password: "guest", queueName: "test1");
-                //})
+                .AddRabbitMqStream("SMSProvider", configurator =>
+                {
+                    configurator.ConfigureRabbitMq(host: "localhost", port: 5672, virtualHost: "/",
+                                                   user: "guest", password: "guest", queueName: "SMSProvider");
+                })
+                //AzureQueue实现通知
                 //.AddAzureQueueStreams<AzureQueueDataAdapterV2>("SMSProvider", b => b.Configure(opt =>
                 //{
                 //    opt.ConnectionString = connectionString;
@@ -108,7 +115,7 @@ namespace StreamClient
         /// <returns></returns>
         private static async Task DoClientWork(IClusterClient client)
         {
-            var random = client.GetGrain<IRandomReceiver>(new Guid());
+            var random = client.GetGrain<IRandomReceiver>(Guid.Parse(Console.ReadLine()));
 
             var streamProvider = client.GetStreamProvider("SMSProvider");
             var stream = streamProvider.GetStream<Message>(random.GetPrimaryKey(), "StreamLib");
@@ -124,27 +131,49 @@ namespace StreamClient
         }
     }
 
+
     public class MySerializer : IExternalSerializer
     {
         public object DeepCopy(object source, ICopyContext context)
         {
             var fooCopy = SerializationManager.DeepCopyInner(source, context);
-            throw new NotImplementedException();
+            return fooCopy;
         }
 
         public object Deserialize(Type expectedType, IDeserializationContext context)
         {
-            return null;
+             //if (expectedType.Name == nameof(EventSequenceTokenV2))
+           if (expectedType.Name == nameof(EventSequenceToken))
+            {
+                var n = Convert.ToInt32(context.DeserializeInner(expectedType));
+                Console.WriteLine($"--------------n={n}-------------------");
+                var num = Convert.ToInt64(context.GetSerializationManager().Deserialize(context.StreamReader));
+                Console.WriteLine($"--------------num={num}-------------------");
+                 // return new EventSequenceTokenV2(num);
+               return new EventSequenceToken(num, n);
+            }
+            else
+            {
+                return context.DeserializeInner(expectedType);
+            }
         }
 
         public bool IsSupportedType(Type itemType)
         {
-            return true;
+            //if (itemType.Name == nameof(EventSequenceTokenV2))
+            if (itemType.Name == nameof(EventSequenceToken))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public void Serialize(object item, ISerializationContext context, Type expectedType)
         {
-
+            context.SerializeInner(item, expectedType);
         }
     }
 

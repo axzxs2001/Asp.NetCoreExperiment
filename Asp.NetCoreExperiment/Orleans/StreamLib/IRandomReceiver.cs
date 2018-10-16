@@ -10,7 +10,7 @@ namespace StreamLib
     {
         Task Method1(Message message);
     }
-
+    [Serializable]
     public class ReceiverGrain : Grain, IRandomReceiver
     {
 
