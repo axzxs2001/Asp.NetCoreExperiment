@@ -102,8 +102,7 @@ namespace StreamClient
         /// <returns></returns>
         private static async Task DoClientWork(IClusterClient client)
         {
-            var random = client.GetGrain<IRandomReceiver>(new Guid());
-       
+            var random = client.GetGrain<IRandomReceiver>(new Guid());      
 
             var streamProvider = client.GetStreamProvider("SMSProvider");
             var stream = streamProvider.GetStream<Message>(random.GetPrimaryKey(), "StreamLib");

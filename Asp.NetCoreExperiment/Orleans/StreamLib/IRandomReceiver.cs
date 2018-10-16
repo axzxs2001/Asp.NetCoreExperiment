@@ -1,6 +1,7 @@
 ﻿using Orleans;
 using Orleans.Streams;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 namespace StreamLib
 {
@@ -22,7 +23,7 @@ namespace StreamLib
 
         public override async Task OnActivateAsync()
         {
-           
+
             var streamProvider = GetStreamProvider("SMSProvider");
             _stream = streamProvider.GetStream<Message>(this.GetPrimaryKey(), "StreamLib");
 
@@ -30,7 +31,7 @@ namespace StreamLib
 
         }
     }
-    
+
     [Serializable]
     public class AsyncObserver : IAsyncObserver<Message>
     {
@@ -46,17 +47,14 @@ namespace StreamLib
 
         public Task OnNextAsync(Message item, StreamSequenceToken token = null)
         {
-            Console.WriteLine("AsyncObserver Itme:" + item);
+            Console.WriteLine("AsyncObserver Itme:" + item.Content);
             return Task.CompletedTask;
         }
     }
-
 
     [Serializable]
     public class Message
     {
         public string Content { get; set; }
     }
-
-
 }
