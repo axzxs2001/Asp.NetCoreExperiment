@@ -59,12 +59,13 @@ namespace StreamSiloHost
                    //.AddPersistentStreams("SMSProvider",
                    //GeneratorAdapterFactory.Create,
                    // providerConfigurator => providerConfigurator.Configure<HashRingStreamQueueMapperOptions>(ob => ob.Configure( options => { options.TotalQueueCount = 1;})))
+
                    .AddSimpleMessageStreamProvider("SMSProvider")
                    //RabbitMq实现队列订阅通知
-                   //.AddRabbitMqStream("RMQProvider", configurator =>
+                   //.AddRabbitMqStream("SMSProvider", configurator =>
                    //{
-                   //    configurator.ConfigureRabbitMq(host: "localhost", port: 5672, virtualHost: "/",
-                   //                                   user: "guest", password: "guest", queueName: "test");
+                   //    configurator.ConfigureRabbitMq(host: "127.0.0.1", port: 5672, virtualHost: "/",
+                   //                                   user: "guest", password: "guest", queueName: "test1");
                    //})
                    .AddMemoryGrainStorage("PubSubStore");
 

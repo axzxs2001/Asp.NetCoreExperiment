@@ -4,10 +4,14 @@ using Microsoft.Extensions.Logging;
 using Orleans;
 using Orleans.Configuration;
 using Orleans.Hosting;
-using Orleans.Providers.Streams.AzureQueue;
 using Orleans.Runtime;
+using Orleans.Serialization;
+using Orleans.Streams.BatchContainer;
 using StreamLib;
 using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace StreamClient
@@ -59,11 +63,11 @@ namespace StreamClient
                 .ConfigureLogging(logging => logging.AddConsole())
                 .AddSimpleMessageStreamProvider("SMSProvider")
                 //RabbitMq实现队列订阅通知
-                //.AddRabbitMqStream("RMQProvider", configurator =>
+                //.AddRabbitMqStream("SMSProvider", configurator =>
                 //{
-                //    configurator.ConfigureRabbitMq(host: "localhost", port: 5672, virtualHost: "/",
-                //                                   user: "guest", password: "guest", queueName: "test");
-                //})             
+                //    configurator.ConfigureRabbitMq(host: "127.0.0.1", port: 5672, virtualHost: "/",
+                //                                   user: "guest", password: "guest", queueName: "test1");
+                //})
                 .Build();
 
             await client.Connect(RetryFilter);
@@ -99,17 +103,20 @@ namespace StreamClient
         private static async Task DoClientWork(IClusterClient client)
         {
             var random = client.GetGrain<IRandomReceiver>(new Guid());
+       
+
             var streamProvider = client.GetStreamProvider("SMSProvider");
-            var stream = streamProvider.GetStream<string>(random.GetPrimaryKey(), "StreamLib");
-         
+            var stream = streamProvider.GetStream<Message>(random.GetPrimaryKey(), "StreamLib");
             await stream.SubscribeAsync(new AsyncObserver());
+            // await stream.SubscribeAsync<string>(async (data, token) => Console.WriteLine(data));
             while (true)
             {
                 Console.WriteLine("输入发送的值：");
                 var content = Console.ReadLine();
-                await random.Method1(content);
+                await random.Method1(new Message { Content = content });
             }
 
         }
     }
+
 }

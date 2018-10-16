@@ -1,21 +1,20 @@
 ﻿using Orleans;
 using Orleans.Streams;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 namespace StreamLib
 {
 
     public interface IRandomReceiver : IGrainWithGuidKey
     {
-        Task Method1(string message);
+        Task Method1(Message message);
     }
 
     public class ReceiverGrain : Grain, IRandomReceiver
     {
 
-        IAsyncStream<string> _stream;
-        public async Task Method1(string message)
+        IAsyncStream<Message> _stream;
+        public async Task Method1(Message message)
         {
             await _stream.OnNextAsync(message);
             Console.WriteLine("这里是Grain的一个类，IHelloWorld.Method1");
@@ -23,17 +22,17 @@ namespace StreamLib
 
         public override async Task OnActivateAsync()
         {
+           
             var streamProvider = GetStreamProvider("SMSProvider");
-            _stream = streamProvider.GetStream<string>(this.GetPrimaryKey(), "StreamLib");
-        
+            _stream = streamProvider.GetStream<Message>(this.GetPrimaryKey(), "StreamLib");
+
             await base.OnActivateAsync();
 
         }
     }
-
-
-
-    public class AsyncObserver : IAsyncObserver<string>
+    
+    [Serializable]
+    public class AsyncObserver : IAsyncObserver<Message>
     {
         public Task OnCompletedAsync()
         {
@@ -45,7 +44,7 @@ namespace StreamLib
             return Task.CompletedTask;
         }
 
-        public Task OnNextAsync(string item, StreamSequenceToken token = null)
+        public Task OnNextAsync(Message item, StreamSequenceToken token = null)
         {
             Console.WriteLine("AsyncObserver Itme:" + item);
             return Task.CompletedTask;
@@ -53,17 +52,11 @@ namespace StreamLib
     }
 
 
-    public class AsyncObservable : IAsyncObservable<string>
+    [Serializable]
+    public class Message
     {
-        public Task<StreamSubscriptionHandle<string>> SubscribeAsync(IAsyncObserver<string> observer)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<StreamSubscriptionHandle<string>> SubscribeAsync(IAsyncObserver<string> observer, StreamSequenceToken token, StreamFilterPredicate filterFunc = null, object filterData = null)
-        {
-            throw new NotImplementedException();
-        }
+        public string Content { get; set; }
     }
+
 
 }
