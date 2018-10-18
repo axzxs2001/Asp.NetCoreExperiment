@@ -10,7 +10,7 @@ using Orleans.Serialization;
 using StreamLib;
 using System;
 using System.Threading.Tasks;
-
+using System.Linq;
 namespace StreamClient
 {
     class Program
@@ -119,7 +119,7 @@ namespace StreamClient
             var guid =await grain.GetGuid();
             Console.WriteLine(guid);
             var stream = streamProvider.GetStream<Message>(guid, "StreamLib");
-
+            
             await stream.SubscribeAsync(new AsyncObserver());
             // await stream.SubscribeAsync<string>(async (data, token) => Console.WriteLine(data));
             while (true)
