@@ -45,7 +45,7 @@ namespace StreamSiloHost
 
             var connectionString = "";
             //Grain的程序集
-            var assambly = typeof(IRandomReceiver).Assembly;
+            var assambly = typeof(IReceiver).Assembly;
             var builder = new SiloHostBuilder()
                    .UseLocalhostClustering()
                    //.UseAzureStorageClustering(options => options.ConnectionString = connectionString)
@@ -61,13 +61,13 @@ namespace StreamSiloHost
                    .UseInMemoryReminderService()
                    .UseLocalhostClustering()
                    //简单实现通知
-                   //.AddSimpleMessageStreamProvider("SMSProvider")
+                   .AddSimpleMessageStreamProvider("SMSProvider")
                    //RabbitMq实现队列订阅通知
-                   .AddRabbitMqStream("SMSProvider", configurator =>
-                   {
-                       configurator.ConfigureRabbitMq(host: "localhost", port: 5672, virtualHost: "/",
-                                                      user: "guest", password: "guest", queueName: "SMSProvider");
-                   })
+                   //.AddRabbitMqStream("SMSProvider", configurator =>
+                   //{
+                   //    configurator.ConfigureRabbitMq(host: "localhost", port: 5672, virtualHost: "/",
+                   //                                   user: "guest", password: "guest", queueName: "SMSProvider");
+                   //})
                    //AzureQueue实现通知
                    //.AddAzureQueueStreams<AzureQueueDataAdapterV2>("SMSProvider", b => b.Configure(opt =>
                    //{

@@ -1,17 +1,17 @@
 ﻿using Orleans;
 using Orleans.Streams;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 namespace StreamLib
 {
 
-    public interface IRandomReceiver : IGrainWithGuidKey
+    public interface IReceiver : IGrainWithStringKey
     {
         Task Method1(Message message);
+        Task<Guid> GetGuid();
     }
     [Serializable]
-    public class ReceiverGrain : Grain, IRandomReceiver
+    public class ReceiverGrain : Grain, IReceiver
     {
 
         IAsyncStream<Message> _stream;
@@ -21,11 +21,17 @@ namespace StreamLib
             Console.WriteLine("这里是Grain的一个类，IHelloWorld.Method1");
         }
 
+        public async Task<Guid> GetGuid()
+        {
+            await _stream.OnNextAsync(new Message() { Content = "无" });
+            return _stream.Guid;
+        }
+
         public override async Task OnActivateAsync()
         {
 
             var streamProvider = GetStreamProvider("SMSProvider");
-            _stream = streamProvider.GetStream<Message>(this.GetPrimaryKey(), "StreamLib");
+            _stream = streamProvider.GetStream<Message>(Guid.NewGuid(), "StreamLib");
 
             await base.OnActivateAsync();
 

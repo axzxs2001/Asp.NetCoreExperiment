@@ -4,14 +4,11 @@ using Microsoft.Extensions.Logging;
 using Orleans;
 using Orleans.Configuration;
 using Orleans.Hosting;
-using Orleans.Providers.Streams.AzureQueue;
 using Orleans.Providers.Streams.Common;
 using Orleans.Runtime;
 using Orleans.Serialization;
 using StreamLib;
 using System;
-using System.Collections.Generic;
-using System.Reflection;
 using System.Threading.Tasks;
 
 namespace StreamClient
@@ -62,19 +59,19 @@ namespace StreamClient
                     options.ClusterId = "dev";
                     options.ServiceId = "TestApp";
                 })
-                .Configure<SerializationProviderOptions>(opt =>
-                {
-                    opt.SerializationProviders.Add(typeof(MySerializer).GetTypeInfo());
-                })
+                //.Configure<SerializationProviderOptions>(opt =>
+                //{
+                //    opt.SerializationProviders.Add(typeof(MySerializer).GetTypeInfo());
+                //})
                 .ConfigureLogging(logging => logging.AddConsole())
                 //简单通知
-                //.AddSimpleMessageStreamProvider("SMSProvider")
+                .AddSimpleMessageStreamProvider("SMSProvider")
                 //RabbitMq实现队列订阅通知
-                .AddRabbitMqStream("SMSProvider", configurator =>
-                {
-                    configurator.ConfigureRabbitMq(host: "localhost", port: 5672, virtualHost: "/",
-                                                   user: "guest", password: "guest", queueName: "SMSProvider");
-                })
+                //.AddRabbitMqStream("SMSProvider", configurator =>
+                //{
+                //    configurator.ConfigureRabbitMq(host: "localhost", port: 5672, virtualHost: "/",
+                //                                   user: "guest", password: "guest", queueName: "SMSProvider");
+                //})
                 //AzureQueue实现通知
                 //.AddAzureQueueStreams<AzureQueueDataAdapterV2>("SMSProvider", b => b.Configure(opt =>
                 //{
@@ -115,17 +112,21 @@ namespace StreamClient
         /// <returns></returns>
         private static async Task DoClientWork(IClusterClient client)
         {
-            var random = client.GetGrain<IRandomReceiver>(Guid.Parse(Console.ReadLine()));
+            Console.WriteLine("输入客户端标识");
+            var grain = client.GetGrain<IReceiver>(Console.ReadLine());
 
             var streamProvider = client.GetStreamProvider("SMSProvider");
-            var stream = streamProvider.GetStream<Message>(random.GetPrimaryKey(), "StreamLib");
+            var guid =await grain.GetGuid();
+            Console.WriteLine(guid);
+            var stream = streamProvider.GetStream<Message>(guid, "StreamLib");
+
             await stream.SubscribeAsync(new AsyncObserver());
             // await stream.SubscribeAsync<string>(async (data, token) => Console.WriteLine(data));
             while (true)
             {
                 Console.WriteLine("输入发送的值：");
                 var content = Console.ReadLine();
-                await random.Method1(new Message { Content = content });
+                await grain.Method1(new Message { Content = content });
             }
 
         }
@@ -142,15 +143,15 @@ namespace StreamClient
 
         public object Deserialize(Type expectedType, IDeserializationContext context)
         {
-             //if (expectedType.Name == nameof(EventSequenceTokenV2))
-           if (expectedType.Name == nameof(EventSequenceToken))
+            //if (expectedType.Name == nameof(EventSequenceTokenV2))
+            if (expectedType.Name == nameof(EventSequenceToken))
             {
                 var n = Convert.ToInt32(context.DeserializeInner(expectedType));
                 Console.WriteLine($"--------------n={n}-------------------");
                 var num = Convert.ToInt64(context.GetSerializationManager().Deserialize(context.StreamReader));
                 Console.WriteLine($"--------------num={num}-------------------");
-                 // return new EventSequenceTokenV2(num);
-               return new EventSequenceToken(num, n);
+                // return new EventSequenceTokenV2(num);
+                return new EventSequenceToken(num, n);
             }
             else
             {
