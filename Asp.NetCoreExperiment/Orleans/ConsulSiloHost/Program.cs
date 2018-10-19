@@ -45,8 +45,7 @@ namespace HelloWorld_SiloHost
 
             //Grain的程序集
             var assambly = typeof(IConsulGrain).Assembly;
-            var builder = new SiloHostBuilder()
-                   //.UseLocalhostClustering()
+            var builder = new SiloHostBuilder()                  
                    .Configure<ClusterOptions>(options =>
                    {
                        options.ClusterId = "dev";
@@ -62,7 +61,6 @@ namespace HelloWorld_SiloHost
                        opt.KvRootFolder = "orleans";
 
                    });
-
 
             var host = builder.Build();
 

@@ -49,7 +49,6 @@ namespace ConsulClient
         {
             attempt = 0;
             IClusterClient client = new ClientBuilder()
-                .UseLocalhostClustering()
                 .Configure<ClusterOptions>(options =>
                 {
                     options.ClusterId = "dev";
@@ -98,9 +97,9 @@ namespace ConsulClient
             while (true)
             {
                 Console.WriteLine("回车开始下一个请求");
-                Console.ReadLine();
+                var content = Console.ReadLine();
                 var hello = client.GetGrain<IConsulGrain>(Guid.NewGuid());
-                await hello.Method1();
+                await hello.Method1(content);
             }
 
         }
