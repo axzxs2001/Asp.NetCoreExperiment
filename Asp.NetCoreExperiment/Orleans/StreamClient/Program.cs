@@ -36,7 +36,6 @@ namespace StreamClient
                     await DoClientWork(client);
                     Console.ReadKey();
                 }
-
                 return 0;
             }
             catch (Exception e)
