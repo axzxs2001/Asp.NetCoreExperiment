@@ -7,8 +7,8 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="2.2.0-preview2-35157" />
-    <PackageReference Include="Microsoft.Orleans.Persistence.AdoNet" Version="2.1.0" />
-    <PackageReference Include="Microsoft.Orleans.Server" Version="2.1.0" />
+    <PackageReference Include="Microsoft.Orleans.Persistence.AdoNet" Version="2.2.0-beta1" />
+    <PackageReference Include="Microsoft.Orleans.Server" Version="2.2.0-beta1" />
     <PackageReference Include="System.Data.SqlClient" Version="4.6.0-preview2-26905-02" />
   </ItemGroup>
 

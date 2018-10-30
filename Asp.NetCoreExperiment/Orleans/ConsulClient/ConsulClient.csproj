@@ -7,8 +7,8 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="2.2.0-preview3-35497" />
-    <PackageReference Include="Microsoft.Orleans.Core" Version="2.1.2" />
-    <PackageReference Include="Microsoft.Orleans.OrleansConsulUtils" Version="2.1.2" />
+    <PackageReference Include="Microsoft.Orleans.Core" Version="2.2.0-beta1" />
+    <PackageReference Include="Microsoft.Orleans.OrleansConsulUtils" Version="2.2.0-beta1" />
   </ItemGroup>
 
   <ItemGroup>
