@@ -37,11 +37,11 @@ namespace AppMetricsDemo01
                 })
          //#endif
          //#if HOSTING_OPTIONS
-         //.ConfigureAppHealthHostingConfiguration(options =>
-         //{                   
-         //    options.HealthEndpoint = "/health";
-         //    options.HealthEndpointPort = 5001;                 
-         //})
+         .ConfigureAppHealthHostingConfiguration(options =>
+         {
+             options.HealthEndpoint = "/health";
+             options.HealthEndpointPort = 5001;
+         })
          //#endif
          .UseHealth((opt) => { opt.HealthOptions = (d) => {d.Enabled = true;}; opt.EndpointOptions = (d) => { d.HealthEndpointEnabled = true; }; })
                 .UseStartup<Startup>();

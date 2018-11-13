@@ -10,12 +10,16 @@
     <PackageReference Include="App.Metrics.AspNetCore.Endpoints" Version="3.0.0-alpha-0098" />
     <PackageReference Include="App.Metrics.AspNetCore.Health" Version="2.1.0-alpha-0071" />
     <PackageReference Include="App.Metrics.AspNetCore.Health.Endpoints" Version="2.1.0-alpha-0071" />
+    <PackageReference Include="App.Metrics.AspNetCore.Health.Hosting" Version="2.1.0-alpha-0071" />
     <PackageReference Include="App.Metrics.AspNetCore.Mvc" Version="3.0.0-alpha-0098" />
     <PackageReference Include="App.Metrics.AspNetCore.Reporting" Version="3.0.0-alpha-0094" />
     <PackageReference Include="App.Metrics.AspNetCore.Tracking" Version="3.0.0-alpha-0098" />
+    <PackageReference Include="App.Metrics.Health" Version="2.1.0-alpha-0118" />
+    <PackageReference Include="App.Metrics.Health.Checks.Http" Version="2.1.0-alpha-0118" />
     <PackageReference Include="App.Metrics.Reporting.InfluxDB" Version="3.0.0-alpha-0067" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.4" />
   </ItemGroup>
 
 </Project>

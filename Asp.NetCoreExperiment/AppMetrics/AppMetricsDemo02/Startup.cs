@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using App.Metrics;
+using App.Metrics.Health;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -60,17 +62,17 @@ namespace AppMetricsDemo02
 
 
                 services.AddMetrics(metrics);
-                //services.AddMetricsReportingHostedService(new EventHandler<UnobservedTaskExceptionEventArgs> ((obj,unauthorizedAccessException )=> {
-
-                //    Console.WriteLine(unauthorizedAccessException.Observed);
-                //}));
-               
-                //services.AddMetricsReportScheduler();
+                services.AddMetricsReportingHostedService();              
                 services.AddMetricsTrackingMiddleware();
                 services.AddMetricsEndpoints();
 
+                var hmetrics = AppMetricsHealth.CreateDefaultBuilder()
+                    .HealthChecks.RegisterFromAssembly(services)   
+                    .HealthChecks.AddCheck(new ABC("aaa"))
+                    .BuildAndAddTo(services);
+                services.AddHealth(hmetrics);
+                services.AddHealthEndpoints();
 
-               
 
             }
 
@@ -98,7 +100,7 @@ namespace AppMetricsDemo02
             {
                 app.UseMetricsAllMiddleware();
                 app.UseMetricsAllEndpoints(); ;
-                // app.UseHealthAllEndpoints();               
+                app.UseHealthAllEndpoints();               
             }
             #endregion
 
@@ -108,6 +110,16 @@ namespace AppMetricsDemo02
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+        }
+    }
+    public class ABC : HealthCheck
+    {
+        public ABC(string name = "ABC") : base(name)
+        {
+        }
+        protected override ValueTask<HealthCheckResult> CheckAsync(CancellationToken cancellationToken)
+        {
+            return new ValueTask<HealthCheckResult>(result: HealthCheckResult.Unhealthy("这是一个错误"));
         }
     }
 }
