@@ -39,5 +39,12 @@ namespace AppMetricsDemo01.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+
+        [HttpGet("/health")]
+        public IActionResult Health()
+        {
+            return Ok();
+        }
     }
 }
