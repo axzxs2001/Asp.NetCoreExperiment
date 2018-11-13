@@ -3,13 +3,12 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": false,
     "iisExpress": {
-      "applicationUrl": "http://localhost:55122",
+      "applicationUrl": "http://localhost:51153",
       "sslPort": 0
     }
   },
-  "profiles": {
-
-    "AppMetricsDemo01": {
+  "profiles": { 
+    "AppMetricsDemo02": {
       "commandName": "Project",
       "launchBrowser": false,
       "applicationUrl": "http://localhost:5000",

@@ -4,9 +4,9 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using AppMetricsDemo01.Models;
+using AppMetricsDemo02.Models;
 
-namespace AppMetricsDemo01.Controllers
+namespace AppMetricsDemo02.Controllers
 {
     public class HomeController : Controller
     {
@@ -38,25 +38,6 @@ namespace AppMetricsDemo01.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
-
-
-        [HttpGet("/health")]
-        public IActionResult Health()
-        {
-            return Ok();
-        }
-
-
-        [HttpPost("/abc")]
-        public IActionResult PostAAA(string id)
-        {
-            return Redirect("/home/Contact");
-        }
-        [HttpPut("/abcd")]
-        public IActionResult PutAAA(string id)
-        {
-            return Redirect("/home/Contact");
         }
     }
 }

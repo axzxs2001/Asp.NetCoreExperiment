@@ -1,18 +1,16 @@
-﻿using App.Metrics;
-using App.Metrics.Formatters.Json;
-using App.Metrics.Health;
-using App.Metrics.Health.Formatters.Ascii;
-using App.Metrics.Health.Formatters.Json;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using App.Metrics;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 
-namespace AppMetricsDemo01
+namespace AppMetricsDemo02
 {
     public class Startup
     {
@@ -23,10 +21,9 @@ namespace AppMetricsDemo01
 
         public IConfiguration Configuration { get; }
 
-
+      
         public void ConfigureServices(IServiceCollection services)
         {
-
             #region Metrics监控配置
             string IsOpen = Configuration.GetSection("InfluxDB:IsOpen").Value.ToLower();
             if (IsOpen == "true")
@@ -63,41 +60,26 @@ namespace AppMetricsDemo01
 
 
                 services.AddMetrics(metrics);
+                //services.AddMetricsReportingHostedService(new EventHandler<UnobservedTaskExceptionEventArgs> ((obj,unauthorizedAccessException )=> {
 
-                services.AddMetricsReportScheduler();
+                //    Console.WriteLine(unauthorizedAccessException.Observed);
+                //}));
+               
+                //services.AddMetricsReportScheduler();
                 services.AddMetricsTrackingMiddleware();
                 services.AddMetricsEndpoints();
 
-                /*
-                var healthMetrics = AppMetricsHealth.CreateDefaultBuilder()
-                    .HealthChecks.RegisterFromAssembly(services)
-                    //.HealthChecks.AddCheck(new ABC("abc"))
-                    //.HealthChecks.AddChecks(
-                    //new HealthCheck[] {
-                    //    new HealthCheck("DatabaseConnected",()=> new ValueTask<HealthCheckResult>(HealthCheckResult.Healthy("Database Connection OK"))) }
-                    //)
-                    //.Configuration.Configure(options =>
-                    //{
-                    //    options.Enabled = true;
-                    //})
-                    .BuildAndAddTo(services);
 
-                services.AddHealth(healthMetrics);
-                services.AddHealthEndpoints();
                
-                //services.AddHealthEndpoints(opt =>
-                //{
-                //    opt.HealthEndpointEnabled = true;
-                //    opt.HealthEndpointOutputFormatter = new HealthStatusJsonOutputFormatter(new Newtonsoft.Json.JsonSerializerSettings ());
-                //});
-                */
+
             }
 
             #endregion
+
             services.AddMvc().AddMetrics().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
-
+        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
@@ -115,10 +97,11 @@ namespace AppMetricsDemo01
             if (IsOpen == "true")
             {
                 app.UseMetricsAllMiddleware();
-                app.UseMetricsAllEndpoints(); 
-               // app.UseHealthAllEndpoints(); 
+                app.UseMetricsAllEndpoints(); ;
+                // app.UseHealthAllEndpoints();               
             }
             #endregion
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
@@ -126,16 +109,5 @@ namespace AppMetricsDemo01
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
         }
-    }
-
-    public class ABC : HealthCheck
-    {
-        public ABC(string name = "ABC") : base(name)
-        {
-        }
-        protected override ValueTask<HealthCheckResult> CheckAsync(CancellationToken cancellationToken)
-        {
-            return new ValueTask<HealthCheckResult>(result: HealthCheckResult.Unhealthy("这是一个错误"));
-        }  
     }
 }

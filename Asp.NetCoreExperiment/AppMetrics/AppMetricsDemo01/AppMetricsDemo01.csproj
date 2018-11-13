@@ -9,10 +9,15 @@
     <PackageReference Include="App.Metrics.AspNetCore.Core" Version="2.0.0" />
     <PackageReference Include="App.Metrics.AspNetCore.Endpoints" Version="2.0.0" />
     <PackageReference Include="App.Metrics.AspNetCore.Health" Version="2.0.0" />
+    <PackageReference Include="App.Metrics.AspNetCore.Health.Core" Version="2.0.0" />
     <PackageReference Include="App.Metrics.AspNetCore.Health.Endpoints" Version="2.0.0" />
+    <PackageReference Include="App.Metrics.AspNetCore.Health.Hosting" Version="2.0.0" />
     <PackageReference Include="App.Metrics.AspNetCore.Mvc" Version="2.0.0" />
     <PackageReference Include="App.Metrics.AspNetCore.Reporting" Version="2.0.0" />
     <PackageReference Include="App.Metrics.AspNetCore.Tracking" Version="2.0.0" />
+    <PackageReference Include="App.Metrics.Health" Version="2.0.0" />
+    <PackageReference Include="App.Metrics.Health.Checks.Http" Version="2.0.0" />
+    <PackageReference Include="App.Metrics.Health.Extensions.Configuration" Version="2.0.0" />
     <PackageReference Include="App.Metrics.Reporting.InfluxDB" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
