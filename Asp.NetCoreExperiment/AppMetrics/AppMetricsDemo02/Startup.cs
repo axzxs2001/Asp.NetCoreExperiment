@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using App.Metrics;
+﻿using App.Metrics;
 using App.Metrics.Health;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace AppMetricsDemo02
 {
@@ -23,7 +20,7 @@ namespace AppMetricsDemo02
 
         public IConfiguration Configuration { get; }
 
-      
+
         public void ConfigureServices(IServiceCollection services)
         {
             #region Metrics监控配置
@@ -62,16 +59,17 @@ namespace AppMetricsDemo02
 
 
                 services.AddMetrics(metrics);
-                services.AddMetricsReportingHostedService();              
+                services.AddMetricsReportingHostedService();
                 services.AddMetricsTrackingMiddleware();
                 services.AddMetricsEndpoints();
 
-                var hmetrics = AppMetricsHealth.CreateDefaultBuilder()
-                    .HealthChecks.RegisterFromAssembly(services)   
-                    .HealthChecks.AddCheck(new ABC("aaa"))
-                    .BuildAndAddTo(services);
-                services.AddHealth(hmetrics);
-                services.AddHealthEndpoints();
+                //var hmetrics = AppMetricsHealth.CreateDefaultBuilder()
+                //    //.HealthChecks.RegisterFromAssembly(services)   
+                //    //.HealthChecks.AddCheck(new ABC("aaa"))
+                //    .BuildAndAddTo(services);
+                //services.AddHealth(hmetrics);
+                //services.AddHealthReportingHostedService();
+                //services.AddHealthEndpoints();
 
 
             }
@@ -100,7 +98,8 @@ namespace AppMetricsDemo02
             {
                 app.UseMetricsAllMiddleware();
                 app.UseMetricsAllEndpoints(); ;
-                app.UseHealthAllEndpoints();               
+               // app.UseHealthAllEndpoints();
+              
             }
             #endregion
 
@@ -119,6 +118,7 @@ namespace AppMetricsDemo02
         }
         protected override ValueTask<HealthCheckResult> CheckAsync(CancellationToken cancellationToken)
         {
+            var result = base.CheckAsync(cancellationToken).Result;
             return new ValueTask<HealthCheckResult>(result: HealthCheckResult.Unhealthy("这是一个错误"));
         }
     }

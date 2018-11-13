@@ -22,21 +22,29 @@ namespace AppMetricsDemo02
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
             //#if INLINE_CHECKS
-            //.ConfigureHealthWithDefaults(
-            //    builder =>
-            //    {
-            //        builder.HealthChecks.AddCheck("DatabaseConnected", () => new ValueTask<HealthCheckResult>(HealthCheckResult.Healthy("Database Connection OK")));                  
-            //        builder.HealthChecks.AddHttpGetCheck("AppMetricsDemo01", new Uri("http://localhost:5000/health"), TimeSpan.FromSeconds(10));
-            //    })
-         //#endif
-         //#if HOSTING_OPTIONS
-         //.ConfigureAppHealthHostingConfiguration(options =>
-         //{
-         //    options.HealthEndpoint = "/health";
-         //    options.HealthEndpointPort = 5001;
-         //})
-         //#endif
-        // .UseHealth()
+            .ConfigureHealthWithDefaults(
+                builder =>
+                {
+                    builder.Configuration.Configure(opt => { opt.ReportingEnabled = true; opt.ApplicationName = "aaaa"; opt.Enabled = true; });
+                    const int threshold = 100;
+                    builder.HealthChecks.AddCheck("DatabaseConnected", () => new ValueTask<HealthCheckResult>(HealthCheckResult.Healthy("Database Connection OK")));
+                    builder.HealthChecks.AddProcessPrivateMemorySizeCheck("Private Memory Size", threshold);
+                    builder.HealthChecks.AddProcessVirtualMemorySizeCheck("Virtual Memory Size", threshold);
+                    builder.HealthChecks.AddProcessPhysicalMemoryCheck("Working Set", threshold);
+                    builder.HealthChecks.AddPingCheck("google ping", "google.com", TimeSpan.FromSeconds(10));
+                    builder.HealthChecks.AddHttpGetCheck("github", new Uri("https://github.com/"), TimeSpan.FromSeconds(10));
+                })
+            //#endif
+            //#if HOSTING_OPTIONS
+            .ConfigureAppHealthHostingConfiguration(options =>
+            {
+                options.PingEndpoint = "/ping";
+                options.PingEndpointPort = 5001;
+                options.HealthEndpoint = "/health";
+                options.HealthEndpointPort = 5001;
+            })
+            //#endif
+            .UseHealth().UseHealthEndpoints(opt => { opt.HealthEndpointEnabled = true; })
             .UseStartup<Startup>();
     }
 }
