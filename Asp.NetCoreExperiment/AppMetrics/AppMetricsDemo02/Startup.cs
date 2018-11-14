@@ -63,13 +63,25 @@ namespace AppMetricsDemo02
                 services.AddMetricsTrackingMiddleware();
                 services.AddMetricsEndpoints();
 
-                //var hmetrics = AppMetricsHealth.CreateDefaultBuilder()
-                //    //.HealthChecks.RegisterFromAssembly(services)   
-                //    //.HealthChecks.AddCheck(new ABC("aaa"))
-                //    .BuildAndAddTo(services);
-                //services.AddHealth(hmetrics);
-                //services.AddHealthReportingHostedService();
-                //services.AddHealthEndpoints();
+                var hmetrics = AppMetricsHealth.CreateDefaultBuilder().Report.ToMetrics(metrics)
+                    //.HealthChecks.RegisterFromAssembly(services)    //自定义注册
+                    .HealthChecks.AddCheck(new MyHealthCheck("自定义类现"))
+                    .HealthChecks.AddCheck("委括实现", () =>
+                    {
+
+                        if (DateTime.Now.Second % 2 == 0)
+                        {
+                            return new ValueTask<HealthCheckResult>(HealthCheckResult.Healthy("Ok"));
+                        }
+                        else
+                        {
+                            return new ValueTask<HealthCheckResult>(HealthCheckResult.Unhealthy("error"));
+                        }
+                    })
+                    .BuildAndAddTo(services);
+                services.AddHealth(hmetrics);
+                services.AddHealthReportingHostedService();
+                services.AddHealthEndpoints();
 
 
             }
@@ -98,8 +110,8 @@ namespace AppMetricsDemo02
             {
                 app.UseMetricsAllMiddleware();
                 app.UseMetricsAllEndpoints(); ;
-               // app.UseHealthAllEndpoints();
-              
+                app.UseHealthAllEndpoints();
+
             }
             #endregion
 
@@ -111,15 +123,21 @@ namespace AppMetricsDemo02
             });
         }
     }
-    public class ABC : HealthCheck
+    public class MyHealthCheck : HealthCheck
     {
-        public ABC(string name = "ABC") : base(name)
+        public MyHealthCheck(string name = "MyHealthCheck") : base(name)
         {
         }
         protected override ValueTask<HealthCheckResult> CheckAsync(CancellationToken cancellationToken)
-        {
-            var result = base.CheckAsync(cancellationToken).Result;
-            return new ValueTask<HealthCheckResult>(result: HealthCheckResult.Unhealthy("这是一个错误"));
+        {            
+            if (DateTime.Now.Second % 2 == 0)
+            {
+                return new ValueTask<HealthCheckResult>(HealthCheckResult.Healthy("MyHealthCheck Ok"));
+            }
+            else
+            {
+                return new ValueTask<HealthCheckResult>(HealthCheckResult.Unhealthy("MyHealthCheck error"));
+            }
         }
     }
 }

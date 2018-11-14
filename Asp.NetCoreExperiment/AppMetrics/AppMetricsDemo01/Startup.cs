@@ -67,30 +67,6 @@ namespace AppMetricsDemo01
                 services.AddMetricsReportScheduler();
                 services.AddMetricsTrackingMiddleware();
                 services.AddMetricsEndpoints();
-
-                /*
-                var healthMetrics = AppMetricsHealth.CreateDefaultBuilder()
-                    .HealthChecks.RegisterFromAssembly(services)
-                    //.HealthChecks.AddCheck(new ABC("abc"))
-                    //.HealthChecks.AddChecks(
-                    //new HealthCheck[] {
-                    //    new HealthCheck("DatabaseConnected",()=> new ValueTask<HealthCheckResult>(HealthCheckResult.Healthy("Database Connection OK"))) }
-                    //)
-                    //.Configuration.Configure(options =>
-                    //{
-                    //    options.Enabled = true;
-                    //})
-                    .BuildAndAddTo(services);
-
-                services.AddHealth(healthMetrics);
-                services.AddHealthEndpoints();
-               
-                //services.AddHealthEndpoints(opt =>
-                //{
-                //    opt.HealthEndpointEnabled = true;
-                //    opt.HealthEndpointOutputFormatter = new HealthStatusJsonOutputFormatter(new Newtonsoft.Json.JsonSerializerSettings ());
-                //});
-                */
             }
 
             #endregion
@@ -115,8 +91,7 @@ namespace AppMetricsDemo01
             if (IsOpen == "true")
             {
                 app.UseMetricsAllMiddleware();
-                app.UseMetricsAllEndpoints(); 
-               // app.UseHealthAllEndpoints(); 
+                app.UseMetricsAllEndpoints();              
             }
             #endregion
             app.UseMvc(routes =>
@@ -126,16 +101,5 @@ namespace AppMetricsDemo01
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
         }
-    }
-
-    public class ABC : HealthCheck
-    {
-        public ABC(string name = "ABC") : base(name)
-        {
-        }
-        protected override ValueTask<HealthCheckResult> CheckAsync(CancellationToken cancellationToken)
-        {
-            return new ValueTask<HealthCheckResult>(result: HealthCheckResult.Unhealthy("这是一个错误"));
-        }  
     }
 }
