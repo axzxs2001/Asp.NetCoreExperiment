@@ -69,7 +69,7 @@ namespace AppMetricsDemo02
                     .HealthChecks.AddCheck("委括实现", () =>
                     {
 
-                        if (DateTime.Now.Second % 2 == 0)
+                        if (DateTime.Now.Second % 3 != 0)
                         {
                             return new ValueTask<HealthCheckResult>(HealthCheckResult.Healthy("Ok"));
                         }
@@ -130,7 +130,7 @@ namespace AppMetricsDemo02
         }
         protected override ValueTask<HealthCheckResult> CheckAsync(CancellationToken cancellationToken)
         {            
-            if (DateTime.Now.Second % 2 == 0)
+            if (DateTime.Now.Second % 3 != 0)
             {
                 return new ValueTask<HealthCheckResult>(HealthCheckResult.Healthy("MyHealthCheck Ok"));
             }
