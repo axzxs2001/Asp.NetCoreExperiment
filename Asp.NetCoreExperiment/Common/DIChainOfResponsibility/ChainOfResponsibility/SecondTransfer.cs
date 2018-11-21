@@ -19,7 +19,7 @@ namespace DIChainOfResponsibility
         /// <returns></returns>
         public override bool Transfer(TransferParmeter transferParmeter)
         {
-            var result = Transfer(transferParmeter);
+            var result = SelfTransfer(transferParmeter);
             return _parentTransfer.Transfer(transferParmeter) && result;
         }
       

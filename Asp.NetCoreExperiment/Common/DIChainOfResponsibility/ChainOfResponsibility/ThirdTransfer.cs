@@ -20,7 +20,7 @@ namespace DIChainOfResponsibility
         /// <returns></returns>
         public override bool Transfer(TransferParmeter transferParmeter)
         {
-            var result = FTPTransfer(transferParmeter);
+            var result = SelfTransfer(transferParmeter);
             return _parentTransfer.Transfer(transferParmeter) && result;
         }
         bool SelfTransfer(TransferParmeter transferParmeter)
