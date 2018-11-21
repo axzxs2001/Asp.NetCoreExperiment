@@ -19,19 +19,7 @@ namespace DIChainOfResponsibility
         public void ConfigureServices(IServiceCollection services)
         {
             //职责链依赖注入
-            var mailTransfer = new StarPayMailTransfer();
-            var httpTransfer = new StarPayFtpTransfer();
-            var sftpTransfer = new StarPaySFtpTransfer();
-            var endNotice = new EndTransfer();
-            mailTransfer.Next(httpTransfer);
-            httpTransfer.Next(sftpTransfer);
-            sftpTransfer.Next(endNotice);
-            var transferParmeter = new TransferParmeter();
-      
-            services.AddTransient(typeof(StarPayTransfer), (provider) =>
-            {
-                return mailTransfer;
-            });
+            services.AddChainOfResponsibility();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
@@ -44,6 +32,16 @@ namespace DIChainOfResponsibility
             }
 
             app.UseMvc();
+        }
+    }
+    static class ChainOfResponsibilityExtension
+    {
+        public static void AddChainOfResponsibility(this IServiceCollection services)
+        {
+            services.AddTransient(typeof(EndTransfer));
+            services.AddTransient(typeof(ThirdTransfer));
+            services.AddTransient(typeof(SecondTransfer));
+            services.AddTransient<ParentTransfer, FirstTransfer>();     
         }
     }
 }

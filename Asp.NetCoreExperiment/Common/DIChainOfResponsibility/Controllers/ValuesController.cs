@@ -7,8 +7,8 @@ namespace DIChainOfResponsibility.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
-        StarPayTransfer _starPayTransfer;
-        public ValuesController(StarPayTransfer starPayTransfer)
+        readonly ParentTransfer _starPayTransfer;
+        public ValuesController(ParentTransfer starPayTransfer)
         {
             _starPayTransfer = starPayTransfer;
         }

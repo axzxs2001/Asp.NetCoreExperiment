@@ -1,22 +1,21 @@
-﻿
+﻿using System;
 namespace DIChainOfResponsibility
 {
     /// <summary>
     /// 职责链通知抽象类
     /// </summary>
-    public abstract class StarPayTransfer
+    public abstract class ParentTransfer
     {
-        /// <summary>
-        /// StarPayTransfer
-        /// </summary>
-        protected StarPayTransfer _starPayTransfer;
+       
+        protected ParentTransfer _parentTransfer;
         /// <summary>
         /// 传送下一个方法
         /// </summary>
-        /// <param name="starPayTransfer"></param>
-        public void Next(StarPayTransfer starPayTransfer)
+        /// <param name="parentTransfer"></param>
+        public void Next(ParentTransfer parentTransfer)
         {
-            _starPayTransfer = starPayTransfer;
+            Console.WriteLine($"-------------{parentTransfer.GetType().Name}.Next()");
+            _parentTransfer = parentTransfer;
         }
         /// <summary>
         /// 通知
