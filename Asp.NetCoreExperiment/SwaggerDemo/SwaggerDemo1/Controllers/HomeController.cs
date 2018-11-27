@@ -12,7 +12,7 @@ namespace SwaggerDemo.Controllers
     [Route("api/[controller]")]
     public class HomeController : Controller
     {
-        [Route("aaa")]
+        [HttpGet("aaa")]
         public string AAA()
         {
             return "";

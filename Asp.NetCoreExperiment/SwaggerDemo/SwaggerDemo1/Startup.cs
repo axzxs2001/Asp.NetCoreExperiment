@@ -36,9 +36,9 @@ namespace SwaggerDemo
                 var xmlPath = Path.Combine(basePath, "SwaggerDemo.xml");
                 options.IncludeXmlComments(xmlPath);
                 //如果用Token验证，会在Swagger界面上有难证
-                options.AddSecurityDefinition("Bearer", new ApiKeyScheme { In = "header", Description = "请输入带有Bearer的Token", Name = "Authorization", Type = "apiKey" });
-                options.AddSecurityRequirement(new Dictionary<string, IEnumerable<string>> {
-                { "Bearer", Enumerable.Empty<string>() }});
+                //options.AddSecurityDefinition("Bearer", new ApiKeyScheme { In = "header", Description = "请输入带有Bearer的Token", Name = "Authorization", Type = "apiKey" });
+                //options.AddSecurityRequirement(new Dictionary<string, IEnumerable<string>> {
+                //{ "Bearer", Enumerable.Empty<string>() }});
 
             });
         }
