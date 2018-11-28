@@ -6,6 +6,7 @@ using NPOI.XSSF.Streaming;
 using NPOI.XSSF.UserModel;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Text;
 
@@ -288,15 +289,46 @@ namespace ExcelDemoClassLibrary01
             _colotStyle.BorderBottom = BorderStyle.Thin;
             #endregion
         }
-
+   
 
         public MemoryStream GetExcelPackage()
         {
             using (var fs = new MemoryStream())
             {
                 var workbook = new HSSFWorkbook();
+
+
+                //var img = Image.FromFile(System.IO.Directory.GetCurrentDirectory() + "/gitea-sm.png");
+
+                //var stream = new MemoryStream();//  img.Size
+                //img.Save(stream, System.Drawing.Imaging.ImageFormat.Png);
+
+                //FileStream stream = new FileStream(System.IO.Directory.GetCurrentDirectory() + "/gitea-sm.png", FileMode.Open, FileAccess.Read);
+                //var arr = new byte[stream.Length];
+                //stream.Read(arr, 0, arr.Length);
+                //var arr = File.ReadAllBytes(System.IO.Directory.GetCurrentDirectory() + "/gitea-sm.png");             
+               // workbook.AddPicture(arr, PictureType.PNG);
+
+                //stream.Close();
+
                 LoadStyle(workbook);
                 var sheet = workbook.CreateSheet(SheetName);
+           
+                //添加图片
+                var data = File.ReadAllBytes(System.IO.Directory.GetCurrentDirectory() + "/gitea-sm.png");
+                var pictureIndex = workbook.AddPicture(data, PictureType.PNG);
+                var helper = workbook.GetCreationHelper();
+                var drawing = sheet.CreateDrawingPatriarch();
+                var anchor = helper.CreateClientAnchor();
+                anchor.Col1 = 0;//0 index based column
+                anchor.Row1 = 0;//0 index based row
+               
+                var picture = drawing.CreatePicture(anchor, pictureIndex);
+                picture.Resize(1,2);
+
+
+
+
 
                 sheet.DefaultColumnWidth = 4;
                 sheet.DisplayGridlines = false;

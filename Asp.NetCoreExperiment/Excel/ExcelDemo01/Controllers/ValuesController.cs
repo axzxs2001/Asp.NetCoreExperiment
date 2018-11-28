@@ -121,8 +121,8 @@ namespace ExcelDemo01.Controllers
             //{
             //    var t = DateTime.Now;
             //    //using (var package = CreateExcelPackage(datas, columnNames, outOfColumn, sheetName, title, isProtected))
-            //    var excel = new DomeExcel01();
-            //    for (int i = 0; i < 1000; i++)
+            //    var excel = new DomeEPPlus();
+            //    for (int i = 0; i < 10; i++)
             //    {
             //        excel.Data.AddRange(new Item[] {
             //            new Item { Amount = 1000, Code = "0001", Memo = "无", Name = "一号", Rate = 0.02d, RateAmount = 1000, TimeSection = "1月" },
@@ -140,41 +140,41 @@ namespace ExcelDemo01.Controllers
             //}
 
 
-            //XSSFWorkbook
-            //var t = DateTime.Now;
-            //var excel = new DemoXSSFWorkbook();
-            //for (int i = 0; i < 20; i++)
-            //{
-            //    excel.Data.AddRange(new Item[] {
-            //            new Item { Amount = 1000, Code = "0001", Memo = "无", Name = "一号", Rate = 0.02d, RateAmount = 1000, TimeSection = "1月" },
-            //            new Item { Amount = 1000, Code = "0002", Memo = "无", Name = "一号", Rate = 0.02d, RateAmount = 1000, TimeSection = "1月" },
-            //            new Item { Amount = 1000, Code = "0003", Memo = "无", Name = "一号", Rate = 0.02d, RateAmount = 1000, TimeSection = "1月" },
-            //            new Item { Amount = 1000, Code = "0004", Memo = "无", Name = "一号", Rate = 0.02d, RateAmount = 1000, TimeSection = "1月" } });
-            //}
-            //var arr = excel.GetExcelPackage().ToArray();
-            //Console.WriteLine("时间：" + (DateTime.Now - t).TotalSeconds);
-            //return arr;
+        //XSSFWorkbook
+        //var t = DateTime.Now;
+        //var excel = new DemoXSSFWorkbook();
+        //for (int i = 0; i < 20; i++)
+        //{
+        //    excel.Data.AddRange(new Item[] {
+        //            new Item { Amount = 1000, Code = "0001", Memo = "无", Name = "一号", Rate = 0.02d, RateAmount = 1000, TimeSection = "1月" },
+        //            new Item { Amount = 1000, Code = "0002", Memo = "无", Name = "一号", Rate = 0.02d, RateAmount = 1000, TimeSection = "1月" },
+        //            new Item { Amount = 1000, Code = "0003", Memo = "无", Name = "一号", Rate = 0.02d, RateAmount = 1000, TimeSection = "1月" },
+        //            new Item { Amount = 1000, Code = "0004", Memo = "无", Name = "一号", Rate = 0.02d, RateAmount = 1000, TimeSection = "1月" } });
+        //}
+        //var arr = excel.GetExcelPackage().ToArray();
+        //Console.WriteLine("时间：" + (DateTime.Now - t).TotalSeconds);
+        //return arr;
 
-            //SXSSFWorkbook
-            //var t = DateTime.Now;
-            //var excel = new DemoXSSFWorkbook();
-            //for (int i = 0; i < 20; i++)
-            //{
-            //    excel.Data.AddRange(new Item[] {
-            //            new Item { Amount = 1000, Code = "0001", Memo = "无", Name = "一号", Rate = 0.02d, RateAmount = 1000, TimeSection = "1月" },
-            //            new Item { Amount = 1000, Code = "0002", Memo = "无", Name = "一号", Rate = 0.02d, RateAmount = 1000, TimeSection = "1月" },
-            //            new Item { Amount = 1000, Code = "0003", Memo = "无", Name = "一号", Rate = 0.02d, RateAmount = 1000, TimeSection = "1月" },
-            //            new Item { Amount = 1000, Code = "0004", Memo = "无", Name = "一号", Rate = 0.02d, RateAmount = 1000, TimeSection = "1月" } });
-            //}
-            //var arr = excel.GetExcelPackage().ToArray();
-            //Console.WriteLine("时间：" + (DateTime.Now - t).TotalSeconds);
-            //return arr;
+        //SXSSFWorkbook
+        //var t = DateTime.Now;
+        //var excel = new DemoXSSFWorkbook();
+        //for (int i = 0; i < 20; i++)
+        //{
+        //    excel.Data.AddRange(new Item[] {
+        //            new Item { Amount = 1000, Code = "0001", Memo = "无", Name = "一号", Rate = 0.02d, RateAmount = 1000, TimeSection = "1月" },
+        //            new Item { Amount = 1000, Code = "0002", Memo = "无", Name = "一号", Rate = 0.02d, RateAmount = 1000, TimeSection = "1月" },
+        //            new Item { Amount = 1000, Code = "0003", Memo = "无", Name = "一号", Rate = 0.02d, RateAmount = 1000, TimeSection = "1月" },
+        //            new Item { Amount = 1000, Code = "0004", Memo = "无", Name = "一号", Rate = 0.02d, RateAmount = 1000, TimeSection = "1月" } });
+        //}
+        //var arr = excel.GetExcelPackage().ToArray();
+        //Console.WriteLine("时间：" + (DateTime.Now - t).TotalSeconds);
+        //return arr;
 
 
-            //HSSFWorkbook
-            var t = DateTime.Now;
-            var excel = new DemoHSSFWorkbook();
-            for (int i = 0; i < 1000; i++)
+        //HSSFWorkbook
+        var t = DateTime.Now;
+        var excel = new DemoHSSFWorkbook();
+            for (int i = 0; i< 1; i++)
             {
                 excel.Data.AddRange(new Item[] {
                         new Item { Amount = 1000, Code = "0001", Memo = "无", Name = "一号", Rate = 0.02d, RateAmount = 1000, TimeSection = "1月" },
@@ -183,7 +183,7 @@ namespace ExcelDemo01.Controllers
                         new Item { Amount = 1000, Code = "0004", Memo = "无", Name = "一号", Rate = 0.02d, RateAmount = 1000, TimeSection = "1月" } });
             }
             var arr = excel.GetExcelPackage().ToArray();
-            Console.WriteLine("时间：" + (DateTime.Now - t).TotalSeconds);
+Console.WriteLine("时间：" + (DateTime.Now - t).TotalSeconds);
             return arr;
         }
 

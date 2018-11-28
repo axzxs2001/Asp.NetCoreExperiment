@@ -11,7 +11,7 @@ namespace ExcelDemoClassLibrary01
         /// <summary>
         /// 发行日期
         /// </summary>
-        public DateTime PublishDate { get; set; } = DateTime.Now;  
+        public DateTime PublishDate { get; set; } = DateTime.Now;
         /// <summary>
         /// Sheet名
         /// </summary>
@@ -84,14 +84,19 @@ namespace ExcelDemoClassLibrary01
             var worksheet = package.Workbook.Worksheets.Add(SheetName);
             worksheet.View.ShowGridLines = false;
             worksheet.DefaultColWidth = 5;
+            //添加图片
+            var img = worksheet.Drawings.AddPicture("gitea", Image.FromFile(System.IO.Directory.GetCurrentDirectory() + "/gitea-sm.png"));
+            img.SetPosition(80, 500);
+            img.SetSize(60, 60);
+
             //R3 C23-30
             worksheet.Cells[3, 23, 3, 30].Merge = true;//合并单元格
             worksheet.Cells[3, 23, 3, 30].Style.Font.Size = 12;
             worksheet.Cells[3, 23, 3, 30].Value = PublishDate.ToString("発行年月日 yyyy年MM月dd日");
 
             //R6 C18
-            worksheet.Cells[6,18].Value = FromCompany;
-            worksheet.Cells[6,18].Style.Font.Size = 12;
+            worksheet.Cells[6, 18].Value = FromCompany;
+            worksheet.Cells[6, 18].Style.Font.Size = 12;
 
             //R7 C18
             worksheet.Cells[7, 18].Value = FromDepartment;
@@ -231,7 +236,7 @@ namespace ExcelDemoClassLibrary01
             int sn = 1;
             foreach (var item in Data)
             {
-                total += item.RateAmount;             
+                total += item.RateAmount;
                 //C2-2
                 SetContent(beginRow, 2, beginRow, 2, sn++);
                 //C3-5
@@ -284,7 +289,7 @@ namespace ExcelDemoClassLibrary01
             #endregion
             #endregion
 
-         
+
 
             return package;
         }
@@ -325,5 +330,5 @@ namespace ExcelDemoClassLibrary01
 
         public decimal RateAmount { get; set; }
         public string Memo { get; set; }
-    }   
+    }
 }

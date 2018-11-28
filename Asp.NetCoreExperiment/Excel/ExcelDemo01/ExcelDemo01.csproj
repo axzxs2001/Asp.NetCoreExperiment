@@ -5,7 +5,17 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\" />
+    <None Remove="gitea-sm.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="gitea-sm.png">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\gitea-sm.png" />
   </ItemGroup>
 
   <ItemGroup>
