@@ -22,31 +22,29 @@ namespace CertificateClientDemo01
                             HttpsMethod();
                             break;
                         case "2":
-                            HttpMethod();
-                            break;
-                        case "3":
-                            Https2Method();
+                            HttpMethod();                                     
                             break;
                     }
                     void HttpsMethod()
                     {
                         var handler = new HttpClientHandler();
                         handler.ClientCertificateOptions = ClientCertificateOption.Manual;
-                        handler.SslProtocols = SslProtocols.Tls12;
+                        handler.SslProtocols = SslProtocols.Tls12 | SslProtocols.Tls;
                         try
                         {
-                            var crt = new X509Certificate2(Directory.GetCurrentDirectory() + "/server.pfx", "111111");
+                            var path = Directory.GetCurrentDirectory() + "\\server.pfx";
+                            var crt = new X509Certificate2(path, "111111");
                             handler.ClientCertificates.Add(crt);
                         }
                         catch (Exception e)
                         {
                             Console.WriteLine(e.Message);
                         }
-                        //正式环境下没有
+                        //验证服务器证书是否正规
                         handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) =>
-                        {
-                            Console.WriteLine(message);
-                            Console.WriteLine(errors.ToString());
+                        {                         
+                            var res = chain.Build(cert);
+                            Console.WriteLine($"chain.Build={res}");
                             return true;
                         };
                         var client = new HttpClient(handler);
@@ -59,41 +57,13 @@ namespace CertificateClientDemo01
                     void HttpMethod()
                     {
                         var client = new HttpClient();
-                        var url = "http://127.0.0.1/api/values";
+                        var url = "http://127.0.0.1/api/values";// 
                         var response = client.GetAsync(url).Result;
                         Console.WriteLine(response.IsSuccessStatusCode);
                         var back = response.Content.ReadAsStringAsync().Result;
                         Console.WriteLine(back);
-                    }
+                    }                  
 
-                    void Https2Method()
-                    {
-                        var handler = new HttpClientHandler();
-                        handler.ClientCertificateOptions = ClientCertificateOption.Manual;
-                        handler.SslProtocols = SslProtocols.Tls12;
-                        try
-                        {
-                            var crt = new X509Certificate2(Directory.GetCurrentDirectory() + "/server.csr");
-                            handler.ClientCertificates.Add(crt);
-                        }
-                        catch (Exception e)
-                        {
-                            Console.WriteLine(e.Message);
-                        }
-                        handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) =>
-                        {
-                            Console.WriteLine(message);
-                            Console.WriteLine(errors.ToString());
-
-                            return true;
-                        };
-                        var client = new HttpClient(handler);
-                        var url = "https://127.0.0.1/api/values";
-                        var response = client.GetAsync(url).Result;
-                        Console.WriteLine(response.IsSuccessStatusCode);
-                        var back = response.Content.ReadAsStringAsync().Result;
-                        Console.WriteLine(back);
-                    }
                 }
                 catch (Exception exc)
                 {

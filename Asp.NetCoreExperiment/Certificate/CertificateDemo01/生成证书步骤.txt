@@ -1,4 +1,4 @@
-﻿=====生成证书=====
+﻿=====https 生成本地测试证书=====
 
 通过OpenSSL 生成证书
 
@@ -6,25 +6,21 @@
 
 首先自己创建根证书 root 自己做CA也就是发行者。
 
-1、openssl genrsa -des3 -out root.key
+1、openssl genrsa -des3 -out server.key
 
 然后按照提示输入密码
 
-2、openssl req -new -key root.key -out root.csr -config openssl.cfg
+2、openssl req -new -key server.key -out server.csr -config openssl.cfg
 
 输入刚才设置的密码，然后填写一些信息
 
 
 然后创建一个10年期根证书 root.crt
 
-3、openssl x509 -req -days 3650 -sha1 -extensions v3_ca -signkey root.key -in root.csr -out root.crt
+3、openssl x509 -req -days 3650 -sha1 -extensions v3_ca -signkey server.key -in server.csr -out server.crt
 
 创建服务器证书
 
-4、openssl genrsa -des3 -out server.key 2048
+4、openssl pkcs12 -export -in server.crt -inkey server.key -out server.pfx
 
-5、openssl req -new -key server.key -out server.csr -config openssl.cfg
-
-6、openssl x509 -req -days 730 -sha1 -extensions v3_req -CA root.crt -CAkey root.key -CAserial root.srl -CAcreateserial -in server.csr -out server.crt
-
-7、openssl pkcs12 -export -in server.crt -inkey server.key -out server.pfx
+然后双击安装server.pfx，“将所有的证书都存入入下列存储”-“受信任的根证书颁发机构”即可

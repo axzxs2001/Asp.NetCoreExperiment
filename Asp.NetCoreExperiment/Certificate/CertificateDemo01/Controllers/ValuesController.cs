@@ -14,6 +14,12 @@ namespace CertificateDemo01.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
+            
+            var cer= HttpContext.Connection.ClientCertificate;
+            if(cer==null)
+            {
+                return BadRequest();
+            }
             return new string[] { "value1", "value2" };
         }
 
@@ -21,6 +27,7 @@ namespace CertificateDemo01.Controllers
         [HttpGet("{id}")]
         public ActionResult<string> Get(int id)
         {
+
             return "value";
         }
 

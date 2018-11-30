@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore;
+﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Server.Kestrel.Https;
+using System;
+using System.Net;
+using System.Security.Cryptography.X509Certificates;
 
 namespace CertificateDemo01
 {
@@ -25,9 +21,26 @@ namespace CertificateDemo01
                     options.Listen(IPAddress.Any, 80);
                     options.Listen(IPAddress.Any, 443, listenOptions =>
                     {
-                        listenOptions.UseHttps("server.pfx", "111111");
+                        var signingCertificate = new X509Certificate2("server.pfx", "111111");
+                        var httpsConnectionAdapterOptions = new HttpsConnectionAdapterOptions()
+                        {
+
+                            ClientCertificateMode = ClientCertificateMode.RequireCertificate,//AllowCertificate,
+                            SslProtocols = System.Security.Authentication.SslProtocols.Tls12,
+                            //验证客户器证书是否正规
+                            ClientCertificateValidation = (cer, chain, error) =>
+                             {
+                                 var res = chain.Build(cer);
+                                 Console.WriteLine($"chain.Build={res}");
+                                 return res;
+                             },
+                            ServerCertificate = signingCertificate
+                        };
+                        listenOptions.UseHttps(httpsConnectionAdapterOptions);
                     });
                 })
                 .UseStartup<Startup>();
     }
 }
+
+

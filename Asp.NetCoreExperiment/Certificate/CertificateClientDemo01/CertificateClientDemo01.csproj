@@ -12,13 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="server.crt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Update="server.csr">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="server.key">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="server.pfx">
