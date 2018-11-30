@@ -15,7 +15,7 @@ namespace CertificateClientDemo01
             {
                 try
                 {
-                    Console.WriteLine("1、请求Https   2、请求Http    3、请求Http2");
+                    Console.WriteLine("1、双向认证Https请求   2、Http请求 ");
                     switch (Console.ReadLine())
                     {
                         case "1":
@@ -44,7 +44,7 @@ namespace CertificateClientDemo01
                         handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) =>
                         {                         
                             var res = chain.Build(cert);
-                            Console.WriteLine($"chain.Build={res}");
+                            Console.WriteLine($"*********  验证服务端证书 chain.Build={res}");
                             return true;
                         };
                         var client = new HttpClient(handler);

@@ -31,7 +31,7 @@ namespace CertificateDemo01
                             ClientCertificateValidation = (cer, chain, error) =>
                              {
                                  var res = chain.Build(cer);
-                                 Console.WriteLine($"chain.Build={res}");
+                                 Console.WriteLine($"*********  验证客户端证书 chain.Build={res}");
                                  return res;
                              },
                             ServerCertificate = signingCertificate
