@@ -16,8 +16,8 @@ namespace CertificateDemo01.Controllers
         {
             
             var cer= HttpContext.Connection.ClientCertificate;
-            if(cer==null)
-            {
+            if(cer==null&&!cer.Verify())
+            {                
                 return BadRequest();
             }
             return new string[] { "value1", "value2" };
