@@ -760,6 +760,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "openssl", "openssl", "{528E
 		Certificate\openssl\ssleay32.dll = Certificate\openssl\ssleay32.dll
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiddlewareDemo", "Common\MiddlewareDemo\MiddlewareDemo.csproj", "{EDC4B263-7CAC-49EB-8B25-52A733ED8ECD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -2796,6 +2798,14 @@ Global
 		{35BFFC6E-6B7A-45F6-A22F-F4C537B1C650}.Release|Any CPU.Build.0 = Release|Any CPU
 		{35BFFC6E-6B7A-45F6-A22F-F4C537B1C650}.Release|x64.ActiveCfg = Release|Any CPU
 		{35BFFC6E-6B7A-45F6-A22F-F4C537B1C650}.Release|x64.Build.0 = Release|Any CPU
+		{EDC4B263-7CAC-49EB-8B25-52A733ED8ECD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EDC4B263-7CAC-49EB-8B25-52A733ED8ECD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EDC4B263-7CAC-49EB-8B25-52A733ED8ECD}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{EDC4B263-7CAC-49EB-8B25-52A733ED8ECD}.Debug|x64.Build.0 = Debug|Any CPU
+		{EDC4B263-7CAC-49EB-8B25-52A733ED8ECD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EDC4B263-7CAC-49EB-8B25-52A733ED8ECD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EDC4B263-7CAC-49EB-8B25-52A733ED8ECD}.Release|x64.ActiveCfg = Release|Any CPU
+		{EDC4B263-7CAC-49EB-8B25-52A733ED8ECD}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -3106,6 +3116,7 @@ Global
 		{0E62C92D-8932-4556-97A9-CF283C63568A} = {B4EE1B55-3602-4E67-A7FA-CE9DB18F44E0}
 		{35BFFC6E-6B7A-45F6-A22F-F4C537B1C650} = {B4EE1B55-3602-4E67-A7FA-CE9DB18F44E0}
 		{528EFE1F-2706-4FFB-A67E-9A3A13608931} = {B4EE1B55-3602-4E67-A7FA-CE9DB18F44E0}
+		{EDC4B263-7CAC-49EB-8B25-52A733ED8ECD} = {A76B4F09-82B3-4F06-BE35-F5941BF8C338}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
