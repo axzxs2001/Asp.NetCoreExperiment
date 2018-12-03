@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace MiddlewareDemo.Controllers
 {
@@ -10,10 +8,20 @@ namespace MiddlewareDemo.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
+        readonly IMiddlewareFactory _middlewareFactory;
+        readonly IMiddleware _factoryMidd;
+        public ValuesController(IMiddlewareFactory middlewareFactory)
+        {
+            _middlewareFactory = middlewareFactory;
+            _factoryMidd = _middlewareFactory.Create(typeof(FactoryActivatedMiddleware));      
+        }
+
+
         // GET api/values
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
+            _middlewareFactory.Release(_factoryMidd);
             return new string[] { "value1", "value2" };
         }
 

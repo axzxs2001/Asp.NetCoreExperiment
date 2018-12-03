@@ -2,15 +2,22 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SimpleInjector;
+using SimpleInjector.Lifestyles;
+using SimpleInjector.Integration.AspNetCore.Mvc;
+using System;
 using System.Globalization;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc.ViewComponents;
 
 namespace MiddlewareDemo
 {
     public class Startup
     {
+        SimpleInjector.Container _container=new Container ();
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -21,10 +28,33 @@ namespace MiddlewareDemo
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddTransient<FactoryActivatedMiddleware>();
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-        }
+            //第二种
+            //services.AddTransient<FactoryActivatedMiddleware>();
 
+
+
+            //第三种
+            IntegrateSimpleInjector(services);
+            services.AddTransient<IMiddlewareFactory>(_ =>
+            {
+                return new SimpleInjectorMiddlewareFactory(_container);
+            });        
+            _container.Register<SimpleInjectorActivatedMiddleware>();
+           
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+        }
+        private void IntegrateSimpleInjector(IServiceCollection services)
+        {
+            _container.Options.DefaultScopedLifestyle = new AsyncScopedLifestyle();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddSingleton<IControllerActivator>(
+                new SimpleInjectorControllerActivator(_container));
+            services.AddSingleton<IViewComponentActivator>(
+                new SimpleInjectorViewComponentActivator(_container));
+            services.EnableSimpleInjectorCrossWiring(_container);
+            services.UseSimpleInjectorAspNetRequestScoping(_container);
+        }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
@@ -32,13 +62,31 @@ namespace MiddlewareDemo
             {
                 app.UseDeveloperExceptionPage();
             }
-            //使用中间件
-            app.UseRequestCulture();
+            //第一种 使用中间件
+            //app.UseRequestCulture();
 
-            //使用工厂激活中间件
-            app.UseFactoryActivatedMiddleware();
+            //第二种 使用工厂激活中间件
+            //app.UseFactoryActivatedMiddleware();
+
+            //第三种
+            InitializeContainer(app);
+            app.UseSimpleInjectorActivatedMiddleware();
+            _container.Verify();
 
             app.UseMvc();
+        }
+
+        private void InitializeContainer(IApplicationBuilder app)
+        {
+            // Add application presentation components:
+            _container.RegisterMvcControllers(app);
+            _container.RegisterMvcViewComponents(app);
+
+            // Add application services. For instance:
+            //_container.Register<IUserService, UserService>(Lifestyle.Scoped);
+
+            // Allow Simple Injector to resolve services from ASP.NET Core.
+            _container.AutoCrossWireAspNetComponents(app);
         }
     }
     #region 第一种普通方式定义中间件
@@ -88,6 +136,7 @@ namespace MiddlewareDemo
                 CultureInfo.CurrentCulture = culture;
                 CultureInfo.CurrentUICulture = culture;
             }
+            Console.WriteLine("---------------FactoryActivatedMiddleware");
             // Call the next delegate/middleware in the pipeline
             await next(context);
         }
@@ -101,4 +150,47 @@ namespace MiddlewareDemo
         }
     }
     #endregion
+
+    #region 第三种自定义容器中间件
+    public class SimpleInjectorMiddlewareFactory : IMiddlewareFactory
+    {
+        private readonly Container _container;
+
+        public SimpleInjectorMiddlewareFactory(Container container)
+        {
+            _container = container;
+        }
+
+        public IMiddleware Create(Type middlewareType)
+        {
+            return _container.GetInstance(middlewareType) as IMiddleware;
+        }
+
+        public void Release(IMiddleware middleware)
+        {
+            // The container is responsible for releasing resources.
+        }
+    }
+
+    public class SimpleInjectorActivatedMiddleware : IMiddleware
+    {
+        public async Task InvokeAsync(HttpContext context, RequestDelegate next)
+        {
+            Console.WriteLine("SimpleInjectorActivatedMiddleware 中间件 InvokeAsync");
+
+            await next(context);
+        }
+    }
+    public static class SimpleInjectorMiddlewareExtensions
+    {
+        public static IApplicationBuilder UseSimpleInjectorActivatedMiddleware(
+            this IApplicationBuilder builder)
+        {
+            return builder.UseMiddleware<SimpleInjectorActivatedMiddleware>();
+        }
+    }
+    #endregion
+
+
+
 }
