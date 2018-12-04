@@ -760,7 +760,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "openssl", "openssl", "{528E
 		Certificate\openssl\ssleay32.dll = Certificate\openssl\ssleay32.dll
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiddlewareDemo", "Common\MiddlewareDemo\MiddlewareDemo.csproj", "{EDC4B263-7CAC-49EB-8B25-52A733ED8ECD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiddlewareDemo", "Common\MiddlewareDemo\MiddlewareDemo.csproj", "{EDC4B263-7CAC-49EB-8B25-52A733ED8ECD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ClientSide", "ClientSide", "{AAC3253D-A3D0-4AD1-8D18-03986F07B732}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GulpDemo", "ClientSide\GulpDemo\GulpDemo.csproj", "{9DDC09C2-C61B-4D5F-B247-04DE6F4E64CB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -2806,6 +2810,14 @@ Global
 		{EDC4B263-7CAC-49EB-8B25-52A733ED8ECD}.Release|Any CPU.Build.0 = Release|Any CPU
 		{EDC4B263-7CAC-49EB-8B25-52A733ED8ECD}.Release|x64.ActiveCfg = Release|Any CPU
 		{EDC4B263-7CAC-49EB-8B25-52A733ED8ECD}.Release|x64.Build.0 = Release|Any CPU
+		{9DDC09C2-C61B-4D5F-B247-04DE6F4E64CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9DDC09C2-C61B-4D5F-B247-04DE6F4E64CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9DDC09C2-C61B-4D5F-B247-04DE6F4E64CB}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{9DDC09C2-C61B-4D5F-B247-04DE6F4E64CB}.Debug|x64.Build.0 = Debug|Any CPU
+		{9DDC09C2-C61B-4D5F-B247-04DE6F4E64CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9DDC09C2-C61B-4D5F-B247-04DE6F4E64CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9DDC09C2-C61B-4D5F-B247-04DE6F4E64CB}.Release|x64.ActiveCfg = Release|Any CPU
+		{9DDC09C2-C61B-4D5F-B247-04DE6F4E64CB}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -3117,6 +3129,7 @@ Global
 		{35BFFC6E-6B7A-45F6-A22F-F4C537B1C650} = {B4EE1B55-3602-4E67-A7FA-CE9DB18F44E0}
 		{528EFE1F-2706-4FFB-A67E-9A3A13608931} = {B4EE1B55-3602-4E67-A7FA-CE9DB18F44E0}
 		{EDC4B263-7CAC-49EB-8B25-52A733ED8ECD} = {A76B4F09-82B3-4F06-BE35-F5941BF8C338}
+		{9DDC09C2-C61B-4D5F-B247-04DE6F4E64CB} = {AAC3253D-A3D0-4AD1-8D18-03986F07B732}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
