@@ -1,0 +1,63 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <TypeScriptToolsVersion>3.1</TypeScriptToolsVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="wwwroot\lib\vue\benchmarks\**" />
+    <Compile Remove="wwwroot\lib\vue\examples\**" />
+    <Compile Remove="wwwroot\lib\vue\flow\**" />
+    <Compile Remove="wwwroot\lib\vue\packages\**" />
+    <Compile Remove="wwwroot\lib\vue\scripts\**" />
+    <Compile Remove="wwwroot\lib\vue\src\**" />
+    <Compile Remove="wwwroot\lib\vue\test\**" />
+    <Compile Remove="wwwroot\lib\vue\types\**" />
+    <Content Remove="wwwroot\lib\vue\benchmarks\**" />
+    <Content Remove="wwwroot\lib\vue\examples\**" />
+    <Content Remove="wwwroot\lib\vue\flow\**" />
+    <Content Remove="wwwroot\lib\vue\packages\**" />
+    <Content Remove="wwwroot\lib\vue\scripts\**" />
+    <Content Remove="wwwroot\lib\vue\src\**" />
+    <Content Remove="wwwroot\lib\vue\test\**" />
+    <Content Remove="wwwroot\lib\vue\types\**" />
+    <EmbeddedResource Remove="wwwroot\lib\vue\benchmarks\**" />
+    <EmbeddedResource Remove="wwwroot\lib\vue\examples\**" />
+    <EmbeddedResource Remove="wwwroot\lib\vue\flow\**" />
+    <EmbeddedResource Remove="wwwroot\lib\vue\packages\**" />
+    <EmbeddedResource Remove="wwwroot\lib\vue\scripts\**" />
+    <EmbeddedResource Remove="wwwroot\lib\vue\src\**" />
+    <EmbeddedResource Remove="wwwroot\lib\vue\test\**" />
+    <EmbeddedResource Remove="wwwroot\lib\vue\types\**" />
+    <None Remove="wwwroot\lib\vue\benchmarks\**" />
+    <None Remove="wwwroot\lib\vue\examples\**" />
+    <None Remove="wwwroot\lib\vue\flow\**" />
+    <None Remove="wwwroot\lib\vue\packages\**" />
+    <None Remove="wwwroot\lib\vue\scripts\**" />
+    <None Remove="wwwroot\lib\vue\src\**" />
+    <None Remove="wwwroot\lib\vue\test\**" />
+    <None Remove="wwwroot\lib\vue\types\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="wwwroot\lib\vue\.babelrc" />
+    <Content Remove="wwwroot\lib\vue\.bower.json" />
+    <Content Remove="wwwroot\lib\vue\.editorconfig" />
+    <Content Remove="wwwroot\lib\vue\.eslintignore" />
+    <Content Remove="wwwroot\lib\vue\.eslintrc" />
+    <Content Remove="wwwroot\lib\vue\.flowconfig" />
+    <Content Remove="wwwroot\lib\vue\.gitignore" />
+    <Content Remove="wwwroot\lib\vue\BACKERS.md" />
+    <Content Remove="wwwroot\lib\vue\LICENSE" />
+    <Content Remove="wwwroot\lib\vue\package.json" />
+    <Content Remove="wwwroot\lib\vue\README.md" />
+    <Content Remove="wwwroot\lib\vue\yarn.lock" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,10 @@
+{
+  "name": "BowerDemo",
+  "dependencies": {
+    "vue": "v2.2.4",
+    "bootstrap": "v4.1.3"
+  },
+  "resolutions": {
+    "vue": "v2.5.17"
+  }
+}
