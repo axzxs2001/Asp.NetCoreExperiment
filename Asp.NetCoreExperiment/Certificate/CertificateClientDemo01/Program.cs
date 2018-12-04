@@ -10,12 +10,12 @@ namespace CertificateClientDemo01
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("回车开始");
+            Console.WriteLine("enter start");
             while (true)
             {
                 try
                 {
-                    Console.WriteLine("1、双向认证Https请求   2、Http请求 ");
+                    Console.WriteLine("1、Https   2、Http");
                     switch (Console.ReadLine())
                     {
                         case "1":
@@ -23,17 +23,17 @@ namespace CertificateClientDemo01
                             break;
                         case "2":
                             HttpMethod();                                     
-                            break;
+                            break;                      
                     }
                     void HttpsMethod()
                     {
                         var handler = new HttpClientHandler();
                         handler.ClientCertificateOptions = ClientCertificateOption.Manual;
-                        handler.SslProtocols = SslProtocols.Tls12 | SslProtocols.Tls;
+                        handler.SslProtocols = SslProtocols.Tls12 | SslProtocols.Tls|SslProtocols.None|SslProtocols.Tls11;
                         try
                         {
-                            var path = Directory.GetCurrentDirectory() + "\\client.pfx";
-                            var crt = new X509Certificate2(path, "cccccc");
+                                          
+                            var crt = new X509Certificate2(Directory.GetCurrentDirectory() + "/client.pfx", "cccccc"); 
                             handler.ClientCertificates.Add(crt);
                         }
                         catch (Exception e)
@@ -41,14 +41,31 @@ namespace CertificateClientDemo01
                             Console.WriteLine(e.Message);
                         }
                         //验证服务器证书是否正规
-                        handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) =>
-                        {                         
-                            var res = chain.Build(cert);
-                            Console.WriteLine($"*********  验证服务端证书 chain.Build={res}");
-                            return true;
+                        handler.ServerCertificateCustomValidationCallback = (message, cer, chain, errors) =>
+                        {
+                            var verify = false;
+                            foreach (X509ChainElement element in chain.ChainElements)
+                            {
+                                Console.WriteLine("Element subject name: {0}", element.Certificate.Subject);
+                                Console.WriteLine("Element issuer name: {0}", element.Certificate.Issuer);
+                                Console.WriteLine("Element certificate valid until: {0}", element.Certificate.NotAfter);
+                                Console.WriteLine("Element certificate is valid: {0}", element.Certificate.Verify());
+                                Console.WriteLine("Element error status length: {0}", element.ChainElementStatus.Length);
+                                Console.WriteLine("Element information: {0}", element.Information);
+                                Console.WriteLine("Number of element extensions: {0}{1}", element.Certificate.Extensions.Count, Environment.NewLine);
+                                if (element.Certificate.Issuer == cer.Issuer)
+                                {
+                                    verify = element.Certificate.Verify();
+                                }
+                            }
+                            var res = chain.Build(cer);
+                            Console.WriteLine($"*********   X509Chain.Build={res}");
+                            Console.WriteLine($"*********   X509Certificate2.Verify={cer.Verify()}");
+                            Console.WriteLine($"*********   Element certificate is valid: {verify}");                    
+                            return res;
                         };
                         var client = new HttpClient(handler);
-                        var url = "https://127.0.0.1/api/values";
+                        var url = "https://192.168.252.41:443/api/values";
                         var response = client.GetAsync(url).Result;
                         Console.WriteLine(response.IsSuccessStatusCode);
                         var back = response.Content.ReadAsStringAsync().Result;
@@ -57,12 +74,13 @@ namespace CertificateClientDemo01
                     void HttpMethod()
                     {
                         var client = new HttpClient();
-                        var url = "http://127.0.0.1/api/values";// 
+                        var url = "http://192.168.252.41/api/values";// 
                         var response = client.GetAsync(url).Result;
                         Console.WriteLine(response.IsSuccessStatusCode);
                         var back = response.Content.ReadAsStringAsync().Result;
                         Console.WriteLine(back);
-                    }                  
+                    }
+              
 
                 }
                 catch (Exception exc)

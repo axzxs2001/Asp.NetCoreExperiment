@@ -1,8 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
 
 namespace CertificateDemo01.Controllers
 {
@@ -14,13 +11,25 @@ namespace CertificateDemo01.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
-            
-            var cer= HttpContext.Connection.ClientCertificate;
-            if(cer==null||!cer.Verify())
-            {                
+
+            var cer = HttpContext.Connection.ClientCertificate;
+            var cer1 = HttpContext.Connection.GetClientCertificateAsync().Result;
+            if (cer == null)
+            {
                 return BadRequest();
             }
-            return new string[] { "value1", "value2" };
+            else
+            {
+                var ver = cer.Verify();
+                if (ver == false)
+                {
+                    return BadRequest();
+                }
+                else
+                {
+                    return new string[] { "value1", "value2" };
+                }
+            }
         }
 
         // GET api/values/5
