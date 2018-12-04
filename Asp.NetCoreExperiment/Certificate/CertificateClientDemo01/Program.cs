@@ -32,8 +32,8 @@ namespace CertificateClientDemo01
                         handler.SslProtocols = SslProtocols.Tls12 | SslProtocols.Tls;
                         try
                         {
-                            var path = Directory.GetCurrentDirectory() + "\\server.pfx";
-                            var crt = new X509Certificate2(path, "111111");
+                            var path = Directory.GetCurrentDirectory() + "\\client.pfx";
+                            var crt = new X509Certificate2(path, "cccccc");
                             handler.ClientCertificates.Add(crt);
                         }
                         catch (Exception e)

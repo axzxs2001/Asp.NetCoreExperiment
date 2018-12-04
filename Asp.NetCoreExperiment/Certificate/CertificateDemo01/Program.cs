@@ -21,7 +21,7 @@ namespace CertificateDemo01
                     options.Listen(IPAddress.Any, 80);
                     options.Listen(IPAddress.Any, 443, listenOptions =>
                     {
-                        var signingCertificate = new X509Certificate2("server.pfx", "111111");
+                        var signingCertificate = new X509Certificate2("server.pfx", "ssssss");
                         var httpsConnectionAdapterOptions = new HttpsConnectionAdapterOptions()
                         {
 
