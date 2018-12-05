@@ -22,18 +22,17 @@ namespace CertificateClientDemo01
                             HttpsMethod();
                             break;
                         case "2":
-                            HttpMethod();                                     
-                            break;                      
+                            HttpMethod();
+                            break;
                     }
                     void HttpsMethod()
                     {
                         var handler = new HttpClientHandler();
                         handler.ClientCertificateOptions = ClientCertificateOption.Manual;
-                        handler.SslProtocols = SslProtocols.Tls12 | SslProtocols.Tls|SslProtocols.None|SslProtocols.Tls11;
+                        handler.SslProtocols = SslProtocols.Tls12 | SslProtocols.Tls | SslProtocols.None | SslProtocols.Tls11;
                         try
                         {
-                                          
-                            var crt = new X509Certificate2(Directory.GetCurrentDirectory() + "/client.pfx", "cccccc"); 
+                            var crt = new X509Certificate2(Directory.GetCurrentDirectory() + "/client.pfx", "cccccc");
                             handler.ClientCertificates.Add(crt);
                         }
                         catch (Exception e)
@@ -43,29 +42,30 @@ namespace CertificateClientDemo01
                         //验证服务器证书是否正规
                         handler.ServerCertificateCustomValidationCallback = (message, cer, chain, errors) =>
                         {
-                            var verify = false;
-                            foreach (X509ChainElement element in chain.ChainElements)
-                            {
-                                Console.WriteLine("Element subject name: {0}", element.Certificate.Subject);
-                                Console.WriteLine("Element issuer name: {0}", element.Certificate.Issuer);
-                                Console.WriteLine("Element certificate valid until: {0}", element.Certificate.NotAfter);
-                                Console.WriteLine("Element certificate is valid: {0}", element.Certificate.Verify());
-                                Console.WriteLine("Element error status length: {0}", element.ChainElementStatus.Length);
-                                Console.WriteLine("Element information: {0}", element.Information);
-                                Console.WriteLine("Number of element extensions: {0}{1}", element.Certificate.Extensions.Count, Environment.NewLine);
-                                if (element.Certificate.Issuer == cer.Issuer)
-                                {
-                                    verify = element.Certificate.Verify();
-                                }
-                            }
-                            var res = chain.Build(cer);
+                            //var verify = false;
+                            //foreach (X509ChainElement element in chain.ChainElements)
+                            //{
+                            //    Console.WriteLine("SerialNumber:{0}", element.Certificate.SerialNumber);
+                            //    Console.WriteLine("Element subject name: {0}", element.Certificate.Subject);
+                            //    Console.WriteLine("Element issuer name: {0}", element.Certificate.Issuer);
+                            //    Console.WriteLine("Element certificate valid until: {0}", element.Certificate.NotAfter);
+                            //    Console.WriteLine("Element certificate is valid: {0}", element.Certificate.Verify());
+                            //    Console.WriteLine("Element error status length: {0}", element.ChainElementStatus.Length);
+                            //    Console.WriteLine("Element information: {0}", element.Information);
+                            //    Console.WriteLine("Number of element extensions: {0}{1}", element.Certificate.Extensions.Count, Environment.NewLine);
+                            //    if (element.Certificate.Issuer == cer.Issuer)
+                            //    {
+                            //        verify = element.Certificate.Verify();
+                            //    }
+                            //}
+                            //Console.WriteLine($"*********   X509Certificate2.Verify={cer.Verify()}");
+                            //Console.WriteLine($"*********   Element certificate is valid: {verify}");
+                            var res = chain.Build(cer);                         
                             Console.WriteLine($"*********   X509Chain.Build={res}");
-                            Console.WriteLine($"*********   X509Certificate2.Verify={cer.Verify()}");
-                            Console.WriteLine($"*********   Element certificate is valid: {verify}");                    
                             return res;
                         };
                         var client = new HttpClient(handler);
-                        var url = "https://192.168.252.41:443/api/values";
+                        var url = "https://192.168.252.41/api/values";
                         var response = client.GetAsync(url).Result;
                         Console.WriteLine(response.IsSuccessStatusCode);
                         var back = response.Content.ReadAsStringAsync().Result;
@@ -80,8 +80,6 @@ namespace CertificateClientDemo01
                         var back = response.Content.ReadAsStringAsync().Result;
                         Console.WriteLine(back);
                     }
-              
-
                 }
                 catch (Exception exc)
                 {

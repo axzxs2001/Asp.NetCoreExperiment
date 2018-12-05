@@ -11,24 +11,14 @@ namespace CertificateDemo01.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
-
-            var cer = HttpContext.Connection.ClientCertificate;
-            var cer1 = HttpContext.Connection.GetClientCertificateAsync().Result;
+            var cer = HttpContext.Connection.ClientCertificate;  
             if (cer == null)
             {
                 return BadRequest();
             }
             else
             {
-                var ver = cer.Verify();
-                if (ver == false)
-                {
-                    return BadRequest();
-                }
-                else
-                {
-                    return new string[] { "value1", "value2" };
-                }
+                return new string[] { "value1", "value2" };
             }
         }
 
