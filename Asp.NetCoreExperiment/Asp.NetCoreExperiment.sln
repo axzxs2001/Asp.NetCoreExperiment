@@ -754,7 +754,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CertificateDemo01", "Certif
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "openssl", "openssl", "{528EFE1F-2706-4FFB-A67E-9A3A13608931}"
 	ProjectSection(SolutionItems) = preProject
-		Certificate\CertificateDemo01\openssl\Win64OpenSSL-1_1_0i.exe = Certificate\CertificateDemo01\openssl\Win64OpenSSL-1_1_0i.exe
+		Certificate\openssl\Win64OpenSSL-1_1_0i.exe = Certificate\openssl\Win64OpenSSL-1_1_0i.exe
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiddlewareDemo", "Common\MiddlewareDemo\MiddlewareDemo.csproj", "{EDC4B263-7CAC-49EB-8B25-52A733ED8ECD}"
