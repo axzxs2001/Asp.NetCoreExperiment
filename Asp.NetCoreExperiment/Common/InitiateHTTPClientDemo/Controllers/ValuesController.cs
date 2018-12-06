@@ -5,8 +5,6 @@ using System.Net.Http;
 namespace InitiateHTTPClientDemo.Controllers
 {
 
-
-
     [Route("api/[controller]")]
     [ApiController]
     public class ValuesController : ControllerBase
