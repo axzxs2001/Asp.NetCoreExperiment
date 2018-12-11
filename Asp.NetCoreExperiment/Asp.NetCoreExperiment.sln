@@ -730,11 +730,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StreamSiloHost", "Orleans\S
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Consul", "Consul", "{08896566-24F8-481E-A6FC-16F747F5EF11}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsulClient", "Orleans\ConsulClient\ConsulClient.csproj", "{4C77A2B8-3C10-4FED-8044-2E1E52F052F4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsulClient", "Orleans\ConsulClient\ConsulClient.csproj", "{4C77A2B8-3C10-4FED-8044-2E1E52F052F4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsulLib", "Orleans\OrleansLib\ConsulLib.csproj", "{7B8BBA2A-8A58-43DE-994B-47A7289A620F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsulLib", "Orleans\OrleansLib\ConsulLib.csproj", "{7B8BBA2A-8A58-43DE-994B-47A7289A620F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsulSiloHost", "Orleans\ConsulSiloHost\ConsulSiloHost.csproj", "{5C991D36-6E48-44B0-8862-536AD55CC7D5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsulSiloHost", "Orleans\ConsulSiloHost\ConsulSiloHost.csproj", "{5C991D36-6E48-44B0-8862-536AD55CC7D5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AppMetrics", "AppMetrics", "{37450CDE-D2B5-4673-9A81-752501360160}"
 EndProject
@@ -761,15 +761,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiddlewareDemo", "Common\Mi
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ClientSide", "ClientSide", "{AAC3253D-A3D0-4AD1-8D18-03986F07B732}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GulpDemo", "ClientSide\GulpDemo\GulpDemo.csproj", "{9DDC09C2-C61B-4D5F-B247-04DE6F4E64CB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GulpDemo", "ClientSide\GulpDemo\GulpDemo.csproj", "{9DDC09C2-C61B-4D5F-B247-04DE6F4E64CB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GruntDemo", "ClientSide\GruntDemo\GruntDemo.csproj", "{A08E5241-7B43-4044-ADE7-C870BC9C2F1E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GruntDemo", "ClientSide\GruntDemo\GruntDemo.csproj", "{A08E5241-7B43-4044-ADE7-C870BC9C2F1E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BowerDemo", "ClientSide\BowerDemo\BowerDemo.csproj", "{8E71E663-E898-4111-8E0F-F62144E2C8F5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BowerDemo", "ClientSide\BowerDemo\BowerDemo.csproj", "{8E71E663-E898-4111-8E0F-F62144E2C8F5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HealthCheckDemo", "Common\HealthCheckDemo\HealthCheckDemo.csproj", "{405A72E8-0B5B-46A0-B017-E3934EF16CB0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HealthCheckDemo", "Common\HealthCheckDemo\HealthCheckDemo.csproj", "{405A72E8-0B5B-46A0-B017-E3934EF16CB0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InitiateHTTPClientDemo", "Common\InitiateHTTPClientDemo\InitiateHTTPClientDemo.csproj", "{4CD813E1-4810-4BB0-AF34-1CCB6772E41C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InitiateHTTPClientDemo", "Common\InitiateHTTPClientDemo\InitiateHTTPClientDemo.csproj", "{4CD813E1-4810-4BB0-AF34-1CCB6772E41C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoggerDemo", "Common\LoggerDemo\LoggerDemo.csproj", "{C96B5FD8-0960-40A2-BE86-EDA4FFC6F4BD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -2855,6 +2857,14 @@ Global
 		{4CD813E1-4810-4BB0-AF34-1CCB6772E41C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4CD813E1-4810-4BB0-AF34-1CCB6772E41C}.Release|x64.ActiveCfg = Release|Any CPU
 		{4CD813E1-4810-4BB0-AF34-1CCB6772E41C}.Release|x64.Build.0 = Release|Any CPU
+		{C96B5FD8-0960-40A2-BE86-EDA4FFC6F4BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C96B5FD8-0960-40A2-BE86-EDA4FFC6F4BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C96B5FD8-0960-40A2-BE86-EDA4FFC6F4BD}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{C96B5FD8-0960-40A2-BE86-EDA4FFC6F4BD}.Debug|x64.Build.0 = Debug|Any CPU
+		{C96B5FD8-0960-40A2-BE86-EDA4FFC6F4BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C96B5FD8-0960-40A2-BE86-EDA4FFC6F4BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C96B5FD8-0960-40A2-BE86-EDA4FFC6F4BD}.Release|x64.ActiveCfg = Release|Any CPU
+		{C96B5FD8-0960-40A2-BE86-EDA4FFC6F4BD}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -3171,6 +3181,7 @@ Global
 		{8E71E663-E898-4111-8E0F-F62144E2C8F5} = {AAC3253D-A3D0-4AD1-8D18-03986F07B732}
 		{405A72E8-0B5B-46A0-B017-E3934EF16CB0} = {A76B4F09-82B3-4F06-BE35-F5941BF8C338}
 		{4CD813E1-4810-4BB0-AF34-1CCB6772E41C} = {A76B4F09-82B3-4F06-BE35-F5941BF8C338}
+		{C96B5FD8-0960-40A2-BE86-EDA4FFC6F4BD} = {A76B4F09-82B3-4F06-BE35-F5941BF8C338}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
