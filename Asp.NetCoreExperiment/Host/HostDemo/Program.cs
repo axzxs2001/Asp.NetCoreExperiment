@@ -1,12 +1,24 @@
-﻿using System;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using System;
 
 namespace HostDemo
 {
     class Program
     {
-        static void Main(string[] args)
+        static async System.Threading.Tasks.Task Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            var host = new HostBuilder()
+                   .ConfigureServices((hostContext, services) =>
+                   {
+                       services.Configure<HostOptions>(option =>
+                       {
+                           option.ShutdownTimeout = System.TimeSpan.FromSeconds(20);
+                       });
+                   })
+                .Build();
+
+            await host.RunAsync();
         }
     }
 }
