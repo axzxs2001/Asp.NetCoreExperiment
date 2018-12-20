@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace FilterDemo.Models
@@ -30,7 +28,26 @@ namespace FilterDemo.Models
     /// <summary>
     /// 注入action特性 在ConfigService中注入
     /// </summary>
-    public class AllAddAttribute : ResultFilterAttribute
+    //public class AllAddAttribute : ResultFilterAttribute
+    //{
+
+    //    private readonly ILogger<AllAddAttribute> _logger;
+    //    public AllAddAttribute(ILogger<AllAddAttribute> logger)
+    //    {
+    //        _logger = logger;
+    //    }
+
+    //    public override void OnResultExecuting(ResultExecutingContext context)
+    //    {
+
+    //        _logger.LogInformation("AllAddAttribute的action进来了");
+    //    }
+    //}
+
+    /// <summary>
+    /// 注入action特性 在ConfigService中注入
+    /// </summary>
+    public class AllAddAttribute : ActionFilterAttribute
     {
 
         private readonly ILogger<AllAddAttribute> _logger;
@@ -42,7 +59,34 @@ namespace FilterDemo.Models
         public override void OnResultExecuting(ResultExecutingContext context)
         {
 
-            _logger.LogInformation("AllAddAttribute的action进来了");
+            _logger.LogInformation("AllAddAttribute的action进来了  OnResultExecuting  url:" + context.HttpContext.Request.Path);
+        }
+
+        public override void OnActionExecuting(ActionExecutingContext context)
+        {
+            _logger.LogInformation("AllAddAttribute的action进来了  OnActionExecuting  url:" + context.HttpContext.Request.Path);
+        }
+        public override void OnActionExecuted(ActionExecutedContext context)
+        {
+            _logger.LogInformation("AllAddAttribute的action进来了  OnActionExecuted  url:" + context.HttpContext.Request.Path);
+        }
+
+        public override Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
+        {
+            _logger.LogInformation("AllAddAttribute的action进来了  OnActionExecutionAsync  url:" + context.HttpContext.Request.Path);
+
+            return next();
+        }
+
+        public override void OnResultExecuted(ResultExecutedContext context)
+        {
+            _logger.LogInformation("AllAddAttribute的action进来了  OnResultExecuted  url:" + context.HttpContext.Request.Path);
+        }
+
+        public override Task OnResultExecutionAsync(ResultExecutingContext context, ResultExecutionDelegate next)
+        {
+            _logger.LogInformation("AllAddAttribute的action进来了  OnResultExecuted  url:" + context.HttpContext.Request.Path);
+            return next();
         }
     }
 }
