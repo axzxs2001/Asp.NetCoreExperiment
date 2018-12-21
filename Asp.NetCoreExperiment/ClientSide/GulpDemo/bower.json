@@ -1,0 +1,6 @@
+{
+  "name": "myproject",
+  "dependencies": {
+    "vue": "^2.5.21"
+  }
+}

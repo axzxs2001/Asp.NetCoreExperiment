@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.Filters;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
@@ -59,15 +60,26 @@ namespace FilterDemo.Models
         public override void OnResultExecuting(ResultExecutingContext context)
         {
 
+
             _logger.LogInformation("AllAddAttribute的action进来了  OnResultExecuting  url:" + context.HttpContext.Request.Path);
         }
 
         public override void OnActionExecuting(ActionExecutingContext context)
-        {
+        {          
+            var parmeters = context.ActionArguments;
             _logger.LogInformation("AllAddAttribute的action进来了  OnActionExecuting  url:" + context.HttpContext.Request.Path);
         }
         public override void OnActionExecuted(ActionExecutedContext context)
-        {
+        {       
+            
+            switch (context.Result)
+            {
+                case JsonResult json:
+
+                    break;
+                case ViewResult view:
+                    break;
+            }
             _logger.LogInformation("AllAddAttribute的action进来了  OnActionExecuted  url:" + context.HttpContext.Request.Path);
         }
 
