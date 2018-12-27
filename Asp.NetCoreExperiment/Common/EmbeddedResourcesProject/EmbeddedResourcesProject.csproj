@@ -1,0 +1,106 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="Views\Home\Index.cshtml" />
+    <Content Remove="Views\Home\Privacy.cshtml" />
+    <Content Remove="Views\Shared\Error.cshtml" />
+    <Content Remove="Views\Shared\_CookieConsentPartial.cshtml" />
+    <Content Remove="Views\Shared\_Layout.cshtml" />
+    <Content Remove="Views\Shared\_ValidationScriptsPartial.cshtml" />
+    <Content Remove="Views\_ViewImports.cshtml" />
+    <Content Remove="Views\_ViewStart.cshtml" />
+    <Content Remove="wwwroot\css\site.css" />
+    <Content Remove="wwwroot\favicon.ico" />
+    <Content Remove="wwwroot\js\site.js" />
+    <Content Remove="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css" />
+    <Content Remove="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map" />
+    <Content Remove="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css" />
+    <Content Remove="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css.map" />
+    <Content Remove="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css" />
+    <Content Remove="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css.map" />
+    <Content Remove="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.min.css" />
+    <Content Remove="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.min.css.map" />
+    <Content Remove="wwwroot\lib\bootstrap\dist\css\bootstrap.css" />
+    <Content Remove="wwwroot\lib\bootstrap\dist\css\bootstrap.css.map" />
+    <Content Remove="wwwroot\lib\bootstrap\dist\css\bootstrap.min.css" />
+    <Content Remove="wwwroot\lib\bootstrap\dist\css\bootstrap.min.css.map" />
+    <Content Remove="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js" />
+    <Content Remove="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js.map" />
+    <Content Remove="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js" />
+    <Content Remove="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js.map" />
+    <Content Remove="wwwroot\lib\bootstrap\dist\js\bootstrap.js" />
+    <Content Remove="wwwroot\lib\bootstrap\dist\js\bootstrap.js.map" />
+    <Content Remove="wwwroot\lib\bootstrap\dist\js\bootstrap.min.js" />
+    <Content Remove="wwwroot\lib\bootstrap\dist\js\bootstrap.min.js.map" />
+    <Content Remove="wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.js" />
+    <Content Remove="wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.min.js" />
+    <Content Remove="wwwroot\lib\jquery-validation-unobtrusive\LICENSE.txt" />
+    <Content Remove="wwwroot\lib\jquery-validation\dist\additional-methods.js" />
+    <Content Remove="wwwroot\lib\jquery-validation\dist\additional-methods.min.js" />
+    <Content Remove="wwwroot\lib\jquery-validation\dist\jquery.validate.js" />
+    <Content Remove="wwwroot\lib\jquery-validation\dist\jquery.validate.min.js" />
+    <Content Remove="wwwroot\lib\jquery-validation\LICENSE.md" />
+    <Content Remove="wwwroot\lib\jquery\dist\jquery.js" />
+    <Content Remove="wwwroot\lib\jquery\dist\jquery.min.js" />
+    <Content Remove="wwwroot\lib\jquery\dist\jquery.min.map" />
+    <Content Remove="wwwroot\lib\jquery\LICENSE.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Views\Home\Index.cshtml" />
+    <EmbeddedResource Include="Views\Home\Privacy.cshtml" />
+    <EmbeddedResource Include="Views\Shared\Error.cshtml" />
+    <EmbeddedResource Include="Views\Shared\_CookieConsentPartial.cshtml" />
+    <EmbeddedResource Include="Views\Shared\_Layout.cshtml" />
+    <EmbeddedResource Include="Views\Shared\_ValidationScriptsPartial.cshtml" />
+    <EmbeddedResource Include="Views\_ViewImports.cshtml" />
+    <EmbeddedResource Include="Views\_ViewStart.cshtml" />
+    <EmbeddedResource Include="wwwroot\css\site.css" />
+    <EmbeddedResource Include="wwwroot\favicon.ico" />
+    <EmbeddedResource Include="wwwroot\js\site.js" />
+    <EmbeddedResource Include="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css" />
+    <EmbeddedResource Include="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map" />
+    <EmbeddedResource Include="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css" />
+    <EmbeddedResource Include="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css.map" />
+    <EmbeddedResource Include="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css" />
+    <EmbeddedResource Include="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css.map" />
+    <EmbeddedResource Include="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.min.css" />
+    <EmbeddedResource Include="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.min.css.map" />
+    <EmbeddedResource Include="wwwroot\lib\bootstrap\dist\css\bootstrap.css" />
+    <EmbeddedResource Include="wwwroot\lib\bootstrap\dist\css\bootstrap.css.map" />
+    <EmbeddedResource Include="wwwroot\lib\bootstrap\dist\css\bootstrap.min.css" />
+    <EmbeddedResource Include="wwwroot\lib\bootstrap\dist\css\bootstrap.min.css.map" />
+    <EmbeddedResource Include="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js" />
+    <EmbeddedResource Include="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js.map" />
+    <EmbeddedResource Include="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js" />
+    <EmbeddedResource Include="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js.map" />
+    <EmbeddedResource Include="wwwroot\lib\bootstrap\dist\js\bootstrap.js" />
+    <EmbeddedResource Include="wwwroot\lib\bootstrap\dist\js\bootstrap.js.map" />
+    <EmbeddedResource Include="wwwroot\lib\bootstrap\dist\js\bootstrap.min.js" />
+    <EmbeddedResource Include="wwwroot\lib\bootstrap\dist\js\bootstrap.min.js.map" />
+    <EmbeddedResource Include="wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.js" />
+    <EmbeddedResource Include="wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.min.js" />
+    <EmbeddedResource Include="wwwroot\lib\jquery-validation-unobtrusive\LICENSE.txt" />
+    <EmbeddedResource Include="wwwroot\lib\jquery-validation\dist\additional-methods.js" />
+    <EmbeddedResource Include="wwwroot\lib\jquery-validation\dist\additional-methods.min.js" />
+    <EmbeddedResource Include="wwwroot\lib\jquery-validation\dist\jquery.validate.js" />
+    <EmbeddedResource Include="wwwroot\lib\jquery-validation\dist\jquery.validate.min.js" />
+    <EmbeddedResource Include="wwwroot\lib\jquery-validation\LICENSE.md" />
+    <EmbeddedResource Include="wwwroot\lib\jquery\dist\jquery.js" />
+    <EmbeddedResource Include="wwwroot\lib\jquery\dist\jquery.min.js" />
+    <EmbeddedResource Include="wwwroot\lib\jquery\dist\jquery.min.map" />
+    <EmbeddedResource Include="wwwroot\lib\jquery\LICENSE.txt" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+  </ItemGroup>
+
+</Project>
