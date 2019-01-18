@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27130.2036
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28407.52
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Hangfire", "Hangfire", "{57C13718-7CA8-4CD7-819F-0F4DE3A14709}"
 EndProject
@@ -782,6 +782,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmbeddedResourcesProject", "Common\EmbeddedResourcesProject\EmbeddedResourcesProject.csproj", "{60BDE639-E6CF-4441-B20A-774176F86BBD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmbeddedResourcesUsed", "Common\EmbeddedResourcesUsed\EmbeddedResourcesUsed.csproj", "{8160EA50-E25B-43E8-96FD-E755D693B233}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UFT8_Bom_Demo", "Common\UFT8_Bom_Demo\UFT8_Bom_Demo.csproj", "{AA274EC7-6830-43FF-AB9B-4D42805D1453}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -2907,6 +2909,14 @@ Global
 		{8160EA50-E25B-43E8-96FD-E755D693B233}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8160EA50-E25B-43E8-96FD-E755D693B233}.Release|x64.ActiveCfg = Release|Any CPU
 		{8160EA50-E25B-43E8-96FD-E755D693B233}.Release|x64.Build.0 = Release|Any CPU
+		{AA274EC7-6830-43FF-AB9B-4D42805D1453}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA274EC7-6830-43FF-AB9B-4D42805D1453}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA274EC7-6830-43FF-AB9B-4D42805D1453}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{AA274EC7-6830-43FF-AB9B-4D42805D1453}.Debug|x64.Build.0 = Debug|Any CPU
+		{AA274EC7-6830-43FF-AB9B-4D42805D1453}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA274EC7-6830-43FF-AB9B-4D42805D1453}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA274EC7-6830-43FF-AB9B-4D42805D1453}.Release|x64.ActiveCfg = Release|Any CPU
+		{AA274EC7-6830-43FF-AB9B-4D42805D1453}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -3228,6 +3238,7 @@ Global
 		{E72F9232-15DF-427A-85DF-9CA6BB966744} = {F35169B6-C95E-482B-A32B-041868F1532F}
 		{60BDE639-E6CF-4441-B20A-774176F86BBD} = {A76B4F09-82B3-4F06-BE35-F5941BF8C338}
 		{8160EA50-E25B-43E8-96FD-E755D693B233} = {A76B4F09-82B3-4F06-BE35-F5941BF8C338}
+		{AA274EC7-6830-43FF-AB9B-4D42805D1453} = {A76B4F09-82B3-4F06-BE35-F5941BF8C338}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
