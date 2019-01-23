@@ -26,6 +26,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Routing;
+using Microsoft.OpenApi.Models;
 
 namespace RestfulStandard01
 {
@@ -57,16 +58,17 @@ namespace RestfulStandard01
             services.AddScoped<IAccountRepository, AccountRepository>();
             services.AddSwaggerGen(options =>
             {
-                options.SwaggerDoc("RestfulStandard01", new Info { Title = "API接口", Version = "v1", Contact = new Contact { Email = "", Name = "NetStars", Url = "" }, Description = "医API" });
+                options.SwaggerDoc("RestfulStandard01", new Microsoft.OpenApi.Models.OpenApiInfo{ Title = "API接口", Version = "v1", Contact = new OpenApiContact { Email = "", Name = "NetStars" }, Description = "医API" });
                 var basePath = PlatformServices.Default.Application.ApplicationBasePath;
                 var xmlPath = Path.Combine(basePath, $"RestfulStandard01.xml");
                 options.IncludeXmlComments(xmlPath);
 
-                var api = new ApiKeyScheme { In = "header", Description = "请输入带有Bearer的Token", Name = "Authorization", Type = "apiKey" };
+                var api = new OpenApiSecurityScheme{ In  = ParameterLocation.Header, Description = "请输入带有Bearer的Token", Name = "Authorization", Type = SecuritySchemeType.ApiKey};
                 options.AddSecurityDefinition("Bearer", api);
-                options.AddSecurityRequirement(new Dictionary<string, IEnumerable<string>> {
-                { "Bearer", Enumerable.Empty<string>() },
-                });
+            options.AddSecurityRequirement(new OpenApiSecurityRequirement() { });
+            //new Dictionary<string, IEnumerable<string>> {
+            //    { "Bearer", Enumerable.Empty<string>() },
+            //    };
 
             });
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
