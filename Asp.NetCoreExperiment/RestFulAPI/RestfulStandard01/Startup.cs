@@ -63,9 +63,12 @@ namespace RestfulStandard01
                 var xmlPath = Path.Combine(basePath, $"RestfulStandard01.xml");
                 options.IncludeXmlComments(xmlPath);
 
-                var api = new OpenApiSecurityScheme{ In  = ParameterLocation.Header, Description = "请输入带有Bearer的Token", Name = "Authorization", Type = SecuritySchemeType.ApiKey};
-                options.AddSecurityDefinition("Bearer", api);
-            options.AddSecurityRequirement(new OpenApiSecurityRequirement() { });
+            //    var api = new OpenApiSecurityScheme{ In  = ParameterLocation.Header, Description = "请输入带有Bearer的Token", Name = "Authorization", Type = SecuritySchemeType.ApiKey};
+            //    options.AddSecurityDefinition("Bearer", api);
+            //options.AddSecurityRequirement(new OpenApiSecurityRequirement() { });
+
+
+
             //new Dictionary<string, IEnumerable<string>> {
             //    { "Bearer", Enumerable.Empty<string>() },
             //    };

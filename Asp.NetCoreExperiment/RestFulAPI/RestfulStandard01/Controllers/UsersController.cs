@@ -67,9 +67,10 @@ namespace RestfulStandard01.Controllers
         [ProducesResponseType(typeof(User), 200)]
         [HttpGet("{id}")]
         [HttpHead("{id}")]
-        [HttpOptions("{id}")]
-        public ActionResult GetUser(int id)
-        {
+       // [HttpOptions("{id}")]
+        [HttpPost("{id}")]
+        public ActionResult HandlerUser(int id)
+        {           
             var user = _userRepository.GetUserByID(id);
             if (user == null)
             {
@@ -80,6 +81,17 @@ namespace RestfulStandard01.Controllers
                 return Ok(user);
             }
 
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [HttpOptions("{id}")]
+        [ProducesResponseType(typeof(User), 200)]      
+        public IActionResult HandlerUser()
+        {
+            Response.Headers.Add("Allow", "GET,POST,HEAD,OPTIONS");
+            return Ok();
         }
         /// <summary>
         /// 添加用户
@@ -216,7 +228,7 @@ namespace RestfulStandard01.Controllers
                 case PaginationResourceUriType.NextPage:
                     var nextParmeters = userPagination.Clone();
                     nextParmeters.PageIndex++;
-                    return _urlHelper.RouteUrl( nextParmeters);
+                    return _urlHelper.RouteUrl(nextParmeters);
                 default:
                     return _urlHelper.RouteUrl(userPagination);
             }
