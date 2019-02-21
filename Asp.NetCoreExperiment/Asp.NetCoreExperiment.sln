@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.28407.52
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.421
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Hangfire", "Hangfire", "{57C13718-7CA8-4CD7-819F-0F4DE3A14709}"
 EndProject
@@ -779,9 +779,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebHostDemo", "Host\WebHost
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HostDemo", "Host\HostDemo\HostDemo.csproj", "{E72F9232-15DF-427A-85DF-9CA6BB966744}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmbeddedResourcesProject", "Common\EmbeddedResourcesProject\EmbeddedResourcesProject.csproj", "{60BDE639-E6CF-4441-B20A-774176F86BBD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmbeddedResourcesProject", "Common\EmbeddedResourcesProject\EmbeddedResourcesProject.csproj", "{60BDE639-E6CF-4441-B20A-774176F86BBD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmbeddedResourcesUsed", "Common\EmbeddedResourcesUsed\EmbeddedResourcesUsed.csproj", "{8160EA50-E25B-43E8-96FD-E755D693B233}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmbeddedResourcesUsed", "Common\EmbeddedResourcesUsed\EmbeddedResourcesUsed.csproj", "{8160EA50-E25B-43E8-96FD-E755D693B233}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UFT8_Bom_Demo", "Common\UFT8_Bom_Demo\UFT8_Bom_Demo.csproj", "{AA274EC7-6830-43FF-AB9B-4D42805D1453}"
 EndProject
@@ -793,11 +793,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yaml_Demo01", "Yaml\Yaml_De
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ContinuousDeployment", "ContinuousDeployment", "{3D5990F1-A73B-4BDE-B95B-99985099A0DC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CDDemo001_UnitTest", "ContinuousDeployment\CDDemo001_UnitTest\CDDemo001_UnitTest.csproj", "{42B9024F-C503-4E53-AA81-F87B20AACEBF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CDDemo001_UnitTest", "ContinuousDeployment\CDDemo001_UnitTest\CDDemo001_UnitTest.csproj", "{42B9024F-C503-4E53-AA81-F87B20AACEBF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CDDemo001", "ContinuousDeployment\CDDemo001\CDDemo001.csproj", "{6A00EA99-FA32-466B-80A8-835A15102269}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CDDemo001", "ContinuousDeployment\CDDemo001\CDDemo001.csproj", "{6A00EA99-FA32-466B-80A8-835A15102269}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibradioDemo", "Common\LibradioDemo\LibradioDemo.csproj", "{DB3B6D99-D6B3-475D-8983-B1B3C4C16557}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibradioDemo", "Common\LibradioDemo\LibradioDemo.csproj", "{DB3B6D99-D6B3-475D-8983-B1B3C4C16557}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "kubernetes", "kubernetes", "{86AE9DD9-7408-49DE-92EB-39284B5B347C}"
 	ProjectSection(SolutionItems) = preProject
@@ -806,9 +806,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "kubernetes", "kubernetes", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AWS", "AWS", "{7A5EAB40-1490-45D7-83CC-C990D15C9D77}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API01", "AWS\API01\API01.csproj", "{AD30EFC1-0CF3-4FB0-A40D-5420897A46E3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "API01", "AWS\API01\API01.csproj", "{AD30EFC1-0CF3-4FB0-A40D-5420897A46E3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API02", "AWS\API02\API02.csproj", "{569748A8-8B20-438D-AB1C-C7592DBE6B9E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "API02", "AWS\API02\API02.csproj", "{569748A8-8B20-438D-AB1C-C7592DBE6B9E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "API01AWSLambda", "AWS\API01AWSLambda\API01AWSLambda.csproj", "{B7A0C4A8-A95A-43E6-9E05-1D64ACFDD35A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -2998,6 +3000,14 @@ Global
 		{569748A8-8B20-438D-AB1C-C7592DBE6B9E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{569748A8-8B20-438D-AB1C-C7592DBE6B9E}.Release|x64.ActiveCfg = Release|Any CPU
 		{569748A8-8B20-438D-AB1C-C7592DBE6B9E}.Release|x64.Build.0 = Release|Any CPU
+		{B7A0C4A8-A95A-43E6-9E05-1D64ACFDD35A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7A0C4A8-A95A-43E6-9E05-1D64ACFDD35A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7A0C4A8-A95A-43E6-9E05-1D64ACFDD35A}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{B7A0C4A8-A95A-43E6-9E05-1D64ACFDD35A}.Debug|x64.Build.0 = Debug|Any CPU
+		{B7A0C4A8-A95A-43E6-9E05-1D64ACFDD35A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7A0C4A8-A95A-43E6-9E05-1D64ACFDD35A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B7A0C4A8-A95A-43E6-9E05-1D64ACFDD35A}.Release|x64.ActiveCfg = Release|Any CPU
+		{B7A0C4A8-A95A-43E6-9E05-1D64ACFDD35A}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -3327,6 +3337,7 @@ Global
 		{DB3B6D99-D6B3-475D-8983-B1B3C4C16557} = {A76B4F09-82B3-4F06-BE35-F5941BF8C338}
 		{AD30EFC1-0CF3-4FB0-A40D-5420897A46E3} = {7A5EAB40-1490-45D7-83CC-C990D15C9D77}
 		{569748A8-8B20-438D-AB1C-C7592DBE6B9E} = {7A5EAB40-1490-45D7-83CC-C990D15C9D77}
+		{B7A0C4A8-A95A-43E6-9E05-1D64ACFDD35A} = {7A5EAB40-1490-45D7-83CC-C990D15C9D77}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
