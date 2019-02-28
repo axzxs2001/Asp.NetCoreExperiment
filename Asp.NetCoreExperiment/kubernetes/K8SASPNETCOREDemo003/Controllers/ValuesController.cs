@@ -24,7 +24,7 @@ namespace K8SASPNETCOREDemo003.Controllers
 
             }
             catch (Exception exc)
-            {             
+            {
                 value += $"{exc.Message}";
             }
             return new string[] { "K8SASPNETCOREDemo003测试服务" + DateTime.Now.ToString("yyyy年MM月dd日 HH:mm:ss"), "所在服务器：" + Environment.MachineName + " OS:" + Environment.OSVersion.VersionString, value };
@@ -58,7 +58,14 @@ namespace K8SASPNETCOREDemo003.Controllers
         [HttpGet("/health")]
         public IActionResult Helath()
         {
-            return Ok();
+            if (DateTime.Now.Minute % 2 == 0)
+            {
+                return Ok();
+            }
+            else
+            {
+                return NotFound();
+            }
         }
     }
 }
