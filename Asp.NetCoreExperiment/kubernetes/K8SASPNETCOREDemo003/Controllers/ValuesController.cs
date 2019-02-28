@@ -58,13 +58,13 @@ namespace K8SASPNETCOREDemo003.Controllers
         [HttpGet("/health")]
         public IActionResult Helath()
         {
-            if (DateTime.Now.Minute % 2 == 0)
+            if (DateTime.Now.Minute % 30 == 0)
             {
-                return Ok();
+                return NotFound();
             }
             else
             {
-                return NotFound();
+                return Ok();
             }
         }
     }

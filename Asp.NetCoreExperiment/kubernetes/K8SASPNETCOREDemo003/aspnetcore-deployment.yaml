@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: k8saspnetcoredemo003-deployment
+spec:
+  selector:
+    matchLabels:
+      app: k8saspnetcoredemo003
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: k8saspnetcoredemo003
+    spec:
+      volumes:
+        - name: postgre-user
+          secret:
+            secretName: dbuser
+        - name: person-data
+          configMap:
+            name: personcfg
+      containers:
+        - name: k8saspnetcoredemo003
+          image: axzxs2001/k8saspnetcoredemo003:v13
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 4045
+          volumeMounts:
+            - name: postgre-user
+              mountPath: "/projected-volume"
+              readOnly: true
+            - name: person-data
+              mountPath: "/persondata"
+              readOnly: true
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 4045
+              #host: 127.0.0.1
+              scheme: HTTP
+            initialDelaySeconds: 30
+            timeoutSeconds: 5
+            periodSeconds: 15

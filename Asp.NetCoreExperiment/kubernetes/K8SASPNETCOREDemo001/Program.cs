@@ -19,7 +19,7 @@ namespace K8SASPNETCOREDemo001
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-            .UseUrls("http://*:4044")
+                .UseUrls("http://*:4046")
                 .UseStartup<Startup>();
     }
 }
