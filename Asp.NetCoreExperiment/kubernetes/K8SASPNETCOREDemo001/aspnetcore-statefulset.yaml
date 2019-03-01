@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: coreweb
+spec:
+  serviceName: "coreservice"
+  replicas: 2
+  selector:
+    matchLabels:
+      app: coreweb
+  template:
+    metadata:
+      labels:
+        app: coreweb
+    spec:
+      containers:
+        - name: coreweb
+          image: axzxs2001/k8saspnetcoredemo001:v1
+          ports:
+            - containerPort: 4046
+              name: coreweb

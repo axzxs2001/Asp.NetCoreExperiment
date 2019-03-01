@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: web4
+spec:
+  serviceName: "aspnetcoreservice4"
+  replicas: 2
+  selector:
+    matchLabels:
+      app: aspnetcore004
+  template:
+    metadata:
+      labels:
+        app: aspnetcore004
+    spec:
+      containers:
+        - name: aspnetcore004
+          image: axzxs2001/k8saspnetcoredemo004:v2
+          ports:
+            - containerPort: 4047
+              name: aspnetcore004
+          volumeMounts:
+            - name: web4
+              mountPath: /data
+      volumes:
+        - name: web4
+          persistentVolumeClaim:
+            claimName: task-pv-claim

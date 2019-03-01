@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: k8saspnetcoredemo002-deployment
+spec:
+  selector:
+    matchLabels:
+      app: k8saspnetcoredemo002
+  replicas: 4
+  template:
+    metadata:
+      labels:
+        app: k8saspnetcoredemo002
+    spec:
+      containers:
+        - name: k8saspnetcoredemo002
+          image: axzxs2001/k8saspnetcoredemo002
+          ports:
+            - containerPort: 4044
