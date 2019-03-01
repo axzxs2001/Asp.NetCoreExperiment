@@ -3,22 +3,22 @@ kind: StatefulSet
 metadata:
   name: web4
 spec:
-  serviceName: "aspnetcoreservice4"
+  serviceName: sev4
   replicas: 2
   selector:
     matchLabels:
-      app: aspnetcore004
+      app: web4
   template:
     metadata:
       labels:
-        app: aspnetcore004
+        app: web4
     spec:
       containers:
-        - name: aspnetcore004
-          image: axzxs2001/k8saspnetcoredemo004:v2
+        - name: web4
+          image: axzxs2001/k8saspnetcoredemo004:v3
           ports:
             - containerPort: 4047
-              name: aspnetcore004
+              name: web4
           volumeMounts:
             - name: web4
               mountPath: /data

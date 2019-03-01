@@ -16,7 +16,7 @@ namespace K8SASPNETCOREDemo004.Controllers
         {
             try
             {
-                System.IO.File.WriteAllText("/data/a.txt", $"时间：{DateTime.Now},机器：{Environment.MachineName},版本号：{ Environment.OSVersion.VersionString}", System.Text.Encoding.UTF8);       
+                System.IO.File.WriteAllText($"/data/{Environment.MachineName}.txt", $"时间：{DateTime.Now},机器：{Environment.MachineName},版本号：{ Environment.OSVersion.VersionString}", System.Text.Encoding.UTF8);       
                 return new string[] { "K8SASPNETCOREDemo004--测试服务" + DateTime.Now.ToString("yyyy年MM月dd日 HH:mm:ss"), "所在服务器：" + Environment.MachineName + " OS:" + Environment.OSVersion.VersionString };
             }
             catch (Exception exc)
@@ -29,7 +29,7 @@ namespace K8SASPNETCOREDemo004.Controllers
         [HttpGet("{id}")]
         public ActionResult<string> Get(int id)
         {           
-            var avalue = System.IO.File.ReadAllText("/data/a.txt", System.Text.Encoding.UTF8);          
+            var avalue = System.IO.File.ReadAllText($"/data/{Environment.MachineName}.txt", System.Text.Encoding.UTF8);          
             return avalue;
         }
 
