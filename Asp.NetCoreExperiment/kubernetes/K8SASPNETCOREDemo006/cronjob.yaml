@@ -1,0 +1,14 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: k8saspnetcoredemo006
+spec:
+  schedule: "* * */1 * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: k8saspnetcoredemo006
+            image: axzxs2001/k8saspnetcoredemo006:v1          
+          restartPolicy: OnFailure
