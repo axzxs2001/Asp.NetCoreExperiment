@@ -1,0 +1,9 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+   name: kube-sc
+provisioner: ceph.rook.io/block
+parameters:
+  blockPool: kube 
+  clusterNamespace: rook-ceph
+  fstype: ext4

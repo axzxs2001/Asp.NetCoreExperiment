@@ -1,0 +1,8 @@
+apiVersion: ceph.rook.io/v1
+kind: CephBlockPool
+metadata:
+  name: kube
+  namespace: rook-ceph
+spec:
+  replicated:
+    size: 1
