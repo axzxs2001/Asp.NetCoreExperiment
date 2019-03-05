@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: sev7
+  labels:
+    app: sev7
+spec:
+  ports:
+    - protocol: TCP
+      port: 4049
+      name: web7
+  clusterIP: None
+  selector:
+    app: web7
