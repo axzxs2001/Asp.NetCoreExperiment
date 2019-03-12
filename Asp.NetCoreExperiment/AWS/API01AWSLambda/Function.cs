@@ -1,7 +1,7 @@
+using System;
 using Amazon.Lambda.APIGatewayEvents;
 using Amazon.Lambda.Core;
 using Microsoft.IdentityModel.Tokens;
-using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
@@ -80,18 +80,10 @@ namespace API01AWSLambda
                 PolicyDocument = policy,
             };
         }
-
-
-
-        //public string FunctionHandler(APIGatewayCustomAuthorizerRequest apigAuthRequest, ILambdaContext context)
-        //{
-        //    LambdaLogger.Log($"Function开始");
-
-        //    return "对了";
-
-
-        //}
     }
+    /// <summary>
+    /// 测试用，正式环境可以放在云配置中
+    /// </summary>
     public class SecurityConstants
     {
         public const string Issuer = "gsw";
