@@ -15,7 +15,7 @@
     "function-timeout"     : 10,
     "function-handler"     : "API01AWSLambda::API01AWSLambda.Function::FunctionHandler",
     "function-name"        : "TokenAuthorization",
-    "function-role"        : "arn:aws:iam::111608112034:role/lambda_exec_API01Get",
+    "function-role"        : "arn:aws:iam::111608112034:role/gsw_lambda",
     "tracing-mode"         : "PassThrough",
     "environment-variables" : ""
 }

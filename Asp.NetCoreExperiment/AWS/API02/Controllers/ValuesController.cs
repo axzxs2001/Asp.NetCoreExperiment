@@ -11,10 +11,10 @@ namespace API02.Controllers
     public class ValuesController : ControllerBase
     {
         [HttpGet("/abc")]
-        public ActionResult<IEnumerable<string>> Get([FromQuery]string aaa)
+        public ActionResult<IEnumerable<string>> Get([FromQuery]string par)
         {
             var claimsStr = new StringBuilder();
-            claimsStr.Append($"QueryString参数 aaa = {aaa};");
+            claimsStr.Append($"QueryString参数 par = {par};");
             claimsStr.Append("    Claim值:");
             foreach (var claim in User.Claims)
             {             
