@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.438
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28711.60
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Hangfire", "Hangfire", "{57C13718-7CA8-4CD7-819F-0F4DE3A14709}"
 EndProject
@@ -827,6 +827,10 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "K8SASPNETCOREDemo007", "kubernetes\K8SASPNETCOREDemo007\K8SASPNETCOREDemo007.csproj", "{3DC266D4-01A3-4ED5-B6F9-BF724F75FCED}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuthenticationService", "AWS\AuthenticationService\AuthenticationService.csproj", "{BDD128AC-DFB7-4FE2-B1FE-E8D0EF570511}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Prometheus", "Prometheus", "{BF7979FF-F475-4A2E-8C4C-C4FAE7E7F74E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrometheusDemo01", "Prometheus\PrometheusDemo01\PrometheusDemo01.csproj", "{06FA9A16-CC42-430F-947D-9273B39B548E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -3088,6 +3092,14 @@ Global
 		{BDD128AC-DFB7-4FE2-B1FE-E8D0EF570511}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BDD128AC-DFB7-4FE2-B1FE-E8D0EF570511}.Release|x64.ActiveCfg = Release|Any CPU
 		{BDD128AC-DFB7-4FE2-B1FE-E8D0EF570511}.Release|x64.Build.0 = Release|Any CPU
+		{06FA9A16-CC42-430F-947D-9273B39B548E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06FA9A16-CC42-430F-947D-9273B39B548E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06FA9A16-CC42-430F-947D-9273B39B548E}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{06FA9A16-CC42-430F-947D-9273B39B548E}.Debug|x64.Build.0 = Debug|Any CPU
+		{06FA9A16-CC42-430F-947D-9273B39B548E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06FA9A16-CC42-430F-947D-9273B39B548E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{06FA9A16-CC42-430F-947D-9273B39B548E}.Release|x64.ActiveCfg = Release|Any CPU
+		{06FA9A16-CC42-430F-947D-9273B39B548E}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -3426,6 +3438,7 @@ Global
 		{CE4D2DD9-A0A4-4A7F-8483-2136D433D209} = {86AE9DD9-7408-49DE-92EB-39284B5B347C}
 		{3DC266D4-01A3-4ED5-B6F9-BF724F75FCED} = {86AE9DD9-7408-49DE-92EB-39284B5B347C}
 		{BDD128AC-DFB7-4FE2-B1FE-E8D0EF570511} = {7A5EAB40-1490-45D7-83CC-C990D15C9D77}
+		{06FA9A16-CC42-430F-947D-9273B39B548E} = {BF7979FF-F475-4A2E-8C4C-C4FAE7E7F74E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
