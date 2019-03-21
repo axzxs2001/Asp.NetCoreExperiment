@@ -15,46 +15,38 @@ using Microsoft.Extensions.Logging;
 
 namespace PrometheusDemo01
 {
-    public class Program
+    public static class Program
     {
         public static IMetricsRoot Metrics { get; set; }
 
         public static IWebHost BuildWebHost(string[] args)
         {
             Metrics = AppMetrics.CreateDefaultBuilder()
-                .OutputMetrics.AsPrometheusPlainText()
-                .OutputMetrics.AsPrometheusProtobuf()
-                .Build();
+                    .OutputMetrics.AsPrometheusPlainText()
+                    .OutputMetrics.AsPrometheusProtobuf()
+                        .Configuration.Configure(opt => {
+                            opt.AddAppTag("app-tag");
+                            opt.AddEnvTag("env-tag");
+                        })
+                    .Build();
 
             return WebHost.CreateDefaultBuilder(args)
-                .ConfigureMetrics(Metrics)
-                .UseMetrics(
-                    options =>
-                    {
-                        options.EndpointOptions = endpointsOptions =>
-                        {
-                            foreach (var formatter in Metrics.OutputMetricsFormatters)
-                            {
-                                switch (formatter)
+                            .ConfigureMetrics(Metrics)
+                            .UseMetrics(
+                                options =>
                                 {
-                                    case IMetricsOutputFormatter newformatter when newformatter is MetricsPrometheusTextOutputFormatter:
-                                        endpointsOptions.MetricsTextEndpointOutputFormatter = formatter;
-                                        break;
-                                    case IMetricsOutputFormatter newformatter when newformatter is MetricsPrometheusProtobufOutputFormatter:
-                                        endpointsOptions.MetricsTextEndpointOutputFormatter = formatter;
-                                        break;
-                                }
-                            }                     
-                        };
-                    })
-                .UseKestrel(options => options.Listen(IPAddress.Any, 5000))
-                .UseStartup<Startup>()
-                .Build();
+                                    options.EndpointOptions = endpointsOptions =>
+                                    {
+                                        endpointsOptions.MetricsTextEndpointOutputFormatter = Metrics.OutputMetricsFormatters.GetType<MetricsPrometheusTextOutputFormatter>();
+                                        endpointsOptions.MetricsEndpointOutputFormatter = Metrics.OutputMetricsFormatters.GetType<MetricsPrometheusProtobufOutputFormatter>();
+                                    };
+                                })
+                                .UseUrls("http://*:5000")
+                            .UseStartup<Startup>()
+                            .Build();
         }
 
-        public static void Main(string[] args)
-        {
-            BuildWebHost(args).Run();
-        }
+        public static void Main(string[] args) { BuildWebHost(args).Run(); }
     }
+  
 }

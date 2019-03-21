@@ -41,5 +41,16 @@ namespace PrometheusDemo01.Controllers
         public void Delete(int id)
         {
         }
+
+        //[HttpGet("/metrics")]
+        //public IActionResult Medetrics()
+        //{
+        //    return Ok();
+        //}
+        //[HttpGet("/health")]
+        //public IActionResult Health()
+        //{
+        //    return Ok();
+        //}
     }
 }
