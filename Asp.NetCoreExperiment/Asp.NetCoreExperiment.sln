@@ -155,6 +155,17 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Consul", "Consul", "{611D1178-0D17-4175-A806-17F4B2A80C0D}"
 EndProject
 Project("{911E67C6-3D85-4FCE-B560-20A9C3E3FF48}") = "consul", "ConsulOcelot\consul\consul.exe", "{4F0D80E4-1918-47B9-87D1-BE197DA8CC61}"
+	ProjectSection(DebuggerProjectSystem) = preProject
+		PortSupplier = 00000000-0000-0000-0000-000000000000
+		Executable = C:\myfile\Source\Repos\Asp.NetCoreExperiment\Asp.NetCoreExperiment\ConsulOcelot\consul\consul.exe
+		RemoteMachine = DESKTOP-KR6814S
+		StartingDirectory = C:\myfile\Source\Repos\Asp.NetCoreExperiment\Asp.NetCoreExperiment\ConsulOcelot\consul
+		Environment = 默认值
+		LaunchingEngine = 00000000-0000-0000-0000-000000000000
+		UseLegacyDebugEngines = No
+		LaunchSQLEngine = No
+		AttachLaunchAction = No
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "conf", "conf", "{7C580099-E98A-4F7E-80FF-D6A01740C396}"
 	ProjectSection(SolutionItems) = preProject
@@ -382,7 +393,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeapperDemo002", "DapperDem
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DapperDemo0003", "DapperDemo\DapperDemo0003\DapperDemo0003.csproj", "{3374BCB0-6018-4AC5-AA74-D8480A2E0170}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignalRDemo03", "Singal\SignalRDemo03\SignalRDemo03.csproj", "{AEFDF7B3-23B9-41D5-AF3D-5CEC4D748B9A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SignalRDemo03", "Singal\SignalRDemo03\SignalRDemo03.csproj", "{AEFDF7B3-23B9-41D5-AF3D-5CEC4D748B9A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SignalRDemo04", "Singal\SignalRDemo04\SignalRDemo04.csproj", "{D7564124-3B3E-4AD9-8886-0E88C7ADBAAC}"
 EndProject
@@ -438,7 +449,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SwaggerAPI01", "SwaggerDemo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SwaggerAPI02", "SwaggerDemo\SwaggerAPI02\SwaggerAPI02.csproj", "{1BF7C307-6B28-4668-A92D-8B0AE6B9ED3A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SwaggerAuthorize", "SwaggerDemo\SwaggerAuthorize\SwaggerAuthorize.csproj", "{B9A03AA0-DDC9-48EC-AFC9-CE4B97B4C32A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SwaggerAuthorize", "SwaggerDemo\SwaggerAuthorize\SwaggerAuthorize.csproj", "{B9A03AA0-DDC9-48EC-AFC9-CE4B97B4C32A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DapperSqlReConnection", "DapperDemo\DapperSqlReConnection\DapperSqlReConnection.csproj", "{2C964C39-6FC1-4AD8-B0A3-D245ABAC6B55}"
 EndProject
@@ -585,11 +596,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Orleans006_Reentrancy", "Or
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sample", "Sample", "{BCF60A7D-6084-44C6-B5D8-890087E62556}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimersAndReminders_Client", "Orleans\Sample\TimersAndReminders_Client\TimersAndReminders_Client.csproj", "{7C3EE407-6B6E-49A5-AE90-DD233562FE81}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimersAndReminders_Client", "Orleans\Sample\TimersAndReminders_Client\TimersAndReminders_Client.csproj", "{7C3EE407-6B6E-49A5-AE90-DD233562FE81}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimersAndReminders_SiloHost", "Orleans\Sample\TimersAndReminders_SiloHost\TimersAndReminders_SiloHost.csproj", "{E39BE6A4-D1B3-44D0-84E4-A97BE511E0F6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimersAndReminders_SiloHost", "Orleans\Sample\TimersAndReminders_SiloHost\TimersAndReminders_SiloHost.csproj", "{E39BE6A4-D1B3-44D0-84E4-A97BE511E0F6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimersAndReminders_Lib", "Orleans\Sample\TimersAndReminders_Lib\TimersAndReminders_Lib.csproj", "{DFDF4D6C-0AA2-4B26-A344-B22D4391B1BF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimersAndReminders_Lib", "Orleans\Sample\TimersAndReminders_Lib\TimersAndReminders_Lib.csproj", "{DFDF4D6C-0AA2-4B26-A344-B22D4391B1BF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TimersAndReminders", "TimersAndReminders", "{2261A056-010C-46D0-ADAA-0211BA697496}"
 EndProject
@@ -777,7 +788,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Host", "Host", "{F35169B6-C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebHostDemo", "Host\WebHostDemo\WebHostDemo.csproj", "{AEE8A275-035E-4E74-8B50-1E211BA793A8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HostDemo", "Host\HostDemo\HostDemo.csproj", "{E72F9232-15DF-427A-85DF-9CA6BB966744}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HostDemo", "Host\HostDemo\HostDemo.csproj", "{E72F9232-15DF-427A-85DF-9CA6BB966744}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmbeddedResourcesProject", "Common\EmbeddedResourcesProject\EmbeddedResourcesProject.csproj", "{60BDE639-E6CF-4441-B20A-774176F86BBD}"
 EndProject
@@ -830,7 +841,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuthenticationService", "AW
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Prometheus", "Prometheus", "{BF7979FF-F475-4A2E-8C4C-C4FAE7E7F74E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrometheusDemo01", "Prometheus\PrometheusDemo01\PrometheusDemo01.csproj", "{06FA9A16-CC42-430F-947D-9273B39B548E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrometheusDemo01", "Prometheus\PrometheusDemo01\PrometheusDemo01.csproj", "{06FA9A16-CC42-430F-947D-9273B39B548E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "yaml", "yaml", "{3B1355C5-AB75-430B-9ECC-B375FB93719D}"
+	ProjectSection(SolutionItems) = preProject
+		kubernetes\yaml\pod.yaml = kubernetes\yaml\pod.yaml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -3439,6 +3455,7 @@ Global
 		{3DC266D4-01A3-4ED5-B6F9-BF724F75FCED} = {86AE9DD9-7408-49DE-92EB-39284B5B347C}
 		{BDD128AC-DFB7-4FE2-B1FE-E8D0EF570511} = {7A5EAB40-1490-45D7-83CC-C990D15C9D77}
 		{06FA9A16-CC42-430F-947D-9273B39B548E} = {BF7979FF-F475-4A2E-8C4C-C4FAE7E7F74E}
+		{3B1355C5-AB75-430B-9ECC-B375FB93719D} = {86AE9DD9-7408-49DE-92EB-39284B5B347C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
