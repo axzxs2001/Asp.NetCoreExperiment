@@ -812,6 +812,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibradioDemo", "Common\Libr
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "kubernetes", "kubernetes", "{86AE9DD9-7408-49DE-92EB-39284B5B347C}"
 	ProjectSection(SolutionItems) = preProject
+		kubernetes\docker.png = kubernetes\docker.png
+		kubernetes\kubernetes.png = kubernetes\kubernetes.png
 		kubernetes\kubernetes.pptx = kubernetes\kubernetes.pptx
 	EndProjectSection
 EndProject
