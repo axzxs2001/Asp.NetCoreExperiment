@@ -155,17 +155,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Consul", "Consul", "{611D1178-0D17-4175-A806-17F4B2A80C0D}"
 EndProject
 Project("{911E67C6-3D85-4FCE-B560-20A9C3E3FF48}") = "consul", "ConsulOcelot\consul\consul.exe", "{4F0D80E4-1918-47B9-87D1-BE197DA8CC61}"
-	ProjectSection(DebuggerProjectSystem) = preProject
-		PortSupplier = 00000000-0000-0000-0000-000000000000
-		Executable = C:\myfile\Source\Repos\Asp.NetCoreExperiment\Asp.NetCoreExperiment\ConsulOcelot\consul\consul.exe
-		RemoteMachine = DESKTOP-KR6814S
-		StartingDirectory = C:\myfile\Source\Repos\Asp.NetCoreExperiment\Asp.NetCoreExperiment\ConsulOcelot\consul
-		Environment = 默认值
-		LaunchingEngine = 00000000-0000-0000-0000-000000000000
-		UseLegacyDebugEngines = No
-		LaunchSQLEngine = No
-		AttachLaunchAction = No
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "conf", "conf", "{7C580099-E98A-4F7E-80FF-D6A01740C396}"
 	ProjectSection(SolutionItems) = preProject
@@ -848,6 +837,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "yaml", "yaml", "{3B1355C5-AB75-430B-9ECC-B375FB93719D}"
 	ProjectSection(SolutionItems) = preProject
 		kubernetes\yaml\pod.yaml = kubernetes\yaml\pod.yaml
+		kubernetes\yaml\test.yaml = kubernetes\yaml\test.yaml
 	EndProjectSection
 EndProject
 Global
