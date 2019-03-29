@@ -12,15 +12,27 @@ namespace SnapshotConfig.Controllers
     public class ValuesController : ControllerBase
     {
         AppSetting _appSetting;
-        public ValuesController(IOptionsSnapshot<AppSetting> AppSettingOpt)
+        AppSetting _appSetting1;
+       // public ValuesController(IOptionsSnapshot<AppSetting> AppSettingOpt, IOptionsMonitor<AppSetting> optionsAccessor)
+         public ValuesController(IOptionsSnapshot<AppSetting> AppSettingOpt)
         {
             _appSetting = AppSettingOpt.Value;
+            //_appSetting1 = optionsAccessor.CurrentValue;
+            //optionsAccessor.OnChange((app, a) =>
+            //{
+            //    Console.WriteLine($"================{app.Key}");
+            //    if (!string.IsNullOrEmpty(a))
+            //    {
+            //        Console.WriteLine($"----------------{a}");
+            //    }
+            //});
+            //Console.WriteLine($"----------------{_appSetting1.Key}");
         }
         // GET api/values
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
-            return new string[] { "value1", _appSetting .Key};
+            return new string[] { "value1", _appSetting.Key };
         }
 
         // GET api/values/5

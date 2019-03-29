@@ -26,7 +26,7 @@ namespace SnapshotConfig
         public void ConfigureServices(IServiceCollection services)
         {
             services.Configure<AppSetting>(Configuration.GetSection("AppSetting"));
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc();
         }
 
      
