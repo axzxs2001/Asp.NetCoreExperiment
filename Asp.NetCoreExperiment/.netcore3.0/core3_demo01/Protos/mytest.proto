@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package Test;
+
+service Test1 {
+  rpc Send (Inn) returns (Outt) {}
+}
+
+message Inn {
+  string name = 1;
+  int32 key=2;
+}
+
+message Outt {
+  string message = 1;
+}

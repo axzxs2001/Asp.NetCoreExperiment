@@ -1,0 +1,10 @@
+﻿{
+  "profiles": {
+    "core3_demo02": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}
