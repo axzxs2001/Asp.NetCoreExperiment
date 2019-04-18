@@ -41,7 +41,7 @@ namespace QuartzNetDemo4
 
             services.AddTransient<IBackgroundRepository, BackgroundRepository>();
 
-            services.UseQuartz(typeof(BackgroundJob));
+            services.AddQuartz(typeof(BackgroundJob));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             var physicalProvider = _hostingEnvironment.ContentRootFileProvider;

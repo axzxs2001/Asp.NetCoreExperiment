@@ -11,7 +11,7 @@ namespace QuartzNetDemo4.Model
 {
     public static class QuartzExpansion
     {
-        public static void UseQuartz(this IServiceCollection services, params Type[] jobs)
+        public static void AddQuartz(this IServiceCollection services, params Type[] jobs)
         {
             services.AddSingleton<IJobFactory, QuartzJonFactory>();
             foreach (var serviceDescriptor in jobs.Select(jobType => new ServiceDescriptor(jobType, jobType, ServiceLifetime.Singleton)))
