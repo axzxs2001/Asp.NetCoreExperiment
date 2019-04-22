@@ -1,0 +1,41 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+<table class="table table-active table-hover table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>CreateTime</th>
+        </tr>
+    </thead>
+    <tbody id="item_tr"></tbody>
+</table>
+
+@section Scripts{
+<script src="https://unpkg.com/dayjs"></script>
+<script src="https://unpkg.com/dayjs/locale/zh-cn"></script>
+<script src="https://unpkg.com/dayjs/locale/es"></script>
+<script src="https://unpkg.com/dayjs/plugin/utc"></script>
+<script src="https://unpkg.com/dayjs/plugin/advancedFormat"></script>
+<script>
+    $(function () {
+        dayjs.extend(dayjs_plugin_utc)
+        $.get("items", {}, function (result) {
+            $(result).each(function (intdex, elm) {
+                 console.log(dayjs(elm.CreateTime).utc().format())   
+                console.log(dayjs(elm.CreateTime).utc().local().format())             
+                $("#item_tr").append("<tr><td>" + elm.ID + "</td><td>" + elm.Name + "</td><td>" + dayjs(elm.CreateTime).locale('zh-cn').format() + "</td></tr>");
+            });
+
+        })
+    })
+
+</script>
+
+}
