@@ -1,0 +1,54 @@
+﻿@page "/add"
+@using BlazorDemo01.Data
+@using Microsoft.AspNetCore.Components
+@inject WeatherForecastService ForecastService
+
+
+<h1>Add</h1>
+<div class="input-group mb-3">
+    <div class="input-group-prepend">
+        <span class="input-group-text" id="inputGroup-sizing-default">UserName</span>
+    </div>
+    <input type="text" bind="@UserName" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" />
+</div>
+<div class="input-group mb-3">
+    <div class="input-group-prepend">
+        <label class="input-group-text" for="inputGroupSelect01">Options</label>
+    </div>
+    <select class="custom-select" bind="@Work">
+        <option selected>None</option>
+        @foreach (var item in Works)
+        {
+            <option value="@item">@item</option>
+        }
+    </select>
+</div>
+
+<div class="form-check">
+    <input type="checkbox" class="form-check-input" bind="@Sex" />
+    <label class="form-check-label" for="dropdownCheck">
+        Sex
+    </label>
+</div>
+
+
+@*<input type="text" name="username" bind="@UserName" />*@
+<button class="btn btn-primary" onclick="@Sava">Sava</button>
+
+@functions {
+
+    private string[] Works { get; set; } = new string[] { "aaaa", "bbbb", "cccc" };
+
+    [Parameter]
+    private string Work { get; set; }
+    [Parameter]
+    private string UserName { get; set; }
+
+    [Parameter]
+    private bool Sex { get; set; } = true;
+
+    protected async Task Sava()
+    {
+        await ForecastService.SavaAsync(UserName, Sex,Work);
+    }
+}
