@@ -860,7 +860,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DateTimeDemo", "Common\Date
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Blazor", "Blazor", "{7783BCD7-1DF8-4CD5-8D90-0CBFF9349B79}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorDemo01", "Blazor\BlazorDemo01\BlazorDemo01.csproj", "{266B5300-91A1-46EC-A901-45F2C57E74C3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorDemo01", "Blazor\BlazorDemo01\BlazorDemo01.csproj", "{266B5300-91A1-46EC-A901-45F2C57E74C3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
