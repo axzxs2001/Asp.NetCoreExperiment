@@ -1,0 +1,51 @@
+@page "/articles"
+@using BlazorClientDemo02
+
+@inject ArticleService  ArticleService
+
+<h1>文章列表</h1>
+
+<p>This component demonstrates fetching data from a service.</p>
+
+@if (articles == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>编号</th>
+                <th>标题</th>
+                <th>内容</th>
+                <th>创建时间</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var article in articles)
+            {
+                <tr>
+                    <td>@article.ID</td>
+                    <td><a href="/article/@article.ID">@article.Title</a></td>
+                    <td>@(article.Content?.Substring(0, 10) + "……")</td>
+                    <td>@article.CreateTime.ToString("yyyy-MM-dd")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@functions {
+
+    IEnumerable<ArticleModel> articles=new ArticleModel[0];
+
+    protected override async Task OnInitAsync()
+    {
+        Console.WriteLine("----------Article  begin");
+        articles = await ArticleService.GetArticlesAsync();
+        Console.WriteLine("----------Article  end");
+    }
+
+
+}
