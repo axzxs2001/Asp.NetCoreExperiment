@@ -1,6 +1,6 @@
 ﻿{
   "profiles": {
-    "core3_demo01": {
+    "core3_demo03.Server": {
       "commandName": "Project",
       "launchBrowser": false,
       "applicationUrl": "http://localhost:8501",

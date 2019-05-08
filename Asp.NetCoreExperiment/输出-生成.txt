@@ -1,5 +1,1 @@
-﻿1>------ 已启动生成: 项目: ProtoRemote01, 配置: Debug Any CPU ------
-1>ProtoRemote01 -> C:\MyFile\Source\Repos\Asp.NetCoreExperiment\Asp.NetCoreExperiment\ProtoActor\ProtoRemote01\bin\Debug\netcoreapp2.1\ProtoRemote01.dll
-2>------ 已启动生成: 项目: ProtoRemote02, 配置: Debug Any CPU ------
-2>ProtoRemote02 -> C:\MyFile\Source\Repos\Asp.NetCoreExperiment\Asp.NetCoreExperiment\ProtoActor\ProtoRemote02\bin\Debug\netcoreapp2.1\ProtoRemote02.dll
-========== 生成: 成功 2 个，失败 0 个，最新 0 个，跳过 0 个 ==========
+﻿

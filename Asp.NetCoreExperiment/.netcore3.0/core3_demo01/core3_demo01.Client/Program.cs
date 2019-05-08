@@ -18,7 +18,7 @@ namespace core3_demo01
             var channel = new Channel("localhost:" + port, ChannelCredentials.Insecure);
             var client = new Test1.Test1Client(channel);
 
-            var reply = await client.SendAsync(new Inn { Name = "GreeterClient", Key=10 });
+            var reply = await client.SendAsync(new Inn { Name = "GreeterClient", Key=10, });
             Console.WriteLine("Greeting: " + reply.Message);
 
             await channel.ShutdownAsync();
