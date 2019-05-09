@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
@@ -22,15 +23,21 @@ namespace PollyDBConnectionDemo
 
         public IConfiguration Configuration { get; }
 
-   
+
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<AdoNetPolly>();
+            services.AddScoped<DapperPolly>();
+
+
+            services.AddSingleton("Server=127.0.0.1;Port=5432;UserId=postgres;Password=postgres2018;Database=postgres;Pooling=true;MinPoolSize=1;MaxPoolSize=100;CommandTimeout=100;");
+            services.AddScoped<IDbConnection, Npgsql.NpgsqlConnection>();
+            services.AddScoped<ReliableDapper>();
             services.AddControllers()
                 .AddNewtonsoftJson();
         }
 
-     
+
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())

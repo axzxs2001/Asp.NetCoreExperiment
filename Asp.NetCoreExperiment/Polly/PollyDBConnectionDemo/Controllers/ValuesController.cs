@@ -12,16 +12,20 @@ namespace PollyDBConnectionDemo.Controllers
     public class ValuesController : ControllerBase
     {
         readonly AdoNetPolly _adoNetPolly;
-        public ValuesController(AdoNetPolly adoNetPolly)
+        readonly DapperPolly _dapperPolly;
+        readonly ReliableDapper _reliableDapper;
+        public ValuesController(AdoNetPolly adoNetPolly, DapperPolly dapperPolly, ReliableDapper reliableDapper)
         {
+            _dapperPolly = dapperPolly;
             _adoNetPolly = adoNetPolly;
+            _reliableDapper = reliableDapper;
         }
 
         // GET api/values
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<string>>> Get()
+        public ActionResult<IEnumerable<string>> Get()
         {
-            var result =await _adoNetPolly.GetCount();
+            var result = 1;// _dapperPolly.GetCount();
             return new string[] { "value1", result.ToString() };
         }
 
@@ -29,7 +33,8 @@ namespace PollyDBConnectionDemo.Controllers
         [HttpGet("{id}")]
         public ActionResult<string> Get(int id)
         {
-            return "value";
+            var list = _reliableDapper.Query<string>("select id from test1").ToList();
+            return list[0];
         }
 
         // POST api/values
