@@ -19,9 +19,9 @@ namespace PollyDBConnectionDemo.Controllers
 
         // GET api/values
         [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        public async Task<ActionResult<IEnumerable<string>>> Get()
         {
-            var result = _adoNetPolly.GetCount();
+            var result =await _adoNetPolly.GetCount();
             return new string[] { "value1", result.ToString() };
         }
 

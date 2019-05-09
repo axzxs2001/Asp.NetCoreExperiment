@@ -5,12 +5,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Data.SqlClient;
 using System.Data;
-
+using Npgsql;
 namespace PollyDBConnectionDemo.Services
 {
     public class AdoNetPolly
     {
-        public int GetCount()
+        public async Task<int> GetCount()
         {
             #region 一
             //int i = 39;
@@ -26,17 +26,18 @@ namespace PollyDBConnectionDemo.Services
             #region 二
             try
             {
-                using (var con = new SqlConnection($"server=192.168.252.39;database=starpay;uid=sa;pwd=sa;Connect Timeout=5;"))
+                using (var con = new NpgsqlConnection($"Server=127.0.0.1;Port=5432;UserId=postgres;Password=postgres2018;Database=pp;Pooling=true;MinPoolSize=1;MaxPoolSize=100;CommandTimeout=0;"))
                 {
-                    con.PollyOpen();
+                   //con.PollyOpen();
+                   await con.PollyOpenAsync();
                 }
             }
             catch (Exception exc)
             {
-                Console.WriteLine($"Excepiton:{exc.Message}");
+                Console.WriteLine($"============Excepiton:{exc.Message}");
             }
             #endregion
-            return 1;
+            return 5;
         }
 
         void PollyInvock(Action<int> action)
@@ -72,7 +73,7 @@ namespace PollyDBConnectionDemo.Services
     static class TTT
     {
         public static void PollyOpen(this SqlConnection connection)
-        {
+        {            
             //定义捕捉到的异常类型后重试
             var policy = Policy
                 .Handle<SqlException>()
@@ -88,8 +89,31 @@ namespace PollyDBConnectionDemo.Services
            {
                connection.Open();
                Console.WriteLine("=============开始");
-
            });
         }
+
+        public async static Task PollyOpenAsync(this NpgsqlConnection connection)
+        {
+            //定义捕捉到的异常类型后重试
+            var policy = Policy
+                .Handle<NpgsqlException>()
+                .Or<Exception>()
+                //重试三次
+                .RetryAsync(3, (excetpion, index, context) =>
+                {
+                    Console.WriteLine($"================{excetpion.Message}");
+                    Console.WriteLine($"================{index}");
+                });
+            //开始执行
+            await policy.ExecuteAsync(async() =>
+             {
+                 await connection.OpenAsync();
+                 Console.WriteLine("=============开始");
+
+             });
+        }
     }
+
+
+   
 }
