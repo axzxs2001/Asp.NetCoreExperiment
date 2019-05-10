@@ -12,7 +12,7 @@ namespace PollyDBConnectionDemo.Services
     {
         public async Task<int> GetCount()
         {
-            #region 一
+            #region 直接Polly方法实现
             //int i = 39;
             //PollyInvock(i =>
             //{
@@ -23,7 +23,7 @@ namespace PollyDBConnectionDemo.Services
             //});
             #endregion
 
-            #region 二
+            #region 扩展方法实现
             try
             {
                 using (var con = new NpgsqlConnection($"Server=127.0.0.1;Port=5432;UserId=postgres;Password=postgres2018;Database=pp;Pooling=true;MinPoolSize=1;MaxPoolSize=100;CommandTimeout=0;"))
@@ -70,49 +70,7 @@ namespace PollyDBConnectionDemo.Services
             }
         }
     }
-    static class TTT
-    {
-        public static void PollyOpen(this SqlConnection connection)
-        {            
-            //定义捕捉到的异常类型后重试
-            var policy = Policy
-                .Handle<SqlException>()
-                //.Or<Exception>()
-                //重试三次
-                .Retry(3, (excetpion, index, context) =>
-                {
-                    Console.WriteLine($"================{excetpion.Message}");
-                    Console.WriteLine($"================{index}");
-                });
-            //开始执行
-            policy.Execute(() =>
-           {
-               connection.Open();
-               Console.WriteLine("=============开始");
-           });
-        }
 
-        public async static Task PollyOpenAsync(this NpgsqlConnection connection)
-        {
-            //定义捕捉到的异常类型后重试
-            var policy = Policy
-                .Handle<NpgsqlException>()
-                .Or<Exception>()
-                //重试三次
-                .RetryAsync(3, (excetpion, index, context) =>
-                {
-                    Console.WriteLine($"================{excetpion.Message}");
-                    Console.WriteLine($"================{index}");
-                });
-            //开始执行
-            await policy.ExecuteAsync(async() =>
-             {
-                 await connection.OpenAsync();
-                 Console.WriteLine("=============开始");
-
-             });
-        }
-    }
 
 
    
