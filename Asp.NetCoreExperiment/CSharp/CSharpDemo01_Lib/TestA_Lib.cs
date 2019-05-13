@@ -6,7 +6,7 @@ namespace CSharpDemo01_Lib
     {
         private protected void A()
         {
-            Console.WriteLine("TestA.A");
+            Console.WriteLine("TestA_Lib.A");
         }
         public void B()
         {
