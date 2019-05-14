@@ -35,9 +35,14 @@ namespace CSharpDemo02
                 case C3 c3:
                     Console.WriteLine($"C3.I={c3.I}");
                     break;
-
-
             }
+
+            var p1 = p switch
+            {
+                { I: 1 } => 100,
+                _ => 0
+            };
+
 
             //ref
             int[,] sourceMatrix = new int[10, 10];
@@ -61,8 +66,22 @@ namespace CSharpDemo02
             sourceMatrix[4, 2] = 42;
             Console.WriteLine($"sourceMatrix[4, 2]={sourceMatrix[4, 2]}");
             Console.WriteLine($"valItem={valItem}");
-        }
 
+
+            //default
+            int i = default;
+            Console.WriteLine(i);
+            string ss = default;
+            Console.WriteLine(ss);
+            Func<string, bool> whereClause = default;
+            Console.WriteLine(whereClause);
+        }
+        static void ABC(in int i, in string s, int t)
+        {
+            Console.WriteLine($"ABC.i={i},ABC.s={s},ABC.t={t}");
+            //i = 100;
+            t = 100;
+        }
         static (int i, int j) Find(int[,] matrix, Func<int, bool> predicate)
         {
             for (int i = 0; i < matrix.GetLength(0); i++)
