@@ -1,0 +1,31 @@
+﻿@{
+    ViewData["Title"] = "Login";
+}
+
+<div class="text-center">
+    <h1 class="display-4">登录</h1>
+    <div class="row">
+        <div class="col-4">
+
+        </div>
+        <div class="col-4" style="text-align:left;">
+            <form action="login" method="post">
+                <input type="hidden" name="returnUrl" value="@TempData["returnUrl"]"/>
+                <div class="form-group">
+                    <label for="exampleInputUserName1">UserName</label>
+                    <input type="text" class="form-control" id="exampleInputUserName1" name="username" aria-describedby="usernameHelp" placeholder="Enter UserName">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Password</label>
+                    <input type="password" class="form-control" id="exampleInputPassword1" name="password" placeholder="Password">
+                </div>
+                <button type="submit" class="btn btn-primary">登录</button>
+            </form>
+        </div>
+        <div class="col-4">
+
+        </div>
+    </div>
+
+
+</div>
