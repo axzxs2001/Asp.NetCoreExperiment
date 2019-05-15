@@ -1,0 +1,31 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+
+
+
+<form method="post" action="/home/index">
+    @Html.AntiForgeryToken()
+    <input name="v1" value="abcd" />
+    <input type="submit" value="提交" />
+</form>
+@*
+<form method="post">1</form>
+<form method="post" action="/">
+    @Html.AntiForgeryToken()
+    2
+</form>
+
+    @using (Html.BeginForm("ChangePassword", "Manage"))
+    {
+<span>3</span>
+    }
+
+<form asp-controller="Manage" asp-action="ChangePassword" method="post">
+    4
+</form>*@
