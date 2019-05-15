@@ -2,12 +2,28 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
-
-<a href="http://192.168.252.55:5401" target="_blank">Project01</a>
-
-<br />
-<a href="http://192.168.252.55:5402" target="_blank">Project02</a>
+    <div class="text-center">
+        <h1 class="display-4">Welcome登录程序</h1>
+        <p>用户：@User.Identity.Name</p>
+        <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Project01 title treatment</h5>
+                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                    <a href="http://192.168.252.55:5401" class="btn btn-primary">Go Project01</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Project02 title treatment</h5>
+                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                    <a href="http://192.168.252.55:5402" class="btn btn-primary">Go Project02</a>
+                </div>
+            </div>
+        </div>
+    </div>
