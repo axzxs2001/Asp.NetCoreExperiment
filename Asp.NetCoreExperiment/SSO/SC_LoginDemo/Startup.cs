@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
@@ -31,9 +32,9 @@ namespace SC_LoginDemo
             services.AddControllersWithViews()
                 .AddNewtonsoftJson();
             services.AddRazorPages();
-
+            var signingCertificate = new X509Certificate2("server.pfx", "ssssss");
             services.AddDataProtection()
-                // .ProtectKeysWithCertificate("thumbprint")
+                .ProtectKeysWithCertificate(signingCertificate)
                 .PersistKeysToFileSystem(GetKeyRingDirInfo())
                 .SetApplicationName("SharedCookieApp");
 

@@ -2,10 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.DataProtection;
+using Microsoft.AspNetCore.DataProtection.XmlEncryption;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
@@ -37,8 +40,9 @@ namespace SC_Project02
                 .AddNewtonsoftJson();
             services.AddRazorPages();
 
+            var signingCertificate = new X509Certificate2("server.pfx", "ssssss");
             services.AddDataProtection()
-              //   .ProtectKeysWithCertificate("thumbprint")
+              .ProtectKeysWithCertificate(signingCertificate)         
           .PersistKeysToFileSystem(GetKeyRingDirInfo())
           .SetApplicationName("SharedCookieApp");
 
@@ -104,4 +108,6 @@ namespace SC_Project02
             });
         }
     }
+
+   
 }

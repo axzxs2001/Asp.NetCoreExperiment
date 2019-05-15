@@ -20,6 +20,7 @@ namespace SC_LoginDemo
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
+                    webBuilder.UseUrls("http://*:5400");
                     webBuilder.UseStartup<Startup>();
                 });
     }

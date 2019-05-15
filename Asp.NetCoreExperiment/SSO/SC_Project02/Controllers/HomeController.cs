@@ -9,6 +9,7 @@ using SC_Project02.Models;
 
 namespace SC_Project02.Controllers
 {
+    [AutoValidateAntiforgeryToken]
     [Authorize(Roles = "admin,system")]
     public class HomeController : Controller
     {
@@ -26,6 +27,12 @@ namespace SC_Project02.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+        [AllowAnonymous]
+        [HttpGet("login")]
+        public IActionResult Login()
+        {
+            return Redirect("http://localhost:5400/login");
         }
     }
 }

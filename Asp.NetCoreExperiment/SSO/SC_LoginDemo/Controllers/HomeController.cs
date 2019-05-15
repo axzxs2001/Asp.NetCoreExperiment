@@ -12,6 +12,7 @@ using SC_LoginDemo.Models;
 
 namespace SC_LoginDemo.Controllers
 {
+    [AutoValidateAntiforgeryToken]
     [Authorize(Roles = "admin,system")]
     public class HomeController : Controller
     {
@@ -38,6 +39,7 @@ namespace SC_LoginDemo.Controllers
             TempData["returnUrl"] = returnUrl;
             return View();
         }
+        [IgnoreAntiforgeryToken]
         [AllowAnonymous]
         [HttpPost("login")]
         public async Task<IActionResult> LoginAsync(string userName, string password, string returnUrl = null)

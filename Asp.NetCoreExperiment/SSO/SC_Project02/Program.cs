@@ -20,6 +20,7 @@ namespace SC_Project02
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
+                    webBuilder.UseUrls("http://*:5402");
                     webBuilder.UseStartup<Startup>();
                 });
     }
