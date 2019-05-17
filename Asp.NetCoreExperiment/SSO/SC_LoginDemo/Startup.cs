@@ -47,6 +47,7 @@ namespace SC_LoginDemo
                 .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
                 {
                     options.Cookie.Name = ".AspNet.SharedCookie";
+                    options.Cookie.HttpOnly = true;
                     //options.Cookie.Domain = "localhost";
                     options.LoginPath = new PathString("/login");
                     options.AccessDeniedPath = new PathString("/denied");
