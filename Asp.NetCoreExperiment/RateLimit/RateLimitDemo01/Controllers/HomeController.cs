@@ -23,5 +23,11 @@ namespace RateLimitDemo01.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        [HttpGet("test")]
+        public IActionResult Test()
+        {
+            return Ok();
+        }
     }
 }
