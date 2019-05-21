@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Text;
 
-namespace ValidateTableLib
+namespace ValidateDataTableLib
 {
     /// <summary>
     /// 一个验证Table，设置每列的正则，当调用Validate时，给附加验证后的错误信息

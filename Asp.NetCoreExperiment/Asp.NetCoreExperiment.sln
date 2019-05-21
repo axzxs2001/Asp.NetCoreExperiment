@@ -898,7 +898,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RateLimitDemo01", "RateLimi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CSharp获取两个集合中相同的和不同的结果", "Common\CSharp获取两个集合中相同的和不同的结果\CSharp获取两个集合中相同的和不同的结果.csproj", "{1E316A2A-71E3-4320-A751-B9E06F0C5F21}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ValidateDataTable", "Common\ValidateDataTable\ValidateDataTable.csproj", "{D7FC8215-F626-4A0F-9A68-986C5E6958CC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ValidateDataTableLib", "Common\ValidateDataTable\ValidateDataTableLib.csproj", "{D7FC8215-F626-4A0F-9A68-986C5E6958CC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
