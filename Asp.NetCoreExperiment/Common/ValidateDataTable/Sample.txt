@@ -1,0 +1,37 @@
+﻿      private void Bind()
+        {
+            var table = new ValidateTable();
+            #region 添加table数据
+            table.Columns.Add("a", typeof(string));
+            table.Columns.Add("b", typeof(string));
+            for (int i = 0; i < 10; i++)
+            {
+                if (i % 3 == 0)
+                {
+                    table.Rows.Add("", "b" + i);
+                }
+                else
+                {
+                    table.Rows.Add("a" + i, "b" + i);
+                }
+            }
+            table.Rows[4][0] = "123456";
+            table.RowChanged += (table_sender, table_e) =>
+            {
+                RegexValidate(table);
+            };
+            #endregion
+            dataGridView1.DataSource = table;
+            RegexValidate(table);
+        }
+        void RegexValidate(ValidateTable table)
+        {
+            var validateCollections = new[] {
+                ("a", new[] {
+                    (@"^\w+$", "不能为空"),
+                    (@"^\d{6}$", "必须是电话号码")
+                })
+            };
+            var result = table.Validate(validateCollections);
+            this.Text = $"一共有{(result.result == true ? "" : result.error.ToString())}处理错误!";
+        }
