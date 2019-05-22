@@ -12,6 +12,40 @@ namespace ValidateDataTableLib
     public class ValidateDataTable : DataTable
     {
 
+        private (string ColumnName, (string RegularExpression, string Error)[] RegularExpressions)[] _validateCollections;
+        /// <summary>
+        /// 验证表达式
+        /// </summary>
+        public (string ColumnName, (string RegularExpression, string Error)[] RegularExpressions)[] ValidateCollections
+        {
+            get
+            {
+                return _validateCollections;
+            }
+            set
+            {
+                _validateCollections = value;
+                ValidateResult = Validate(ValidateCollections);
+                CellChanged?.Invoke(this, null);
+            }
+        }
+        /// <summary>
+        /// 单元格改变事件
+        /// </summary>
+        public event DataRowChangeEventHandler CellChanged;
+        protected override void OnRowChanged(DataRowChangeEventArgs e)
+        {
+            base.OnRowChanged(e);
+            if (e.Action == DataRowAction.Change)
+            {
+                ValidateResult = Validate(ValidateCollections);
+                CellChanged?.Invoke(this, e);
+            }
+        }
+        /// <summary>
+        /// 验证结果
+        /// </summary>
+        public (bool result, int error) ValidateResult;
         /// <summary>
         /// 开始验证
         /// </summary>

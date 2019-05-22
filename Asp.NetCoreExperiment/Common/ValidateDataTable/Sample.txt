@@ -1,37 +1,52 @@
-﻿      private void Bind()
-        {
-            var table = new ValidateTable();
-            #region 添加table数据
-            table.Columns.Add("a", typeof(string));
-            table.Columns.Add("b", typeof(string));
-            for (int i = 0; i < 10; i++)
-            {
-                if (i % 3 == 0)
-                {
-                    table.Rows.Add("", "b" + i);
-                }
-                else
-                {
-                    table.Rows.Add("a" + i, "b" + i);
-                }
-            }
-            table.Rows[4][0] = "123456";
-            table.RowChanged += (table_sender, table_e) =>
-            {
-                RegexValidate(table);
-            };
-            #endregion
-            dataGridView1.DataSource = table;
-            RegexValidate(table);
-        }
-        void RegexValidate(ValidateTable table)
-        {
-            var validateCollections = new[] {
-                ("a", new[] {
-                    (@"^\w+$", "不能为空"),
-                    (@"^\d{6}$", "必须是电话号码")
-                })
-            };
-            var result = table.Validate(validateCollections);
-            this.Text = $"一共有{(result.result == true ? "" : result.error.ToString())}处理错误!";
-        }
+﻿方法一、用Validate方法
+	  private void Bind()
+		{
+			var table = new ValidateTable();
+			#region 添加table数据
+			table.Columns.Add("a", typeof(string));
+			table.Columns.Add("b", typeof(string));
+			for (int i = 0; i < 10; i++)
+			{
+				if (i % 3 == 0)
+				{
+					table.Rows.Add("", "b" + i);
+				}
+				else
+				{
+					table.Rows.Add("a" + i, "b" + i);
+				}
+			}
+			table.Rows[4][0] = "123456";
+			table.RowChanged += (table_sender, table_e) =>
+			{
+				RegexValidate(table);
+			};
+			#endregion
+			dgv_data.DataSource = table;
+			RegexValidate(table);
+		}
+		void RegexValidate(ValidateTable table)
+		{
+			var validateCollections = new[] {
+				("a", new[] {
+					(@"^\w+$", "不能为空"),
+					(@"^\d{6}$", "必须是电话号码")
+				})
+			};
+			var result = table.Validate(validateCollections);
+			this.Text = $"一共有{(result.result == true ? "" : result.error.ToString())}处理错误!";
+		}
+
+************************************************************************************************************************
+
+		方法二、用ValidateCollections属性赋值触发  
+		 var table = new ValidateTable();
+		 //给table添加数据
+		 //先定义事件
+		 table.CellChanged += (table_sender, table_e) =>
+		 {
+			 label1.Text = table.ValidateResult.result == true ? "全部验证通过" : $"一共有{table.ValidateResult.error.ToString()}规则错误!";
+		 };
+		 //再设置属性
+		 table.ValidateCollections = new[] { ("ManageState", new[] { (@"^\w+$", "不能为空"), (@"^1$", "不能以A开头") }) };
+		 dgv_data.DataSource = table;
