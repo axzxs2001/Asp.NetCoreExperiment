@@ -15,7 +15,7 @@ using Microsoft.AspNetCore.Hosting;
 namespace PolicyPrivilegeManagement.Controllers
 {
     [Authorize(Policy = "Permission")]
-    //[Authorize(Policy = "RequireClaim")]
+    //[Authorize(Policy = "RequireClaim")] 
     public class HomeController : Controller
     {
         PermissionHandler _permissionHandler;
@@ -69,7 +69,7 @@ namespace PolicyPrivilegeManagement.Controllers
         public async Task<IActionResult> Login(string userName, string password, string returnUrl = null)
         {
             var list = new List<dynamic> {
-                new { UserName = "gsw", Password = "111111", Role = "admin",Name="桂素伟",Country="中国",Date="2017-09-02",BirthDay="1979-06-22"},
+                new { UserName = "gsw", Password = "111111", Role = "admin,system,user",Name="桂素伟",Country="中国",Date="2017-09-02",BirthDay="1979-06-22"},
                 new { UserName = "aaa", Password = "222222", Role = "system",Name="测试A" ,Country="美国",Date="2017-09-03",BirthDay="1999-06-22"}
             };
             var user = list.SingleOrDefault(s => s.UserName == userName && s.Password == password);

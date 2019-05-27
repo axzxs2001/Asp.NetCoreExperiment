@@ -37,7 +37,7 @@ namespace PolicyPrivilegeManagement.Models
                         context.Succeed(requirement);
                     }
                     else
-                    {
+                    {                       
                         //无权限跳转到拒绝页面
                         httpContext.Response.Redirect("/denied");
                     }
