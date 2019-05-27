@@ -16,21 +16,34 @@ namespace WFGlobalizationLocalization
     public partial class frmMain : Form
     {
 
+        ComponentResourceManager _resource;
         public string language = Properties.Settings.Default.Laugue;
         public frmMain()
-        {
-            Thread.CurrentThread.CurrentCulture = new CultureInfo(language);
-            Thread.CurrentThread.CurrentUICulture = new CultureInfo(language);
+        {          
             InitializeComponent();
+            _resource = new ComponentResourceManager(typeof(frmMain));
+            //加载系统默认语言
+            this.Localize(language);
+            comboBox1.SelectedItem = language;
         }
 
         private void Button1_Click(object sender, EventArgs e)
         {
-            this.Localize("ja-JP"); 
+            MessageBox.Show(_resource.GetString("messagetext"));
 
+        }        
+
+        private void ComboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {          
+            this.Localize(comboBox1.SelectedItem.ToString());
+            Properties.Settings.Default.Laugue = comboBox1.SelectedItem.ToString();
+            Properties.Settings.Default.Save();
         }
 
- 
+        private void FrmMain_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
 

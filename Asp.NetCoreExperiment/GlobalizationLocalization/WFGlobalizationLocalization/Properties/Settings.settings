@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="Laugue" Type="System.String" Scope="User">
-      <Value Profile="(Default)">ja-JP</Value>
+      <Value Profile="(Default)">zh-CN</Value>
     </Setting>
   </Settings>
 </SettingsFile>

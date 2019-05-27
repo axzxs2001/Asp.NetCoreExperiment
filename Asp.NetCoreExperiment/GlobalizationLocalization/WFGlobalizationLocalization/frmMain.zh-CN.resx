@@ -132,21 +132,21 @@
     <value>90, 21</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
-    <value>ンダム</value>
+    <value>项目</value>
   </data>
   <data name="btnShow.Text" xml:space="preserve">
-    <value>ンダム</value>
+    <value>弹框</value>
   </data>
   <data name="label1.Text" xml:space="preserve">
-    <value>ンダム</value>
+    <value>文本</value>
   </data>
   <data name="menuStrip1.Text" xml:space="preserve">
-    <value>ンダム</value>
+    <value>菜单</value>
   </data>
   <data name="文件ToolStripMenuItem.Text" xml:space="preserve">
-    <value>ンダム</value>
+    <value>文件</value>
   </data>
   <data name="messagetext" xml:space="preserve">
-    <value>ンダム</value>
+    <value>提示</value>
   </data>
 </root>

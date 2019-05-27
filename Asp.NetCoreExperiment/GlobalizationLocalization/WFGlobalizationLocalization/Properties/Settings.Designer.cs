@@ -25,7 +25,7 @@ namespace WFGlobalizationLocalization.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("ja-JP")]
+        [global::System.Configuration.DefaultSettingValueAttribute("zh-CN")]
         public string Laugue {
             get {
                 return ((string)(this["Laugue"]));
