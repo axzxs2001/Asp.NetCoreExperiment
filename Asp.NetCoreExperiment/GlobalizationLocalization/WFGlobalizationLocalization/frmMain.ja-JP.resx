@@ -149,4 +149,10 @@
   <data name="messagetext" xml:space="preserve">
     <value>ンダム</value>
   </data>
+  <data name="yyyToolStripMenuItem.Text" xml:space="preserve">
+    <value>ンダム1</value>
+  </data>
+  <data name="文件11ToolStripMenuItem.Text" xml:space="preserve">
+    <value>ンダム11</value>
+  </data>
 </root>

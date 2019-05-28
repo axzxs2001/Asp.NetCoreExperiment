@@ -149,4 +149,10 @@
   <data name="messagetext" xml:space="preserve">
     <value>提示</value>
   </data>
+  <data name="yyyToolStripMenuItem.Text" xml:space="preserve">
+    <value>文件1</value>
+  </data>
+  <data name="文件11ToolStripMenuItem.Text" xml:space="preserve">
+    <value>文件11</value>
+  </data>
 </root>

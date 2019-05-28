@@ -33,6 +33,10 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.文件ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.yyyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.文件11ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+            this.dddToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -66,6 +70,10 @@
             // 
             // 文件ToolStripMenuItem
             // 
+            this.文件ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.yyyToolStripMenuItem,
+            this.toolStripMenuItem1,
+            this.dddToolStripMenuItem});
             this.文件ToolStripMenuItem.Name = "文件ToolStripMenuItem";
             this.文件ToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
             this.文件ToolStripMenuItem.Text = "文件";
@@ -82,6 +90,32 @@
             this.comboBox1.Size = new System.Drawing.Size(121, 20);
             this.comboBox1.TabIndex = 0;
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.ComboBox1_SelectedIndexChanged);
+            // 
+            // yyyToolStripMenuItem
+            // 
+            this.yyyToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.文件11ToolStripMenuItem});
+            this.yyyToolStripMenuItem.Name = "yyyToolStripMenuItem";
+            this.yyyToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.yyyToolStripMenuItem.Text = "文件1";
+            this.yyyToolStripMenuItem.Click += new System.EventHandler(this.YyyToolStripMenuItem_Click);
+            // 
+            // 文件11ToolStripMenuItem
+            // 
+            this.文件11ToolStripMenuItem.Name = "文件11ToolStripMenuItem";
+            this.文件11ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.文件11ToolStripMenuItem.Text = "文件11";
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(177, 6);
+            // 
+            // dddToolStripMenuItem
+            // 
+            this.dddToolStripMenuItem.Name = "dddToolStripMenuItem";
+            this.dddToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.dddToolStripMenuItem.Text = "ddd";
             // 
             // frmMain
             // 
@@ -109,6 +143,10 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem 文件ToolStripMenuItem;
         private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ToolStripMenuItem yyyToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 文件11ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem dddToolStripMenuItem;
     }
 }
 

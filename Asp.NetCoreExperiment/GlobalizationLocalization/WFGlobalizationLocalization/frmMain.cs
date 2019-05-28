@@ -44,6 +44,11 @@ namespace WFGlobalizationLocalization
         {
 
         }
+
+        private void YyyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
 

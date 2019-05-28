@@ -24,7 +24,7 @@ namespace WFGlobalizationLocalization
             resources.ApplyResources(form, "$this");
             ApplyControl(form, resources);
         }
-      
+
 
         /// <summary>
         /// 遍历窗体所有控件
@@ -36,19 +36,18 @@ namespace WFGlobalizationLocalization
             if (control is MenuStrip)
             {
                 resources.ApplyResources(control, control.Name);
-                var menuStrip = (MenuStrip)control;
-                if (menuStrip.Items.Count > 0)
+                foreach (ToolStripMenuItem toolStripMenuItem in ((MenuStrip)control).Items)
                 {
-                    foreach (ToolStripMenuItem toolStripMenuItem in menuStrip.Items)
-                    {
-                        ApplyItme(toolStripMenuItem, resources);
-                    }
+                    ApplyItme(toolStripMenuItem, resources);
                 }
             }
-            foreach (Control control1 in control.Controls)
+            else
             {
-                resources.ApplyResources(control1, control1.Name);
-                ApplyControl(control1, resources);
+                foreach (Control control1 in control.Controls)
+                {
+                    resources.ApplyResources(control1, control1.Name);
+                    ApplyControl(control1, resources);
+                }
             }
         }
         /// <summary>
@@ -56,23 +55,16 @@ namespace WFGlobalizationLocalization
         /// </summary>
         /// <param name="item"></param>
         /// <param name="resources"></param>
-        private static void ApplyItme(ToolStripMenuItem item, ComponentResourceManager resources)
+        private static void ApplyItme(ToolStripItem item, ComponentResourceManager resources)
         {
-            if (item is ToolStripMenuItem)
+            resources.ApplyResources(item, item.Name);
+            foreach (ToolStripItem toolStripItem in ((ToolStripMenuItem)item).DropDownItems)
             {
-                resources.ApplyResources(item, item.Name);
-                var toolStripMenuItem = (ToolStripMenuItem)item;           
+                if (toolStripItem is ToolStripMenuItem)
                 {
-                    foreach (ToolStripItem toolStripItem in toolStripMenuItem.DropDownItems)
-                    {
-                        if (toolStripItem is ToolStripMenuItem)
-                        {
-                            ApplyItme(item, resources);
-                        }
-                    }                   
+                    ApplyItme(toolStripItem, resources);
                 }
             }
         }
     }
-
 }
