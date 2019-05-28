@@ -149,6 +149,9 @@
   <data name="messagetext" xml:space="preserve">
     <value>ンダム</value>
   </data>
+  <data name="button1.Text" xml:space="preserve">
+    <value>panalンダム11</value>
+  </data>
   <data name="yyyToolStripMenuItem.Text" xml:space="preserve">
     <value>ンダム1</value>
   </data>

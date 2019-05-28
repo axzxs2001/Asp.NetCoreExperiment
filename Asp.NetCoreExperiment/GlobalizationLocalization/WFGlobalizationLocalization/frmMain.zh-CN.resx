@@ -149,6 +149,9 @@
   <data name="messagetext" xml:space="preserve">
     <value>提示</value>
   </data>
+  <data name="button1.Text" xml:space="preserve">
+    <value>panal内按钮</value>
+  </data>
   <data name="yyyToolStripMenuItem.Text" xml:space="preserve">
     <value>文件1</value>
   </data>
