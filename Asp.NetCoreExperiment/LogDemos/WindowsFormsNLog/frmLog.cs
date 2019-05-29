@@ -21,10 +21,10 @@ namespace WindowsFormsNLog
             InitializeComponent();
             _log = _log ?? LogManager.GetCurrentClassLogger();
             RichTextBoxTarget.ReInitializeAllTextboxes(this);
-            RichTextBoxTarget.GetTargetByControl(rtbLog).LinkClicked += DelLinkClicked1;
+            RichTextBoxTarget.GetTargetByControl(rtbLog).LinkClicked += DelLink_Clicked;
 
         }
-        void DelLinkClicked1(RichTextBoxTarget sender, string linkText, LogEventInfo logEvent)
+        void DelLink_Clicked(RichTextBoxTarget sender, string linkText, LogEventInfo logEvent)
         {
             if (logEvent.Exception != null)
             {

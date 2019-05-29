@@ -17,7 +17,6 @@ namespace WindowsFormsNLog
         public frmDemo()
         {
             InitializeComponent();
-
             _log = _log ?? LogManager.GetCurrentClassLogger();
         }
 
@@ -26,9 +25,19 @@ namespace WindowsFormsNLog
             _log.Info("Info");
             _log.Trace("Trace");
             _log.Warn("Warn");
-            _log.Error(new Exception("这是一个错误！！"),"Error");
+            _log.Error(new Exception("这是一个错误！！"), "Error");
             _log.Debug("Debug");
-            _log.Fatal(new Exception("这是一个异常"), "Fatal");
+
+            try
+            {
+                var j = 0;
+                var i = 1 / j;
+            }
+            catch (Exception exc)
+            {
+
+                _log.Fatal(exc, "Fatal:" + exc.Message);
+            }
         }
     }
 }
