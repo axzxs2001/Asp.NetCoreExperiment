@@ -15,7 +15,10 @@ namespace CalendarDemo
             //中国农历
             var zhci = new System.Globalization.CultureInfo("zh-cn");
             var zhcal = new System.Globalization.ChineseLunisolarCalendar();
-                   
+            Console.WriteLine(zhcal.GetMonth(DateTime .Now));
+            int yearIndex = zhcal.GetSexagenaryYear(dt);
+            int yTG = zhcal.GetCelestialStem(yearIndex);
+            int yDZ = zhcal.GetTerrestrialBranch(yearIndex);
             zhci.DateTimeFormat.Calendar = zhcal;
             Console.WriteLine(dt.ToString("yyyy/MM/dd", zhci));
         }
