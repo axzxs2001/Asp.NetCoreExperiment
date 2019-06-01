@@ -155,6 +155,17 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Consul", "Consul", "{611D1178-0D17-4175-A806-17F4B2A80C0D}"
 EndProject
 Project("{911E67C6-3D85-4FCE-B560-20A9C3E3FF48}") = "consul", "ConsulOcelot\consul\consul.exe", "{4F0D80E4-1918-47B9-87D1-BE197DA8CC61}"
+	ProjectSection(DebuggerProjectSystem) = preProject
+		PortSupplier = 00000000-0000-0000-0000-000000000000
+		Executable = C:\Users\gsw\source\repos\axzxs2001\Asp.NetCoreExperiment\Asp.NetCoreExperiment\ConsulOcelot\consul\consul.exe
+		RemoteMachine = DESKTOP-KR6814S
+		StartingDirectory = C:\Users\gsw\source\repos\axzxs2001\Asp.NetCoreExperiment\Asp.NetCoreExperiment\ConsulOcelot\consul
+		Environment = 默认值
+		LaunchingEngine = 00000000-0000-0000-0000-000000000000
+		UseLegacyDebugEngines = No
+		LaunchSQLEngine = No
+		AttachLaunchAction = No
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "conf", "conf", "{7C580099-E98A-4F7E-80FF-D6A01740C396}"
 	ProjectSection(SolutionItems) = preProject
@@ -903,6 +914,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WFGlobalizationLocalization", "GlobalizationLocalization\WFGlobalizationLocalization\WFGlobalizationLocalization.csproj", "{0783BD53-A931-410F-8E16-1727F4345C00}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsFormsNLog", "LogDemos\WindowsFormsNLog\WindowsFormsNLog.csproj", "{6D0DE6C2-24F2-4A7B-97BF-C50D9747E332}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalendarDemo", "Common\CalendarDemo\CalendarDemo.csproj", "{4F5091AE-0EED-4C25-8E49-3FDC1CFAE03A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -3380,6 +3393,14 @@ Global
 		{6D0DE6C2-24F2-4A7B-97BF-C50D9747E332}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6D0DE6C2-24F2-4A7B-97BF-C50D9747E332}.Release|x64.ActiveCfg = Release|Any CPU
 		{6D0DE6C2-24F2-4A7B-97BF-C50D9747E332}.Release|x64.Build.0 = Release|Any CPU
+		{4F5091AE-0EED-4C25-8E49-3FDC1CFAE03A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F5091AE-0EED-4C25-8E49-3FDC1CFAE03A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F5091AE-0EED-4C25-8E49-3FDC1CFAE03A}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{4F5091AE-0EED-4C25-8E49-3FDC1CFAE03A}.Debug|x64.Build.0 = Debug|Any CPU
+		{4F5091AE-0EED-4C25-8E49-3FDC1CFAE03A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F5091AE-0EED-4C25-8E49-3FDC1CFAE03A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F5091AE-0EED-4C25-8E49-3FDC1CFAE03A}.Release|x64.ActiveCfg = Release|Any CPU
+		{4F5091AE-0EED-4C25-8E49-3FDC1CFAE03A}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -3746,6 +3767,7 @@ Global
 		{D7FC8215-F626-4A0F-9A68-986C5E6958CC} = {A76B4F09-82B3-4F06-BE35-F5941BF8C338}
 		{0783BD53-A931-410F-8E16-1727F4345C00} = {1F801090-B18F-4716-8269-78FD2D74680A}
 		{6D0DE6C2-24F2-4A7B-97BF-C50D9747E332} = {1B527D7D-DB7D-4A96-B906-748C9C10EA70}
+		{4F5091AE-0EED-4C25-8E49-3FDC1CFAE03A} = {A76B4F09-82B3-4F06-BE35-F5941BF8C338}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
