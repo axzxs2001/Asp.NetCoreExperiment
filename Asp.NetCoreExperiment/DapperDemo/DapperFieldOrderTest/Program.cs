@@ -2,6 +2,7 @@
 using System.Data.SqlClient;
 using Dapper;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace DapperFieldOrderTest
 {
@@ -15,11 +16,20 @@ namespace DapperFieldOrderTest
                 var ents = con.Query<dynamic>(sql);
                 Console.WriteLine($"一共数据：{ents.Count()}");
                 //字段顺序与查询顺序一致
-                foreach(var ent in ents)
-                {                
-                    foreach(var col in ent)
+                foreach (var ent in ents)
+                {
+                    foreach (var col in ent)
                     {
-                        Console.Write(col.Key+":"+col.Value+",");
+                        Console.Write(col.Key + ":" + col.Value + ",");
+                    }
+                    Console.WriteLine();
+                }
+                //精确类型
+                foreach (IEnumerable<KeyValuePair<string, dynamic>> ent in ents)
+                {                    
+                    foreach (KeyValuePair<string, dynamic> col in ent)
+                    {
+                        Console.Write(col.Key + ":" + col.Value + ",");
                     }
                     Console.WriteLine();
                 }
