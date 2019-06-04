@@ -12,7 +12,7 @@ namespace DapperFieldOrderTest
         {
             using (var con = new SqlConnection("server=.;database=testdb;uid=sa;pwd=sa;"))
             {
-                var sql = "select   name,age,page,id  from test1";
+                var sql = "select name,age,page,id from test1";
                 var ents = con.Query<dynamic>(sql);
                 Console.WriteLine($"一共数据：{ents.Count()}");
                 //字段顺序与查询顺序一致
