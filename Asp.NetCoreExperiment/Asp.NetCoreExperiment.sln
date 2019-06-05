@@ -895,8 +895,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CSRFDemo", "Common\CSRFDemo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CSRFHelpDemo", "Common\CSRFHelpDemo\CSRFHelpDemo.csproj", "{9DE91F1D-16CD-4827-B938-96AC8A5B35BE}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NewFolder1", "NewFolder1", "{2E2CA60B-82FA-4776-9D9A-94E00612FE90}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SC_LoginDemo", "SSO\SC_LoginDemo\SC_LoginDemo.csproj", "{AC33EF71-3307-4181-914F-ED2801C986D1}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SC_Project01", "SSO\SC_Project01\SC_Project01.csproj", "{53D0CC38-A066-4347-9F7A-DC641275AC53}"
@@ -919,7 +917,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CalendarDemo", "Common\Cale
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LoadExcelTemplate", "Excel\LoadExcelTemplate\LoadExcelTemplate.csproj", "{7C02F88B-69C8-4E9F-94B7-E409E5FAB911}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DapperFieldOrderTest", "DapperDemo\DapperFieldOrderTest\DapperFieldOrderTest.csproj", "{58E59FC7-4ABD-4921-B18F-FC992FC7CFC7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DapperFieldOrderTest", "DapperDemo\DapperFieldOrderTest\DapperFieldOrderTest.csproj", "{58E59FC7-4ABD-4921-B18F-FC992FC7CFC7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
