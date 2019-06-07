@@ -31,16 +31,18 @@ namespace SharpZIPDemo
 
             ZipStrings.CodePage = Encoding.UTF8.CodePage;
             var stream = new MemoryStream();
-            var zipFile = ICSharpCode.SharpZipLib.Zip.ZipFile.Create(stream);
-            //var zipFile = ICSharpCode.SharpZipLib.Zip.ZipFile.Create(@"C:\myfile\ziptest\abc.zip"); 
+            //var zipFile = ICSharpCode.SharpZipLib.Zip.ZipFile.Create(stream);
+            var zipFile = ICSharpCode.SharpZipLib.Zip.ZipFile.Create(@"C:\myfile\ziptest\abc.zip"); 
             zipFile.BeginUpdate();
             zipFile.Password = "111111"; 
-            foreach (var file in Directory.GetFiles(@"C:\myfile\ziptest\d払い_190605"))
+            foreach (var file in Directory.GetFiles(@"C:\myfile\ziptest\190605"))
             {              
                 zipFile.Add(file, "/aaa/" + Path.GetFileName(file));
             }          
             zipFile.CommitUpdate();
             zipFile.Close();
+
+
         }
 
 
