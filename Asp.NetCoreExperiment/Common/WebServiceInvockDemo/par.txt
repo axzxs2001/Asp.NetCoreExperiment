@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<serviceStation>
+<userId>1409270111</userId><!--企业编码-->
+<rptDate>2019-06-08</rptDate><!--报表日期-->
+<serviceStationReport><!--各站点交易信息-->
+<code>123</code><!--站点编码（ID)-->
+<name>站点1</name><!--站点名称-->
+<countyType>1</countyType><!--站点类型:   1县级服务中心 2乡镇级服务站 3村级服务站-->
+<buyOrder>24</buyOrder><!--代买总订单数-->
+<saleOrder>24</saleOrder><!--代卖总订单数-->
+<serviceStationCommodity>
+<commId>12</commId><!--代买/代卖商品类别-->
+<money>123</money><!--代买/代卖总金额-->
+</serviceStationCommodity>
+<serviceStationCommodity>
+<commId>13</commId><!--代买/代卖商品类别-->
+<money>123</money><!--代买/代卖总金额-->
+</serviceStationCommodity>
+</serviceStationReport>
+<serviceStationReport><!--各站点交易信息-->
+<code>124</code><!--站点编码（ID)-->
+<name>站点2</name><!--站点名称-->
+<countyType>2</countyType><!--站点类型:   1县级服务中心 2乡镇级服务站 3村级服务站-->
+<buyOrder>24</buyOrder><!--代买总订单数-->
+<saleOrder>24</saleOrder><!--代卖总订单数-->
+<serviceStationCommodity>
+<commId>22</commId><!--代买/代卖商品类别-->
+<money>123</money><!--代买/代卖总金额-->
+</serviceStationCommodity>
+<serviceStationCommodity>
+<commId>23</commId><!--代买/代卖商品类别-->
+<money>123</money><!--代买/代卖总金额-->
+</serviceStationCommodity>
+</serviceStationReport>
+</serviceStation>
