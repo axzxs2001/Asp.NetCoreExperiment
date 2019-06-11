@@ -158,4 +158,7 @@
   <data name="文件11ToolStripMenuItem.Text" xml:space="preserve">
     <value>ンダム11</value>
   </data>
+  <data name="toolStripButton1.Text" xml:space="preserve">
+    <value>ンダム</value>
+  </data>
 </root>

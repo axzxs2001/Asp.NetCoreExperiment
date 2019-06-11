@@ -23,7 +23,52 @@ namespace WFGlobalizationLocalization
             var resources = new ComponentResourceManager(form.GetType());
             resources.ApplyResources(form, "$this");
             ApplyControl(form, resources);
+            ApplyToolControl(form, resources);
         }
+
+
+
+        /// <summary>
+        /// 遍历窗体所有控件
+        /// </summary>
+        /// <param name="control"></param>
+        /// <param name="resources"></param>
+        private static void ApplyToolControl(Control control, ComponentResourceManager resources)
+        {
+            if (control is ToolStrip)
+            {
+                resources.ApplyResources(control, control.Name);
+                foreach (ToolStripItem toolStripItem in ((ToolStrip)control).Items)
+                {
+                    ApplyToolItme(toolStripItem, resources);
+                }
+            }
+            else
+            {
+                foreach (Control control1 in control.Controls)
+                {
+                    resources.ApplyResources(control1, control1.Name);
+                    ApplyToolControl(control1, resources);
+                }
+            }
+        }
+        /// <summary>
+        /// 遍历菜单
+        /// </summary>
+        /// <param name="item"></param>
+        /// <param name="resources"></param>
+        private static void ApplyToolItme(ToolStripItem item, ComponentResourceManager resources)
+        {
+            resources.ApplyResources(item, item.Name);
+            //foreach (ToolStripItem toolStripItem in ((ToolStripMenuItem)item).DropDownItems)
+            //{
+            //    if (toolStripItem is ToolStripMenuItem)
+            //    {
+            //        ApplyToolItme(toolStripItem, resources);
+            //    }
+            //}
+        }
+
 
 
         /// <summary>
