@@ -161,4 +161,13 @@
   <data name="toolStripButton1.Text" xml:space="preserve">
     <value>ンダム</value>
   </data>
+  <data name="toolStripDropDownButton1.Text" xml:space="preserve">
+    <value>ンダム111</value>
+  </data>
+  <data name="一ToolStripMenuItem.Text" xml:space="preserve">
+    <value>ンダム111-1</value>
+  </data>
+  <data name="二ToolStripMenuItem.Text" xml:space="preserve">
+    <value>ンダム111-2</value>
+  </data>
 </root>

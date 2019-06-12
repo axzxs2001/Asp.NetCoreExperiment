@@ -42,6 +42,10 @@
             this.button1 = new System.Windows.Forms.Button();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
+            this.一ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.二ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripComboBox1 = new System.Windows.Forms.ToolStripComboBox();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -49,7 +53,7 @@
             // 
             // label1
             // 
-            this.label1.Location = new System.Drawing.Point(397, 61);
+            this.label1.Location = new System.Drawing.Point(348, 148);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(100, 23);
             this.label1.TabIndex = 2;
@@ -57,7 +61,7 @@
             // 
             // btnShow
             // 
-            this.btnShow.Location = new System.Drawing.Point(615, 124);
+            this.btnShow.Location = new System.Drawing.Point(621, 187);
             this.btnShow.Name = "btnShow";
             this.btnShow.Size = new System.Drawing.Size(75, 23);
             this.btnShow.TabIndex = 1;
@@ -118,7 +122,7 @@
             this.comboBox1.Items.AddRange(new object[] {
             "zh-CN",
             "ja-JP"});
-            this.comboBox1.Location = new System.Drawing.Point(581, 58);
+            this.comboBox1.Location = new System.Drawing.Point(575, 111);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(121, 20);
             this.comboBox1.TabIndex = 0;
@@ -144,7 +148,9 @@
             // toolStrip1
             // 
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripButton1});
+            this.toolStripButton1,
+            this.toolStripDropDownButton1,
+            this.toolStripComboBox1});
             this.toolStrip1.Location = new System.Drawing.Point(0, 25);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(753, 40);
@@ -159,6 +165,37 @@
             this.toolStripButton1.Size = new System.Drawing.Size(55, 37);
             this.toolStripButton1.Text = "工具栏1";
             this.toolStripButton1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            // 
+            // toolStripDropDownButton1
+            // 
+            this.toolStripDropDownButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.一ToolStripMenuItem,
+            this.二ToolStripMenuItem});
+            this.toolStripDropDownButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton1.Image")));
+            this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
+            this.toolStripDropDownButton1.Size = new System.Drawing.Size(195, 37);
+            this.toolStripDropDownButton1.Text = "toolStripDropDownButton1";
+            // 
+            // 一ToolStripMenuItem
+            // 
+            this.一ToolStripMenuItem.Name = "一ToolStripMenuItem";
+            this.一ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.一ToolStripMenuItem.Text = "一";
+            // 
+            // 二ToolStripMenuItem
+            // 
+            this.二ToolStripMenuItem.Name = "二ToolStripMenuItem";
+            this.二ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.二ToolStripMenuItem.Text = "二";
+            // 
+            // toolStripComboBox1
+            // 
+            this.toolStripComboBox1.Items.AddRange(new object[] {
+            "一111111111",
+            "二222222222"});
+            this.toolStripComboBox1.Name = "toolStripComboBox1";
+            this.toolStripComboBox1.Size = new System.Drawing.Size(121, 40);
             // 
             // frmMain
             // 
@@ -199,6 +236,10 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripButton toolStripButton1;
+        private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton1;
+        private System.Windows.Forms.ToolStripMenuItem 一ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 二ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripComboBox toolStripComboBox1;
     }
 }
 

@@ -161,4 +161,13 @@
   <data name="toolStripButton1.Text" xml:space="preserve">
     <value>这是工具栏</value>
   </data>
+  <data name="toolStripDropDownButton1.Text" xml:space="preserve">
+    <value>下拉列表1</value>
+  </data>
+  <data name="一ToolStripMenuItem.Text" xml:space="preserve">
+    <value>下拉列表1-1</value>
+  </data>
+  <data name="二ToolStripMenuItem.Text" xml:space="preserve">
+    <value>下拉列表1-2</value>
+  </data>
 </root>

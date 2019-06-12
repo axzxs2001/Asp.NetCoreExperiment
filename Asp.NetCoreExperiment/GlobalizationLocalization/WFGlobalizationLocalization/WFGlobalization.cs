@@ -26,7 +26,7 @@ namespace WFGlobalizationLocalization
             ApplyToolControl(form, resources);
         }
 
-
+        #region MenuTool
 
         /// <summary>
         /// 遍历窗体所有控件
@@ -60,17 +60,21 @@ namespace WFGlobalizationLocalization
         private static void ApplyToolItme(ToolStripItem item, ComponentResourceManager resources)
         {
             resources.ApplyResources(item, item.Name);
-            //foreach (ToolStripItem toolStripItem in ((ToolStripMenuItem)item).DropDownItems)
-            //{
-            //    if (toolStripItem is ToolStripMenuItem)
-            //    {
-            //        ApplyToolItme(toolStripItem, resources);
-            //    }
-            //}
+            if (item is ToolStripDropDownButton)
+            {
+                foreach (ToolStripItem toolStripItem in ((ToolStripDropDownButton)item).DropDownItems)
+                {
+                    if (toolStripItem is ToolStripMenuItem)
+                    {
+                        ApplyToolItme(toolStripItem, resources);
+                    }
+                }
+            }           
         }
+        #endregion
 
 
-
+        #region menu
         /// <summary>
         /// 遍历窗体所有控件
         /// </summary>
@@ -111,5 +115,6 @@ namespace WFGlobalizationLocalization
                 }
             }
         }
+        #endregion
     }
 }
