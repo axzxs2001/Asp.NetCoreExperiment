@@ -16,10 +16,13 @@ namespace WFGlobalizationLocalization
     public partial class frmMain : Form
     {
 
+        public ABC abc;
+
         ComponentResourceManager _resource;
         public string language = Properties.Settings.Default.Laugue;
         public frmMain()
-        {          
+        {
+            abc = new ABC();
             InitializeComponent();
             _resource = new ComponentResourceManager(typeof(frmMain));
             //加载系统默认语言
@@ -31,10 +34,10 @@ namespace WFGlobalizationLocalization
         {
             MessageBox.Show(_resource.GetString("messagetext"));
 
-        }        
+        }
 
         private void ComboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {          
+        {
             this.Localize(comboBox1.SelectedItem.ToString());
             Properties.Settings.Default.Laugue = comboBox1.SelectedItem.ToString();
             Properties.Settings.Default.Save();
@@ -49,6 +52,13 @@ namespace WFGlobalizationLocalization
         {
 
         }
+    }
+
+    public class ABC
+    {
+        public string A { get; set; }
+
+        public string B { get; set; }
     }
 }
 

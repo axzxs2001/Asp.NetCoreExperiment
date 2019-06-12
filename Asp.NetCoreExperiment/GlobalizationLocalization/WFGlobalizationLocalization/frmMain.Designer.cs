@@ -46,14 +46,16 @@
             this.一ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.二ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripComboBox1 = new System.Windows.Forms.ToolStripComboBox();
+            this.performanceCounter1 = new System.Diagnostics.PerformanceCounter();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.performanceCounter1)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
             // 
-            this.label1.Location = new System.Drawing.Point(348, 148);
+            this.label1.Location = new System.Drawing.Point(24, 104);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(100, 23);
             this.label1.TabIndex = 2;
@@ -61,7 +63,7 @@
             // 
             // btnShow
             // 
-            this.btnShow.Location = new System.Drawing.Point(621, 187);
+            this.btnShow.Location = new System.Drawing.Point(289, 229);
             this.btnShow.Name = "btnShow";
             this.btnShow.Size = new System.Drawing.Size(75, 23);
             this.btnShow.TabIndex = 1;
@@ -75,7 +77,7 @@
             this.文件ToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(753, 25);
+            this.menuStrip1.Size = new System.Drawing.Size(635, 25);
             this.menuStrip1.TabIndex = 3;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -122,7 +124,7 @@
             this.comboBox1.Items.AddRange(new object[] {
             "zh-CN",
             "ja-JP"});
-            this.comboBox1.Location = new System.Drawing.Point(575, 111);
+            this.comboBox1.Location = new System.Drawing.Point(289, 168);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(121, 20);
             this.comboBox1.TabIndex = 0;
@@ -131,9 +133,9 @@
             // panel1
             // 
             this.panel1.Controls.Add(this.button1);
-            this.panel1.Location = new System.Drawing.Point(231, 255);
+            this.panel1.Location = new System.Drawing.Point(26, 168);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(200, 100);
+            this.panel1.Size = new System.Drawing.Size(203, 143);
             this.panel1.TabIndex = 4;
             // 
             // button1
@@ -153,7 +155,7 @@
             this.toolStripComboBox1});
             this.toolStrip1.Location = new System.Drawing.Point(0, 25);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(753, 40);
+            this.toolStrip1.Size = new System.Drawing.Size(635, 40);
             this.toolStrip1.TabIndex = 5;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -180,13 +182,13 @@
             // 一ToolStripMenuItem
             // 
             this.一ToolStripMenuItem.Name = "一ToolStripMenuItem";
-            this.一ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.一ToolStripMenuItem.Size = new System.Drawing.Size(88, 22);
             this.一ToolStripMenuItem.Text = "一";
             // 
             // 二ToolStripMenuItem
             // 
             this.二ToolStripMenuItem.Name = "二ToolStripMenuItem";
-            this.二ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.二ToolStripMenuItem.Size = new System.Drawing.Size(88, 22);
             this.二ToolStripMenuItem.Text = "二";
             // 
             // toolStripComboBox1
@@ -201,7 +203,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(753, 496);
+            this.ClientSize = new System.Drawing.Size(635, 430);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.comboBox1);
@@ -217,6 +219,7 @@
             this.panel1.ResumeLayout(false);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.performanceCounter1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -240,6 +243,7 @@
         private System.Windows.Forms.ToolStripMenuItem 一ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 二ToolStripMenuItem;
         private System.Windows.Forms.ToolStripComboBox toolStripComboBox1;
+        private System.Diagnostics.PerformanceCounter performanceCounter1;
     }
 }
 
