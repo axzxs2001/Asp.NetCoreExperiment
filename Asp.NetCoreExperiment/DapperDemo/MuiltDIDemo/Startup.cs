@@ -24,17 +24,8 @@ namespace MuiltDIDemo
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddTransient<IJK, JK1>();
-            services.AddTransient(typeof(IJK), ser =>
-            {
-                return new JK1() { Version="v2"};
-            });
-            services.AddTransient<IJK, JK2>();
-            services.AddTransient(typeof(IJK), ser =>
-            {
-                return new JK1() { Version = "v3" };
-            });
-            services.AddTransient<IJK, JK2>();
+            services.AddTransient<IJK, JK1>();      
+            services.AddTransient<IJK, JK2>();       
 
             //第一种
             //services.AddSingleton(factory =>
@@ -62,14 +53,13 @@ namespace MuiltDIDemo
             //});
 
             //第二种方式
-            services.AddTransient(typeof(IJK), ser =>
+            services.AddTransient<IJK, JK1>(ser =>
             {
-                return new JK1() { Version = "v2" };
+                return new JK1() { Version = "V2" };
             });
-          
             services.AddTransient(typeof(IJK), ser =>
             {
-                return new JK1() { Version = "v3" };
+                return new JK1() { Version = "V3" };
             });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
