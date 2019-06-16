@@ -21,40 +21,61 @@ namespace MuiltDIDemo
 
         public IConfiguration Configuration { get; }
 
-      
+
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddTransient<JK1>();
-            services.AddTransient<JK2>();  
-            services.AddSingleton(factory =>
+            services.AddTransient<IJK, JK1>();
+            services.AddTransient(typeof(IJK), ser =>
             {
-
-                Func<string, IJK> accesor = key =>
-                {
-                    if (key.Equals("JK1"))
-
-                    {
-                        return factory.GetService<JK1>();
-
-                    }
-                    else if (key.Equals("JK2"))
-                    {
-                        return factory.GetService<JK2>();
-
-                    }
-                    else
-                    {
-                        throw new ArgumentException($"Not Support key : {key}");
-                    }
-                };
-                return accesor;
+                return new JK1() { Version="v2"};
             });
+            services.AddTransient<IJK, JK2>();
+            services.AddTransient(typeof(IJK), ser =>
+            {
+                return new JK1() { Version = "v3" };
+            });
+            services.AddTransient<IJK, JK2>();
 
+            //第一种
+            //services.AddSingleton(factory =>
+            //{
+
+            //    Func<string, IJK> accesor = key =>
+            //    {
+            //        if (key.Equals("JK1"))
+
+            //        {
+            //            return factory.GetService<JK1>();
+
+            //        }
+            //        else if (key.Equals("JK2"))
+            //        {
+            //            return factory.GetService<JK2>();
+
+            //        }
+            //        else
+            //        {
+            //            throw new ArgumentException($"Not Support key : {key}");
+            //        }
+            //    };
+            //    return accesor;
+            //});
+
+            //第二种方式
+            services.AddTransient(typeof(IJK), ser =>
+            {
+                return new JK1() { Version = "v2" };
+            });
+          
+            services.AddTransient(typeof(IJK), ser =>
+            {
+                return new JK1() { Version = "v3" };
+            });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
-     
+
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
@@ -68,15 +89,15 @@ namespace MuiltDIDemo
 
     public interface IJK
     {
-        
+        string Version { get; set; }
     }
-    public class JK1:IJK
+    public class JK1 : IJK
     {
-
+        public string Version { get; set; } = "V1";
     }
 
-    public class JK2:JK1
+    public class JK2 : IJK
     {
-
+        public string Version { get; set; } = "V1";
     }
 }
