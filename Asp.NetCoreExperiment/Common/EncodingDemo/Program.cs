@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace EncodingDemo
@@ -10,6 +11,11 @@ namespace EncodingDemo
     {
         static void Main(string[] args)
         {
+            //让正则长时间执行
+            //var regex = new Regex(@"^[\p{IsKatakana}0-9!#$%&'+/=?^_`{|}~-]+(.[\p{IsKatakana}!#$%&'+/=?^_`{|}~-]+)*@([\p{IsKatakana}0-9]+(?:-[\p{IsKatakana}0-9]+)?.)+[\p{IsKatakana}0-9]+(-[\p{IsKatakana}0-9]+)?$");
+            //Console.WriteLine(regex.IsMatch("ワイエイエムエイディエイドットジェイアットマークワイエイエイチオーオードットシーオードットジェイピー"));
+
+
             var s = "ズフーェ0ｱｲｳｴｵ";
             Console.WriteLine("UTF8:" + System.Text.Encoding.UTF8.GetByteCount(s));
             Console.WriteLine("UTF7:" + System.Text.Encoding.UTF7.GetByteCount(s));
