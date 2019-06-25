@@ -11,6 +11,14 @@ namespace EncodingDemo
     {
         static void Main(string[] args)
         {
+            var s1 = "a\r\nb\r\nc";
+            var ss = new StringBuilder();
+            ss.Append(s1);
+            Console.WriteLine(ss);
+            Console.WriteLine("------------");
+            ss.Remove(0, 1);
+            Console.WriteLine(ss.ToString().Trim());
+
             //让正则长时间执行
             //var regex = new Regex(@"^[\p{IsKatakana}0-9!#$%&'+/=?^_`{|}~-]+(.[\p{IsKatakana}!#$%&'+/=?^_`{|}~-]+)*@([\p{IsKatakana}0-9]+(?:-[\p{IsKatakana}0-9]+)?.)+[\p{IsKatakana}0-9]+(-[\p{IsKatakana}0-9]+)?$");
             //Console.WriteLine(regex.IsMatch("ワイエイエムエイディエイドットジェイアットマークワイエイエイチオーオードットシーオードットジェイピー"));
