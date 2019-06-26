@@ -157,9 +157,9 @@ EndProject
 Project("{911E67C6-3D85-4FCE-B560-20A9C3E3FF48}") = "consul", "ConsulOcelot\consul\consul.exe", "{4F0D80E4-1918-47B9-87D1-BE197DA8CC61}"
 	ProjectSection(DebuggerProjectSystem) = preProject
 		PortSupplier = 00000000-0000-0000-0000-000000000000
-		Executable = C:\Users\gsw\source\repos\axzxs2001\Asp.NetCoreExperiment\Asp.NetCoreExperiment\ConsulOcelot\consul\consul.exe
-		RemoteMachine = DESKTOP-KR6814S
-		StartingDirectory = C:\Users\gsw\source\repos\axzxs2001\Asp.NetCoreExperiment\Asp.NetCoreExperiment\ConsulOcelot\consul
+		Executable = C:\MyFile\Source\Repos\Asp.NetCoreExperiment\Asp.NetCoreExperiment\ConsulOcelot\consul\consul.exe
+		RemoteMachine = DESKTOP-MA5L9LQ
+		StartingDirectory = C:\MyFile\Source\Repos\Asp.NetCoreExperiment\Asp.NetCoreExperiment\ConsulOcelot\consul
 		Environment = 默认值
 		LaunchingEngine = 00000000-0000-0000-0000-000000000000
 		UseLegacyDebugEngines = No
@@ -935,9 +935,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelpRoleDemo001", ".netcore
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JanpaneseFullHalfWidthTransfer", "Common\JanpaneseFullHalfWidthTransfer\JanpaneseFullHalfWidthTransfer.csproj", "{03060CC7-A9F5-44EA-8F1F-F8436F93FACA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HalfFullWidthDemo", "Common\HalfFullWidthDemo\HalfFullWidthDemo.csproj", "{D7D27F3D-E964-4946-9BAC-54C10974464A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HalfFullWidthDemo", "Common\HalfFullWidthDemo\HalfFullWidthDemo.csproj", "{D7D27F3D-E964-4946-9BAC-54C10974464A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EncodingDemo", "Common\EncodingDemo\EncodingDemo.csproj", "{C5DE7B10-809F-4CA4-ACA0-8E5B04337E5E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeberShipDemo", "Common\MeberShipDemo\MeberShipDemo.csproj", "{50B42EC2-A727-474A-AF13-D6808FF1A8EB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeberShipDemo2", "Common\DeberShipDemo2\MeberShipDemo2.csproj", "{A745310B-C3F9-4773-A4A2-2D166308B20F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -3503,6 +3507,22 @@ Global
 		{C5DE7B10-809F-4CA4-ACA0-8E5B04337E5E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C5DE7B10-809F-4CA4-ACA0-8E5B04337E5E}.Release|x64.ActiveCfg = Release|Any CPU
 		{C5DE7B10-809F-4CA4-ACA0-8E5B04337E5E}.Release|x64.Build.0 = Release|Any CPU
+		{50B42EC2-A727-474A-AF13-D6808FF1A8EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50B42EC2-A727-474A-AF13-D6808FF1A8EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50B42EC2-A727-474A-AF13-D6808FF1A8EB}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{50B42EC2-A727-474A-AF13-D6808FF1A8EB}.Debug|x64.Build.0 = Debug|Any CPU
+		{50B42EC2-A727-474A-AF13-D6808FF1A8EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50B42EC2-A727-474A-AF13-D6808FF1A8EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50B42EC2-A727-474A-AF13-D6808FF1A8EB}.Release|x64.ActiveCfg = Release|Any CPU
+		{50B42EC2-A727-474A-AF13-D6808FF1A8EB}.Release|x64.Build.0 = Release|Any CPU
+		{A745310B-C3F9-4773-A4A2-2D166308B20F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A745310B-C3F9-4773-A4A2-2D166308B20F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A745310B-C3F9-4773-A4A2-2D166308B20F}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{A745310B-C3F9-4773-A4A2-2D166308B20F}.Debug|x64.Build.0 = Debug|Any CPU
+		{A745310B-C3F9-4773-A4A2-2D166308B20F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A745310B-C3F9-4773-A4A2-2D166308B20F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A745310B-C3F9-4773-A4A2-2D166308B20F}.Release|x64.ActiveCfg = Release|Any CPU
+		{A745310B-C3F9-4773-A4A2-2D166308B20F}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -3880,6 +3900,8 @@ Global
 		{03060CC7-A9F5-44EA-8F1F-F8436F93FACA} = {A76B4F09-82B3-4F06-BE35-F5941BF8C338}
 		{D7D27F3D-E964-4946-9BAC-54C10974464A} = {A76B4F09-82B3-4F06-BE35-F5941BF8C338}
 		{C5DE7B10-809F-4CA4-ACA0-8E5B04337E5E} = {A76B4F09-82B3-4F06-BE35-F5941BF8C338}
+		{50B42EC2-A727-474A-AF13-D6808FF1A8EB} = {A76B4F09-82B3-4F06-BE35-F5941BF8C338}
+		{A745310B-C3F9-4773-A4A2-2D166308B20F} = {A76B4F09-82B3-4F06-BE35-F5941BF8C338}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
