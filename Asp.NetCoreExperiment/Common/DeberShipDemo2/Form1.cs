@@ -19,24 +19,14 @@ namespace DeberShipDemo2
 
         private void Button1_Click(object sender, EventArgs e)
         {
-         
-
-            var ph = new Microsoft.AspNet.Identity.PasswordHasher<ApplicationUser>();
-            textBox1.Text = ph.HashPassword(new ApplicationUser()
-            {
-             
-                SecurityStamp = "45b85708-5851-45cf-998b-3563d4047d22"
-            }, "111111!");
-
+            var ph = new Microsoft.AspNet.Identity.PasswordHasher();
+            textBox1.Text = ph.HashPassword("111111!");
         }
 
         private void Button2_Click(object sender, EventArgs e)
         {
-            var ph = new Microsoft.AspNet.Identity.PasswordHasher<ApplicationUser>();
-            MessageBox.Show(ph.VerifyHashedPassword(new ApplicationUser()
-            {
-                SecurityStamp = "45b85708-5851-45cf-998b-3563d4047d22"
-            }, textBox1.Text, "111111!").ToString());
+            var ph = new Microsoft.AspNet.Identity.PasswordHasher();
+            MessageBox.Show(ph.VerifyHashedPassword(textBox1.Text, "111111!").ToString());
         }
     }
     public class ApplicationUser : Microsoft.AspNet.Identity.EntityFramework.IdentityUser

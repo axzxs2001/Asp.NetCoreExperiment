@@ -23,11 +23,7 @@ namespace MeberShipDemo
             textBox1.Text = ph.HashPassword(new ApplicationUser()
             {               
                 SecurityStamp = "45b85708-5851-45cf-998b-3563d4047d22"
-            }, "111111!");
-
-          
-
-
+            }, "111111!"); 
         }
 
         private void Button2_Click(object sender, EventArgs e)
@@ -37,14 +33,12 @@ namespace MeberShipDemo
             {                
                 SecurityStamp = "45b85708-5851-45cf-998b-3563d4047d22"
             }, textBox1.Text, "Nw668099!").ToString());
-
         }
     }
 
     public class ApplicationUser : Microsoft.AspNet.Identity.EntityFramework.IdentityUser
     {
-        public string FullName { get; set; }
-  
+        public string FullName { get; set; }  
 
     
     }
