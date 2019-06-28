@@ -26,14 +26,7 @@ namespace DeberShipDemo2
         private void Button2_Click(object sender, EventArgs e)
         {
             var ph = new Microsoft.AspNet.Identity.PasswordHasher();
-            MessageBox.Show(ph.VerifyHashedPassword(textBox1.Text, "111111!").ToString());
+            MessageBox.Show(ph.VerifyHashedPassword(textBox1.Text, "Nss#123456").ToString());
         }
-    }
-    public class ApplicationUser : Microsoft.AspNet.Identity.EntityFramework.IdentityUser
-    {
-     
-        public string Creator { get; set; }
-
- 
-    }
+    }  
 }
