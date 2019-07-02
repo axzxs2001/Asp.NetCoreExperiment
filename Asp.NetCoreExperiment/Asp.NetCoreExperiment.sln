@@ -943,7 +943,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeberShipDemo", "Common\Meb
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeberShipDemo2", "Common\DeberShipDemo2\MeberShipDemo2.csproj", "{A745310B-C3F9-4773-A4A2-2D166308B20F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PostgresqlDemo02", "PostgreSqlDemo\PostgresqlDemo02\PostgresqlDemo02.csproj", "{47A22C27-8388-4175-82DF-E4CB62BF0595}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PostgresqlDemo02", "PostgreSqlDemo\PostgresqlDemo02\PostgresqlDemo02.csproj", "{47A22C27-8388-4175-82DF-E4CB62BF0595}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HttpClientPostDemo", "Common\HttpClientPostDemo\HttpClientPostDemo.csproj", "{1DE879B0-45B7-4255-9A5B-6B431FC6F534}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -3533,6 +3535,14 @@ Global
 		{47A22C27-8388-4175-82DF-E4CB62BF0595}.Release|Any CPU.Build.0 = Release|Any CPU
 		{47A22C27-8388-4175-82DF-E4CB62BF0595}.Release|x64.ActiveCfg = Release|Any CPU
 		{47A22C27-8388-4175-82DF-E4CB62BF0595}.Release|x64.Build.0 = Release|Any CPU
+		{1DE879B0-45B7-4255-9A5B-6B431FC6F534}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1DE879B0-45B7-4255-9A5B-6B431FC6F534}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1DE879B0-45B7-4255-9A5B-6B431FC6F534}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{1DE879B0-45B7-4255-9A5B-6B431FC6F534}.Debug|x64.Build.0 = Debug|Any CPU
+		{1DE879B0-45B7-4255-9A5B-6B431FC6F534}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1DE879B0-45B7-4255-9A5B-6B431FC6F534}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1DE879B0-45B7-4255-9A5B-6B431FC6F534}.Release|x64.ActiveCfg = Release|Any CPU
+		{1DE879B0-45B7-4255-9A5B-6B431FC6F534}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -3913,6 +3923,7 @@ Global
 		{50B42EC2-A727-474A-AF13-D6808FF1A8EB} = {A76B4F09-82B3-4F06-BE35-F5941BF8C338}
 		{A745310B-C3F9-4773-A4A2-2D166308B20F} = {A76B4F09-82B3-4F06-BE35-F5941BF8C338}
 		{47A22C27-8388-4175-82DF-E4CB62BF0595} = {3F1A250E-4A20-43C0-839C-0B307DC143B0}
+		{1DE879B0-45B7-4255-9A5B-6B431FC6F534} = {A76B4F09-82B3-4F06-BE35-F5941BF8C338}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
