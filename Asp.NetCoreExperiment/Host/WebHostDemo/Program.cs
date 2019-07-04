@@ -14,9 +14,7 @@ namespace WebHostDemo
             //通过调用 Start 方法以非阻止方式运行主机
             // webHost.Start();
             //Run 方法启动 Web 应用并阻止调用线程，直到关闭主机
-            webHost.Run();
-            
-           
+            webHost.Run();  
 
             Console.ReadLine();
         }
@@ -33,7 +31,7 @@ namespace WebHostDemo
             var hostBuilder = WebHost.CreateDefaultBuilder(args)
                //调用 ConfigureKestrel 来重写 CreateDefaultBuilder 在配置 Kestrel 时建立的 30,000,000 字节默认 
                .ConfigureKestrel((context, options) =>
-               {
+               {                  
                    options.Limits.MaxRequestBodySize = 20000000;
                })
                .UseConfiguration(config)
