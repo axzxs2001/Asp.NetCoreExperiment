@@ -38,18 +38,22 @@ namespace RoslynDemo001_1
                 .AddSyntaxTrees(syntaxTree) // 添加上面代码分析得到的语法树
                 ;
             var assemblyPath = $"C:/MyFile/gsw.dll";
-            var compilationResult = compilation.Emit(assemblyPath); // 执行编译任务，并输出编译后的程序集
+            //文件方式
+            // var compilationResult = compilation.Emit(assemblyPath); // 执行编译任务，并输出编译后的程序集
+            var memory = new MemoryStream();          
+            var compilationResult = compilation.Emit(memory);
             if (compilationResult.Success)
             {              
                 try
                 {
-                    byte[] assemblyBytes;
-                    using (var fs = File.OpenRead(assemblyPath))
-                    {
-                        assemblyBytes = new byte[fs.Length];
-                        fs.Read(assemblyBytes, 0, assemblyBytes.Length);
-                    }
-                    var assembly = Assembly.Load(assemblyBytes);
+                   // byte[] assemblyByte;                  
+                    //using (var fs = File.OpenRead(assemblyPath))
+                    //{
+                    //    assemblyBytes = new byte[fs.Length];
+                    //    fs.Read(assemblyBytes, 0, assemblyBytes.Length);
+                    //}
+                    //memory.Close();
+                    var assembly = Assembly.Load(memory.ToArray());
                     Console.WriteLine(assembly);
                     foreach (var type in assembly.GetTypes())
                     {
