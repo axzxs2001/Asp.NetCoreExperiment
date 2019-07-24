@@ -1,6 +1,6 @@
 --生成一些常用扩展函数
 CREATE EXTENSION tablefunc;
-
+CREATE EXTENSION dblink;
 
 --行转列
 SELECT * FROM crosstab('select  entname,tradetype, sum(orderamount) sumamount from wxbsrecord group by entname,tradetype order by 1'
