@@ -957,6 +957,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomeResultDemo2.2", "Com
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureKeyValueDemo", "Common\AzureKeyValueDemo\AzureKeyValueDemo.csproj", "{45C12FB2-035E-496E-AEE5-62C072389853}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PostgreCreateDataBase", "PostgreSqlDemo\PostgreCreateDataBase\PostgreCreateDataBase.csproj", "{C159EA5E-A565-4222-B31E-5C25DB84A1E9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -3585,6 +3587,14 @@ Global
 		{45C12FB2-035E-496E-AEE5-62C072389853}.Release|Any CPU.Build.0 = Release|Any CPU
 		{45C12FB2-035E-496E-AEE5-62C072389853}.Release|x64.ActiveCfg = Release|Any CPU
 		{45C12FB2-035E-496E-AEE5-62C072389853}.Release|x64.Build.0 = Release|Any CPU
+		{C159EA5E-A565-4222-B31E-5C25DB84A1E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C159EA5E-A565-4222-B31E-5C25DB84A1E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C159EA5E-A565-4222-B31E-5C25DB84A1E9}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{C159EA5E-A565-4222-B31E-5C25DB84A1E9}.Debug|x64.Build.0 = Debug|Any CPU
+		{C159EA5E-A565-4222-B31E-5C25DB84A1E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C159EA5E-A565-4222-B31E-5C25DB84A1E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C159EA5E-A565-4222-B31E-5C25DB84A1E9}.Release|x64.ActiveCfg = Release|Any CPU
+		{C159EA5E-A565-4222-B31E-5C25DB84A1E9}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -3970,6 +3980,7 @@ Global
 		{A4AA37CC-C06E-437B-B152-DEAAA4C8CD83} = {A76B4F09-82B3-4F06-BE35-F5941BF8C338}
 		{F3972DDC-EC11-47B8-9B0B-534E1801088B} = {A76B4F09-82B3-4F06-BE35-F5941BF8C338}
 		{45C12FB2-035E-496E-AEE5-62C072389853} = {A76B4F09-82B3-4F06-BE35-F5941BF8C338}
+		{C159EA5E-A565-4222-B31E-5C25DB84A1E9} = {3F1A250E-4A20-43C0-839C-0B307DC143B0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
