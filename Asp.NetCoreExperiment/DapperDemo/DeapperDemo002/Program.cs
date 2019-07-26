@@ -12,7 +12,7 @@ namespace DeapperDemo002
             //var content = System.IO.File.ReadAllText(file).ToLower();
 
             //return;
-            var connString = "Server=127.0.0.1;Port=5432;UserId=postgres;Password=gsw790622;Database=TestNetStarsDB;";
+            var connString = "Server=127.0.0.1;Port=5432;UserId=postgres;Password=postgre2018;Database=TestDB;";
             using (var conn = new NpgsqlConnection(connString))
             {
                 conn.Open();

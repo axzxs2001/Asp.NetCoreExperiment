@@ -3,6 +3,7 @@ using System;
 using Dapper;
 using System.Linq;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace DapperDemo0003
 {
@@ -10,17 +11,25 @@ namespace DapperDemo0003
     {
         static void Main(string[] args)
         {
-            QueryMethod();
+            InsertMethod();
             Console.ReadLine();
         }
 
         static void InsertMethod()
         {
-            var connString = "Server=127.0.0.1;Port=5432;UserId=postgres;Password=gsw790622;Database=NetStarsUnionpayDB;";
+            var connString = "Server=127.0.0.1;Port=5432;UserId=postgres;Password=postgres2018;Database=NetStarsUnionpayDB;";
             var sql = @"insert into permissions(PermissionName,Action,Predicate,Describe) values(@permissionname,@action,@predicate,@describe)";
             using (var db = new NpgsqlConnection(connString))
             {
-                var result = db.Execute(sql, new { PermissionName = "主页", Action = "/", Predicate = "Get", Describe =  ""});
+                var list = new List<dynamic>() {
+                    new { PermissionName = "主页", Action = "/", Predicate = "Get", Describe = "" },
+                    new { PermissionName = "主页", Action = "/", Predicate = "Get", Describe = "" },
+                    new { PermissionName = "主页", Action = "/", Predicate = "Get", Describe = "" },
+                    new { PermissionName = "主页", Action = "/", Predicate = "Get", Describe = "" },
+                    new { PermissionName = "主页", Action = "/", Predicate = "Get11111111111111111111111111111111111", Describe = "" }
+                };
+
+                var result = db.Execute(sql, list);
                 Console.WriteLine($"insert into 结果：{result}");
             }
         }
@@ -44,7 +53,7 @@ on Roles.ID=RolePermissions.RoleID
 join Permissions
 on RolePermissions.PermissionID =Permissions.ID;";
                 var list = db.Query<RolePermissionModel>(sql).ToList();
-                foreach(var rolePermission in list)
+                foreach (var rolePermission in list)
                 {
                     Console.WriteLine(JsonConvert.SerializeObject(rolePermission));
                 }
