@@ -11,4 +11,4 @@ AS ct(entname character varying,alipay bigint, dpay  bigint,linepay  bigint,micr
 explain analyze  select * from tablename
 
 --经验
-数据比较时要用一样的类型比较
+数据比较时要用一样的类型比较 
