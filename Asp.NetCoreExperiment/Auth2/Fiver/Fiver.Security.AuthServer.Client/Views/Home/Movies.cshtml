@@ -1,0 +1,22 @@
+﻿@using Fiver.Security.AuthServer.Client.Models.Home
+@model List<MovieViewModel>
+
+<table>
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Year</th>
+            <th>Summary</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Title</td>
+                <td>@item.ReleaseYear</td>
+                <td>@item.Summary</td>
+            </tr>
+        }
+    </tbody>
+</table>

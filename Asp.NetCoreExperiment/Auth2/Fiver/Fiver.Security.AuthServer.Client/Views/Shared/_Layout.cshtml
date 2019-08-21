@@ -1,0 +1,19 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ASP.NET Core Identity Server</title>
+</head>
+<body>
+    <div>
+        <nav>
+            <a asp-action="Movies" asp-controller="Home">Movies</a>
+            <a asp-action="Claims" asp-controller="Home">Claims</a>
+            <a asp-action="Logout" asp-controller="Home">Logout</a>
+        </nav>
+        <hr />
+        @RenderBody()
+    </div>
+</body>
+</html>

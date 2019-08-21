@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.12
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fiver.Security.AuthServer", "Fiver.Security.AuthServer\Fiver.Security.AuthServer.csproj", "{528E675A-7076-4ADF-BC41-1F3765BC52D6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fiver.Security.AuthServer.Api", "Fiver.Security.AuthServer.Api\Fiver.Security.AuthServer.Api.csproj", "{C3BEE935-B3F0-45B4-8301-38A5626D444D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fiver.Security.AuthServer.Client", "Fiver.Security.AuthServer.Client\Fiver.Security.AuthServer.Client.csproj", "{9713B175-B5FC-48B5-B896-64BACDE27D22}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fiver.Security.AuthServer.Client.RO", "Fiver.Security.AuthServer.Client.RO\Fiver.Security.AuthServer.Client.RO.csproj", "{93040B5E-7EF4-4CC7-BC4F-F98929B6AF66}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{528E675A-7076-4ADF-BC41-1F3765BC52D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{528E675A-7076-4ADF-BC41-1F3765BC52D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{528E675A-7076-4ADF-BC41-1F3765BC52D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{528E675A-7076-4ADF-BC41-1F3765BC52D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3BEE935-B3F0-45B4-8301-38A5626D444D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3BEE935-B3F0-45B4-8301-38A5626D444D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3BEE935-B3F0-45B4-8301-38A5626D444D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3BEE935-B3F0-45B4-8301-38A5626D444D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9713B175-B5FC-48B5-B896-64BACDE27D22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9713B175-B5FC-48B5-B896-64BACDE27D22}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9713B175-B5FC-48B5-B896-64BACDE27D22}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9713B175-B5FC-48B5-B896-64BACDE27D22}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93040B5E-7EF4-4CC7-BC4F-F98929B6AF66}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93040B5E-7EF4-4CC7-BC4F-F98929B6AF66}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93040B5E-7EF4-4CC7-BC4F-F98929B6AF66}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93040B5E-7EF4-4CC7-BC4F-F98929B6AF66}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
