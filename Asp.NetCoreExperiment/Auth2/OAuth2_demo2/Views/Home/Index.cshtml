@@ -1,0 +1,25 @@
+﻿@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        @if (!User.Identity.IsAuthenticated)
+        {
+            <a asp-action="Login" asp-controller="Account" class="btn btn-default">Log In with GitHub</a>
+        }
+        else
+        {
+            <div class="row">
+                <div class="col-md-2">
+                    <img src="@Model.GitHubAvatar" alt="" class="img-thumbnail" />
+                </div>
+                <div class="col-md-10">
+                    <h4>@Model.GitHubName</h4>
+                    <p><i class="fab fa-github"></i><a href="@Model.GitHubUrl">@Model.GitHubLogin</a></p>
+                </div>
+            </div>
+        }
+    </div>
+</div>
