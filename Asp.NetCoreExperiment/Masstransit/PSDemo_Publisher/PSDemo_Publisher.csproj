@@ -7,11 +7,18 @@
 
   <ItemGroup>
     <PackageReference Include="MassTransit" Version="5.5.5-develop.2122" />
+    <PackageReference Include="MassTransit.NLog" Version="5.5.5-develop.2122" />
     <PackageReference Include="MassTransit.RabbitMQ" Version="5.5.5-develop.2122" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\PSDemo_Entity\PSDemo_Entity.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="NLog.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
