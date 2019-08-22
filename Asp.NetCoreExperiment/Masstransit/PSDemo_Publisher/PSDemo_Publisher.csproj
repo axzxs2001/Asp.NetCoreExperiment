@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -6,8 +6,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MassTransit" Version="4.1.0.1434-develop" />
-    <PackageReference Include="MassTransit.RabbitMQ" Version="4.1.0.1434-develop" />
+    <PackageReference Include="MassTransit" Version="5.5.5-develop.2122" />
+    <PackageReference Include="MassTransit.RabbitMQ" Version="5.5.5-develop.2122" />
   </ItemGroup>
 
   <ItemGroup>

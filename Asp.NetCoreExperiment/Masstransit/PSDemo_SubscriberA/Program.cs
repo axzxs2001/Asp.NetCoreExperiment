@@ -14,8 +14,8 @@ namespace PSDemo_SubscriberA
             {
                 var host = cfg.Host(new Uri("rabbitmq://localhost/"), hst =>
                 {
-                    hst.Username("guest");
-                    hst.Password("guest");
+                    hst.Username("gsw");
+                    hst.Password("gsw790622");
                 });
 
                 cfg.ReceiveEndpoint(host, "gswPSA", e =>

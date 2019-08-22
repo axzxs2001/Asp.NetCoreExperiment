@@ -11,8 +11,8 @@ namespace PSDemo_Publisher
             {
                 var host = cfg.Host(new Uri("rabbitmq://localhost/"), hst =>
                 {
-                    hst.Username("guest");
-                    hst.Password("guest");
+                    hst.Username("gsw");
+                    hst.Password("gsw790622");
                 });               
             });
             do
