@@ -18,7 +18,7 @@ namespace PSDemo_SubscriberB
                     hst.Password("gsw790622");
                 });
 
-                cfg.ReceiveEndpoint(host, "gswPSB", e =>
+                cfg.ReceiveEndpoint(host, "subscriberB", e =>
                 {
                     e.Consumer<ConsumerA>();
                 });

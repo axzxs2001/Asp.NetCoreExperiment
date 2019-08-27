@@ -977,7 +977,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fiver.Security.AuthServer.A
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fiver.Security.AuthServer.Client", "Auth2\Fiver\Fiver.Security.AuthServer.Client\Fiver.Security.AuthServer.Client.csproj", "{9BCE0A8E-6A26-4F11-95E7-5EF0D9CAEA37}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JapaneseBankersAssociationDemo", "Common\JapaneseBankersAssociationDemo\JapaneseBankersAssociationDemo.csproj", "{B5A08129-D501-4E17-BF90-D1EE6E498713}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JapaneseBankersAssociationDemo", "Common\JapaneseBankersAssociationDemo\JapaneseBankersAssociationDemo.csproj", "{B5A08129-D501-4E17-BF90-D1EE6E498713}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeneratePgSql", "PostgreSqlDemo\GeneratePgSql\GeneratePgSql.csproj", "{8D1B93FD-B6B7-4DF9-97B0-7E0DC0D1C05F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -3681,6 +3683,14 @@ Global
 		{B5A08129-D501-4E17-BF90-D1EE6E498713}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B5A08129-D501-4E17-BF90-D1EE6E498713}.Release|x64.ActiveCfg = Release|Any CPU
 		{B5A08129-D501-4E17-BF90-D1EE6E498713}.Release|x64.Build.0 = Release|Any CPU
+		{8D1B93FD-B6B7-4DF9-97B0-7E0DC0D1C05F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D1B93FD-B6B7-4DF9-97B0-7E0DC0D1C05F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D1B93FD-B6B7-4DF9-97B0-7E0DC0D1C05F}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{8D1B93FD-B6B7-4DF9-97B0-7E0DC0D1C05F}.Debug|x64.Build.0 = Debug|Any CPU
+		{8D1B93FD-B6B7-4DF9-97B0-7E0DC0D1C05F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D1B93FD-B6B7-4DF9-97B0-7E0DC0D1C05F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D1B93FD-B6B7-4DF9-97B0-7E0DC0D1C05F}.Release|x64.ActiveCfg = Release|Any CPU
+		{8D1B93FD-B6B7-4DF9-97B0-7E0DC0D1C05F}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -4076,6 +4086,7 @@ Global
 		{AEEE3C50-CEC0-4100-A078-8A236E7526A6} = {9E6ED2EB-9802-4A6B-95DE-DA4AA6233222}
 		{9BCE0A8E-6A26-4F11-95E7-5EF0D9CAEA37} = {9E6ED2EB-9802-4A6B-95DE-DA4AA6233222}
 		{B5A08129-D501-4E17-BF90-D1EE6E498713} = {A76B4F09-82B3-4F06-BE35-F5941BF8C338}
+		{8D1B93FD-B6B7-4DF9-97B0-7E0DC0D1C05F} = {3F1A250E-4A20-43C0-839C-0B307DC143B0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
