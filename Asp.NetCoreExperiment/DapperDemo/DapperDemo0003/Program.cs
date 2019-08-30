@@ -11,9 +11,22 @@ namespace DapperDemo0003
     {
         static void Main(string[] args)
         {
-            InsertMethod();
-            Console.ReadLine();
+            TestProc();
+            //InsertMethod();
+            //Console.ReadLine();
         }
+
+        static void TestProc()
+        {
+            var connString = "Server=13.94.40.138;Port=5432;UserId=postgres;Password=postgres2018;Database=postgres;";
+            var sql = @"call get_data()";
+            using (var db = new NpgsqlConnection(connString))
+            {
+                var result = db.Execute(sql);
+                Console.WriteLine($"insert into 结果：{result}");
+            }
+        }
+
 
         static void InsertMethod()
         {
