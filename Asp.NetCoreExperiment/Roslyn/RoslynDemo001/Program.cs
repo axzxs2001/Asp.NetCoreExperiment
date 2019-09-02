@@ -6,7 +6,6 @@ using System.Reflection;
 using System.Runtime;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
-using Microsoft.Dnx.Compilation;
 using Newtonsoft.Json;
 
 namespace RoslynDemo001
@@ -15,9 +14,17 @@ namespace RoslynDemo001
     {
         static void Main(string[] args)
         {
-
-            Console.WriteLine(GetValue());
-            Console.WriteLine("Hello World!");
+            while (true)
+            {
+                Console.WriteLine("按e退出，任意键继续！");
+                var key = Console.ReadLine();
+                if (key.ToLower() == "e")
+                {
+                    break;
+                }
+                Console.WriteLine(GetValue());
+            }
+         
         }
 
         static string GetValue()
@@ -33,13 +40,14 @@ namespace RoslynDynamicGenerate
     {
         public string Generate()
         {    
-          return Newtonsoft.Json.JsonConvert.SerializeObject(new TestClass{A=""abcde"",B=1.234d});
+          return Newtonsoft.Json.JsonConvert.SerializeObject(new TestClass{A=""abcde"",B=1.234d,C=DateTime.Now.AddDays(-3)});
         }       
     }
     public class TestClass
     {
         public string A { get; set; }
         public double B { get; set; }
+        public DateTime C {get;set;}
     }
 }
 ";
