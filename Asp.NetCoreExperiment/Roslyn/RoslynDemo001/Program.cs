@@ -13,6 +13,65 @@ namespace RoslynDemo001
     {
         static void Main(string[] args)
         {
+
+            Console.WriteLine(GetValue());
+            Console.WriteLine("Hello World!");
+        }
+
+        static string GetValue()
+        {
+            var sourceCodeText = @"
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace RoslynDynamicGenerate
+{
+    public class DynamicGenerateClass
+    {
+        public string Generate()
+        {
+          return DateTime.Now.AddDays(-1).ToString(""yyyyMMdd"");
+        }       
+    }
+}
+";
+
+            var systemReference = MetadataReference.CreateFromFile(typeof(object).Assembly.Location);
+            var syntaxTree = CSharpSyntaxTree.ParseText(sourceCodeText, new CSharpParseOptions(LanguageVersion.Latest)); // 获取代码分析得到的语法树
+            var assemblyName = $"RoslynDynamicGenerate";
+            // 创建编译任务
+            var compilation = CSharpCompilation.Create(assemblyName) //指定程序集名称
+                .WithOptions(new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary))//输出为 dll 程序集
+                .AddReferences(systemReference) //添加程序集引用
+                .AddSyntaxTrees(syntaxTree) // 添加上面代码分析得到的语法树     
+                ;
+            var memory = new MemoryStream();
+            var compilationResult = compilation.Emit(memory);
+            if (compilationResult.Success)
+            {
+                try
+                {
+                    var assembly = Assembly.Load(memory.ToArray());
+                    var type = assembly.GetType("RoslynDynamicGenerate.DynamicGenerateClass");
+                    var obj = Activator.CreateInstance(type);
+                    var methodInfo = type.GetMethod("Generate");
+                    return methodInfo.Invoke(obj, null)?.ToString();
+                }
+                finally
+                {
+                    memory.Close();
+                }
+            }
+            else
+            {
+                throw new ApplicationException($"下面C#语句有语法错误{sourceCodeText}");
+            }
+        }
+
+
+        static void CompilationAssemblly()
+        {
             var sourceCodeText = @"
 using System;
 using System.Collections.Generic;
@@ -26,9 +85,9 @@ namespace RoslynDemo001_1
         public double B { get; set; }
     }
 }
-"; 
-       
-            var systemReference = MetadataReference.CreateFromFile(typeof(object).Assembly.Location);   
+";
+
+            var systemReference = MetadataReference.CreateFromFile(typeof(object).Assembly.Location);
             var syntaxTree = CSharpSyntaxTree.ParseText(sourceCodeText, new CSharpParseOptions(LanguageVersion.Latest)); // 获取代码分析得到的语法树
             var assemblyName = $"gsw";
             // 创建编译任务
@@ -40,13 +99,13 @@ namespace RoslynDemo001_1
             var assemblyPath = $"C:/MyFile/gsw.dll";
             //文件方式
             // var compilationResult = compilation.Emit(assemblyPath); // 执行编译任务，并输出编译后的程序集
-            var memory = new MemoryStream();          
+            var memory = new MemoryStream();
             var compilationResult = compilation.Emit(memory);
             if (compilationResult.Success)
-            {              
+            {
                 try
                 {
-                   // byte[] assemblyByte;                  
+                    // byte[] assemblyByte;                  
                     //using (var fs = File.OpenRead(assemblyPath))
                     //{
                     //    assemblyBytes = new byte[fs.Length];
@@ -58,14 +117,13 @@ namespace RoslynDemo001_1
                     foreach (var type in assembly.GetTypes())
                     {
                         Console.WriteLine(type.Name);
-                    }                  
+                    }
                 }
                 finally
                 {
-                    File.Delete(assemblyPath); 
+                    File.Delete(assemblyPath);
                 }
             }
-            Console.WriteLine("Hello World!");
-        }       
+        }
     }
 }
