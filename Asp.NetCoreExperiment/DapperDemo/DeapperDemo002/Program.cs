@@ -4,7 +4,7 @@ using System;
 using System.Globalization;
 using System.Text;
 using System.Threading;
-
+using System.Collections.Generic;
 namespace DeapperDemo002
 {
     class Program
@@ -12,10 +12,33 @@ namespace DeapperDemo002
         static void Main(string[] args)
         {
             var currentCulture = Thread.CurrentThread.CurrentCulture;
-            
-            Test2();
+
+            Test3();
 
 
+        }
+
+        static void Test3()
+        {
+            var connString = "Server=127.0.0.1;Port=5432;UserId=postgres;Password=postgres2018;Database=abc;";
+            using (var conn = new NpgsqlConnection(connString))
+            {
+                var sql = @"select b,a,d,c from test3";
+                var list = conn.Query<dynamic>(sql);
+                var itemString = new StringBuilder();
+                foreach (IDictionary<string, object> item in list)
+                {
+                    itemString.AppendJoin(',', item?.Keys);
+                    itemString.AppendLine();
+                    break;
+                }
+                foreach (IDictionary<string, object> item in list)
+                {
+                    itemString.AppendJoin(',', item?.Values);
+                    itemString.AppendLine();
+                }
+                Console.WriteLine(itemString.ToString());
+            }
         }
 
         static void Test2()
@@ -69,5 +92,7 @@ namespace DeapperDemo002
                         Console.WriteLine(reader.GetString(0));
             }
         }
+
+
     }
 }
