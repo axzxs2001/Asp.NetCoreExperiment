@@ -12,10 +12,55 @@ namespace DeapperDemo002
         static void Main(string[] args)
         {
             var currentCulture = Thread.CurrentThread.CurrentCulture;
+            Test4();
+        }
+        static void Test4()
+        {
+            /*  get_seq函数
+             CREATE OR REPLACE FUNCTION get_seq (seq_name TEXT)
+RETURNS SETOF bigint as
+$$
+BEGIN
+RETURN QUERY  EXECUTE  'select last_value from  ' || seq_name;
+END;
+$$ LANGUAGE plpgsql;
+             
+             */
+            var connString = "Server=127.0.0.1;Port=5432;UserId=postgres;Password=postgres2018;Database=abc;";
+            using (var conn = new NpgsqlConnection(connString))
+            {
+                var sql = @"INSERT INTO test3 (
+	id
+	,a
+	,b
+	,c
+	,d
+	)
+values (
+	case 
+		when @id >= (
+				select get_seq(pg_get_serial_sequence('test3', 'id'))
+				) and @id not in(select id from test3)
+			then (
+					select nextval(pg_get_serial_sequence('test3', 'id'))
+					)
+		else @id
+		end
+	,@a
+	,@b
+	,@c
+	,@d
+	) on conflict(id) do
 
-            Test3();
-
-
+update
+set a = @a
+	,b = @b
+	,c = @c
+	,d = @d
+where test3.id = @id";
+                var result = conn.Execute(sql, new { id=30, a = "aaaa", b = 123, c = 12.3d, d = DateTimeOffset.Now });
+                Console.WriteLine(result);
+            }
         }
 
         static void Test3()
