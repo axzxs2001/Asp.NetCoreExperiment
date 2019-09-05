@@ -29,6 +29,7 @@ $$ LANGUAGE plpgsql;
             var connString = "Server=127.0.0.1;Port=5432;UserId=postgres;Password=postgres2018;Database=abc;";
             using (var conn = new NpgsqlConnection(connString))
             {
+                //insert into tablename(主键，字段1，字段2) values(@主键，@字段1，@字段2) on conflict(主键) do update set 字段1=@字段1，字段2=@字段2
                 var sql = @"INSERT INTO test3 (
 	id
 	,a
