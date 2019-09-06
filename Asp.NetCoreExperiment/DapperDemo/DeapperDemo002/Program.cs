@@ -12,7 +12,25 @@ namespace DeapperDemo002
         static void Main(string[] args)
         {
             var currentCulture = Thread.CurrentThread.CurrentCulture;
-            Test4();
+            Test5();
+        }
+
+        static void Test5()
+        {
+            var connString = "Server=127.0.0.1;Port=5432;UserId=postgres;Password=postgres2018;Database=abc;";
+            using (var conn = new NpgsqlConnection(connString))
+            {
+
+                conn.Open();
+                using (var tran = conn.BeginTransaction())
+                {
+                    conn.Execute("insert into test3(a) values('abcdef')",transaction:tran);
+                    conn.Execute("insert into test4(name) values('abcdef')", transaction: tran);
+                    tran.Rollback();
+                    // tran.Commit();
+                }
+            }
+
         }
         static void Test4()
         {
@@ -59,7 +77,7 @@ set a = @a
 	,c = @c
 	,d = @d
 where test3.id = @id";
-                var result = conn.Execute(sql, new { id=30, a = "aaaa", b = 123, c = 12.3d, d = DateTimeOffset.Now });
+                var result = conn.Execute(sql, new { id = 30, a = "aaaa", b = 123, c = 12.3d, d = DateTimeOffset.Now });
                 Console.WriteLine(result);
             }
         }
