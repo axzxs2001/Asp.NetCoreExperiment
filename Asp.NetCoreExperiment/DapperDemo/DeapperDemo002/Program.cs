@@ -5,13 +5,30 @@ using System.Globalization;
 using System.Text;
 using System.Threading;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+
 namespace DeapperDemo002
 {
+    class FF : IFormatProvider
+    {
+        public object GetFormat(Type formatType)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
     class Program
     {
         static void Main(string[] args)
         {
-            var currentCulture = Thread.CurrentThread.CurrentCulture;
+
+            //var time1 = DateTime.Parse("2019-09-06 18:35:38.506006");
+            //var time2 = DateTime.Parse("2019-09-06 18:35:38.190378");
+            //Console.WriteLine((time1 - time2).TotalMilliseconds);
+
+            // var obj = Convert.ChangeType(DateTime.Parse("2019-06-01 23:25:25"), typeof(DateTimeOffset), new FF());
+            // var currentCulture = Thread.CurrentThread.CurrentCulture;
             Test5();
         }
 
@@ -20,15 +37,19 @@ namespace DeapperDemo002
             var connString = "Server=127.0.0.1;Port=5432;UserId=postgres;Password=postgres2018;Database=abc;";
             using (var conn = new NpgsqlConnection(connString))
             {
-
+                var sql = @"select
+     cast( create_time as character varying)  as CreateTime
+	,create_time
+from enterprise";
+                var cmd = new NpgsqlCommand(sql, conn);
+                var table = new DataTable();
                 conn.Open();
-                using (var tran = conn.BeginTransaction())
-                {
-                    conn.Execute("insert into test3(a) values('abcdef')",transaction:tran);
-                    conn.Execute("insert into test4(name) values('abcdef')", transaction: tran);
-                    tran.Rollback();
-                    // tran.Commit();
-                }
+                var reader = cmd.ExecuteReader();
+                table.Load(reader);
+
+
+                 var list = conn.Query<dynamic>(sql);           
+
             }
 
         }
