@@ -29,7 +29,17 @@ namespace DeapperDemo002
 
             // var obj = Convert.ChangeType(DateTime.Parse("2019-06-01 23:25:25"), typeof(DateTimeOffset), new FF());
             // var currentCulture = Thread.CurrentThread.CurrentCulture;
-            Test5();
+            Test6();
+        }
+        static void Test6()
+        {
+            var connString = "Server=127.0.0.1;Port=5432;UserId=postgres;Password=postgres2018;Database=abc;";
+            using (var conn = new NpgsqlConnection(connString))
+            {
+                var sql = @" select now(),now() + interval '-1 microseconds'";
+                var result = conn.Query<dynamic>(sql);       
+
+            }
         }
 
         static void Test5()
@@ -48,7 +58,7 @@ from enterprise";
                 table.Load(reader);
 
 
-                 var list = conn.Query<dynamic>(sql);           
+                var list = conn.Query<dynamic>(sql);
 
             }
 
