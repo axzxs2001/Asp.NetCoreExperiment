@@ -18,6 +18,7 @@ namespace ClientCookieTest
             var uri = new Uri("http://localhost:5000/login?username=gsw&password=111111");
             while (true)
             {
+                Console.WriteLine("1、登录    2、授权访问    3、登出    4、其他客户端访问");
                 switch (Console.ReadLine())
                 {
                     case "1":
@@ -26,9 +27,8 @@ namespace ClientCookieTest
                         if (response.IsSuccessStatusCode)
                         {
                             var responseCookies = cookies.GetCookies(uri).Cast<Cookie>();
-                            cookievalue = responseCookies.FirstOrDefault().Value;
-                            Console.WriteLine($"cookies{responseCookies.ToList().Count}");
-                            Console.WriteLine(responseCookies.FirstOrDefault().Value);
+                            cookievalue = cookies.GetCookieHeader(uri);
+                            Console.WriteLine($"responseCookies：{ responseCookies.FirstOrDefault().Value}");
                         }
                         break;
                     case "2":
@@ -51,12 +51,11 @@ namespace ClientCookieTest
                         }
                         break;
                     case "4":
-
                         HttpClientHandler handler1 = new HttpClientHandler();
                         CookieContainer cookies1 = new CookieContainer();
                         cookies1.SetCookies(uri, cookievalue);
                         handler1.CookieContainer = cookies1;
-                        HttpClient client1 = new HttpClient(handler);
+                        var client1 = new HttpClient(handler1);
                         var uri3 = new Uri("http://localhost:5000/home/AdminPage");
                         var request3 = new HttpRequestMessage(HttpMethod.Get, uri3);
                         var response3 = client1.SendAsync(request3).Result;
@@ -66,8 +65,8 @@ namespace ClientCookieTest
                         }
                         Console.WriteLine(response3.Content.ReadAsStringAsync().Result);
                         var responseCookies1 = cookies1.GetCookies(uri).Cast<Cookie>();
-                        Console.WriteLine("--"+responseCookies1.FirstOrDefault().Value);
-                        Console.WriteLine("====" + cookievalue);
+                        Console.WriteLine($"responseCookies1：{ responseCookies1.FirstOrDefault().Value}");
+                        Console.WriteLine($"cookievalue :{cookievalue}");
                         break;
                 }
             }
