@@ -18,7 +18,7 @@ namespace ClientCookieTest
             var uri = new Uri("http://localhost:5000/login?username=gsw&password=111111");
             while (true)
             {
-                Console.WriteLine("1、登录    2、授权访问    3、登出    4、其他客户端访问");
+                Console.WriteLine("1、登录    2、授权访问    3、登出   4、再登录     5、其他客户端访问");
                 switch (Console.ReadLine())
                 {
                     case "1":
@@ -50,26 +50,43 @@ namespace ClientCookieTest
                             Console.WriteLine(response2.IsSuccessStatusCode);
                         }
                         break;
+
                     case "4":
-                        HttpClientHandler handler1 = new HttpClientHandler();
-                        CookieContainer cookies1 = new CookieContainer();
-                        cookies1.SetCookies(uri, cookievalue);
-                        handler1.CookieContainer = cookies1;
-                        var client1 = new HttpClient(handler1);
+                        cookies.SetCookies(uri, cookievalue);
                         var uri3 = new Uri("http://localhost:5000/home/AdminPage");
                         var request3 = new HttpRequestMessage(HttpMethod.Get, uri3);
-                        var response3 = client1.SendAsync(request3).Result;
+                        var response3 = client.SendAsync(request3).Result;
                         if (response3.IsSuccessStatusCode)
                         {
                             Console.WriteLine(response3.IsSuccessStatusCode);
                         }
                         Console.WriteLine(response3.Content.ReadAsStringAsync().Result);
-                        var responseCookies1 = cookies1.GetCookies(uri).Cast<Cookie>();
-                        Console.WriteLine($"responseCookies1：{ responseCookies1.FirstOrDefault().Value}");
-                        Console.WriteLine($"cookievalue :{cookievalue}");
+                        break;
+                    case "5":
+                        OthoerHttpGet(cookievalue, uri);
                         break;
                 }
             }
+        }
+
+        private static void OthoerHttpGet(string cookievalue, Uri uri)
+        {
+            HttpClientHandler handler1 = new HttpClientHandler();
+            CookieContainer cookies1 = new CookieContainer();
+            cookies1.SetCookies(uri, cookievalue);
+            handler1.CookieContainer = cookies1;
+            var client1 = new HttpClient(handler1);
+            var uri3 = new Uri("http://localhost:5000/home/AdminPage");
+            var request3 = new HttpRequestMessage(HttpMethod.Get, uri3);
+            var response3 = client1.SendAsync(request3).Result;
+            if (response3.IsSuccessStatusCode)
+            {
+                Console.WriteLine(response3.IsSuccessStatusCode);
+            }
+            Console.WriteLine(response3.Content.ReadAsStringAsync().Result);
+            var responseCookies1 = cookies1.GetCookies(uri).Cast<Cookie>();
+            Console.WriteLine($"responseCookies1：{ responseCookies1.FirstOrDefault().Value}");
+            Console.WriteLine($"cookievalue :{cookievalue}");
         }
     }
 }
