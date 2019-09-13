@@ -29,7 +29,7 @@ namespace DeapperDemo002
 
             // var obj = Convert.ChangeType(DateTime.Parse("2019-06-01 23:25:25"), typeof(DateTimeOffset), new FF());
             // var currentCulture = Thread.CurrentThread.CurrentCulture;
-            Test6();
+            Test4();
         }
         static void Test6()
         {
@@ -37,7 +37,7 @@ namespace DeapperDemo002
             using (var conn = new NpgsqlConnection(connString))
             {
                 var sql = @" select now(),now() + interval '-1 microseconds'";
-                var result = conn.Query<dynamic>(sql);       
+                var result = conn.Query<dynamic>(sql);
 
             }
         }
@@ -107,8 +107,11 @@ set a = @a
 	,b = @b
 	,c = @c
 	,d = @d
-where test3.id = @id";
-                var result = conn.Execute(sql, new { id = 30, a = "aaaa", b = 123, c = 12.3d, d = DateTimeOffset.Now });
+where test3.d < @d";
+                var result = conn.Execute(sql,new List<dynamic>{ 
+                    new { id = 30, a = "aaaa", b = 123, c = 12.3d, d = DateTimeOffset.Parse("2019-09-13 01:57:26.803664+00") },
+                    new { id = 31, a = "aaaa", b = 123, c = 12.3d, d = DateTimeOffset.Parse("2019-09-13 01:54:26.803664+00") }
+                });
                 Console.WriteLine(result);
             }
         }
