@@ -1001,6 +1001,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo001", "安全相关\Dem
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DynamicLoadDll", "Common\DynamicLoadDll\DynamicLoadDll.csproj", "{4A8B0DD6-0AF7-4EE3-A668-2779ECA3490E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompareCollections", "Common\CompareCollections\CompareCollections.csproj", "{2BA955FD-A92F-4043-96E9-33FE2C938EA1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -3775,6 +3777,14 @@ Global
 		{4A8B0DD6-0AF7-4EE3-A668-2779ECA3490E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4A8B0DD6-0AF7-4EE3-A668-2779ECA3490E}.Release|x64.ActiveCfg = Release|Any CPU
 		{4A8B0DD6-0AF7-4EE3-A668-2779ECA3490E}.Release|x64.Build.0 = Release|Any CPU
+		{2BA955FD-A92F-4043-96E9-33FE2C938EA1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2BA955FD-A92F-4043-96E9-33FE2C938EA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2BA955FD-A92F-4043-96E9-33FE2C938EA1}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{2BA955FD-A92F-4043-96E9-33FE2C938EA1}.Debug|x64.Build.0 = Debug|Any CPU
+		{2BA955FD-A92F-4043-96E9-33FE2C938EA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2BA955FD-A92F-4043-96E9-33FE2C938EA1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2BA955FD-A92F-4043-96E9-33FE2C938EA1}.Release|x64.ActiveCfg = Release|Any CPU
+		{2BA955FD-A92F-4043-96E9-33FE2C938EA1}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -4179,6 +4189,7 @@ Global
 		{38611534-6E60-426D-8273-1F1ED27C9BA8} = {2A2EA0D6-E6E7-45CB-9BF4-08B72DE5F320}
 		{9BB2ABA4-ABE8-47DC-B45E-42FFB0893B30} = {22AAF7BD-8C2A-49D4-954B-8FB8DBCB9769}
 		{4A8B0DD6-0AF7-4EE3-A668-2779ECA3490E} = {A76B4F09-82B3-4F06-BE35-F5941BF8C338}
+		{2BA955FD-A92F-4043-96E9-33FE2C938EA1} = {A76B4F09-82B3-4F06-BE35-F5941BF8C338}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
