@@ -7,6 +7,7 @@ using System.Threading;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Linq;
 
 namespace DeapperDemo002
 {
@@ -29,8 +30,24 @@ namespace DeapperDemo002
 
             // var obj = Convert.ChangeType(DateTime.Parse("2019-06-01 23:25:25"), typeof(DateTimeOffset), new FF());
             // var currentCulture = Thread.CurrentThread.CurrentCulture;
-            Test4();
+            Test7();
         }
+        static void Test7()
+        {
+            var connString = "Server=127.0.0.1;Port=5432;UserId=postgres;Password=postgres2018;Database=abc;";
+            using (var conn = new NpgsqlConnection(connString))
+            {
+                var sql = @" select * from shop where shop_id =any(@p)";           
+                var list = new List<dynamic> {
+                    new{shop_id="0014924a-118b-440e-b01c-a40653af649e" },
+                    new{shop_id="00175409-8216-42ac-bdad-46826d2d7b44" }
+                };
+            
+                 var result = conn.Query<dynamic>(sql, new { p = list.Select(s => (string)s.shop_id).ToArray() });
+
+            }
+        }
+
         static void Test6()
         {
             var connString = "Server=127.0.0.1;Port=5432;UserId=postgres;Password=postgres2018;Database=abc;";
@@ -108,7 +125,7 @@ set a = @a
 	,c = @c
 	,d = @d
 where test3.d < @d";
-                var result = conn.Execute(sql,new List<dynamic>{ 
+                var result = conn.Execute(sql, new List<dynamic>{
                     new { id = 30, a = "aaaa", b = 123, c = 12.3d, d = DateTimeOffset.Parse("2019-09-13 01:57:26.803664+00") },
                     new { id = 31, a = "aaaa", b = 123, c = 12.3d, d = DateTimeOffset.Parse("2019-09-13 01:54:26.803664+00") }
                 });
