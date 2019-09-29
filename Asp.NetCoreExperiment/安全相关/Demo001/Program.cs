@@ -22,7 +22,7 @@ namespace Demo001
                 {
                     webBuilder.ConfigureKestrel(opt =>
                     {
-                        //不显示Host相关信息
+                        //1、不显示Host相关信息
                         opt.AddServerHeader = false;
                     });
                     webBuilder.UseStartup<Startup>();
