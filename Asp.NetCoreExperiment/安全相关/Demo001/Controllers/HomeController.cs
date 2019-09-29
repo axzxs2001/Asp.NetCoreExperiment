@@ -46,16 +46,21 @@ namespace Demo001.Controllers
                     //cmd.CommandText = "select * from table1 where id=" + p;
                     //2.1 正确的
                     cmd.CommandText = "select * from table1 where id=@p";
-                    cmd.Parameters.Add(new NpgsqlParameter { ParameterName = "@p", Value = p });
+                    cmd.Parameters.AddWithValue("@p", p);
                     #endregion
-                    #region 2.2                  
-                    //2.2 拼接
+
+                    #region 2.2 拼接               
                     var sql2 = new StringBuilder("select * from table1");
                     sql2.Append(" where id=2");
                     cmd.CommandText = sql2.ToString();
-                    cmd.Parameters.Add(new NpgsqlParameter { ParameterName = "@p", Value = p });
+                    cmd.Parameters.AddWithValue("@p", p);
                     #endregion
 
+                    #region 2.3 拼接非字符串数据
+                    var sql3 = new StringBuilder("select * from table1");
+                    sql3.Append(" where id=" + 2);
+                    cmd.CommandText = sql3.ToString();
+                    #endregion
 
                     con.Open();
                     cmd.ExecuteNonQuery();
