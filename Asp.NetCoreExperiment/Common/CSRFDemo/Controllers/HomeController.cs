@@ -17,15 +17,15 @@ namespace CSRFDemo.Controllers
     [AutoValidateAntiforgeryToken]//不会应用于get,head,options,trace
     public class HomeController : Controller
     {
- 
+
         public IActionResult Index()
         {
             return View();
         }
-        [HttpPost]
-        public IActionResult Index(string v1)
+        [HttpPost("/csrf")]
+        public IActionResult Index([FromBody]Ent ent)
         {
-            Console.WriteLine("------------------"+v1);
+            Console.WriteLine($"ID:{ ent.ID} Name:{ent.Name}");
             return View();
         }
 
@@ -83,5 +83,11 @@ namespace CSRFDemo.Controllers
                 return BadRequest("用户名或密码错误！");
             }
         }
+    }
+
+    public class Ent
+    {
+        public int ID { get; set; }
+        public string Name { get; set; }
     }
 }

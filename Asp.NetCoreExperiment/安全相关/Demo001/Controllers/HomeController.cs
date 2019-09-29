@@ -8,9 +8,16 @@ using Microsoft.Extensions.Logging;
 using Demo001.Models;
 using Npgsql;
 using System.Text;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
 
 namespace Demo001.Controllers
 {
+    //todo 5、防止跨站点请请求伪造xsrf/csrf
+    //[ValidateAntiForgeryToken] //应用于所有请求谓词
+    [AutoValidateAntiforgeryToken]//不会应用于get,head,options,trace
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -24,6 +31,72 @@ namespace Demo001.Controllers
         {
             return View();
         }
+        //todo 5、防止跨站点请请求伪造xsrf/csrf
+        [HttpPost("/csrf")]
+        public string Index([FromBody]Ent ent)
+        {
+            Console.WriteLine($"ID:{ent.ID}  Name:{ent.Name}");
+            return "ok";
+        }
+
+
+
+        [AllowAnonymous]
+        [HttpGet("login")]
+        public IActionResult Login(string returnUrl = null)
+        {
+            TempData["returnUrl"] = returnUrl;
+            return View();
+        }
+        [AllowAnonymous]
+        [HttpPost("login")]
+        public async Task<IActionResult> LoginAsync(string userName, string password, string returnUrl = null)
+        {
+            var list = new List<dynamic> {
+                 new { UserName = "gsw", Password = "111111", Role = "admin",Name="桂素伟" },
+                 new { UserName = "aaa", Password = "222222", Role = "system" ,Name="路人甲"}
+             };
+            var user = list.SingleOrDefault(s => s.UserName == userName && s.Password == password);
+            if (user != null)
+            {
+                //用户标识
+                var identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme);
+                identity.AddClaim(new Claim(ClaimTypes.Sid, userName));
+                identity.AddClaim(new Claim(ClaimTypes.Name, user.Name));
+                identity.AddClaim(new Claim(ClaimTypes.Role, user.Role));
+                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(identity));
+                if (returnUrl == null)
+                {
+                    returnUrl = TempData["returnUrl"]?.ToString();
+                }
+                if (returnUrl != null)
+                {
+                    #region 3、防止重定向攻击
+                    //todo 3、防止重定向攻击
+                    // Redirect不会过滤主机信息，要用LocalRedirect
+                    //return Redirect(returnUrl);             
+                    return LocalRedirect(returnUrl);
+                    #endregion
+                }
+                else
+                {
+                    return Redirect("/");
+                }
+            }
+            else
+            {
+                return BadRequest("用户名或密码错误！");
+            }
+        }
+        public async Task<IActionResult> Logout()
+        {
+            #region 4、logout要使登录的cookie失效
+            //todo 4、logout要使登录的cookie失效
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("Index", "Home");
+            #endregion
+        }
+
 
         public IActionResult Privacy()
         {
@@ -35,6 +108,7 @@ namespace Demo001.Controllers
         /// <returns></returns>
         public IActionResult SqlInjection(string p)
         {
+            //todo 2、sql注入
             using (var con = new NpgsqlConnection("连接字符串"))
             {
                 using (var cmd = new NpgsqlCommand())
@@ -74,5 +148,10 @@ namespace Demo001.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+    }
+    public class Ent
+    {
+        public int ID { get; set; }
+        public string Name { get; set; }
     }
 }

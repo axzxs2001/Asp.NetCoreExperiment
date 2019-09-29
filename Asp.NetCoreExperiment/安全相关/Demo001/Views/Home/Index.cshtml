@@ -6,3 +6,35 @@
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
+<div class="row">
+    <div class="col-12">
+        @Html.AntiForgeryToken()
+        <button onclick="add()">ajax测试防止跨站点请求伪造</button>
+    </div>
+</div>
+@section Scripts{
+    @*todo 5、防止跨站点请请求伪造xsrf/csrf*@
+    <script>
+        function add() {
+            $.ajax({
+                type: "POST",
+                contentType: "application/json",
+                headers: {
+                    'X-CSRF-TOKEN-gsw': $("[name='AntiforgeryGSW']").val()
+                },
+                url: "/csrf",
+                dataType: 'json',
+                data: JSON.stringify({ "ID": 112, "Name": "李四" }),
+                success: function (data) {
+                    console.log(data);
+                },
+                error: function (err) {
+                    console.log(err);
+                },
+                complete: function (XMLHttpRequest, status) { //请求完成后最终执行参数　
+                }
+            })
+        }
+    </script>
+
+}
