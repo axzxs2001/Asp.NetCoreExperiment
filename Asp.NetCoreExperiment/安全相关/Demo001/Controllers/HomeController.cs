@@ -12,6 +12,8 @@ using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
+using System.IO;
+using Microsoft.AspNetCore.Http;
 
 namespace Demo001.Controllers
 {
@@ -39,6 +41,33 @@ namespace Demo001.Controllers
             return "ok";
         }
 
+        #region 6、上传文件，名字和路径
+        //todo  6、上传文件，名字和路径要修改，同时不要放在wwwroot下
+        [HttpGet("/files")]
+        public IActionResult Files()
+        {
+            return View();
+        }
+        [HttpPost("/files")]
+        public async Task<IActionResult> Files(List<IFormFile> files)
+        {
+            long size = files.Sum(f => f.Length);
+            foreach (var formFile in files)
+            {
+                var filePath = $"{Directory.GetCurrentDirectory()}/uploadfiles/{DateTime.Now.ToString("yyyyMMddHHmmss")}{Path.GetExtension(formFile.FileName)}";
+                if (formFile.Length > 0)
+                {
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await formFile.CopyToAsync(stream);
+                    }
+                }
+            }
+            // process uploaded files
+            // Don't rely on or trust the FileName property without validation.
+            return Ok(new { count = files.Count, size });
+        }
+        #endregion
 
 
         [AllowAnonymous]
