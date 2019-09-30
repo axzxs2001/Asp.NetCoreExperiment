@@ -25,31 +25,34 @@ namespace ConsumeDemo
         }
 
         public IConfiguration Configuration { get; }
- 
+
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();           
+            services.AddControllers();
             services.AddMassTransit(x =>
             {
                 x.AddConsumer<ConsumerClass1>();
                 x.AddBus(provider => Bus.Factory.CreateUsingRabbitMq(cfg =>
                 {
-                    var host = cfg.Host(new Uri("rabbitmq://localhost"), hc =>
-                    {
-                        hc.Username("guest");
-                        hc.Password("guest");
-                    });
-                    cfg.ReceiveEndpoint(host, "submit-order"+Program.Name, e =>
-                    {
-                        e.PrefetchCount = 16;
-                        e.UseMessageRetry(x => x.Interval(2, 100));
-                        e.ConfigureConsumer<ConsumerClass1>(provider);                      
-                    });                   
-                }));              
+                    //var host = cfg.Host("localhost","test", hc =>
+                    var host = cfg.Host(new Uri("rabbitmq://localhost/test"), hc =>
+                      {
+
+                          hc.Username("guest");
+                          hc.Password("guest");
+                      });
+                    cfg.ReceiveEndpoint(host, "submit-order" + Program.Name, e =>
+                      {
+                          e.PrefetchCount = 16;
+                          e.UseMessageRetry(x => x.Interval(2, 100));
+                          e.ConfigureConsumer<ConsumerClass1>(provider);
+                      });
+                    cfg.UseMessageScheduler(new Uri("rabbitmq://localhost/quartz"));
+                }));
             });
             services.AddSingleton<IHostedService, BusService>();
-        }    
-    
+        }
+
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -67,13 +70,21 @@ namespace ConsumeDemo
             });
         }
 
- 
+
     }
     public class ConsumerClass1 : IConsumer<Class1>
     {
         public async Task Consume(ConsumeContext<Class1> context)
         {
-            await Console.Out.WriteLineAsync($"订阅者  ConsumerEnterprise收到信息: \r\n{ Newtonsoft.Json.JsonConvert.SerializeObject(context.Message)} \r\n类型：{context.Message.GetType()}");
+            try
+            {
+                await Console.Out.WriteLineAsync($"订阅者  ConsumerEnterprise收到信息: \r\n{ Newtonsoft.Json.JsonConvert.SerializeObject(context.Message)} \r\n类型：{context.Message.GetType()}");
+            }
+            catch (Exception e)
+            {
+                await context.Redeliver(TimeSpan.FromMinutes(1));
+
+            }
 
         }
     }

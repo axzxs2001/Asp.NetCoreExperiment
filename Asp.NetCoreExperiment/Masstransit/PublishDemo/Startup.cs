@@ -28,7 +28,7 @@ namespace PublishDemo
                     return Bus.Factory.CreateUsingRabbitMq(cfg =>
                     {
                         var host = cfg.Host(new Uri("rabbitmq://localhost"), hc =>
-                        {
+                        {  
                             hc.Username("guest");
                             hc.Password("guest");
                         });

@@ -5,9 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MassTransit" Version="5.5.6-develop.2140" />
-    <PackageReference Include="MassTransit.Extensions.DependencyInjection" Version="5.5.6-develop.2140" />
-    <PackageReference Include="MassTransit.RabbitMQ" Version="5.5.6-develop.2140" />
+    <PackageReference Include="MassTransit" Version="5.5.6-develop.2181" />
+    <PackageReference Include="MassTransit.Extensions.DependencyInjection" Version="5.5.6-develop.2181" />
+    <PackageReference Include="MassTransit.Quartz" Version="5.5.6-develop.2181" />
+    <PackageReference Include="MassTransit.RabbitMQ" Version="5.5.6-develop.2181" />
   </ItemGroup>
 
   <ItemGroup>
