@@ -39,7 +39,7 @@ namespace ConsumeDemo
                         hc.Username("guest");
                         hc.Password("guest");
                     });
-                    cfg.ReceiveEndpoint(host, "submit-order", e =>
+                    cfg.ReceiveEndpoint(host, "submit-order"+Program.Name, e =>
                     {
                         e.PrefetchCount = 16;
                         e.UseMessageRetry(x => x.Interval(2, 100));
