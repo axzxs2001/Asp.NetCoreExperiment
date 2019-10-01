@@ -14,9 +14,7 @@ namespace ConsumeDemo
         public static void Main(string[] args)
         {
             if (args == null || args.Length < 2)
-            {
-                Console.WriteLine("必需要参数1 端口，参数2 消费者名称");
-                Console.ReadLine();
+            {            
                 Name = "";
                 Port = 5003;
             }

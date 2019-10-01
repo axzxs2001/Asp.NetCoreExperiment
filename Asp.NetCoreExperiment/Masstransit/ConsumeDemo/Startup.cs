@@ -35,7 +35,8 @@ namespace ConsumeDemo
                 x.AddBus(provider => Bus.Factory.CreateUsingRabbitMq(cfg =>
                 {
                     //var host = cfg.Host("localhost","test", hc =>
-                    var host = cfg.Host(new Uri("rabbitmq://localhost/test"), hc =>
+                    //var host = cfg.Host(new Uri("rabbitmq://localhost/test"), hc =>
+                    var host = cfg.Host(new Uri("rabbitmq://localhost"), hc =>
                       {
 
                           hc.Username("guest");
@@ -44,10 +45,11 @@ namespace ConsumeDemo
                     cfg.ReceiveEndpoint(host, "submit-order" + Program.Name, e =>
                       {
                           e.PrefetchCount = 16;
-                          e.UseMessageRetry(x => x.Interval(2, 100));
+                          // e.UseMessageRetry(x => x.Interval(2, 100));
                           e.ConfigureConsumer<ConsumerClass1>(provider);
                       });
-                    cfg.UseMessageScheduler(new Uri("rabbitmq://localhost/quartz"));
+                    cfg.UseDelayedExchangeMessageScheduler();
+                    // cfg.UseMessageScheduler(new Uri("rabbitmq://localhost/quartz"));
                 }));
             });
             services.AddSingleton<IHostedService, BusService>();
@@ -78,12 +80,24 @@ namespace ConsumeDemo
         {
             try
             {
-                await Console.Out.WriteLineAsync($"订阅者  ConsumerEnterprise收到信息: \r\n{ Newtonsoft.Json.JsonConvert.SerializeObject(context.Message)} \r\n类型：{context.Message.GetType()}");
+                if (DateTime.Now.Second % 2 == 0)
+                {
+                    throw new Exception("这是抛出来的一个异常");
+                }
+                else
+                {
+                    await Console.Out.WriteLineAsync($"订阅者  ConsumerEnterprise收到信息: \r\n{ Newtonsoft.Json.JsonConvert.SerializeObject(context.Message)} \r\n类型：{context.Message.GetType()}");
+                }
             }
             catch (Exception e)
             {
-                await context.Redeliver(TimeSpan.FromMinutes(1));
-
+                await Console.Out.WriteLineAsync($"订阅者 {e.Message}");
+                //await context.Redeliver(TimeSpan.FromSeconds(5));
+                await context.Defer(TimeSpan.FromSeconds(50));
+            }
+            finally
+            {
+                await Console.Out.WriteLineAsync("---------------------------------------");
             }
 
         }

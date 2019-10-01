@@ -32,6 +32,7 @@ namespace PublishDemo
                             hc.Username("guest");
                             hc.Password("guest");
                         });
+                        //cfg.UseMessageScheduler(new Uri("rabbitmq://localhost/quartz"));
                     });
                 }); 
             });
