@@ -34,6 +34,7 @@ namespace ConsumeDemo
                 x.AddConsumer<ConsumerClass1>();
                 x.AddBus(provider => Bus.Factory.CreateUsingRabbitMq(cfg =>
                 {
+                    //test为虚拟host  vhost
                     //var host = cfg.Host("localhost","test", hc =>
                     //var host = cfg.Host(new Uri("rabbitmq://localhost/test"), hc =>
                     var host = cfg.Host(new Uri("rabbitmq://localhost"), hc =>
@@ -47,8 +48,17 @@ namespace ConsumeDemo
                           e.PrefetchCount = 16;
                           // e.UseMessageRetry(x => x.Interval(2, 100));
                           e.ConfigureConsumer<ConsumerClass1>(provider);
+
+                          //绑定参数
+                          //e.Bind("exchange-name", x =>
+                          //{
+                          //    x.Durable = false;                              
+                          //    x.AutoDelete = true;
+                          //    x.ExchangeType = "direct";
+                          //    x.RoutingKey = "8675309";
+                          //});
                       });
-                    cfg.UseDelayedExchangeMessageScheduler();
+                   // cfg.UseDelayedExchangeMessageScheduler();
                     // cfg.UseMessageScheduler(new Uri("rabbitmq://localhost/quartz"));
                 }));
             });
@@ -93,7 +103,7 @@ namespace ConsumeDemo
             {
                 await Console.Out.WriteLineAsync($"订阅者 {e.Message}");
                 //await context.Redeliver(TimeSpan.FromSeconds(5));
-                await context.Defer(TimeSpan.FromSeconds(50));
+               // await context.Defer(TimeSpan.FromSeconds(50));
             }
             finally
             {
