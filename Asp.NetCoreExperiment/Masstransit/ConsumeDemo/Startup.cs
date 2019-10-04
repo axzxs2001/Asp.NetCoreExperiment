@@ -36,6 +36,7 @@ namespace ConsumeDemo
                 {
                     //testÎªÐéÄâhost  vhost
                     //var host = cfg.Host("localhost","test", hc =>
+
                     //var host = cfg.Host(new Uri("rabbitmq://localhost/test"), hc =>
                     var host = cfg.Host(new Uri("rabbitmq://localhost"), hc =>
                       {
