@@ -51,6 +51,7 @@ namespace Demo001.Controllers
         [HttpPost("/files")]
         public async Task<IActionResult> Files(List<IFormFile> files)
         {
+            //要据上传文件的特征，一定要验证用户上传文件的可信度
             long size = files.Sum(f => f.Length);
             foreach (var formFile in files)
             {
@@ -63,8 +64,7 @@ namespace Demo001.Controllers
                     }
                 }
             }
-            // process uploaded files
-            // Don't rely on or trust the FileName property without validation.
+        
             return Ok(new { count = files.Count, size });
         }
         #endregion
