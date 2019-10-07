@@ -20,26 +20,28 @@ namespace CalendarDemo
  
         static void Main(string[] args)
         {
-            var dt = DateTime.Now;//.Parse("2019/06/02");
+            JapaneseTest();
+        }
+        static void ChineseTest()
+        {
+            var dt = DateTime.Now;
             Console.WriteLine(dt);
-            Console.WriteLine("----------------------------------");
-
+            //中国农历            
+            var zhcal = new System.Globalization.ChineseLunisolarCalendar();
+            int yearIndex = zhcal.GetSexagenaryYear(dt);
+            int yTG = zhcal.GetCelestialStem(yearIndex);
+            int yDZ = zhcal.GetTerrestrialBranch(yearIndex);
+            Console.WriteLine($"{_celestialStem[yTG - 1]}{_terrestrialBranch[yDZ - 1]}  {_chineseZodiac[yDZ - 1]}年  {_chineseMonth[zhcal.GetMonth(dt) - 1]}月{_chineseDay[zhcal.GetDayOfMonth(dt) - 1]}");
+        }
+        static void JapaneseTest()
+        {
+            var dt = DateTime.Now;
+            Console.WriteLine(dt);
             //日本日历
             var jpci = new System.Globalization.CultureInfo("ja-JP");
             var jpcal = new System.Globalization.JapaneseCalendar();
             jpci.DateTimeFormat.Calendar = jpcal;
             Console.WriteLine(dt.ToString("ggyy/MM/dd", jpci));
-
-            Console.WriteLine("----------------------------------");
-            //中国农历            
-            var zhcal = new System.Globalization.ChineseLunisolarCalendar();          
-            int yearIndex = zhcal.GetSexagenaryYear(dt);
-            int yTG = zhcal.GetCelestialStem(yearIndex);
-            int yDZ = zhcal.GetTerrestrialBranch(yearIndex);
-            Console.WriteLine($"{_celestialStem[yTG-1]}{_terrestrialBranch[yDZ-1]}  {_chineseZodiac[yDZ - 1]}年  {_chineseMonth[zhcal.GetMonth(dt)-1]}月{_chineseDay[zhcal.GetDayOfMonth(dt)-1]}");
-
-
-
         }
     }
 }
