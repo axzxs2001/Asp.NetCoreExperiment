@@ -9,25 +9,43 @@ namespace UFT8_Bom_Demo
     {
         static void Main(string[] args)
         {
-            Bom2();
-            Console.WriteLine("Hello World!");
+            GenerateBom1();
+            GenerateBom2();      
         }
-        static void Bom1()
+        /// <summary>
+        /// 方式一
+        /// </summary>
+        static void GenerateBom1()
         {
-            //通过实例化UTF8Encoding加构造参数
-            var sss = new UTF8Encoding(true);
-            var reader = new StreamWriter(Directory.GetCurrentDirectory() + "/a.txt", false, sss);
-            reader.WriteLine("aaa");
-            reader.Close();
+            var encoding = new UTF8Encoding(true);
+            var filePath = Directory.GetCurrentDirectory() + "/bom1.txt";
+            if (File.Exists(filePath))
+            {
+                File.Delete(filePath);
+            }
+            using (var reader = new StreamWriter(filePath, false, encoding))
+            {
+                reader.WriteLine("bom1");
+                reader.Close();
+            }
         }
-        static void Bom2()
+        /// <summary>
+        /// 方式二
+        /// </summary>
+        static void GenerateBom2()
         {
-            //通过实例化UTF8Encoding加构造参数
-            var list = new List<byte>(Encoding.UTF8.GetBytes("sss"));
-            list.InsertRange(0, new byte[] { 239, 187, 191 });
-            var stream = new FileStream(Directory.GetCurrentDirectory() + "/a.txt",FileMode.CreateNew);
-            stream.Write(list.ToArray(), 0, list.Count);
-            stream.Close();
+            var list = new List<byte>(Encoding.UTF8.GetBytes("bom2"));
+            list.InsertRange(0, new byte[] { 239, 187, 191 });// EF=239 BB=187 BF=191
+            var filePath = Directory.GetCurrentDirectory() + "/bom2.txt";
+            if (File.Exists(filePath))
+            {
+                File.Delete(filePath);
+            }
+            using (var stream = new FileStream(filePath, FileMode.CreateNew))
+            {
+                stream.Write(list.ToArray(), 0, list.Count);
+                stream.Close();
+            }
         }
     }
 }
