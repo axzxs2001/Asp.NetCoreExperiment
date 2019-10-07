@@ -8,8 +8,8 @@ namespace CompareCollections
     {
         static void Main(string[] args)
         {
-            var leftKes = new List<string>() { "1", "2", "3","4" };
-            var rightKes = new List<string>() { "3", "4","5" ,"6"};
+            var leftKes = new List<string>() { "1", "2", "3", "4" };
+            var rightKes = new List<string>() { "3", "4", "5", "6" };
 
             Console.WriteLine("Left集合");
             Console.WriteLine(string.Join(',', leftKes));
@@ -32,10 +32,10 @@ namespace CompareCollections
             Console.WriteLine("-------------------------------------");
 
             Console.WriteLine("Left和Right并集 ");
-            Console.WriteLine(string.Join(',', leftKes.Union(rightKes)));       
+            Console.WriteLine(string.Join(',', leftKes.Union(rightKes)));
             Console.WriteLine("-------------------------------------");
-            
-            Console.WriteLine("Left和Right补集 ");       
+
+            Console.WriteLine("Left和Right补集 ");
             Console.WriteLine(string.Join(',', leftKes.Union(rightKes).Except(rightKes.Intersect(leftKes))));
             Console.WriteLine("-------------------------------------");
 

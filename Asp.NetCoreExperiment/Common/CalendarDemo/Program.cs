@@ -20,7 +20,7 @@ namespace CalendarDemo
  
         static void Main(string[] args)
         {
-            var dt = DateTime.Parse("2019/06/02");
+            var dt = DateTime.Now;//.Parse("2019/06/02");
             Console.WriteLine(dt);
             Console.WriteLine("----------------------------------");
 
