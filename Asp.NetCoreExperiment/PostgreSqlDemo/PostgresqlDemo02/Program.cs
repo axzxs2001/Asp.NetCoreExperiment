@@ -8,12 +8,12 @@ namespace PostgresqlDemo02
     {
         static void Main(string[] args)
         {
+            GetTImeSpanData();
+            return;      
+        }
 
-            CrossDataBaseQuery();
-            return;
-
-
-
+        private static void Test001()
+        {
             var connString = "Server=127.0.0.1;Port=5432;UserId=postgres;Password=postgres2018;Database=TestDB;";
             using (var conn = new NpgsqlConnection(connString))
             {
@@ -32,8 +32,37 @@ namespace PostgresqlDemo02
                 //插入
                 conn.Execute("insert into paysettings(paytype,setting) values(@paytype,cast(@setting as jsonb))", new { paytype = "AliPay", setting = s });
             }
-            Console.WriteLine("Hello World!");
         }
+
+        static void GetTImeSpanData()
+        {
+            var connString = "Server=127.0.0.1;Port=5432;UserId=postgres;Password=postgres2018;database=TestDB";
+            using (var conn = new NpgsqlConnection(connString))
+            {
+                //查询
+                var sql = @"SELECT overlay(
+to_char(时间字段,'yyyy-mm-dd hh24:mi')
+placing (
+case  cast(date_part('min',时间字段) as integer)/10 
+	when 1 then '10'
+	when 2 then '20'
+	when 3 then '30'
+	when 4 then '40'
+	when 5 then '50'
+	else '00' end	
+)
+from 15 for 2)as timename,
+count(*) as quantity from 表
+where 时间字段>='2019-10-06 16:00:00.000' and 时间字段<'2019-10-06 17:00:00.000'
+GROUP BY timename
+ORDER BY timename;";
+                foreach (var item in conn.Query<dynamic>(sql))
+                {
+                    Console.WriteLine($"{item.timename}  {item.quantity}");
+                }
+            }
+        }
+
         /// <summary>
         /// postgre实现跨库查询
         /// </summary>
