@@ -8,87 +8,65 @@ namespace JanpaneseFullHalfWidthTransfer
     class Program
     {
         private const string Hankana =
-       "ｧｱｨｲｩｳｪｴｫｵｶｶﾞｷｷﾞｸｸﾞｹｹﾞｺｺﾞｻｻﾞｼｼﾞｽｽﾞｾｾﾞｿｿﾞﾀﾀﾞﾁﾁﾞｯﾂﾂﾞﾃﾃﾞﾄﾄﾞﾅﾆﾇﾈﾉﾊﾊﾞﾊﾟﾋﾋﾞﾋﾟﾌﾌﾞﾌﾟﾍﾍﾞﾍﾟﾎﾎﾞﾎﾟﾏﾐﾑﾒﾓｬﾔｭﾕｮﾖﾗﾘﾙﾚﾛﾜｦﾝｳﾞﾜﾞｦﾞ" +
-       "ﾞﾟｰ" +
-       "｡｢｣､･";
+       "ｧｱｨｲｩｳｪｴｫｵｶｶﾞｷｷﾞｸｸﾞｹｹﾞｺｺﾞｻｻﾞｼｼﾞｽｽﾞｾｾﾞｿｿﾞﾀﾀﾞﾁﾁﾞｯﾂﾂﾞﾃﾃﾞﾄﾄﾞﾅﾆﾇﾈﾉﾊﾊﾞﾊﾟﾋﾋﾞﾋﾟﾌﾌﾞﾌﾟﾍﾍﾞﾍﾟﾎﾎﾞﾎﾟﾏﾐﾑﾒﾓｬﾔｭﾕｮﾖﾗﾘﾙﾚﾛﾜｦﾝｳﾞﾜﾞｦﾞﾞﾟｰ｡｢｣､･";
 
         private const string Katakana =
-            "ァアィイゥウェエォオカガキギクグケゲコゴサザシジスズセゼソゾタダチヂッツヅテデトドナニヌネノハバパヒビピフブプヘベペホボポマミムメモャヤュユョヨラリルレロワヲンヴ\u30F7\u30FA" +
-            "゛゜ー" +
-            "。「」、・";
+            "ァアィイゥウェエォオカガキギクグケゲコゴサザシジスズセゼソゾタダチヂッツヅテデトドナニヌネノハバパヒビピフブプヘベペホボポマミムメモャヤュユョヨラリルレロワヲンヴ\u30F7\u30FA゛゜ー。「」、・";
 
         private const string Hiragana =
             "ぁあぃいぅうぇえぉおかがきぎくぐけげこごさざしじすずせぜそぞただちぢっつづてでとどなにぬねのはばぱひびぴふぶぷへべぺほぼぽまみむめもゃやゅゆょよらりるれろわをん\u3094\u30F7\u30FA" +
-            "゛゜ー" +
-            "。「」、・";
+            "゛゜ー。「」、・";
 
-        private const string KatakanaOdoriji =
-            "ヽヾ";
+        private const string KatakanaOdoriji = "ヽヾ";
 
-        private const string HiraganaOdoriji =
-            "ゝゞ";
-
+        private const string HiraganaOdoriji = "ゝゞ";
 
         static void Main(string[] args)
         {
-            //Console.WriteLine("+-*/".ToHalfWidth());
-            //Console.WriteLine("+-*/".ToFullWidth());
-            //Console.WriteLine("アイウエオ".ToHalfWidth());
-            //Console.WriteLine("ｱｲｳｴｵ".ToFullWidth());
-            //Console.ReadLine();
             Console.OutputEncoding = Encoding.UTF8;
-            // Katakana/Hankana
+            // Katakana-Hankana
             Console.WriteLine($"========================KatakanaToHankana======================");
             Console.WriteLine($"old Katakana:{Katakana}");
             Console.WriteLine($"converted Hankana:{KanaConverter.Convert(Katakana, KanaOption.KatakanaToHankana)}");
             Console.WriteLine();
 
+            //Hankana-Katakana
             Console.WriteLine($"========================HankanaToKatakana=======================");
             Console.WriteLine($"old Hankana:{Hankana}");
             Console.WriteLine($"converted Katakana:{KanaConverter.Convert(Hankana, KanaOption.HankanaToKatakana)}");
             Console.WriteLine();
 
-            // Hiragana/Hankana
-            //Assert.Equal(Hankana, KanaConverter.Convert(Hiragana, KanaOption.HiraganaToHankana));
+            // Hiragana-Hankana   
             Console.WriteLine($"========================HiraganaToHankana=======================");
             Console.WriteLine($"old Hiragana:{Hiragana}");
             Console.WriteLine($"converted Hankana:{KanaConverter.Convert(Hiragana, KanaOption.HiraganaToHankana)}");
             Console.WriteLine();
 
-            //Assert.Equal(Hiragana, KanaConverter.Convert(Hankana, KanaOption.HankanaToHiragana));
+            //Hankana--Hiragana 
             Console.WriteLine($"========================HankanaToHiragana=======================");
             Console.WriteLine($"old Hankana:{Hankana}");
             Console.WriteLine($"converted Hiragana:{KanaConverter.Convert(Hankana, KanaOption.HankanaToHiragana)}");
             Console.WriteLine();
 
-
-
-            //// Hiragana/Katakana
-            //Assert.Equal(Hiragana, KanaConverter.Convert(Katakana, KanaOption.KatakanaToHiragana));
+            //Katakana-Hiragana      
             Console.WriteLine($"========================KatakanaToHiragana=======================");
             Console.WriteLine($"old Katakana:{Katakana}");
             Console.WriteLine($"converted Hiragana:{KanaConverter.Convert(Katakana, KanaOption.KatakanaToHiragana)}");
             Console.WriteLine();
 
-
-            //Assert.Equal(Katakana, KanaConverter.Convert(Hiragana, KanaOption.HiraganaToKatakana));
+            //Hiragana-Katakana         
             Console.WriteLine($"========================HiraganaToKatakana=======================");
             Console.WriteLine($"old Hiragana:{Hiragana}");
             Console.WriteLine($"converted Katakana:{KanaConverter.Convert(Hiragana, KanaOption.HiraganaToKatakana)}");
             Console.WriteLine();
 
-
-
-            //Assert.Equal(HiraganaOdoriji, KanaConverter.Convert(KatakanaOdoriji, KanaOption.KatakanaToHiragana));
+            //Katakana-Hiragana
             Console.WriteLine($"========================KatakanaToHiragana=======================");
             Console.WriteLine($"old KatakanaOdoriji:{KatakanaOdoriji}");
             Console.WriteLine($"converted HiraganaOdoriji:{KanaConverter.Convert(KatakanaOdoriji, KanaOption.KatakanaToHiragana)}");
             Console.WriteLine();
 
-
-
-
-            //Assert.Equal(KatakanaOdoriji, KanaConverter.Convert(HiraganaOdoriji, KanaOption.HiraganaToKatakana));
+            //Hiragana-Katakana  
             Console.WriteLine($"========================HiraganaToKatakana=======================");
             Console.WriteLine($"old HiraganaOdoriji:{HiraganaOdoriji}");
             Console.WriteLine($"converted KatakanaOdoriji:{KanaConverter.Convert(HiraganaOdoriji, KanaOption.HiraganaToKatakana)}");

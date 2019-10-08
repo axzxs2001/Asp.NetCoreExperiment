@@ -7,12 +7,9 @@ namespace Shift_JISDemo
     {
         static void Main(string[] args)
         {
-            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-            var ens = Encoding.GetEncodings();
-            var jis = System.Text.Encoding.GetEncoding("shift_jis");
-            var bytes = jis.GetBytes("こんにちは");
-            File.WriteAllText(Directory.GetCurrentDirectory() + "/a.txt", "こんにちは", jis);
-            Console.WriteLine("Hello World!");
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);        
+            var jis = Encoding.GetEncoding("shift_jis");       
+            File.WriteAllText(Directory.GetCurrentDirectory() + "/a.txt", "こんにちは", jis);  
         }
     }
 }
