@@ -1013,6 +1013,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PgpDemo", "Common\PgpDemo\P
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SnowflakeDemo", "Common\SnowflakeDemo\SnowflakeDemo.csproj", "{91DF9C4B-4AED-4FCA-BF14-3B313FCED8CA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BulkNpgSqlDemo", "PostgreSqlDemo\BulkNpgSqlDemo\BulkNpgSqlDemo.csproj", "{BE992669-5442-458D-B5B8-C97BE514153E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -3827,6 +3829,14 @@ Global
 		{91DF9C4B-4AED-4FCA-BF14-3B313FCED8CA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{91DF9C4B-4AED-4FCA-BF14-3B313FCED8CA}.Release|x64.ActiveCfg = Release|Any CPU
 		{91DF9C4B-4AED-4FCA-BF14-3B313FCED8CA}.Release|x64.Build.0 = Release|Any CPU
+		{BE992669-5442-458D-B5B8-C97BE514153E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE992669-5442-458D-B5B8-C97BE514153E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE992669-5442-458D-B5B8-C97BE514153E}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{BE992669-5442-458D-B5B8-C97BE514153E}.Debug|x64.Build.0 = Debug|Any CPU
+		{BE992669-5442-458D-B5B8-C97BE514153E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE992669-5442-458D-B5B8-C97BE514153E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE992669-5442-458D-B5B8-C97BE514153E}.Release|x64.ActiveCfg = Release|Any CPU
+		{BE992669-5442-458D-B5B8-C97BE514153E}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -4236,6 +4246,7 @@ Global
 		{BE7EDEE0-CF1C-48A7-BA33-19EA8A69E8F3} = {150428F7-5299-47F5-B7F6-612435527E75}
 		{4971EDBF-8889-4EB9-B5DD-AD82BAE1DD5A} = {A76B4F09-82B3-4F06-BE35-F5941BF8C338}
 		{91DF9C4B-4AED-4FCA-BF14-3B313FCED8CA} = {A76B4F09-82B3-4F06-BE35-F5941BF8C338}
+		{BE992669-5442-458D-B5B8-C97BE514153E} = {3F1A250E-4A20-43C0-839C-0B307DC143B0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
