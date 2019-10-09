@@ -50,7 +50,7 @@ namespace BulkNpgSqlDemo
         {
             public string GenerySql(List<dynamic> dataList, string tableName)
             {
-                var pgconnection = "Server=180.12.175.72;Port=5432;UserId=postgres;Password=postgres2018;Database=postgres;Pooling=true;MinPoolSize=1;MaxPoolSize=100;CommandTimeout=300;";
+                var pgconnection = "Server=127.0.0.1;Port=5432;UserId=postgres;Password=postgres2018;Database=postgres;Pooling=true;MinPoolSize=1;MaxPoolSize=100;CommandTimeout=300;";
                 List<dynamic> fieldItmes = null;
                 using (var pgcon = new Npgsql.NpgsqlConnection(pgconnection))
                 {
