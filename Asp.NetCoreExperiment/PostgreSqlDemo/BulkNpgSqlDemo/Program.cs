@@ -50,7 +50,7 @@ namespace BulkNpgSqlDemo
         {
             public string GenerySql(List<dynamic> dataList, string tableName)
             {
-                var pgconnection = "Server=127.0.0.1;Port=5432;UserId=postgres;Password=postgres2018;Database=postgres;Pooling=true;MinPoolSize=1;MaxPoolSize=100;CommandTimeout=300;";
+                var pgconnection = "pg连接字符串";
                 List<dynamic> fieldItmes = null;
                 using (var pgcon = new Npgsql.NpgsqlConnection(pgconnection))
                 {
@@ -59,7 +59,7 @@ FROM pg_class c,pg_attribute a,pg_type t
 WHERE c.relname =@tablename and a.attnum > 0 and a.attrelid = c.oid and a.atttypid = t.oid order by a.attname";
                     fieldItmes = pgcon.Query<dynamic>(sql: sql, param: new { tablename = tableName.ToLower() }).AsList();
                 }
-                var sqlBuilder = new StringBuilder(@"INSERT INTO public.wxbsbankaccount(");
+                var sqlBuilder = new StringBuilder(@"INSERT INTO public."+tableName+"(");
 
                 sqlBuilder.Append(string.Join(',', fieldItmes.Select(s => s.field)));
                 sqlBuilder.Append(") values");
