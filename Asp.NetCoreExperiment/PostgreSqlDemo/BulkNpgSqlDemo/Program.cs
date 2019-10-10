@@ -13,44 +13,68 @@ namespace BulkNpgSqlDemo
     {
         static void Main(string[] args)
         {
-            var tablename = "";
-            var sqlconnection ="连接字符串";
-            using (var sqlcon = new SqlConnection(sqlconnection))
+            var tablenames = File.ReadAllText(@"C:\MyFile\abc\tablenames.txt").Split(',');
+            var pgconnection = File.ReadAllText(@"C:\MyFile\abc\pgconnection.txt");
+            var queryPgSqls = File.ReadAllLines(@"C:\MyFile\abc\tablesql.txt");
+
+            foreach (var tablename in tablenames)
             {
-                var watch = new Stopwatch();
-                watch.Start();
+                Console.WriteLine($"开始搬运{tablename}数据");
+                using (var con = new Npgsql.NpgsqlConnection(pgconnection))
+                {
+                    var deleteSql = con.ExecuteScalar<string>(queryPgSqls[0], new { keyname = tablename });
+                    var selectql = con.ExecuteScalar<string>(queryPgSqls[1], new { keyname = tablename });
+                    var watch = new Stopwatch();
+                    watch.Start();
+                    var date = DateTime.Now.AddDays(-1);
+                    new GenerPgSql().MigrationData(tablename, deleteSql, selectql, date);
+                    Console.WriteLine($"搬运{tablename}数据总共花费{watch.Elapsed.TotalMilliseconds}ms.");
+                }
+            }
+        }
+        class GenerPgSql
+        {
+            public bool MigrationData(string tablename, string deleteSql, string selectSql, DateTime date)
+            {
+                var par = File.ReadAllText(@"C:\MyFile\abc\par.txt");
+                var pgconnection = File.ReadAllText(@"C:\MyFile\abc\pgconnection.txt");
                 var pagesize = 1000;
                 var pageindex = 1;
+                using (var pgcon = new Npgsql.NpgsqlConnection(pgconnection))
+                {
+                    pgcon.Execute(deleteSql,new { orgshortname = par, date });
+                }
                 while (true)
                 {
-                    var s = "select   ROW_NUMBER() OVER (ORDER BY 主键) as rowno,* from "+ tablename;
-                    var sql = $@"SELECT TOP {pagesize} * FROM ({s})querytable WHERE rowno > {(pageindex - 1) * pagesize} ";
-                    var list = sqlcon.Query<dynamic>(sql, new { orgshortname = "nss" }).ToList();
+                    var list = GetList(tablename, selectSql, date, pagesize, pageindex);
                     if (list.Count == 0)
                     {
                         break;
                     }
-                
-                    var insertSql = new GenerPgSql().GenerySql(list, tablename);
-                    var pgconnection = "Server=180.12.175.72;Port=5432;UserId=postgres;Password=123456;Database=postgres;Pooling=true;MinPoolSize=1;MaxPoolSize=100;CommandTimeout=300;";
+                    var insertSql = new GenerPgSql().GenerySql(pgconnection, list, tablename);
                     using (var pgcon = new Npgsql.NpgsqlConnection(pgconnection))
                     {
-                        pgcon.Execute(insertSql,list);
+                        pgcon.Execute(insertSql);
                     }
-                    Console.WriteLine(pageindex);
                     pageindex++;
                 }
-                Console.WriteLine("制造数据总共花费{0}ms.", watch.Elapsed.TotalMilliseconds);
-
+                return true;
             }
 
-
-        }
-        class GenerPgSql
-        {
-            public string GenerySql(List<dynamic> dataList, string tableName)
+            public List<dynamic> GetList(string tablename, string selectSql, DateTime date, int pagesize, int pageindex)
             {
-                var pgconnection = "pg连接字符串";
+                var par = File.ReadAllText(@"C:\MyFile\abc\par.txt");
+                var sqlconnection = File.ReadAllText(@"C:\MyFile\abc\sqlconnection.txt");
+                using (var sqlcon = new SqlConnection(sqlconnection))
+                {               
+                    var sql = $@"SELECT TOP {pagesize} * FROM ({selectSql})querytable WHERE rowno > {(pageindex - 1) * pagesize} ";
+                    var list = sqlcon.Query<dynamic>(sql, new { orgshortname = par, date }).ToList();
+                    return list;
+                }
+            }
+
+            string GenerySql(string pgconnection, List<dynamic> dataList, string tableName)
+            {
                 List<dynamic> fieldItmes = null;
                 using (var pgcon = new Npgsql.NpgsqlConnection(pgconnection))
                 {
@@ -59,8 +83,7 @@ FROM pg_class c,pg_attribute a,pg_type t
 WHERE c.relname =@tablename and a.attnum > 0 and a.attrelid = c.oid and a.atttypid = t.oid order by a.attname";
                     fieldItmes = pgcon.Query<dynamic>(sql: sql, param: new { tablename = tableName.ToLower() }).AsList();
                 }
-                var sqlBuilder = new StringBuilder(@"INSERT INTO public."+tableName+"(");
-
+                var sqlBuilder = new StringBuilder($"INSERT INTO {tableName}(");
                 sqlBuilder.Append(string.Join(',', fieldItmes.Select(s => s.field)));
                 sqlBuilder.Append(") values");
                 foreach (IEnumerable<KeyValuePair<string, dynamic>> data in dataList)
@@ -72,7 +95,7 @@ WHERE c.relname =@tablename and a.attnum > 0 and a.attrelid = c.oid and a.atttyp
                         if (fieldData.Key != null)
                         {
                             string fieldValue = Convert.ToString(fieldData.Value);
-                            if (fieldValue==null)
+                            if (fieldValue == null)
                             {
                                 fieldValue = "null,";
                             }
@@ -83,7 +106,6 @@ WHERE c.relname =@tablename and a.attnum > 0 and a.attrelid = c.oid and a.atttyp
                             }
                             line.Append(fieldValue);
                         }
-
                     }
                     sqlBuilder.Append(line.ToString().TrimEnd(',') + "),");
                 }
