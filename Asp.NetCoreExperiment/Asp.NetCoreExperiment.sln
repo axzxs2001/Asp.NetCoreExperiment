@@ -997,7 +997,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "安全相关", "安全相�
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo001", "安全相关\Demo001\Demo001.csproj", "{9BB2ABA4-ABE8-47DC-B45E-42FFB0893B30}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DynamicLoadDll", "Common\DynamicLoadDll\DynamicLoadDll.csproj", "{4A8B0DD6-0AF7-4EE3-A668-2779ECA3490E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DynamicLoadDll", "Common\DynamicLoadDll\DynamicLoadDll.csproj", "{4A8B0DD6-0AF7-4EE3-A668-2779ECA3490E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompareCollections", "Common\CompareCollections\CompareCollections.csproj", "{2BA955FD-A92F-4043-96E9-33FE2C938EA1}"
 EndProject
@@ -1009,11 +1009,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CAPDemo_Publish", "CAP\CAPD
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CAPDemo_Consumer", "CAP\CAPDemo_Consumer\CAPDemo_Consumer.csproj", "{BE7EDEE0-CF1C-48A7-BA33-19EA8A69E8F3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PgpDemo", "Common\PgpDemo\PgpDemo.csproj", "{4971EDBF-8889-4EB9-B5DD-AD82BAE1DD5A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PgpDemo", "Common\PgpDemo\PgpDemo.csproj", "{4971EDBF-8889-4EB9-B5DD-AD82BAE1DD5A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SnowflakeDemo", "Common\SnowflakeDemo\SnowflakeDemo.csproj", "{91DF9C4B-4AED-4FCA-BF14-3B313FCED8CA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SnowflakeDemo", "Common\SnowflakeDemo\SnowflakeDemo.csproj", "{91DF9C4B-4AED-4FCA-BF14-3B313FCED8CA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BulkNpgSqlDemo", "PostgreSqlDemo\BulkNpgSqlDemo\BulkNpgSqlDemo.csproj", "{BE992669-5442-458D-B5B8-C97BE514153E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BulkNpgSqlDemo", "PostgreSqlDemo\BulkNpgSqlDemo\BulkNpgSqlDemo.csproj", "{BE992669-5442-458D-B5B8-C97BE514153E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -1313,10 +1313,10 @@ Global
 		{9909DC13-7656-4BD8-98D0-53878BD588A1}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9909DC13-7656-4BD8-98D0-53878BD588A1}.Release|x64.ActiveCfg = Release|Any CPU
 		{9909DC13-7656-4BD8-98D0-53878BD588A1}.Release|x64.Build.0 = Release|Any CPU
-		{4F0D80E4-1918-47B9-87D1-BE197DA8CC61}.Debug|Any CPU.ActiveCfg = Release|x64
-		{4F0D80E4-1918-47B9-87D1-BE197DA8CC61}.Debug|x64.ActiveCfg = Release|x64
-		{4F0D80E4-1918-47B9-87D1-BE197DA8CC61}.Release|Any CPU.ActiveCfg = Release|x64
-		{4F0D80E4-1918-47B9-87D1-BE197DA8CC61}.Release|x64.ActiveCfg = Release|x64
+		{4F0D80E4-1918-47B9-87D1-BE197DA8CC61}.Debug|Any CPU.ActiveCfg = Release
+		{4F0D80E4-1918-47B9-87D1-BE197DA8CC61}.Debug|x64.ActiveCfg = Release
+		{4F0D80E4-1918-47B9-87D1-BE197DA8CC61}.Release|Any CPU.ActiveCfg = Release
+		{4F0D80E4-1918-47B9-87D1-BE197DA8CC61}.Release|x64.ActiveCfg = Release
 		{C6A76982-0936-4681-9565-0D27E5B89534}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C6A76982-0936-4681-9565-0D27E5B89534}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C6A76982-0936-4681-9565-0D27E5B89534}.Debug|x64.ActiveCfg = Debug|Any CPU
