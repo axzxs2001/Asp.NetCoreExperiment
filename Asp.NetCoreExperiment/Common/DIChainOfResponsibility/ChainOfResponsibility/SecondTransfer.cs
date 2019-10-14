@@ -1,5 +1,6 @@
 ﻿
 using Microsoft.Extensions.Logging;
+using System;
 
 namespace DIChainOfResponsibility
 {
@@ -7,10 +8,10 @@ namespace DIChainOfResponsibility
     public class SecondTransfer : ParentTransfer
     {
         readonly ILogger<SecondTransfer> _logger;
-        public SecondTransfer(ILogger<SecondTransfer> logger,ThirdTransfer thirdTransfer)
+        public SecondTransfer(ILogger<SecondTransfer> logger, Func<string, ITransfer> serviceAccessor)
         {
             _logger = logger;
-            this.Next(thirdTransfer);
+            this.Next(serviceAccessor("Third"));
         }
         /// <summary>
         /// 职责链通知方法
@@ -22,7 +23,7 @@ namespace DIChainOfResponsibility
             var result = SelfTransfer(transferParmeter);
             return _parentTransfer.Transfer(transferParmeter) && result;
         }
-      
+
         bool SelfTransfer(TransferParmeter transferParmeter)
         {
             _logger.LogInformation("-------------------------------------------SecondTransfer");
