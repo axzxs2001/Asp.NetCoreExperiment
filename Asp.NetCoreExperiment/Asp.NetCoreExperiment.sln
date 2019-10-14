@@ -1017,9 +1017,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BulkNpgSqlDemo", "PostgreSq
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EmbeddedResources", "EmbeddedResources", "{C324612A-E791-4496-8D5D-E763DEA09635}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmbeddedResourcesAPI", "EmbeddedResources\EmbeddedResourcesAPI\EmbeddedResourcesAPI.csproj", "{CCA965EF-0544-41C4-8E62-04AE9BE6A5AC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmbeddedResourcesAPI", "EmbeddedResources\EmbeddedResourcesAPI\EmbeddedResourcesAPI.csproj", "{CCA965EF-0544-41C4-8E62-04AE9BE6A5AC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmbeddedResourcesPage", "EmbeddedResources\EmbeddedResourcesPage\EmbeddedResourcesPage.csproj", "{F9258CE1-9486-4714-BD66-CF3E8F911895}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmbeddedResourcesPage", "EmbeddedResources\EmbeddedResourcesPage\EmbeddedResourcesPage.csproj", "{F9258CE1-9486-4714-BD66-CF3E8F911895}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmbeddedResourcesMVC", "EmbeddedResources\EmbeddedResourcesMVC\EmbeddedResourcesMVC.csproj", "{A076B452-99AF-47FA-ACC3-DB28D917EAFE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -3859,6 +3861,14 @@ Global
 		{F9258CE1-9486-4714-BD66-CF3E8F911895}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F9258CE1-9486-4714-BD66-CF3E8F911895}.Release|x64.ActiveCfg = Release|Any CPU
 		{F9258CE1-9486-4714-BD66-CF3E8F911895}.Release|x64.Build.0 = Release|Any CPU
+		{A076B452-99AF-47FA-ACC3-DB28D917EAFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A076B452-99AF-47FA-ACC3-DB28D917EAFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A076B452-99AF-47FA-ACC3-DB28D917EAFE}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{A076B452-99AF-47FA-ACC3-DB28D917EAFE}.Debug|x64.Build.0 = Debug|Any CPU
+		{A076B452-99AF-47FA-ACC3-DB28D917EAFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A076B452-99AF-47FA-ACC3-DB28D917EAFE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A076B452-99AF-47FA-ACC3-DB28D917EAFE}.Release|x64.ActiveCfg = Release|Any CPU
+		{A076B452-99AF-47FA-ACC3-DB28D917EAFE}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -4271,6 +4281,7 @@ Global
 		{BE992669-5442-458D-B5B8-C97BE514153E} = {3F1A250E-4A20-43C0-839C-0B307DC143B0}
 		{CCA965EF-0544-41C4-8E62-04AE9BE6A5AC} = {C324612A-E791-4496-8D5D-E763DEA09635}
 		{F9258CE1-9486-4714-BD66-CF3E8F911895} = {C324612A-E791-4496-8D5D-E763DEA09635}
+		{A076B452-99AF-47FA-ACC3-DB28D917EAFE} = {C324612A-E791-4496-8D5D-E763DEA09635}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}

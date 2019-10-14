@@ -9,38 +9,21 @@
 
 
   <ItemGroup>
-    <Content Remove="Views\Home\Index.cshtml" />
-    <Content Remove="Views\Shared\_Layout.cshtml" />
-    <Content Remove="Views\Shared\_ValidationScriptsPartial.cshtml" />
+    <Content Remove="Views\Page\Index.cshtml" />
     <Content Remove="Views\_ViewImports.cshtml" />
     <Content Remove="Views\_ViewStart.cshtml" />
     <Content Remove="wwwroot\css\site.css" />
     <Content Remove="wwwroot\js\site.js" />
-    <Content Remove="wwwroot\lib\bootstrap\dist\css\bootstrap.min.css" />
-    <Content Remove="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js" />
-    <Content Remove="wwwroot\lib\bootstrap\dist\js\bootstrap.min.js" />
-    <Content Remove="wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.min.js" />
-    <Content Remove="wwwroot\lib\jquery-validation\dist\additional-methods.min.js" />
-    <Content Remove="wwwroot\lib\jquery-validation\dist\jquery.validate.min.js" />
-    <Content Remove="wwwroot\lib\jquery\dist\jquery.min.js" />
   </ItemGroup>
 
 
   <ItemGroup>
-    <EmbeddedResource Include="Views\Home\Index.cshtml" />
-    <EmbeddedResource Include="Views\Shared\_Layout.cshtml" />
-    <EmbeddedResource Include="Views\Shared\_ValidationScriptsPartial.cshtml" />
-    <EmbeddedResource Include="Views\_ViewImports.cshtml" />
-    <EmbeddedResource Include="Views\_ViewStart.cshtml" />
+    <EmbeddedResource Include="Views\Page\Index.cshtml" />
     <EmbeddedResource Include="wwwroot\css\site.css" />
     <EmbeddedResource Include="wwwroot\js\site.js" />
-    <EmbeddedResource Include="wwwroot\lib\bootstrap\dist\css\bootstrap.min.css" />
-    <EmbeddedResource Include="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js" />
-    <EmbeddedResource Include="wwwroot\lib\bootstrap\dist\js\bootstrap.min.js" />
-    <EmbeddedResource Include="wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.min.js" />
-    <EmbeddedResource Include="wwwroot\lib\jquery-validation\dist\additional-methods.min.js" />
-    <EmbeddedResource Include="wwwroot\lib\jquery-validation\dist\jquery.validate.min.js" />
-    <EmbeddedResource Include="wwwroot\lib\jquery\dist\jquery.min.js" />
+    <EmbeddedResource Include="wwwroot\css\bootstrap.min.css" />
+    <EmbeddedResource Include="wwwroot\js\bootstrap.bundle.min.js" />
+    <EmbeddedResource Include="wwwroot\js\jquery.min.js" />
   </ItemGroup>
 
 </Project>
