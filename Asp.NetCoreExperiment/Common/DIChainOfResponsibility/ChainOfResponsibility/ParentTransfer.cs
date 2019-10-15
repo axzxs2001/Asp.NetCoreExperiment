@@ -1,18 +1,24 @@
 ﻿using System;
 namespace DIChainOfResponsibility
 {
+    public interface ITransfer
+    {
+        void Next(ITransfer parentTransfer);
+        bool Transfer(TransferParmeter transferParmeter);
+    }
+
     /// <summary>
     /// 职责链通知抽象类
     /// </summary>
-    public abstract class ParentTransfer
+    public abstract class ParentTransfer : ITransfer
     {
-       
-        protected ParentTransfer _parentTransfer;
+
+        protected ITransfer _parentTransfer;
         /// <summary>
         /// 传送下一个方法
         /// </summary>
         /// <param name="parentTransfer"></param>
-        public void Next(ParentTransfer parentTransfer)
+        public void Next(ITransfer parentTransfer)
         {
             Console.WriteLine($"-------------{parentTransfer.GetType().Name}.Next()");
             _parentTransfer = parentTransfer;

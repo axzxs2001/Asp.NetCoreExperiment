@@ -1,6 +1,7 @@
 ﻿
 
 using Microsoft.Extensions.Logging;
+using System;
 
 namespace DIChainOfResponsibility
 {
@@ -8,9 +9,9 @@ namespace DIChainOfResponsibility
     public class ThirdTransfer : ParentTransfer
     {
         readonly ILogger<ThirdTransfer> _logger;
-        public ThirdTransfer(ILogger<ThirdTransfer> logger, EndTransfer endTransfer)
+        public ThirdTransfer(ILogger<ThirdTransfer> logger, Func<string, ITransfer> serviceAccessor)
         {
-            this.Next(endTransfer);
+            this.Next(serviceAccessor("End"));
             _logger = logger;
         }
         /// <summary>

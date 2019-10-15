@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 
 namespace DIChainOfResponsibility.Controllers
@@ -7,11 +8,16 @@ namespace DIChainOfResponsibility.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
-        readonly ParentTransfer _starPayTransfer;
-        public ValuesController(ParentTransfer starPayTransfer)
+        readonly ITransfer _starPayTransfer;
+        //public ValuesController(ParentTransfer starPayTransfer)
+        //{
+        //    _starPayTransfer = starPayTransfer;
+        //}
+        public ValuesController(Func<string, ITransfer> serviceAccessor)
         {
-            _starPayTransfer = starPayTransfer;
+            _starPayTransfer = serviceAccessor("First");
         }
+
         // GET api/values
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()

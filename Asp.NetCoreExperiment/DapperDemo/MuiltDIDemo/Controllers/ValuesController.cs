@@ -16,29 +16,29 @@ namespace MuiltDIDemo.Controllers
         private readonly Func<string, IJK> _serviceAccessor;
 
         //第一种方式
-        //public ValuesController(Func<string, IJK> serviceAccessor)
-        //{
-        //    this._serviceAccessor = serviceAccessor;
-        //    _serviceA = _serviceAccessor("JK1");
-        //    _serviceB = _serviceAccessor("JK2");
-
-        //}  
-        
-         //第二种方式
-        public ValuesController(IEnumerable<IJK> svs)
+        public ValuesController(Func<string, IJK> serviceAccessor)
         {
-            foreach(var sv in svs)
-            {
-                if(sv is JK1)
-                {
-                    _serviceA = sv;
-                }
-                if (sv is JK2)
-                {
-                    _serviceB = sv;
-                }
-            }
+            this._serviceAccessor = serviceAccessor;
+            _serviceA = _serviceAccessor("JK1");
+            _serviceB = _serviceAccessor("JK2");
+
         }
+
+        //第二种方式
+        //public ValuesController(IEnumerable<IJK> svs)
+        //{
+        //    foreach(var sv in svs)
+        //    {
+        //        if(sv is JK1)
+        //        {
+        //            _serviceA = sv;
+        //        }
+        //        if (sv is JK2)
+        //        {
+        //            _serviceB = sv;
+        //        }
+        //    }
+        //}
         // GET api/values
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()

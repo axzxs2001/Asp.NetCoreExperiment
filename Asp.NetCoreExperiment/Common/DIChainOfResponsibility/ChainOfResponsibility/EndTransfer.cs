@@ -13,8 +13,8 @@ namespace DIChainOfResponsibility
     /// </summary>
     public class EndTransfer : ParentTransfer
     {
-        readonly ILogger<FirstTransfer> _logger;
-        public EndTransfer(ILogger<FirstTransfer> logger)
+        readonly ILogger<EndTransfer> _logger;
+        public EndTransfer(ILogger<EndTransfer> logger)
         {
             _logger = logger;        
         }
