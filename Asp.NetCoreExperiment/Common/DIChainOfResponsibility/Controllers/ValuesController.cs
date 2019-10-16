@@ -8,48 +8,21 @@ namespace DIChainOfResponsibility.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
-        readonly ITransfer _starPayTransfer;
-        //public ValuesController(ParentTransfer starPayTransfer)
-        //{
-        //    _starPayTransfer = starPayTransfer;
-        //}
-        public ValuesController(FirstTransfer serviceAccessor)
+        /// <summary>
+        /// 第一个任务
+        /// </summary>
+        readonly FirstTask _firstTask;
+        public ValuesController(FirstTask  firstTask)
         {
-            _starPayTransfer = serviceAccessor;
+            _firstTask = firstTask;
         }
 
-        // GET api/values
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
-            _starPayTransfer.Transfer(new TransferParmeter() { TransferID = 1 });
-
+            //调用第一个任务
+            _firstTask.ExecuteTask(new TaskParmeter() { TaskID = 1 });
             return new string[] { "value1", "value2" };
-        }
-
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/values
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
-
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
         }
     }
 }

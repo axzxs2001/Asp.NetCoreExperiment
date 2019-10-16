@@ -39,10 +39,10 @@ namespace DIChainOfResponsibility
     {
         public static void AddChainOfResponsibility(this IServiceCollection services)
         {
-            services.AddSingleton<EndTransfer>();
-            services.AddSingleton<ThirdTransfer>();
-            services.AddSingleton<SecondTransfer>();
-            services.AddSingleton<FirstTransfer>();
+            services.AddSingleton<EndTask>();
+            services.AddSingleton<ThirdTask>();
+            services.AddSingleton<SecondTask>();
+            services.AddSingleton<FirstTask>();
         }
     }
 }
