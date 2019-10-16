@@ -2,7 +2,7 @@
 namespace DIChainOfResponsibility
 {
     public interface ITransfer
-    {
+    { 
         void Next(ITransfer parentTransfer);
         bool Transfer(TransferParmeter transferParmeter);
     }
@@ -12,6 +12,7 @@ namespace DIChainOfResponsibility
     /// </summary>
     public abstract class ParentTransfer : ITransfer
     {
+     
 
         protected ITransfer _parentTransfer;
         /// <summary>

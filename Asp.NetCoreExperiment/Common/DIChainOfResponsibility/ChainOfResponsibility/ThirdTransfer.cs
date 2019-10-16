@@ -9,9 +9,9 @@ namespace DIChainOfResponsibility
     public class ThirdTransfer : ParentTransfer
     {
         readonly ILogger<ThirdTransfer> _logger;
-        public ThirdTransfer(ILogger<ThirdTransfer> logger, Func<string, ITransfer> serviceAccessor)
+        public ThirdTransfer(ILogger<ThirdTransfer> logger, EndTransfer serviceAccessor)
         {
-            this.Next(serviceAccessor("End"));
+            this.Next(serviceAccessor);
             _logger = logger;
         }
         /// <summary>

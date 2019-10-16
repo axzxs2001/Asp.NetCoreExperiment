@@ -39,30 +39,10 @@ namespace DIChainOfResponsibility
     {
         public static void AddChainOfResponsibility(this IServiceCollection services)
         {
-            services.AddSingleton<ITransfer, EndTransfer>();
-            services.AddSingleton<ITransfer, ThirdTransfer>();
-            services.AddSingleton<ITransfer, SecondTransfer>();
-            services.AddSingleton<ITransfer, FirstTransfer>();
-            services.AddSingleton(factory =>
-            {
-                Func<string, ITransfer> accesor = key =>
-                {
-                    switch (key)
-                    {
-                        case "First":
-                            return factory.GetService<FirstTransfer>();
-                        case "Second":
-                            return factory.GetService<SecondTransfer>();
-                        case "Third":
-                            return factory.GetService<ThirdTransfer>();
-                        case "End":
-                            return factory.GetService<EndTransfer>();
-                        default:
-                            throw new ArgumentException($"Not Support key : {key}");
-                    }
-                };
-                return accesor;
-            });
+            services.AddSingleton<EndTransfer>();
+            services.AddSingleton<ThirdTransfer>();
+            services.AddSingleton<SecondTransfer>();
+            services.AddSingleton<FirstTransfer>();
         }
     }
 }

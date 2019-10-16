@@ -8,10 +8,10 @@ namespace DIChainOfResponsibility
     public class SecondTransfer : ParentTransfer
     {
         readonly ILogger<SecondTransfer> _logger;
-        public SecondTransfer(ILogger<SecondTransfer> logger, Func<string, ITransfer> serviceAccessor)
+        public SecondTransfer(ILogger<SecondTransfer> logger, ThirdTransfer serviceAccessor)
         {
             _logger = logger;
-            this.Next(serviceAccessor("Third"));
+            this.Next(serviceAccessor);
         }
         /// <summary>
         /// 职责链通知方法

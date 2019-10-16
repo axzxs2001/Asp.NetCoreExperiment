@@ -13,9 +13,9 @@ namespace DIChainOfResponsibility.Controllers
         //{
         //    _starPayTransfer = starPayTransfer;
         //}
-        public ValuesController(Func<string, ITransfer> serviceAccessor)
+        public ValuesController(FirstTransfer serviceAccessor)
         {
-            _starPayTransfer = serviceAccessor("First");
+            _starPayTransfer = serviceAccessor;
         }
 
         // GET api/values

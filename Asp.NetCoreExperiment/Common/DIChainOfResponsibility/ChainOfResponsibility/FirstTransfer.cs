@@ -9,11 +9,12 @@ namespace DIChainOfResponsibility
     public class FirstTransfer : ParentTransfer
     {
         readonly ILogger<FirstTransfer> _logger;
-        public FirstTransfer(ILogger<FirstTransfer> logger, Func<string, ITransfer> serviceAccessor)
+        public FirstTransfer(ILogger<FirstTransfer> logger,SecondTransfer serviceAccessor)
         {
             _logger = logger;
-            this.Next(serviceAccessor("Second"));
+            this.Next(serviceAccessor);
         }
+
         /// <summary>
         /// 职责链通知方法
         /// </summary>
@@ -22,7 +23,7 @@ namespace DIChainOfResponsibility
         public override bool Transfer(TransferParmeter transferParmeter)
         {
             var result = SelfTransfer(transferParmeter);
-            return _parentTransfer.Transfer(transferParmeter)&& result;
+            return _parentTransfer.Transfer(transferParmeter) && result;
         }
         bool SelfTransfer(TransferParmeter transferParmeter)
         {
