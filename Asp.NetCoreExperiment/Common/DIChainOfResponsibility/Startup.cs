@@ -20,7 +20,11 @@ namespace DIChainOfResponsibility
         public void ConfigureServices(IServiceCollection services)
         {
             //职责链依赖注入
-            services.AddChainOfResponsibility();
+            services.AddSingleton<EndTask>();
+            services.AddSingleton<ThirdTask>();
+            services.AddSingleton<SecondTask>();
+            services.AddSingleton<FirstTask>();
+
             services.AddControllers();
         }
 
@@ -34,15 +38,5 @@ namespace DIChainOfResponsibility
                 endpoints.MapControllers();
             });
         }
-    }
-    static class ChainOfResponsibilityExtension
-    {
-        public static void AddChainOfResponsibility(this IServiceCollection services)
-        {
-            services.AddSingleton<EndTask>();
-            services.AddSingleton<ThirdTask>();
-            services.AddSingleton<SecondTask>();
-            services.AddSingleton<FirstTask>();
-        }
-    }
+    } 
 }
