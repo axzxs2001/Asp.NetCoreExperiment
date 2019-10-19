@@ -11,17 +11,30 @@ namespace DIChainOfResponsibility.Controllers
         /// <summary>
         /// 第一个任务
         /// </summary>
-        readonly FirstTask _firstTask;
-        public ValuesController(FirstTask  firstTask)
+        readonly ITask _task;
+
+        public ValuesController(FirstTask firstTask)
         {
-            _firstTask = firstTask;
+            _task = firstTask;
         }
+        //错误姿势
+        //public ValuesController(IEnumerable<ITask> tasks)
+        //{
+        //    foreach (var task in tasks)
+        //    {
+        //        if (task is EndTask)
+        //        {
+        //            _task = task;
+        //        }
+        //    }
+        //}
 
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
             //调用第一个任务
-            _firstTask.ExecuteTask(new TaskParmeter() { TaskID = 1 });
+            _task.ExecuteTask(new TaskParmeter() { TaskID = 1 });
+     
             return new string[] { "value1", "value2" };
         }
     }

@@ -20,10 +20,16 @@ namespace DIChainOfResponsibility
         public void ConfigureServices(IServiceCollection services)
         {
             //职责链依赖注入
-            services.AddSingleton<EndTask>();
-            services.AddSingleton<ThirdTask>();
-            services.AddSingleton<SecondTask>();
-            services.AddSingleton<FirstTask>();
+            services.AddScoped<EndTask>();
+            services.AddScoped<ThirdTask>();
+            services.AddScoped<SecondTask>();
+            services.AddScoped<FirstTask>();
+
+            //错误姿势
+            //services.AddScoped<ITask,EndTask>();
+            //services.AddScoped<ITask, ThirdTask>();
+            //services.AddScoped<ITask, SecondTask>();
+            //services.AddScoped<ITask, FirstTask>();
 
             services.AddControllers();
         }
@@ -38,5 +44,5 @@ namespace DIChainOfResponsibility
                 endpoints.MapControllers();
             });
         }
-    } 
+    }
 }

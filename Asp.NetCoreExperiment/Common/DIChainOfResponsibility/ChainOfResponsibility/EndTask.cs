@@ -11,19 +11,20 @@ namespace DIChainOfResponsibility
     /// <summary>
     /// 最后的任务
     /// </summary>
-    public class EndTask : ParentTask
-    {
+    public class EndTask : ITask
+    {       
         readonly ILogger<EndTask> _logger;
         public EndTask(ILogger<EndTask> logger)
         {
             _logger = logger;
         }
+  
         /// <summary>
         /// 职责链任务方法
         /// </summary>
         /// <param name="taskParmeter">任务内容</param>
         /// <returns></returns>
-        public override bool ExecuteTask(TaskParmeter taskParmeter)
+        public bool ExecuteTask(TaskParmeter taskParmeter)
         {
             _logger.LogInformation("-------------------------------------------EndTask");
             return true;

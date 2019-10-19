@@ -1,4 +1,5 @@
 ﻿
+
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -6,24 +7,24 @@ using System.Collections.Generic;
 namespace DIChainOfResponsibility
 {
     /// <summary>
-    /// 第二个任务
+    /// 第三个任务
     /// </summary>
-    public class SecondTask : ITask
+    public class ThirdTask : ITask
     {
         ITask _task;
-        readonly ILogger<SecondTask> _logger;
-        public SecondTask(ILogger<SecondTask> logger, ThirdTask task)
+        readonly ILogger<ThirdTask> _logger;
+        public ThirdTask(ILogger<ThirdTask> logger, EndTask endTask)
         {
+            this.Next(endTask);
             _logger = logger;
-            this.Next(task);
         }
         //错误姿势
-        //public SecondTask(ILogger<SecondTask> logger, IEnumerable<ITask> tasks)
+        //public ThirdTask(ILogger<ThirdTask> logger, IEnumerable<ITask> tasks)
         //{
         //    _logger = logger;
         //    foreach (var task in tasks)
         //    {
-        //        if (task is ThirdTask)
+        //        if (task is EndTask)
 
         //        {
         //            this.Next(task);
@@ -40,26 +41,20 @@ namespace DIChainOfResponsibility
             Console.WriteLine($"-------------{task.GetType().Name}.Next()");
             _task = task;
         }
-
-
         /// <summary>
         /// 职责链任务方法
         /// </summary>
-        /// <param name="taskParmeter">任务内容</param>
+        /// <param name="transferParmeter">任务内容</param>
         /// <returns></returns>
         public bool ExecuteTask(TaskParmeter taskParmeter)
         {
             var result = SelfTask(taskParmeter);
             return _task.ExecuteTask(taskParmeter) && result;
         }
-
         bool SelfTask(TaskParmeter taskParmeter)
         {
-            _logger.LogInformation("-------------------------------------------SecondTask");
+            _logger.LogInformation("-------------------------------------------ThirdTask");
             return true;
-
         }
-
-
     }
 }
