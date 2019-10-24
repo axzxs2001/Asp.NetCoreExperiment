@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.Extensions.Logging;
 
 namespace CustomerResultDemo3._0.Controllers
@@ -11,7 +12,7 @@ namespace CustomerResultDemo3._0.Controllers
     [ApiController]
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
-    {     
+    {
         private readonly ILogger<WeatherForecastController> _logger;
 
         public WeatherForecastController(ILogger<WeatherForecastController> logger)
@@ -22,12 +23,13 @@ namespace CustomerResultDemo3._0.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            return new TestActionResult<dynamic>(new JsonSerializerOptions { PropertyNameCaseInsensitive = true })
+            return new YamlResult(new
             {
-                Data = new { a = 1, B = "bbb" },
+                Data = new { a = 1, B = "bbb", C = DateTime.Now, d = new string[] { "a", "b", "c" } },
                 Status = true,
                 Message = "成功"
-            };
+            });
         }
     }
+ 
 }
