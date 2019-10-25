@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
-    <RootNamespace>CustomerResultDemo3._0</RootNamespace>
+    <RootNamespace>YamlResultDemo</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

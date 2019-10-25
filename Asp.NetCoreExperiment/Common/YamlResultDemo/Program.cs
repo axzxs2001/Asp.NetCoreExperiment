@@ -7,7 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace CustomerResultDemo3._0
+namespace YamlResultDemo
 {
     public class Program
     {

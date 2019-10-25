@@ -7,15 +7,30 @@ using Microsoft.AspNetCore.Mvc.Infrastructure;
 using System.Text.Json.Serialization;
 using System.Text.Json;
 
-namespace CustomerResultDemo3._0
+namespace YamlResultDemo
 {
+    /// <summary>
+    /// YamlResul
+    /// </summary>
     public class YamlResult : ActionResult
     {
+        /// <summary>
+        /// Yaml值
+        /// </summary>
         public object Value { get; private set; }
+        /// <summary>
+        /// 构造
+        /// </summary>
+        /// <param name="value"></param>
         public YamlResult(object value)
         {
             Value = value;
         }
+        /// <summary>
+        /// Result执行者
+        /// </summary>
+        /// <param name="context">上下文</param>
+        /// <returns></returns>
         public override async Task ExecuteResultAsync(ActionContext context)
         {
             var services = context.HttpContext.RequestServices;
@@ -23,14 +38,5 @@ namespace CustomerResultDemo3._0
             await executor.ExecuteAsync(context, new YamlResult(this));
         }
     }
-    public class YamlResultExecutor<T> : IActionResultExecutor<T> where T : YamlResult
-    {
-        public async Task ExecuteAsync(ActionContext context, T result)
-        {
-            var serialize = new YamlDotNet.Serialization.Serializer();
-            var valueString = serialize.Serialize(result.Value);
-            context.HttpContext.Response.ContentType = "Content-Type: text/html; charset=utf-8";
-            await context.HttpContext.Response.WriteAsync(valueString);
-        }
-    }
+
 }
