@@ -23,7 +23,16 @@ namespace LogEntity
 
         public void Log<TState>(Microsoft.Extensions.Logging.LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
         {
-            var log = new Log { Level = logLevel.ToString(), Message = state.ToString() };
+            var message = "";
+            if (exception == null)
+            {
+                message = formatter(state, exception);
+            }
+            else
+            {
+                message = $"{formatter(state, exception)} \r\n{exception.Message} \r\n {exception.StackTrace}";
+            }
+            var log = new Log { Level = logLevel.ToString(), Message = message };
             var logstr = JsonSerializer.Serialize(log);
             Console.WriteLine(logstr);
         }

@@ -28,15 +28,22 @@ namespace LogDemo.Controllers
         public IEnumerable<WeatherForecast> Get()
         {
             //_logger.LogInformation(System.Text.Json.JsonSerializer.Serialize(new Log { Level = LogEntity.LogLevel.INFO, Message = "测试" }));
+            try
+            {
+                _logger.LogInformation("---------Information------------");
+                _logger.LogWarning("----------------warning-------------------");
+                _logger.LogError("----------------Error-------------------");
+                _logger.LogDebug("----------------warning-------------------");
 
-            _logger.LogInformation("---------Information------------");
-            _logger.LogWarning("----------------warning-------------------");
-            _logger.LogError("----------------Error-------------------");
-            _logger.LogDebug("----------------warning-------------------");
-            _logger.LogCritical("----------------Critical-------------------");
-            _logger.LogTrace("----------------Trace-------------------");
-            
-            var rng = new Random();
+                _logger.LogTrace("----------------Trace-------------------");
+                var k = 0;
+                var i = 1 / k;
+            }
+            catch(Exception exc)
+            {
+                _logger.LogCritical(exc, "----------------Critical-------------------"+exc.Message);
+            }
+                var rng = new Random();
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
                 Date = DateTime.Now.AddDays(index),
