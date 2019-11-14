@@ -30,9 +30,9 @@ namespace LogEntity
             }
             else
             {
-                message = $"{formatter(state, exception)} \r\n{exception.Message} \r\n {exception.StackTrace}";
+                message = $"{formatter(state, exception)}  {exception.Message}  {exception.StackTrace}";
             }
-            var log = new Log { Level = logLevel.ToString(), Message = message };
+            var log = new Log { Level = logLevel.ToString(), Message = message.Replace("\\", "/") };
             var logstr = JsonSerializer.Serialize(log);
             Console.WriteLine(logstr);
         }

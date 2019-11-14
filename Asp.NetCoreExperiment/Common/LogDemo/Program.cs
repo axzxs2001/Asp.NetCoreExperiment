@@ -16,16 +16,25 @@ namespace LogDemo
             CreateHostBuilder(args).Build().Run();
         }
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
+        public static IHostBuilder CreateHostBuilder(string[] args)
+        {
+            return Host.CreateDefaultBuilder(args)
+
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-
-                    webBuilder.ConfigureLogging(cfg =>
+                    webBuilder.ConfigureAppConfiguration((context, builder) =>
                     {
-                       // cfg.ClearProviders();
+                        if (!context.HostingEnvironment.IsDevelopment())
+                        {
+                            webBuilder.ConfigureLogging(cfg =>
+                            {
+                                cfg.ClearProviders();
+                            });
+                        }
                     });
+              
                     webBuilder.UseStartup<Startup>();
                 });
+        }
     }
 }
