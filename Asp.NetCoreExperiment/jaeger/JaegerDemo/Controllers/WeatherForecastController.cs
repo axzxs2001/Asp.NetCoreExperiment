@@ -33,7 +33,7 @@ namespace JaegerDemo.Controllers
         {
 
             //GlobalTracer.Instance.ActiveSpan.SetTag("TracingSpanTag.GatewayResponse", "桂素伟");
-
+            //UI  http://127.0.0.1:16686/
 
             // Open Tracing
             ISpanBuilder builder = CreateTracingSpanBuilder(Startup.tracer, Request);
