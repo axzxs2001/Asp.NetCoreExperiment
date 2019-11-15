@@ -27,32 +27,32 @@ namespace JaegerDemo01
         }
 
         public IConfiguration Configuration { get; }
-        public static ITracer tracer;
+
 
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            // OpenTracing Tracer
-            IReporter reporter = new NoopReporter();
+
+            // OpenTracing Tracer    
             if (Configuration.GetSection("OpenTracing:Agent").Exists())
             {
                 string agentHost = Configuration.GetSection("OpenTracing:Agent").GetValue<string>("Host");
                 int agentPort = Configuration.GetSection("OpenTracing:Agent").GetValue<int>("Port");
                 int agentMaxPacketSize = Configuration.GetSection("OpenTracing:Agent").GetValue<int>("MaxPacketSize");
-                reporter = new RemoteReporter.Builder()
+                var reporter = new RemoteReporter.Builder()
                     .WithSender(new UdpSender(string.IsNullOrEmpty(agentHost) ? UdpSender.DefaultAgentUdpHost : agentHost,
                                               agentPort <= 0 ? UdpSender.DefaultAgentUdpCompactPort : agentPort,
                                               agentMaxPacketSize <= 0 ? 0 : agentMaxPacketSize))
                     .Build();
-            }
-            tracer = new Tracer.Builder(Assembly.GetEntryAssembly().GetName().Name)  // service name
-               .WithReporter(reporter)
-               .WithSampler(new ConstSampler(true))  // always send the span
-               .Build();
-            GlobalTracer.Register(tracer);
+                ITracer tracer = new Tracer.Builder(Assembly.GetEntryAssembly().GetName().Name)  // service name
+                   .WithReporter(reporter)
+                   .WithSampler(new ConstSampler(true))  // always send the span
+                   .Build();
+                GlobalTracer.Register(tracer);
 
-            // ×¢ÈëTracer
-            services.AddSingleton(tracer);
+                // ×¢ÈëTracer
+                services.AddSingleton(tracer);
+            }
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -62,7 +62,7 @@ namespace JaegerDemo01
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            app.UseJager();
             app.UseRouting();
 
             app.UseAuthorization();

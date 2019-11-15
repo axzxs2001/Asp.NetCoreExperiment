@@ -19,10 +19,12 @@ namespace JaegerDemo.Controllers
 
 
         private readonly ILogger<WeatherForecastController> _logger;
+        private readonly ITracer _tracer;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger, IHttpClientFactory clientFactory)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, IHttpClientFactory clientFactory, ITracer tracer)
         {
             _logger = logger;
+            _tracer = tracer;
             _clientFactory = clientFactory;
         }
         private readonly IHttpClientFactory _clientFactory;
@@ -31,44 +33,73 @@ namespace JaegerDemo.Controllers
         [HttpGet]
         public async Task<string> Get()
         {
-
-            //GlobalTracer.Instance.ActiveSpan.SetTag("TracingSpanTag.GatewayResponse", "桂素伟");
-            //UI  http://127.0.0.1:16686/
+            //ISpanBuilder builder = CreateTracingSpanBuilder(Startup.tracer, Request);
+            //using (IScope scope = builder.StartActive(true))
+            //{
+            //    GlobalTracer.Instance.ActiveSpan.SetTag("TracingSpanTag.GatewayResponse", "桂素伟");
+            //}
 
             // Open Tracing
-            ISpanBuilder builder = CreateTracingSpanBuilder(Startup.tracer, Request);
+
+            var request = new HttpRequestMessage(HttpMethod.Get, "/demo01");
+            var client = _clientFactory.CreateClient("nameclient5000");
+            var response = await client.SendAsync(request);
+            if (response.IsSuccessStatusCode)
+            {
+                var result = await response.Content.ReadAsStringAsync();
+                return result;
+            }
+            else
+            {
+                return "";
+            }
+
+            //return await SpanTag("获取Demo1数据", ("name", "桂素伟"), async () =>
+            // {
+            //     //UI  http://127.0.0.1:16686/
+            //     var request = new HttpRequestMessage(HttpMethod.Get, "/demo01");
+            //     var client = _clientFactory.CreateClient("nameclient5000");
+            //     var response = await client.SendAsync(request);
+            //     if (response.IsSuccessStatusCode)
+            //     {
+            //         var result = await response.Content.ReadAsStringAsync();
+            //         return result;
+            //     }
+            //     else
+            //     {
+            //         return "";
+            //     }
+            // });
+        }
+
+        async Task<string> SpanTag(string operationName, (string key, string value) tagPair, Func<Task<string>> func)
+        {
+            ISpanBuilder builder = CreateTracingSpanBuilder(_tracer, Request);
             using (IScope scope = builder.StartActive(true))
             {
                 // Span Name
-                scope.Span.SetOperationName("JaegerDemo/WeatherForecastController/get");
-
+                scope.Span.SetOperationName(operationName);
                 // 记录请求信息到span
-                scope.Span.SetTag("TracingSpanTag.ApiRequest", "桂素伟00000000000000");
-
-                var request = new HttpRequestMessage(HttpMethod.Get, "/demo01");
-                var client = _clientFactory.CreateClient("nameclient5000");               
-                var response = await client.SendAsync(request);          
-                if (response.IsSuccessStatusCode)
-                {
-                    var result = await response.Content.ReadAsStringAsync();
-                    return result;
-                }
+                scope.Span.SetTag(tagPair.key, tagPair.value);
+                return await func();
             }
-            return "none";
         }
 
- 
+
 
         protected ISpanBuilder CreateTracingSpanBuilder(ITracer tracer, HttpRequest request)
         {
             var callingHeaders = new TextMapExtractAdapter(request.Headers.ToDictionary(m => m.Key, m => m.Value.ToString()));
-            ISpanContext spanContex = tracer.Extract(BuiltinFormats.HttpHeaders, callingHeaders);
-            ISpanBuilder builder;
+            var spanContex = tracer.Extract(BuiltinFormats.HttpHeaders, callingHeaders);
+
             if (spanContex != null)
-                builder = tracer.BuildSpan("").AsChildOf(spanContex);
+            {
+                return tracer.BuildSpan("").AsChildOf(spanContex);
+            }
             else
-                builder = tracer.BuildSpan("");
-            return builder;
+            {
+                return tracer.BuildSpan("");
+            }
         }
 
 

@@ -26,7 +26,8 @@ namespace JaegerDemo
         {
             Configuration = configuration;
         }
-        public static ITracer tracer;
+
+
         public IConfiguration Configuration { get; }
 
 
@@ -42,32 +43,32 @@ namespace JaegerDemo
                 }
             });
             services.AddControllers();
-            // OpenTracing Tracer
-            IReporter reporter = new NoopReporter();
+
+            // OpenTracing Tracer        
             if (Configuration.GetSection("OpenTracing:Agent").Exists())
             {
-                string agentHost = Configuration.GetSection("OpenTracing:Agent").GetValue<string>("Host");
-                int agentPort = Configuration.GetSection("OpenTracing:Agent").GetValue<int>("Port");
-                int agentMaxPacketSize = Configuration.GetSection("OpenTracing:Agent").GetValue<int>("MaxPacketSize");
-                reporter = new RemoteReporter.Builder()
+                var agentHost = Configuration.GetSection("OpenTracing:Agent").GetValue<string>("Host");
+                var agentPort = Configuration.GetSection("OpenTracing:Agent").GetValue<int>("Port");
+                var agentMaxPacketSize = Configuration.GetSection("OpenTracing:Agent").GetValue<int>("MaxPacketSize");
+                var reporter = new RemoteReporter.Builder()
                     .WithSender(new UdpSender(string.IsNullOrEmpty(agentHost) ? UdpSender.DefaultAgentUdpHost : agentHost,
-                                              agentPort <= 0 ? UdpSender.DefaultAgentUdpCompactPort : agentPort,
+                                              agentPort <= 100 ? UdpSender.DefaultAgentUdpCompactPort : agentPort,
                                               agentMaxPacketSize <= 0 ? 0 : agentMaxPacketSize))
                     .Build();
+                ITracer tracer = new Tracer.Builder(Assembly.GetEntryAssembly().GetName().Name)  // service name
+                   .WithReporter(reporter)
+                   .WithSampler(new ConstSampler(true))  // always send the span
+                   .Build();
+                GlobalTracer.Register(tracer);
+                // ×¢ÈëTracer
+                services.AddSingleton(tracer);
             }
-            tracer = new Tracer.Builder(Assembly.GetEntryAssembly().GetName().Name)  // service name
-               .WithReporter(reporter)
-               .WithSampler(new ConstSampler(true))  // always send the span
-               .Build();
-            GlobalTracer.Register(tracer);
 
-            // ×¢ÈëTracer
-            services.AddSingleton(tracer);
         }
         Dictionary<string, string> CreateInjectTracingSpanHeader()
         {
-            Dictionary<string, string> headers = new Dictionary<string, string>();
-            TextMapInjectAdapter carrier = new TextMapInjectAdapter(headers);  // get the calling headers
+            var headers = new Dictionary<string, string>();
+            var carrier = new TextMapInjectAdapter(headers);  // get the calling headers
             GlobalTracer.Instance.Inject(GlobalTracer.Instance.ActiveSpan.Context, BuiltinFormats.HttpHeaders, carrier);
             return headers;
         }
@@ -78,7 +79,7 @@ namespace JaegerDemo
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            app.UseJager();
             app.UseRouting();
 
             app.UseAuthorization();
