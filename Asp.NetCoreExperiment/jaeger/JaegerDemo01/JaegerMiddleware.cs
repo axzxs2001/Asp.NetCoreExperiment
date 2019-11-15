@@ -20,7 +20,8 @@ namespace JaegerDemo01
         }
 
         public async Task InvokeAsync(HttpContext context, ITracer tracer)
-        {  
+        {
+          
             // Open Tracing
             ISpanBuilder builder = CreateTracingSpanBuilder("中间件Span" ,tracer, context.Request);
             using (IScope scope = builder.StartActive(true))

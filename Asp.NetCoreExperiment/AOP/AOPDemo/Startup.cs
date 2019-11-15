@@ -22,40 +22,41 @@ namespace AOPDemo
         public IConfiguration Configuration { get; }
 
 
-        //public void ConfigureServices(IServiceCollection services)
+        public void ConfigureServices(IServiceCollection services)
+        {
+            services.AddTransient<IItemManageRepository, ItemManageRepository>();
+            services.AddMvc();
+            services.ConfigureDynamicProxy();
+            services.BuildDynamicProxyServiceProvider();
+           // var sp = services.BuildAspectCoreServiceProvider();
+        }
+        //public IServiceProvider ConfigureServices(IServiceCollection services)
         //{
+
+        //    //使用Session,支持内存，Redis、SqlServer存储方式
+        //    services.AddDistributedMemoryCache();
+
+        //    services.AddSession(options => {
+        //        //options.Cookie.Name = ".AdventureWorks.Session";
+        //        options.IdleTimeout = TimeSpan.FromMinutes(20);
+        //       // options.Cookie.HttpOnly = true;              
+        //    });
+
+        //    //cookie验证
+        //    services.AddAuthentication(opts =>
+        //    {
+        //        opts.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+        //    }).AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, opt =>
+        //    {
+        //        opt.LoginPath = "/login";
+        //        opt.Cookie.Path = "/";
+        //    });
+
         //    services.AddTransient<IItemManageRepository, ItemManageRepository>();
         //    services.AddMvc();
         //    services.AddDynamicProxy();
-        //    var sp = services.BuildAspectCoreServiceProvider();
+        //    return services.BuildAspectCoreServiceProvider();
         //}
-        public IServiceProvider ConfigureServices(IServiceCollection services)
-        {
-
-            //使用Session,支持内存，Redis、SqlServer存储方式
-            services.AddDistributedMemoryCache();
-
-            services.AddSession(options => {
-                //options.Cookie.Name = ".AdventureWorks.Session";
-                options.IdleTimeout = TimeSpan.FromMinutes(20);
-               // options.Cookie.HttpOnly = true;              
-            });
-
-            //cookie验证
-            services.AddAuthentication(opts =>
-            {
-                opts.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-            }).AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, opt =>
-            {
-                opt.LoginPath = "/login";
-                opt.Cookie.Path = "/";
-            });
-
-            services.AddTransient<IItemManageRepository, ItemManageRepository>();
-            services.AddMvc();
-            services.AddDynamicProxy();
-            return services.BuildAspectCoreServiceProvider();
-        }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {

@@ -79,7 +79,7 @@ namespace JaegerDemo
             {
                 app.UseDeveloperExceptionPage();
             }
-            app.UseJager();
+           // app.UseJager();
             app.UseRouting();
 
             app.UseAuthorization();
