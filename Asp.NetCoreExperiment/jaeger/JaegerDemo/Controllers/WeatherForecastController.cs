@@ -20,14 +20,15 @@ namespace JaegerDemo.Controllers
 
         private readonly ILogger<WeatherForecastController> _logger;
         private readonly ITracer _tracer;
+        private readonly IHttpClientFactory _clientFactory;
+    
 
         public WeatherForecastController(ILogger<WeatherForecastController> logger, IHttpClientFactory clientFactory, ITracer tracer)
         {
             _logger = logger;
-            _tracer = tracer;
+               _tracer = tracer;
             _clientFactory = clientFactory;
         }
-        private readonly IHttpClientFactory _clientFactory;
 
         [JaegerAction]
         [HttpGet]
@@ -47,11 +48,11 @@ namespace JaegerDemo.Controllers
             }
         }
 
-
+        [JaegerAction]
         [HttpGet("/test")]
         public string Test()
         {
-            return "Test";
+            return "test";
         }
 
     }

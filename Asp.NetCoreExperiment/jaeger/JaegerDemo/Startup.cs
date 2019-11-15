@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using AspectCore.Extensions.DependencyInjection;
 using Jaeger;
 using Jaeger.Reporters;
 using Jaeger.Samplers;
@@ -32,7 +33,8 @@ namespace JaegerDemo
 
 
         public void ConfigureServices(IServiceCollection services)
-        {       //命名客户端
+        {
+            //命名客户端
             services.AddHttpClient("nameclient5000", c =>
             {
                 c.BaseAddress = new Uri("http://localhost:5001/");
@@ -79,7 +81,7 @@ namespace JaegerDemo
             {
                 app.UseDeveloperExceptionPage();
             }
-           // app.UseJager();
+            // app.UseJager();
             app.UseRouting();
 
             app.UseAuthorization();
