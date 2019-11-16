@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="prometheus-net" Version="3.3.0" />
+    <PackageReference Include="prometheus-net.AspNetCore" Version="3.3.0" />
+    <PackageReference Include="Prometheus.Client.AspNetCore" Version="3.0.1" />
+    <PackageReference Include="Prometheus.Client.HttpRequestDurations" Version="2.1.0" />
+    <PackageReference Include="Prometheus.Client.MetricPusher" Version="1.0.1" />
+    <PackageReference Include="Prometheus.Client.MetricServer" Version="3.0.1" />
+  </ItemGroup>
+
+</Project>

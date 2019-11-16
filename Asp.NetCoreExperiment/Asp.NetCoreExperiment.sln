@@ -1043,9 +1043,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogEntity", "Common\LogEnti
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "jaeger", "jaeger", "{32E8C3FD-86B6-4CB3-8959-FC26EA309993}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JaegerDemo", "jaeger\JaegerDemo\JaegerDemo.csproj", "{0D156CA0-389F-44CE-A325-6D6E93F971B8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JaegerDemo", "jaeger\JaegerDemo\JaegerDemo.csproj", "{0D156CA0-389F-44CE-A325-6D6E93F971B8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JaegerDemo01", "jaeger\JaegerDemo01\JaegerDemo01.csproj", "{32EA6420-7C6F-4813-AFF8-E05536AAA720}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JaegerDemo01", "jaeger\JaegerDemo01\JaegerDemo01.csproj", "{32EA6420-7C6F-4813-AFF8-E05536AAA720}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NewFolder1", "NewFolder1", "{8FBB961D-650C-44B8-BEE0-F2D12D6FA670}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "prometheus_demo01", "Prometheus\prometheus_demo01\prometheus_demo01.csproj", "{ED50FE6F-440C-426F-8C8D-90762B627C87}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -3965,6 +3969,14 @@ Global
 		{32EA6420-7C6F-4813-AFF8-E05536AAA720}.Release|Any CPU.Build.0 = Release|Any CPU
 		{32EA6420-7C6F-4813-AFF8-E05536AAA720}.Release|x64.ActiveCfg = Release|Any CPU
 		{32EA6420-7C6F-4813-AFF8-E05536AAA720}.Release|x64.Build.0 = Release|Any CPU
+		{ED50FE6F-440C-426F-8C8D-90762B627C87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED50FE6F-440C-426F-8C8D-90762B627C87}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED50FE6F-440C-426F-8C8D-90762B627C87}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{ED50FE6F-440C-426F-8C8D-90762B627C87}.Debug|x64.Build.0 = Debug|Any CPU
+		{ED50FE6F-440C-426F-8C8D-90762B627C87}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED50FE6F-440C-426F-8C8D-90762B627C87}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED50FE6F-440C-426F-8C8D-90762B627C87}.Release|x64.ActiveCfg = Release|Any CPU
+		{ED50FE6F-440C-426F-8C8D-90762B627C87}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -4385,6 +4397,7 @@ Global
 		{EEED63E0-263E-4713-9527-67C9812B342C} = {A76B4F09-82B3-4F06-BE35-F5941BF8C338}
 		{0D156CA0-389F-44CE-A325-6D6E93F971B8} = {32E8C3FD-86B6-4CB3-8959-FC26EA309993}
 		{32EA6420-7C6F-4813-AFF8-E05536AAA720} = {32E8C3FD-86B6-4CB3-8959-FC26EA309993}
+		{ED50FE6F-440C-426F-8C8D-90762B627C87} = {BF7979FF-F475-4A2E-8C4C-C4FAE7E7F74E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
