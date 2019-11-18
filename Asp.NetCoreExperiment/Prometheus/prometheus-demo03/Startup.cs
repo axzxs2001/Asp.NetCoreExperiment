@@ -10,10 +10,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Prometheus;
+using prometheus_demo03.Monitor;
 
-
-
-namespace prometheus_demo01
+namespace prometheus_demo03
 {
     public class Startup
     {
@@ -27,28 +26,28 @@ namespace prometheus_demo01
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMonitoring();
             services.AddControllers();
         }
 
+
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UseMetricServer()
-                .UseMiddleware<ResponseTimeMiddleware>();
-            app.UseHttpMetrics();
-
+            app.UseMetricServer();
+            app.UseMonitoring();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
+
             app.UseRouting();
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
-
-
         }
     }
 }

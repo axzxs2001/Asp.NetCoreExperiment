@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
-using Prometheus.Client;
+using Prometheus;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -25,12 +25,13 @@ namespace prometheus_demo01
 
             var histogram =
                 Metrics
-                    .CreateHistogram(
-                        "api_response_time_seconds",
-                        "API Response Time in seconds",
-                        new[] { 0.02, 0.05, 0.1, 0.15, 0.2, 0.5, 0.8, 1 },
-                        "method",
-                        "path");
+                .CreateHistogram("api_response_time_seconds",
+                                         "API Response Time in seconds", new HistogramConfiguration()
+                                         {
+                                             Buckets = new[] { 0.02, 0.05, 0.1, 0.15, 0.2, 0.5, 0.8, 1 },
+                                             SuppressInitialValue = true,
+                                              LabelNames=new string[] { "method", "path" }
+                                         }) ;
 
             histogram
                 .WithLabels(context.Request.Method, context.Request.Path)

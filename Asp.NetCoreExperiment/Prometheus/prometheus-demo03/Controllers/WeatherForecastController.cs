@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Prometheus;
+using prometheus_demo03.Monitor;
 
-
-namespace prometheus_demo01.Controllers
+namespace prometheus_demo03.Controllers
 {
     [ApiController]
     [Route("[controller]")]
@@ -25,7 +23,7 @@ namespace prometheus_demo01.Controllers
         {
             _logger = logger;
         }
-
+        [Monitor]
         [HttpGet]
         public IEnumerable<WeatherForecast> Get()
         {
@@ -37,12 +35,6 @@ namespace prometheus_demo01.Controllers
                 Summary = Summaries[rng.Next(Summaries.Length)]
             })
             .ToArray();
-        }
-        private Random r = new Random();
-    
-        private void CompileMe(Expression<Func<int>> func)
-        {
-            func.Compile()();
         }
     }
 }

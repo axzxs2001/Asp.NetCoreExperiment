@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
+    <RootNamespace>prometheus_demo03</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

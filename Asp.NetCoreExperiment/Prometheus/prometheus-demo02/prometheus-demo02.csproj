@@ -2,10 +2,13 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
+    <RootNamespace>prometheus_demo02</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="prometheus-net" Version="3.3.0" />
     <PackageReference Include="prometheus-net.AspNetCore" Version="3.3.0" />
+    <PackageReference Include="prometheus-net.DotNetRuntime" Version="3.3.0" />
   </ItemGroup>
 
 </Project>
