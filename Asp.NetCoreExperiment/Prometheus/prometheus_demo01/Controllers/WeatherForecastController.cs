@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Prometheus;
-
 
 namespace prometheus_demo01.Controllers
 {
@@ -25,10 +23,10 @@ namespace prometheus_demo01.Controllers
         {
             _logger = logger;
         }
-
+  
         [HttpGet]
         public IEnumerable<WeatherForecast> Get()
-        {
+        {         
             var rng = new Random();
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
@@ -37,12 +35,6 @@ namespace prometheus_demo01.Controllers
                 Summary = Summaries[rng.Next(Summaries.Length)]
             })
             .ToArray();
-        }
-        private Random r = new Random();
-    
-        private void CompileMe(Expression<Func<int>> func)
-        {
-            func.Compile()();
         }
     }
 }

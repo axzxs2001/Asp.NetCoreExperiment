@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace prometheus_demo03.Controllers
+namespace prometheus_demo04.Controllers
 {
     [ApiController]
     [Route("[controller]")]
@@ -26,6 +26,11 @@ namespace prometheus_demo03.Controllers
         [HttpGet]
         public IEnumerable<WeatherForecast> Get()
         {
+            if (new System.Random().NextDouble() > 0.5)
+            {
+                throw new System.Exception("test exception");
+            }
+         
             var rng = new Random();
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
@@ -35,5 +40,6 @@ namespace prometheus_demo03.Controllers
             })
             .ToArray();
         }
+
     }
 }
