@@ -1,6 +1,6 @@
 using System;
 
-namespace prometheus_demo02
+namespace prometheus_demo00
 {
     public class WeatherForecast
     {

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace prometheus_demo02.Controllers
+namespace prometheus_demo00.Controllers
 {
     [ApiController]
     [Route("[controller]")]
