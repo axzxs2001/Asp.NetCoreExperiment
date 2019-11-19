@@ -35,5 +35,16 @@ namespace prometheus_demo00.Controllers
             })
             .ToArray();
         }
+
+        [HttpGet("/test")]
+        public string Test()
+        {
+           
+            if (new System.Random().NextDouble() > 0.5)
+            {
+                throw new System.Exception("test exception");
+            }
+            return "test";
+        }
     }
 }

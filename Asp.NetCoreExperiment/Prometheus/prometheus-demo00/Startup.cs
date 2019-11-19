@@ -30,19 +30,15 @@ namespace prometheus_demo00
 
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        {
-            app.UseMetricServer();
-            app.UseHttpMetrics();
-
+        { 
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
-
             app.UseRouting();
-
             app.UseAuthorization();
-
+            app.UseMetricServer();
+            app.UseHttpMetrics();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

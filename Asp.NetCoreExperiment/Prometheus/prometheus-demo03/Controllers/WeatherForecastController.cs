@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using prometheus_demo03.Monitor;
 
 namespace prometheus_demo03.Controllers
 {
@@ -22,7 +23,7 @@ namespace prometheus_demo03.Controllers
         {
             _logger = logger;
         }
-
+        [Monitor]
         [HttpGet]
         public IEnumerable<WeatherForecast> Get()
         {
