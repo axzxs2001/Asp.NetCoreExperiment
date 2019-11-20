@@ -48,7 +48,6 @@ namespace LogEntity
         public ILogger CreateLogger(string categoryName)
         {
             return _loggers.GetOrAdd(categoryName, name => new StarPayLogger());
-            //return _loggers.GetOrAdd(categoryName, name => new StarPayLogger());
         }
 
         public void Dispose()
