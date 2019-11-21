@@ -153,17 +153,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Consul", "Consul", "{611D1178-0D17-4175-A806-17F4B2A80C0D}"
 EndProject
 Project("{911E67C6-3D85-4FCE-B560-20A9C3E3FF48}") = "consul", "ConsulOcelot\consul\consul.exe", "{4F0D80E4-1918-47B9-87D1-BE197DA8CC61}"
-	ProjectSection(DebuggerProjectSystem) = preProject
-		PortSupplier = 00000000-0000-0000-0000-000000000000
-		Executable = C:\MyFile\Source\Repos\Asp.NetCoreExperiment\Asp.NetCoreExperiment\ConsulOcelot\consul\consul.exe
-		RemoteMachine = DESKTOP-MA5L9LQ
-		StartingDirectory = C:\MyFile\Source\Repos\Asp.NetCoreExperiment\Asp.NetCoreExperiment\ConsulOcelot\consul
-		Environment = 默认值
-		LaunchingEngine = 00000000-0000-0000-0000-000000000000
-		UseLegacyDebugEngines = No
-		LaunchSQLEngine = No
-		AttachLaunchAction = No
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "conf", "conf", "{7C580099-E98A-4F7E-80FF-D6A01740C396}"
 	ProjectSection(SolutionItems) = preProject
@@ -1031,7 +1020,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YamlResultDemo", "Common\Ya
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HostTest", "Common\HostTest\HostTest.csproj", "{DDAC7BE8-BC90-43E4-8AF8-8A3CCE05EA6D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeZoneDemo", "Common\TimeZoneDemo\TimeZoneDemo.csproj", "{B2D95B6D-2881-478A-9D71-C5C590E2A12F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimeZoneDemo", "Common\TimeZoneDemo\TimeZoneDemo.csproj", "{B2D95B6D-2881-478A-9D71-C5C590E2A12F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CSharp8", "CSharp\CSharp8\CSharp8.csproj", "{663E3F14-2E33-4453-913E-B92921284CA2}"
 EndProject
@@ -1051,11 +1040,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NewFolder1", "NewFolder1", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "prometheus_demo01", "Prometheus\prometheus_demo01\prometheus_demo01.csproj", "{ED50FE6F-440C-426F-8C8D-90762B627C87}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "prometheus-demo03", "Prometheus\prometheus-demo03\prometheus-demo03.csproj", "{D50301A9-FA32-4D25-A1F2-68A5DFE58593}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "prometheus-demo03", "Prometheus\prometheus-demo03\prometheus-demo03.csproj", "{D50301A9-FA32-4D25-A1F2-68A5DFE58593}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "prometheus-demo04", "Prometheus\prometheus-demo04\prometheus-demo04.csproj", "{35BB137F-146C-4118-8A0F-811DF7E441BE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "prometheus-demo04", "Prometheus\prometheus-demo04\prometheus-demo04.csproj", "{35BB137F-146C-4118-8A0F-811DF7E441BE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "prometheus-demo00", "Prometheus\prometheus-demo00\prometheus-demo00.csproj", "{C53159E6-FD8C-4E49-B903-E6371AFEB9B8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "prometheus-demo00", "Prometheus\prometheus-demo00\prometheus-demo00.csproj", "{C53159E6-FD8C-4E49-B903-E6371AFEB9B8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -3927,6 +3916,14 @@ Global
 		{DDAC7BE8-BC90-43E4-8AF8-8A3CCE05EA6D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DDAC7BE8-BC90-43E4-8AF8-8A3CCE05EA6D}.Release|x64.ActiveCfg = Release|Any CPU
 		{DDAC7BE8-BC90-43E4-8AF8-8A3CCE05EA6D}.Release|x64.Build.0 = Release|Any CPU
+		{B2D95B6D-2881-478A-9D71-C5C590E2A12F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2D95B6D-2881-478A-9D71-C5C590E2A12F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2D95B6D-2881-478A-9D71-C5C590E2A12F}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{B2D95B6D-2881-478A-9D71-C5C590E2A12F}.Debug|x64.Build.0 = Debug|Any CPU
+		{B2D95B6D-2881-478A-9D71-C5C590E2A12F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2D95B6D-2881-478A-9D71-C5C590E2A12F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2D95B6D-2881-478A-9D71-C5C590E2A12F}.Release|x64.ActiveCfg = Release|Any CPU
+		{B2D95B6D-2881-478A-9D71-C5C590E2A12F}.Release|x64.Build.0 = Release|Any CPU
 		{663E3F14-2E33-4453-913E-B92921284CA2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{663E3F14-2E33-4453-913E-B92921284CA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{663E3F14-2E33-4453-913E-B92921284CA2}.Debug|x64.ActiveCfg = Debug|Any CPU

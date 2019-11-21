@@ -14,30 +14,37 @@ namespace JaegerDemo01
     public class JaegerMiddleware
     {
         private readonly RequestDelegate _next;
-        public JaegerMiddleware(RequestDelegate next)
+        private readonly JaegerOptions _jaegerOptions;
+        public JaegerMiddleware(RequestDelegate next, JaegerOptions jaegerOptions = null)
         {
+            _jaegerOptions = jaegerOptions;
             _next = next;
         }
 
         public async Task InvokeAsync(HttpContext context, ITracer tracer)
         {
-          
+
             // Open Tracing
-            ISpanBuilder builder = CreateTracingSpanBuilder("中间件Span" ,tracer, context.Request);
+            ISpanBuilder builder = CreateTracingSpanBuilder("中间件Span", tracer, context.Request);
             using (IScope scope = builder.StartActive(true))
             {
                 // Span Name
                 scope.Span.SetOperationName(context.Request.Path);
                 // 记录请求信息到span
-                foreach (var query in context.Request.Query)
+                if (_jaegerOptions != null && _jaegerOptions.QuerySpan)
                 {
-                    scope.Span.SetTag(query.Key, query.Value);
+                    foreach (var query in context.Request.Query)
+                    {
+                        var value = _jaegerOptions.QueryValueMaxLength <= 0 ? query.Value.ToString() : query.Value.ToString().Substring(0, _jaegerOptions.FormValueMaxLength);
+                        scope.Span.SetTag(query.Key, query.Value);
+                    }
                 }
-                if (context.Request.HasFormContentType)
+                if (_jaegerOptions != null && _jaegerOptions.FormSpan && context.Request.HasFormContentType)
                 {
                     foreach (var form in context.Request.Form)
                     {
-                        scope.Span.SetTag(form.Key, form.Value);
+                        var value = _jaegerOptions.FormValueMaxLength <= 0 ? form.Value.ToString() : form.Value.ToString().Substring(0, _jaegerOptions.FormValueMaxLength);
+                        scope.Span.SetTag(form.Key, value);
                     }
                 }
                 //foreach (var form in context.Request.Headers)
@@ -45,10 +52,10 @@ namespace JaegerDemo01
                 //    scope.Span.SetTag(form.Key, form.Value);
                 //}
             }
-            await _next(context);           
+            await _next(context);
 
         }
-        protected ISpanBuilder CreateTracingSpanBuilder(string spanName,ITracer tracer, HttpRequest request)
+        protected ISpanBuilder CreateTracingSpanBuilder(string spanName, ITracer tracer, HttpRequest request)
         {
             var callingHeaders = new TextMapExtractAdapter(request.Headers.ToDictionary(m => m.Key, m => m.Value.ToString()));
             var spanContex = tracer.Extract(BuiltinFormats.HttpHeaders, callingHeaders);

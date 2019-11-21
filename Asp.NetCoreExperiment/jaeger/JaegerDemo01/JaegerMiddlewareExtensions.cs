@@ -15,6 +15,19 @@ namespace JaegerDemo01
         {
             return builder.UseMiddleware<JaegerMiddleware>();
         }
+        public static IApplicationBuilder UseJager(this IApplicationBuilder builder, JaegerOptions jaegerOptions)
+        {
+            return builder.UseMiddleware<JaegerMiddleware>(jaegerOptions);
+        }
+
+    }
+
+    public class JaegerOptions
+    {
+        public bool FormSpan { get; set; }
+        public int FormValueMaxLength { get; set; }
+        public bool QuerySpan { get; set; }
+        public int QueryValueMaxLength { get; set; }
 
     }
 }

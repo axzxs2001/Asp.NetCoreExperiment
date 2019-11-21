@@ -62,7 +62,7 @@ namespace JaegerDemo01
             {
                 app.UseDeveloperExceptionPage();
             }
-            app.UseJager();
+            app.UseJager(new JaegerOptions { QuerySpan = true, QueryValueMaxLength = 50 });
             app.UseRouting();
 
             app.UseAuthorization();
