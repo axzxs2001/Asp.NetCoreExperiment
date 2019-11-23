@@ -24,7 +24,7 @@ namespace GRPCDemo01Test
                     var client = new Goodser.GoodserClient(channel);
                     var query = await client.GetGoodsAsync(
                                       new QueryRequest { Name = "桂素伟" }, headers);
-                    Console.WriteLine($"Greeting返回值  Name:{ query.Name},Quantity:{ query.Quantity}");
+                    Console.WriteLine($"返回值  Name:{ query.Name},Quantity:{ query.Quantity}");
                 }
                 else
                 {

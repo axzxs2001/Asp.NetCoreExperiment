@@ -13,7 +13,7 @@ namespace GRPCDemo01GRPCTest_Test
             var client = new Orderer.OrdererClient(channel);
             var query = await client.GetGoodsAsync(
                               new OrderRequest { Name = "张三" });
-            Console.WriteLine($"Greeting返回值  Name:{ query.Name},Quantity:{ query.Quantity}");
+            Console.WriteLine($"返回值  Name:{ query.Name},Quantity:{ query.Quantity}");
             Console.ReadKey();
         }
     }
