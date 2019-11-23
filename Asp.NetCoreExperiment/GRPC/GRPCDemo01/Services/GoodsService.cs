@@ -11,30 +11,31 @@ using Microsoft.Extensions.Logging;
 namespace GRPCDemo01
 {
     [Authorize("Permission")]
-    public class GreeterService : Greeter.GreeterBase
+    public class GoodsService : Goodser.GoodserBase
     {
-        private readonly ILogger<GreeterService> _logger;
+        private readonly ILogger<GoodsService> _logger;
         readonly PermissionRequirement _requirement;
-        public GreeterService(ILogger<GreeterService> logger, PermissionRequirement requirement)
+        public GoodsService(ILogger<GoodsService> logger, PermissionRequirement requirement)
         {
             _requirement = requirement;
             _logger = logger;
-        }  
-        public override Task<HelloReply> SayHello(HelloRequest request, ServerCallContext context)
+        }
+        public override Task<QueryResponse> GetGoods(QueryRequest request, ServerCallContext context)
         {
-            return Task.FromResult(new HelloReply
+            return Task.FromResult(new QueryResponse
             {
-                Message = "Hello " + request.Name
+                Name = "Hello " + request.Name,
+                Quantity = 10
             });
         }
         [AllowAnonymous]
-        public override Task<UserTokenResponse> Login(UserRequest user, ServerCallContext context)
+        public override Task<LoginResponse> Login(LoginRequest user, ServerCallContext context)
         {
 
             var isValidated = user.Username == "gsw" && user.Password == "111111";
             if (!isValidated)
             {
-                return Task.FromResult(new UserTokenResponse()
+                return Task.FromResult(new LoginResponse()
                 {
                     Message = "»œ÷§ ß∞‹"
                 });
@@ -49,11 +50,11 @@ namespace GRPCDemo01
                 };
 
                 var token = JwtToken.BuildJwtToken(claims, _requirement);
-                return Task.FromResult(new UserTokenResponse()
+                return Task.FromResult(new LoginResponse()
                 {
                     Result = true,
                     Token = token.access_token
-                }) ;
+                });
 
             }
         }

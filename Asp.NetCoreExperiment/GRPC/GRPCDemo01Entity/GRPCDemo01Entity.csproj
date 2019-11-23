@@ -13,6 +13,6 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <Protobuf Include="Protos\greet.proto" />
+    <Protobuf Include="Protos\goods.proto" />
   </ItemGroup>
 </Project>

@@ -48,7 +48,7 @@ namespace GRPCDemo01
             var signingCredentials = new SigningCredentials(signingKey, SecurityAlgorithms.HmacSha256);
             //这个集合模拟用户权限表,可从数据库中查询出来
             var permission = new List<Permission> {
-                              new Permission {  Url="/Greet.Greeter/SayHello", Name="admin"},
+                              new Permission {  Url="/Goods.Goodser/GetGoods", Name="admin"},
                               new Permission {  Url="systemapi", Name="system"}
                           };
             //如果第三个参数，是ClaimTypes.Role，上面集合的每个元素的Name为角色名称，如果ClaimTypes.Name，即上面集合的每个元素的Name为用户名
@@ -108,7 +108,7 @@ namespace GRPCDemo01
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapGrpcService<GreeterService>();
+                endpoints.MapGrpcService<GoodsService>();
 
                 endpoints.MapGet("/", async context =>
                 {

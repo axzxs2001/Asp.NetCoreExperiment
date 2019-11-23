@@ -13,11 +13,9 @@ namespace GRPCDemo01WebTest.Controllers
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
-
-
         private readonly ILogger<WeatherForecastController> _logger;
-        private readonly Greeter.GreeterClient _client;
-        public WeatherForecastController(ILogger<WeatherForecastController> logger, Greeter.GreeterClient client)
+        private readonly Goodser.GoodserClient _client;
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, Goodser.GoodserClient client)
         {
             _client = client;
             _logger = logger;
@@ -26,12 +24,12 @@ namespace GRPCDemo01WebTest.Controllers
         [HttpGet]
         public async Task<string> Get()
         {
-            var tokenResponse = await _client.LoginAsync(new UserRequest { Username = "gsw", Password = "111111" });
+            var tokenResponse = await _client.LoginAsync(new LoginRequest { Username = "gsw", Password = "111111" });
             var token = $"Bearer {tokenResponse.Token }";
             var headers = new Metadata { { "Authorization", token } };
-            var request = new HelloRequest { Name = "桂素伟" };
-            var call = await _client.SayHelloAsync(request, headers);
-            return call.Message;
+            var request = new QueryRequest { Name = "桂素伟" };
+            var query = await _client.GetGoodsAsync(request, headers);
+            return $"Name:{query.Name},Quantity:{query.Quantity}";
         }
     }
 }

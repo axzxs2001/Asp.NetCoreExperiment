@@ -21,10 +21,10 @@ namespace GRPCDemo01Test
                     var token = $"Bearer {tokenResponse.Token }";
                     var headers = new Metadata { { "Authorization", token } };
                     var channel = GrpcChannel.ForAddress("https://localhost:5001");
-                    var client = new Greeter.GreeterClient(channel);
-                    var reply = await client.SayHelloAsync(
-                                      new HelloRequest { Name = "桂素伟" }, headers);
-                    Console.WriteLine("Greeting返回值: " + reply.Message);
+                    var client = new Goodser.GoodserClient(channel);
+                    var query = await client.GetGoodsAsync(
+                                      new QueryRequest { Name = "桂素伟" }, headers);
+                    Console.WriteLine($"Greeting返回值  Name:{ query.Name},Quantity:{ query.Quantity}");
                 }
                 else
                 {
@@ -33,12 +33,12 @@ namespace GRPCDemo01Test
             }
         }
 
-        static async Task<UserTokenResponse> Login(string userName, string password)
+        static async Task<LoginResponse> Login(string userName, string password)
         {
             var channel = GrpcChannel.ForAddress("https://localhost:5001");
-            var client = new Greeter.GreeterClient(channel);
+            var client = new Goodser.GoodserClient(channel);
             var response = await client.LoginAsync(
-                              new UserRequest { Username = userName, Password = password });
+                              new LoginRequest() { Username = userName, Password = password });
             return response;
         }
     }

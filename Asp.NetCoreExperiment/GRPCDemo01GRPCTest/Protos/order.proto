@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+option csharp_namespace = "GRPCDemo01GRPCTest";
+
+package Order;
+
+
+service Orderer {
+  rpc GetGoods (OrderRequest) returns (OrderResponse);
+}
+
+message OrderRequest {
+  string name = 1;
+}
+
+
+message OrderResponse {
+  string name = 1;
+  int32 quantity=2;
+}
