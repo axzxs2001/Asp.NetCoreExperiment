@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+option csharp_namespace = "GRPCDemo01Entity";
+
+package Greet;
+
+
+service Greeter {
+
+  rpc SayHello (HelloRequest) returns (HelloReply);
+  rpc Login (UserRequest) returns (UserTokenResponse);
+}
+
+
+message HelloRequest {
+  string name = 1;
+}
+
+
+message HelloReply {
+  string message = 1;
+}
+
+
+message UserRequest{
+	string username=1;
+	string password=2;
+}
+message UserTokenResponse{
+    bool result=1;
+    string message=2;
+	string token=3;
+}
