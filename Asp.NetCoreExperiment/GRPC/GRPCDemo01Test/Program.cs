@@ -2,7 +2,6 @@
 using Grpc.Net.Client;
 using GRPCDemo01Entity;
 using System;
-using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace GRPCDemo01Test
@@ -13,18 +12,14 @@ namespace GRPCDemo01Test
         {
             while (true)
             {
+                Console.WriteLine("用户名：");
+                var username = Console.ReadLine();
                 Console.WriteLine("密码：");
                 var password = Console.ReadLine();
-                var tokenResponse = await Login("gsw", password);
+                var tokenResponse = await Login(username, password);
                 if (tokenResponse.Result)
                 {
-                    var token = $"Bearer {tokenResponse.Token }";
-                    var headers = new Metadata { { "Authorization", token } };
-                    var channel = GrpcChannel.ForAddress("https://localhost:5001");
-                    var client = new Goodser.GoodserClient(channel);
-                    var query = await client.GetGoodsAsync(
-                                      new QueryRequest { Name = "桂素伟" }, headers);
-                    Console.WriteLine($"返回值  Name:{ query.Name},Quantity:{ query.Quantity}");
+                    await Query(tokenResponse.Token);
                 }
                 else
                 {
@@ -32,7 +27,27 @@ namespace GRPCDemo01Test
                 }
             }
         }
-
+        /// <summary>
+        /// 查询
+        /// </summary>
+        /// <param name="token">token</param>
+        /// <returns></returns>
+        static async Task Query(string token)
+        {
+            token = $"Bearer {token }";
+            var headers = new Metadata { { "Authorization", token } };
+            var channel = GrpcChannel.ForAddress("https://localhost:5001");
+            var client = new Goodser.GoodserClient(channel);
+            var query = await client.GetGoodsAsync(
+                              new QueryRequest { Name = "桂素伟" }, headers);
+            Console.WriteLine($"返回值  Name:{ query.Name},Quantity:{ query.Quantity}");
+        }
+        /// <summary>
+        /// 登录
+        /// </summary>
+        /// <param name="userName">userName</param>
+        /// <param name="password">password</param>
+        /// <returns></returns>
         static async Task<LoginResponse> Login(string userName, string password)
         {
             var channel = GrpcChannel.ForAddress("https://localhost:5001");

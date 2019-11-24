@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Grpc.Core;
 using GRPCDemo01Entity;
@@ -16,21 +14,20 @@ namespace GRPCDemo01GRPCTest
         {
             _client = client;
             _logger = logger;
-        }
-        async Task<LoginResponse> Login(string userName, string password)
-        {
-
-            var response = await _client.LoginAsync(
-                              new LoginRequest() { Username = userName, Password = password });
-            return response;
-        }
+        } 
         public override async Task<OrderResponse> GetGoods(OrderRequest request, ServerCallContext context)
         {
-            var tokenResponse = await Login("gsw", "111111");
+            //µÇÂ¼
+            var tokenResponse = await _client.LoginAsync(
+                             new LoginRequest() {
+                                 Username = "gsw",
+                                 Password = "111111" 
+                             });
             if (tokenResponse.Result)
             {
                 var token = $"Bearer {tokenResponse.Token }";
                 var headers = new Metadata { { "Authorization", token } };
+                //²éÑ¯
                 var query = await _client.GetGoodsAsync(
                                   new QueryRequest { Name = "¹ðËØÎ°" }, headers);
                 Console.WriteLine($"·µ»ØÖµ  Name:{ query.Name},Quantity:{ query.Quantity}");
@@ -41,7 +38,6 @@ namespace GRPCDemo01GRPCTest
                 Console.WriteLine("µÇÂ¼Ê§°Ü");
                 return null;
             }
-
         }
     }
 }

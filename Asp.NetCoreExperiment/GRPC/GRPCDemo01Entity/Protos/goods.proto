@@ -5,21 +5,26 @@ option csharp_namespace = "GRPCDemo01Entity";
 package Goods;
 
 service Goodser {
+  //查询
   rpc GetGoods (QueryRequest) returns (QueryResponse);
+  //登录
   rpc Login (LoginRequest) returns (LoginResponse);
 }
-
+//查询参数
 message QueryRequest {
   string name = 1;
 }
+//查询反回值
 message QueryResponse {
   string name = 1;
   int32 quantity=2;
 }
+//登录参数
 message LoginRequest{
 	string username=1;
 	string password=2;
 }
+//登录返回值
 message LoginResponse{
     bool result=1;
     string message=2;

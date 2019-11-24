@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Text;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -23,7 +20,6 @@ namespace GRPCDemo01Service
         {
             Configuration = configuration;
         }
-
         public IConfiguration Configuration { get; }
         public void ConfigureServices(IServiceCollection services)
         {
@@ -43,7 +39,6 @@ namespace GRPCDemo01Service
                 ValidateLifetime = true,
                 ClockSkew = TimeSpan.Zero,
                 RequireExpirationTime = true,
-
             };
             var signingCredentials = new SigningCredentials(signingKey, SecurityAlgorithms.HmacSha256);
             //这个集合模拟用户权限表,可从数据库中查询出来
@@ -72,22 +67,9 @@ namespace GRPCDemo01Service
             })
             .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, o =>
             {
-
                 //不使用https
                 o.RequireHttpsMetadata = true;
-                o.TokenValidationParameters = tokenValidationParameters;
-
-                o.Events = new JwtBearerEvents
-                {
-                    OnTokenValidated = context =>
-                    {
-                        if (context.Request.Path.Value.ToString() == "/api/logout")
-                        {
-                            var token = ((context as TokenValidatedContext).SecurityToken as JwtSecurityToken).RawData;
-                        }
-                        return Task.CompletedTask;
-                    }
-                };
+                o.TokenValidationParameters = tokenValidationParameters;           
             });
             //注入授权Handler
             services.AddSingleton<IAuthorizationHandler, PermissionHandler>();

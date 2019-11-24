@@ -2,12 +2,9 @@
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace GRPCDemo01Service
 {
-
     /// <summary>
     /// 必要参数类
     /// </summary>
@@ -73,5 +70,4 @@ namespace GRPCDemo01Service
             SigningCredentials = signingCredentials;
         }
     }
-
 }

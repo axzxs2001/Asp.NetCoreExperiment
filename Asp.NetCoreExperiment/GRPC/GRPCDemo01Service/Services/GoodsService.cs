@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Grpc.Core;
@@ -31,7 +29,7 @@ namespace GRPCDemo01Service
         [AllowAnonymous]
         public override Task<LoginResponse> Login(LoginRequest user, ServerCallContext context)
         {
-
+            //todo 查询数据库核对用户名密码
             var isValidated = user.Username == "gsw" && user.Password == "111111";
             if (!isValidated)
             {
