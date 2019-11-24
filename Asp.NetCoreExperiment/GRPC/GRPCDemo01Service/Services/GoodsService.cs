@@ -4,7 +4,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Grpc.Core;
-using GRPCDemo01ServiceEntity;
+using GRPCDemo01Entity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Logging;
 
