@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace GRPCDemo01
+namespace GRPCDemo01Service
 {
     /// <summary>
     /// 用户或角色或其他凭据实体

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace GRPCDemo01
+namespace GRPCDemo01Service
 {
     public class JwtToken
     {

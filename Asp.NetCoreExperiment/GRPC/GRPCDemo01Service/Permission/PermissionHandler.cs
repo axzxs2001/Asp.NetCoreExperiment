@@ -14,7 +14,7 @@ using System;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Routing;
 
-namespace GRPCDemo01
+namespace GRPCDemo01Service
 {
     /// <summary>
     /// 权限授权Handler

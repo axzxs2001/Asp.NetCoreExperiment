@@ -4,11 +4,11 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Grpc.Core;
-using GRPCDemo01Entity;
+using GRPCDemo01ServiceEntity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Logging;
 
-namespace GRPCDemo01
+namespace GRPCDemo01Service
 {
     [Authorize("Permission")]
     public class GoodsService : Goodser.GoodserBase
