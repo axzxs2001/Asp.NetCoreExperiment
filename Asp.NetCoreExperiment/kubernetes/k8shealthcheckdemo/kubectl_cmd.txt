@@ -1,0 +1,32 @@
+//提前安装docker和kubeadmin
+//重置kubernetes
+sudo kubeadm reset
+
+//初始化kubernetes
+sudo kubeadm init --ignore-preflight-errors=swap 
+
+//复制验证
+sudo rm -rf $HOME/.kube 
+mkdir -p $HOME/.kube 
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config 
+sudo chown $(id -u):$(id -g) $HOME/.kube/config 
+
+//安装主网络weave
+sudo kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
+
+//让master可以部署应用
+sudo kubectl taint nodes --all node-role.kubernetes.io/master-
+
+//创建configmap 配置文件
+sudo kubectl create configmap appsettings  --from-file=/var/data/
+
+//build镜像
+sudo docker build -t gsw/k8shealthcheckdemo:v1.0.0 .
+
+//部署应用
+sudo kubectl apply -f k8shealthcheckdemo-deployment.yaml
+
+//部署服务
+sudo kubectl apply -f k8shealthcheckdemo-service.yaml
+
+

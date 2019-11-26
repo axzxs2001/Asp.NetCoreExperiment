@@ -25,25 +25,26 @@ namespace k8shealthcheckdemo.Controllers
         }
 
         [HttpGet]
-        public string Get()
+        public string Get(int i)
         {
-            return "this is a ok";
+            System.Threading.Thread.Sleep(i);
+            return $"{Environment.MachineName} | sleap {i} ms | {DateTime.Now.ToString()}";
         }
         [HttpGet("/liveness")]
-        public  IActionResult Liveness()
+        public IActionResult Liveness()
         {
-            return  Ok();
+            return Ok(Environment.MachineName + " " + DateTime.Now.ToString());
         }
         [HttpGet("/readiness")]
         public async Task<IActionResult> Readiness()
         {
-            var connstring = _configuration.GetConnectionString("postgres");
+            var connstring = _configuration.GetConnectionString("Postgre");
             using (var con = new NpgsqlConnection(connstring))
             {
                 var result = await con.QueryFirstAsync<int>("select id from k8stest limit 1");
                 if (result == 1)
                 {
-                    return Ok();
+                    return Ok(Environment.MachineName + " " + DateTime.Now.ToString());
                 }
                 else
                 {

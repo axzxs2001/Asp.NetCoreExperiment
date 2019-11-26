@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: k8shealthcheckdemo-service
+  labels:
+    app: k8shealthcheckdemo-service
+spec:
+  selector:
+    app: k8shealthcheckdemo
+  type: NodePort  #用主机IP:31000访问
+  ports:
+    - name: default
+      nodePort: 31000 #用主机IP:31000访问
+      protocol: TCP
+      port: 5000
+      targetPort: 5000
