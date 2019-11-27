@@ -1073,7 +1073,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GRPCDemo01Service", "GRPC\G
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GRPCDemo02_Client", "GRPC\GRPCDemo02_Client\GRPCDemo02_Client.csproj", "{387EC737-0729-42F3-ADCA-6DE6844C77FA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "k8shealthcheckdemo", "kubernetes\k8shealthcheckdemo\k8shealthcheckdemo.csproj", "{746962CB-377C-46A1-BCE4-A8FE430359D9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "k8shealthcheckdemo", "kubernetes\k8shealthcheckdemo\k8shealthcheckdemo.csproj", "{746962CB-377C-46A1-BCE4-A8FE430359D9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrpcServiceTest02", "GRPC\GrpcServiceTest02\GrpcServiceTest02.csproj", "{4B7507E3-419F-4354-AA61-A84AC1C5FC90}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -4097,6 +4099,14 @@ Global
 		{746962CB-377C-46A1-BCE4-A8FE430359D9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{746962CB-377C-46A1-BCE4-A8FE430359D9}.Release|x64.ActiveCfg = Release|Any CPU
 		{746962CB-377C-46A1-BCE4-A8FE430359D9}.Release|x64.Build.0 = Release|Any CPU
+		{4B7507E3-419F-4354-AA61-A84AC1C5FC90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B7507E3-419F-4354-AA61-A84AC1C5FC90}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B7507E3-419F-4354-AA61-A84AC1C5FC90}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{4B7507E3-419F-4354-AA61-A84AC1C5FC90}.Debug|x64.Build.0 = Debug|Any CPU
+		{4B7507E3-419F-4354-AA61-A84AC1C5FC90}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B7507E3-419F-4354-AA61-A84AC1C5FC90}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4B7507E3-419F-4354-AA61-A84AC1C5FC90}.Release|x64.ActiveCfg = Release|Any CPU
+		{4B7507E3-419F-4354-AA61-A84AC1C5FC90}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -4529,6 +4539,7 @@ Global
 		{1B992E84-6E57-4F60-9794-48C9F64D5704} = {8D1FE693-17CD-4D41-833D-5F03777448DB}
 		{387EC737-0729-42F3-ADCA-6DE6844C77FA} = {8D1FE693-17CD-4D41-833D-5F03777448DB}
 		{746962CB-377C-46A1-BCE4-A8FE430359D9} = {86AE9DD9-7408-49DE-92EB-39284B5B347C}
+		{4B7507E3-419F-4354-AA61-A84AC1C5FC90} = {8D1FE693-17CD-4D41-833D-5F03777448DB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
