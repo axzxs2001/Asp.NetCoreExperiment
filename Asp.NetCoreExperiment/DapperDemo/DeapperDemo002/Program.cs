@@ -30,20 +30,30 @@ namespace DeapperDemo002
 
             // var obj = Convert.ChangeType(DateTime.Parse("2019-06-01 23:25:25"), typeof(DateTimeOffset), new FF());
             // var currentCulture = Thread.CurrentThread.CurrentCulture;
-            Test7();
+            Test8();
+        }
+        static void Test8()
+        {
+            var connString = "Server=127.0.0.1;Port=5432;UserId=postgres;Password=1222;Database=testdb;";
+            using (var conn = new NpgsqlConnection(connString))
+            {
+                var sql = @"select * from t where name =any( @names)";
+                var result = conn.Query<dynamic>(sql, new { names = new string[] { "abc" } });
+
+            }
         }
         static void Test7()
         {
             var connString = "Server=127.0.0.1;Port=5432;UserId=postgres;Password=postgres2018;Database=abc;";
             using (var conn = new NpgsqlConnection(connString))
             {
-                var sql = @" select * from shop where shop_id =any(@p)";           
+                var sql = @" select * from shop where shop_id =any(@p)";
                 var list = new List<dynamic> {
                     new{shop_id="0014924a-118b-440e-b01c-a40653af649e" },
                     new{shop_id="00175409-8216-42ac-bdad-46826d2d7b44" }
                 };
-            
-                 var result = conn.Query<dynamic>(sql, new { p = list.Select(s => (string)s.shop_id).ToArray() });
+
+                var result = conn.Query<dynamic>(sql, new { p = list.Select(s => (string)s.shop_id).ToArray() });
 
             }
         }
