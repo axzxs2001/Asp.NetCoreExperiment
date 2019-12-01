@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+
 namespace DateTimeOffsetDemo
 {
     class Program
@@ -15,6 +17,13 @@ namespace DateTimeOffsetDemo
             foreach (var pro in typeof(ABC).GetProperties())
             {
                 var value = dir[pro.Name];
+                if (pro.PropertyType.IsInstanceOfType(DateTimeOffset.Now))
+                {
+                    var converter = TypeDescriptor.GetConverter(typeof(DateTimeOffset));
+                    var result = converter.CanConvertFrom(typeof(string)) ? (DateTimeOffset)converter.ConvertFrom(value) :
+                        new DateTimeOffset();
+                }
+
                 var proobj = Convert.ChangeType(value, pro.PropertyType);
                 pro.SetValue(classobj, proobj);
             }
