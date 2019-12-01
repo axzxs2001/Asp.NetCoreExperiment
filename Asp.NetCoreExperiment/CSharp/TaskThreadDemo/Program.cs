@@ -7,6 +7,9 @@ namespace TaskThreadDemo
     {
         static async Task Main(string[] args)
         {
+            DateTimeOffset dd = DateTimeOffset.Parse("2019-11-29 12:12:12.999");
+            Console.WriteLine(dd.ToString("o"));
+            Console.WriteLine(dd);
             var allresult = true;
             for (int i = 1; i < 12; i++)
             {
@@ -17,18 +20,18 @@ namespace TaskThreadDemo
                 //    Console.WriteLine(DateTime.Now);
                 //});
                 //task.Start();
-                //await Task.Run(async () =>
-                // {
-                //     await F(4);
-                //     Console.WriteLine(DateTime.Now);
-                // });
-                #endregion
-                await Task.Factory.StartNew(async () =>
+                await Task.Run(async () =>
                  {
-                     var result = await F(i);
-                     allresult = result && allresult;
-                     Console.WriteLine("结果："+ result +"  "+DateTime.Now);
+                     await F(4);
+                     Console.WriteLine(DateTime.Now);
                  });
+                #endregion
+                //await Task.Factory.StartNew(async () =>
+                // {
+                //     var result = await F(i);
+                //     allresult = result && allresult;
+                //     Console.WriteLine("结果："+ result +"  "+DateTime.Now);
+                // });
             }
             await Console.Out.WriteLineAsync(allresult.ToString());
             //Console.WriteLine(allresult);
