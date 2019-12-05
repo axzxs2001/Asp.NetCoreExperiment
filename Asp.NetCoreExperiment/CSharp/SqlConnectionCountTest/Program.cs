@@ -13,22 +13,24 @@ namespace SqlConnectionCountTest
             for (var i = 0; i < 1000000; i++)
             {
                 new Thread(Client).Start();
-               // F();
+                // F();
             }
         }
         static void Client()
         {
-            var client = new HttpClient();
-            var response = client.GetAsync("http://localhost:5000/test").Result;
-            if (response.IsSuccessStatusCode)
+            using (var client = new HttpClient())
             {
-                var content = response.Content.ReadAsStringAsync().Result;         
-                Console.WriteLine("返回值：" + content);
-            }
-            else
-            {
-                var content = response.Content.ReadAsStringAsync().Result;
-                Console.WriteLine("返回值：" + content);
+                var response = client.GetAsync("http://localhost:5000/test").Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    var content = response.Content.ReadAsStringAsync().Result;
+                    Console.WriteLine("返回值：" + content);
+                }
+                else
+                {
+                    var content = response.Content.ReadAsStringAsync().Result;
+                    Console.WriteLine("返回值：" + content);
+                }
             }
         }
         static void F()
@@ -43,7 +45,7 @@ namespace SqlConnectionCountTest
                     cmd.ExecuteNonQuery();
                 }
             }
-            catch(Exception exc)
+            catch (Exception exc)
             {
                 Console.WriteLine(exc.Message);
             }
