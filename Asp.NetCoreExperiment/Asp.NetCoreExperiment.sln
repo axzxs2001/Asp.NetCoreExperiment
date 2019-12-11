@@ -1089,7 +1089,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebSqlConnectionTest", "CSh
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "loginfomation_demo", ".netcore3.0\loginfomation_demo\loginfomation_demo.csproj", "{5BF0316F-B144-4A17-A165-B164DD602C3E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsyncDemo", "CSharp\AsyncDemo\AsyncDemo.csproj", "{C89A2C61-E10A-4802-9CBF-2384933F5B67}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AsyncDemo", "CSharp\AsyncDemo\AsyncDemo.csproj", "{C89A2C61-E10A-4802-9CBF-2384933F5B67}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAsyncDemo", "CSharp\WebAsyncDemo\WebAsyncDemo.csproj", "{759A0D56-CF11-4918-854C-DFE89A3749DE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -4177,6 +4179,14 @@ Global
 		{C89A2C61-E10A-4802-9CBF-2384933F5B67}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C89A2C61-E10A-4802-9CBF-2384933F5B67}.Release|x64.ActiveCfg = Release|Any CPU
 		{C89A2C61-E10A-4802-9CBF-2384933F5B67}.Release|x64.Build.0 = Release|Any CPU
+		{759A0D56-CF11-4918-854C-DFE89A3749DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{759A0D56-CF11-4918-854C-DFE89A3749DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{759A0D56-CF11-4918-854C-DFE89A3749DE}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{759A0D56-CF11-4918-854C-DFE89A3749DE}.Debug|x64.Build.0 = Debug|Any CPU
+		{759A0D56-CF11-4918-854C-DFE89A3749DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{759A0D56-CF11-4918-854C-DFE89A3749DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{759A0D56-CF11-4918-854C-DFE89A3749DE}.Release|x64.ActiveCfg = Release|Any CPU
+		{759A0D56-CF11-4918-854C-DFE89A3749DE}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -4617,6 +4627,7 @@ Global
 		{56F79DA4-F611-462A-8ABB-6DA7A0B0EAAA} = {54A32B34-1CDB-4AC2-8EEA-439E950153E1}
 		{5BF0316F-B144-4A17-A165-B164DD602C3E} = {2A2EA0D6-E6E7-45CB-9BF4-08B72DE5F320}
 		{C89A2C61-E10A-4802-9CBF-2384933F5B67} = {54A32B34-1CDB-4AC2-8EEA-439E950153E1}
+		{759A0D56-CF11-4918-854C-DFE89A3749DE} = {54A32B34-1CDB-4AC2-8EEA-439E950153E1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
