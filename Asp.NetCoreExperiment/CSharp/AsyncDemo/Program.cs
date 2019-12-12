@@ -10,6 +10,8 @@ namespace AsyncDemo
         {
             Console.WriteLine("Starting");
             //var worker = new Worker1();
+
+
             var worker = new Worker2();
             //等待
             //worker.DoWork().Wait();
@@ -19,6 +21,8 @@ namespace AsyncDemo
             //await worker.DoWork();
             //使用GetAwaiter
             worker.DoWork().GetAwaiter();
+
+
             while (!worker.IsComplete)
             {
                 Console.Write(".");
