@@ -31,6 +31,7 @@ namespace AsyncDemo
             Console.ReadLine();
         }
     }
+    //异步类
     class Worker2
     {
         public bool IsComplete { get; private set; }
