@@ -18,7 +18,7 @@ namespace DapperDemo0003
 
         static void TestProc()
         {
-            var connString = "Server=13.94.40.138;Port=5432;UserId=postgres;Password=postgres2018;Database=postgres;";
+            var connString = "Server=13.94.40.38;Port=5432;UserId=postgres;Password=postgres2018;Database=postgres;";
             var sql = @"call get_data()";
             using (var db = new NpgsqlConnection(connString))
             {
