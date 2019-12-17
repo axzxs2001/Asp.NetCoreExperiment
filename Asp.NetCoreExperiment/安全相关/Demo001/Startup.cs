@@ -49,6 +49,13 @@ namespace Demo001
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            #region 拒约页面出现在IFrame中，发生
+            app.Use(async (context, next) =>
+            {
+                context.Response.Headers.Add("X-Frame-Options", "DENY");
+                await next();
+            });
+            #endregion
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
