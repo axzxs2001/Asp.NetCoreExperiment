@@ -1107,7 +1107,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DapperExtensionTest", "Dapp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AsynchronousRequest-ReplyPattern_demo01", "CloudDesignPatterns\AsynchronousRequest-ReplyPattern_demo01\AsynchronousRequest-ReplyPattern_demo01.csproj", "{04C44F5F-A614-4B0B-81C8-364C7468C914}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsynchronousRequest-ReplyPattern_demo01_Client", "CloudDesignPatterns\AsynchronousRequest-ReplyPattern_demo01_Client\AsynchronousRequest-ReplyPattern_demo01_Client.csproj", "{DF433C45-80CD-4974-BAC2-66311E92A42B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AsynchronousRequest-ReplyPattern_demo01_Client", "CloudDesignPatterns\AsynchronousRequest-ReplyPattern_demo01_Client\AsynchronousRequest-ReplyPattern_demo01_Client.csproj", "{DF433C45-80CD-4974-BAC2-66311E92A42B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApiVersionDemo", "RestFulAPI\WebApiVersionDemo\WebApiVersionDemo.csproj", "{4FDF19B3-04C9-410B-B84C-452394B27E26}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -4251,6 +4253,14 @@ Global
 		{DF433C45-80CD-4974-BAC2-66311E92A42B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DF433C45-80CD-4974-BAC2-66311E92A42B}.Release|x64.ActiveCfg = Release|Any CPU
 		{DF433C45-80CD-4974-BAC2-66311E92A42B}.Release|x64.Build.0 = Release|Any CPU
+		{4FDF19B3-04C9-410B-B84C-452394B27E26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4FDF19B3-04C9-410B-B84C-452394B27E26}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4FDF19B3-04C9-410B-B84C-452394B27E26}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{4FDF19B3-04C9-410B-B84C-452394B27E26}.Debug|x64.Build.0 = Debug|Any CPU
+		{4FDF19B3-04C9-410B-B84C-452394B27E26}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4FDF19B3-04C9-410B-B84C-452394B27E26}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4FDF19B3-04C9-410B-B84C-452394B27E26}.Release|x64.ActiveCfg = Release|Any CPU
+		{4FDF19B3-04C9-410B-B84C-452394B27E26}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -4699,6 +4709,7 @@ Global
 		{9EAAB534-3056-4350-8636-E730D81C716A} = {282C0114-704A-4506-890B-C326A67419B4}
 		{04C44F5F-A614-4B0B-81C8-364C7468C914} = {A2A778CF-550D-46E5-8B17-41B060E7D669}
 		{DF433C45-80CD-4974-BAC2-66311E92A42B} = {A2A778CF-550D-46E5-8B17-41B060E7D669}
+		{4FDF19B3-04C9-410B-B84C-452394B27E26} = {08122BD9-F09E-47EE-B25B-B234426851B1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
