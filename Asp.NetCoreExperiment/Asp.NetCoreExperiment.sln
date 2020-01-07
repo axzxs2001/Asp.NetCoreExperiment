@@ -1071,7 +1071,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GRPCDemo01GRPCTest_Test", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GRPCDemo01Service", "GRPC\GRPCDemo01Service\GRPCDemo01Service.csproj", "{1B992E84-6E57-4F60-9794-48C9F64D5704}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GRPCDemo02_Client", "GRPC\GRPCDemo02_Client\GRPCDemo02_Client.csproj", "{387EC737-0729-42F3-ADCA-6DE6844C77FA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GRPCDemo02_Client", "GRPC\GRPCDemo02_Client\GRPCDemo02_Client.csproj", "{387EC737-0729-42F3-ADCA-6DE6844C77FA}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "k8shealthcheckdemo", "kubernetes\k8shealthcheckdemo\k8shealthcheckdemo.csproj", "{746962CB-377C-46A1-BCE4-A8FE430359D9}"
 EndProject
@@ -1081,7 +1081,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IEnumerableToList", "CSharp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskThreadDemo", "CSharp\TaskThreadDemo\TaskThreadDemo.csproj", "{F93777B8-E873-4E2A-AFB9-8B640C9AA360}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DateTimeOffsetDemo", "CSharp\DateTimeOffsetDemo\DateTimeOffsetDemo.csproj", "{8F7F2D6B-910E-4D69-B69B-80FB4C0FA821}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DateTimeOffsetDemo", "CSharp\DateTimeOffsetDemo\DateTimeOffsetDemo.csproj", "{8F7F2D6B-910E-4D69-B69B-80FB4C0FA821}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SqlConnectionCountTest", "CSharp\SqlConnectionCountTest\SqlConnectionCountTest.csproj", "{6F18E3C5-EF5D-457C-8770-B73A91DEC987}"
 EndProject
@@ -1103,13 +1103,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DDALDemo", "CSharp\DDALDemo
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CloudDesignPatterns", "CloudDesignPatterns", "{A2A778CF-550D-46E5-8B17-41B060E7D669}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DapperExtensionTest", "DapperDemo\DapperExtensionTest\DapperExtensionTest.csproj", "{9EAAB534-3056-4350-8636-E730D81C716A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DapperExtensionTest", "DapperDemo\DapperExtensionTest\DapperExtensionTest.csproj", "{9EAAB534-3056-4350-8636-E730D81C716A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AsynchronousRequest-ReplyPattern_demo01", "CloudDesignPatterns\AsynchronousRequest-ReplyPattern_demo01\AsynchronousRequest-ReplyPattern_demo01.csproj", "{04C44F5F-A614-4B0B-81C8-364C7468C914}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AsynchronousRequest-ReplyPattern_demo01_Client", "CloudDesignPatterns\AsynchronousRequest-ReplyPattern_demo01_Client\AsynchronousRequest-ReplyPattern_demo01_Client.csproj", "{DF433C45-80CD-4974-BAC2-66311E92A42B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApiVersionDemo", "RestFulAPI\WebApiVersionDemo\WebApiVersionDemo.csproj", "{4FDF19B3-04C9-410B-B84C-452394B27E26}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApiVersionDemo", "RestFulAPI\WebApiVersionDemo\WebApiVersionDemo.csproj", "{4FDF19B3-04C9-410B-B84C-452394B27E26}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AutomatonymousDemo", "AutomatonymousDemo", "{BF823017-627D-40BE-B7D9-936E478F39D2}"
 EndProject
@@ -1117,7 +1117,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutomatonymousDemo01", "Mas
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MyCat", "MyCat", "{59990460-D39E-453C-8FA9-E4B007F6B76F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "S3Demo", "AWS\WebApplication1\S3Demo.csproj", "{538CF44F-1890-43E8-AFCF-99258309B2EE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "S3Demo", "AWS\WebApplication1\S3Demo.csproj", "{538CF44F-1890-43E8-AFCF-99258309B2EE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Nginx", "Nginx", "{2C37173D-B17F-4965-99E8-918A2C30AE65}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APIDemo", "Nginx\APIDemo\APIDemo.csproj", "{66BF1D4C-0D40-4158-BA05-8126E7515550}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APIHTTPSDemo", "Nginx\APIHTTPSDemo\APIHTTPSDemo.csproj", "{578E2526-80D5-4DA8-B44D-B461919DD9A4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -1417,10 +1423,10 @@ Global
 		{9909DC13-7656-4BD8-98D0-53878BD588A1}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9909DC13-7656-4BD8-98D0-53878BD588A1}.Release|x64.ActiveCfg = Release|Any CPU
 		{9909DC13-7656-4BD8-98D0-53878BD588A1}.Release|x64.Build.0 = Release|Any CPU
-		{4F0D80E4-1918-47B9-87D1-BE197DA8CC61}.Debug|Any CPU.ActiveCfg = Release|x64
-		{4F0D80E4-1918-47B9-87D1-BE197DA8CC61}.Debug|x64.ActiveCfg = Release|x64
-		{4F0D80E4-1918-47B9-87D1-BE197DA8CC61}.Release|Any CPU.ActiveCfg = Release|x64
-		{4F0D80E4-1918-47B9-87D1-BE197DA8CC61}.Release|x64.ActiveCfg = Release|x64
+		{4F0D80E4-1918-47B9-87D1-BE197DA8CC61}.Debug|Any CPU.ActiveCfg = Release
+		{4F0D80E4-1918-47B9-87D1-BE197DA8CC61}.Debug|x64.ActiveCfg = Release
+		{4F0D80E4-1918-47B9-87D1-BE197DA8CC61}.Release|Any CPU.ActiveCfg = Release
+		{4F0D80E4-1918-47B9-87D1-BE197DA8CC61}.Release|x64.ActiveCfg = Release
 		{C6A76982-0936-4681-9565-0D27E5B89534}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C6A76982-0936-4681-9565-0D27E5B89534}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C6A76982-0936-4681-9565-0D27E5B89534}.Debug|x64.ActiveCfg = Debug|Any CPU
@@ -4285,6 +4291,22 @@ Global
 		{538CF44F-1890-43E8-AFCF-99258309B2EE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{538CF44F-1890-43E8-AFCF-99258309B2EE}.Release|x64.ActiveCfg = Release|Any CPU
 		{538CF44F-1890-43E8-AFCF-99258309B2EE}.Release|x64.Build.0 = Release|Any CPU
+		{66BF1D4C-0D40-4158-BA05-8126E7515550}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66BF1D4C-0D40-4158-BA05-8126E7515550}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66BF1D4C-0D40-4158-BA05-8126E7515550}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{66BF1D4C-0D40-4158-BA05-8126E7515550}.Debug|x64.Build.0 = Debug|Any CPU
+		{66BF1D4C-0D40-4158-BA05-8126E7515550}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66BF1D4C-0D40-4158-BA05-8126E7515550}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66BF1D4C-0D40-4158-BA05-8126E7515550}.Release|x64.ActiveCfg = Release|Any CPU
+		{66BF1D4C-0D40-4158-BA05-8126E7515550}.Release|x64.Build.0 = Release|Any CPU
+		{578E2526-80D5-4DA8-B44D-B461919DD9A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{578E2526-80D5-4DA8-B44D-B461919DD9A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{578E2526-80D5-4DA8-B44D-B461919DD9A4}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{578E2526-80D5-4DA8-B44D-B461919DD9A4}.Debug|x64.Build.0 = Debug|Any CPU
+		{578E2526-80D5-4DA8-B44D-B461919DD9A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{578E2526-80D5-4DA8-B44D-B461919DD9A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{578E2526-80D5-4DA8-B44D-B461919DD9A4}.Release|x64.ActiveCfg = Release|Any CPU
+		{578E2526-80D5-4DA8-B44D-B461919DD9A4}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -4740,6 +4762,8 @@ Global
 		{BF823017-627D-40BE-B7D9-936E478F39D2} = {B439BAED-C8AD-407E-9992-2948EA698937}
 		{E8B00BBB-3E3A-47C2-A34C-2662240F0489} = {BF823017-627D-40BE-B7D9-936E478F39D2}
 		{538CF44F-1890-43E8-AFCF-99258309B2EE} = {7A5EAB40-1490-45D7-83CC-C990D15C9D77}
+		{66BF1D4C-0D40-4158-BA05-8126E7515550} = {2C37173D-B17F-4965-99E8-918A2C30AE65}
+		{578E2526-80D5-4DA8-B44D-B461919DD9A4} = {2C37173D-B17F-4965-99E8-918A2C30AE65}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
