@@ -21,14 +21,14 @@ namespace APIHTTPSDemo
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseKestrel(options =>
-                    {
-                        //options.Listen(IPAddress.Any, 80);
-                        options.Listen(IPAddress.Any, 8443, listenOptions =>
-                        {
-                            listenOptions.UseHttps("server.pfx", "gsw123");
-                        });
-                    });
+                    //webBuilder.UseKestrel(options =>
+                    //{
+                    //    //options.Listen(IPAddress.Any, 80);
+                    //    options.Listen(IPAddress.Any, 8443, listenOptions =>
+                    //    {
+                    //        listenOptions.UseHttps("server.pfx", "gsw123");
+                    //    });
+                    //});
                     webBuilder.UseStartup<Startup>();
                 });
     }

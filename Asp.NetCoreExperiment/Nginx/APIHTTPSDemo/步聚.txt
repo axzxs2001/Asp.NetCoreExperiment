@@ -1,0 +1,9 @@
+﻿生成证书
+1. 使用openssl生成密钥privkey.pem：
+
+openssl genrsa -out privkey.pem 2048
+
+2. 使用密钥生成证书server.pem：
+
+openssl req -new -x509 -key privkey.pem -out server.pem -days 365
+
