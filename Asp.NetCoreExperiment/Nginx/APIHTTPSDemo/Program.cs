@@ -14,6 +14,7 @@ namespace APIHTTPSDemo
     {
         public static void Main(string[] args)
         {
+
             CreateHostBuilder(args).Build().Run();
         }
 
@@ -29,6 +30,7 @@ namespace APIHTTPSDemo
                     //        listenOptions.UseHttps("server.pfx", "gsw123");
                     //    });
                     //});
+                    webBuilder.UseUrls("https://localhost:8443", "http://localhost:5000");
                     webBuilder.UseStartup<Startup>();
                 });
     }

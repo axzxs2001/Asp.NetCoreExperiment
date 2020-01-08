@@ -23,6 +23,7 @@ namespace APIHTTPSDemo.Controllers
         [HttpGet]
         public string Get()
         {
+            Console.WriteLine($"8443844384438443844384438443844384438443  {DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff")}");
             return "8443的服务端响应";
          
         }

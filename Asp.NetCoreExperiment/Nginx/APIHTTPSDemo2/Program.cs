@@ -20,6 +20,7 @@ namespace APIHTTPSDemo2
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
+                    webBuilder.UseUrls("https://localhost:7443","http://localhost:5001");
                     webBuilder.UseStartup<Startup>();
                 });
     }
