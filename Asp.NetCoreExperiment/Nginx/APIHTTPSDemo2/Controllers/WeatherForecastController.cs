@@ -5,13 +5,13 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace APIHTTPSDemo.Controllers
+namespace APIHTTPSDemo2.Controllers
 {
     [ApiController]
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
-
+     
 
         private readonly ILogger<WeatherForecastController> _logger;
 
@@ -19,12 +19,11 @@ namespace APIHTTPSDemo.Controllers
         {
             _logger = logger;
         }
-
         [HttpGet]
         public string Get()
         {
-            return "8443的服务端响应";
-         
+            return "7443的服务端响应";
+
         }
     }
 }
