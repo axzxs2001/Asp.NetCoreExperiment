@@ -7,8 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using ResourseDemo.Models;
-using ResourseDemo;
-using ResourseDemo.Resources;
+
 
 namespace ResourseDemo.Controllers
 {
@@ -25,7 +24,7 @@ namespace ResourseDemo.Controllers
         public IActionResult Index()
         {
             Console.WriteLine(_sharedLocalizer["ok"]);
-            ViewBag.ok = _sharedLocalizer["ok"].Value;
+            ViewBag.ok = _sharedLocalizer["no"].Value;
             return View();
         }
 
