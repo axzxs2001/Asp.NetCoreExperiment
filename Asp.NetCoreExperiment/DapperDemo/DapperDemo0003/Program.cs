@@ -11,9 +11,25 @@ namespace DapperDemo0003
     {
         static void Main(string[] args)
         {
+            Query();
+
             TestProc();
             //InsertMethod();
             //Console.ReadLine();
+        }
+        static void Query()
+        {
+            //SqlMapper.AddTypeMap(typeof(DateTime), System.Data.DbType.DateTimeOffset);
+
+            var connString = "Server=127.0.0.1;Port=5432;UserId=postgres;Password=postgres2018;Database=postgres;";
+            var sql = @"select * from t4 where time=@time";
+            using (var db = new NpgsqlConnection(connString))
+            {
+                var time = DateTimeOffset.Parse("2020-01-21 23:59:59.999999").ToOffset(TimeSpan.FromHours(9));
+                var result = db.Query(sql, new { time }).SingleOrDefault();
+                Console.WriteLine(result.id);
+            }
+
         }
 
         static void TestProc()
@@ -71,8 +87,16 @@ on RolePermissions.PermissionID =Permissions.ID;";
                     Console.WriteLine(JsonConvert.SerializeObject(rolePermission));
                 }
             }
+
         }
     }
+    //static class DateTimeOffsetExt
+    //{
+    //    public static string ToLongString(this DateTimeOffset date)
+    //    {
+    //        return date.ToLongString();
+    //    }
+    //}
 
     public class RolePermissionModel
     {
