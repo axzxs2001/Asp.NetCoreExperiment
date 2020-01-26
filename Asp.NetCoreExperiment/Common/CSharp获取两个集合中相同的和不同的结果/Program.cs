@@ -18,8 +18,8 @@ namespace CSharp获取两个集合中相同的和不同的结果
             var list1 = new List<Record>() { new Record { Name = "aaa", Quantity = 10 }, new Record { Name = "bbb", Quantity = 20 } };
 
             var list2 = new List<Record>() { new Record { Name = "aaaa", Quantity = 10 }, new Record { Name = "bbb", Quantity = 20 } };
-            var list = list1.Concat(list2).Except(list1.Intersect(list2, comp), comp);
-
+            // var list = list1.Concat(list2).Except(list1.Intersect(list2, comp), comp);
+            var list = list1.Except(list1.Intersect(list2, comp), comp);
         }
         static void Test()
         {
