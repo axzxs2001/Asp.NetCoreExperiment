@@ -9,7 +9,17 @@ namespace CSharp获取两个集合中相同的和不同的结果
     {
         static void Main(string[] args)
         {
-            Test();
+            Test1();
+
+        }
+        static void Test1()
+        {
+            var comp = new ReconcileModelEqualityComparer();
+            var list1 = new List<Record>() { new Record { Name = "aaa", Quantity = 10 }, new Record { Name = "bbb", Quantity = 20 } };
+
+            var list2 = new List<Record>() { new Record { Name = "aaaa", Quantity = 10 }, new Record { Name = "bbb", Quantity = 20 } };
+            var list = list1.Concat(list2).Except(list1.Intersect(list2, comp), comp);
+
         }
         static void Test()
         {
@@ -74,6 +84,33 @@ namespace CSharp获取两个集合中相同的和不同的结果
                 Console.WriteLine(item);
             }
             #endregion
+        }
+    }
+    public class Record
+    {
+        public string Name { get; set; }
+        public int Quantity { get; set; }
+     
+    }
+    public class ReconcileModelEqualityComparer : IEqualityComparer<Record>
+    {
+        public bool Equals(Record item1, Record item2)
+        {
+            if (item1 == null && item2 == null)
+                return true;
+            else if ((item1 != null && item2 == null) ||
+                    (item1 == null && item2 != null))
+                return false;
+
+       
+            return item1.Quantity.Equals(item2.Quantity) &&
+                   item1.Name.Equals(item2.Name);
+          
+        }
+
+        public int GetHashCode(Record item)
+        {
+            return new { item.Name, item.Quantity }.GetHashCode();
         }
     }
 }
