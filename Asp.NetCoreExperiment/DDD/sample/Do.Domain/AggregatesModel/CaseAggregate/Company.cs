@@ -10,10 +10,23 @@ namespace Do.Domain.AggregatesModel.CaseAggregate
     /// </summary>
     public class Company : ValueObject
     {
+        public Company(string name, string code, DateTime createTime)
+        {
+            Name = name;
+            Code = code;
+            CreateTime = createTime;
+        }
         public string Name { get; set; }
 
         public string Code { get; set; }
 
         public DateTime CreateTime { get; set; }
+
+        protected override IEnumerable<object> GetAtomicValues()
+        {
+            yield return Name;
+            yield return Code;
+            yield return CreateTime;
+        }
     }
 }
