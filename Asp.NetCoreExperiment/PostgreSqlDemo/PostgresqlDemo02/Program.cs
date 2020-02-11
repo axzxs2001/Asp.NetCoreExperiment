@@ -4,14 +4,29 @@ using System;
 
 namespace PostgresqlDemo02
 {
+    class P
+    {
+        public int ID { get; set; }
+        public string Name { get; set; }
+    }
     class Program
     {
         static void Main(string[] args)
         {
-            GetTImeSpanData();
+            Test002();
             return;      
         }
+        private static void Test002()
+        {
+            var connString = "Server=127.0.0.1;Port=5432;UserId=postgres;Password=postgres2018;Database=postgres;";
+            using (var conn = new NpgsqlConnection(connString))
+            {
+                //查询
+                var t = conn.Query<dynamic>($@"select ID,Name from t5");
 
+               
+            }
+        }
         private static void Test001()
         {
             var connString = "Server=127.0.0.1;Port=5432;UserId=postgres;Password=postgres2018;Database=TestDB;";
