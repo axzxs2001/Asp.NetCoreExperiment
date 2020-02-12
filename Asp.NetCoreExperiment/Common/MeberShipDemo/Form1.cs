@@ -20,10 +20,10 @@ namespace MeberShipDemo
         private void Button1_Click(object sender, EventArgs e)
         {
             var ph = new Microsoft.AspNet.Identity.PasswordHasher<ApplicationUser>();
-            textBox1.Text = ph.HashPassword(new ApplicationUser()
+            hashPassword_tb.Text = ph.HashPassword(new ApplicationUser()
             {               
-                SecurityStamp = "45b85708-5851-45cf-998b-3563d4047d22"
-            }, "111111!"); 
+                SecurityStamp = "45b85708-5851-45cf-998b-352"
+            }, password_tb.Text); 
         }
 
         private void Button2_Click(object sender, EventArgs e)
@@ -31,8 +31,8 @@ namespace MeberShipDemo
             var ph = new Microsoft.AspNet.Identity.PasswordHasher<ApplicationUser>();
             MessageBox.Show(ph.VerifyHashedPassword(new ApplicationUser()
             {                
-                SecurityStamp = "45b85708-5851-45cf-998b-3563d4047d22"
-            }, textBox1.Text, "Nw668099!").ToString());
+                SecurityStamp = "45b85708-5851-45cf-998b-3522"
+            }, hashPassword_tb.Text, password_tb.Text).ToString());
         }
     }
 
