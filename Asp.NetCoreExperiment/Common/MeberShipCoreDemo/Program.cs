@@ -6,13 +6,13 @@ namespace MeberShipCoreDemo
     {
         static void Main(string[] args)
         {
-            var guid = Guid.NewGuid().ToString();
-            Console.WriteLine(guid);
+            var securityStamp = Guid.NewGuid().ToString();
+            Console.WriteLine(securityStamp);
             var passwordHasher = new PasswordHasher<IdentityUser>(Microsoft.Extensions.Options.Options.Create(new PasswordHasherOptions() { CompatibilityMode = PasswordHasherCompatibilityMode.IdentityV2 }));
-            var hashPassword = passwordHasher.HashPassword(new IdentityUser { SecurityStamp = guid }, "!abc123");
+            var hashPassword = passwordHasher.HashPassword(new IdentityUser { SecurityStamp = securityStamp }, "!abc123");
             Console.WriteLine(hashPassword);
-            Console.WriteLine(passwordHasher.VerifyHashedPassword(new IdentityUser() { SecurityStamp = guid }, hashPassword, "!abc123").ToString());
+            Console.WriteLine(passwordHasher.VerifyHashedPassword(new IdentityUser() { SecurityStamp = securityStamp }, hashPassword, "!abc123").ToString());
         }
     }
-
+ 
 }
