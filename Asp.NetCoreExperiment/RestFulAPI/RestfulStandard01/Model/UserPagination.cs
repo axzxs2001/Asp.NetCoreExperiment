@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 namespace RestfulStandard01.Model
 {
     /// <summary>
-    /// 
+    /// 用户分页实体
     /// </summary>
     public class UserPagination : PaginationBase
     {

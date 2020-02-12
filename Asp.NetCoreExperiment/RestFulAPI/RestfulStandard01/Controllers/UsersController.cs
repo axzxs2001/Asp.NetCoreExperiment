@@ -33,7 +33,7 @@ namespace RestfulStandard01.Controllers
         readonly IUrlHelper _urlHelper;
 
         /// <summary>
-        /// 
+        /// 构造
         /// </summary>
         /// <param name="logger"></param>
         /// <param name="userRepository"></param>
@@ -67,10 +67,10 @@ namespace RestfulStandard01.Controllers
         [ProducesResponseType(typeof(User), 200)]
         [HttpGet("{id}")]
         [HttpHead("{id}")]
-       // [HttpOptions("{id}")]
+        // [HttpOptions("{id}")]
         [HttpPost("{id}")]
         public ActionResult HandlerUser(int id)
-        {           
+        {
             var user = _userRepository.GetUserByID(id);
             if (user == null)
             {
@@ -83,11 +83,11 @@ namespace RestfulStandard01.Controllers
 
         }
         /// <summary>
-        /// 
+        /// 提示前端有那些功能，安全检测不让用
         /// </summary>
         /// <returns></returns>
         [HttpOptions("{id}")]
-        [ProducesResponseType(typeof(User), 200)]      
+        [ProducesResponseType(typeof(User), 200)]
         public IActionResult HandlerUser()
         {
             Response.Headers.Add("Allow", "GET,POST,HEAD,OPTIONS");
@@ -102,19 +102,23 @@ namespace RestfulStandard01.Controllers
         [HttpPost]
         public ActionResult AddUser([FromBody]User user)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return new UnprocessableEntityObjectResult(ModelState);
             }
-
-            var backUser = _userRepository.AddUser(user);
-            if (backUser == null)
-            {
-                return NotFound();
-            }
             else
             {
-                return CreatedAtAction("GetUser", new { id = backUser.ID }, backUser);
+
+                var backUser = _userRepository.AddUser(user);
+                if (backUser == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    //查询一次返回，或返回添加完所的backUser
+                    return CreatedAtAction("HandlerUser", new { id = backUser.ID }, backUser);
+                }
             }
         }
 
@@ -209,12 +213,17 @@ namespace RestfulStandard01.Controllers
                     PreviousPageLink = previousLink,
                     NextPageLink = nextLink
                 };
+                //传回header中
                 Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(meta));
                 return Ok(pageUsers);
             }
-
         }
-
+        /// <summary>
+        /// 根据内部数据创建前端导航url
+        /// </summary>
+        /// <param name="userPagination">用户分页对象</param>
+        /// <param name="paginationResourceUriType">分页导航url</param>
+        /// <returns></returns>
         string CreateUserUri(PaginationBase userPagination, PaginationResourceUriType paginationResourceUriType)
         {
 

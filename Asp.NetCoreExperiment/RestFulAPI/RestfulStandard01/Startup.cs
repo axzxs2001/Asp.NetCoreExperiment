@@ -1,28 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.IO;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using Swashbuckle.AspNetCore.Swagger;
-using Swashbuckle.AspNetCore;
 using Microsoft.Extensions.PlatformAbstractions;
 using RestfulStandard01.Model;
 using System.Text;
-using Microsoft.AspNetCore.Mvc.Formatters;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using Microsoft.AspNetCore.Mvc.ApiExplorer;
-using System.Xml.Linq;
-using System.Threading;
-using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Routing;
@@ -162,8 +148,4 @@ namespace RestfulStandard01
                 }); ;
         }
     }
-
-
-
-
 }

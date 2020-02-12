@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 namespace RestfulStandard01.Model
 {
     /// <summary>
-    /// 
+    /// 页导航枚举
     /// </summary>
     public enum PaginationResourceUriType
     {
