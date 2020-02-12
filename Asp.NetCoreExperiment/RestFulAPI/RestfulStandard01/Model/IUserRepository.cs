@@ -23,12 +23,17 @@ namespace RestfulStandard01.Model
         /// <param name="user">用户</param>
         /// <returns></returns>
         User AddUser(User user);
-
+        /// <summary>
+        /// 添加批量用户
+        /// </summary>
+        /// <param name="users">批量用户</param>
+        /// <returns></returns>
+        User[] AddUsers(User[] users);
         /// <summary>
         /// 返回分页数据
         /// </summary>
         /// <param name="userPagination"></param>
         /// <returns></returns>
-        PaginatedList<User> GetPagingUser(UserPagination  userPagination);
+        PaginatedList<User> GetPagingUser(UserPagination userPagination);
     }
 }

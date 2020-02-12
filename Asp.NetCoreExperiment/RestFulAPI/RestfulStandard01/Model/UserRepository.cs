@@ -54,6 +54,20 @@ namespace RestfulStandard01.Model
             user.ID = new Random().Next(10, 500);
             return user;
         }
+        /// <summary>
+        /// 添加批量用户
+        /// </summary>
+        /// <param name="users">批量用户</param>
+        /// <returns></returns>
+        public User[] AddUsers(User[] users)
+        {
+            var id = new Random().Next(10, 500);
+            foreach (var user in users)
+            {
+                user.ID = id++;
+            }
+            return users;
+        }
 
         /// <summary>
         /// 返回分页数据
@@ -61,11 +75,11 @@ namespace RestfulStandard01.Model
         /// <param name="userPagination">分页</param>
         /// <returns></returns>
         public PaginatedList<User> GetPagingUser(UserPagination userPagination)
-        {            
+        {
             var users = new List<User>();
             for (int i = 1; i < 105; i++)
             {
-                users.Add(new User { ID = i, Name = "user" + i, Password = "111111", UserName = "username" + i ,UserType=i%3});
+                users.Add(new User { ID = i, Name = "user" + i, Password = "111111", UserName = "username" + i, UserType = i % 3 });
             }
             var pageinatedList = new PaginatedList<User>(userPagination.PageIndex, userPagination.PageSize, users.Count, users.Skip(userPagination.PageIndex * userPagination.PageSize).Take(userPagination.PageSize));
             return pageinatedList;

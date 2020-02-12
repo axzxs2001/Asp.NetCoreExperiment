@@ -121,6 +121,34 @@ namespace RestfulStandard01.Controllers
                 }
             }
         }
+        /// <summary>
+        /// 批量添加用户
+        /// </summary>
+        /// <param name="users">批量用户</param>
+        /// <returns></returns>
+        [ProducesResponseType(typeof(User[]), 200)]
+        [HttpPost("addusers")]
+        public ActionResult AddUsers([FromBody]User[] users)
+        {
+            if (!ModelState.IsValid)
+            {
+                return new UnprocessableEntityObjectResult(ModelState);
+            }
+            else
+            {
+
+                var backUsers = _userRepository.AddUsers(users);
+                if (backUsers == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    //查询一次返回，或返回添加完所的backUser
+                    return new JsonResult(backUsers);
+                }
+            }
+        }
 
         /// <summary>
         /// 如果POST到单个资源的地址 测试
