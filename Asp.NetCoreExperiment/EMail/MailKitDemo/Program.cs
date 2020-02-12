@@ -1,5 +1,7 @@
 ﻿using ICSharpCode.SharpZipLib.Zip;
+using MailKit.Net.Pop3;
 using MailKit.Net.Smtp;
+using MailKit.Security;
 using MimeKit;
 using System;
 using System.IO;
@@ -11,7 +13,30 @@ namespace MailKitDemo
     {
         static void Main(string[] args)
         {
+            GetEmail();
             Console.WriteLine("Hello World!");
+        }
+        static void GetEmail()
+        {
+
+            using (var client = new Pop3Client())
+            {
+                client.Connect("pop.163.com", 995, SecureSocketOptions.SslOnConnect);
+
+                client.Authenticate("aa@163.com", "");
+
+                for (int i = 0; i < client.Count; i++)
+                {
+                    var message = client.GetMessage(i);
+
+                    // write the message to a file
+                    message.WriteTo(string.Format("{0}.msg", i));
+
+                    // mark the message for deletion
+                    client.DeleteMessage(i);
+                }
+                client.Disconnect(true);
+            }
         }
 
         string ZipFile(string parentPath, string filePath, string password)
