@@ -1145,6 +1145,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Do.Infrastructure", "DDD\sa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeberShipCoreDemo", "Common\MeberShipCoreDemo\MeberShipCoreDemo.csproj", "{A97A7A71-23FD-47C2-96BD-CD45ED2C34B8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LagreMemoryTest", "Common\LagreMemoryTest\LagreMemoryTest.csproj", "{2F7F0515-E389-45F7-BE9D-7CDD9393467C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -4399,6 +4401,14 @@ Global
 		{A97A7A71-23FD-47C2-96BD-CD45ED2C34B8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A97A7A71-23FD-47C2-96BD-CD45ED2C34B8}.Release|x64.ActiveCfg = Release|Any CPU
 		{A97A7A71-23FD-47C2-96BD-CD45ED2C34B8}.Release|x64.Build.0 = Release|Any CPU
+		{2F7F0515-E389-45F7-BE9D-7CDD9393467C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F7F0515-E389-45F7-BE9D-7CDD9393467C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F7F0515-E389-45F7-BE9D-7CDD9393467C}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{2F7F0515-E389-45F7-BE9D-7CDD9393467C}.Debug|x64.Build.0 = Debug|Any CPU
+		{2F7F0515-E389-45F7-BE9D-7CDD9393467C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F7F0515-E389-45F7-BE9D-7CDD9393467C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F7F0515-E389-45F7-BE9D-7CDD9393467C}.Release|x64.ActiveCfg = Release|Any CPU
+		{2F7F0515-E389-45F7-BE9D-7CDD9393467C}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -4866,6 +4876,7 @@ Global
 		{B469AE69-6171-4EB2-B4F7-6112FB68CE90} = {0E8C774A-0171-41B2-8741-C855C6239B39}
 		{7922DD5B-6385-49A5-B161-5446653D6E18} = {0E8C774A-0171-41B2-8741-C855C6239B39}
 		{A97A7A71-23FD-47C2-96BD-CD45ED2C34B8} = {A76B4F09-82B3-4F06-BE35-F5941BF8C338}
+		{2F7F0515-E389-45F7-BE9D-7CDD9393467C} = {A76B4F09-82B3-4F06-BE35-F5941BF8C338}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
