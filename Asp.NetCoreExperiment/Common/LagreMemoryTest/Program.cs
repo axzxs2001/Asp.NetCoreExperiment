@@ -50,7 +50,7 @@ namespace LagreMemoryTest
         }
         static void FIEnumberableTest()
         {
-            using (var con = new SqlConnection("server=.;database=starpay;uid=sa;pwd=sa;"))
+            using (var con = new SqlConnection("server=.;database=mydatabase;uid=sa;pwd=sa;"))
             {
                 var list = con.Query<dynamic>("select * from mytable where time>'2020-02-01' and time<'2020-02-10'");
                 var stream = new FileStream(Directory.GetCurrentDirectory() + "/data.txt", FileMode.OpenOrCreate, FileAccess.ReadWrite);
