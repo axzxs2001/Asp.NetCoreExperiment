@@ -22,16 +22,18 @@ namespace MailKitDemo
             using (var client = new Pop3Client())
             {
                 client.Connect("pop.163.com", 995, SecureSocketOptions.SslOnConnect);
-
                 client.Authenticate("aa@163.com", "");
-
                 for (int i = 0; i < client.Count; i++)
                 {
                     var message = client.GetMessage(i);
-
+                    //处理邮件体
+                    //message.Body
+                    foreach (var attachment in message.Attachments)
+                    {
+                        //处理邮件
+                    }
                     // write the message to a file
                     message.WriteTo(string.Format("{0}.msg", i));
-
                     // mark the message for deletion
                     client.DeleteMessage(i);
                 }
