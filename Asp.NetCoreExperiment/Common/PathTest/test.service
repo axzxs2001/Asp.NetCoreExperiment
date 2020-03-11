@@ -1,0 +1,12 @@
+[Unit]
+Description=Test service
+After=network.target
+
+[Service]
+WorkingDirectory = /home/netstars/Test
+ExecStart=/usr/bin/dotnet Test.dll
+Environment=ASPNETCORE_ENVIRONMENT=Production
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
