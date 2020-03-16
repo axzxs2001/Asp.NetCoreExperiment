@@ -1153,8 +1153,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DapperDemoTest", "DapperDem
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PathTest", "Common\PathTest\PathTest.csproj", "{3D001A6C-E2BB-41E1-8081-083BA232B48F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PathTest", "Common\PathTest\PathTest.csproj", "{3D001A6C-E2BB-41E1-8081-083BA232B48F}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccessModifiersDemo", "CSharp\AccessModifiersDemo\AccessModifiersDemo.csproj", "{5BA30264-5550-438B-8AA7-DDAD2D497EE2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccessModifiersLib", "AccessModifiersLib\AccessModifiersLib.csproj", "{C030C6B0-E37E-4F55-84CA-DBDB4D2088E2}"

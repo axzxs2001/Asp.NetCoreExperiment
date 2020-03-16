@@ -12,12 +12,54 @@ namespace DapperDemo0003
         static void Main(string[] args)
         {
 
-            TestQueryEnum();
+            TestQueryParentChild();
             //Query();
             //TestProc();
             //InsertMethod();
             //Console.ReadLine();
         }
+        static void TestQueryParentChild()
+        {
+            //查询失败
+            var connString = "Server=127.0.0.1;Port=5432;UserId=postgres;Password=postgres2018;Database=postgres;";
+            var sql = @"select * from parentchild";
+            using (var db = new NpgsqlConnection(connString))
+            {
+                var result = db.Query<Parent>(sql);
+                Console.WriteLine(result);
+            }
+        }
+        static void TestInsertParentChild()
+        {
+            //insert 改造后还好
+            var connString = "Server=127.0.0.1;Port=5432;UserId=postgres;Password=postgres2018;Database=postgres;";
+            var sql = @"insert into parentchild(name,children) values(@name,@children::json)";
+            using (var db = new NpgsqlConnection(connString))
+            {
+                var result = db.Execute(sql, new { Name = "张三", Children = new JsonList<Child> { new Child { ID = 1, Name = "child01" }, new Child { ID = 2, Name = "child02" } }.ToJson() });
+                Console.WriteLine(result);
+            }
+        }
+        class Parent
+        {
+            public int ID { get; set; }
+            public string Name { get; set; }
+
+            public JsonList<Child> Children { get; set; }
+        }
+        class Child
+        {
+            public int ID { get; set; }
+            public string Name { get; set; }
+        }
+        class JsonList<T> : List<T>
+        {
+            public string ToJson()
+            {
+                return Newtonsoft.Json.JsonConvert.SerializeObject(this);
+            }
+        }
+
         static void TestQueryEnum()
         {
             var connString = "Server=127.0.0.1;Port=5432;UserId=postgres;Password=postgres2018;Database=postgres;";
