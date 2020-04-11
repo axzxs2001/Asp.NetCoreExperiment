@@ -26,7 +26,8 @@ namespace LogDemo01.Controllers
             _logger.LogInformation("values.Get方法-LogInformation信息 ");
             _logger.LogWarning("values.Get方法-LogWarning警告 ");
             _logger.LogError("values.Get方法-LogError错误 ");
-            _logger.LogCritical("values.Get方法-LogCritical严重 ");          
+            var exce = new Exception("aaaaaaaaa\r\nbbbbbbbbbbb\r\ncccccccccc");
+            _logger.LogCritical(exce,"values.Get方法-LogCritical严重 "+exce.Message);          
             return new string[] { "value1", "value2" };
         }
 

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using NLog;
 using NLog.Web;
 
 namespace LogDemo01
@@ -15,8 +16,24 @@ namespace LogDemo01
     {
         public static void Main(string[] args)
         {
+     
             // NLog: setup the logger first to catch all errors
             var logger = NLogBuilder.ConfigureNLog("nlog.config").GetCurrentClassLogger();
+
+        //    LogManager.Setup().SetupSerialization(s =>
+        //s.RegisterObjectTransformation<Exception>(ex => new
+        //{
+        //    Type = ex.GetType().ToString(),
+        //    Message =ex.Message.Replace("\r\n",""),
+        //    StackTrace = ex.StackTrace?.Replace("\r\n", ""),
+        //    Source = ex.Source?.Replace("\r\n", ""),
+        //    InnerException = ex.InnerException,
+        //    Status = 200,
+        //    Response = "111111111",
+        //}));
+
+
+
             try
             {
                 logger.Debug("启动Main");
