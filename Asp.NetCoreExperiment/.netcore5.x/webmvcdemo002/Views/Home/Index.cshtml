@@ -1,0 +1,21 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+    <div class="text-center">
+        <h1 class="display-4">Welcome</h1>
+        <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+        <feature name="Privacy">
+            <p>Privacy可以访问.</p>
+        </feature>
+        <feature name="Privacy" negate="true">
+            <p>Privacy不能访问.</p>
+        </feature>
+        <feature name="PublicPage">
+            <p>PublicPage可以访问.</p>
+        </feature>
+        <feature name="PublicPage" negate="true">
+            <p>PublicPage不能访问.</p>
+        </feature>
+    </div>
