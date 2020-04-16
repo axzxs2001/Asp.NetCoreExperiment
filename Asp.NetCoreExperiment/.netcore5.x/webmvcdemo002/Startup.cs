@@ -24,6 +24,7 @@ namespace webmvcdemo002
 
         public void ConfigureServices(IServiceCollection services)
         {
+            //注入功能控制
             services.AddFeatureManagement()
                    .AddFeatureFilter<PercentageFilter>();
 

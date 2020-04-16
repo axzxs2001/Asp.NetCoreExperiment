@@ -24,25 +24,26 @@ namespace webmvcdemo002.Controllers
         }
         public async Task<IActionResult> Index()
         {
+            //能过代码获取功能开启
             if (await _featureManager.IsEnabledAsync(nameof(MyFeatureFlags.Privacy)))
             {
-                Console.WriteLine("Privacy 可用");
+                _logger.LogInformation("Privacy 可用");
             }
             else
             {
-                Console.WriteLine("Privacy 不可用");
+                _logger.LogInformation("Privacy 不可用");
             }
             if (await _featureManager.IsEnabledAsync(nameof(MyFeatureFlags.PublicPage)))
             {
-                Console.WriteLine("PublicPage 可用");
+                _logger.LogInformation("PublicPage 可用");
             }
             else
             {
-                Console.WriteLine("PublicPage 不可用");
+                _logger.LogInformation("PublicPage 不可用");
             }
             return View();
         }
-
+        //通过特性获取
         [FeatureGate(MyFeatureFlags.Privacy)]
         public IActionResult Privacy()
         {

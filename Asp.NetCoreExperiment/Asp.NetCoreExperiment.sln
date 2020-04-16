@@ -1165,7 +1165,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "webdemo001", ".netcore5.x\w
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PipelineModelDemo", ".netcore5.x\PipelineModelDemo\PipelineModelDemo.csproj", "{06B27F19-9D11-47DA-B87F-E3222AB3DD51}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "webmvcdemo002", ".netcore5.x\webmvcdemo002\webmvcdemo002.csproj", "{51641642-9044-411B-B37F-C1275B239454}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "webmvcdemo002_Feature", ".netcore5.x\webmvcdemo002\webmvcdemo002_Feature.csproj", "{51641642-9044-411B-B37F-C1275B239454}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
