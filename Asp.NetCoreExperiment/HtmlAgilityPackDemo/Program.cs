@@ -19,10 +19,13 @@ namespace HtmlAgilityPackDemo
 
             using (var httpClientHandler = new HttpClientHandler
             {
-                AllowAutoRedirect = true,
-                UseCookies = true,
-                UseDefaultCredentials = true,
-                CookieContainer = new CookieContainer()
+                MaxResponseHeadersLength=1024,
+                //AutomaticDecompression = DecompressionMethods.GZip,
+                //CheckCertificateRevocationList = true,
+                //AllowAutoRedirect = true,
+                //UseCookies = true,
+                //// UseDefaultCredentials = true,
+                //CookieContainer = new CookieContainer()
             })
             {
                 using (var client = new HttpClient(httpClientHandler))
@@ -42,23 +45,14 @@ namespace HtmlAgilityPackDemo
                             Console.WriteLine(input.GetAttributeValue("name", "") + "=" + input.GetAttributeValue("value", ""));
                             values.Add(new KeyValuePair<string, string>(input.GetAttributeValue("name", ""), input.GetAttributeValue("value", "")));
 
-                        }
-                        Console.WriteLine("---------------------");
-                        foreach (var input in doc.DocumentNode.SelectNodes("//form/div/input"))
-                        {
-                            Console.WriteLine(input.GetAttributeValue("name", "") + "=" + input.GetAttributeValue("value", ""));
-                            if (input.GetAttributeValue("name", "") == "tid")
-                            {
-                                values.Add(new KeyValuePair<string, string>(input.GetAttributeValue("name", ""), arrStrings[1]));
-                            }
-                            if (input.GetAttributeValue("name", "") == "tpasswd")
-                            {
-                                values.Add(new KeyValuePair<string, string>(input.GetAttributeValue("name", ""), arrStrings[2]));
-                            }
-                        }
+                        }                   
+                        values.Add(new KeyValuePair<string, string>("tid", arrStrings[1]));
+                        values.Add(new KeyValuePair<string, string>("tpasswd", arrStrings[2]));
+                        
                         #endregion
 
-                        var postRequest = new HttpRequestMessage(HttpMethod.Post, arrStrings[3]);
+                        var postRequest = new HttpRequestMessage(HttpMethod.Post, arrStrings[3]);                       
+                  
                         postRequest.Content = new FormUrlEncodedContent(values);
                         var postResponse = client.SendAsync(postRequest).Result;
                         if (postResponse.IsSuccessStatusCode)
