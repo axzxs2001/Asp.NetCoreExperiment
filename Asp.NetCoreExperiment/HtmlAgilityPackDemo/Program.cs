@@ -43,7 +43,10 @@ namespace HtmlAgilityPackDemo
                         foreach (var input in doc.DocumentNode.SelectNodes("//form/input"))
                         {
                             Console.WriteLine(input.GetAttributeValue("name", "") + "=" + input.GetAttributeValue("value", ""));
-                            values.Add(new KeyValuePair<string, string>(input.GetAttributeValue("name", ""), input.GetAttributeValue("value", "")));
+                            if (!string.IsNullOrEmpty(input.GetAttributeValue("value", "").Trim()))
+                            {
+                                values.Add(new KeyValuePair<string, string>(input.GetAttributeValue("name", ""), input.GetAttributeValue("value", "")));
+                            }
 
                         }                   
                         values.Add(new KeyValuePair<string, string>("tid", arrStrings[1]));
