@@ -57,25 +57,29 @@ namespace HtmlAgilityPackDemo
                             }
                         }
                         #endregion
+
+                        var postRequest = new HttpRequestMessage(HttpMethod.Post, arrStrings[3]);
+                        postRequest.Content = new FormUrlEncodedContent(values);
+                        var postResponse = client.SendAsync(postRequest).Result;
+                        if (postResponse.IsSuccessStatusCode)
+                        {
+                            content = postResponse.Content.ReadAsStringAsync().Result;
+                            Console.WriteLine("返回值：" + content);
+                        }
+                        else
+                        {
+                            content = postResponse.Content.ReadAsStringAsync().Result;
+                            Console.WriteLine("返回值：" + content);
+                        }
                     }
                     else
                     {
                         var content = getResponse.Content.ReadAsStringAsync().Result;
                         Console.WriteLine("返回值：" + content);
                     }
-                    var postRequest = new HttpRequestMessage(HttpMethod.Post, arrStrings[3]);
-                    postRequest.Content = new FormUrlEncodedContent(values);
-                    var postResponse = client.SendAsync(postRequest).Result;
-                    if (postResponse.IsSuccessStatusCode)
-                    {
-                        var content = postResponse.Content.ReadAsStringAsync().Result;
-                        Console.WriteLine("返回值：" + content);
-                    }
-                    else
-                    {
-                        var content = postResponse.Content.ReadAsStringAsync().Result;
-                        Console.WriteLine("返回值：" + content);
-                    }
+
+
+
                 }
             }
 
