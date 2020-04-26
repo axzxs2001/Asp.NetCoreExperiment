@@ -1,5 +1,8 @@
 ﻿using HtmlAgilityPack;
+using JavaScriptEngineSwitcher.Core;
+using JavaScriptEngineSwitcher.V8;
 using Newtonsoft.Json;
+using OpenQA.Selenium.Chrome;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -16,7 +19,48 @@ namespace HtmlAgilityPackDemo
         static void Main(string[] args)
         {
             var arrStrings = File.ReadAllLines(@"C:\MyFile\aaa.txt");
+            ChromeMethod(arrStrings);
 
+            IJsEngine engine = new V8JsEngine(
+    new V8Settings
+    {
+        MaxNewSpaceSize = 4,
+        MaxOldSpaceSize = 8
+    }
+);
+
+            V8Method(engine);
+
+
+            HTMLMethod(arrStrings);
+
+        }
+        static void  ChromeMethod(string[] arrStrings)
+        {
+            ChromeOptions op = new ChromeOptions();
+            op.AddArguments("--headless");//开启无gui模式
+           // op.AddArguments("--no-sandbox");//停用沙箱以在Linux中正常运行
+            ChromeDriver cd = new ChromeDriver(op);
+            cd.Navigate().GoToUrl("https://www.baidu.com");
+            string text = cd.FindElementById("su").GetAttribute("value");
+
+           
+            cd.Quit();
+            Console.WriteLine(text);
+            Console.Read();
+        }
+
+        private static void V8Method(IJsEngine engine)
+        {
+            engine.Execute(" function A(){ console.log('a');return 'abcd'}");
+
+            engine.ExecuteFile(@"c:/myfile/test/lc.line.web.login_1548918449.js");
+            var obj = engine.CallFunction("A");
+            Console.WriteLine(obj);
+        }
+
+        private static void HTMLMethod(string[] arrStrings)
+        {
             using (var httpClientHandler = new HttpClientHandler
             {
                 MaxResponseHeadersLength = 1024,
@@ -55,7 +99,7 @@ namespace HtmlAgilityPackDemo
                                 values.Add(new KeyValuePair<string, string>(input.GetAttributeValue("name", ""), arrStrings[5]));
 
                             }
-                            else                      
+                            else
                             {
                                 values.Add(new KeyValuePair<string, string>(input.GetAttributeValue("name", ""), input.GetAttributeValue("value", "")));
                             }
@@ -98,7 +142,6 @@ namespace HtmlAgilityPackDemo
 
                 }
             }
-
         }
     }
 }
