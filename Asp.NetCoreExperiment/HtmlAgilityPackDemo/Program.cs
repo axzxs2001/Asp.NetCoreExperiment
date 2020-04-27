@@ -21,37 +21,46 @@ namespace HtmlAgilityPackDemo
             var arrStrings = File.ReadAllLines(@"C:\MyFile\aaa.txt");
             ChromeMethod(arrStrings);
 
-            IJsEngine engine = new V8JsEngine(
-    new V8Settings
-    {
-        MaxNewSpaceSize = 4,
-        MaxOldSpaceSize = 8
-    }
-);
-
-            V8Method(engine);
-
-
-            HTMLMethod(arrStrings);
+            //V8Method();
+            //HTMLMethod(arrStrings);
 
         }
-        static void  ChromeMethod(string[] arrStrings)
+        static void ChromeMethod(string[] arrStrings)
         {
             ChromeOptions op = new ChromeOptions();
-            op.AddArguments("--headless");//开启无gui模式
-           // op.AddArguments("--no-sandbox");//停用沙箱以在Linux中正常运行
+            // op.AddArguments("--headless");//开启无gui模式
+            // op.AddArguments("--no-sandbox");//停用沙箱以在Linux中正常运行
             ChromeDriver cd = new ChromeDriver(op);
-            cd.Navigate().GoToUrl("https://www.baidu.com");
-            string text = cd.FindElementById("su").GetAttribute("value");
+            cd.Navigate().GoToUrl(arrStrings[4] + arrStrings[0]);
+            var userNameEle = cd.FindElementById("id");
+            var passwordEle = cd.FindElementById("passwd");
+            var loginEle = cd.FindElementByClassName("MdBtn03Login");
 
-           
+            userNameEle.SendKeys(arrStrings[1]);
+            passwordEle.SendKeys(arrStrings[2]);
+
+            Console.WriteLine("回车登录");
+            Console.ReadLine();
+            loginEle.Click();
+
+            Console.WriteLine("选择enterprise菜单");
+            Console.ReadLine();
+            var enterpriseEle = cd.FindElementByClassName("_center_merchant_list");       
+            enterpriseEle.Click();
+            Console.ReadLine();
             cd.Quit();
-            Console.WriteLine(text);
-            Console.Read();
+            Console.ReadLine();
         }
 
-        private static void V8Method(IJsEngine engine)
+        private static void V8Method()
         {
+            IJsEngine engine = new V8JsEngine(
+new V8Settings
+{
+    MaxNewSpaceSize = 4,
+    MaxOldSpaceSize = 8
+}
+);
             engine.Execute(" function A(){ console.log('a');return 'abcd'}");
 
             engine.ExecuteFile(@"c:/myfile/test/lc.line.web.login_1548918449.js");
