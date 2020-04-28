@@ -11,6 +11,7 @@ using System.Net;
 using System.Net.Http;
 using System.Security.Authentication;
 using System.Text;
+using Tesseract;
 
 namespace HtmlAgilityPackDemo
 {
@@ -18,13 +19,93 @@ namespace HtmlAgilityPackDemo
     {
         static void Main(string[] args)
         {
-            var arrStrings = File.ReadAllLines(@"C:\MyFile\aaa.txt");
-            ChromeMethod(arrStrings);
+
+
+            TesseractTest(args);
+
+           // var arrStrings = File.ReadAllLines(@"C:\MyFile\aaa.txt");
+           // ChromeMethod(arrStrings);
 
             //V8Method();
             //HTMLMethod(arrStrings);
 
         }
+        /// <summary>
+        /// ocr
+        /// </summary>
+        /// <param name="args"></param>
+        static void TesseractTest(string[] args)
+        {
+            var testImagePath = "./a.jpg";// "./b.tif";// "c:/myfile/a.jpg";
+            if (args.Length > 0)
+            {
+                testImagePath = args[0];
+            }
+
+            try
+            {
+                using (var engine = new TesseractEngine(@"./tessdata", "eng", EngineMode.Default))
+                {
+                    using (var img = Pix.LoadFromFile(testImagePath))
+                    {
+                        using (var page = engine.Process(img))
+                        {
+                            var text = page.GetText();
+                            Console.WriteLine("Mean confidence: {0}", page.GetMeanConfidence());
+
+                            Console.WriteLine("Text (GetText): \r\n{0}", text);
+                            Console.WriteLine("Text (iterator):");
+                            using (var iter = page.GetIterator())
+                            {
+                                iter.Begin();
+
+                                do
+                                {
+                                    do
+                                    {
+                                        do
+                                        {
+                                            do
+                                            {
+                                                if (iter.IsAtBeginningOf(PageIteratorLevel.Block))
+                                                {
+                                                    Console.WriteLine("<BLOCK>");
+                                                }
+
+                                                Console.Write(iter.GetText(PageIteratorLevel.Word));
+                                                Console.Write(" ");
+
+                                                if (iter.IsAtFinalOf(PageIteratorLevel.TextLine, PageIteratorLevel.Word))
+                                                {
+                                                    Console.WriteLine();
+                                                }
+                                            } while (iter.Next(PageIteratorLevel.TextLine, PageIteratorLevel.Word));
+
+                                            if (iter.IsAtFinalOf(PageIteratorLevel.Para, PageIteratorLevel.TextLine))
+                                            {
+                                                Console.WriteLine();
+                                            }
+                                        } while (iter.Next(PageIteratorLevel.Para, PageIteratorLevel.TextLine));
+                                    } while (iter.Next(PageIteratorLevel.Block, PageIteratorLevel.Para));
+                                } while (iter.Next(PageIteratorLevel.Block));
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {              
+                Console.WriteLine("Unexpected Error: " + e.Message);
+                Console.WriteLine("Details: ");
+                Console.WriteLine(e.ToString());
+            }
+            Console.Write("Press any key to continue . . . ");
+            Console.ReadKey(true);
+        }
+        /// <summary>
+        /// 爬虫
+        /// </summary>
+        /// <param name="arrStrings"></param>
         static void ChromeMethod(string[] arrStrings)
         {
             ChromeOptions op = new ChromeOptions();
@@ -45,7 +126,7 @@ namespace HtmlAgilityPackDemo
 
             Console.WriteLine("选择enterprise菜单");
             Console.ReadLine();
-            var enterpriseEle = cd.FindElementByClassName("_center_merchant_list");       
+            var enterpriseEle = cd.FindElementByClassName("_center_merchant_list");
             enterpriseEle.Click();
             Console.ReadLine();
             cd.Quit();
