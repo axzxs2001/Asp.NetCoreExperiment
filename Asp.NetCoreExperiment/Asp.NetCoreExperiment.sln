@@ -1167,7 +1167,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PipelineModelDemo", ".netco
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "webmvcdemo002_Feature", ".netcore5.x\webmvcdemo002\webmvcdemo002_Feature.csproj", "{51641642-9044-411B-B37F-C1275B239454}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HtmlAgilityPackDemo", "HtmlAgilityPackDemo\HtmlAgilityPackDemo.csproj", "{2BB4F8B8-53E8-4C4A-AF05-357CB02F0755}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HtmlAgilityPackDemo", "HtmlAgilityPackDemo\HtmlAgilityPackDemo.csproj", "{2BB4F8B8-53E8-4C4A-AF05-357CB02F0755}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataBaseTool", "PostgreSqlDemo\DataBaseTool\DataBaseTool.csproj", "{90F577B3-4368-457F-A880-C0A277D85EBA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -4503,6 +4505,14 @@ Global
 		{2BB4F8B8-53E8-4C4A-AF05-357CB02F0755}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2BB4F8B8-53E8-4C4A-AF05-357CB02F0755}.Release|x64.ActiveCfg = Release|Any CPU
 		{2BB4F8B8-53E8-4C4A-AF05-357CB02F0755}.Release|x64.Build.0 = Release|Any CPU
+		{90F577B3-4368-457F-A880-C0A277D85EBA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90F577B3-4368-457F-A880-C0A277D85EBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90F577B3-4368-457F-A880-C0A277D85EBA}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{90F577B3-4368-457F-A880-C0A277D85EBA}.Debug|x64.Build.0 = Debug|Any CPU
+		{90F577B3-4368-457F-A880-C0A277D85EBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90F577B3-4368-457F-A880-C0A277D85EBA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90F577B3-4368-457F-A880-C0A277D85EBA}.Release|x64.ActiveCfg = Release|Any CPU
+		{90F577B3-4368-457F-A880-C0A277D85EBA}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -4977,6 +4987,7 @@ Global
 		{06B27F19-9D11-47DA-B87F-E3222AB3DD51} = {B5A1C755-FDA8-4AA5-92A7-E8AD039A2A71}
 		{51641642-9044-411B-B37F-C1275B239454} = {B5A1C755-FDA8-4AA5-92A7-E8AD039A2A71}
 		{2BB4F8B8-53E8-4C4A-AF05-357CB02F0755} = {B5A1C755-FDA8-4AA5-92A7-E8AD039A2A71}
+		{90F577B3-4368-457F-A880-C0A277D85EBA} = {3F1A250E-4A20-43C0-839C-0B307DC143B0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
