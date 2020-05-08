@@ -2,6 +2,7 @@
 using Npgsql;
 using Dapper;
 using System.Text;
+using System.Collections.Generic;
 
 namespace DataBaseTool
 {
@@ -9,23 +10,26 @@ namespace DataBaseTool
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            var tables = GetTables();
+            var funcations = GetFunctions();
+            var content = System.Text.Json.JsonSerializer.Serialize(new { tables, funcations },new System.Text.Json.JsonSerializerOptions() { WriteIndented = true });
+            Console.WriteLine(content);
         }
+        static string connectionString = "Server=127.0.0.1;Port=5432;UserId=postgres;Password=postgres2018;Database=StarPayApplication;";
 
-        static string GetTables()
+        static IEnumerable<dynamic> GetTables()
         {
-            using (var con = new NpgsqlConnection(""))
+            using (var con = new NpgsqlConnection(connectionString))
             {
                 var sql = $@"select table_name,column_name,column_default,is_nullable,data_type,character_maximum_length ,numeric_precision_radix from information_schema.columns where table_schema = 'public'  order by table_name,ordinal_position";
-                var list = con.Query<dynamic>(sql);
-                return System.Text.Json.JsonSerializer.Serialize(list);
+                return con.Query<dynamic>(sql);
+
             }
         }
 
-
-        static string GetFunction()
+        static IEnumerable<dynamic> GetFunctions()
         {
-            using (var con = new NpgsqlConnection(""))
+            using (var con = new NpgsqlConnection(connectionString))
             {
                 var sql = $@"SELECT
   pg_proc.proname,
@@ -37,8 +41,8 @@ FROM
     JOIN pg_type
    ON (pg_proc.prorettype = pg_type.oid)
 WHERE pronamespace = (SELECT pg_namespace.oid FROM pg_namespace WHERE nspname = 'public') order by  pg_proc.proname";
-                var list = con.Query<dynamic>(sql);
-                return System.Text.Json.JsonSerializer.Serialize(list);
+                return con.Query<dynamic>(sql);
+
             }
         }
     }
