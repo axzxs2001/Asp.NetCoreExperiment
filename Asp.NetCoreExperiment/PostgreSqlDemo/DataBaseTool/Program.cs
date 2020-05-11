@@ -12,8 +12,13 @@ namespace DataBaseTool
         {
             var tables = GetTables();
             var funcations = GetFunctions();
-            var content = System.Text.Json.JsonSerializer.Serialize(new { tables, funcations },new System.Text.Json.JsonSerializerOptions() { WriteIndented = true });
+            var content = System.Text.Json.JsonSerializer.Serialize(new { tables, funcations }, new System.Text.Json.JsonSerializerOptions() { WriteIndented = true });
+
+            System.IO.File.WriteAllText($"{System.IO.Directory.GetCurrentDirectory()}/data{DateTime.Now.ToString("yyyyMMddHHmmss")}.txt", content, Encoding.UTF8);
             Console.WriteLine(content);
+
+            Console.WriteLine("任意键结束");
+            Console.Read();
         }
         static string connectionString = "Server=127.0.0.1;Port=5432;UserId=postgres;Password=postgres2018;Database=StarPayApplication;";
 
