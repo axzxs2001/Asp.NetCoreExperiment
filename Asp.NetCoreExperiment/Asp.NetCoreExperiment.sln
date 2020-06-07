@@ -153,17 +153,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Consul", "Consul", "{611D1178-0D17-4175-A806-17F4B2A80C0D}"
 EndProject
 Project("{911E67C6-3D85-4FCE-B560-20A9C3E3FF48}") = "consul", "ConsulOcelot\consul\consul.exe", "{4F0D80E4-1918-47B9-87D1-BE197DA8CC61}"
-	ProjectSection(DebuggerProjectSystem) = preProject
-		PortSupplier = 00000000-0000-0000-0000-000000000000
-		Executable = C:\MyFile\Source\Repos\Asp.NetCoreExperiment\Asp.NetCoreExperiment\ConsulOcelot\consul\consul.exe
-		RemoteMachine = DESKTOP-G4MCKOS
-		StartingDirectory = C:\MyFile\Source\Repos\Asp.NetCoreExperiment\Asp.NetCoreExperiment\ConsulOcelot\consul
-		Environment = 默认值
-		LaunchingEngine = 00000000-0000-0000-0000-000000000000
-		UseLegacyDebugEngines = No
-		LaunchSQLEngine = No
-		AttachLaunchAction = No
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "conf", "conf", "{7C580099-E98A-4F7E-80FF-D6A01740C396}"
 	ProjectSection(SolutionItems) = preProject
@@ -1157,7 +1146,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AccessModifiersDemo", "CSha
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AccessModifiersLib", "AccessModifiersLib\AccessModifiersLib.csproj", "{C030C6B0-E37E-4F55-84CA-DBDB4D2088E2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VersionDemo", "Common\VersionDemo\VersionDemo.csproj", "{33E975C1-055F-4A3B-A426-04248E40DFB2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VersionDemo", "Common\VersionDemo\VersionDemo.csproj", "{33E975C1-055F-4A3B-A426-04248E40DFB2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".netcore5.x", ".netcore5.x", "{B5A1C755-FDA8-4AA5-92A7-E8AD039A2A71}"
 EndProject
@@ -1171,7 +1160,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HtmlAgilityPackDemo", "Html
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataBaseTool", "PostgreSqlDemo\DataBaseTool\DataBaseTool.csproj", "{90F577B3-4368-457F-A880-C0A277D85EBA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebGitDemo", ".netcore5.x\WebGitDemo\WebGitDemo.csproj", "{D8AA9D17-6EA2-4154-BBC7-8D7501EE832C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebGitDemo", ".netcore5.x\WebGitDemo\WebGitDemo.csproj", "{D8AA9D17-6EA2-4154-BBC7-8D7501EE832C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerFuncations", "Common\CustomerFuncations\CustomerFuncations.csproj", "{49C1DB20-983F-4664-8903-274692DC9745}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -4523,6 +4514,14 @@ Global
 		{D8AA9D17-6EA2-4154-BBC7-8D7501EE832C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D8AA9D17-6EA2-4154-BBC7-8D7501EE832C}.Release|x64.ActiveCfg = Release|Any CPU
 		{D8AA9D17-6EA2-4154-BBC7-8D7501EE832C}.Release|x64.Build.0 = Release|Any CPU
+		{49C1DB20-983F-4664-8903-274692DC9745}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49C1DB20-983F-4664-8903-274692DC9745}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49C1DB20-983F-4664-8903-274692DC9745}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{49C1DB20-983F-4664-8903-274692DC9745}.Debug|x64.Build.0 = Debug|Any CPU
+		{49C1DB20-983F-4664-8903-274692DC9745}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49C1DB20-983F-4664-8903-274692DC9745}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49C1DB20-983F-4664-8903-274692DC9745}.Release|x64.ActiveCfg = Release|Any CPU
+		{49C1DB20-983F-4664-8903-274692DC9745}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -4999,6 +4998,7 @@ Global
 		{2BB4F8B8-53E8-4C4A-AF05-357CB02F0755} = {B5A1C755-FDA8-4AA5-92A7-E8AD039A2A71}
 		{90F577B3-4368-457F-A880-C0A277D85EBA} = {3F1A250E-4A20-43C0-839C-0B307DC143B0}
 		{D8AA9D17-6EA2-4154-BBC7-8D7501EE832C} = {B5A1C755-FDA8-4AA5-92A7-E8AD039A2A71}
+		{49C1DB20-983F-4664-8903-274692DC9745} = {A76B4F09-82B3-4F06-BE35-F5941BF8C338}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
