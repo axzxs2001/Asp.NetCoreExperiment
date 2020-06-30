@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>WebApplication1</name>
+    </assembly>
+    <members>
+        <member name="F:WebApplication1.DynamicControllerConvention._serviceCollection">
+            <summary>
+            ServiceCollection
+            </summary>
+        </member>
+        <member name="F:WebApplication1.DynamicControllerConvention._dynamicControllerOptions">
+            <summary>
+            DynamicControllerOptions
+            </summary>
+        </member>
+        <member name="M:WebApplication1.DynamicControllerConvention.#ctor(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Ctor
+            </summary>
+            <param name="serviceCollection">ServiceCollection</param>
+        </member>
+        <member name="P:WebApplication1.DynamicControllerOptions.UseCustomRouteFirst">
+            <summary>
+            是否优先使用自定义路由
+            </summary>
+        </member>
+        <member name="P:WebApplication1.DynamicControllerOptions.UseRestfulActionName">
+            <summary>
+            是否使用RESTful风格的Action
+            </summary>
+        </member>
+        <member name="P:WebApplication1.DynamicControllerOptions.UseFriendlyControllerName">
+            <summary>
+            是否使用友好的控制器名称
+            </summary>
+        </member>
+        <member name="P:WebApplication1.DynamicControllerOptions.DefaultApiRoutePrefix">
+            <summary>
+            默认Api路由名称前缀
+            </summary>
+        </member>
+        <member name="P:WebApplication1.DynamicControllerOptions.RemoveControllerSuffix">
+            <summary>
+            默认删除的控制器名称后缀
+            </summary>
+        </member>
+        <member name="P:WebApplication1.DynamicControllerOptions.Default">
+            <summary>
+            默认配置
+            </summary>
+        </member>
+        <member name="M:WebApplication1.Program111.GetMetadataReference(System.Type[])">
+            <summary>
+            从类型获取原数据引用
+            </summary>
+            <param name="types">类型集合</param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
