@@ -28,10 +28,13 @@ namespace GraphQLDemo01
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddGraphQL(sp => SchemaBuilder.New()
-    .AddQueryType<Query>()
-    .AddServices(sp)
-    .Create());
+            services.AddGraphQL(
+                sp => SchemaBuilder.New()
+                .AddQueryType<Query>()
+               
+                .AddServices(sp)
+                .Create()
+                );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

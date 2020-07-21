@@ -22,20 +22,32 @@ namespace GraphQLDemo01.Controllers
         }
 
         [HttpGet]
-        public string Get(string cod=null)
+        public string Get()
         {
-            cod = "{persons{id name}}";//"{person(id:1){id name}}";
+            var cod = "{persons{id name }}";
+            var executor = _schema.MakeExecutable();
+            return executor.Execute(cod).ToJson();
+        }
+
+        [HttpGet("{id}")]
+        public string Get(int id)
+        {
+            var cod = $"query GetPersons1 {{person(id:{id}){{id name }} childs{{id name}}}}";
             var executor = _schema.MakeExecutable();
             return executor.Execute(cod).ToJson();
         }
     }
     public class Query
-    {     
-        public IEnumerable<Person> GetPerson(int id)
+    {
+        public Person GetPerson(int id)
         {
-            return (new Person[] { new Person { Id = 1, Name = "AAA" }, new Person { Id = 2, Name = "BBBB" } }).Where(s=>s.Id==id);
+            return (new Person[] { new Person { Id = 1, Name = "AAA" }, new Person { Id = 2, Name = "BBBB" } }).SingleOrDefault(s => s.Id == id);
         }
         public IEnumerable<Person> GetPersons()
+        {
+            return new Person[] { new Person { Id = 1, Name = "AAA" }, new Person { Id = 2, Name = "BBBB" } };
+        }
+        public IEnumerable<Person> GetChilds()
         {
             return new Person[] { new Person { Id = 1, Name = "AAA" }, new Person { Id = 2, Name = "BBBB" } };
         }
