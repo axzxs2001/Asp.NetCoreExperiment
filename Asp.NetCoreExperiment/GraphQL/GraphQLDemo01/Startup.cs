@@ -2,6 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using GraphQLDemo01.Controllers;
+using HotChocolate;
+using HotChocolate.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -24,15 +27,22 @@ namespace GraphQLDemo01
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-        }
+            services.AddGraphQL(
+                sp => SchemaBuilder.New()
+                .AddQueryType<Query>()
 
+                .AddServices(sp)
+                .Create()
+                );
+        }
+   
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            app.UseGraphQL();
             app.UseRouting();
 
             app.UseAuthorization();

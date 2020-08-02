@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.Xml;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Web;
 using HotChocolate;
 using HotChocolate.Execution;
+using HotChocolate.Language;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -22,50 +26,57 @@ namespace GraphQLDemo01.Controllers
         }
 
         [HttpGet]
-        public string Get()
+        public async Task<string> Get(string query)
         {
-            //全部查询
-            var cod = "{persons{id name }}";
-            var executor = _schema.MakeExecutable();
-            return executor.Execute(cod).ToJson();
-        }
-
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            //条件查询
-            var cod = $"query GetPersons1 {{person(id:{id}){{id name }} childs{{id name}}}}";
-            var executor = _schema.MakeExecutable();
-            return executor.Execute(cod).ToJson();
+            var executor = _schema.MakeExecutable(); 
+            var executionResult = await executor.ExecuteAsync(query);
+            return Regex.Unescape(executionResult.ToJson()); ;
         }
     }
     public class Query
     {
+        private readonly List<Item> _items;
+        public Query()
+        {
+            _items = new List<Item>() {
+                new Item { Id=1,Name="一级A" },
+                new Item { Id=2,Name="一级B" },
+                new Item { Id=3,Name="一级C" },
+                new Item { Id=4,Name="一级A-二级A",Pid=1 },
+                new Item { Id=5,Name="一级A-一级B",Pid=1 },
+                new Item { Id=6,Name="一级B-二级A",Pid=2 }
+            };
+        }
+
         /// <summary>
         /// 条件查询
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public Person GetPerson(int id)
+        public Item GetPerson(int id)
         {
-            return (new Person[] { new Person { Id = 1, Name = "AAA" }, new Person { Id = 2, Name = "BBBB" } }).SingleOrDefault(s => s.Id == id);
+            return _items.SingleOrDefault(s => s.Id == id);
         }
         /// <summary>
         /// 全部查询
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<Person> GetPersons()
+        public IEnumerable<Item> GetPersons()
         {
-            return new Person[] { new Person { Id = 1, Name = "AAA" }, new Person { Id = 2, Name = "BBBB" } };
+            return _items;
         }
-        public IEnumerable<Person> GetChilds()
+        public IEnumerable<Item> GetChilds(int pid)
         {
-            return new Person[] { new Person { Id = 1, Name = "AAA" }, new Person { Id = 2, Name = "BBBB" } };
+            return _items.Where(s => s.Pid == pid);
         }
     }
-    public class Person
+    /// <summary>
+    /// 实体类
+    /// </summary>
+    public class Item
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public int Pid { get; set; }
     }
 }
