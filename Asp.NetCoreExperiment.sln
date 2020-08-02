@@ -11,7 +11,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnumDemo", "Asp.NetCoreExpe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskThreadDemo", "Asp.NetCoreExperiment\CSharp\TaskThreadDemo\TaskThreadDemo.csproj", "{B08F37CC-1ED8-48B7-BF76-3490564FF1B1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DateTimeDemo", "Asp.NetCoreExperiment\CSharp\DateTimeDemo\DateTimeDemo.csproj", "{AD3F7E9F-56F4-4E22-A08B-B1F36068E5B0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DateTimeDemo", "Asp.NetCoreExperiment\CSharp\DateTimeDemo\DateTimeDemo.csproj", "{AD3F7E9F-56F4-4E22-A08B-B1F36068E5B0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GraphQL", "GraphQL", "{DA6111FE-704A-4B77-8CB9-A38873BC1FA5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphQLDemo01", "Asp.NetCoreExperiment\GraphQL\GraphQLDemo01\GraphQLDemo01.csproj", "{6B78AFFD-BF30-4506-BD2C-5BB1E27EB8BC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,6 +39,10 @@ Global
 		{AD3F7E9F-56F4-4E22-A08B-B1F36068E5B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AD3F7E9F-56F4-4E22-A08B-B1F36068E5B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AD3F7E9F-56F4-4E22-A08B-B1F36068E5B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B78AFFD-BF30-4506-BD2C-5BB1E27EB8BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B78AFFD-BF30-4506-BD2C-5BB1E27EB8BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B78AFFD-BF30-4506-BD2C-5BB1E27EB8BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B78AFFD-BF30-4506-BD2C-5BB1E27EB8BC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -44,6 +52,7 @@ Global
 		{EEC7CE89-3328-4EFD-B753-A8C3D77A4396} = {0C2286BE-F1F4-4E52-A9FA-1EF056CD9159}
 		{B08F37CC-1ED8-48B7-BF76-3490564FF1B1} = {0C2286BE-F1F4-4E52-A9FA-1EF056CD9159}
 		{AD3F7E9F-56F4-4E22-A08B-B1F36068E5B0} = {0C2286BE-F1F4-4E52-A9FA-1EF056CD9159}
+		{6B78AFFD-BF30-4506-BD2C-5BB1E27EB8BC} = {DA6111FE-704A-4B77-8CB9-A38873BC1FA5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}

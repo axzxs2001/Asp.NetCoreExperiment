@@ -4,7 +4,7 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:35668",
+      "applicationUrl": "http://localhost:50543",
       "sslPort": 0
     }
   },
@@ -17,7 +17,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "DGraphDemo": {
+    "GraphQLDemo01": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "weatherforecast",

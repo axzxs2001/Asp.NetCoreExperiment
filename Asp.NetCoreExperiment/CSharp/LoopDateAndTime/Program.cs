@@ -10,9 +10,10 @@ namespace LoopDateAndTime
             var beginDate = DateTime.Parse("2020-02-25");
             var endDate = DateTime.Parse("2020-03-10");
             LoopDate(beginDate, endDate);
+            Console.ReadLine();
             // 按小时循环
-            var beginTime = DateTime.Parse("2020-02-25 19:00:00");
-            var endTime = DateTime.Parse("2020-02-27 01:30:00");
+            var beginTime = DateTime.Parse("2020-02-25 09:00:00");
+            var endTime = DateTime.Parse("2020-02-25 20:30:00");
             LoopTime(beginDate, endDate);
 
             Console.ReadLine();
