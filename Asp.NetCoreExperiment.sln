@@ -15,9 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DateTimeDemo", "Asp.NetCore
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GraphQL", "GraphQL", "{DA6111FE-704A-4B77-8CB9-A38873BC1FA5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphQLDemo01", "Asp.NetCoreExperiment\GraphQL\GraphQLDemo01\GraphQLDemo01.csproj", "{6B78AFFD-BF30-4506-BD2C-5BB1E27EB8BC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GraphQLDemo01", "Asp.NetCoreExperiment\GraphQL\GraphQLDemo01\GraphQLDemo01.csproj", "{6B78AFFD-BF30-4506-BD2C-5BB1E27EB8BC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphQLDemo_Client", "Asp.NetCoreExperiment\GraphQL\GraphQLDemo_Client\GraphQLDemo_Client.csproj", "{4DB5D929-08F8-4DF5-9BFA-60DCC319EA65}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GraphQLDemo_Client", "Asp.NetCoreExperiment\GraphQL\GraphQLDemo_Client\GraphQLDemo_Client.csproj", "{4DB5D929-08F8-4DF5-9BFA-60DCC319EA65}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
