@@ -15,7 +15,7 @@ namespace GraphQLDemo_Client
         {
             while (true)
             {
-                Console.WriteLine("1、字段  2、参数  3、别名  4、片段  5、变量片段  6、操作名");
+                Console.WriteLine("1、字段  2、参数  3、别名  4、片段  5、变量片段  6、操作名  7、变量");
                 var key = Console.ReadLine();
                 switch (key)
                 {
@@ -36,6 +36,9 @@ namespace GraphQLDemo_Client
                         break;
                     case "6":
                         await GetItems();
+                        break;
+                    case "7":
+                        await GetByIDVariables(2);
                         break;
 
                 }
@@ -116,6 +119,17 @@ namespace GraphQLDemo_Client
         {
             //全部查询 字段 Fields
             var query = "query GetItems{entity{id name}}";
+            var content = await HttpGetAsync(query);
+            Console.WriteLine(content);
+        }
+        /// <summary>
+        /// Variables
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        async static Task GetByIDVariables(int id)
+        {
+            var query = $"{{item(id:int){{id name}} }}";
             var content = await HttpGetAsync(query);
             Console.WriteLine(content);
         }
