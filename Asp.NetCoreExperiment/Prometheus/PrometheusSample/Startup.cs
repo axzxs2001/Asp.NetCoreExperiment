@@ -96,10 +96,11 @@ namespace PrometheusSample
          {
              Objectives = new[]
              {
+                new QuantileEpsilonPair(0.1, 0.05),   
+                new QuantileEpsilonPair(0.3, 0.05),      
                 new QuantileEpsilonPair(0.5, 0.05),
-                new QuantileEpsilonPair(0.9, 0.01),
-                new QuantileEpsilonPair(0.95, 0.005),
-                new QuantileEpsilonPair(0.99, 0.001),
+                new QuantileEpsilonPair(0.7, 0.05),           
+                new QuantileEpsilonPair(0.9, 0.05),
              }
          });
             metricsHub.AddSummary("/order", orderSummary);
@@ -113,8 +114,10 @@ namespace PrometheusSample
             var orderHistogram = Metrics.CreateHistogram("business_order_histogram", "¶©µ¥Ö±·½Í¼¡£",
         new HistogramConfiguration
         {
-            Buckets = Histogram.LinearBuckets(start: 1000, width: 1000, count: 5)
-        });
+             //Buckets = Histogram.ExponentialBuckets(start: 1000, factor: 2, count: 5)
+           Buckets = Histogram.LinearBuckets(start: 1000, width: 1000, count: 6)
+        }) ;
+         
             metricsHub.AddHistogram("/order", orderHistogram);
 
 

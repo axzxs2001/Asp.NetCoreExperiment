@@ -1,10 +1,5 @@
 ﻿using Prometheus;
-using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
 
 namespace PrometheusSample.Middlewares
 {
@@ -80,8 +75,5 @@ namespace PrometheusSample.Middlewares
         {
             _histogramDictionary.Add(key, histogram);
         }
-
     }
-
-
 }
