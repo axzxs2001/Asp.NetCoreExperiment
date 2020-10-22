@@ -29,7 +29,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RecordTypeDemo", "Asp.NetCo
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Prometheus", "Prometheus", "{35CD5C5C-2069-41A2-B5B7-35C0F747CE7E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrometheusSimpal", "Asp.NetCoreExperiment\Prometheus\PromethuesSimpal\PrometheusSimpal.csproj", "{AF208103-12AB-419E-892F-149BE6C4B0C9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrometheusSample", "Asp.NetCoreExperiment\Prometheus\PrometheusSample\PrometheusSample.csproj", "{04BE7717-FBF8-40F5-A420-0D46F15C37CC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -73,10 +73,10 @@ Global
 		{8880B726-D06C-4F29-808E-99D60FCA6458}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8880B726-D06C-4F29-808E-99D60FCA6458}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8880B726-D06C-4F29-808E-99D60FCA6458}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AF208103-12AB-419E-892F-149BE6C4B0C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AF208103-12AB-419E-892F-149BE6C4B0C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AF208103-12AB-419E-892F-149BE6C4B0C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AF208103-12AB-419E-892F-149BE6C4B0C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04BE7717-FBF8-40F5-A420-0D46F15C37CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04BE7717-FBF8-40F5-A420-0D46F15C37CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04BE7717-FBF8-40F5-A420-0D46F15C37CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04BE7717-FBF8-40F5-A420-0D46F15C37CC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -91,7 +91,7 @@ Global
 		{0B8E5FFB-E46D-40DA-B2DF-D457A5CE87C3} = {AB4F8575-592A-4E94-B350-A8EBA9339860}
 		{AF63C4DC-E1EC-4F05-9494-D33676DC33B6} = {0C2286BE-F1F4-4E52-A9FA-1EF056CD9159}
 		{8880B726-D06C-4F29-808E-99D60FCA6458} = {0C2286BE-F1F4-4E52-A9FA-1EF056CD9159}
-		{AF208103-12AB-419E-892F-149BE6C4B0C9} = {35CD5C5C-2069-41A2-B5B7-35C0F747CE7E}
+		{04BE7717-FBF8-40F5-A420-0D46F15C37CC} = {35CD5C5C-2069-41A2-B5B7-35C0F747CE7E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}

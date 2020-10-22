@@ -9,7 +9,7 @@
     }
   },
   "profiles": { 
-    "PrometheusSimpal": {
+    "PrometheusSample": {
       "commandName": "Project",
       "dotnetRunMessages": "true",
       "launchBrowser": true,
