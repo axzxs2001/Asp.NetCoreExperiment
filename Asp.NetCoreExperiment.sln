@@ -31,6 +31,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Prometheus", "Prometheus", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrometheusSample", "Asp.NetCoreExperiment\Prometheus\PrometheusSample\PrometheusSample.csproj", "{04BE7717-FBF8-40F5-A420-0D46F15C37CC}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Architecture", "Architecture", "{00DC5DBE-1C3D-41A4-BF7C-852A6FA13066}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArchitectureDemo01", "Asp.NetCoreExperiment\Architecture\ArchitectureDemo01\ArchitectureDemo01.csproj", "{A9A4C3C5-E809-4B93-9043-DF46AF89B910}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -77,6 +81,10 @@ Global
 		{04BE7717-FBF8-40F5-A420-0D46F15C37CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{04BE7717-FBF8-40F5-A420-0D46F15C37CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{04BE7717-FBF8-40F5-A420-0D46F15C37CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A9A4C3C5-E809-4B93-9043-DF46AF89B910}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9A4C3C5-E809-4B93-9043-DF46AF89B910}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9A4C3C5-E809-4B93-9043-DF46AF89B910}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9A4C3C5-E809-4B93-9043-DF46AF89B910}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -92,6 +100,7 @@ Global
 		{AF63C4DC-E1EC-4F05-9494-D33676DC33B6} = {0C2286BE-F1F4-4E52-A9FA-1EF056CD9159}
 		{8880B726-D06C-4F29-808E-99D60FCA6458} = {0C2286BE-F1F4-4E52-A9FA-1EF056CD9159}
 		{04BE7717-FBF8-40F5-A420-0D46F15C37CC} = {35CD5C5C-2069-41A2-B5B7-35C0F747CE7E}
+		{A9A4C3C5-E809-4B93-9043-DF46AF89B910} = {00DC5DBE-1C3D-41A4-BF7C-852A6FA13066}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
