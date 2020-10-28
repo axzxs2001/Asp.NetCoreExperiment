@@ -35,6 +35,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Architecture", "Architectur
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArchitectureDemo01", "Asp.NetCoreExperiment\Architecture\ArchitectureDemo01\ArchitectureDemo01.csproj", "{A9A4C3C5-E809-4B93-9043-DF46AF89B910}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArchitectureDemo02", "Asp.NetCoreExperiment\Architecture\ArchitectureDemo02\ArchitectureDemo02.csproj", "{45253D0F-22C9-47C3-AF90-5CA3EEF5D5B4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -85,6 +87,10 @@ Global
 		{A9A4C3C5-E809-4B93-9043-DF46AF89B910}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A9A4C3C5-E809-4B93-9043-DF46AF89B910}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A9A4C3C5-E809-4B93-9043-DF46AF89B910}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45253D0F-22C9-47C3-AF90-5CA3EEF5D5B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45253D0F-22C9-47C3-AF90-5CA3EEF5D5B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45253D0F-22C9-47C3-AF90-5CA3EEF5D5B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45253D0F-22C9-47C3-AF90-5CA3EEF5D5B4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -101,6 +107,7 @@ Global
 		{8880B726-D06C-4F29-808E-99D60FCA6458} = {0C2286BE-F1F4-4E52-A9FA-1EF056CD9159}
 		{04BE7717-FBF8-40F5-A420-0D46F15C37CC} = {35CD5C5C-2069-41A2-B5B7-35C0F747CE7E}
 		{A9A4C3C5-E809-4B93-9043-DF46AF89B910} = {00DC5DBE-1C3D-41A4-BF7C-852A6FA13066}
+		{45253D0F-22C9-47C3-AF90-5CA3EEF5D5B4} = {00DC5DBE-1C3D-41A4-BF7C-852A6FA13066}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}

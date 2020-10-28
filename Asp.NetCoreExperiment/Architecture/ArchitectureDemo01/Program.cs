@@ -26,7 +26,7 @@ namespace ArchitectureDemo01
                             Console.WriteLine("程序中看到的数据");
                             Console.WriteLine($"Name:{person.Name},Sex:{person.Sex},UserType:{person.UserType}");
                             Console.WriteLine("给用户返回Json");
-                            //模拟从数据库查出数据转发成json到前端
+                            
                             Console.WriteLine(System.Text.Json.JsonSerializer.Serialize(person));
                         }
                         break;
