@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HisMedical\HisMedical.csproj" />
+    <ProjectReference Include="..\NeusoftMedical\NeusoftMedical.csproj" />
+  </ItemGroup>
+
+</Project>
