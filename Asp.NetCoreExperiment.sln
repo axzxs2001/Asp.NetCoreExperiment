@@ -41,13 +41,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArchitectureDemo03", "Asp.N
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArchitectureDemo04", "Asp.NetCoreExperiment\Architecture\ArchitectureDemo04\ArchitectureDemo04.csproj", "{BB345770-267A-465A-AD73-2F8A67B1A22A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArchitectureDemo05", "Asp.NetCoreExperiment\Architecture\ArchitectureDemo05\ArchitectureDemo05.csproj", "{482C7DD3-B222-4898-ADE0-A6FAEFE82355}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArchitectureDemo05", "Asp.NetCoreExperiment\Architecture\ArchitectureDemo05\ArchitectureDemo05.csproj", "{482C7DD3-B222-4898-ADE0-A6FAEFE82355}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NeusoftMedical", "Asp.NetCoreExperiment\Architecture\NeusoftMedical\NeusoftMedical.csproj", "{5D95F515-7D60-41EC-AC48-90E473FB9F1D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NeusoftMedical", "Asp.NetCoreExperiment\Architecture\NeusoftMedical\NeusoftMedical.csproj", "{5D95F515-7D60-41EC-AC48-90E473FB9F1D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YiHaiMedical", "Asp.NetCoreExperiment\Architecture\YiHaiMedical\YiHaiMedical.csproj", "{CA5B0DF4-19CA-4474-95AD-58F4E981A834}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YiHaiMedical", "Asp.NetCoreExperiment\Architecture\YiHaiMedical\YiHaiMedical.csproj", "{CA5B0DF4-19CA-4474-95AD-58F4E981A834}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HisMedical", "Asp.NetCoreExperiment\Architecture\HisMedical\HisMedical.csproj", "{AC412F34-92D7-4566-98B5-E12F084744C5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HisMedical", "Asp.NetCoreExperiment\Architecture\HisMedical\HisMedical.csproj", "{AC412F34-92D7-4566-98B5-E12F084744C5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArchitectureDemo06", "Asp.NetCoreExperiment\Architecture\ArchitectureDemo06\ArchitectureDemo06.csproj", "{0A180D70-520F-4C81-B6D0-0232A79D6946}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DifferentShapesClass", "Asp.NetCoreExperiment\CSharp\DifferentShapesClass\DifferentShapesClass.csproj", "{C41EDFCD-6091-4193-A917-FDDF91D2AE16}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -127,6 +131,14 @@ Global
 		{AC412F34-92D7-4566-98B5-E12F084744C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AC412F34-92D7-4566-98B5-E12F084744C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AC412F34-92D7-4566-98B5-E12F084744C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A180D70-520F-4C81-B6D0-0232A79D6946}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A180D70-520F-4C81-B6D0-0232A79D6946}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A180D70-520F-4C81-B6D0-0232A79D6946}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A180D70-520F-4C81-B6D0-0232A79D6946}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C41EDFCD-6091-4193-A917-FDDF91D2AE16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C41EDFCD-6091-4193-A917-FDDF91D2AE16}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C41EDFCD-6091-4193-A917-FDDF91D2AE16}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C41EDFCD-6091-4193-A917-FDDF91D2AE16}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -150,6 +162,8 @@ Global
 		{5D95F515-7D60-41EC-AC48-90E473FB9F1D} = {00DC5DBE-1C3D-41A4-BF7C-852A6FA13066}
 		{CA5B0DF4-19CA-4474-95AD-58F4E981A834} = {00DC5DBE-1C3D-41A4-BF7C-852A6FA13066}
 		{AC412F34-92D7-4566-98B5-E12F084744C5} = {00DC5DBE-1C3D-41A4-BF7C-852A6FA13066}
+		{0A180D70-520F-4C81-B6D0-0232A79D6946} = {00DC5DBE-1C3D-41A4-BF7C-852A6FA13066}
+		{C41EDFCD-6091-4193-A917-FDDF91D2AE16} = {0C2286BE-F1F4-4E52-A9FA-1EF056CD9159}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
