@@ -49,9 +49,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YiHaiMedical", "Asp.NetCore
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HisMedical", "Asp.NetCoreExperiment\Architecture\HisMedical\HisMedical.csproj", "{AC412F34-92D7-4566-98B5-E12F084744C5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArchitectureDemo06", "Asp.NetCoreExperiment\Architecture\ArchitectureDemo06\ArchitectureDemo06.csproj", "{0A180D70-520F-4C81-B6D0-0232A79D6946}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArchitectureDemo06", "Asp.NetCoreExperiment\Architecture\ArchitectureDemo06\ArchitectureDemo06.csproj", "{0A180D70-520F-4C81-B6D0-0232A79D6946}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DifferentShapesClass", "Asp.NetCoreExperiment\CSharp\DifferentShapesClass\DifferentShapesClass.csproj", "{C41EDFCD-6091-4193-A917-FDDF91D2AE16}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DifferentShapesClass", "Asp.NetCoreExperiment\CSharp\DifferentShapesClass\DifferentShapesClass.csproj", "{C41EDFCD-6091-4193-A917-FDDF91D2AE16}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Blazor", "Blazor", "{81B7EFE5-84A7-4CD6-89E7-C9C37E1FA56D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorApp01", "Asp.NetCoreExperiment\Blazor\BlazorApp01\BlazorApp01.csproj", "{7DFCD3B7-EF9F-41BF-BFF1-5913AE212E1E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -139,6 +143,10 @@ Global
 		{C41EDFCD-6091-4193-A917-FDDF91D2AE16}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C41EDFCD-6091-4193-A917-FDDF91D2AE16}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C41EDFCD-6091-4193-A917-FDDF91D2AE16}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7DFCD3B7-EF9F-41BF-BFF1-5913AE212E1E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7DFCD3B7-EF9F-41BF-BFF1-5913AE212E1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7DFCD3B7-EF9F-41BF-BFF1-5913AE212E1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7DFCD3B7-EF9F-41BF-BFF1-5913AE212E1E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -164,6 +172,7 @@ Global
 		{AC412F34-92D7-4566-98B5-E12F084744C5} = {00DC5DBE-1C3D-41A4-BF7C-852A6FA13066}
 		{0A180D70-520F-4C81-B6D0-0232A79D6946} = {00DC5DBE-1C3D-41A4-BF7C-852A6FA13066}
 		{C41EDFCD-6091-4193-A917-FDDF91D2AE16} = {0C2286BE-F1F4-4E52-A9FA-1EF056CD9159}
+		{7DFCD3B7-EF9F-41BF-BFF1-5913AE212E1E} = {81B7EFE5-84A7-4CD6-89E7-C9C37E1FA56D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}

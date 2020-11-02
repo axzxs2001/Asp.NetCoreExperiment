@@ -1,0 +1,30 @@
+﻿@page "/counter"
+@using Microsoft.Extensions.Logging;
+@*注入日志*@
+@inject ILogger<Counter> _logger;
+
+
+<AuthorizeView>
+    <Authorized>
+        <h1>Hello, @context.User.:::no-loc(Identity):::.Name!</h1>
+        <p>You can only see this content if you're authenticated.</p>
+    </Authorized>
+    <NotAuthorized>
+        <h1>Authentication Failure!</h1>
+        <p>You're not signed in.</p>
+    </NotAuthorized>
+</AuthorizeView>
+<h1>Counter</h1>
+
+<p>Current count: @currentCount</p>
+<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+@code {
+
+    private int currentCount = 0;
+    private void IncrementCount()
+    {
+
+        currentCount++;
+        _logger?.LogInformation(currentCount.ToString());
+    }
+}
