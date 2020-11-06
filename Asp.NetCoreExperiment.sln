@@ -57,7 +57,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Blazor", "Blazor", "{81B7EF
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorApp01", "Asp.NetCoreExperiment\Blazor\BlazorApp01\BlazorApp01.csproj", "{7DFCD3B7-EF9F-41BF-BFF1-5913AE212E1E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApiError", "Asp.NetCoreExperiment\Architecture\WebApiError\WebApiError.csproj", "{8CB6312C-D45A-4778-A8E9-1E0F3809664E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApiError", "Asp.NetCoreExperiment\Architecture\WebApiError\WebApiError.csproj", "{8CB6312C-D45A-4778-A8E9-1E0F3809664E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebError", "Asp.NetCoreExperiment\Architecture\WebError\WebError.csproj", "{969B38C3-751F-4A83-8643-1D3CBBB9B185}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -153,6 +155,10 @@ Global
 		{8CB6312C-D45A-4778-A8E9-1E0F3809664E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8CB6312C-D45A-4778-A8E9-1E0F3809664E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8CB6312C-D45A-4778-A8E9-1E0F3809664E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{969B38C3-751F-4A83-8643-1D3CBBB9B185}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{969B38C3-751F-4A83-8643-1D3CBBB9B185}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{969B38C3-751F-4A83-8643-1D3CBBB9B185}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{969B38C3-751F-4A83-8643-1D3CBBB9B185}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -180,6 +186,7 @@ Global
 		{C41EDFCD-6091-4193-A917-FDDF91D2AE16} = {0C2286BE-F1F4-4E52-A9FA-1EF056CD9159}
 		{7DFCD3B7-EF9F-41BF-BFF1-5913AE212E1E} = {81B7EFE5-84A7-4CD6-89E7-C9C37E1FA56D}
 		{8CB6312C-D45A-4778-A8E9-1E0F3809664E} = {00DC5DBE-1C3D-41A4-BF7C-852A6FA13066}
+		{969B38C3-751F-4A83-8643-1D3CBBB9B185} = {00DC5DBE-1C3D-41A4-BF7C-852A6FA13066}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}

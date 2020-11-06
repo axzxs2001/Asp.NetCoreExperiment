@@ -4,11 +4,147 @@
         <name>WebApiError</name>
     </assembly>
     <members>
-        <member name="M:WebApiError.Controllers.WeatherForecastController.Error">
+        <member name="T:WebApiError.Controllers.TestController">
             <summary>
             
+            </summary>
+        </member>
+        <member name="M:WebApiError.Controllers.TestController.#ctor(Microsoft.Extensions.Logging.ILogger{WebApiError.Controllers.TestController})">
+            <summary>
+            
+            </summary>
+            <param name="logger"></param>
+        </member>
+        <member name="M:WebApiError.Controllers.TestController.Get">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:WebApiError.Controllers.TestController.AddUser(WebApiError.UserModel)">
+            <summary>
+            
+            </summary>
+            <param name="user"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WebApiError.Controllers.TestController.Error">
+            <summary>
+            错误处理页
             </summary>  
             <returns></returns>
+        </member>
+        <member name="T:WebApiError.DaMeiException">
+            <summary>
+            产品异常
+            </summary>
+        </member>
+        <member name="M:WebApiError.DaMeiException.#ctor(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="T:WebApiError.HisException">
+            <summary>
+            His项目异常
+            </summary>
+        </member>
+        <member name="M:WebApiError.HisException.#ctor(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="T:WebApiError.LisException">
+            <summary>
+            Lis项目异常
+            </summary>
+        </member>
+        <member name="M:WebApiError.LisException.#ctor(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="T:WebApiError.RegisteredException">
+            <summary>
+            模块异常
+            </summary>
+        </member>
+        <member name="M:WebApiError.RegisteredException.#ctor(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="T:WebApiError.DaMeiExceptionFilter">
+            <summary>
+            自定义过滤器处理异常
+            </summary>
+        </member>
+        <member name="P:WebApiError.DaMeiExceptionFilter.Order">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:WebApiError.DaMeiExceptionFilter.OnActionExecuting(Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext)">
+            <summary>
+            
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="M:WebApiError.DaMeiExceptionFilter.OnActionExecuted(Microsoft.AspNetCore.Mvc.Filters.ActionExecutedContext)">
+            <summary>
+            
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="T:WebApiError.DaMeiProblemDetailsFactory">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:WebApiError.DaMeiProblemDetailsFactory.CreateProblemDetails(Microsoft.AspNetCore.Http.HttpContext,System.Nullable{System.Int32},System.String,System.String,System.String,System.String)">
+            <summary>
+            处理普通错误
+            </summary>
+            <param name="httpContext"></param>
+            <param name="statusCode"></param>
+            <param name="title"></param>
+            <param name="type"></param>
+            <param name="detail"></param>
+            <param name="instance"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WebApiError.DaMeiProblemDetailsFactory.CreateValidationProblemDetails(Microsoft.AspNetCore.Http.HttpContext,Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary,System.Nullable{System.Int32},System.String,System.String,System.String,System.String)">
+            <summary>
+            处理model验证错误
+            </summary>
+            <param name="httpContext"></param>
+            <param name="modelStateDictionary"></param>
+            <param name="statusCode"></param>
+            <param name="title"></param>
+            <param name="type"></param>
+            <param name="detail"></param>
+            <param name="instance"></param>
+            <returns></returns>
+        </member>
+        <member name="T:WebApiError.Startup">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:WebApiError.Startup.#ctor(Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            
+            </summary>
+            <param name="configuration"></param>
+        </member>
+        <member name="P:WebApiError.Startup.Configuration">
+            <summary>
+            
+            </summary>
         </member>
         <member name="M:WebApiError.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
             <summary>
@@ -22,6 +158,21 @@
             </summary>
             <param name="app"></param>
             <param name="env"></param>
+        </member>
+        <member name="T:WebApiError.UserModel">
+            <summary>
+            用户模型
+            </summary>
+        </member>
+        <member name="P:WebApiError.UserModel.ID">
+            <summary>
+            ID
+            </summary>
+        </member>
+        <member name="P:WebApiError.UserModel.Name">
+             <summary>
+            名称
+             </summary>
         </member>
     </members>
 </doc>
