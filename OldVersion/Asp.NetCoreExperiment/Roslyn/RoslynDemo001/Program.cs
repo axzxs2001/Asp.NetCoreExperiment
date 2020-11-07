@@ -1,12 +1,18 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Runtime;
+using System.Threading;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Newtonsoft.Json;
+using RoslynDemo001_1;
+using Smart.Text.Japanese;
 
 namespace RoslynDemo001
 {
@@ -22,42 +28,66 @@ namespace RoslynDemo001
                 {
                     break;
                 }
-                Console.WriteLine(GetValue());
+                var t = new Thread(GetValue);
+                t.Start();
+                //Console.WriteLine(GetValue());
             }
-         
+
         }
 
-        static string GetValue()
+        static void GetValue()
         {
-            var sourceCodeText = @"
+
+
+            var csharp = @"var tel = par as string;
+            if (!string.IsNullOrEmpty(tel))
+            {
+                tel = tel.Replace(""-"", """");
+                if (tel.Length == 10)
+            {
+                tel = tel.Insert(6, ""-"").Insert(3, ""-"");
+            }
+            else if (tel.Length == 11)
+            {
+                tel = tel.Insert(7, ""-"").Insert(3, ""-"");
+            }
+        }
+            return tel;";
+
+            var sourceCodeText = $@"
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
+using System.Linq;
+using Smart.Text.Japanese;
+using System.Globalization;
+
 
 namespace RoslynDynamicGenerate
-{
+{{
     public class DynamicGenerateClass
-    {
-        public string Generate()
-        {    
-          return Newtonsoft.Json.JsonConvert.SerializeObject(new TestClass{A=""abcde"",B=1.234d,C=DateTime.Now.AddDays(-3)});
-        }       
-    }
-    public class TestClass
-    {
-        public string A { get; set; }
-        public double B { get; set; }
-        public DateTime C {get;set;}
-    }
-}
+    {{
+        public object Generate(object par)
+        {{                
+          {csharp}
+        }}      
+    }}
+}}
 ";
+
+
 
             var syntaxTree = CSharpSyntaxTree.ParseText(sourceCodeText, new CSharpParseOptions(LanguageVersion.Latest)); // 获取代码分析得到的语法树
             var assemblyName = $"RoslynDynamicGenerate";
+            var metadata = GetMetadataReference(typeof(System.Text.RegularExpressions.Regex), typeof(StringExpand), typeof(KanaConverter), typeof(List<>), typeof(IDictionary), typeof(JapaneseCalendar), typeof(CultureInfo), typeof(DateTime),
+                       typeof(JsonConvert), typeof(object), typeof(AssemblyTargetedPatchBandAttribute));
+
+
             // 创建编译任务
             var compilation = CSharpCompilation.Create(assemblyName) //指定程序集名称
                 .WithOptions(new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary))//输出为 dll 程序集
-                .AddReferences(GetMetadataReference(typeof(JsonConvert), typeof(object), typeof(AssemblyTargetedPatchBandAttribute))) //添加程序集引用   
+                .AddReferences(metadata) //添加程序集引用   
                 .AddSyntaxTrees(syntaxTree) // 添加上面代码分析得到的语法树     
                 ;
             var memory = new MemoryStream();
@@ -70,12 +100,14 @@ namespace RoslynDynamicGenerate
                     var type = assembly.GetType("RoslynDynamicGenerate.DynamicGenerateClass");
                     var obj = Activator.CreateInstance(type);
                     var methodInfo = type.GetMethod("Generate");
-                    return methodInfo.Invoke(obj, null)?.ToString();
+                    Thread.Sleep(1000);
+                    Console.WriteLine(methodInfo.Invoke(obj, new object[] { "06-6809-3322" })?.ToString());
                 }
                 finally
                 {
                     memory.Close();
                 }
+          
             }
             else
             {

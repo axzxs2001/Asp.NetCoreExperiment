@@ -32,15 +32,15 @@ namespace WebApiError
         /// <param name="services"></param>
         public void ConfigureServices(IServiceCollection services)
         {
-            // services.AddControllers();
+             services.AddControllers();
             //--1、UseExceptionHandler方式
-            // services.AddTransient<ProblemDetailsFactory, DaMeiProblemDetailsFactory>();
+             services.AddTransient<ProblemDetailsFactory, DaMeiProblemDetailsFactory>();
 
             //--2、过滤器方式
-            services.AddControllers(options =>
-            {
-                options.Filters.Add(new DaMeiExceptionFilter());
-            });
+            //services.AddControllers(options =>
+            //{
+            //    options.Filters.Add(new DaMeiExceptionFilter());
+            //});
 
 
             services.AddSwaggerGen(c =>
@@ -59,7 +59,7 @@ namespace WebApiError
             if (env.IsDevelopment())
             {
                 //--1、UseExceptionHandler方式
-               // app.UseExceptionHandler("/error");
+                app.UseExceptionHandler("/error");
                 //app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebApiError v1"));
@@ -67,7 +67,7 @@ namespace WebApiError
             else
             {
                 //--1、UseExceptionHandler方式
-               // app.UseExceptionHandler("/error");
+                app.UseExceptionHandler("/error");
             }
 
             app.UseHttpsRedirection();
