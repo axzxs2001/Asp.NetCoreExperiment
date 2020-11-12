@@ -8,16 +8,16 @@
     }
   },
   "$schema": "http://json.schemastore.org/launchsettings.json",
-  "profiles": {  
+  "profiles": {
     "AspNetCoreEnvironment": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "swagger",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "QA"
       },
       "dotnetRunMessages": "true",
-      "applicationUrl": "https://localhost:9001;http://localhost:9000"
+      "applicationUrl": "https://localhost:8001;http://localhost:8000"
     }
   }
 }

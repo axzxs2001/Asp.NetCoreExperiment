@@ -4,6 +4,23 @@
         <name>AspNetCoreEnvironment</name>
     </assembly>
     <members>
+        <member name="T:AspNetCoreEnvironment.Controllers.WeatherForecastController">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:AspNetCoreEnvironment.Controllers.WeatherForecastController.#ctor(Microsoft.Extensions.Logging.ILogger{AspNetCoreEnvironment.Controllers.WeatherForecastController})">
+            <summary>
+            
+            </summary>
+            <param name="logger"></param>
+        </member>
+        <member name="M:AspNetCoreEnvironment.Controllers.WeatherForecastController.Get">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:AspNetCoreEnvironment.Program">
             <summary>
             
@@ -50,6 +67,32 @@
             </summary>
             <param name="app"></param>
             <param name="env"></param>
+            <param name="logger"></param>
+        </member>
+        <member name="T:AspNetCoreEnvironment.WeatherForecast">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:AspNetCoreEnvironment.WeatherForecast.Date">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:AspNetCoreEnvironment.WeatherForecast.TemperatureC">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:AspNetCoreEnvironment.WeatherForecast.TemperatureF">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:AspNetCoreEnvironment.WeatherForecast.Summary">
+            <summary>
+            
+            </summary>
         </member>
     </members>
 </doc>

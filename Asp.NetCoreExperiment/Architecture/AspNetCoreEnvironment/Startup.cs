@@ -51,6 +51,7 @@ namespace AspNetCoreEnvironment
         /// </summary>
         /// <param name="app"></param>
         /// <param name="env"></param>
+        /// <param name="logger"></param>
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
         {
             logger.LogInformation($"»·¾³£º{env.EnvironmentName}");
