@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>AspNetCoreEnvironment</name>
+    </assembly>
+    <members>
+        <member name="T:AspNetCoreEnvironment.Program">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:AspNetCoreEnvironment.Program.Main(System.String[])">
+            <summary>
+            
+            </summary>
+            <param name="args"></param>
+        </member>
+        <member name="M:AspNetCoreEnvironment.Program.CreateHostBuilder(System.String[])">
+            <summary>
+            
+            </summary>
+            <param name="args"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AspNetCoreEnvironment.Startup">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:AspNetCoreEnvironment.Startup.#ctor(Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            
+            </summary>
+            <param name="configuration"></param>
+        </member>
+        <member name="P:AspNetCoreEnvironment.Startup.Configuration">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:AspNetCoreEnvironment.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="M:AspNetCoreEnvironment.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IWebHostEnvironment,Microsoft.Extensions.Logging.ILogger{AspNetCoreEnvironment.Startup})">
+            <summary>
+            
+            </summary>
+            <param name="app"></param>
+            <param name="env"></param>
+        </member>
+    </members>
+</doc>
