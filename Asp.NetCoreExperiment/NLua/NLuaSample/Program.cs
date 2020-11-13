@@ -12,6 +12,10 @@ namespace NLuaSample
         {
             try
             {
+
+
+         
+        
                 Console.WriteLine("函数Demo");
                 var tel = "123-4567-89ab";
                 var functionBody = @"
@@ -29,10 +33,38 @@ end
             {
                 Console.WriteLine(exc.Message);
             }
+
             Console.WriteLine("------------------");
             Console.WriteLine("表达式Demo");
             Console.WriteLine(ExecExpression<double>("y=10+x*(5 + 2)", "y", new KeyValuePair<string, double>("x", 10.25)));
+
+            Console.WriteLine("------------------");
+            Console.WriteLine("反调C#实例Demo");
+            InvockClassObject();
         }
+
+        /// <summary>
+        /// lua中反调c#
+        /// </summary>
+        static void InvockClassObject()
+        {
+            var lua = new Lua();
+            var obj = new MyClass();
+            lua["obj"] = obj;
+            lua.LoadCLRPackage();
+            lua.DoString(@"local res1 = obj:Func1()
+print(res1)
+");
+            lua.DoString(@"local res2 = obj:AnotherFunc(111,""aaa"")
+print(res2)
+");
+            lua.DoString(@" import ('NLuaSample', 'NLuaSample')  ");
+            lua.DoString(@"local res3 = MyClass.StaticMethod(123)
+print(res3)
+");
+
+        }
+
         /// <summary>
         /// 执行函数
         /// </summary>
@@ -65,6 +97,24 @@ end
             }
             lua.DoString(expression);
             return (T)lua[returnValue];
+        }
+    }
+
+    public class MyClass
+    {
+        public int Func1()
+        {
+            return 32;
+        }
+
+        public string AnotherFunc(int val1, string val2)
+        {
+            return "Some String" + val1 + val2;
+        }
+
+        public static string StaticMethod(int param)
+        {
+            return "Return of Static Method" + param;
         }
     }
 }
