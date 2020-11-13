@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="NLua" Version="1.5.2" />
+    <PackageReference Include="NLua" Version="1.5.4" />
   </ItemGroup>
 
 </Project>
