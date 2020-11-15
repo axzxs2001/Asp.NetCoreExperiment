@@ -18,6 +18,7 @@ namespace WebError.Controllers
 
         public IActionResult Index()
         {
+            _logger.LogInformation("home/index页");
             return View();
         }
 
