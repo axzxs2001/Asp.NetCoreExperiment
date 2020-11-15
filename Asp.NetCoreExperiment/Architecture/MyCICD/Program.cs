@@ -23,10 +23,16 @@ namespace MyCICD
         }
         static bool Clone()
         {
+            Console.WriteLine("开始Clone");
             var gitLib = ConfigurationManager.AppSettings["GitLib"];
             var sourcePath = ConfigurationManager.AppSettings["SourcePath"];
 
-            var processStartInfo = new ProcessStartInfo("git", $"clone {gitLib} {sourcePath.TrimEnd('/', '\\')}/{Path.GetFileNameWithoutExtension(gitLib)}") { RedirectStandardOutput = true };
+            var SourceDir = $"{sourcePath.TrimEnd('/', '\\') }/{ Path.GetFileNameWithoutExtension(gitLib)} ";
+            if (Directory.Exists(SourceDir))
+            {
+                Directory.Delete(SourceDir, true);
+            }
+            var processStartInfo = new ProcessStartInfo("git", $"clone {gitLib} {SourceDir}") { RedirectStandardOutput = true };
 
             var process = Process.Start(processStartInfo);
             if (process == null)
@@ -49,6 +55,7 @@ namespace MyCICD
                     }
                 }
                 Console.WriteLine($"执行时间 :{(process.ExitTime - process.StartTime).TotalMilliseconds} ms");
+                Console.WriteLine("结束Clone");
                 return process.ExitCode == 0;
 
             }
@@ -56,6 +63,7 @@ namespace MyCICD
 
         static bool Run()
         {
+            Console.WriteLine("开始运行");
             var sourcePath = ConfigurationManager.AppSettings["SourcePath"];
             var publishDir = $"{sourcePath}/publish";
             var result = true;
@@ -63,38 +71,25 @@ namespace MyCICD
             {
                 new Thread(RunProject).Start(project);
             }
+            Console.WriteLine("结束运行");
             return result;
         }
         static void RunProject(object project)
         {
-            var processStartInfo = new ProcessStartInfo("dotnet", $" {project}/{Path.GetFileNameWithoutExtension(project.ToString())}.dll") { RedirectStandardOutput = true };
-
-            var process = Process.Start(processStartInfo);
-            if (process == null)
-            {
-                Console.WriteLine("请确认是否安装dotnet sdk");
-            }
-            else
-            {
-                using (var output = process.StandardOutput)
-                {
-                    while (!output.EndOfStream)
-                    {
-                        Console.WriteLine(output.ReadLine());
-                    }
-
-                    if (!process.HasExited)
-                    {
-                        process.Kill();
-                    }
-                }
-                Console.WriteLine($"执行时间 :{(process.ExitTime - process.StartTime).TotalMilliseconds} ms");
-                Console.WriteLine($"{project}运行{(process.ExitCode == 0 ? "成功" : "失败")}");
-            }
+            var projectPath = project.ToString();
+            var process = new Process();
+            process.StartInfo.FileName = "cmd.exe ";
+            process.StartInfo.UseShellExecute = false;
+            process.StartInfo.RedirectStandardInput = true;
+            process.StartInfo.Arguments = $"/k cd /d {projectPath}";
+            process.Start();
+            process.StandardInput.WriteLine($"dotnet {Path.GetFileNameWithoutExtension(projectPath)}.dll");
+            Console.WriteLine($"{Path.GetFileNameWithoutExtension(projectPath)}运行成功");
         }
 
         static bool Publish()
         {
+            Console.WriteLine("开始Publish");
             var sourcePath = ConfigurationManager.AppSettings["SourcePath"];
             var publishProject = ConfigurationManager.AppSettings["PublishProject"];
             var projectPathLists = publishProject.Split(",");
@@ -133,6 +128,7 @@ namespace MyCICD
                     result = result || process.ExitCode == 0;
                 }
             }
+            Console.WriteLine("结束Publish");
             return result;
         }
         static string[] GetProjectsPath(string sourcePath, string[] projects)
