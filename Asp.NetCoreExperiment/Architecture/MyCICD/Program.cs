@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Security.Policy;
+using System.Text;
 using System.Threading;
 
 namespace MyCICD
@@ -13,51 +14,93 @@ namespace MyCICD
     {
         static void Main(string[] args)
         {
-            if (Clone())
+            while (true)
             {
-                if (Publish())
+                if (Clone())
                 {
-                    Run();
+                    if (Publish())
+                    {
+                        Run();
+                    }
                 }
+                                
+                Thread.Sleep(30000);
             }
         }
         static bool Clone()
         {
-            Console.WriteLine("开始Clone");
+           
             var gitLib = ConfigurationManager.AppSettings["GitLib"];
             var sourcePath = ConfigurationManager.AppSettings["SourcePath"];
 
             var SourceDir = $"{sourcePath.TrimEnd('/', '\\') }/{ Path.GetFileNameWithoutExtension(gitLib)} ";
             if (Directory.Exists(SourceDir))
             {
-                Directory.Delete(SourceDir, true);
-            }
-            var processStartInfo = new ProcessStartInfo("git", $"clone {gitLib} {SourceDir}") { RedirectStandardOutput = true };
+                var processStartInfo = new ProcessStartInfo("git", $"fetch origin") { RedirectStandardOutput = true };
+                var process = Process.Start(processStartInfo);
+                if (process == null)
+                {
+                    Console.WriteLine("请确认是否安装git");
+                    return false;
+                }
+                else
+                {
+                    Console.WriteLine("开始fetch");
+                    using (var output = process.StandardOutput)
+                    {
+                        var resultBuilder = new StringBuilder();
+                        while (!output.EndOfStream)
+                        {
+                            resultBuilder.AppendLine(output.ReadLine());
+                        }
+                        Console.WriteLine(resultBuilder);
+                        if (resultBuilder.Length == 0)
+                        {
+                            Console.WriteLine("没有要同步的代码，结束fetch");
+                            return false;
+                        }
+                        if (!process.HasExited)
+                        {
+                            process.Kill();
+                        }
+                    }
+                    Console.WriteLine($"执行时间 :{(process.ExitTime - process.StartTime).TotalMilliseconds} ms");
+                    Console.WriteLine("结束fetch");
+                    return process.ExitCode == 0;
 
-            var process = Process.Start(processStartInfo);
-            if (process == null)
-            {
-                Console.WriteLine("请确认是否安装git");
-                return false;
+                }
+
             }
             else
             {
-                using (var output = process.StandardOutput)
+                Console.WriteLine("开始Clone");
+                var processStartInfo = new ProcessStartInfo("git", $"clone {gitLib} {SourceDir}") { RedirectStandardOutput = true };
+
+                var process = Process.Start(processStartInfo);
+                if (process == null)
                 {
-                    while (!output.EndOfStream)
-                    {
-                        Console.WriteLine(output.ReadLine());
-                    }
-
-                    if (!process.HasExited)
-                    {
-                        process.Kill();
-                    }
+                    Console.WriteLine("请确认是否安装git");
+                    return false;
                 }
-                Console.WriteLine($"执行时间 :{(process.ExitTime - process.StartTime).TotalMilliseconds} ms");
-                Console.WriteLine("结束Clone");
-                return process.ExitCode == 0;
+                else
+                {
+                    using (var output = process.StandardOutput)
+                    {
+                        while (!output.EndOfStream)
+                        {
+                            Console.WriteLine(output.ReadLine());
+                        }
 
+                        if (!process.HasExited)
+                        {
+                            process.Kill();
+                        }
+                    }
+                    Console.WriteLine($"执行时间 :{(process.ExitTime - process.StartTime).TotalMilliseconds} ms");
+                    Console.WriteLine("结束Clone");
+                    return process.ExitCode == 0;
+
+                }
             }
         }
 

@@ -31,6 +31,7 @@ namespace WebError.Controllers
                     var j = 10 / i;
                     return Ok();
                 case 2:
+                    _logger.LogError("这是一个错误");
                     throw new RegisteredException("这是一个错误");
                 default:
                     return View();
