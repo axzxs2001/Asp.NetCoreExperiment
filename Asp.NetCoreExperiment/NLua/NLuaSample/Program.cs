@@ -11,10 +11,7 @@ namespace NLuaSample
         static void Main(string[] args)
         {
             try
-            {
-
-
-         
+            {         
         
                 Console.WriteLine("函数Demo");
                 var tel = "123-4567-89ab";
