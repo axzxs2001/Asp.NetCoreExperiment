@@ -2,6 +2,9 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+    <DebugType>embedded</DebugType>
+    <UserSecretsId>e6afdb5d-ff3a-4a05-a791-a81fe5e24c53</UserSecretsId>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
