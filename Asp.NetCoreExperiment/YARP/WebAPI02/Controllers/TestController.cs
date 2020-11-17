@@ -23,6 +23,7 @@ namespace WebAPI02.Controllers
         [HttpGet]
         public string Get()
         {
+            _logger.LogInformation("WebAPI02.TestController.Get");
             return "WebAPI02.TestController.Get";
         }
     }
