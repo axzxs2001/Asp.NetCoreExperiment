@@ -11,7 +11,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AuthenticationAuthorization_Token.Controllers
 {
-    [Authorize("Permission")]
     public class PermissionController : Controller
 
     {
@@ -28,7 +27,7 @@ namespace AuthenticationAuthorization_Token.Controllers
         }
 
         [AllowAnonymous]
-        [HttpPost("/api/login")]
+        [HttpPost("/auth/login")]
         public  IActionResult Login(string username, string password, string role)
         {
 
@@ -54,26 +53,7 @@ namespace AuthenticationAuthorization_Token.Controllers
                 return new JsonResult(token);
 
             }
-        }
-
-        
-
-        [HttpPost("/api/logout")]
-        public IActionResult Logout()
-        {
-            return Ok();
-        }
-
-        [AllowAnonymous]
-        [HttpGet("/api/denied")]
-        public IActionResult Denied()
-        {
-            return new JsonResult(new
-            {
-                Status = false,
-                Message = "你无权限访问"
-            });
-        }
+        }  
 
     }
 }

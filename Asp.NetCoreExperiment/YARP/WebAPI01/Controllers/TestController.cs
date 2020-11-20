@@ -22,11 +22,17 @@ namespace WebAPI01.Controllers
             _logger = logger;          
         }
 
-        [HttpGet]
-        public string Get()
+        [HttpGet("/webapi01/test1")]
+        public string Get1()
         {
-            _logger.LogInformation("WebAPI01.TestController.Get");
-            return "WebAPI01.TestController.Get";
+            _logger.LogInformation("WebAPI01.TestController.Get1");
+            return "WebAPI01.TestController.Get1";
+        }
+        [HttpGet("/webapi01/test3")]
+        public string Get3()
+        {
+            _logger.LogInformation("WebAPI01.TestController.Get3");
+            return "WebAPI01.TestController.Get3";
         }
 
     }

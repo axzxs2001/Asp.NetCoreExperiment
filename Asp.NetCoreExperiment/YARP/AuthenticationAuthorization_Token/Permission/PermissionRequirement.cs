@@ -29,7 +29,7 @@ namespace AuthenticationAuthorization_Token
         /// <summary>
         /// 请求路径
         /// </summary>
-        public string LoginPath { get; set; } = "/Api/Login";
+        public string LoginPath { get; set; } = "/auth/Login";
         /// <summary>
         /// 发行人
         /// </summary>
@@ -47,12 +47,7 @@ namespace AuthenticationAuthorization_Token
         /// </summary>
         public SigningCredentials SigningCredentials { get; set; }
 
-        /// <summary>
-        /// 构造
-        /// </summary>
-        /// <param name="deniedAction">无权限action</param>
-        /// <param name="userPermissions">用户权限集合</param>
-
+      
         /// <summary>
         /// 构造
         /// </summary>

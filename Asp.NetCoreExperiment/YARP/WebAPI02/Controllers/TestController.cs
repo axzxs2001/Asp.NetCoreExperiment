@@ -20,11 +20,17 @@ namespace WebAPI02.Controllers
             _logger = logger;
         }
 
-        [HttpGet]
-        public string Get()
+        [HttpGet("/webapi02/test2")]
+        public string Get2()
         {
-            _logger.LogInformation("WebAPI02.TestController.Get");
-            return "WebAPI02.TestController.Get";
+            _logger.LogInformation("WebAPI02.TestController.Get2");
+            return "WebAPI02.TestController.Get2";
+        }
+        [HttpGet("/webapi02/test4")]
+        public string Get4()
+        {
+            _logger.LogInformation("WebAPI02.TestController.Get4");
+            return "WebAPI02.TestController.Get4";
         }
     }
 }

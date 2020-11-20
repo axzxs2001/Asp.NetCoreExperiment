@@ -52,9 +52,9 @@ namespace YARPDemo01
             }
             else
             {
-                var fileContext = (context.Resource as AuthorizationFilterContext);
-                questUrl = fileContext?.HttpContext?.Request?.Path.Value?.ToLower();
-                method = fileContext?.HttpContext?.Request?.Method;
+                var fileContext = (context.Resource as HttpContext);
+                questUrl = fileContext?.Request?.Path.Value?.ToLower();
+                method = fileContext?.Request?.Method;
             }
             //赋值用户权限
             UserPermissions = requirement.Permissions;
@@ -62,23 +62,14 @@ namespace YARPDemo01
             var isAuthenticated = context?.User?.Identity?.IsAuthenticated;
             if (isAuthenticated.HasValue && isAuthenticated.Value)
             {
-                if (UserPermissions.GroupBy(g => g.Url).Where(w => w.Key.ToLower() == questUrl).Count() > 0)
+                if (UserPermissions.Where(w => w.Url.ToLower() == questUrl).Count() > 0)
                 {
-                    //用户名
-                    var userName = context.User.Claims.SingleOrDefault(s => s.Type == ClaimTypes.Sid).Value;
-                    if (UserPermissions.Where(w => w.Name == userName && w.Url.ToLower() == questUrl).Count() > 0)
-                    {
-                        context.Succeed(requirement);
-                    }
-                    else
-                    {
-                        //无权限跳转到拒绝页面
-                        context.Fail();
-                    }
+                    context.Succeed(requirement);
                 }
                 else
                 {
-                    context.Succeed(requirement);
+                    context.Fail();
+                    //context.Succeed(requirement);
                 }
             }
             return Task.CompletedTask;

@@ -2,18 +2,16 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.Extensions.Hosting;
+using System.Collections.Generic;
 using System.Security.Claims;
-using System.Text;
 using System.Threading.Tasks;
+using System.Text;
+using System;
 
 namespace YARPDemo01
 {
@@ -28,23 +26,17 @@ namespace YARPDemo01
         public void ConfigureServices(IServiceCollection services)
         {
             AddAuth(services);
-            services.AddReverseProxy()
-       .LoadFromConfig(Configuration.GetSection("ReverseProxy"));
+            services.AddReverseProxy().LoadFromConfig(Configuration.GetSection("ReverseProxy"));
         }
-  
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
-
             app.UseAuthentication();
-
             app.UseRouting();
-
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapReverseProxy();
@@ -78,7 +70,11 @@ namespace YARPDemo01
             var signingCredentials = new SigningCredentials(signingKey, SecurityAlgorithms.HmacSha256);
             //这个集合模拟用户权限表,可从数据库中查询出来
             var permission = new List<Permission> {
-                              new Permission {  Url="/abc", Name="admin"}                         
+                              new Permission {  Url="/webapi01/test1", Name="admin"},
+                              new Permission {  Url="/webapi01/test3", Name="admin"},
+                              new Permission {  Url="/webapi02/test2", Name="admin"},
+                              new Permission {  Url="/webapi02/test4", Name="admin"},
+
                           };
             //如果第三个参数，是ClaimTypes.Role，上面集合的每个元素的Name为角色名称，如果ClaimTypes.Name，即上面集合的每个元素的Name为用户名
             var permissionRequirement = new PermissionRequirement(
