@@ -26,30 +26,23 @@ namespace GraphQLDemo01
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
-            services.AddGraphQL(
-                sp => SchemaBuilder.New()
-                .AddQueryType<Query>()
-
-                .AddServices(sp)
-                .Create()
-                );
+            services
+                .AddGraphQLServer()
+                .AddQueryType<Query>();
         }
-   
+
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
-            app.UseGraphQL();
-            app.UseRouting();
 
-            app.UseAuthorization();
+            app.UseRouting();       
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
+                endpoints.MapGraphQL();
             });
         }
     }
