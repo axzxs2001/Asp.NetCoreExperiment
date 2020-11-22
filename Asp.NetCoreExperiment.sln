@@ -77,6 +77,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAPI02", "Asp.NetCoreExpe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuthenticationAuthorization_Token", "Asp.NetCoreExperiment\YARP\AuthenticationAuthorization_Token\AuthenticationAuthorization_Token.csproj", "{5A30D0DD-98E3-4F86-A77B-EB3658491156}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GraphQLDemo00", "Asp.NetCoreExperiment\GraphQL\GraphQLDemo00\GraphQLDemo00.csproj", "{29CF4E62-5E13-462C-AD29-FC8C32995E53}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphQLDemo02", "Asp.NetCoreExperiment\GraphQL\GraphQLDemo02\GraphQLDemo02.csproj", "{E89B691D-8AD6-49E3-BB72-1F0C73303A80}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -203,6 +207,14 @@ Global
 		{5A30D0DD-98E3-4F86-A77B-EB3658491156}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5A30D0DD-98E3-4F86-A77B-EB3658491156}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5A30D0DD-98E3-4F86-A77B-EB3658491156}.Release|Any CPU.Build.0 = Release|Any CPU
+		{29CF4E62-5E13-462C-AD29-FC8C32995E53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29CF4E62-5E13-462C-AD29-FC8C32995E53}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29CF4E62-5E13-462C-AD29-FC8C32995E53}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29CF4E62-5E13-462C-AD29-FC8C32995E53}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E89B691D-8AD6-49E3-BB72-1F0C73303A80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E89B691D-8AD6-49E3-BB72-1F0C73303A80}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E89B691D-8AD6-49E3-BB72-1F0C73303A80}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E89B691D-8AD6-49E3-BB72-1F0C73303A80}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -238,6 +250,8 @@ Global
 		{26E868B0-AC2F-46E9-88C5-BEE127E40DCE} = {0F1AF5D0-ACAE-4F81-9E88-DED8B06A95B5}
 		{73F94D1A-994B-444F-9E4A-60891DE2AC6E} = {0F1AF5D0-ACAE-4F81-9E88-DED8B06A95B5}
 		{5A30D0DD-98E3-4F86-A77B-EB3658491156} = {0F1AF5D0-ACAE-4F81-9E88-DED8B06A95B5}
+		{29CF4E62-5E13-462C-AD29-FC8C32995E53} = {DA6111FE-704A-4B77-8CB9-A38873BC1FA5}
+		{E89B691D-8AD6-49E3-BB72-1F0C73303A80} = {DA6111FE-704A-4B77-8CB9-A38873BC1FA5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}

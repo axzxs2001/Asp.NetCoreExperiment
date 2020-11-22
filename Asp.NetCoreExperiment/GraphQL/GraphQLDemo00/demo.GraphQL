@@ -1,0 +1,8 @@
+﻿{
+  students(where:{ and:[{sex:{eq:true}}{age:{gt:21 }}]}){
+     stuNo
+     name
+     sex
+     age
+   }
+}

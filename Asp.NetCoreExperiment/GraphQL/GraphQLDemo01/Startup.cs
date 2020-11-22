@@ -2,12 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using GraphQLDemo01.Controllers;
 using HotChocolate;
 using HotChocolate.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -26,9 +26,15 @@ namespace GraphQLDemo01
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services
+            services.AddPooledDbContextFactory<AdventureWorks2016Context>(
+                (services, options) => options
+                .UseSqlServer(Configuration.GetConnectionString("ConnectionString"))
+                .UseLoggerFactory(services.GetRequiredService<ILoggerFactory>()))
                 .AddGraphQLServer()
-                .AddQueryType<Query>();
+                .AddQueryType<Query>()               
+                .AddFiltering()
+                .AddSorting()
+                .AddProjections();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -38,7 +44,7 @@ namespace GraphQLDemo01
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseRouting();       
+            app.UseRouting();
 
             app.UseEndpoints(endpoints =>
             {

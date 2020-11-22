@@ -8,9 +8,9 @@ namespace GraphQLDemo01
 {
     public partial class AdventureWorks2016Context : DbContext
     {
-        public AdventureWorks2016Context()
-        {
-        }
+        //public AdventureWorks2016Context()
+        //{
+        //}
 
         public AdventureWorks2016Context(DbContextOptions<AdventureWorks2016Context> options)
             : base(options)

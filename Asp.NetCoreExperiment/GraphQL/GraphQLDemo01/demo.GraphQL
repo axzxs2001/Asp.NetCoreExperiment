@@ -1,0 +1,8 @@
+﻿{
+   products(where: { name:{  contains:"Ball"}  }) {
+      name
+      productNumber
+      sellStartDate      
+     }
+ }
+
