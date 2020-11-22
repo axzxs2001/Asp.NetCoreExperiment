@@ -1,12 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace GraphQLDemo00
 {
@@ -15,14 +10,13 @@ namespace GraphQLDemo00
        public void ConfigureServices(IServiceCollection services)
         {
             services
-                .AddGraphQLServer()                
-                .AddQueryType<Query>()             
-                .AddFiltering()
-                .AddSorting()
-                .AddProjections();
-        }
-
-       
+                .AddGraphQLServer()//引入GraphQL           
+                .AddQueryType<Query>()//注入查询类型      
+                .AddProjections()//映射字段
+                .AddFiltering()//注入查询过滤器
+                .AddSorting()//注入排序
+                ;
+        }       
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())

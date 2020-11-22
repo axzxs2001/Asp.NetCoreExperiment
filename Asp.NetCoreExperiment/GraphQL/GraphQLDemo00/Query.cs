@@ -6,8 +6,15 @@ using System.Threading.Tasks;
 
 namespace GraphQLDemo00
 {
+    /// <summary>
+    /// 查询类
+    /// </summary>
     public class Query
     {
+        /// <summary>
+        /// 查询学生
+        /// </summary>
+        /// <returns></returns>
         [UseFiltering]
         [UseSorting]
         [UseProjection]
@@ -21,14 +28,26 @@ namespace GraphQLDemo00
             };
         }
     }
-
+    /// <summary>
+    /// 学生实体
+    /// </summary>
     public class Student
     {
+        /// <summary>
+        /// 学号
+        /// </summary>
         public string StuNo { get; set; }
+        /// <summary>
+        /// 姓名
+        /// </summary>
         public string Name { get; set; }
-
+        /// <summary>
+        /// 年龄
+        /// </summary>
         public int Age { get; set; }
-
+        /// <summary>
+        /// 性别
+        /// </summary>
         public bool Sex { get; set; }
     }
 }

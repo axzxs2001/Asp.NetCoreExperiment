@@ -5,9 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="HotChocolate.AspNetCore" Version="11.0.0-rc.7" />
-    <PackageReference Include="HotChocolate.Data" Version="11.0.0-rc.7" />
-    <PackageReference Include="HotChocolate.Data.EntityFramework" Version="11.0.0-rc.7" />
+    <PackageReference Include="HotChocolate.AspNetCore" Version="11.0.0-rc.8" />
+    <PackageReference Include="HotChocolate.Data" Version="11.0.0-rc.8" />
+    <PackageReference Include="HotChocolate.Data.EntityFramework" Version="11.0.0-rc.8" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
