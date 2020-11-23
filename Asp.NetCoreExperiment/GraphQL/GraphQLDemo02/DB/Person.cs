@@ -1,10 +1,12 @@
-﻿using System;
+﻿using HotChocolate.AspNetCore.Authorization;
+using System;
 using System.Collections.Generic;
 
 #nullable disable
 
 namespace GraphQLDemo02
 {
+    [Authorize(Policy = "Permission")]
     public partial class Person
     {
         public Person()

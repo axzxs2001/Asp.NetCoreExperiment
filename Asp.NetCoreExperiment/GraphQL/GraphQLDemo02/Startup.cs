@@ -23,17 +23,18 @@ namespace GraphQLDemo02
             Configuration = configuration;
         }
         public void ConfigureServices(IServiceCollection services)
-        {
-            AddAuth(services);
+        {          
             services.AddPooledDbContextFactory<AdventureWorks2016Context>(
               (services, options) => options
               .UseSqlServer(Configuration.GetConnectionString("ConnectionString"))
               .UseLoggerFactory(services.GetRequiredService<ILoggerFactory>()))
               .AddGraphQLServer()
+              .AddAuthorization()
               .AddQueryType<Query>()
               .AddFiltering()
               .AddSorting()
               .AddProjections();
+            AddAuth(services);
         }
 
 
@@ -43,7 +44,6 @@ namespace GraphQLDemo02
             {
                 app.UseDeveloperExceptionPage();
             }
-
             app.UseAuthentication();
             app.UseRouting();
             app.UseAuthorization();
@@ -76,8 +76,7 @@ namespace GraphQLDemo02
             var signingCredentials = new SigningCredentials(signingKey, SecurityAlgorithms.HmacSha256);
 
             //如果第三个参数，是ClaimTypes.Role，上面集合的每个元素的Name为角色名称，如果ClaimTypes.Name，即上面集合的每个元素的Name为用户名
-            var permissionRequirement = new PermissionRequirement(
-                "/api/denied",
+            var permissionRequirement = new PermissionRequirement(              
                 ClaimTypes.Role,
                 audienceConfig["Issuer"],
                 audienceConfig["Audience"],

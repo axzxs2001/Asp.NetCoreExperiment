@@ -1,16 +1,12 @@
 ﻿using HotChocolate;
-using HotChocolate.AspNetCore.Authorization;
 using HotChocolate.Data;
 using HotChocolate.Types;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
-using System.Threading.Tasks;
 
 namespace GraphQLDemo02
-{
-
+{       
     public class Query
     {
         [UseDbContext(typeof(AdventureWorks2016Context))]
@@ -32,7 +28,6 @@ namespace GraphQLDemo02
         {
             return context.People;
         }
-
         public TokenModel Login(string username, string password, [Service] PermissionRequirement requirement)
         {
             Console.WriteLine(username);
@@ -60,6 +55,6 @@ namespace GraphQLDemo02
                     Data = token.access_token
                 };
             }
-        }
+        }    
     }
 }

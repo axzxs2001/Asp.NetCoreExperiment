@@ -1,18 +1,7 @@
 ﻿
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using System.Collections.Generic;
-
-using Microsoft.Extensions.DependencyInjection;
-using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using System;
-using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.AspNetCore.Routing;
 
 namespace GraphQLDemo02
 {
@@ -21,17 +10,15 @@ namespace GraphQLDemo02
     /// </summary>
     public class PermissionHandler : AuthorizationHandler<PermissionRequirement>
     {
-
-
         /// <summary>
-        /// 
+        /// 验证权限
         /// </summary>
         /// <param name="context"></param>
         /// <param name="requirement"></param>
         /// <returns></returns>
         protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, PermissionRequirement requirement)
         {
-            // context as HotChocolate.Execution.Processing
+            //这里可以过滤属性授权
             Console.WriteLine(context.Resource.GetType().GetProperty("Path").GetValue(context.Resource));
             //是否经过验证
             var isAuthenticated = context?.User?.Identity?.IsAuthenticated;

@@ -1,11 +1,12 @@
 ﻿using System;
+using HotChocolate.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
 #nullable disable
 
 namespace GraphQLDemo02
-{
+{  
     public partial class AdventureWorks2016Context : DbContext
     {
         //public AdventureWorks2016Context()
@@ -47,6 +48,8 @@ namespace GraphQLDemo02
         public virtual DbSet<PersonCreditCard> PersonCreditCards { get; set; }
         public virtual DbSet<PersonPhone> PersonPhones { get; set; }
         public virtual DbSet<PhoneNumberType> PhoneNumberTypes { get; set; }
+
+        [Authorize(Policy = "Permission")]
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<ProductCategory> ProductCategories { get; set; }
         public virtual DbSet<ProductCostHistory> ProductCostHistories { get; set; }

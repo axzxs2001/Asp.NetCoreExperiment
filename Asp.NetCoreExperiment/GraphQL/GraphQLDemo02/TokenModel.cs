@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 
 namespace GraphQLDemo02
 {
+  
     public class TokenModel
     {
         public bool Result { get; set; }
