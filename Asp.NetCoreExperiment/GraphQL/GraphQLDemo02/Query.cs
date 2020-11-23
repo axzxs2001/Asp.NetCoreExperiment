@@ -1,6 +1,7 @@
 ﻿using HotChocolate;
 using HotChocolate.AspNetCore.Authorization;
 using HotChocolate.Data;
+using HotChocolate.Types;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,26 +13,33 @@ namespace GraphQLDemo02
 
     public class Query
     {
+        [UseDbContext(typeof(AdventureWorks2016Context))]
+        [UseOffsetPaging]
+        [UseProjection]
         [UseFiltering]
         [UseSorting]
-        [UseProjection]
-        public List<Student> GetStudents()
+        public IQueryable<Product> GetProducts([ScopedService] AdventureWorks2016Context context)
         {
-            return new List<Student>
-            {
-                new Student { StuNo="N0001", Name="张三", Age=21, Sex=true },
-                new Student { StuNo="N0002", Name="李四", Age=22, Sex=false  },
-                new Student { StuNo="N0003", Name="王五", Age=23, Sex=true }
-            };
+            return context.Products;
         }
 
-        public Token Login(string username, string password, [Service] PermissionRequirement requirement)
+        [UseDbContext(typeof(AdventureWorks2016Context))]
+        [UsePaging]
+        [UseProjection]
+        [UseFiltering]
+        [UseSorting]
+        public IQueryable<Person> GetPersons([ScopedService] AdventureWorks2016Context context)
+        {
+            return context.People;
+        }
+
+        public TokenModel Login(string username, string password, [Service] PermissionRequirement requirement)
         {
             Console.WriteLine(username);
             var isValidated = username == "gsw" && password == "111111";
             if (!isValidated)
             {
-                return new Token()
+                return new TokenModel()
                 {
                     Result = false,
                     Message = "认证失败"
@@ -46,30 +54,12 @@ namespace GraphQLDemo02
                 };
 
                 var token = JwtToken.BuildJwtToken(claims, requirement);
-                return new Token()
+                return new TokenModel()
                 {
                     Result = true,
                     Data = token.access_token
                 };
+            }
         }
-
     }
-}
-public class Token
-{
-    public bool Result { get; set; }
-    public string Data { get; set; }
-    public string Message { get; set; }
-}
-
-[Authorize(Policy = "Permission")]
-public class Student
-{
-    public string StuNo { get; set; }
-    public string Name { get; set; }
-
-    public int Age { get; set; }
-
-    public bool Sex { get; set; }
-}
 }

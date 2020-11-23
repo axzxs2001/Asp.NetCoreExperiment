@@ -2,18 +2,15 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Text;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace GraphQLDemo02
 {
@@ -28,13 +25,15 @@ namespace GraphQLDemo02
         public void ConfigureServices(IServiceCollection services)
         {
             AddAuth(services);
-            services
-                .AddGraphQLServer()
-                .AddAuthorization()                 
-                .AddQueryType<Query>()
-                .AddFiltering()
-                .AddSorting()
-                .AddProjections();
+            services.AddPooledDbContextFactory<AdventureWorks2016Context>(
+              (services, options) => options
+              .UseSqlServer(Configuration.GetConnectionString("ConnectionString"))
+              .UseLoggerFactory(services.GetRequiredService<ILoggerFactory>()))
+              .AddGraphQLServer()
+              .AddQueryType<Query>()
+              .AddFiltering()
+              .AddSorting()
+              .AddProjections();
         }
 
 
@@ -75,10 +74,10 @@ namespace GraphQLDemo02
 
             };
             var signingCredentials = new SigningCredentials(signingKey, SecurityAlgorithms.HmacSha256);
-            
+
             //如果第三个参数，是ClaimTypes.Role，上面集合的每个元素的Name为角色名称，如果ClaimTypes.Name，即上面集合的每个元素的Name为用户名
             var permissionRequirement = new PermissionRequirement(
-                "/api/denied", 
+                "/api/denied",
                 ClaimTypes.Role,
                 audienceConfig["Issuer"],
                 audienceConfig["Audience"],
@@ -100,7 +99,7 @@ namespace GraphQLDemo02
                 //不使用https
                 o.RequireHttpsMetadata = false;
                 o.TokenValidationParameters = tokenValidationParameters;
-                
+
             });
             //注入授权Handler
             services.AddSingleton<IAuthorizationHandler, PermissionHandler>();

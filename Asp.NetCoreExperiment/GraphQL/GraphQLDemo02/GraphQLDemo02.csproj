@@ -5,11 +5,22 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="HotChocolate.AspNetCore" Version="11.0.0-rc.8" />
-    <PackageReference Include="HotChocolate.AspNetCore.Authorization" Version="11.0.0-rc.8" />
-    <PackageReference Include="HotChocolate.Data" Version="11.0.0-rc.8" />
+    <PackageReference Include="HotChocolate.AspNetCore" Version="11.0.0-rc.9" />
+    <PackageReference Include="HotChocolate.AspNetCore.Authorization" Version="11.0.0-rc.9" />
+    <PackageReference Include="HotChocolate.Data" Version="11.0.0-rc.9" />
+    <PackageReference Include="HotChocolate.Data.EntityFramework" Version="11.0.0-rc.9" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.8.0" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
   </ItemGroup>
 
 </Project>
