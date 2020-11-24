@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace GraphQLDemo03_02
+namespace GraphQLDemo03_Grades
 {
     public class Startup
     {
