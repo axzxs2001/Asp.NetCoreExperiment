@@ -81,11 +81,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GraphQLDemo00", "Asp.NetCor
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GraphQLDemo02", "Asp.NetCoreExperiment\GraphQL\GraphQLDemo02\GraphQLDemo02.csproj", "{E89B691D-8AD6-49E3-BB72-1F0C73303A80}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphQLDemo03_gateway", "Asp.NetCoreExperiment\GraphQL\GraphQLDemo03_gateway\GraphQLDemo03_gateway.csproj", "{8041E7FE-B971-4A44-AECB-28315F65D6DC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GraphQLDemo03_gateway", "Asp.NetCoreExperiment\GraphQL\GraphQLDemo03_gateway\GraphQLDemo03_gateway.csproj", "{8041E7FE-B971-4A44-AECB-28315F65D6DC}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GraphQLDemo03_Grades", "Asp.NetCoreExperiment\GraphQL\GraphQLDemo03_Grades\GraphQLDemo03_Grades.csproj", "{C846264C-1653-4D38-BE72-01027D25233A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GraphQLDemo03_Students", "Asp.NetCoreExperiment\GraphQL\GraphQLDemo03_Students\GraphQLDemo03_Students.csproj", "{21FA6DFB-9CF0-4A6C-B2A5-72E0874BFDEE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NLog_JsonLog", "Asp.NetCoreExperiment\NLog\NLog_JsonLog\NLog_JsonLog.csproj", "{5C5395A4-6481-43CD-A514-B416F958A573}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -233,6 +235,10 @@ Global
 		{21FA6DFB-9CF0-4A6C-B2A5-72E0874BFDEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{21FA6DFB-9CF0-4A6C-B2A5-72E0874BFDEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{21FA6DFB-9CF0-4A6C-B2A5-72E0874BFDEE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C5395A4-6481-43CD-A514-B416F958A573}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C5395A4-6481-43CD-A514-B416F958A573}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C5395A4-6481-43CD-A514-B416F958A573}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C5395A4-6481-43CD-A514-B416F958A573}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

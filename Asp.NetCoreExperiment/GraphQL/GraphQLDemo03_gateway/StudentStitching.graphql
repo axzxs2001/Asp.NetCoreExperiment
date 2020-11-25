@@ -1,0 +1,4 @@
+﻿extend type Query{
+  mystu: [Student] @delegate(schema: "students", path:"students(stuNo: $fields:stuNo)")
+}
+

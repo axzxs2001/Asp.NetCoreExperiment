@@ -7,6 +7,13 @@
   <ItemGroup>
     <PackageReference Include="HotChocolate.AspNetCore" Version="11.0.0" />
     <PackageReference Include="HotChocolate.Data" Version="11.0.0" />
+    <PackageReference Include="HotChocolate.Stitching" Version="11.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="StudentStitching.graphql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

@@ -7,18 +7,29 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using HotChocolate.Language;
 
 namespace GraphQLDemo03_gateway
 {
     public class Startup
     {
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
+        public const string Students = "students";
+        public const string Grades = "grades";
+
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddHttpClient(Students, c => c.BaseAddress = new Uri("http://localhost:7000/graphql"));
+            services.AddHttpClient(Grades, c => c.BaseAddress = new Uri("http://localhost:9000/graphql"));
+            services
+              .AddGraphQLServer()
+              .AddRemoteSchema(Students, ignoreRootTypes: true)
+              .AddRemoteSchema(Grades, ignoreRootTypes: true)
+              .AddTypeExtensionsFromString("type Query{}")
+              .AddTypeExtensionsFromFile("StudentStitching.graphql")    
+
+              ;
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -30,10 +41,7 @@ namespace GraphQLDemo03_gateway
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapGet("/", async context =>
-                {
-                    await context.Response.WriteAsync("Hello World!");
-                });
+                endpoints.MapGraphQL();
             });
         }
     }
