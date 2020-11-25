@@ -16,33 +16,32 @@ namespace LogDemo01
     {
         public static void Main(string[] args)
         {
-     
+
             // NLog: setup the logger first to catch all errors
             var logger = NLogBuilder.ConfigureNLog("nlog.config").GetCurrentClassLogger();
 
-        //    LogManager.Setup().SetupSerialization(s =>
-        //s.RegisterObjectTransformation<Exception>(ex => new
-        //{
-        //    Type = ex.GetType().ToString(),
-        //    Message =ex.Message.Replace("\r\n",""),
-        //    StackTrace = ex.StackTrace?.Replace("\r\n", ""),
-        //    Source = ex.Source?.Replace("\r\n", ""),
-        //    InnerException = ex.InnerException,
-        //    Status = 200,
-        //    Response = "111111111",
-        //}));
+            //    LogManager.Setup().SetupSerialization(s =>
+            //s.RegisterObjectTransformation<Exception>(ex => new
+            //{
+            //    Type = ex.GetType().ToString(),
+            //    Message =ex.Message.Replace("\r\n",""),
+            //    StackTrace = ex.StackTrace?.Replace("\r\n", ""),
+            //    Source = ex.Source?.Replace("\r\n", ""),
+            //    InnerException = ex.InnerException,
+            //    Status = 200,
+            //    Response = "111111111",
+            //}));
 
 
 
             try
             {
-                logger.Debug("启动Main");
                 BuildWebHost(args).Run();
             }
             catch (Exception ex)
             {
                 //NLog: catch setup errors
-                logger.Error(ex, "异常停止进程");
+
                 throw;
             }
             finally
@@ -61,7 +60,12 @@ namespace LogDemo01
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
             .UseUrls("http://*:5000")
-            .UseStartup<Startup>()          
+            .ConfigureLogging(a =>
+            {
+                a.ClearProviders();
+               
+            })
+            .UseStartup<Startup>()
             .UseNLog() // NLog: setup NLog for Dependency injectio
             .Build();
     }
