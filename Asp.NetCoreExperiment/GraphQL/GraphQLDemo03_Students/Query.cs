@@ -12,10 +12,15 @@ namespace GraphQLDemo03_Students
     /// </summary>
     public class Query
     {
-    
-        public IEnumerable<Student> GetStudents([Service] IStudentRepository studentRepository,string stuNo)
+
+        public IEnumerable<Student> GetStudents([Service] IStudentRepository studentRepository)
         {
-            return studentRepository.GetStudents(stuNo);
+            return studentRepository.GetStudents();
+        }
+
+        public Student GetStudent(string stuNo, [Service] IStudentRepository studentRepository)
+        {
+            return studentRepository.GetStudent(stuNo);
         }
     }
 

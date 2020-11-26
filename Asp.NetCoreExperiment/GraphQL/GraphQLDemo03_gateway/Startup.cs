@@ -24,9 +24,11 @@ namespace GraphQLDemo03_gateway
               .AddGraphQLServer()
               .AddRemoteSchema(Students, ignoreRootTypes: true)
               .AddRemoteSchema(Grades, ignoreRootTypes: true)
-              .AddTypeExtensionsFromString("type Query{}")
-              .AddTypeExtensionsFromFile("StudentStitching.graphql")    
-
+              .AddTypeExtensionsFromString("type Query { }")
+              .AddTypeExtensionsFromFile("StudentStitching.graphql")
+              .AddTypeExtensionsFromFile("GradeStitching.graphql")
+              .AddTypeExtensionsFromFile("StudentExtendStitching.graphql")
+              .AddTypeExtensionsFromFile("GradeExtendStitching.graphql")
               ;
         }
 

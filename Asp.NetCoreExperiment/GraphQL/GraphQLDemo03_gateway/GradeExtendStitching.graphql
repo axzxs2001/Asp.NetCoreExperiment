@@ -1,0 +1,4 @@
+﻿
+extend type Grade{
+	student: Student @delegate(schema: "students", path:"student(stuNo: $fields:stuNo)")
+}

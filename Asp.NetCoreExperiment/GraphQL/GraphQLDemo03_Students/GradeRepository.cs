@@ -8,17 +8,26 @@ namespace GraphQLDemo03_Students
 
     public interface IStudentRepository
     {
-        IEnumerable<Student> GetStudents(string stuNo);
+        IEnumerable<Student> GetStudents();
+        Student GetStudent(string stuNo);
     }
     public class StudentRepository : IStudentRepository
     {
-        public IEnumerable<Student> GetStudents(string stuNo)
+        public IEnumerable<Student> GetStudents()
         {
             var students = new List<Student>() {
                 new Student("S0001","小张",20,true),
                 new Student("S0002","小李",19,false),
             };
-            return students.Where(s => s.StuNo == stuNo);
+            return students;
+        }
+        public Student GetStudent(string stuNo)
+        {
+            var students = new List<Student>() {
+                new Student("S0001","小张",20,true),
+                new Student("S0002","小李",19,false),
+            };
+            return students.SingleOrDefault(s => s.StuNo == stuNo);
         }
     }
 
