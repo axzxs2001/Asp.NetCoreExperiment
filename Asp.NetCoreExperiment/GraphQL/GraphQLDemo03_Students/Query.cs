@@ -1,9 +1,6 @@
 ﻿using HotChocolate;
-using HotChocolate.Data;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+
 
 namespace GraphQLDemo03_Students
 {
@@ -11,8 +8,7 @@ namespace GraphQLDemo03_Students
     /// 查询类
     /// </summary>
     public class Query
-    {
-  
+    {  
 
         public IEnumerable<Student> GetStudents([Service] IStudentRepository studentRepository)
         {
@@ -24,7 +20,4 @@ namespace GraphQLDemo03_Students
             return studentRepository.GetStudent(stuNo);
         }
     }
-
-
-
 }

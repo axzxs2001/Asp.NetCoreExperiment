@@ -1,6 +1,5 @@
 ﻿
 extend type Query{
    getGrades(stuNo:String): [Grade] @delegate(schema: "grades", path:"grades(stuNo:$arguments:stuNo)")
-   getGrade: Grade @delegate(schema: "grades", path:"grade(id:1)")
- 
+   getGrade(id:Int!): Grade @delegate(schema: "grades", path:"grade(id:$arguments:id)") 
 }

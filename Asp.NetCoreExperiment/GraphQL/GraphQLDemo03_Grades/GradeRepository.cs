@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace GraphQLDemo03_Grades
 {
-
-
     public interface IGradeRepository
     {
         IEnumerable<Grade> GetGrades(string stuNo);
@@ -38,6 +34,5 @@ namespace GraphQLDemo03_Grades
             return grades.SingleOrDefault(s => s.ID == id);
         }
     }
-
     public record Grade(int ID, string stuNo, float score, string subject);
 }
