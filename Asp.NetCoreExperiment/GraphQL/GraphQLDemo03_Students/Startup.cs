@@ -18,7 +18,7 @@ namespace GraphQLDemo03_01
             services
                 .AddSingleton<IStudentRepository, StudentRepository>()
                 .AddGraphQLServer()
-                .AddQueryType<Query>()
+                .AddQueryType<Query>()             
                 ;
         }
 

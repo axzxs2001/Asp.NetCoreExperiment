@@ -21,7 +21,7 @@ namespace GraphQLDemo03_gateway
             services.AddHttpClient(Students, c => c.BaseAddress = new Uri("http://localhost:7000/graphql"));
             services.AddHttpClient(Grades, c => c.BaseAddress = new Uri("http://localhost:9000/graphql"));
             services
-              .AddGraphQLServer()
+              .AddGraphQLServer()        
               .AddRemoteSchema(Students, ignoreRootTypes: true)
               .AddRemoteSchema(Grades, ignoreRootTypes: true)
               .AddTypeExtensionsFromString("type Query { }")

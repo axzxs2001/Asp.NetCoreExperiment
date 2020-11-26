@@ -12,6 +12,7 @@ namespace GraphQLDemo03_Students
     /// </summary>
     public class Query
     {
+  
 
         public IEnumerable<Student> GetStudents([Service] IStudentRepository studentRepository)
         {
