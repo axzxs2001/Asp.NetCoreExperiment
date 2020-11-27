@@ -66,6 +66,7 @@ namespace GraphQLDemo01
         public virtual ICollection<ShoppingCartItem> ShoppingCartItems { get; set; }
         public virtual ICollection<SpecialOfferProduct> SpecialOfferProducts { get; set; }
         public virtual ICollection<TransactionHistory> TransactionHistories { get; set; }
-        public virtual ICollection<WorkOrder> WorkOrders { get; set; }
+        public virtual ICollection<WorkOrder> WorkOrders { get; set; }  
+      
     }
 }

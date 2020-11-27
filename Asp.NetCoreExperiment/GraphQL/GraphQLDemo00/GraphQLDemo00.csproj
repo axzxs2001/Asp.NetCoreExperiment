@@ -4,9 +4,13 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>C:\MyFile\Source\Repos\Asp.NetCoreExperiment\Asp.NetCoreExperiment\GraphQL\GraphQLDemo00\GraphQLDemo00.xml</DocumentationFile>
+  </PropertyGroup>
+
   <ItemGroup>
-    <PackageReference Include="HotChocolate.AspNetCore" Version="11.0.0" />
-    <PackageReference Include="HotChocolate.Data" Version="11.0.0" />
+    <PackageReference Include="HotChocolate.AspNetCore" Version="11.1.0-preview.2" />
+    <PackageReference Include="HotChocolate.Data" Version="11.1.0-preview.2" />
   </ItemGroup>
 
 </Project>

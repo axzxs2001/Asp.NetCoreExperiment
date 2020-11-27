@@ -11,7 +11,9 @@ namespace GraphQLDemo00
         {
             services
                 .AddGraphQLServer()//引入GraphQL           
-                .AddQueryType<Query>()//注入查询类型      
+                .AddQueryType<Query>()//注入查询类型
+                
+                .AddSubscriptionType<SubQuery>()
                 .AddProjections()//映射字段
                 .AddFiltering()//注入查询过滤器
                 .AddSorting()//注入排序

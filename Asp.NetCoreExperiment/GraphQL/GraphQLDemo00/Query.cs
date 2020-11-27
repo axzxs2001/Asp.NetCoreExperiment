@@ -50,4 +50,49 @@ namespace GraphQLDemo00
         /// </summary>
         public bool Sex { get; set; }
     }
+
+
+
+    /// <summary>
+    /// 成绩
+    /// </summary>
+    public class Grade
+    {
+        /// <summary>
+        /// ID
+        /// </summary>
+        public int ID { get; set; }
+        /// <summary>
+        /// 分数
+        /// </summary>
+        public int Score { get; set; }
+        /// <summary>
+        /// 科目
+        /// </summary>
+        public string Subject { get; set; }
+
+
+    }
+    /// <summary>
+    /// 查询子类型
+    /// </summary>
+    public class SubQuery
+    {
+        /// <summary>
+        /// 查询成绩
+        /// </summary>
+        /// <returns></returns>
+        [UseFiltering]
+        [UseSorting]
+        [UseProjection]
+        public List<Grade> GetGrades()
+        {
+            return new List<Grade>
+            {
+                new Grade { ID=1, Score=80, Subject="语文" },
+                new Grade { ID=2, Score=90, Subject="数学"  },
+                new Grade { ID=3, Score=100, Subject="英语"  }
+            };
+        }
+    }
 }

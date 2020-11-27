@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>GraphQLDemo00</name>
+    </assembly>
+    <members>
+        <member name="T:GraphQLDemo00.Query">
+            <summary>
+            查询类
+            </summary>
+        </member>
+        <member name="M:GraphQLDemo00.Query.GetStudents">
+            <summary>
+            查询学生
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:GraphQLDemo00.Student">
+            <summary>
+            学生实体
+            </summary>
+        </member>
+        <member name="P:GraphQLDemo00.Student.StuNo">
+            <summary>
+            学号
+            </summary>
+        </member>
+        <member name="P:GraphQLDemo00.Student.Name">
+            <summary>
+            姓名
+            </summary>
+        </member>
+        <member name="P:GraphQLDemo00.Student.Age">
+            <summary>
+            年龄
+            </summary>
+        </member>
+        <member name="P:GraphQLDemo00.Student.Sex">
+            <summary>
+            性别
+            </summary>
+        </member>
+        <member name="T:GraphQLDemo00.Grade">
+            <summary>
+            成绩
+            </summary>
+        </member>
+        <member name="P:GraphQLDemo00.Grade.ID">
+            <summary>
+            ID
+            </summary>
+        </member>
+        <member name="P:GraphQLDemo00.Grade.Score">
+            <summary>
+            分数
+            </summary>
+        </member>
+        <member name="P:GraphQLDemo00.Grade.Subject">
+            <summary>
+            科目
+            </summary>
+        </member>
+        <member name="T:GraphQLDemo00.SubQuery">
+            <summary>
+            查询子类型
+            </summary>
+        </member>
+        <member name="M:GraphQLDemo00.SubQuery.GetGrades">
+            <summary>
+            查询成绩
+            </summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
