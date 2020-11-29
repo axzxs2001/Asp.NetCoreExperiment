@@ -40,10 +40,8 @@ namespace GraphQLBase002
     {
         public static void Run()
         {
-            var schema = SchemaBuilder.New()
-            
-                .AddQueryType<QueryType>()
-               
+            var schema = SchemaBuilder.New()            
+                .AddQueryType<QueryType>()               
                 .Create();
             var executor = schema.MakeExecutable();
             Console.WriteLine(executor.Execute("{ hello }").ToJson());
@@ -72,14 +70,11 @@ namespace GraphQLBase002
         public class QueryType : ObjectType<Query>
         {
             protected override void Configure(IObjectTypeDescriptor<Query> descriptor)
-            {
-                // descriptor.Field(t => t.Name).Type<NonNullType<StringType>>();
-                descriptor.Field<Query>(t => t.Hello()).Type<ListType<NonNullType<StringType>>>().Resolver(ctx =>
+            {             
+                descriptor.Field<Query>(t => t.Hello()).Type<NonNullType<StringType>>().Resolver(ctx =>
                 {
-                    var ttt = ctx.Service<Query>().Hello();
-
-
-                    return "foo";
+                    var result = ctx.Parent<Query>().Hello();
+                    return Newtonsoft.Json.JsonConvert.SerializeObject(result);
                 }); ;
             }
         }
