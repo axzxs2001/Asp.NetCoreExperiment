@@ -96,6 +96,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "chillicream.com", "chillicr
 		Asp.NetCoreExperiment\GraphQL\chillicream.com\Schema.txt = Asp.NetCoreExperiment\GraphQL\chillicream.com\Schema.txt
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphQLBase002", "Asp.NetCoreExperiment\GraphQL\GraphQLBase002\GraphQLBase002.csproj", "{15BA6F59-7180-40F9-A36B-00A84F031E46}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -250,6 +252,10 @@ Global
 		{38709443-3DB9-440A-9191-036B9F253FE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{38709443-3DB9-440A-9191-036B9F253FE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{38709443-3DB9-440A-9191-036B9F253FE0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15BA6F59-7180-40F9-A36B-00A84F031E46}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15BA6F59-7180-40F9-A36B-00A84F031E46}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15BA6F59-7180-40F9-A36B-00A84F031E46}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15BA6F59-7180-40F9-A36B-00A84F031E46}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -292,6 +298,7 @@ Global
 		{21FA6DFB-9CF0-4A6C-B2A5-72E0874BFDEE} = {DA6111FE-704A-4B77-8CB9-A38873BC1FA5}
 		{38709443-3DB9-440A-9191-036B9F253FE0} = {DA6111FE-704A-4B77-8CB9-A38873BC1FA5}
 		{0EB33E58-4903-4637-A63E-725C0C3FFBD0} = {DA6111FE-704A-4B77-8CB9-A38873BC1FA5}
+		{15BA6F59-7180-40F9-A36B-00A84F031E46} = {DA6111FE-704A-4B77-8CB9-A38873BC1FA5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
