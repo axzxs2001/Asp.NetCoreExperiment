@@ -13,6 +13,7 @@ namespace GraphQLBase002
         {
             A.Run();
             B.Run();
+            C.Run();
         }
     }
 
@@ -22,14 +23,25 @@ namespace GraphQLBase002
         public static void Run()
         {
             var schema = SchemaBuilder.New()
-                .AddQueryType<Query>()
+                .AddQueryType<QueryType>()
                 .Create();
             var executor = schema.MakeExecutable();
-            Console.WriteLine(executor.Execute("{ hello }").ToJson());
+            Console.WriteLine(executor.Execute("{ now }").ToJson());
         }
         public class Query
         {
-            public string Hello() => "world";
+            public string Now()
+            {
+                return DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+
+            }
+        }
+        public class QueryType : ObjectType<Query>
+        {
+            protected override void Configure(IObjectTypeDescriptor<Query> descriptor)
+            {
+                descriptor.Field<Query>(t => t.Now()).Type<StringType>();
+            }
         }
     }
     #endregion
@@ -40,8 +52,8 @@ namespace GraphQLBase002
     {
         public static void Run()
         {
-            var schema = SchemaBuilder.New()            
-                .AddQueryType<QueryType>()               
+            var schema = SchemaBuilder.New()
+                .AddQueryType<QueryType>()
                 .Create();
             var executor = schema.MakeExecutable();
             Console.WriteLine(executor.Execute("{ hello }").ToJson());
@@ -53,7 +65,11 @@ namespace GraphQLBase002
                 return new List<Test>() {
                     new Test {
                         ID = 100,
-                        Name = "桂素伟"
+                        Name = "ABCD"
+                    },
+                     new Test {
+                        ID = 101,
+                        Name = "EFGH"
                     }
                 };
             }
@@ -67,15 +83,72 @@ namespace GraphQLBase002
             public string Name { get; set; }
         }
 
+
         public class QueryType : ObjectType<Query>
         {
             protected override void Configure(IObjectTypeDescriptor<Query> descriptor)
-            {             
+            {
                 descriptor.Field<Query>(t => t.Hello()).Type<NonNullType<StringType>>().Resolver(ctx =>
+               {
+                   var result = ctx.Parent<Query>().Hello();
+                   var json = Newtonsoft.Json.JsonConvert.SerializeObject(result);
+                   Console.WriteLine(json);
+                   return json;
+               });
+            }
+        }
+    }
+
+    #endregion
+
+    #region C
+    public class C
+    {
+        public static void Run()
+        {
+            var schema = SchemaBuilder.New()
+                .AddQueryType<QueryType>()
+                // .AddObjectType<TestType>()
+                .Create();
+            var executor = schema.MakeExecutable();
+
+            Console.WriteLine(executor.Execute("{ hello }").ToJson());
+        }
+        public class Query
+        {
+            public Test Hello
+            {
+                get
                 {
-                    var result = ctx.Parent<Query>().Hello();
-                    return Newtonsoft.Json.JsonConvert.SerializeObject(result);
-                }); ;
+                    return new Test
+                    {
+                        ID = 100,
+                        Name = "ABCD"
+                    };
+                }
+            }
+        }
+
+        public class Test
+        {
+            public int ID { get; set; }
+
+            public string Name { get; set; }
+        }
+        public class TestType : ObjectType<Test>
+        {
+            protected override void Configure(IObjectTypeDescriptor<Test> descriptor)
+            {
+                //  descriptor.Field<Test>(t => t.ID).Type<IntType>();
+                //  descriptor.Field<Test>(t => t.Name).Type<StringType>();
+            }
+        }
+
+        public class QueryType : ObjectType<Query>
+        {
+            protected override void Configure(IObjectTypeDescriptor<Query> descriptor)
+            {
+                descriptor.Field<Query>(t => t.Hello).Type<NonNullType<TestType>>();
             }
         }
     }
