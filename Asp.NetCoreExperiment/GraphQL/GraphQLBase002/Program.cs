@@ -1,9 +1,12 @@
 ﻿using HotChocolate;
+using HotChocolate.Data;
 using HotChocolate.Execution;
 using HotChocolate.Types;
+using HotChocolate.Types.Descriptors;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 
 namespace GraphQLBase002
 {
@@ -11,9 +14,14 @@ namespace GraphQLBase002
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("**********A***********");
             A.Run();
+            Console.WriteLine("**********B***********");
             B.Run();
+            Console.WriteLine("**********C***********");
             C.Run();
+            Console.WriteLine("**********D***********");
+            D.Run();
         }
     }
 
@@ -108,39 +116,54 @@ namespace GraphQLBase002
         {
             var schema = SchemaBuilder.New()
                 .AddQueryType<QueryType>()
-                // .AddObjectType<TestType>()
                 .Create();
             var executor = schema.MakeExecutable();
 
-            Console.WriteLine(executor.Execute("{ hello }").ToJson());
+
+            Console.WriteLine(executor.Execute("{ OneTest{id name} }").ToJson());
+
+
+            Console.WriteLine(executor.Execute("{ tests{id name} }").ToJson());
         }
         public class Query
         {
-            public Test Hello
+
+            public Test GetTest()
             {
-                get
+                return new Test
                 {
-                    return new Test
-                    {
-                        ID = 100,
-                        Name = "ABCD"
-                    };
+                    Id = 1,
+                    Name = "AAAAA"
+                };
+            }
+
+            public List<Test> Tests()
+            {
+                return new List<Test>{ new Test
+                {
+                    Id = 100,
+                    Name = "ABCD"
+                },
+                new Test
+                {
+                    Id = 101,
+                    Name = "EFGH"
                 }
+                };
+
             }
         }
-
         public class Test
         {
-            public int ID { get; set; }
+            public int Id { get; set; }
 
             public string Name { get; set; }
         }
         public class TestType : ObjectType<Test>
         {
+            public Test test;
             protected override void Configure(IObjectTypeDescriptor<Test> descriptor)
             {
-                //  descriptor.Field<Test>(t => t.ID).Type<IntType>();
-                //  descriptor.Field<Test>(t => t.Name).Type<StringType>();
             }
         }
 
@@ -148,11 +171,80 @@ namespace GraphQLBase002
         {
             protected override void Configure(IObjectTypeDescriptor<Query> descriptor)
             {
-                descriptor.Field<Query>(t => t.Hello).Type<NonNullType<TestType>>();
+                descriptor.Field(t => t.GetTest()).Type<NonNullType<TestType>>().Name("OneTest");
+                descriptor.Field(t => t.Tests()).Type<ListType<NonNullType<TestType>>>();
             }
         }
     }
 
     #endregion
+
+
+    #region D
+    public class D
+    {
+        public static void Run()
+        {
+            var schema = SchemaBuilder.New()
+                .AddProjections()
+                .AddQueryType<Query>()
+                .Create();
+            var executor = schema.MakeExecutable();
+
+
+            Console.WriteLine(executor.Execute("{ test{id name} }").ToJson());
+
+
+            Console.WriteLine(executor.Execute("{ tests{id name} }").ToJson());
+        }
+        public class Query
+        {
+            [UseProjection]
+            public Test Test()
+            {
+                return new Test
+                {
+                    Id = 1,
+                    Name = "AAAAA"
+                };
+            }
+            [ABC]
+            [UseProjection]
+            public List<Test> Tests()
+            {
+                return new List<Test>{ new Test
+                {
+                    Id = 100,
+                    Name = "ABCD"
+                },
+                new Test
+                {
+                    Id = 101,
+                    Name = "EFGH"
+                }
+                };
+
+            }
+        }
+        public class Test
+        {
+            public int Id { get; set; }
+
+            public string Name { get; set; }
+        }
+
+    
+        public class ABCAttribute : ObjectFieldDescriptorAttribute
+        {
+
+            public override void OnConfigure(IDescriptorContext context, IObjectFieldDescriptor descriptor, MemberInfo member)
+            {
+                Console.WriteLine("custom attribute ABC");
+            }
+        }
+    }
+
+    #endregion
+
 
 }
