@@ -7,7 +7,6 @@
 
   <ItemGroup>
     <PackageReference Include="HotChocolate" Version="11.1.0-preview.4" />
-    <PackageReference Include="HotChocolate.Execution" Version="11.1.0-preview.4" />
   </ItemGroup>
 
 </Project>
