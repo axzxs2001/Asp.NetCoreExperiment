@@ -114,13 +114,13 @@ namespace GraphQLBase003
             var schema = SchemaBuilder.New()
                 .AddProjections()
                 .AddQueryType<Query>()
-                .AddDirectiveType<MyDirective>()
+                .AddDirectiveType<MyDirectiveType>()
                 .Create();
             var executor = schema.MakeExecutable();
 
 
-            Console.WriteLine(executor.Execute("{ test {id @skip(if: true) name  } }").ToJson());
-            Console.WriteLine(executor.Execute("{ tests{id name @include(if :false)  age} }").ToJson());
+            Console.WriteLine(executor.Execute("{ tests{id name @upper(name:\"this is test\")  age} }").ToJson());        
+            Console.WriteLine(executor.Execute("{ tests{id name   age} }").ToJson());
         }
         public class Query
         {
@@ -131,7 +131,7 @@ namespace GraphQLBase003
                 {
                     Id = 1,
                     Name = "AAAAA",
-                    Age=234
+                    Age = 234
                 };
             }
 
@@ -141,7 +141,7 @@ namespace GraphQLBase003
                 return new List<Test>{ new Test
                 {
                     Id = 100,
-                    Name = "ABCD",
+                    Name = "aBcD",
                     Age=10
                 },
                 new Test
@@ -161,19 +161,32 @@ namespace GraphQLBase003
             public int Age { get; set; }
         }
 
-        public class MyDirective : DirectiveType
+        public class MyDirectiveType : DirectiveType<MyDirective>
         {
-            protected override void Configure(IDirectiveTypeDescriptor descriptor)
+
+            protected override void Configure(IDirectiveTypeDescriptor<MyDirective> descriptor)
             {
-                descriptor.Name("uper");
+                descriptor.Name("upper");
                 descriptor.Location(DirectiveLocation.Field);
                 descriptor.Use(next => context =>
                 {
-                    context.Result = "Bar";
+                    Console.WriteLine(context.FieldSelection.Directives[0].Arguments[0].Name.Value);
+                    Console.WriteLine(context.FieldSelection.Directives[0].Arguments[0].Value.Value);
+                    context.Result = context.Parent<Test>().Name.ToUpper();
                     return next.Invoke(context);
                 });
-            
+
+              
             }
+        }
+
+        public class MyDirective
+        {
+            public string Name
+            {
+                get;
+                set;
+            } = "无";
         }
 
     }
