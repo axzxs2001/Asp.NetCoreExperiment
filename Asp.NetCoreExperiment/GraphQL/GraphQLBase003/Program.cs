@@ -12,7 +12,9 @@ namespace GraphQLBase003
         static void Main(string[] args)
         {
             A.Run();
+            Console.WriteLine("=======================================");
             B.Run();
+            Console.WriteLine("=======================================");
             C.Run();
         }
     }
@@ -104,8 +106,6 @@ namespace GraphQLBase003
     }
     #endregion
 
-
-
     #region C
     public class C
     {
@@ -114,13 +114,18 @@ namespace GraphQLBase003
             var schema = SchemaBuilder.New()
                 .AddProjections()
                 .AddQueryType<Query>()
-                .AddDirectiveType<MyDirectiveType>()
+                .AddDirectiveType<UpperDirectiveType>()
+                .AddDirectiveType<ReplaceDirectiveType>()
                 .Create();
             var executor = schema.MakeExecutable();
 
-
-            Console.WriteLine(executor.Execute("{ tests{id name @upper(name:\"this is test\")  age} }").ToJson());        
-            Console.WriteLine(executor.Execute("{ tests{id name   age} }").ToJson());
+            Console.WriteLine(executor.Execute("{ tests{id name @upper(name:\"this is test\")  age} }").ToJson());
+            Console.WriteLine("---------------------------------");
+            Console.WriteLine(executor.Execute("{ tests{id name @replace(old:\"E\",new:\"1\")  age} }").ToJson());
+            Console.WriteLine("---------------------------------");
+            Console.WriteLine(executor.Execute("{ tests{id name @upper(name:\"this is test\") @replace(old:\"e\",new:\"1\")  age} }").ToJson());
+            Console.WriteLine("---------------------------------");
+            Console.WriteLine(executor.Execute("{ tests{id name @replace(old:\"e\",new:\"1\")  @upper(name:\"this is test\") age} }").ToJson());
         }
         public class Query
         {
@@ -147,7 +152,7 @@ namespace GraphQLBase003
                 new Test
                 {
                     Id = 101,
-                    Name = "EFGH",
+                    Name = "eFGH",
                     Age=20
                 }
                 };
@@ -161,32 +166,83 @@ namespace GraphQLBase003
             public int Age { get; set; }
         }
 
-        public class MyDirectiveType : DirectiveType<MyDirective>
+        public class UpperDirectiveType : DirectiveType<UpperDirective>
         {
 
-            protected override void Configure(IDirectiveTypeDescriptor<MyDirective> descriptor)
+            protected override void Configure(IDirectiveTypeDescriptor<UpperDirective> descriptor)
             {
                 descriptor.Name("upper");
                 descriptor.Location(DirectiveLocation.Field);
                 descriptor.Use(next => context =>
                 {
-                    Console.WriteLine(context.FieldSelection.Directives[0].Arguments[0].Name.Value);
-                    Console.WriteLine(context.FieldSelection.Directives[0].Arguments[0].Value.Value);
-                    context.Result = context.Parent<Test>().Name.ToUpper();
+                    foreach (var directive in context.FieldSelection.Directives)
+                    {
+                        if (directive.Name.Value == "upper")
+                        {
+                            var test = context.Parent<Test>();
+                            Console.WriteLine($"原始数据：ID={test.Id},Name={test.Name}");
+                            context.Result = context.Parent<Test>().Name.ToUpper();
+                        }
+                    }
                     return next.Invoke(context);
                 });
 
-              
+
             }
         }
 
-        public class MyDirective
+        public class UpperDirective
         {
             public string Name
             {
                 get;
                 set;
-            } = "无";
+            }
+        }
+
+        public class ReplaceDirectiveType : DirectiveType<ReplaceDirective>
+        {
+
+            protected override void Configure(IDirectiveTypeDescriptor<ReplaceDirective> descriptor)
+            {
+                descriptor.Name("replace");
+                descriptor.Location(DirectiveLocation.Field);
+                descriptor.Use(next => context =>
+                {
+                    foreach (var directive in context.FieldSelection.Directives)
+                    {
+                        if (directive.Name.Value == "replace")
+                        {
+                            var dir = new Dictionary<string, object>();
+                            foreach (var item in directive.Arguments)
+                            {
+                                dir.Add(item.Name.Value?.ToLower(), item.Value.Value);
+
+                            }
+                            var test = context.Parent<Test>();
+                            Console.WriteLine($"原始数据：ID={test.Id},Name={test.Name}");
+                            context.Result = context.Parent<Test>().Name.Replace(dir["old"].ToString(), dir["new"].ToString());
+                        }
+                    }
+                    return next.Invoke(context);
+                });
+
+
+            }
+        }
+
+        public class ReplaceDirective
+        {
+            public string Old
+            {
+                get;
+                set;
+            }
+            public string New
+            {
+                get;
+                set;
+            }
         }
 
     }
