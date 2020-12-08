@@ -13,31 +13,35 @@ namespace GraphQLBase001
         type Query {
             hello: String
         }";
-            A.Run(schemaString);
-            B.Run(schemaString);
+            Console.WriteLine("Schema-First");
+            SchemaFirst.Run(schemaString);
+            Console.WriteLine("Schema-First");
+            CodeFirst.Run(schemaString);
+            Console.WriteLine("PurCode-First");
+            PureCodeFirst.Run();
             C.Run(schemaString);
             D.Run(schemaString);
             E.Run();
         }
     }
-    #region A
-    public class A
+    #region SchemaFirst
+    public class SchemaFirst
     {
         public static void Run(string schemaString)
         {
             var schema = SchemaBuilder
                 .New()
                 .AddDocumentFromString(schemaString)
-                .AddResolver("Query", "hello", () => "world")         
+                .AddResolver("Query", "hello", () => "world")
                 .Create();
             var executor = schema.MakeExecutable();
             Console.WriteLine(executor.Execute("{ hello }").ToJson());
         }
-    
+
     }
     #endregion
-    #region B
-    public class B
+    #region CodeFirst
+    public class CodeFirst
     {
         public static void Run(string schemaString)
         {
@@ -51,7 +55,33 @@ namespace GraphQLBase001
         }
         public class Query
         {
-            public string GetHello() => "world";
+            /// <summary>
+            /// 目测这里只对Hello或GetHello免疫
+            /// </summary>
+            /// <returns></returns>
+            public string Hello() => "world";
+        }
+    }
+    #endregion
+    #region PureCodeFirst
+    public class PureCodeFirst
+    {
+        public static void Run()
+        {
+            var schema = SchemaBuilder
+                .New()        
+                .AddQueryType<Query>()
+                .Create();
+            var executor = schema.MakeExecutable();
+            Console.WriteLine(executor.Execute("{ hello }").ToJson());
+        }
+        public class Query
+        {
+            /// <summary>
+            /// 目测这里只对Hello或GetHello免疫
+            /// </summary>
+            /// <returns></returns>
+            public string Hello() => "world";
         }
     }
     #endregion
@@ -105,7 +135,7 @@ namespace GraphQLBase001
         {
             var schema = SchemaBuilder
                 .New()
-                .AddQueryType<QueryType>() 
+                .AddQueryType<QueryType>()
                 .Create();
             var executor = schema.MakeExecutable();
             Console.WriteLine(executor.Execute("{ hello }").ToJson());
