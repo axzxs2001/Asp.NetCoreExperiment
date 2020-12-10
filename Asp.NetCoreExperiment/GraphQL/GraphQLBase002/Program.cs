@@ -2,11 +2,9 @@
 using HotChocolate.Data;
 using HotChocolate.Execution;
 using HotChocolate.Types;
-using HotChocolate.Types.Descriptors;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
+
 
 namespace GraphQLBase002
 {
@@ -17,12 +15,20 @@ namespace GraphQLBase002
             Console.WriteLine("**********A***********");
             A.Run();
             Console.WriteLine("**********B***********");
-            B.Run();
+            FirstVersion.Run();
             Console.WriteLine("**********C***********");
-            C.Run();
+            SecondVersion.Run();
             Console.WriteLine("**********D***********");
-            D.Run();
+            ThreeVersion.Run();
         }
+    }
+
+    public class Student
+    {
+        public int Id { get; set; }
+
+        public string Name { get; set; }
+        public int Age { get; set; }
     }
 
     #region A
@@ -55,8 +61,8 @@ namespace GraphQLBase002
     #endregion
 
 
-    #region B
-    public class B
+    #region FirstVersion
+    public class FirstVersion
     {
         public static void Run()
         {
@@ -64,31 +70,29 @@ namespace GraphQLBase002
                 .AddQueryType<QueryType>()
                 .Create();
             var executor = schema.MakeExecutable();
-            Console.WriteLine(executor.Execute("{ hello }").ToJson());
+            //回为返回是字符串，所以用定义的Resolver name来查询
+            Console.WriteLine(executor.Execute("{ students }").ToJson());
         }
+
+
+
         public class Query
         {
-            public IList<Test> Hello()
+            public IList<Student> GetStudents()
             {
-                return new List<Test>() {
-                    new Test {
-                        ID = 100,
-                        Name = "ABCD"
+                return new List<Student>() {
+                    new Student {
+                        Id = 100,
+                        Name = "ABCD",
+                        Age=20
                     },
-                     new Test {
-                        ID = 101,
-                        Name = "EFGH"
+                     new Student {
+                        Id = 101,
+                        Name = "EFGH",
+                        Age=19
                     }
                 };
             }
-        }
-
-
-        public class Test
-        {
-            public int ID { get; set; }
-
-            public string Name { get; set; }
         }
 
 
@@ -96,12 +100,11 @@ namespace GraphQLBase002
         {
             protected override void Configure(IObjectTypeDescriptor<Query> descriptor)
             {
-                descriptor.Field<Query>(t => t.Hello()).Type<NonNullType<StringType>>().Resolver(ctx =>
+                //定义了有students来请求GetStudents方法，返回的类型是StringType，所以在Resolver中会把实体转成Json
+                descriptor.Field<Query>(t => t.GetStudents()).Name("students").Type<NonNullType<StringType>>().Resolver(ctx =>
                {
-                   var result = ctx.Parent<Query>().Hello();
-                   var json = Newtonsoft.Json.JsonConvert.SerializeObject(result);
-                   Console.WriteLine(json);
-                   return json;
+                   var result = ctx.Parent<Query>().GetStudents();
+                   return Newtonsoft.Json.JsonConvert.SerializeObject(result);
                });
             }
         }
@@ -109,8 +112,8 @@ namespace GraphQLBase002
 
     #endregion
 
-    #region C
-    public class C
+    #region SecondVersion
+    public class SecondVersion
     {
         public static void Run()
         {
@@ -120,49 +123,46 @@ namespace GraphQLBase002
             var executor = schema.MakeExecutable();
 
 
-            Console.WriteLine(executor.Execute("{ OneTest{id name} }").ToJson());
-
-
-            Console.WriteLine(executor.Execute("{ tests{id name} }").ToJson());
+            Console.WriteLine(executor.Execute("{ student {id name age} }").ToJson());
+            Console.WriteLine(executor.Execute("{ students {id name age} }").ToJson());
         }
         public class Query
         {
 
-            public Test GetTest()
+            public Student GetStudent()
             {
-                return new Test
+                return new Student
                 {
                     Id = 1,
-                    Name = "AAAAA"
+                    Name = "AAAAA",
+                    Age = 19
+
                 };
             }
 
-            public List<Test> Tests()
+            public List<Student> GetStudents()
             {
-                return new List<Test>{ new Test
-                {
-                    Id = 100,
-                    Name = "ABCD"
-                },
-                new Test
-                {
-                    Id = 101,
-                    Name = "EFGH"
-                }
+                return new List<Student>{
+                    new Student
+                    {
+                        Id = 100,
+                        Name = "ABCD",
+                        Age = 19
+                    },
+                    new Student
+                    {
+                        Id = 101,
+                        Name = "EFGH",
+                        Age = 20
+                    }
                 };
-
             }
         }
-        public class Test
-        {
-            public int Id { get; set; }
 
-            public string Name { get; set; }
-        }
-        public class TestType : ObjectType<Test>
+        public class StudentType : ObjectType<Student>
         {
-            public Test test;
-            protected override void Configure(IObjectTypeDescriptor<Test> descriptor)
+
+            protected override void Configure(IObjectTypeDescriptor<Student> descriptor)
             {
             }
         }
@@ -171,8 +171,8 @@ namespace GraphQLBase002
         {
             protected override void Configure(IObjectTypeDescriptor<Query> descriptor)
             {
-                descriptor.Field(t => t.GetTest()).Type<NonNullType<TestType>>().Name("OneTest");
-                descriptor.Field(t => t.Tests()).Type<ListType<NonNullType<TestType>>>();
+                descriptor.Field(t => t.GetStudent()).Type<NonNullType<StudentType>>().Name("student");
+                descriptor.Field(t => t.GetStudents()).Type<ListType<NonNullType<StudentType>>>().Name("students");
             }
         }
     }
@@ -180,8 +180,8 @@ namespace GraphQLBase002
     #endregion
 
 
-    #region D
-    public class D
+    #region ThreeVersion
+    public class ThreeVersion
     {
         public static void Run()
         {
@@ -192,54 +192,40 @@ namespace GraphQLBase002
             var executor = schema.MakeExecutable();
 
 
-            Console.WriteLine(executor.Execute("{ test{id name} }").ToJson());
+            Console.WriteLine(executor.Execute("{ student{id name age} }").ToJson());
 
-
-            Console.WriteLine(executor.Execute("{ tests{id name} }").ToJson());
+            Console.WriteLine(executor.Execute("{ students{id name age} }").ToJson());
         }
         public class Query
         {
-            [UseProjection]
-            public Test Test()
+            [UseProjection]            
+            public Student GetStudent()
             {
-                return new Test
+                return new Student
                 {
                     Id = 1,
-                    Name = "AAAAA"
+                    Name = "AAAAA",
+                    Age = 19
+
                 };
             }
-            [ABC]
             [UseProjection]
-            public List<Test> Tests()
+            public List<Student> GetStudents()
             {
-                return new List<Test>{ new Test
-                {
-                    Id = 100,
-                    Name = "ABCD"
-                },
-                new Test
-                {
-                    Id = 101,
-                    Name = "EFGH"
-                }
+                return new List<Student>{
+                    new Student
+                    {
+                        Id = 100,
+                        Name = "ABCD",
+                        Age = 19
+                    },
+                    new Student
+                    {
+                        Id = 101,
+                        Name = "EFGH",
+                        Age = 20
+                    }
                 };
-
-            }
-        }
-        public class Test
-        {
-            public int Id { get; set; }
-
-            public string Name { get; set; }
-        }
-
-    
-        public class ABCAttribute : ObjectFieldDescriptorAttribute
-        {
-
-            public override void OnConfigure(IDescriptorContext context, IObjectFieldDescriptor descriptor, MemberInfo member)
-            {
-                Console.WriteLine("custom attribute ABC");
             }
         }
     }
