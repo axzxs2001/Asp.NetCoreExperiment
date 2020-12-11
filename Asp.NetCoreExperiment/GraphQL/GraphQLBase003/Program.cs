@@ -4,6 +4,7 @@ using HotChocolate.Execution;
 using HotChocolate.Types;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 
 namespace GraphQLBase003
 {
@@ -11,11 +12,11 @@ namespace GraphQLBase003
     {
         static void Main(string[] args)
         {
-            A.Run();
-            Console.WriteLine("=======================================");
-            B.Run();
-            Console.WriteLine("=======================================");
-            C.Run();
+            // A.Run();
+            // Console.WriteLine("=======================================");
+            // B.Run();
+            // Console.WriteLine("=======================================");
+            DirectiveDemo.Run();
         }
     }
 
@@ -107,7 +108,7 @@ namespace GraphQLBase003
     #endregion
 
     #region C
-    public class C
+    public class DirectiveDemo
     {
         public static void Run()
         {
@@ -118,48 +119,48 @@ namespace GraphQLBase003
                 .AddDirectiveType<ReplaceDirectiveType>()
                 .Create();
             var executor = schema.MakeExecutable();
-
-            Console.WriteLine(executor.Execute("{ tests{id name @upper(name:\"this is test\")  age} }").ToJson());
-            Console.WriteLine("---------------------------------");
-            Console.WriteLine(executor.Execute("{ tests{id name @replace(old:\"E\",new:\"1\")  age} }").ToJson());
-            Console.WriteLine("---------------------------------");
-            Console.WriteLine(executor.Execute("{ tests{id name @upper(name:\"this is test\") @replace(old:\"e\",new:\"1\")  age} }").ToJson());
-            Console.WriteLine("---------------------------------");
-            Console.WriteLine(executor.Execute("{ tests{id name @replace(old:\"e\",new:\"1\")  @upper(name:\"this is test\") age} }").ToJson());
+            Console.WriteLine("原name=abcde ");
+            Console.WriteLine("--------------转大写-------------------");
+            Console.WriteLine(executor.Execute("{ student{id name @upper(name:\"this is test\")  age} }").ToJson());
+            Console.WriteLine("--------------a替换成1 -------------------");
+            Console.WriteLine(executor.Execute("{ student{id name @replace(old:\"a\",new:\"1\")  age} }").ToJson());
+            Console.WriteLine("--------------然后全部转大写-.a替换成1 -------------------");
+            Console.WriteLine(executor.Execute("{ student{id name @upper(name:\"this is test\") @replace(old:\"a\",new:\"1\")  age} }").ToJson());
+            Console.WriteLine("--------------a替换成1.然后全部转大写-------------------");
+            Console.WriteLine(executor.Execute("{ student{id name @replace(old:\"a\",new:\"1\")  @upper(name:\"this is test\") age} }").ToJson());
         }
         public class Query
         {
             [UseProjection]
-            public Test Test()
+            public Student GetStudent()
             {
-                return new Test
+                return new Student
                 {
                     Id = 1,
-                    Name = "AAAAA",
+                    Name = "abcde",
                     Age = 234
                 };
             }
-
             [UseProjection]
-            public List<Test> Tests()
+            public List<Student> GetStudents()
             {
-                return new List<Test>{ new Test
-                {
-                    Id = 100,
-                    Name = "aBcD",
-                    Age=10
-                },
-                new Test
-                {
-                    Id = 101,
-                    Name = "eFGH",
-                    Age=20
-                }
+                return new List<Student>{
+                    new Student
+                    {
+                        Id = 100,
+                        Name = "aBcD",
+                        Age=10
+                    },
+                    new Student
+                    {
+                        Id = 101,
+                        Name = "EFGH",
+                        Age=20
+                    }
                 };
-
             }
         }
-        public class Test
+        public class Student
         {
             public int Id { get; set; }
             public string Name { get; set; }
@@ -168,7 +169,6 @@ namespace GraphQLBase003
 
         public class UpperDirectiveType : DirectiveType<UpperDirective>
         {
-
             protected override void Configure(IDirectiveTypeDescriptor<UpperDirective> descriptor)
             {
                 descriptor.Name("upper");
@@ -179,15 +179,17 @@ namespace GraphQLBase003
                     {
                         if (directive.Name.Value == "upper")
                         {
-                            var test = context.Parent<Test>();
-                            Console.WriteLine($"原始数据：ID={test.Id},Name={test.Name}");
-                            context.Result = context.Parent<Test>().Name.ToUpper();
+                            if (context.Field.Member.MemberType == System.Reflection.MemberTypes.Property)
+                            {
+                                var pro = context.Field.Member as PropertyInfo;
+                                var obj = context.GetType().GetMethod("Parent").MakeGenericMethod(context.ObjectType.RuntimeType).Invoke(context, new object[0]);
+                                var value = pro.GetValue(obj);
+                                pro.SetValue(obj, value.ToString().ToUpper());                            
+                            }
                         }
                     }
                     return next.Invoke(context);
                 });
-
-
             }
         }
 
@@ -217,11 +219,15 @@ namespace GraphQLBase003
                             foreach (var item in directive.Arguments)
                             {
                                 dir.Add(item.Name.Value?.ToLower(), item.Value.Value);
-
                             }
-                            var test = context.Parent<Test>();
-                            Console.WriteLine($"原始数据：ID={test.Id},Name={test.Name}");
-                            context.Result = context.Parent<Test>().Name.Replace(dir["old"].ToString(), dir["new"].ToString());
+                            if (context.Field.Member.MemberType == System.Reflection.MemberTypes.Property)
+                            {                                
+                                var s = context.Parent<Student>();
+                                var pro = context.Field.Member as PropertyInfo;
+                                var obj = context.GetType().GetMethod("Parent").MakeGenericMethod(context.ObjectType.RuntimeType).Invoke(context, new object[0]);
+                                var value = pro.GetValue(obj);
+                                pro.SetValue(obj, value.ToString().Replace(dir["old"].ToString(), dir["new"].ToString()));                                
+                            }
                         }
                     }
                     return next.Invoke(context);
