@@ -6,6 +6,7 @@ using HotChocolate.Types;
 using HotChocolate.Types.Descriptors;
 using HotChocolate.Types.Relay;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 
@@ -15,10 +16,10 @@ namespace GraphQLBase004
     {
         static void Main(string[] args)
         {
-            DirectiveDemo.Run();
+            DescriptorAttributeDemo.Run();
         }
     }
-    public class DirectiveDemo
+    public class DescriptorAttributeDemo
     {
         public static void Run()
         {
@@ -28,80 +29,105 @@ namespace GraphQLBase004
                 .AddQueryType<Query>()
                 .Create();
             var executor = schema.MakeExecutable();
-            Console.WriteLine(executor.Execute("{ student{id name age} }").ToJson());
+            Console.WriteLine(executor.Execute("{ student{id userName password tel} }").ToJson());
+            Console.WriteLine("===============");
+            Console.WriteLine(executor.Execute("{ students{id userName password tel} }").ToJson());
 
         }
+        /// <summary>
+        /// 查询类
+        /// </summary>
         public class Query
         {
             [UseProjection]
-            [SomeMiddleware]
-            public Student GetStudent()
+            [UseDesensitization]
+            public User GetStudent()
             {
-                return new Student
+                return new User
                 {
                     Id = 1,
-                    Name = "abcde",
-                    Age = 234
+                    UserName = "gsw",
+                    Tel = "13453467114",
+                    Password = "111111"
                 };
             }
-
             [UseProjection]
-            public List<Student> GetStudents()
+            [UseDesensitization]
+            public List<User> GetStudents()
             {
-                return new List<Student>{
-                    new Student
+                return new List<User>(){
+                    new User
                     {
-                        Id = 100,
-                        Name = "aBcD",
-                        Age=10
+                        Id = 1,
+                        UserName = "gsw",
+                        Tel = "13453467114",
+                        Password = "111111"
                     },
-                    new Student
+                    new User
                     {
-                        Id = 101,
-                        Name = "EFGH",
-                        Age=20
+                        Id = 1,
+                        UserName = "gsw",
+                        Tel = "13453467114",
+                        Password = "111111"
                     }
                 };
             }
         }
-        public class Student
+        /// <summary>
+        /// 用户
+        /// </summary>
+        public class User
         {
             public int Id { get; set; }
-            public string Name { get; set; }
-            public int Age { get; set; }
+            public string UserName { get; set; }
+            public string Tel { get; set; }
+            public string Password { get; set; }
         }
-        public class SomeMiddlewareAttribute : ObjectFieldDescriptorAttribute
+        /// <summary>
+        /// 脱敏特性类
+        /// </summary>
+        public class UseDesensitizationAttribute : ObjectFieldDescriptorAttribute
         {
-
-            public string ABC
+            public List<string> SensitiveFields
             {
                 get; set;
-            }
+            } = new List<string>() { "password", "tel", };
             public override void OnConfigure(IDescriptorContext context, IObjectFieldDescriptor descriptor, MemberInfo member)
             {
                 descriptor.Use(next => context =>
                 {
                     var obj = context.GetType().GetMethod("Parent").MakeGenericMethod(context.ObjectType.RuntimeType).Invoke(context, new object[0]);
-                    var value = (member as MethodInfo).Invoke(obj, new object[0]);
-                    context.Result = new Student
+                    var resultObj = (member as MethodInfo).Invoke(obj, new object[0]);
+                    foreach (var proName in SensitiveFields)
                     {
-                        Id = 101,
-                        Name = "EFGH",
-                        Age = 20
-                    };
+                        var resulttType = resultObj.GetType();
+                        //处理泛型集合
+                        if (resulttType.IsGenericType)
+                        {
+                            foreach (var resultItem in (resultObj as IList))
+                            {
+
+                                SetValue(proName, resultItem.GetType(), resultItem);
+                            }
+                        }
+                        else
+                        {
+                            SetValue(proName, resulttType, resultObj);
+                        }
+                        void SetValue(string proName, Type type, object resultObj)
+                        {
+                            var pro = type.GetProperty(proName, BindingFlags.IgnoreCase | BindingFlags.Instance | BindingFlags.Public);
+                            if (pro != null && pro.PropertyType.IsAssignableFrom(typeof(string)))
+                            {
+                                var len = pro.GetValue(resultObj).ToString()?.Length;
+                                pro.SetValue(resultObj, "".PadLeft(len.Value, '*'));
+                            }
+                        }
+                    }
+                    context.Result = resultObj;
                     return next.Invoke(context);
                 });
             }
         }
-
-    }
-    public static class SomeSchemaBuilderExtensions
-    {
-        public static ISchemaBuilder AddABC(this ISchemaBuilder builder)
-        {
-            
-            return builder;
-        }
-     
     }
 }
