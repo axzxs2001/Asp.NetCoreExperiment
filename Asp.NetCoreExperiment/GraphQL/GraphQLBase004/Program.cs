@@ -1,10 +1,8 @@
 ﻿using HotChocolate;
 using HotChocolate.Data;
 using HotChocolate.Execution;
-using HotChocolate.Language;
 using HotChocolate.Types;
 using HotChocolate.Types.Descriptors;
-using HotChocolate.Types.Relay;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -25,14 +23,12 @@ namespace GraphQLBase004
         {
             var schema = SchemaBuilder.New()
                 .AddProjections()
-                .AddFiltering()
                 .AddQueryType<Query>()
                 .Create();
             var executor = schema.MakeExecutable();
             Console.WriteLine(executor.Execute("{ student{id userName password tel} }").ToJson());
             Console.WriteLine("===============");
             Console.WriteLine(executor.Execute("{ students{id userName password tel} }").ToJson());
-
         }
         /// <summary>
         /// 查询类
@@ -40,7 +36,7 @@ namespace GraphQLBase004
         public class Query
         {
             [UseProjection]
-            [UseDesensitization]
+            [UseDesensitization(SensitiveFields = new string[] { "password", "tel" })]
             public User GetStudent()
             {
                 return new User
@@ -52,7 +48,7 @@ namespace GraphQLBase004
                 };
             }
             [UseProjection]
-            [UseDesensitization]
+            [UseDesensitization(SensitiveFields = new string[] { "password", "tel" })]
             public List<User> GetStudents()
             {
                 return new List<User>(){
@@ -88,10 +84,10 @@ namespace GraphQLBase004
         /// </summary>
         public class UseDesensitizationAttribute : ObjectFieldDescriptorAttribute
         {
-            public List<string> SensitiveFields
+            public string[] SensitiveFields
             {
                 get; set;
-            } = new List<string>() { "password", "tel", };
+            }
             public override void OnConfigure(IDescriptorContext context, IObjectFieldDescriptor descriptor, MemberInfo member)
             {
                 descriptor.Use(next => context =>
