@@ -18,16 +18,21 @@ namespace GraphQLDemo04
 {
     public class Startup
     {
+
+        public static List<Result<Student>> Persons = new List<Result<Student>>();
+
         public void ConfigureServices(IServiceCollection services)
         {
+            for (int i = 0; i < 200; i++)
+            {
+                var student = new Student { Id = i, Tel = "13453467" + i.ToString("D3"), Name = NameCreater.GetFullName() };
+                var result = Result<Student>.Resolve(student);
+                Persons.Add(result);
+            }
+
             services
                 .AddGraphQLServer()
                 .AddQueryType<Query>()
-                .AddDataLoader<PersonDataLoader>()
-
-                .AddFiltering()
-                .AddSorting()
-                .AddProjections()
                 ;
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -36,9 +41,7 @@ namespace GraphQLDemo04
             {
                 app.UseDeveloperExceptionPage();
             }
-
             app.UseRouting();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapGraphQL();
@@ -51,39 +54,31 @@ namespace GraphQLDemo04
     /// </summary>
     public class Query
     {
-        [UseProjection]
-        public Task<Person> GetPerson(int id, [DataLoader] PersonDataLoader personLoader)
+        public Task<Student> GetStudent(int id, [DataLoader] StudentDataLoader loader)
         {
-
-            return personLoader.LoadAsync(id);
+            return loader.LoadAsync(id);
         }
-
-
     }
-
-    public class PersonDataLoader : DataLoaderBase<int, Person>
+    /// <summary>
+    /// 
+    /// </summary>
+    public class StudentDataLoader : DataLoaderBase<int, Student>
     {
-        public PersonDataLoader() : base(new BatchScheduler(), new DataLoaderOptions<int>())
+        public StudentDataLoader(IBatchScheduler scheduler) : base(scheduler)
         {
         }
-        protected override ValueTask<IReadOnlyList<Result<Person>>> FetchAsync(IReadOnlyList<int> keys, CancellationToken cancellationToken)
+        protected override ValueTask<IReadOnlyList<Result<Student>>> FetchAsync(IReadOnlyList<int> keys, CancellationToken cancellationToken)
         {
-            var list = new List<Result<Person>>();
-            for (int i = 0; i < 200; i++)
-            {
-                var person1 = new Person { Id = i, Tel = "12323232321", Name = "张三" + i };
-                var result1 = Result<Person>.Resolve(person1);
-                list.Add(result1);
-            }
-            var result = new ValueTask<IReadOnlyList<Result<Person>>>(list);
-            return result;
+
+            return new ValueTask<IReadOnlyList<Result<Student>>>(Startup.Persons.Where(s => keys.Contains(s.Value.Id)).ToList());
+
         }
 
     }
     /// <summary>
-    /// 用户
+    /// 学生
     /// </summary>
-    public class Person
+    public class Student
     {
         public int Id { get; set; }
         public string Name { get; set; }

@@ -5,6 +5,7 @@ using HotChocolate.Execution;
 using HotChocolate.Fetching;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -26,10 +27,9 @@ namespace GraphQLDemo005
             var schema = SchemaBuilder.New()
                 .AddProjections()
                 .AddQueryType<Query>()
-             
                 .Create();
             var executor = schema.MakeExecutable();
-            Console.WriteLine(executor.ExecuteAsync("{ person(id:1){id name tel} }").Result.ToJson());
+            Console.WriteLine(executor.Execute("{a:person(id:1){id name tel} b:person(id:100){id name tel}}").ToJson());
 
         }
         /// <summary>
@@ -39,14 +39,14 @@ namespace GraphQLDemo005
         {
             [UseProjection]
             public Task<Person> GetPerson(int id, [DataLoader] PersonDataLoader personLoader)
-            {            
+            {
                 return personLoader.LoadAsync(id);
             }
         }
 
         public class PersonDataLoader : DataLoaderBase<int, Person>
         {
-            public PersonDataLoader() : base(new BatchScheduler(), new DataLoaderOptions<int>())
+            public PersonDataLoader(IBatchScheduler scheduler) : base(scheduler)
             {
             }
             protected override ValueTask<IReadOnlyList<Result<Person>>> FetchAsync(IReadOnlyList<int> keys, CancellationToken cancellationToken)
@@ -54,12 +54,18 @@ namespace GraphQLDemo005
                 var list = new List<Result<Person>>();
                 for (int i = 0; i < 200; i++)
                 {
-                    var person1 = new Person { Id = i, Tel = "12323232321", Name = "张三"+i };
+                    var person1 = new Person
+                    {
+                        Id = i,
+                        Tel = "13453467" + i.ToString("D3"),
+                        Name = "zhangsan"+i
+
+                    };
+
                     var result1 = Result<Person>.Resolve(person1);
                     list.Add(result1);
                 }
-                var result = new ValueTask<IReadOnlyList<Result<Person>>>(list);
-                return result;
+                return new ValueTask<IReadOnlyList<Result<Person>>>(list.Where(s => keys.Contains(s.Value.Id)).ToList());
             }
 
         }
@@ -74,4 +80,5 @@ namespace GraphQLDemo005
         }
     }
 
+  
 }

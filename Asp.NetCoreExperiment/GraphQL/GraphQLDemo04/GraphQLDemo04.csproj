@@ -9,4 +9,6 @@
     <PackageReference Include="HotChocolate.Data" Version="11.1.0-preview.6" />
   </ItemGroup>
 
+  <ProjectExtensions><VisualStudio><UserProperties properties_4launchsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
+
 </Project>
