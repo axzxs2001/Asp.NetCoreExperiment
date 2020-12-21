@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace GraphQLDemo006
+namespace GraphQLDemo06
 {
     public class Program
     {
