@@ -1,16 +1,14 @@
-﻿using System;
+﻿using Dapper;
+using Microsoft.Extensions.Logging;
+using MySql.Data.MySqlClient;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Web001.Models;
-using MySql.Data.MySqlClient;
-using Microsoft.Extensions.Logging;
-using Dapper;
-using System.ComponentModel.Design;
 
 namespace Web001.Services
 {
-    public class UserService: IUserService
+    public class UserService : IUserService
     {
         private readonly ILogger<UserService> _logger;
         private readonly string _connectionString;
@@ -18,14 +16,21 @@ namespace Web001.Services
         {
             _connectionString = connectionString;
             _logger = logger;
+
         }
+        /// <summary>
+        /// SQL注入
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
         public async Task<List<UserModel>> GetUsersAsync(string name)
         {
-            using (var db = new MySqlConnection(_connectionString))
-            {
-                var sql = $"select * from users where name like %{name}%";
-                return (await db.QueryAsync<UserModel>(sql)).ToList();
-            }
+            _logger.LogInformation("SQL注入");
+
+            using var db = new MySqlConnection(_connectionString);
+            var sql = $"select * from users where name like %{name}%";
+            var cmd = new MySqlCommand(sql, db);
+            return (await db.QueryAsync<UserModel>(sql)).ToList();
         }
     }
 }

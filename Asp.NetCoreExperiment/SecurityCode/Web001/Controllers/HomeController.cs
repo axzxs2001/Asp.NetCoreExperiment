@@ -1,9 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
 using Web001.Models;
 using Web001.Services;
@@ -40,6 +37,7 @@ namespace Web001.Controllers
 
         public async Task<IActionResult> GetUsers(string name)
         {
+            _logger.LogInformation("SQL注入");
             var list = await _userService.GetUsersAsync(name);
             return new JsonResult(list);
         }
