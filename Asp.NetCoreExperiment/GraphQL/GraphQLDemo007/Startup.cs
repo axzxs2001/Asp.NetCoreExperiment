@@ -1,5 +1,6 @@
 using HotChocolate;
 using HotChocolate.Data.Sorting;
+using HotChocolate.Types;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -23,17 +24,12 @@ namespace GraphQLDemo07
         public void ConfigureServices(IServiceCollection services)
         {
 
-
-            services.AddInMemorySubscriptions();
-
             services
-                .AddGraphQLServer()
-                .AddQueryType<Subscription>()
-                .AddFiltering()
-                .AddSorting()
-                .AddProjections();
+           .AddRouting()
+           .AddGraphQLServer()
+           .AddQueryType<Query>();
 
-     
+
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
@@ -45,11 +41,49 @@ namespace GraphQLDemo07
             app.UseRouting();
             app.UseWebSockets();
 
-
             app.UseEndpoints(endpoints =>
             {                
                 endpoints.MapGraphQL();
             });
         }
     }
+
+    public class Query
+    {
+        public Book GetBook() => new Book { Title = "C# in depth", Author = "Jon Skeet" };
+    }
+
+
+    public class QueryType : ObjectType<Query>
+    {
+        protected override void Configure(IObjectTypeDescriptor<Query> descriptor)
+        {
+            descriptor
+                .Field(f => f.GetBook())
+                .Type<BookType>();
+        }
+    }
+ 
+    public class Book
+    {
+        public string Title { get; set; }
+
+        public string Author { get; set; }
+    }
+
+
+    public class BookType : ObjectType<Book>
+    {     
+        protected override void Configure(IObjectTypeDescriptor<Book> descriptor)
+        {
+            descriptor
+                .Field(f => f.Title)
+                .Type<StringType>();
+
+            descriptor
+                .Field(f => f.Author)
+                .Type<StringType>();
+        }
+    }
+
 }
