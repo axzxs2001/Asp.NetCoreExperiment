@@ -1,5 +1,4 @@
-﻿using Jaeger.Thrift;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using OpenTracing;
 using OpenTracing.Propagation;
@@ -41,6 +40,7 @@ namespace JaegerSharp
         /// <returns></returns>
         public async Task InvokeAsync(HttpContext context, ITracer tracer)
         {
+            _logger.LogInformation("jaeger调用");
             var path = context.Request.Path;
             if (Path.HasExtension(path))
             {
