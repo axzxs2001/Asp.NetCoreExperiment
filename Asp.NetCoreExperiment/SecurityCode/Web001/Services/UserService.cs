@@ -28,7 +28,7 @@ namespace Web001.Services
             _logger.LogInformation("SQL注入");
 
             using var db = new MySqlConnection(_connectionString);
-            var sql = $"select * from users where name like %{name}%";
+            var sql = $"select * from persons where name like '%{name}%'";
             var cmd = new MySqlCommand(sql, db);
             return (await db.QueryAsync<UserModel>(sql)).ToList();
         }
