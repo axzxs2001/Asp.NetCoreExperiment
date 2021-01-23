@@ -146,9 +146,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DaprDemo01_Lib", "Asp.NetCo
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RateLimit", "RateLimit", "{A90F6C19-045A-4132-8712-94FABD66F25B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RateLimitDemo01", "Asp.NetCoreExperiment\RateLimit\RateLimitDemo01\RateLimitDemo01.csproj", "{724749E5-0E7E-4A27-AEFE-D25766975506}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RateLimitDemo01", "Asp.NetCoreExperiment\RateLimit\RateLimitDemo01\RateLimitDemo01.csproj", "{724749E5-0E7E-4A27-AEFE-D25766975506}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RateLimitDemo01_Client", "Asp.NetCoreExperiment\RateLimit\RateLimitDemo01_Client\RateLimitDemo01_Client.csproj", "{FA6E4058-71BF-4A8F-9B5D-509C19386627}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RateLimitDemo01_Client", "Asp.NetCoreExperiment\RateLimit\RateLimitDemo01_Client\RateLimitDemo01_Client.csproj", "{FA6E4058-71BF-4A8F-9B5D-509C19386627}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

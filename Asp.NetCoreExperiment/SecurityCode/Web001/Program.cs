@@ -14,6 +14,10 @@ namespace Web001
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
+                    webBuilder.ConfigureKestrel(opt =>
+                    {
+                        opt.AddServerHeader = false;
+                    });
                     webBuilder.UseStartup<Startup>();
                 });
     }

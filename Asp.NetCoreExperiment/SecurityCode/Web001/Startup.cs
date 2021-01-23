@@ -19,6 +19,15 @@ namespace Web001
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            services.AddAntiforgery(options =>
+            {
+                options.FormFieldName = "AntiforgeryGSW";
+                options.HeaderName = "X-CSRF-TOKEN-gsw";
+                options.SuppressXFrameOptionsHeader = false;
+            });
+
+
             services.AddSingleton(Configuration.GetConnectionString("DefaultConnectionString"));
             services.AddScoped<IUserService, UserService>();
             services.AddControllersWithViews();

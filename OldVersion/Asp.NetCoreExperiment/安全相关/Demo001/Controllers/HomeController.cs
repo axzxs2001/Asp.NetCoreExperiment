@@ -35,7 +35,7 @@ namespace Demo001.Controllers
         }
         //todo 5、防止跨站点请请求伪造xsrf/csrf
         [HttpPost("/csrf")]
-        public string Index([FromBody]Ent ent)
+        public string Index([FromBody] Ent ent)
         {
             Console.WriteLine($"ID:{ent.ID}  Name:{ent.Name}");
             return "ok";
@@ -58,13 +58,14 @@ namespace Demo001.Controllers
                 var filePath = $"{Directory.GetCurrentDirectory()}/uploadfiles/{DateTime.Now.ToString("yyyyMMddHHmmss")}{Path.GetExtension(formFile.FileName)}";
                 if (formFile.Length > 0)
                 {
-                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    var extesion = Path.GetExtension(formFile.FileName);
+                    using (var stream = new FileStream(path: filePath, mode: FileMode.Create))
                     {
                         await formFile.CopyToAsync(stream);
                     }
                 }
             }
-        
+
             return Ok(new { count = files.Count, size });
         }
         #endregion
