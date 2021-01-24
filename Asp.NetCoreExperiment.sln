@@ -150,6 +150,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RateLimitDemo01", "Asp.NetC
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RateLimitDemo01_Client", "Asp.NetCoreExperiment\RateLimit\RateLimitDemo01_Client\RateLimitDemo01_Client.csproj", "{FA6E4058-71BF-4A8F-9B5D-509C19386627}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web002", "Asp.NetCoreExperiment\SecurityCode\Web002\Web002.csproj", "{67B056EF-0F55-4790-8F7E-6D94C9856D1B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -384,6 +386,10 @@ Global
 		{FA6E4058-71BF-4A8F-9B5D-509C19386627}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FA6E4058-71BF-4A8F-9B5D-509C19386627}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FA6E4058-71BF-4A8F-9B5D-509C19386627}.Release|Any CPU.Build.0 = Release|Any CPU
+		{67B056EF-0F55-4790-8F7E-6D94C9856D1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67B056EF-0F55-4790-8F7E-6D94C9856D1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67B056EF-0F55-4790-8F7E-6D94C9856D1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67B056EF-0F55-4790-8F7E-6D94C9856D1B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -448,6 +454,7 @@ Global
 		{EE9470B8-F03D-420E-B813-DAC2CD8F0EBE} = {708FFF92-4BF1-40B7-A2A4-2FAEF10ACEBF}
 		{724749E5-0E7E-4A27-AEFE-D25766975506} = {A90F6C19-045A-4132-8712-94FABD66F25B}
 		{FA6E4058-71BF-4A8F-9B5D-509C19386627} = {A90F6C19-045A-4132-8712-94FABD66F25B}
+		{67B056EF-0F55-4790-8F7E-6D94C9856D1B} = {2E706BEF-8162-402F-81BA-9B9F6563B536}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
