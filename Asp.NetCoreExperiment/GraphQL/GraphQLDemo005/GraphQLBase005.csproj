@@ -6,11 +6,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="HotChocolate" Version="11.1.0-preview.6" />
-    <PackageReference Include="HotChocolate.Data" Version="11.1.0-preview.6" />
-    <PackageReference Include="HotChocolate.Execution" Version="11.1.0-preview.6" />
-    <PackageReference Include="HotChocolate.Language" Version="11.1.0-preview.6" />
-    <PackageReference Include="HotChocolate.Validation" Version="11.1.0-preview.6" />
+    <PackageReference Include="HotChocolate" Version="11.1.0-preview.8" />
+    <PackageReference Include="HotChocolate.Data" Version="11.1.0-preview.8" />
+    <PackageReference Include="HotChocolate.Execution" Version="11.1.0-preview.8" />
+    <PackageReference Include="HotChocolate.Language" Version="11.1.0-preview.8" />
+    <PackageReference Include="HotChocolate.Validation" Version="11.1.0-preview.8" />
     <PackageReference Include="Microsoft.Extensions.DiagnosticAdapter" Version="5.0.0-preview.3.20215.2" />
   </ItemGroup>
 
