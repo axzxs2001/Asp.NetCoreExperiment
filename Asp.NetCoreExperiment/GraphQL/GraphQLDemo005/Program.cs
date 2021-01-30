@@ -91,7 +91,7 @@ namespace GraphQLDemo005
         public string A1 { get; set; }
         public string A2 { get; set; }
     }
-  
+
     public class BFormat : Format
     {
         public string B1 { get; set; }
@@ -185,16 +185,16 @@ namespace GraphQLDemo005
     //    }
     //}
 
-    //[GraphQLName("Format")]     
+    //[GraphQLName("Format")]
     //public interface IFormat
     //{
-    //   string Name { get; set; }
+    //    string Name { get; set; }
 
     //}
 
     //public class AFormat : IFormat
     //{
-    //    public  string Name { get; set; }
+    //    public string Name { get; set; }
 
     //    public string A1 { get; set; }
     //    public string A2 { get; set; }
@@ -202,7 +202,7 @@ namespace GraphQLDemo005
 
     //public class BFormat : IFormat
     //{
-    //    public  string Name { get; set; }
+    //    public string Name { get; set; }
 
     //    public string B1 { get; set; }
     //    public string B2 { get; set; }
