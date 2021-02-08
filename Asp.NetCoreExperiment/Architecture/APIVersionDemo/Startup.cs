@@ -1,6 +1,9 @@
+using APIVersionDemo.Controllers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Versioning;
+using Microsoft.AspNetCore.Mvc.Versioning.Conventions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -22,11 +25,29 @@ namespace APIVersionDemo
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
+
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddApiVersioning(opt => {
+            services.AddApiVersioning(opt =>
+            {
+                //默认1.0
                 opt.AssumeDefaultVersionWhenUnspecified = true;
+                opt.DefaultApiVersion = new ApiVersion(1, 0);
+                opt.ApiVersionReader = ApiVersionReader.Combine(
+                    new MediaTypeApiVersionReader("version"),
+                    new HeaderApiVersionReader("api-version")
+                    );
+                opt.ReportApiVersions = true;
+
+                //替换在ProductionController上的特性
+                //opt.Conventions.Controller<ProductController>()
+                //.HasApiVersion(2, 0)
+                //.HasDeprecatedApiVersion(1, 0)
+                //.Action(typeof(ProductController)
+                //.GetMethod(nameof(ProductController.QueryProductv2))!)
+                //.MapToApiVersion(2, 0);
+
+
             });
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -35,7 +56,6 @@ namespace APIVersionDemo
             });
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
