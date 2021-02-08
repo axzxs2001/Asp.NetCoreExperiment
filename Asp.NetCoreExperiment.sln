@@ -152,7 +152,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RateLimitDemo01_Client", "A
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web002", "Asp.NetCoreExperiment\SecurityCode\Web002\Web002.csproj", "{67B056EF-0F55-4790-8F7E-6D94C9856D1B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphQLBase006", "Asp.NetCoreExperiment\GraphQL\GraphQLBase006\GraphQLBase006.csproj", "{97884390-49B6-4C45-BA75-A70ABEC6C7B1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GraphQLBase006", "Asp.NetCoreExperiment\GraphQL\GraphQLBase006\GraphQLBase006.csproj", "{97884390-49B6-4C45-BA75-A70ABEC6C7B1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DotNetTools", "DotNetTools", "{5B3A93DC-5C3F-4F7C-9D93-F5BB47E55DE8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TraverseEntity", "Asp.NetCoreExperiment\DotNetTools\TraverseEntity\TraverseEntity.csproj", "{2FB9CFD1-BA6F-44DF-982D-89ABD2552F11}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -396,6 +400,10 @@ Global
 		{97884390-49B6-4C45-BA75-A70ABEC6C7B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{97884390-49B6-4C45-BA75-A70ABEC6C7B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{97884390-49B6-4C45-BA75-A70ABEC6C7B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2FB9CFD1-BA6F-44DF-982D-89ABD2552F11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2FB9CFD1-BA6F-44DF-982D-89ABD2552F11}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2FB9CFD1-BA6F-44DF-982D-89ABD2552F11}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2FB9CFD1-BA6F-44DF-982D-89ABD2552F11}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -462,6 +470,7 @@ Global
 		{FA6E4058-71BF-4A8F-9B5D-509C19386627} = {A90F6C19-045A-4132-8712-94FABD66F25B}
 		{67B056EF-0F55-4790-8F7E-6D94C9856D1B} = {2E706BEF-8162-402F-81BA-9B9F6563B536}
 		{97884390-49B6-4C45-BA75-A70ABEC6C7B1} = {DA6111FE-704A-4B77-8CB9-A38873BC1FA5}
+		{2FB9CFD1-BA6F-44DF-982D-89ABD2552F11} = {5B3A93DC-5C3F-4F7C-9D93-F5BB47E55DE8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
