@@ -28,27 +28,32 @@ namespace APIVersionDemo
 
         public void ConfigureServices(IServiceCollection services)
         {
+
+            // services.AddApiVersioning();
+
+            //services.AddApiVersioning(opt =>
+            //{
+            //    //默认1.0
+            //    opt.AssumeDefaultVersionWhenUnspecified = true;
+            //    opt.DefaultApiVersion = new ApiVersion(1, 0);
+            //    opt.ApiVersionReader = ApiVersionReader.Combine(
+            //        new MediaTypeApiVersionReader("version"),
+            //        new HeaderApiVersionReader("api-version")
+            //        );
+            //    opt.ReportApiVersions = true;
+            //});
+
             services.AddApiVersioning(opt =>
             {
-                //默认1.0
-                opt.AssumeDefaultVersionWhenUnspecified = true;
-                opt.DefaultApiVersion = new ApiVersion(1, 0);
-                opt.ApiVersionReader = ApiVersionReader.Combine(
-                    new MediaTypeApiVersionReader("version"),
-                    new HeaderApiVersionReader("api-version")
-                    );
-                opt.ReportApiVersions = true;
-
                 //替换在ProductionController上的特性
-                //opt.Conventions.Controller<ProductController>()
-                //.HasApiVersion(2, 0)
-                //.HasDeprecatedApiVersion(1, 0)
-                //.Action(typeof(ProductController)
-                //.GetMethod(nameof(ProductController.QueryProductv2))!)
-                //.MapToApiVersion(2, 0);
-
-
+                opt.Conventions.Controller<ProductController>()
+                .HasApiVersion(2, 0)
+                .HasDeprecatedApiVersion(1, 0)
+                .Action(typeof(ProductController)
+                .GetMethod(nameof(ProductController.QueryProductv2))!)
+                .MapToApiVersion(2, 0);
             });
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

@@ -35,7 +35,6 @@ namespace APIVersionDemo.Controllers
             };
         }
 
-
         [HttpGet("{id}")]
         [MapToApiVersion("2.0")]
         public Order2 QueryOrder2()
