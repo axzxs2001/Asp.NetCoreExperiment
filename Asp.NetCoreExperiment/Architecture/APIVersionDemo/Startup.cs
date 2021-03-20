@@ -29,7 +29,7 @@ namespace APIVersionDemo
         public void ConfigureServices(IServiceCollection services)
         {
 
-            // services.AddApiVersioning();
+            services.AddApiVersioning();
 
             //services.AddApiVersioning(opt =>
             //{
@@ -43,16 +43,16 @@ namespace APIVersionDemo
             //    opt.ReportApiVersions = true;
             //});
 
-            services.AddApiVersioning(opt =>
-            {
-                //替换在ProductionController上的特性
-                opt.Conventions.Controller<ProductController>()
-                .HasApiVersion(2, 0)
-                .HasDeprecatedApiVersion(1, 0)
-                .Action(typeof(ProductController)
-                .GetMethod(nameof(ProductController.QueryProductv2))!)
-                .MapToApiVersion(2, 0);
-            });
+            //services.AddApiVersioning(opt =>
+            //{
+            //    //替换在ProductionController上的特性
+            //    opt.Conventions.Controller<ProductController>()
+            //    .HasApiVersion(2, 0)
+            //    .HasDeprecatedApiVersion(1, 0)
+            //    .Action(typeof(ProductController)
+            //    .GetMethod(nameof(ProductController.QueryProductv2))!)
+            //    .MapToApiVersion(2, 0);
+            //});
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
