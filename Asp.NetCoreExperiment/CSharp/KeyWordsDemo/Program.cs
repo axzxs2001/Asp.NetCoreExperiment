@@ -1,13 +1,19 @@
 ﻿using System;
+using static System.Console;
 
 namespace KeyWordsDemo
 {
     class Program
     {
-        static void Main(string[] args)
+        static  void Main(string[] args)
         {
-            Demo demo = new NullDemo();
-            demo.Run();
+
+            Demo nulldemo = new NullDemo();
+            nulldemo.Run();
+            WriteLine("=====================");
+            Demo stringdemo = new StringDemo();
+            stringdemo.Run();
+
         }
     }
 

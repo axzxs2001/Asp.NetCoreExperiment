@@ -7,39 +7,15 @@ namespace KeyWordsDemo
     {
         public void Run()
         {
-            var str = string.Empty;//和str=""等价
-            var result = str switch
+            var appOrder = new AppOrder();
+            if (appOrder == null)
             {
-                var s when s is null => "string.Empty is null",
-                var s when s is "" => "string.Empty is \"\"",
-                var _ => "none"
-            };
-            WriteLine(result);
-
-            if (string.IsNullOrEmpty(str))
-            {
-                WriteLine("string is null or \"\"");
+                WriteLine("appOrder == null:appOrder is null");
             }
-
-            //------------------
-            Nullable<int> i = 10;
-            if (i.HasValue)
+            if (appOrder is null)
             {
-                WriteLine(i.Value);
+                WriteLine("appOrder is null:appOrder is null");
             }
-            int? ii = null;
-            if (ii.HasValue)
-            {
-                WriteLine(ii.Value);
-            }
-            //-------
-            var c = new AppOrder();
-            if (c == null)
-            {
-                Console.WriteLine("c is null");
-            }
-
-
         }
     }
     class Order
@@ -52,14 +28,10 @@ namespace KeyWordsDemo
         {
             return true;
         }
-
-        public string OrderNo
-        { get; set; }
     }
 
     class AppOrder : Order
     {
-
     }
 
 }
