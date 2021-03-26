@@ -8,9 +8,9 @@ namespace KeyWordsDemo
         static  void Main(string[] args)
         {
 
-            Demo nulldemo = new NullDemo();
-            nulldemo.Run();
-            WriteLine("=====================");
+            //Demo nulldemo = new NullDemo();
+            //nulldemo.Run();
+            //WriteLine("=====================");
             Demo stringdemo = new StringDemo();
             stringdemo.Run();
 
