@@ -6,7 +6,7 @@ namespace KeyWordsDemo
 {
     class StringDemo : Demo
     {
-        public unsafe void Run()
+        public void Run()
         {
             //string a = "abcd";
             //string b = "abcd";
@@ -40,7 +40,7 @@ namespace KeyWordsDemo
             contentBuilder.AppendLine("line00003");
             var content = contentBuilder.ToString();
             Console.WriteLine(content);
-         
+
             Console.WriteLine(content.Replace("\r", "\\r").Replace("\n", "\\n"));
             Console.WriteLine();
             Console.WriteLine();
