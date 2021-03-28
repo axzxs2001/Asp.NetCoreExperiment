@@ -160,9 +160,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TraverseEntity", "Asp.NetCo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "APIVersionDemo", "Asp.NetCoreExperiment\Architecture\APIVersionDemo\APIVersionDemo.csproj", "{197A9630-DB6F-4307-9833-541BD5B5B02B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BogusDemo", "Asp.NetCoreExperiment\CSharp\BogusDemo\BogusDemo.csproj", "{4A8BD6DC-CBE0-485B-8130-4F3BFA7EABD6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BogusDemo", "Asp.NetCoreExperiment\CSharp\BogusDemo\BogusDemo.csproj", "{4A8BD6DC-CBE0-485B-8130-4F3BFA7EABD6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneOfDemo", "Asp.NetCoreExperiment\OneOfDemo\OneOfDemo.csproj", "{613131BE-B9CB-40F1-91B6-4C64FEA6B7D5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OneOfDemo", "Asp.NetCoreExperiment\OneOfDemo\OneOfDemo.csproj", "{613131BE-B9CB-40F1-91B6-4C64FEA6B7D5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -414,6 +414,14 @@ Global
 		{197A9630-DB6F-4307-9833-541BD5B5B02B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{197A9630-DB6F-4307-9833-541BD5B5B02B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{197A9630-DB6F-4307-9833-541BD5B5B02B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A8BD6DC-CBE0-485B-8130-4F3BFA7EABD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A8BD6DC-CBE0-485B-8130-4F3BFA7EABD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A8BD6DC-CBE0-485B-8130-4F3BFA7EABD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A8BD6DC-CBE0-485B-8130-4F3BFA7EABD6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{613131BE-B9CB-40F1-91B6-4C64FEA6B7D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{613131BE-B9CB-40F1-91B6-4C64FEA6B7D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{613131BE-B9CB-40F1-91B6-4C64FEA6B7D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{613131BE-B9CB-40F1-91B6-4C64FEA6B7D5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
