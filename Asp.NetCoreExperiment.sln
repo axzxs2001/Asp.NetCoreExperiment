@@ -180,6 +180,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RulesEngineWebDemo01", "Asp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentValidationWebDemo01", "Asp.NetCoreExperiment\FluentValidation\FluentValidationWebDemo01\FluentValidationWebDemo01.csproj", "{2D2A25EC-4A9F-44EA-8A47-BBE22AA5D142}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RulesEngineSample", "Asp.NetCoreExperiment\RulesEngine\RulesEngineSample\RulesEngineSample.csproj", "{53E436C7-34D5-4306-99BA-0363509C0940}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -458,6 +460,10 @@ Global
 		{2D2A25EC-4A9F-44EA-8A47-BBE22AA5D142}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2D2A25EC-4A9F-44EA-8A47-BBE22AA5D142}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2D2A25EC-4A9F-44EA-8A47-BBE22AA5D142}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53E436C7-34D5-4306-99BA-0363509C0940}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53E436C7-34D5-4306-99BA-0363509C0940}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53E436C7-34D5-4306-99BA-0363509C0940}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53E436C7-34D5-4306-99BA-0363509C0940}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -533,6 +539,7 @@ Global
 		{DC9990BE-4058-415D-A525-F85DA41DA269} = {1ECB0B06-A3CD-4512-B2DE-329AB868D832}
 		{E8980185-BC41-4E93-A77A-269A182827F4} = {8CB6E692-DDF0-4560-8036-387CEED32038}
 		{2D2A25EC-4A9F-44EA-8A47-BBE22AA5D142} = {1ECB0B06-A3CD-4512-B2DE-329AB868D832}
+		{53E436C7-34D5-4306-99BA-0363509C0940} = {8CB6E692-DDF0-4560-8036-387CEED32038}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
