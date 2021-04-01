@@ -1,0 +1,14 @@
+
+1、项目路径：
+templates
+    └───consoleasync
+            consoleasync.csproj
+            Program.cs
+
+注：确保consoleasync下没有obj,bin文件夹
+
+2、模板路径：
+templates
+    └───consoleasync
+        └───.template.config
+                template.json

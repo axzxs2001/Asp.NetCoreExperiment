@@ -176,11 +176,24 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentValidationDemo01", "A
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RulesEngine", "RulesEngine", "{8CB6E692-DDF0-4560-8036-387CEED32038}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RulesEngineWebDemo01", "Asp.NetCoreExperiment\RulesEngine\RulesEngineWebDemo01\RulesEngineWebDemo01.csproj", "{E8980185-BC41-4E93-A77A-269A182827F4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RulesEngineWebDemo01", "Asp.NetCoreExperiment\RulesEngine\RulesEngineWebDemo01\RulesEngineWebDemo01.csproj", "{E8980185-BC41-4E93-A77A-269A182827F4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentValidationWebDemo01", "Asp.NetCoreExperiment\FluentValidation\FluentValidationWebDemo01\FluentValidationWebDemo01.csproj", "{2D2A25EC-4A9F-44EA-8A47-BBE22AA5D142}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RulesEngineSample", "Asp.NetCoreExperiment\RulesEngine\RulesEngineSample\RulesEngineSample.csproj", "{53E436C7-34D5-4306-99BA-0363509C0940}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RulesEngineSample", "Asp.NetCoreExperiment\RulesEngine\RulesEngineSample\RulesEngineSample.csproj", "{53E436C7-34D5-4306-99BA-0363509C0940}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ProjectTemplate", "ProjectTemplate", "{E31FDA7D-723D-434A-99BF-79E701C60D23}"
+	ProjectSection(SolutionItems) = preProject
+		Asp.NetCoreExperiment\ProjectTemplate\working\templates\注意事项.txt = Asp.NetCoreExperiment\ProjectTemplate\working\templates\注意事项.txt
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GSWCon", "GSWCon", "{4033507B-3879-4F0B-AA3E-F4A8D1BBB259}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GSWWebAPI", "GSWWebAPI", "{C94DC9BA-F025-42D2-A0BA-59E3BDAB9BEB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GSWCon", "Asp.NetCoreExperiment\ProjectTemplate\working\templates\GSWConsole\GSWCon.csproj", "{D7D86A58-49B2-4231-8F89-4F501BD94029}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GSWWebAPI", "Asp.NetCoreExperiment\ProjectTemplate\working\templates\GSWWebAPI\GSWWebAPI.csproj", "{8CAE950A-3093-4C21-AAA6-D39DAB4A3DCE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -464,6 +477,14 @@ Global
 		{53E436C7-34D5-4306-99BA-0363509C0940}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{53E436C7-34D5-4306-99BA-0363509C0940}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{53E436C7-34D5-4306-99BA-0363509C0940}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D7D86A58-49B2-4231-8F89-4F501BD94029}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D7D86A58-49B2-4231-8F89-4F501BD94029}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D7D86A58-49B2-4231-8F89-4F501BD94029}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D7D86A58-49B2-4231-8F89-4F501BD94029}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8CAE950A-3093-4C21-AAA6-D39DAB4A3DCE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8CAE950A-3093-4C21-AAA6-D39DAB4A3DCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8CAE950A-3093-4C21-AAA6-D39DAB4A3DCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8CAE950A-3093-4C21-AAA6-D39DAB4A3DCE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -540,6 +561,10 @@ Global
 		{E8980185-BC41-4E93-A77A-269A182827F4} = {8CB6E692-DDF0-4560-8036-387CEED32038}
 		{2D2A25EC-4A9F-44EA-8A47-BBE22AA5D142} = {1ECB0B06-A3CD-4512-B2DE-329AB868D832}
 		{53E436C7-34D5-4306-99BA-0363509C0940} = {8CB6E692-DDF0-4560-8036-387CEED32038}
+		{4033507B-3879-4F0B-AA3E-F4A8D1BBB259} = {E31FDA7D-723D-434A-99BF-79E701C60D23}
+		{C94DC9BA-F025-42D2-A0BA-59E3BDAB9BEB} = {E31FDA7D-723D-434A-99BF-79E701C60D23}
+		{D7D86A58-49B2-4231-8F89-4F501BD94029} = {4033507B-3879-4F0B-AA3E-F4A8D1BBB259}
+		{8CAE950A-3093-4C21-AAA6-D39DAB4A3DCE} = {C94DC9BA-F025-42D2-A0BA-59E3BDAB9BEB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}

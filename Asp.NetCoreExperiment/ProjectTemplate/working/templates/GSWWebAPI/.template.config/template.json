@@ -1,0 +1,13 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "gsw",
+  "classifications": [ "Common","WebAPI","Console", "C#9" ],
+  "identity": "GSW WebAPI",
+  "name": "GSW WebAPI",
+  "shortName": "GSWWebAPI",
+  "tags": {
+    "language": "C#",
+    "type": "project"
+  },
+  "sourceName":"GSWWebAPI"
+}
