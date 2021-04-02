@@ -66,3 +66,6 @@ GSWNuget.nuspec文件内容：
 
 进入nupkg目录，安装这个Template包
 dotnet new -i GSWNuget.1.0.0.nupkg
+
+卸载这个Template包
+dotnet new -u GSWNuget
