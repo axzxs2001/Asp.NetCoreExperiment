@@ -1,13 +1,14 @@
 {
   "$schema": "http://json.schemastore.org/template",
-  "author": "gsw",
-  "classifications": [ "Common","WebAPI","Console", "C#9" ],
-  "identity": "GSW WebAPI",
-  "name": "GSW WebAPI",
-  "shortName": "GSWWebAPI",
+  "author": "桂素伟",
+  "classifications": [ "Common","桂模板", "WebAPI","C#9" ],
+  "identity": "GSW  Nuget",
+  "name": "GSW  Nuget",
+  "shortName": "GSWNuget",
   "tags": {
     "language": "C#",
     "type": "project"
   },
-  "sourceName":"GSWWebAPI"
+  "sourceName": "GSWNuget"
+
 }

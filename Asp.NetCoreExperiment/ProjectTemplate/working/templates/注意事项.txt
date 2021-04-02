@@ -7,8 +7,62 @@ templates
 
 注：确保consoleasync下没有obj,bin文件夹
 
+
 2、模板路径：
 templates
     └───consoleasync
         └───.template.config
                 template.json
+
+
+
+
+
+template.json文件
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "桂素伟",
+  "classifications": [ "Common","桂模板", "WebAPI","C#9" ],
+  "identity": "GSW  Nuget",
+  "name": "GSW  Nuget",
+  "shortName": "GSWNuget",
+  "tags": {
+    "language": "C#",
+    "type": "project"
+  },
+  "sourceName": "GSWNuget"
+}
+
+
+
+把GSWNuget.nuspec文件放在与项目文件目录同级
+GSWNuget.nuspec文件内容：
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>GSWNuget</id>
+    <version>1.0.0</version>
+    <description>
+     这是我用来生成Nuget格式的Templage。
+    </description>
+    <authors>桂素伟</authors>
+    <license type="expression">MIT</license>
+    <packageTypes>
+      <packageType name="Template" />
+    </packageTypes>
+  </metadata>
+  <files>
+    <file src="GSWNuget\**\*.*" exclude="GSWNuget\**\bin\**\*.*;GSWNuget\**\obj\**\*.*" target="Content" />
+  </files>  
+</package>
+
+
+
+
+生成Nuget
+.\nuget.exe pack .\GSWNuget.nuspec -OutputDirectory .\nupkg
+
+
+
+进入nupkg目录，安装这个Template包
+dotnet new -i GSWNuget.1.0.0.nupkg

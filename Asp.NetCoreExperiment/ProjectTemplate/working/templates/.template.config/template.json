@@ -1,0 +1,14 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "gsw",
+  "classifications": [ "Common","Nuget", "WebAPI", "Console", "C#9" ],
+  "identity": "GSW  Nuget",
+  "name": "GSW  Nuget",
+  "shortName": "GSWNuget",
+  "tags": {
+    "language": "C#",
+    "type": "project"
+  },
+  "sourceName": "GSWNuget"
+
+}

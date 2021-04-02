@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>GSWNuget</id>
+    <version>1.0.0</version>
+    <description>
+     这是我用来生成Nuget格式的Templage。
+    </description>
+    <authors>桂素伟</authors>
+    <license type="expression">MIT</license>
+    <packageTypes>
+      <packageType name="Template" />
+    </packageTypes>
+  </metadata>
+  <files>
+    <file src="GSWNuget\**\*.*" exclude="GSWNuget\**\bin\**\*.*;GSWNuget\**\obj\**\*.*" target="Content" />
+  </files>  
+</package>

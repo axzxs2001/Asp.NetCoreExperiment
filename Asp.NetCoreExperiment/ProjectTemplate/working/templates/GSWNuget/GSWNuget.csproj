@@ -1,39 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <PackageType>Template</PackageType>
-    <PackageVersion>1.0</PackageVersion>
-    <PackageId>GSWNuget</PackageId>
-    <Title>GSWNuget</Title>
-    <Authors>Me</Authors>
-    <Description>GSWNuget</Description>
-    <PackageTags>dotnet-new;templates;contoso</PackageTags>
-
     <TargetFramework>net5.0</TargetFramework>
-
-    <IncludeContentInPack>true</IncludeContentInPack>
-    <IncludeBuildOutput>false</IncludeBuildOutput>
-    <ContentTargetFolders>content</ContentTargetFolders>
-    <NoWarn>$(NoWarn);NU5128</NoWarn>
-    <IsPackable>true</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="\*" Exclude="\bin\**;\obj\**" />
-    <Compile Remove="\*" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Content Remove="\DumpStack.log.tmp" />
-    <Content Remove="\hiberfil.sys" />
-    <Content Remove="\OS" />
-    <Content Remove="\pagefile.sys" />
-    <Content Remove="\swapfile.sys" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.1" />
-  </ItemGroup>
-
 
 </Project>
