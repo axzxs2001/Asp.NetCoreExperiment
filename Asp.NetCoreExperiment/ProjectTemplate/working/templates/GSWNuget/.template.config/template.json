@@ -1,7 +1,7 @@
 {
   "$schema": "http://json.schemastore.org/template",
   "author": "桂素伟",
-  "classifications": [ "Common","桂模板", "WebAPI","C#9" ],
+  "classifications": [ "Common", "桂素伟模板", "WebAPI", "C#9" ],
   "identity": "GSW  Nuget",
   "name": "GSW  Nuget",
   "shortName": "GSWNuget",
@@ -9,6 +9,20 @@
     "language": "C#",
     "type": "project"
   },
-  "sourceName": "GSWNuget"
+  "sourceName": "GSWNuget",
+  "symbols": {
+    "UseNLog": {
+      "type": "parameter",
+      "datatype": "bool",
+      "defaultValue": "true",
+      "description": "是否使用NLog"
+    },
+    "UseDapper": {
+      "type": "parameter",
+      "datatype": "bool",
+      "defaultValue": "true",
+      "description": "是否使用Dapper"
+    }
+  }
 
 }

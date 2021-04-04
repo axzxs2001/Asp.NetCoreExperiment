@@ -178,7 +178,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RulesEngine", "RulesEngine"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RulesEngineWebDemo01", "Asp.NetCoreExperiment\RulesEngine\RulesEngineWebDemo01\RulesEngineWebDemo01.csproj", "{E8980185-BC41-4E93-A77A-269A182827F4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentValidationWebDemo01", "Asp.NetCoreExperiment\FluentValidation\FluentValidationWebDemo01\FluentValidationWebDemo01.csproj", "{2D2A25EC-4A9F-44EA-8A47-BBE22AA5D142}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentValidationWebDemo01", "Asp.NetCoreExperiment\FluentValidation\FluentValidationWebDemo01\FluentValidationWebDemo01.csproj", "{2D2A25EC-4A9F-44EA-8A47-BBE22AA5D142}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RulesEngineSample", "Asp.NetCoreExperiment\RulesEngine\RulesEngineSample\RulesEngineSample.csproj", "{53E436C7-34D5-4306-99BA-0363509C0940}"
 EndProject
@@ -196,6 +196,10 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GSWWebAPI", "Asp.NetCoreExperiment\ProjectTemplate\working\templates\GSWWebAPI\GSWWebAPI.csproj", "{8CAE950A-3093-4C21-AAA6-D39DAB4A3DCE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GSWNuget", "GSWNuget", "{47E2665C-681A-46F0-A237-3E9622D1CFE1}"
+	ProjectSection(SolutionItems) = preProject
+		Asp.NetCoreExperiment\ProjectTemplate\working\templates\GSWNuget\.template.config\ide.host.json = Asp.NetCoreExperiment\ProjectTemplate\working\templates\GSWNuget\.template.config\ide.host.json
+		Asp.NetCoreExperiment\ProjectTemplate\working\templates\GSWNuget\.template.config\template.json = Asp.NetCoreExperiment\ProjectTemplate\working\templates\GSWNuget\.template.config\template.json
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GSWNuget", "Asp.NetCoreExperiment\ProjectTemplate\working\templates\GSWNuget\GSWNuget.csproj", "{57DFEBBA-B964-415F-8EDF-E2036EF6E8D9}"
 EndProject
