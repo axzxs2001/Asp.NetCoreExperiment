@@ -11,6 +11,12 @@
   },
   "sourceName": "GSWNuget",
   "symbols": {
+    "UseAuth": {
+      "type": "parameter",
+      "datatype": "bool",
+      "defaultValue": "true",
+      "description": "是否使用Auth"
+    },
     "UseNLog": {
       "type": "parameter",
       "datatype": "bool",
@@ -22,6 +28,38 @@
       "datatype": "bool",
       "defaultValue": "true",
       "description": "是否使用Dapper"
+    },
+    "BackgroundColor": {
+      "type": "parameter",
+      "datatype": "choice",
+      "defaultValue": "aliceblue",
+      "choices": [
+        {
+          "choice": "aliceblue",
+          "description": "Alice Blue"
+        },
+        {
+          "choice": "dimgray",
+          "description": "dimgray"
+        },
+        {
+          "choice": "skyblue",
+          "description": "skyblue"
+        }
+      ],
+      "replaces": "skyblue"
+    },
+    "Aliceblue": {
+      "type": "computed",
+      "value": "(BackgroundColor == \"aliceblue\")"
+    },
+    "Dimgray": {
+      "type": "computed",
+      "value": "(BackgroundColor == \"dimgray\")"
+    },
+    "Dkyblue": {
+      "type": "computed",
+      "value": "(BackgroundColor == \"skyblue\")"
     }
   }
 

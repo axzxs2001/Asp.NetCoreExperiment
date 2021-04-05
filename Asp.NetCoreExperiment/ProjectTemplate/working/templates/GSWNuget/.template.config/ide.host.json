@@ -15,6 +15,17 @@
         "text": "Use Dapper"
       },
       "isVisible": "true"
+    },
+    {
+      "id": "UseAuth",
+      "name": {
+        "text": "Use Auth"
+      },
+      "isVisible": "true"
+    },
+    {
+      "id": "BackgroundColor",
+      "isVisible": "true"
     }
   ] 
   
