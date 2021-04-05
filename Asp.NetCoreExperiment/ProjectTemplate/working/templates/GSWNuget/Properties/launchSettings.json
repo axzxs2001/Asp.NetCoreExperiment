@@ -8,15 +8,7 @@
       "sslPort": 44329
     }
   },
-  "profiles": {
-    "IIS Express": {
-      "commandName": "IISExpress",
-      "launchBrowser": true,
-      "launchUrl": "swagger",
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
-      }
-    },
+  "profiles": { 
     "GSWNuget": {
       "commandName": "Project",
       "dotnetRunMessages": "true",
