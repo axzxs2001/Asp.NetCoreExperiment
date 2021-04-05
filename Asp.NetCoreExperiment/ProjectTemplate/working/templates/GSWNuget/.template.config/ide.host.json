@@ -24,9 +24,15 @@
       "isVisible": "true"
     },
     {
+      "id": "UseMyData",
+      "name": {
+        "text": "Use MyData"
+      },
+      "isVisible": "true"
+    },
+    {
       "id": "BackgroundColor",
       "isVisible": "true"
-    }
-  ] 
-  
+    }    
+  ]
 }

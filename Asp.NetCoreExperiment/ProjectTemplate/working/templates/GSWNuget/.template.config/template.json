@@ -17,6 +17,12 @@
       "defaultValue": "true",
       "description": "是否使用Auth"
     },
+    "UseMyData": {
+      "type": "parameter",
+      "datatype": "bool",
+      "defaultValue": "true",
+      "description": "是否使用UseMyData"
+    },
     "UseNLog": {
       "type": "parameter",
       "datatype": "bool",
@@ -60,7 +66,16 @@
     "Dkyblue": {
       "type": "computed",
       "value": "(BackgroundColor == \"skyblue\")"
+    }    
+  },
+  "sources": [
+    {
+      "modifiers": [
+        {
+          "condition": "(!UseMyData)",
+          "exclude": [ "MyData/Data.cs" ]
+        }
+      ]
     }
-  }
-
+  ]  
 }
