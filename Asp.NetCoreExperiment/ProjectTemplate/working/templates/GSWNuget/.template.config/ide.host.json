@@ -10,6 +10,13 @@
       "isVisible": "true"
     },
     {
+      "id": "MyName",
+      "name": {
+        "text": "Name"
+      },
+      "isVisible": "true"
+    }, 
+    {
       "id": "UseDapper",
       "name": {
         "text": "Use Dapper"
@@ -33,6 +40,6 @@
     {
       "id": "BackgroundColor",
       "isVisible": "true"
-    }    
+    }
   ]
 }

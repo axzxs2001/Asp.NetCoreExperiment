@@ -11,6 +11,14 @@
   },
   "sourceName": "GSWNuget",
   "symbols": {
+    "MyName": {
+      "type": "parameter",
+      "datatype": "text",
+      "defaultValue": "",
+      "replaces": "myname",
+      "description": "我的名称"
+    },
+
     "UseAuth": {
       "type": "parameter",
       "datatype": "bool",
@@ -66,7 +74,7 @@
     "Dkyblue": {
       "type": "computed",
       "value": "(BackgroundColor == \"skyblue\")"
-    }    
+    }
   },
   "sources": [
     {
