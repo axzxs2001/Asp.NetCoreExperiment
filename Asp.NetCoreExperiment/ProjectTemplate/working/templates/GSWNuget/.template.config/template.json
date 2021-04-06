@@ -11,20 +11,14 @@
   },
   "sourceName": "GSWNuget",
   "symbols": {
-    "MyName": {
+    "Author": {
       "type": "parameter",
       "datatype": "text",
       "defaultValue": "",
-      "replaces": "myname",
-      "description": "我的名称"
+      "replaces": "author",
+      "description": "作者"
     },
 
-    "UseAuth": {
-      "type": "parameter",
-      "datatype": "bool",
-      "defaultValue": "true",
-      "description": "是否使用Auth"
-    },
     "UseMyData": {
       "type": "parameter",
       "datatype": "bool",
@@ -43,37 +37,36 @@
       "defaultValue": "true",
       "description": "是否使用Dapper"
     },
-    "BackgroundColor": {
+    "AuthType": {
       "type": "parameter",
       "datatype": "choice",
-      "defaultValue": "aliceblue",
+      "defaultValue": "None",
       "choices": [
         {
-          "choice": "aliceblue",
-          "description": "Alice Blue"
+          "choice": "None",
+          "description": "None"
         },
         {
-          "choice": "dimgray",
-          "description": "dimgray"
+          "choice": "Role",
+          "description": "Role"
         },
         {
-          "choice": "skyblue",
-          "description": "skyblue"
+          "choice": "ploy",
+          "description": "Ploy"
         }
-      ],
-      "replaces": "skyblue"
+      ]
     },
-    "Aliceblue": {
+    "None": {
       "type": "computed",
-      "value": "(BackgroundColor == \"aliceblue\")"
+      "value": "(AuthType == \"None\")"
     },
-    "Dimgray": {
+    "Role": {
       "type": "computed",
-      "value": "(BackgroundColor == \"dimgray\")"
+      "value": "(AuthType == \"Role\")"
     },
-    "Dkyblue": {
+    "Ploy": {
       "type": "computed",
-      "value": "(BackgroundColor == \"skyblue\")"
+      "value": "(AuthType == \"Ploy\")"
     }
   },
   "sources": [

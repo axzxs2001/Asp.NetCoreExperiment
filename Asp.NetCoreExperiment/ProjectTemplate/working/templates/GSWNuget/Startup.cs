@@ -1,3 +1,6 @@
+/********************************
+ *作者：author
+ ********************************/
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -11,9 +14,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-#if(UseDapper)
-using Dapper;
-#endif
+
 namespace GSWNuget
 {
     public class Startup
@@ -22,24 +23,19 @@ namespace GSWNuget
         {
             Configuration = configuration;
         }
-
         public IConfiguration Configuration { get; }
-
-        // This method gets called by the runtime. Use this method to add services to the container.
+    
         public void ConfigureServices(IServiceCollection services)
-        {
-            //变更名和值都会补替换
-            var myname = "myname";
+        {   
 
-
-#if Aliceblue
-            var bg = "Aliceblue";
+#if None
+            var authType = "None";
 #endif
-#if Dimgray
-            var bg = "Dimgray";
+#if Role
+            var authType = "Role";
 #endif
-#if Dkyblue
-            var bg = "Dkyblue";
+#if Ploy
+            var authType = "Ploy";
 #endif
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -48,7 +44,6 @@ namespace GSWNuget
             });
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -59,11 +54,8 @@ namespace GSWNuget
             }
 
             app.UseHttpsRedirection();
-
             app.UseRouting();
-
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

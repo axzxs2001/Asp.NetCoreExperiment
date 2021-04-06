@@ -10,9 +10,9 @@
       "isVisible": "true"
     },
     {
-      "id": "MyName",
+      "id": "Author",
       "name": {
-        "text": "Name"
+        "text": "Author"
       },
       "isVisible": "true"
     }, 
@@ -22,14 +22,7 @@
         "text": "Use Dapper"
       },
       "isVisible": "true"
-    },
-    {
-      "id": "UseAuth",
-      "name": {
-        "text": "Use Auth"
-      },
-      "isVisible": "true"
-    },
+    },   
     {
       "id": "UseMyData",
       "name": {
@@ -38,7 +31,7 @@
       "isVisible": "true"
     },
     {
-      "id": "BackgroundColor",
+      "id": "AuthType",
       "isVisible": "true"
     }
   ]
