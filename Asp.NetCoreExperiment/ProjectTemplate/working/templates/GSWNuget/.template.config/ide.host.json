@@ -15,7 +15,7 @@
         "text": "Author"
       },
       "isVisible": "true"
-    }, 
+    },
     {
       "id": "UseDapper",
       "name": {
@@ -24,9 +24,9 @@
       "isVisible": "true"
     },   
     {
-      "id": "UseMyData",
+      "id": "UseSwagger",
       "name": {
-        "text": "Use MyData"
+        "text": "Use Swagger"
       },
       "isVisible": "true"
     },

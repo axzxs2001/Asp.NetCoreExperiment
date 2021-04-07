@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MYSSS</name>
+    </assembly>
+    <members>
+        <member name="M:MYSSS.Controllers.TestController.Get">
+            <summary>
+            这是一个test
+            </summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

@@ -18,13 +18,12 @@
       "replaces": "author",
       "description": "作者"
     },
-
-    "UseMyData": {
+    "UseSwagger": {
       "type": "parameter",
       "datatype": "bool",
       "defaultValue": "true",
-      "description": "是否使用UseMyData"
-    },
+      "description": "是否使用Swagger Open API"
+    },  
     "UseNLog": {
       "type": "parameter",
       "datatype": "bool",
@@ -73,8 +72,8 @@
     {
       "modifiers": [
         {
-          "condition": "(!UseMyData)",
-          "exclude": [ "MyData/Data.cs" ]
+          "condition": "(!UseNLog)",
+          "exclude": [ "NLog.config" ]
         }
       ]
     }
