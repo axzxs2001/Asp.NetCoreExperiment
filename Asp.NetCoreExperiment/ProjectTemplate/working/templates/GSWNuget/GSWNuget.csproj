@@ -3,6 +3,9 @@
 		<TargetFramework>net5.0</TargetFramework>
 		<Version>2.0.0</Version>
 	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+	  <DocumentationFile>C:\MyFile\Source\Repos\Asp.NetCoreExperiment\Asp.NetCoreExperiment\ProjectTemplate\working\templates\GSWNuget\GSWNuget.xml</DocumentationFile>
+	</PropertyGroup>
 	<ItemGroup>
 		<!--#if (UseDapper)
 		<PackageReference Include="Dapper" Version="2.0.78" />
