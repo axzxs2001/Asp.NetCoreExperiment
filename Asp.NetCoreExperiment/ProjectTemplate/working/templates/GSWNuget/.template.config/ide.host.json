@@ -10,12 +10,29 @@
       "isVisible": "true"
     },
     {
+      "id": "Author",
+      "name": {
+        "text": "Author"
+      },
+      "isVisible": "true"
+    },
+    {
       "id": "UseDapper",
       "name": {
         "text": "Use Dapper"
       },
       "isVisible": "true"
+    },   
+    {
+      "id": "UseSwagger",
+      "name": {
+        "text": "Use Swagger"
+      },
+      "isVisible": "true"
+    },
+    {
+      "id": "AuthType",
+      "isVisible": "true"
     }
-  ] 
-  
+  ]
 }

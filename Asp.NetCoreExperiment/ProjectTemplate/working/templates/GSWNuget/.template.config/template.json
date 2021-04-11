@@ -11,6 +11,19 @@
   },
   "sourceName": "GSWNuget",
   "symbols": {
+    "Author": {
+      "type": "parameter",
+      "datatype": "text",
+      "defaultValue": "",
+      "replaces": "author",
+      "description": "作者"
+    },
+    "UseSwagger": {
+      "type": "parameter",
+      "datatype": "bool",
+      "defaultValue": "true",
+      "description": "是否使用Swagger Open API"
+    },  
     "UseNLog": {
       "type": "parameter",
       "datatype": "bool",
@@ -22,7 +35,47 @@
       "datatype": "bool",
       "defaultValue": "true",
       "description": "是否使用Dapper"
+    },
+    "AuthType": {
+      "type": "parameter",
+      "datatype": "choice",
+      "defaultValue": "None",
+      "choices": [
+        {
+          "choice": "None",
+          "description": "None"
+        },
+        {
+          "choice": "Role",
+          "description": "Role"
+        },
+        {
+          "choice": "ploy",
+          "description": "Ploy"
+        }
+      ]
+    },
+    "None": {
+      "type": "computed",
+      "value": "(AuthType == \"None\")"
+    },
+    "Role": {
+      "type": "computed",
+      "value": "(AuthType == \"Role\")"
+    },
+    "Ploy": {
+      "type": "computed",
+      "value": "(AuthType == \"Ploy\")"
     }
-  }
-
+  },
+  "sources": [
+    {
+      "modifiers": [
+        {
+          "condition": "(!UseNLog)",
+          "exclude": [ "NLog.config" ]
+        }
+      ]
+    }
+  ]  
 }
