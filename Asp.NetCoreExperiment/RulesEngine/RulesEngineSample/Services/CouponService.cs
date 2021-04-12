@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace RulesEngineSample.Services
@@ -18,6 +19,7 @@ namespace RulesEngineSample.Services
         public CouponService(ILogger<CouponService> logger)
         {
             _logger = logger;
+            //假装用户用的优惠券
             _userCoupons = new List<Coupon>() {
                 new Coupon
                 {
@@ -55,6 +57,7 @@ namespace RulesEngineSample.Services
                     GoodsID="SP0000003"
                 },
             };
+            //假装当前用户的订单
             _order = new Order
             {
                 OrderNo = "NO00000001",
@@ -68,6 +71,10 @@ namespace RulesEngineSample.Services
             };
             _user = new User { ID = 1, UserName = "zhangsan" };
         }
+        /// <summary>
+        /// 适配优惠券
+        /// </summary>
+        /// <returns></returns>
         public async Task<string> SelectCouponAsync()
         {
             var workRules = new RulesEngine.Models.WorkflowRules();
@@ -87,20 +94,17 @@ namespace RulesEngineSample.Services
                 rules.Add(rule);
             }
             workRules.Rules = rules;
-
             var rulesEngine = new RulesEngine.RulesEngine(new WorkflowRules[] { workRules }, _logger, new ReSettings());
             var ruleResults = await rulesEngine.ExecuteAllRulesAsync("优惠券", _order, _user);
-
-            var valueCoupons = new List<string>();
+           // var valueCoupons = new List<string>();
             //处理结果
-            var discountOffered = "";
-
+            var discountCoupons = new StringBuilder();
             foreach (var ruleResult in ruleResults)
             {
                 if (ruleResult.IsSuccess)
                 {
-                    discountOffered += $"可以使用的优惠券“{_userCoupons.SingleOrDefault(s => s.Code == ruleResult.Rule.SuccessEvent)?.Name}”,Code是：{ruleResult.Rule.SuccessEvent} \r\n";
-                    valueCoupons.Add(ruleResult.Rule.SuccessEvent);
+                    discountCoupons.AppendLine($"可以使用的优惠券 “{_userCoupons.SingleOrDefault(s => s.Code == ruleResult.Rule.SuccessEvent)?.Name}”, Code是：{ruleResult.Rule.SuccessEvent}");
+                    //valueCoupons.Add(ruleResult.Rule.SuccessEvent);
                 }
             }
             //resultList.OnSuccess((eventName) =>
@@ -109,17 +113,17 @@ namespace RulesEngineSample.Services
             //});
             ruleResults.OnFail(() =>
             {
-                discountOffered = "此用户没有适合的优惠券！";
+                discountCoupons.AppendLine("您没有适合的优惠券！");
             });
-            return discountOffered;
-
-
-
+            return discountCoupons.ToString();
         }
-
+        /// <summary>
+        /// 计算订单支付总额
+        /// </summary>
+        /// <param name="code"></param>
+        /// <returns></returns>
         public string GetOrderAmount(string code)
-        {
-            //计算支付总额
+        {            
             var selectCoupon = _userCoupons.SingleOrDefault(s => s.Code == code);
             var orderAmount = 0m;
             switch (selectCoupon.Symbol)
@@ -155,11 +159,8 @@ namespace RulesEngineSample.Services
         public DateTime BeginTime { get; set; }
         public DateTime EndTime { get; set; }
         public string Expression { get; set; }
-
         public string Symbol { get; set; }
-
         public float Number { get; set; }
-
         public string GoodsID { get; set; }
     }
 
@@ -168,19 +169,12 @@ namespace RulesEngineSample.Services
         public int ID { get; set; }
         public string UserName { get; set; }
     }
-    public class UserCoupon
-    {
-        public int UserID { get; set; }
-        public int CouponID { get; set; }
-    }
-
     public class Order
     {
         public string OrderNo { get; set; }
         public DateTime OrderTime { get; set; }
         public List<Detail> Details { get; set; }
     }
-
     public class Detail
     {
         public string GoodsID { get; set; }
