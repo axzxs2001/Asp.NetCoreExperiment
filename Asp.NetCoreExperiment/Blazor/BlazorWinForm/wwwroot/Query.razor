@@ -1,0 +1,56 @@
+@using Microsoft.AspNetCore.Components.Web
+@using Dapper
+@using System.Data.SqlClient;
+
+<div class="row">
+	<div class="col-1"></div>
+	<div class="col-10">
+		<div class="input-group mb-3">
+			<input type="text" class="form-control" id="zjm" placeholder="请输入助记码" @bind="ZJM" aria-describedby="button-addon2">
+			<button class="btn btn-outline-secondary" type="button" @onclick="GetGoods" id="button-addon2">查询</button>
+		</div>
+	</div>
+	<div class="col-1"></div>
+</div>
+
+@code {
+	private string ZJM { get; set; }
+	List<Goods> list = new List<Goods>();
+	void GetGoods()
+	{
+		using (var con = new SqlConnection("server=.;database=ksoa_cloud;uid=sa;pwd=sa;"))
+		{
+			if (string.IsNullOrWhiteSpace(ZJM))
+			{
+				list = con.Query<Goods>("select top 30 spid,spmch,shpchd,shpgg from spkfk  ").ToList();
+			}
+			else
+			{
+				list = con.Query<Goods>("select top 30 spid,spmch,shpchd,shpgg from spkfk where zjm like @zjm ",new  {zjm="%"+ZJM+"%" }).ToList();
+			}
+		}
+	}
+}
+<div class="row" style="padding:10px;">
+	<table class="table table-striped table-hover">
+		<thead>
+			<tr class="table-dark">
+				<th scope="col">编号</th>
+				<th scope="col">名称</th>
+				<th scope="col">产地</th>
+				<th scope="col">规格</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var item in list)
+			{
+	   <tr>
+		<td>@item.spid</td>
+		<td>@item.spmch</td>
+		<td>@item.shpchd</td>
+		<td>@item.shpgg</td>
+	   </tr>
+			}
+  </tbody>
+ </table>
+</div>
