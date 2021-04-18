@@ -37,8 +37,7 @@ namespace BlazorWinForm
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1720, 1226);
             this.Name = "frmMain";
-            this.Text = "药品查询";
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.Text = "药品查询";        
             this.ResumeLayout(false);
 
         }
