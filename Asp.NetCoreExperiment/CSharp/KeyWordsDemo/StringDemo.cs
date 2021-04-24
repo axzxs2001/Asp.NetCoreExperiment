@@ -4,7 +4,8 @@ using static System.Console;
 
 namespace KeyWordsDemo
 {
-    class StringDemo : Demo
+  
+    class StringDemo : IDemo
     {
         public void Run()
         {
