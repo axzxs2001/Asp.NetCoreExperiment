@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Text.Json;
 using System.Text.Unicode;
@@ -18,85 +17,19 @@ namespace CsvHelperDemo01
         static void Main(string[] args)
         {
             var file = $"{Directory.GetCurrentDirectory()}/goodses.csv";
-            WriteCsv(file, true);
+            var goodses = GoodsCreater();
+
+            ICsvHandle csvHandle = new BasisCsvHandle();
+            csvHandle.IsBOM = true;
+            csvHandle.WriteCsv(file, goodses);
             Console.WriteLine("Write is ok!");
 
-            foreach (var goods in ReadCsv(file, true))
+            var readGoodses = csvHandle.ReadCsv(file);
+            foreach (var goods in readGoodses)
             {
                 WriteLine(goods);
             }
         }
-
-        static List<Goods> ReadCsv(string file, bool isBOM = false)
-        {
-            MemoryStream memory = null;
-            if (isBOM)
-            {
-                using (var reader = new FileStream(file, FileMode.OpenOrCreate, FileAccess.ReadWrite))
-                {
-                    var bytes = new byte[reader.Length];
-                    reader.Read(bytes, 0, bytes.Length);
-
-                    bytes = bytes.Skip(3).Take(bytes.Length - 3).ToArray();
-
-                    memory = new MemoryStream(bytes);
-                }
-            }
-            var config = new CsvConfiguration(CultureInfo.InvariantCulture)
-            {
-                NewLine = "\r\n"
-            };
-            if (memory == null)
-            {
-                using (var reader = new StreamReader(file))
-                using (var csv = new CsvReader(reader, config))
-                {
-                    var goodses = csv.GetRecords<Goods>();
-                    return goodses.ToList();
-                }
-            }
-            else
-            {
-                using (var reader = new StreamReader(memory))
-                using (var csv = new CsvReader(reader, config))
-                {
-                    var goodses = csv.GetRecords<Goods>();
-                    return goodses.ToList();
-                }
-            }
-        }
-        static void WriteCsv(string file, bool isBOM = false)
-        {
-            var config = new CsvConfiguration(CultureInfo.InvariantCulture)
-            {
-                NewLine = "\r\n"
-            };
-
-            var goodses = GoodsCreater();
-            using (var writer = new StreamWriter(file))
-            {
-                using (var csv = new CsvWriter(writer, config))
-                {                  
-                    csv.WriteRecords(goodses);
-                }
-            }
-            if (isBOM)
-            {
-                //追究加BOM
-                using (var writer = new FileStream(file, FileMode.OpenOrCreate, FileAccess.ReadWrite))
-                {
-                    var bytes = new byte[writer.Length];
-                    writer.Read(bytes, 0, bytes.Length);
-                    byte[] BOM = { 0xEF, 0xBB, 0xBF };
-                    var list = new List<byte>();
-                    list.AddRange(BOM);
-                    list.AddRange(bytes);
-                    writer.Position = 0;
-                    writer.Write(list.ToArray(), 0, list.Count);
-                }
-            }
-        }
-      
         static List<Goods> GoodsCreater()
         {
             var goodses = new List<Goods>();
@@ -209,7 +142,143 @@ namespace CsvHelperDemo01
             }
             return goodses;
         }
+    }
 
+    public interface ICsvHandle
+    {
+        List<Goods> ReadCsv(string file);
+        void WriteCsv(string file, List<Goods> goodses);
+
+        private static bool _isBOM;
+        public bool IsBOM { get => _isBOM; set => _isBOM = value; }
+    }
+    public class BasisCsvHandle : ICsvHandle
+    {
+        public List<Goods> ReadCsv(string file)
+        {
+            var config = new CsvConfiguration(CultureInfo.InvariantCulture)
+            {
+                NewLine = "\r\n"
+            };
+            using (var reader = new StreamReader(file))
+            using (var csv = new CsvReader(reader, config))
+            {
+                var goodses = csv.GetRecords<Goods>();
+                return goodses.ToList();
+            }
+        }
+        public void WriteCsv(string file, List<Goods> goodses)
+        {
+            var config = new CsvConfiguration(CultureInfo.InvariantCulture)
+            {
+                NewLine = "\r\n"
+            };
+            using (var writer = new StreamWriter(file))
+            {
+                using (var csv = new CsvWriter(writer, config))
+                {
+                    csv.WriteRecords(goodses);
+                }
+            }
+        }
+    }
+    public class StrengthenCsvHandle : ICsvHandle
+    {
+        public List<Goods> ReadCsv(string file)
+        {
+            MemoryStream memory = null;
+            using (var reader = new FileStream(file, FileMode.OpenOrCreate, FileAccess.ReadWrite))
+            {
+                var bytes = new byte[reader.Length];
+                reader.Read(bytes, 0, bytes.Length);
+                if (((ICsvHandle)this).IsBOM)
+                {
+                    bytes = bytes.Skip(3).Take(bytes.Length - 3).ToArray();
+
+                }
+                memory = new MemoryStream(bytes);
+            }
+            var config = new CsvConfiguration(CultureInfo.InvariantCulture)
+            {
+                NewLine = "\r\n"
+            };
+            using (var reader = new StreamReader(memory))
+            using (var csv = new CsvReader(reader, config))
+            {
+                var goodses = csv.GetRecords<Goods>();
+                return goodses.ToList();
+            }
+        }
+        public void WriteCsv(string file, List<Goods> goodses)
+        {
+            var config = new CsvConfiguration(CultureInfo.InvariantCulture)
+            {
+                NewLine = "\r\n"
+            };
+            using (var writer = new StreamWriter(file))
+            {
+                using (var csv = new CsvWriter(writer, config))
+                {
+                    csv.WriteRecords(goodses);
+                }
+            }
+            if (((ICsvHandle)this).IsBOM)
+            {
+                //追究加BOM
+                using (var writer = new FileStream(file, FileMode.OpenOrCreate, FileAccess.ReadWrite))
+                {
+                    var bytes = new byte[writer.Length];
+                    writer.Read(bytes, 0, bytes.Length);
+                    byte[] BOM = { 0xEF, 0xBB, 0xBF };
+                    var list = new List<byte>();
+                    list.AddRange(BOM);
+                    list.AddRange(bytes);
+                    writer.Position = 0;
+                    writer.Write(list.ToArray(), 0, list.Count);
+                }
+            }
+        }
+    }
+    public class PerfectCsvHandle : ICsvHandle
+    {
+        public List<Goods> ReadCsv(string file)
+        {
+            var config = new CsvConfiguration(CultureInfo.InvariantCulture)
+            {
+                NewLine = "\r\n"
+            };
+            using (var reader = new StreamReader(file))
+            using (var csv = new CsvReader(reader, config))
+            {
+                if (((ICsvHandle)this).IsBOM)
+                {
+                    reader.BaseStream.Position = 3;
+                }
+                var goodses = csv.GetRecords<Goods>();
+                return goodses.ToList();
+            }
+
+        }
+        public void WriteCsv(string file, List<Goods> goodses)
+        {
+            var config = new CsvConfiguration(CultureInfo.InvariantCulture)
+            {
+                NewLine = "\r\n"
+            };
+
+            using (var writer = new StreamWriter(file))
+            {
+                using (var csv = new CsvWriter(writer, config))
+                {
+                    if (((ICsvHandle)this).IsBOM)
+                    {
+                        byte[] BOM = { 0xEF, 0xBB, 0xBF };
+                        writer.Write(System.Text.Encoding.UTF8.GetString(BOM));
+                    }
+                    csv.WriteRecords(goodses);
+                }
+            }
+        }
     }
 
     /// <summary>
