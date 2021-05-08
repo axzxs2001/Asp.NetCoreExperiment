@@ -10,6 +10,7 @@ using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using WebDemo01.Services;
@@ -29,9 +30,17 @@ namespace WebDemo01
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.TryAddScoped<IReadDapper, ReadDapper>();
-            services.TryAddScoped<IDbConnection, MySqlConnection>();
+            // services.AddScoped<IDbConnection, MySqlConnection>();
+            // services.AddScoped<IDbConnection, SqlConnection>();
+            // services.AddScoped<IReadDapper, MySqlReadDapper>();
+            // services.AddScoped<IReadDapper, MsSqlReadDapper>();
 
+
+            services.AddScoped<IDbConnection, MySqlConnection>();
+            services.AddScoped<IReadDapper, ReadDapper>();
+            services.AddScoped<IWriteDapper, WriteDapper>();
+
+            services.AddScoped<IShopService, ShopService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

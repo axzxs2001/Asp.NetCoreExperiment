@@ -10,22 +10,25 @@ namespace WebDemo01.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class WeatherForecastController : ControllerBase
+    public class HomeController : ControllerBase
     {
-       
-        private readonly IReadDapper _read;
-        private readonly ILogger<WeatherForecastController> _logger;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger, IReadDapper read)
+        private readonly IShopService _shopService;
+        private readonly ILogger<HomeController> _logger;
+
+        public HomeController(ILogger<HomeController> logger, IShopService shopService)
         {
+           
             _logger = logger;
-            _read = read;
+            _shopService = shopService;
+
         }
 
         [HttpGet]
         public string Get()
         {
-          return  "OK";
+            _shopService.FF();
+            return "OK";
         }
     }
 }
