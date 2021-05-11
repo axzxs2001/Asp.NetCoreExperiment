@@ -6,9 +6,17 @@ namespace Demo01
     {
         static void Main(string[] args)
         {
-            // Run the various scenarios
-            Console.WriteLine("Running HelloWorld:\n");
-            UseHelloWorldGenerator.Run();
+            while (true)
+            {
+       
+
+                var begin = DateTime.Now;
+                // Run the various scenarios
+                Console.WriteLine("Running HelloWorld:\n");
+                UseHelloWorldGenerator.Run();
+                Console.WriteLine((DateTime.Now - begin).TotalMilliseconds);
+                Console.ReadLine();
+            }
         }
     }
 

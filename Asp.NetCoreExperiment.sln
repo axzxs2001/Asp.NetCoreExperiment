@@ -225,9 +225,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GitHubNotice", "Asp.NetCore
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTest", "UnitTest", "{DCA00EC4-3C03-4A9B-9BB7-25D4210BED4A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebDemo01", "Asp.NetCoreExperiment\UnitTest\WebDemo01\WebDemo01.csproj", "{49839A4A-8706-43CD-A79E-F4E9C47A4753}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebDemo01", "Asp.NetCoreExperiment\UnitTest\WebDemo01\WebDemo01.csproj", "{49839A4A-8706-43CD-A79E-F4E9C47A4753}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebDemo01.UnitTest", "Asp.NetCoreExperiment\UnitTest\WebDemo01.UnitTest\WebDemo01.UnitTest.csproj", "{1E75ED51-7F9C-46ED-98C4-FDEAF278EE23}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebDemo01.UnitTest", "Asp.NetCoreExperiment\UnitTest\WebDemo01.UnitTest\WebDemo01.UnitTest.csproj", "{1E75ED51-7F9C-46ED-98C4-FDEAF278EE23}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NewFolder1", "NewFolder1", "{BE33FB89-9716-44EE-A72F-4F88D6D162AD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

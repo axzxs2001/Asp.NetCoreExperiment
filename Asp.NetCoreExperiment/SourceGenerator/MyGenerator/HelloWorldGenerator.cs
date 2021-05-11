@@ -22,8 +22,8 @@ namespace HelloWorldGenerated
     {
         public static void SayHello2() 
         {
-            Console.WriteLine(""Hello from generated code!"");
-            Console.WriteLine(""The following syntax trees existed in the compilation that created this program:"");
+            Console.WriteLine(""这是生成的代码"");
+
 ");
 
             // using the context, get a list of syntax trees in the users compilation
@@ -32,7 +32,7 @@ namespace HelloWorldGenerated
             // add the filepath of each tree to the class we're building
             foreach (SyntaxTree tree in syntaxTrees)
             {
-                sourceBuilder.AppendLine($@"Console.WriteLine(@"" - {tree.FilePath}"");");
+                sourceBuilder.AppendLine($@"Console.WriteLine(@""引用程序集- {tree.FilePath}"");");
             }
 
             // finish creating the source to inject
