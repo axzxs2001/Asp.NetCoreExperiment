@@ -16,16 +16,19 @@ namespace KeyWordsDemo
             //WriteLine("=====================");
             //Demo stringdemo = new StringDemo();
             //stringdemo.Run();
-            //WriteLine("=====================");
-            IDemo defaultDemo = new DefaultDemo();
-            defaultDemo.Run();
+            ////WriteLine("=====================");
+            //IDemo defaultDemo = new DefaultDemo();
+            //defaultDemo.Run();
 
-            IDemo newDemo = new NewDemo();
-            newDemo.Run();
+            //IDemo newDemo = new NewDemo();
+            //newDemo.Run();
 
-            IDemo outDemo = new OutDemo();
-            outDemo.Run();
+            //IDemo outDemo = new OutDemo();
+            //outDemo.Run();
 
+
+            IDemo imp = new ImplicitAndExplicitDemo();
+            imp.Run();
         }
     }
 
