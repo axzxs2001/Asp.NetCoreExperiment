@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using static System.Console;
 
 namespace KeyWordsDemo
 {
@@ -10,33 +7,56 @@ namespace KeyWordsDemo
     {
         public void Run()
         {
-            Date date = DateTime.Now;
-            Console.WriteLine(date);
-            DateTime datetime = (DateTime)date;
-            Console.WriteLine(datetime);
+            //把DateTime赋值 给Date
+            Date date = DateTime.Parse("2030-01-01 12:12:12");
+            WriteLine($"Date:{date}");
+            WriteLine($"Year:{date.Year}");
+            WriteLine($"Month:{date.Month}");
+            WriteLine($"Day:{date.Day}");
+
+            //把Date转成DateTime类型
+            var datetime = (DateTime)date;
+            WriteLine($"DateTime:{datetime}");
         }
 
-        class Date
+        public struct Date
         {
-            string _value;
-            public Date(DateTime dateTime)
+            private DateTime _value;
+            public int Year
             {
-                _value = dateTime.ToString("yyyy/MM/dd");
+                get
+                {
+                    return _value.Year;
+                }
             }
-
+            public int Month
+            {
+                get
+                {
+                    return _value.Month;
+                }
+            }
+            public int Day
+            {
+                get
+                {
+                    return _value.Day;
+                }
+            }
             public static implicit operator Date(DateTime dateTime)
             {
-                return new Date(dateTime);
+                var date = new Date();
+                date._value = dateTime;
+                return date;
             }
             public static explicit operator DateTime(Date date)
             {
-                return DateTime.Parse(date._value);
+                return date._value.Date;
             }
             public override string ToString()
             {
-                return _value;
+                return _value.ToString("yyyy/MM/dd");
             }
         }
-
     }
 }
