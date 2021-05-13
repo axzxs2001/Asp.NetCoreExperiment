@@ -27,8 +27,11 @@ namespace KeyWordsDemo
             //outDemo.Run();
 
 
-            IDemo imp = new ImplicitAndExplicitDemo();
-            imp.Run();
+            //IDemo imp = new ImplicitAndExplicitDemo();
+            //imp.Run();
+
+            IDemo rangdemo = new RangDemo();
+            rangdemo.Run();
         }
     }
 
