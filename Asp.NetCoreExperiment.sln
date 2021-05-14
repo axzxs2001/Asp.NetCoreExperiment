@@ -205,19 +205,19 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GSWNuget", "Asp.NetCoreExpe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HotRealoadDemo", "Asp.NetCoreExperiment\Architecture\HotRealoadDemo\HotRealoadDemo.csproj", "{67C452AC-89D2-480A-A7B9-A876DB368EF1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorWinForm", "Asp.NetCoreExperiment\Blazor\BlazorWinForm\BlazorWinForm.csproj", "{59B5BC32-1204-4691-834C-2166D2D6331A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorWinForm", "Asp.NetCoreExperiment\Blazor\BlazorWinForm\BlazorWinForm.csproj", "{59B5BC32-1204-4691-834C-2166D2D6331A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SharpZipLib", "SharpZipLib", "{BB01AA27-6F12-438A-B921-4E5249D1AF65}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpZipLibWebDemo", "Asp.NetCoreExperiment\SharpZipLib\SharpZipLibWebDemo\SharpZipLibWebDemo.csproj", "{E68FF2F2-0ECB-4F75-8B23-24582439CBB8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharpZipLibWebDemo", "Asp.NetCoreExperiment\SharpZipLib\SharpZipLibWebDemo\SharpZipLibWebDemo.csproj", "{E68FF2F2-0ECB-4F75-8B23-24582439CBB8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CSVHelper", "CSVHelper", "{EA759651-EAC6-439E-B135-4F23FA020463}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CsvHelperDemo01", "Asp.NetCoreExperiment\CsvHelper\CsvHelperDemo01\CsvHelperDemo01.csproj", "{124F8A84-1F35-4B9D-BCA1-20609AF139B8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CsvHelperDemo01", "Asp.NetCoreExperiment\CsvHelper\CsvHelperDemo01\CsvHelperDemo01.csproj", "{124F8A84-1F35-4B9D-BCA1-20609AF139B8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MiniAPI", "MiniAPI", "{8A78305E-BFFF-4F09-BE2F-3BAB7088C3FE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniAPI01", "Asp.NetCoreExperiment\MiniAPI\MiniAPI01\MiniAPI01.csproj", "{8F043FAE-DD41-480A-A1C3-37E017AAC2C6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiniAPI01", "Asp.NetCoreExperiment\MiniAPI\MiniAPI01\MiniAPI01.csproj", "{8F043FAE-DD41-480A-A1C3-37E017AAC2C6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MiniCI", "MiniCI", "{BB01035A-7B8E-4131-85D3-C67086130FE9}"
 EndProject
@@ -228,8 +228,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebDemo01", "Asp.NetCoreExperiment\UnitTest\WebDemo01\WebDemo01.csproj", "{49839A4A-8706-43CD-A79E-F4E9C47A4753}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebDemo01.UnitTest", "Asp.NetCoreExperiment\UnitTest\WebDemo01.UnitTest\WebDemo01.UnitTest.csproj", "{1E75ED51-7F9C-46ED-98C4-FDEAF278EE23}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NewFolder1", "NewFolder1", "{BE33FB89-9716-44EE-A72F-4F88D6D162AD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

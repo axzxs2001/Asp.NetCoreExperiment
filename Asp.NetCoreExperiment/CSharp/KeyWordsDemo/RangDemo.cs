@@ -16,13 +16,14 @@ namespace KeyWordsDemo
             }
             WriteLine("=========");
             var arr3End = arr[3..];
+            arr3End[4] = 1000;
             foreach (var i in arr3End)
             {
                 WriteLine(i);
             }
 
             WriteLine("========="); 
-            var arrStart7 = arr[..7];
+            var arrStart7 = arr[..10];
             foreach (var i in arrStart7)
             {
                 WriteLine(i);
@@ -33,7 +34,7 @@ namespace KeyWordsDemo
             Index end = new Index(10);
             Range range = new Range(start, end);
             var arr310 = arr[range];
-
+            
             foreach (var i in arr310)
             {
                 WriteLine(i);
