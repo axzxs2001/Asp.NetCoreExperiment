@@ -11,9 +11,9 @@ using static Dapper.SqlMapper;
 namespace WebDemo01.Services
 {
     /// <summary>
-    /// 写Dapper类
+    /// DappePlusr类
     /// </summary>
-    public class WriteDapper : IWriteDapper
+    public class DapperPlus : IDapperPlus
     {
         private readonly IDbConnection _connection;
         /// <summary>
@@ -21,19 +21,11 @@ namespace WebDemo01.Services
         /// </summary>
         /// <param name="connection">连接</param>
         /// <param name="configuration">配置</param>
-        public WriteDapper(IDbConnection connection, IConfiguration configuration)
+        public DapperPlus(IDbConnection connection, IConfiguration configuration)
         {
-            var connectionStrings = configuration.GetSection("ConnectionStrings").Get<Dictionary<string, string>>();
             _connection = connection;
-            _connection.ConnectionString = connectionStrings.Where(s => s.Key.ToLower().Contains("write")).FirstOrDefault().Value;
-        }
-        /// <summary>
-        /// 无参构造
-        /// </summary>
-        public WriteDapper()
-        {
-
-        }
+            _connection.ConnectionString = configuration.GetConnectionString("DefaultConnectionString");
+        }    
         /// <summary>
         /// 连接
         /// </summary>

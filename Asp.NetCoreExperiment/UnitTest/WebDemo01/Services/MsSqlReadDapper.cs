@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace WebDemo01.Services
 {
-    public class MsSqlReadDapper : ReadDapper
+    public class MsSqlReadDapper : DapperPlusRead
     {
         public MsSqlReadDapper(IEnumerable<IDbConnection> connections, IConfiguration configuration)
         {

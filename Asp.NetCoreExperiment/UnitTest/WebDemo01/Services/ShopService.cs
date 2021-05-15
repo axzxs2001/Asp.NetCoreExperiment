@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Dapper;
+using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -7,25 +9,30 @@ namespace WebDemo01.Services
 {
     public interface IShopService
     {
-        void FF();
+        List<Goods> GetAllGoods();
     }
     public class ShopService : IShopService
     {
-        private readonly IWriteDapper _writeDapper;
-        private readonly IEnumerable<IReadDapper> _readDappers;
-        public ShopService(IWriteDapper writeDapper, IEnumerable<IReadDapper> readDappers)
+        private readonly IDapperPlusWrite _writeDapper;
+        private readonly IEnumerable<IDapperPlusRead> _readDappers;
+        public ShopService(IDapperPlusWrite writeDapper, IEnumerable<IDapperPlusRead> readDappers)
         {
             _writeDapper = writeDapper;
             _readDappers = readDappers;
 
         }
 
-        public void FF()
+        public List<Goods> GetAllGoods()
         {
-            foreach (var reader in _readDappers)
-            {
-                Console.WriteLine(reader.DataBaseType);
-            }
+            using var con = new SqlConnection();
+            var sql = "select * from Goodses";
+            var list = con.Query<Goods>(sql, new { id = 1 }).ToList();
+            return list;
         }
+    }
+
+    public class Goods
+    {
+
     }
 }

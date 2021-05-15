@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Dapper;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using WebDemo01.Services;
@@ -18,7 +20,7 @@ namespace WebDemo01.Controllers
 
         public HomeController(ILogger<HomeController> logger, IShopService shopService)
         {
-           
+
             _logger = logger;
             _shopService = shopService;
 
@@ -27,6 +29,7 @@ namespace WebDemo01.Controllers
         [HttpGet]
         public string Get()
         {
+
             _shopService.FF();
             return "OK";
         }

@@ -11,7 +11,7 @@ namespace WebDemo01.Services
     /// <summary>
     /// 写Dapper接口
     /// </summary>
-    public interface IWriteDapper
+    public interface IDapperPlusWrite
     {
         /// <summary>
         /// 连接

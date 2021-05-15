@@ -1,32 +1,75 @@
-﻿using Dapper;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Common;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using Dapper;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using static Dapper.SqlMapper;
 
 namespace WebDemo01.Services
 {
     /// <summary>
-    /// 读
+    /// DapperPlus读实现类
     /// </summary>
-    public interface IReadDapper
+    public class DapperPlusRead : IDapperPlusRead
     {
+        protected IDbConnection _connection;
+        /// <summary>
+        /// 构造
+        /// </summary>
+        /// <param name="connection">连接</param>
+        /// <param name="configuration">配置</param>
+        public DapperPlusRead(IDbConnection connection, IConfiguration configuration)
+        {
+            
+            var connectionStrings = configuration.GetSection("ConnectionStrings").Get<Dictionary<string, string>>();
+            _connection = connection;
+            _connection.ConnectionString = connectionStrings.Where(s => s.Key.ToLower().Contains("read")).FirstOrDefault().Value;  
+        }
+        /// <summary>
+        /// 无参构造
+        /// </summary>
+        public DapperPlusRead()
+        {
+        }
         /// <summary>
         /// 连接
         /// </summary>
         public IDbConnection Connection
         {
-            get;
+            get
+            {
+                return _connection;
+            }
         }
         /// <summary>
         /// 获取数据库类型
         /// </summary>
         public DataBaseType DataBaseType
         {
-            get;
+            get
+            {
+                if (_connection != null)
+                {
+                    switch (_connection.GetType().Name)
+                    {
+                        case "MySqlConnection":
+                            return DataBaseType.MySql;
+                        case "SqlConnection":
+                            return DataBaseType.MsSql;
+                        case "NpgsqlConnection":
+                            return DataBaseType.MsSql;
+                    }
+                }
+                throw new Exception("connection is null");
+            }
         }
+
         /// <summary>
         /// Executes a single-row query, returning the data typed as type.
         /// </summary>
@@ -40,7 +83,10 @@ namespace WebDemo01.Services
         /// <returns>A sequence of data of the supplied type; if a basic type(int, string, etc) is queried then the data from the first column in assumed, otherwise an instance is created per row, and a direct column-name===member-name mapping is assumed(case insensitive).
         /// 异常:T:System.ArgumentNullException:type is null.
         /// </returns>
-        IEnumerable<object> Query(Type type, string sql, object param = null, IDbTransaction transaction = null, bool buffered = true, int? commandTimeout = null, CommandType? commandType = null);
+        public IEnumerable<object> Query(Type type, string sql, object param = null, IDbTransaction transaction = null, bool buffered = true, int? commandTimeout = null, CommandType? commandType = null)
+        {
+            return _connection.Query(type, sql, param, transaction, buffered, commandTimeout, commandType);
+        }
 
 
         /// <summary>
@@ -56,7 +102,10 @@ namespace WebDemo01.Services
         /// <returns>
         ///  A sequence of data of the supplied type; if a basic type(int, string, etc) is queried then the data from the first column is assumed, otherwise an instance is created per row, and a direct column-name===member-name mapping is assumed (case insensitive).    
         /// </returns>
-        IEnumerable<T> Query<T>(string sql, object param = null, IDbTransaction transaction = null, bool buffered = true, int? commandTimeout = null, CommandType? commandType = null);
+        public IEnumerable<T> Query<T>(string sql, object param = null, IDbTransaction transaction = null, bool buffered = true, int? commandTimeout = null, CommandType? commandType = null)
+        {
+            return _connection.Query<T>(sql, param, transaction, buffered, commandTimeout, commandType);
+        }
 
 
         /// <summary>
@@ -73,7 +122,10 @@ namespace WebDemo01.Services
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
         /// <param name="commandType">Is it a stored proc or a batch?</param>
         /// <returns>An enumerable of TReturn.</returns>
-        IEnumerable<TReturn> Query<TReturn>(string sql, Type[] types, Func<object[], TReturn> map, object param = null, IDbTransaction transaction = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null);
+        public IEnumerable<TReturn> Query<TReturn>(string sql, Type[] types, Func<object[], TReturn> map, object param = null, IDbTransaction transaction = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null)
+        {
+            return _connection.Query<TReturn>(sql, types, map, param, transaction, buffered, splitOn, commandTimeout, commandType);
+        }
 
         /// <summary>
         /// Perform a multi-mapping query with 7 input types. If you need more types -> use Query with Type[] parameter. This returns a single type, combined from the raw types via map.
@@ -95,7 +147,10 @@ namespace WebDemo01.Services
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
         /// <param name="commandType">Is it a stored proc or a batch?</param>
         /// <returns>An enumerable of TReturn.</returns>
-        IEnumerable<TReturn> Query<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TReturn>(string sql, Func<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TReturn> map, object param = null, IDbTransaction transaction = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null);
+        public IEnumerable<TReturn> Query<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TReturn>(string sql, Func<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TReturn> map, object param = null, IDbTransaction transaction = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null)
+        {
+            return _connection.Query<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TReturn>(sql, map, param, transaction, buffered, splitOn, commandTimeout, commandType);
+        }
 
         /// <summary>
         /// Perform a multi-mapping query with 6 input types. This returns a single type,combined from the raw types via map.
@@ -116,7 +171,10 @@ namespace WebDemo01.Services
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
         /// <param name="commandType">Is it a stored proc or a batch?</param>
         /// <returns>An enumerable of TReturn.</returns>
-        IEnumerable<TReturn> Query<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TReturn>(string sql, Func<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TReturn> map, object param = null, IDbTransaction transaction = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null);
+        public IEnumerable<TReturn> Query<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TReturn>(string sql, Func<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TReturn> map, object param = null, IDbTransaction transaction = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null)
+        {
+            return _connection.Query<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TReturn>(sql, map, param, transaction, buffered, splitOn, commandTimeout, commandType);
+        }
 
 
         /// <summary>
@@ -134,7 +192,10 @@ namespace WebDemo01.Services
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
         /// <param name="commandType">Is it a stored proc or a batch?</param>
         /// <returns>An enumerable of TReturn.</returns>
-        IEnumerable<TReturn> Query<TFirst, TSecond, TReturn>(string sql, Func<TFirst, TSecond, TReturn> map, object param = null, IDbTransaction transaction = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null);
+        public IEnumerable<TReturn> Query<TFirst, TSecond, TReturn>(string sql, Func<TFirst, TSecond, TReturn> map, object param = null, IDbTransaction transaction = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null)
+        {
+            return _connection.Query<TFirst, TSecond, TReturn>(sql, map, param, transaction, buffered, splitOn, commandTimeout, commandType);
+        }
 
         /// <summary>
         /// Perform a multi-mapping query with 5 input types. This returns a single type,combined from the raw types via map.
@@ -154,7 +215,10 @@ namespace WebDemo01.Services
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
         /// <param name="commandType">Is it a stored proc or a batch?</param>
         /// <returns>An enumerable of TReturn.</returns>
-        IEnumerable<TReturn> Query<TFirst, TSecond, TThird, TFourth, TFifth, TReturn>(string sql, Func<TFirst, TSecond, TThird, TFourth, TFifth, TReturn> map, object param = null, IDbTransaction transaction = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null);
+        public IEnumerable<TReturn> Query<TFirst, TSecond, TThird, TFourth, TFifth, TReturn>(string sql, Func<TFirst, TSecond, TThird, TFourth, TFifth, TReturn> map, object param = null, IDbTransaction transaction = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null)
+        {
+            return _connection.Query<TFirst, TSecond, TThird, TFourth, TFifth, TReturn>(sql, map, param, transaction, buffered, splitOn, commandTimeout, commandType);
+        }
 
         /// <summary>
         /// Perform a multi-mapping query with 4 input types. This returns a single type,combined from the raw types via map.
@@ -173,7 +237,10 @@ namespace WebDemo01.Services
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
         /// <param name="commandType">Is it a stored proc or a batch?</param>
         /// <returns>An enumerable of TReturn.</returns> 
-        IEnumerable<TReturn> Query<TFirst, TSecond, TThird, TFourth, TReturn>(string sql, Func<TFirst, TSecond, TThird, TFourth, TReturn> map, object param = null, IDbTransaction transaction = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null);
+        public IEnumerable<TReturn> Query<TFirst, TSecond, TThird, TFourth, TReturn>(string sql, Func<TFirst, TSecond, TThird, TFourth, TReturn> map, object param = null, IDbTransaction transaction = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null)
+        {
+            return _connection.Query<TFirst, TSecond, TThird, TFourth, TReturn>(sql, map, param, transaction, buffered, splitOn, commandTimeout, commandType);
+        }
 
         /// <summary>
         /// Return a sequence of dynamic objects with properties matching the columns.
@@ -185,7 +252,10 @@ namespace WebDemo01.Services
         /// <param name="commandTimeout">The command timeout (in seconds).</param>
         /// <param name="commandType">The type of command to execute.</param>
         /// <returns>Note: each row can be accessed via "dynamic", or by casting to an IDictionary<string,object></returns>
-        IEnumerable<dynamic> Query(string sql, object param = null, IDbTransaction transaction = null, bool buffered = true, int? commandTimeout = null, CommandType? commandType = null);
+        public IEnumerable<dynamic> Query(string sql, object param = null, IDbTransaction transaction = null, bool buffered = true, int? commandTimeout = null, CommandType? commandType = null)
+        {
+            return _connection.Query(sql, param, transaction, buffered, commandTimeout, commandType);
+        }
 
         /// <summary>
         /// Perform a multi-mapping query with 3 input types. This returns a single type,combined from the raw types via map.
@@ -203,7 +273,10 @@ namespace WebDemo01.Services
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
         /// <param name="commandType">Is it a stored proc or a batch?</param>
         /// <returns>An enumerable of TReturn.</returns> 
-        IEnumerable<TReturn> Query<TFirst, TSecond, TThird, TReturn>(string sql, Func<TFirst, TSecond, TThird, TReturn> map, object param = null, IDbTransaction transaction = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null);
+        public IEnumerable<TReturn> Query<TFirst, TSecond, TThird, TReturn>(string sql, Func<TFirst, TSecond, TThird, TReturn> map, object param = null, IDbTransaction transaction = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null)
+        {
+            return _connection.Query<TFirst, TSecond, TThird, TReturn>(sql, map, param, transaction, buffered, splitOn, commandTimeout, commandType);
+        }
 
         /// <summary>
         /// Executes a query, returning the data typed as T.
@@ -211,7 +284,10 @@ namespace WebDemo01.Services
         /// <typeparam name="T">The type of results to return.</typeparam>
         /// <param name="command">The command used to query on this connection.</param>
         /// <returns>A sequence of data of T; if a basic type (int, string, etc) is queried then the data from the first column in assumed, otherwise an instance is created per row, and a direct column-name===member-name mapping is assumed (case insensitive).</returns>
-        IEnumerable<T> Query<T>(CommandDefinition command);
+        public IEnumerable<T> Query<T>(CommandDefinition command)
+        {
+            return _connection.Query<T>(command);
+        }
 
         /// <summary>
         /// Perform an asynchronous multi-mapping query with 2 input types. This returns a single type, combined from the raw types via map.
@@ -223,7 +299,10 @@ namespace WebDemo01.Services
         /// <param name="map">The function to map row types to the return type.</param>
         /// <param name="splitOn">The field we should split and read the second object from (default: "Id").</param>
         /// <returns>An enumerable of TReturn.</returns>
-        Task<IEnumerable<TReturn>> QueryAsync<TFirst, TSecond, TReturn>(CommandDefinition command, Func<TFirst, TSecond, TReturn> map, string splitOn = "Id");
+        public async Task<IEnumerable<TReturn>> QueryAsync<TFirst, TSecond, TReturn>(CommandDefinition command, Func<TFirst, TSecond, TReturn> map, string splitOn = "Id")
+        {
+            return await _connection.QueryAsync<TFirst, TSecond, TReturn>(command, map, splitOn);
+        }
 
         /// <summary>
         /// Perform an asynchronous multi-mapping query with 2 input types. This returns a single type, combined from the raw types via map.
@@ -240,7 +319,10 @@ namespace WebDemo01.Services
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
         /// <param name="commandType">Is it a stored proc or a batch?</param>
         /// <returns>An enumerable of TReturn.</returns>
-        Task<IEnumerable<TReturn>> QueryAsync<TFirst, TSecond, TReturn>(string sql, Func<TFirst, TSecond, TReturn> map, object param = null, IDbTransaction transaction = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null);
+        public async Task<IEnumerable<TReturn>> QueryAsync<TFirst, TSecond, TReturn>(string sql, Func<TFirst, TSecond, TReturn> map, object param = null, IDbTransaction transaction = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null)
+        {
+            return await _connection.QueryAsync<TFirst, TSecond, TReturn>(sql, map, param, transaction, buffered, splitOn, commandTimeout, commandType);
+        }
 
         /// <summary>
         /// Execute a query asynchronously using Task.
@@ -251,7 +333,10 @@ namespace WebDemo01.Services
         /// <param name="commandTimeout">The command timeout (in seconds).</param>
         /// <param name="commandType">The type of command to execute.</param>
         /// <returns>Note: each row can be accessed via "dynamic", or by casting to an IDictionary<string,object></returns>
-        Task<IEnumerable<dynamic>> QueryAsync(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null);
+        public async Task<IEnumerable<dynamic>> QueryAsync(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
+        {
+            return await _connection.QueryAsync<dynamic>(sql, param, transaction, commandTimeout, commandType);
+        }
 
 
         /// <summary>
@@ -259,7 +344,10 @@ namespace WebDemo01.Services
         /// </summary>
         /// <param name="command">The command used to query on this connection.</param>
         /// <returns>Note: each row can be accessed via "dynamic", or by casting to an IDictionary<string,object></returns>
-        Task<IEnumerable<dynamic>> QueryAsync(CommandDefinition command);
+        public async Task<IEnumerable<dynamic>> QueryAsync(CommandDefinition command)
+        {
+            return await _connection.QueryAsync(command);
+        }
 
 
 
@@ -279,7 +367,10 @@ namespace WebDemo01.Services
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
         /// <param name="commandType">Is it a stored proc or a batch?</param>
         /// <returns>An enumerable of TReturn.</returns>
-        Task<IEnumerable<TReturn>> QueryAsync<TFirst, TSecond, TThird, TReturn>(string sql, Func<TFirst, TSecond, TThird, TReturn> map, object param = null, IDbTransaction transaction = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null);
+        public async Task<IEnumerable<TReturn>> QueryAsync<TFirst, TSecond, TThird, TReturn>(string sql, Func<TFirst, TSecond, TThird, TReturn> map, object param = null, IDbTransaction transaction = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null)
+        {
+            return await _connection.QueryAsync<TFirst, TSecond, TThird, TReturn>(sql, map, param, transaction, buffered, splitOn, commandTimeout, commandType);
+        }
 
 
 
@@ -295,7 +386,10 @@ namespace WebDemo01.Services
         /// <param name="map">The function to map row types to the return type.</param>
         /// <param name="splitOn">The field we should split and read the second object from (default: "Id").</param>
         /// <returns>An enumerable of TReturn.</returns>
-        Task<IEnumerable<TReturn>> QueryAsync<TFirst, TSecond, TThird, TReturn>(CommandDefinition command, Func<TFirst, TSecond, TThird, TReturn> map, string splitOn = "Id");
+        public async Task<IEnumerable<TReturn>> QueryAsync<TFirst, TSecond, TThird, TReturn>(CommandDefinition command, Func<TFirst, TSecond, TThird, TReturn> map, string splitOn = "Id")
+        {
+            return await _connection.QueryAsync<TFirst, TSecond, TThird, TReturn>(command, map, splitOn);
+        }
 
 
 
@@ -317,7 +411,10 @@ namespace WebDemo01.Services
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
         /// <param name="commandType">Is it a stored proc or a batch?</param>
         /// <returns>An enumerable of TReturn.</returns>
-        Task<IEnumerable<TReturn>> QueryAsync<TFirst, TSecond, TThird, TFourth, TReturn>(string sql, Func<TFirst, TSecond, TThird, TFourth, TReturn> map, object param = null, IDbTransaction transaction = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null);
+        public async Task<IEnumerable<TReturn>> QueryAsync<TFirst, TSecond, TThird, TFourth, TReturn>(string sql, Func<TFirst, TSecond, TThird, TFourth, TReturn> map, object param = null, IDbTransaction transaction = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null)
+        {
+            return await _connection.QueryAsync<TFirst, TSecond, TThird, TFourth, TReturn>(sql, map, param, transaction, buffered, splitOn, commandTimeout, commandType);
+        }
 
 
         /// <summary>
@@ -332,7 +429,10 @@ namespace WebDemo01.Services
         /// <param name="map">The function to map row types to the return type.</param>
         /// <param name="splitOn">The field we should split and read the second object from (default: "Id").</param>
         /// <returns>An enumerable of TReturn.</returns>
-        Task<IEnumerable<TReturn>> QueryAsync<TFirst, TSecond, TThird, TFourth, TReturn>(CommandDefinition command, Func<TFirst, TSecond, TThird, TFourth, TReturn> map, string splitOn = "Id");
+        public async Task<IEnumerable<TReturn>> QueryAsync<TFirst, TSecond, TThird, TFourth, TReturn>(CommandDefinition command, Func<TFirst, TSecond, TThird, TFourth, TReturn> map, string splitOn = "Id")
+        {
+            return await _connection.QueryAsync<TFirst, TSecond, TThird, TFourth, TReturn>(command, map, splitOn);
+        }
 
 
 
@@ -342,7 +442,11 @@ namespace WebDemo01.Services
         /// <param name="type">The type to return.</param>
         /// <param name="command">The command used to query on this connection.</param>
         /// <returns></returns>
-        Task<IEnumerable<object>> QueryAsync(Type type, CommandDefinition command);
+        public async Task<IEnumerable<object>> QueryAsync(Type type, CommandDefinition command)
+        {
+            return await _connection.QueryAsync(type, command);
+        }
+
 
         /// <summary>
         /// Execute a query asynchronously using Task.
@@ -354,7 +458,10 @@ namespace WebDemo01.Services
         /// <param name="commandTimeout">The command timeout (in seconds).</param>
         /// <param name="commandType">The type of command to execute.</param>
         /// <returns>A sequence of data of T; if a basic type (int, string, etc) is queried then the data from the first column in assumed, otherwise an instance is created per row,and a direct column-name===member-name mapping is assumed (case insensitive).</returns>
-        Task<IEnumerable<T>> QueryAsync<T>(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null);
+        public async Task<IEnumerable<T>> QueryAsync<T>(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
+        {
+            return await _connection.QueryAsync<T>(sql, param, transaction, commandTimeout, commandType);
+        }
 
         /// <summary>
         /// Perform an asynchronous multi-mapping query with 5 input types. This returns a single type, combined from the raw types via map.
@@ -374,7 +481,11 @@ namespace WebDemo01.Services
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
         /// <param name="commandType">Is it a stored proc or a batch?</param>
         /// <returns>An enumerable of TReturn.</returns>
-        Task<IEnumerable<TReturn>> QueryAsync<TFirst, TSecond, TThird, TFourth, TFifth, TReturn>(string sql, Func<TFirst, TSecond, TThird, TFourth, TFifth, TReturn> map, object param = null, IDbTransaction transaction = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null);
+        public async Task<IEnumerable<TReturn>> QueryAsync<TFirst, TSecond, TThird, TFourth, TFifth, TReturn>(string sql, Func<TFirst, TSecond, TThird, TFourth, TFifth, TReturn> map, object param = null, IDbTransaction transaction = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null)
+        {
+            return await _connection.QueryAsync<TFirst, TSecond, TThird, TFourth, TFifth, TReturn>(sql, map, param, transaction, buffered, splitOn, commandTimeout, commandType);
+        }
+
 
 
         /// <summary>
@@ -396,7 +507,10 @@ namespace WebDemo01.Services
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
         /// <param name="commandType">Is it a stored proc or a batch?</param>
         /// <returns>An enumerable of TReturn.</returns>
-        Task<IEnumerable<TReturn>> QueryAsync<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TReturn>(string sql, Func<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TReturn> map, object param = null, IDbTransaction transaction = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null);
+        public async Task<IEnumerable<TReturn>> QueryAsync<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TReturn>(string sql, Func<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TReturn> map, object param = null, IDbTransaction transaction = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null)
+        {
+            return await _connection.QueryAsync<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TReturn>(sql, map, param, transaction, buffered, splitOn, commandTimeout, commandType);
+        }
 
 
         /// <summary>
@@ -413,7 +527,11 @@ namespace WebDemo01.Services
         /// <param name="map">The function to map row types to the return type.</param>
         /// <param name="splitOn">The field we should split and read the second object from (default: "Id").</param>
         /// <returns>An enumerable of TReturn.</returns>
-        Task<IEnumerable<TReturn>> QueryAsync<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TReturn>(CommandDefinition command, Func<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TReturn> map, string splitOn = "Id");
+        public async Task<IEnumerable<TReturn>> QueryAsync<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TReturn>(CommandDefinition command, Func<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TReturn> map, string splitOn = "Id")
+        {
+            return await _connection.QueryAsync<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TReturn>(command, map, splitOn);
+        }
+
 
         /// <summary>
         /// Perform an asynchronous multi-mapping query with 7 input types. This returns a single type, combined from the raw types via map.
@@ -435,7 +553,10 @@ namespace WebDemo01.Services
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
         /// <param name="commandType">Is it a stored proc or a batch?</param>
         /// <returns>An enumerable of TReturn.</returns>
-        Task<IEnumerable<TReturn>> QueryAsync<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TReturn>(string sql, Func<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TReturn> map, object param = null, IDbTransaction transaction = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null);
+        public async Task<IEnumerable<TReturn>> QueryAsync<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TReturn>(string sql, Func<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TReturn> map, object param = null, IDbTransaction transaction = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null)
+        {
+            return await _connection.QueryAsync<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TReturn>(sql, map, param, transaction, buffered, splitOn, commandTimeout, commandType);
+        }
 
 
         /// <summary>
@@ -453,7 +574,10 @@ namespace WebDemo01.Services
         /// <param name="map">The function to map row types to the return type.</param>
         /// <param name="splitOn">The field we should split and read the second object from (default: "Id").</param>
         /// <returns>An enumerable of TReturn.</returns>
-        Task<IEnumerable<TReturn>> QueryAsync<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TReturn>(CommandDefinition command, Func<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TReturn> map, string splitOn = "Id");
+        public async Task<IEnumerable<TReturn>> QueryAsync<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TReturn>(CommandDefinition command, Func<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TReturn> map, string splitOn = "Id")
+        {
+            return await _connection.QueryAsync<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TReturn>(command, map, splitOn);
+        }
 
         /// <summary>
         /// Perform an asynchronous multi-mapping query with an arbitrary number of input types. This returns a single type, combined from the raw types via map.
@@ -469,7 +593,10 @@ namespace WebDemo01.Services
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
         /// <param name="commandType">Is it a stored proc or a batch?</param>
         /// <returns>An enumerable of TReturn.</returns>
-        Task<IEnumerable<TReturn>> QueryAsync<TReturn>(string sql, Type[] types, Func<object[], TReturn> map, object param = null, IDbTransaction transaction = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null);
+        public async Task<IEnumerable<TReturn>> QueryAsync<TReturn>(string sql, Type[] types, Func<object[], TReturn> map, object param = null, IDbTransaction transaction = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null)
+        {
+            return await _connection.QueryAsync<TReturn>(sql, types, map, param, transaction, buffered, splitOn, commandTimeout, commandType);
+        }
 
 
         /// <summary>
@@ -482,7 +609,10 @@ namespace WebDemo01.Services
         /// <param name="commandTimeout">The command timeout (in seconds).</param>
         /// <param name="commandType">The type of command to execute.</param>
         /// <returns>T:System.ArgumentNullException:type is null.</returns>
-        Task<IEnumerable<object>> QueryAsync(Type type, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null);
+        public async Task<IEnumerable<object>> QueryAsync(Type type, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
+        {
+            return await _connection.QueryAsync(type, sql, param, transaction, commandTimeout, commandType);
+        }
 
         /// <summary>
         /// Perform an asynchronous multi-mapping query with 5 input types. This returns a single type, combined from the raw types via map.
@@ -497,7 +627,10 @@ namespace WebDemo01.Services
         /// <param name="map">The function to map row types to the return type.</param>
         /// <param name="splitOn">The field we should split and read the second object from (default: "Id").</param>
         /// <returns>An enumerable of TReturn.</returns>
-        Task<IEnumerable<TReturn>> QueryAsync<TFirst, TSecond, TThird, TFourth, TFifth, TReturn>(CommandDefinition command, Func<TFirst, TSecond, TThird, TFourth, TFifth, TReturn> map, string splitOn = "Id");
+        public async Task<IEnumerable<TReturn>> QueryAsync<TFirst, TSecond, TThird, TFourth, TFifth, TReturn>(CommandDefinition command, Func<TFirst, TSecond, TThird, TFourth, TFifth, TReturn> map, string splitOn = "Id")
+        {
+            return await _connection.QueryAsync<TFirst, TSecond, TThird, TFourth, TFifth, TReturn>(command, map, splitOn);
+        }
 
         /// <summary>
         /// Execute a query asynchronously using Task.
@@ -505,7 +638,10 @@ namespace WebDemo01.Services
         /// <typeparam name="T">The type to return.</typeparam>
         /// <param name="command">The command used to query on this connection.</param>
         /// <returns>A sequence of data of T; if a basic type (int, string, etc) is queried then the data from the first column in assumed, otherwise an instance is created per row,and a direct column-name===member-name mapping is assumed (case insensitive).</returns>
-        Task<IEnumerable<T>> QueryAsync<T>(CommandDefinition command);
+        public async Task<IEnumerable<T>> QueryAsync<T>(CommandDefinition command)
+        {
+            return await _connection.QueryAsync<T>(command);
+        }
 
         /// <summary>
         /// Executes a query, returning the data typed as T.
@@ -513,7 +649,10 @@ namespace WebDemo01.Services
         /// <typeparam name="T">The type of results to return.</typeparam>
         /// <param name="command">The command used to query on this connection.</param>
         /// <returns>A single instance or null of the supplied type; if a basic type (int, string,etc) is queried then the data from the first column in assumed, otherwise an instance is created per row, and a direct column-name===member-name mapping is assumed (case insensitive).</returns>
-        T QueryFirst<T>(CommandDefinition command);
+        public T QueryFirst<T>(CommandDefinition command)
+        {
+            return _connection.QueryFirst<T>(command);
+        }
 
         /// <summary>
         /// Executes a single-row query, returning the data typed as type.
@@ -528,7 +667,10 @@ namespace WebDemo01.Services
         /// 异常:
         /// T:System.ArgumentNullException:type is null.
         /// </returns>
-        object QueryFirst(Type type, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null);
+        public object QueryFirst(Type type, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
+        {
+            return _connection.QueryFirst(type, sql, param, transaction, commandTimeout, commandType);
+        }
 
 
         /// <summary>
@@ -541,7 +683,10 @@ namespace WebDemo01.Services
         /// <param name="commandTimeout">The command timeout (in seconds).</param>
         /// <param name="commandType">The type of command to execute.</param>
         /// <returns>A sequence of data of the supplied type; if a basic type (int, string, etc) is queried then the data from the first column in assumed, otherwise an instance is created per row, and a direct column-name===member-name mapping is assumed (case insensitive).</returns>
-        T QueryFirst<T>(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null);
+        public T QueryFirst<T>(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
+        {
+            return _connection.QueryFirst<T>(sql, param, transaction, commandTimeout, commandType);
+        }
 
         /// <summary>
         /// Return a dynamic object with properties matching the columns.
@@ -552,13 +697,20 @@ namespace WebDemo01.Services
         /// <param name="commandTimeout">The command timeout (in seconds).</param>
         /// <param name="commandType">The type of command to execute.</param>
         /// <returns>Note: the row can be accessed via "dynamic", or by casting to an IDictionary<string,object></returns>
-        dynamic QueryFirst(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null);
+        public dynamic QueryFirst(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
+        {
+            return _connection.QueryFirst(sql, param, transaction, commandTimeout, commandType);
+        }
+
         /// <summary>
         /// Execute a single-row query asynchronously using Task.
         /// </summary>
         /// <param name="command">The command used to query on this connection.</param>
         /// <returns>Note: the row can be accessed via "dynamic", or by casting to an IDictionary<string,object></returns>
-        Task<dynamic> QueryFirstAsync(CommandDefinition command);
+        public async Task<dynamic> QueryFirstAsync(CommandDefinition command)
+        {
+            return await _connection.QueryFirstAsync(command);
+        }
 
 
         /// <summary>
@@ -567,7 +719,10 @@ namespace WebDemo01.Services
         /// <typeparam name="T">The type to return.</typeparam>
         /// <param name="command">The command used to query on this connection.</param>
         /// <returns></returns>
-        Task<T> QueryFirstAsync<T>(CommandDefinition command);
+        public async Task<T> QueryFirstAsync<T>(CommandDefinition command)
+        {
+            return await _connection.QueryFirstAsync<T>(command);
+        }
 
 
         /// <summary>
@@ -579,7 +734,10 @@ namespace WebDemo01.Services
         /// <param name="commandTimeout">The command timeout (in seconds).</param>
         /// <param name="commandType">The type of command to execute.</param>
         /// <returns></returns>
-        Task<dynamic> QueryFirstAsync(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null);
+        public async Task<dynamic> QueryFirstAsync(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
+        {
+            return await _connection.QueryFirstAsync(sql, param, transaction, commandTimeout, commandType);
+        }
 
         /// <summary>
         /// Execute a single-row query asynchronously using Task.
@@ -587,7 +745,10 @@ namespace WebDemo01.Services
         /// <param name="type">The type to return.</param>
         /// <param name="command">The command used to query on this connection.</param>
         /// <returns></returns>
-        Task<object> QueryFirstAsync(Type type, CommandDefinition command);
+        public async Task<object> QueryFirstAsync(Type type, CommandDefinition command)
+        {
+            return await _connection.QueryFirstAsync(type, command);
+        }
 
 
         /// <summary>
@@ -600,7 +761,10 @@ namespace WebDemo01.Services
         /// <param name="commandTimeout">The command timeout (in seconds).</param>
         /// <param name="commandType">The type of command to execute.</param>
         /// <returns></returns>
-        Task<T> QueryFirstAsync<T>(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null);
+        public async Task<T> QueryFirstAsync<T>(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
+        {
+            return await _connection.QueryFirstAsync(sql, param, transaction, commandTimeout, commandType);
+        }
 
         /// <summary>
         /// Execute a single-row query asynchronously using Task.
@@ -615,7 +779,10 @@ namespace WebDemo01.Services
         /// T:System.ArgumentNullException:
         //  type is null.
         /// </returns>
-        Task<object> QueryFirstAsync(Type type, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null);
+        public async Task<object> QueryFirstAsync(Type type, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
+        {
+            return await _connection.QueryFirstAsync(type, sql, param, transaction, commandTimeout, commandType);
+        }
 
 
         /// <summary>
@@ -628,7 +795,10 @@ namespace WebDemo01.Services
         /// <param name="commandTimeout">The command timeout (in seconds).</param>
         /// <param name="commandType">The type of command to execute.</param>
         /// <returns>A sequence of data of the supplied type; if a basic type (int, string, etc) is queried then the data from the first column in assumed, otherwise an instance is created per row, and a direct column-name===member-name mapping is assumed (case insensitive).</returns>
-        T QueryFirstOrDefault<T>(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null);
+        public T QueryFirstOrDefault<T>(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
+        {
+            return _connection.QueryFirstOrDefault<T>(sql, param, transaction, commandTimeout, commandType);
+        }
 
 
         /// <summary>
@@ -637,7 +807,10 @@ namespace WebDemo01.Services
         /// <typeparam name="T">The type of results to return.</typeparam>
         /// <param name="command">The command used to query on this connection.</param>
         /// <returns>A single or null instance of the supplied type; if a basic type (int, string,etc) is queried then the data from the first column in assumed, otherwise an instance is created per row, and a direct column-name===member-name mapping is assumed (case insensitive).</returns>
-        T QueryFirstOrDefault<T>(CommandDefinition command);
+        public T QueryFirstOrDefault<T>(CommandDefinition command)
+        {
+            return _connection.QueryFirstOrDefault<T>(command);
+        }
 
         /// <summary>
         /// Return a dynamic object with properties matching the columns.
@@ -648,7 +821,10 @@ namespace WebDemo01.Services
         /// <param name="commandTimeout">The command timeout (in seconds).</param>
         /// <param name="commandType">The type of command to execute.</param>
         /// <returns>Note: the row can be accessed via "dynamic", or by casting to an IDictionary<string,object></returns>
-        dynamic QueryFirstOrDefault(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null);
+        public dynamic QueryFirstOrDefault(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
+        {
+            return _connection.QueryFirstOrDefault(sql, param, transaction, commandTimeout, commandType);
+        }
 
         /// <summary>
         /// Executes a single-row query, returning the data typed as type.
@@ -664,14 +840,20 @@ namespace WebDemo01.Services
         /// 异常:
         /// T:System.ArgumentNullException:type is null.
         /// </returns>
-        object QueryFirstOrDefault(Type type, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null);
+        public object QueryFirstOrDefault(Type type, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
+        {
+            return _connection.QueryFirstOrDefault(type, sql, param, transaction, commandTimeout, commandType);
+        }
 
         /// <summary>
         /// Execute a single-row query asynchronously using Task.
         /// </summary>
         /// <param name="command">The command used to query on this connection.</param>
         /// <returns>Note: the row can be accessed via "dynamic", or by casting to an IDictionary<string,object></returns>
-        Task<dynamic> QueryFirstOrDefaultAsync(CommandDefinition command);
+        public async Task<dynamic> QueryFirstOrDefaultAsync(CommandDefinition command)
+        {
+            return await _connection.QueryFirstOrDefaultAsync(command);
+        }
 
         /// <summary>
         /// Execute a single-row query asynchronously using Task.
@@ -682,7 +864,10 @@ namespace WebDemo01.Services
         /// <param name="commandTimeout"></param>
         /// <param name="commandType"></param>
         /// <returns></returns>
-        Task<dynamic> QueryFirstOrDefaultAsync(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null);
+        public async Task<dynamic> QueryFirstOrDefaultAsync(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
+        {
+            return await _connection.QueryFirstOrDefaultAsync(sql, param, transaction, commandTimeout, commandType);
+        }
 
 
         /// <summary>
@@ -695,7 +880,10 @@ namespace WebDemo01.Services
         /// <param name="commandTimeout">The command timeout (in seconds).</param>
         /// <param name="commandType">The type of command to execute.</param>
         /// <returns></returns>
-        Task<T> QueryFirstOrDefaultAsync<T>(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null);
+        public async Task<T> QueryFirstOrDefaultAsync<T>(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
+        {
+            return await _connection.QueryFirstOrDefaultAsync<T>(sql, param, transaction, commandTimeout, commandType);
+        }
 
 
         /// <summary>
@@ -711,7 +899,10 @@ namespace WebDemo01.Services
         ///  T:System.ArgumentNullException:
         ///  type is null.
         /// </returns>
-        Task<object> QueryFirstOrDefaultAsync(Type type, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null);
+        public async Task<object> QueryFirstOrDefaultAsync(Type type, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
+        {
+            return await _connection.QueryFirstOrDefaultAsync(type, sql, param, transaction, commandTimeout, commandType);
+        }
 
         /// <summary>
         ///  Execute a single-row query asynchronously using Task.
@@ -719,7 +910,10 @@ namespace WebDemo01.Services
         /// <typeparam name="T">The type to return.</typeparam>
         /// <param name="command">The command used to query on this connection.</param>
         /// <returns></returns>
-        Task<T> QueryFirstOrDefaultAsync<T>(CommandDefinition command);
+        public async Task<T> QueryFirstOrDefaultAsync<T>(CommandDefinition command)
+        {
+            return await _connection.QueryFirstOrDefaultAsync<T>(command);
+        }
 
 
         /// <summary>
@@ -728,7 +922,10 @@ namespace WebDemo01.Services
         /// <param name="type">The type to return.</param>
         /// <param name="command">The command used to query on this connection.</param>
         /// <returns></returns>
-        Task<object> QueryFirstOrDefaultAsync(Type type, CommandDefinition command);
+        public async Task<object> QueryFirstOrDefaultAsync(Type type, CommandDefinition command)
+        {
+            return await _connection.QueryFirstOrDefaultAsync(type, command);
+        }
 
         /// <summary>
         /// Execute a command that returns multiple result sets, and access each in turn.
@@ -739,7 +936,10 @@ namespace WebDemo01.Services
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
         /// <param name="commandType">Is it a stored proc or a batch?</param>
         /// <returns></returns>
-        GridReader QueryMultiple(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null);
+        public GridReader QueryMultiple(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
+        {
+            return _connection.QueryMultiple(sql, param, transaction, commandTimeout, commandType);
+        }
 
 
         /// <summary>
@@ -747,7 +947,10 @@ namespace WebDemo01.Services
         /// </summary>
         /// <param name="command">The command to execute for this query.</param>
         /// <returns></returns>
-        GridReader QueryMultiple(CommandDefinition command);
+        public GridReader QueryMultiple(CommandDefinition command)
+        {
+            return _connection.QueryMultiple(command);
+        }
 
 
         /// <summary>
@@ -755,7 +958,10 @@ namespace WebDemo01.Services
         /// </summary>
         /// <param name="command">The command to execute for this query.</param>
         /// <returns></returns>
-        Task<GridReader> QueryMultipleAsync(CommandDefinition command);
+        public async Task<GridReader> QueryMultipleAsync(CommandDefinition command)
+        {
+            return await _connection.QueryMultipleAsync(command);
+        }
 
 
         /// <summary>
@@ -767,7 +973,10 @@ namespace WebDemo01.Services
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
         /// <param name="commandType">Is it a stored proc or a batch?</param>
         /// <returns></returns>
-        Task<GridReader> QueryMultipleAsync(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null);
+        public async Task<GridReader> QueryMultipleAsync(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
+        {
+            return await _connection.QueryMultipleAsync(sql, param, transaction, commandTimeout, commandType);
+        }
 
 
 
@@ -785,7 +994,10 @@ namespace WebDemo01.Services
         /// 异常:
         /// T:System.ArgumentNullException:type is null.
         /// </returns>
-        object QuerySingle(Type type, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null);
+        public object QuerySingle(Type type, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
+        {
+            return _connection.QuerySingle(type, sql, param, transaction, commandTimeout, commandType);
+        }
 
 
         /// <summary>
@@ -794,7 +1006,10 @@ namespace WebDemo01.Services
         /// <typeparam name="T">The type of results to return.</typeparam>
         /// <param name="command">The command used to query on this connection.</param>
         /// <returns>A sequence of data of the supplied type; if a basic type (int, string, etc) is queried then the data from the first column in assumed, otherwise an instance is created per row, and a direct column-name===member-name mapping is assumed (case insensitive).</returns>
-        T QuerySingle<T>(CommandDefinition command);
+        public T QuerySingle<T>(CommandDefinition command)
+        {
+            return _connection.QuerySingle<T>(command);
+        }
 
         /// <summary>
         /// Executes a single-row query, returning the data typed as T.
@@ -806,7 +1021,10 @@ namespace WebDemo01.Services
         /// <param name="commandTimeout">The command timeout (in seconds).</param>
         /// <param name="commandType">The type of command to execute.</param>
         /// <returns>A sequence of data of the supplied type; if a basic type (int, string, etc) is queried then the data from the first column in assumed, otherwise an instance is created per row, and a direct column-name===member-name mapping is assumed (case insensitive).</returns>
-        T QuerySingle<T>(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null);
+        public T QuerySingle<T>(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
+        {
+            return _connection.QuerySingle<T>(sql, param, transaction, commandTimeout, commandType);
+        }
 
 
         /// <summary>
@@ -818,7 +1036,10 @@ namespace WebDemo01.Services
         /// <param name="commandTimeout">The command timeout (in seconds).</param>
         /// <param name="commandType">The type of command to execute.</param>
         /// <returns>Note: the row can be accessed via "dynamic", or by casting to an IDictionary<string,object></returns>
-        dynamic QuerySingle(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null);
+        public dynamic QuerySingle(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
+        {
+            return _connection.QuerySingle(sql, param, transaction, commandTimeout, commandType);
+        }
 
 
         /// <summary>
@@ -830,7 +1051,11 @@ namespace WebDemo01.Services
         /// <param name="commandTimeout">The command timeout (in seconds).</param>
         /// <param name="commandType">The type of command to execute.</param>
         /// <returns></returns>
-        Task<dynamic> QuerySingleAsync(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null);
+        public async Task<dynamic> QuerySingleAsync(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
+        {
+            return await _connection.QuerySingleAsync(sql, param, transaction, commandTimeout, commandType);
+        }
+
         /// <summary>
         /// Execute a single-row query asynchronously using Task.
         /// </summary>
@@ -843,7 +1068,10 @@ namespace WebDemo01.Services
         /// <returns>
         /// T:System.ArgumentNullException:type is null.
         /// </returns>
-        Task<object> QuerySingleAsync(Type type, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null);
+        public async Task<object> QuerySingleAsync(Type type, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
+        {
+            return await _connection.QuerySingleAsync(type, sql, param, transaction, commandTimeout, commandType);
+        }
 
         /// <summary>
         /// Execute a single-row query asynchronously using Task.
@@ -855,7 +1083,11 @@ namespace WebDemo01.Services
         /// <param name="commandTimeout">The command timeout (in seconds).</param>
         /// <param name="commandType">The type of command to execute.</param>
         /// <returns></returns>
-        Task<T> QuerySingleAsync<T>(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null);
+        public async Task<T> QuerySingleAsync<T>(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
+        {
+            return await _connection.QuerySingleAsync<T>(sql, param, transaction, commandTimeout, commandType);
+        }
+
 
         /// <summary>
         /// Execute a single-row query asynchronously using Task.
@@ -863,7 +1095,10 @@ namespace WebDemo01.Services
         /// <param name="type">The type to return.</param>
         /// <param name="command">The command used to query on this connection.</param>
         /// <returns></returns>
-        Task<object> QuerySingleAsync(Type type, CommandDefinition command);
+        public async Task<object> QuerySingleAsync(Type type, CommandDefinition command)
+        {
+            return await _connection.QuerySingleAsync(command);
+        }
 
         /// <summary>
         /// Execute a single-row query asynchronously using Task.
@@ -871,14 +1106,20 @@ namespace WebDemo01.Services
         /// <typeparam name="T">The type to return.</typeparam>
         /// <param name="command">The command used to query on this connection.</param>
         /// <returns></returns>
-        Task<T> QuerySingleAsync<T>(CommandDefinition command);
+        public async Task<T> QuerySingleAsync<T>(CommandDefinition command)
+        {
+            return await _connection.QuerySingleAsync<T>(command);
+        }
 
         /// <summary>
         /// Execute a single-row query asynchronously using Task.
         /// </summary>
         /// <param name="command">The command used to query on this connection.</param>
         /// <returns>Note: the row can be accessed via "dynamic", or by casting to an IDictionary<string,object></returns>
-        Task<dynamic> QuerySingleAsync(CommandDefinition command);
+        public async Task<dynamic> QuerySingleAsync(CommandDefinition command)
+        {
+            return await _connection.QuerySingleAsync(command);
+        }
 
 
         /// <summary>
@@ -890,7 +1131,10 @@ namespace WebDemo01.Services
         /// <param name="commandTimeout">The command timeout (in seconds).</param>
         /// <param name="commandType">The type of command to execute.</param>
         /// <returns>Note: the row can be accessed via "dynamic", or by casting to an IDictionary<string,object></returns>
-        dynamic QuerySingleOrDefault(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null);
+        public dynamic QuerySingleOrDefault(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
+        {
+            return _connection.QuerySingleOrDefault(sql, param, transaction, commandTimeout, commandType);
+        }
 
         /// <summary>
         /// Executes a query, returning the data typed as T.
@@ -898,7 +1142,11 @@ namespace WebDemo01.Services
         /// <typeparam name="T">The type of results to return.</typeparam>
         /// <param name="command">The command used to query on this connection.</param>
         /// <returns>A single instance of the  supplied type; if a basic type (int, string, etc) is queried then the data from the first column in assumed, otherwise an instance is created per row, and a direct column-name===member-name mapping is assumed (case insensitive).</returns>
-        T QuerySingleOrDefault<T>(CommandDefinition command);
+        public T QuerySingleOrDefault<T>(CommandDefinition command)
+        {
+            return _connection.QuerySingleOrDefault<T>(command);
+        }
+
         /// <summary>
         /// Executes a single-row query, returning the data typed as T.
         /// </summary>
@@ -909,7 +1157,10 @@ namespace WebDemo01.Services
         /// <param name="commandTimeout">The command timeout (in seconds).</param>
         /// <param name="commandType">The type of command to execute.</param>
         /// <returns>A sequence  of data  of the  supplied type; if a basic type (int, string, etc) is queried then the data from the first column in assumed, otherwise an instance is created per row, and a direct column-name===member-name mapping is assumed (case insensitive).</returns>
-        T QuerySingleOrDefault<T>(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null);
+        public T QuerySingleOrDefault<T>(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
+        {
+            return _connection.QuerySingleOrDefault<T>(sql, param, transaction, commandTimeout, commandType);
+        }
 
         /// <summary>
         /// Executes a single-row query, returning the data typed as type.
@@ -925,7 +1176,10 @@ namespace WebDemo01.Services
         /// T:System.ArgumentNullException:
         /// type is null.
         /// </returns>
-        object QuerySingleOrDefault(Type type, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null);
+        public object QuerySingleOrDefault(Type type, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
+        {
+            return _connection.QuerySingleOrDefault(type, sql, param, transaction, commandTimeout, commandType);
+        }
 
         /// <summary>
         /// Execute a single-row query asynchronously using Task.
@@ -939,7 +1193,10 @@ namespace WebDemo01.Services
         /// <returns>
         /// T:System.ArgumentNullException: type is null.
         /// </returns>
-        Task<object> QuerySingleOrDefaultAsync(Type type, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null);
+        public async Task<object> QuerySingleOrDefaultAsync(Type type, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
+        {
+            return await _connection.QuerySingleOrDefaultAsync(type, sql, param, transaction, commandTimeout, commandType);
+        }
 
         /// <summary>
         /// Execute a single-row query asynchronously using Task.
@@ -947,7 +1204,11 @@ namespace WebDemo01.Services
         /// <param name="type">The type to return.</param>
         /// <param name="command">The command used to query on this connection.</param>
         /// <returns></returns>
-        Task<object> QuerySingleOrDefaultAsync(Type type, CommandDefinition command);
+        public async Task<object> QuerySingleOrDefaultAsync(Type type, CommandDefinition command)
+        {
+            return await _connection.QuerySingleOrDefaultAsync(type, command);
+        }
+
 
         /// <summary>
         /// Execute a single-row query asynchronously using Task.
@@ -958,7 +1219,10 @@ namespace WebDemo01.Services
         /// <param name="commandTimeout">The command timeout (in seconds).</param>
         /// <param name="commandType">The type of command to execute.</param>
         /// <returns></returns>
-        Task<dynamic> QuerySingleOrDefaultAsync(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null);
+        public async Task<dynamic> QuerySingleOrDefaultAsync(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
+        {
+            return await _connection.QuerySingleOrDefaultAsync(sql, param, transaction, commandTimeout, commandType);
+        }
 
 
         /// <summary>
@@ -971,21 +1235,31 @@ namespace WebDemo01.Services
         /// <param name="commandTimeout">The command timeout (in seconds).</param>
         /// <param name="commandType">The type of command to execute.</param>
         /// <returns></returns>
-        Task<T> QuerySingleOrDefaultAsync<T>(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null);
+        public async Task<T> QuerySingleOrDefaultAsync<T>(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
+        {
+            return await _connection.QuerySingleOrDefaultAsync(sql, param, transaction, commandTimeout, commandType);
+        }
 
         /// <summary>
         /// Execute a single-row query asynchronously using Task.
         /// </summary>
         /// <param name="command">The command used to query on this connection.</param>
         /// <returns>Note: the row can be accessed via "dynamic", or by casting to an IDictionary<string,object></returns>
-        Task<dynamic> QuerySingleOrDefaultAsync(CommandDefinition command);
+        public async Task<dynamic> QuerySingleOrDefaultAsync(CommandDefinition command)
+        {
+            return await _connection.QuerySingleOrDefaultAsync(command);
+        }
+
         /// <summary>
         /// Execute a single-row query asynchronously using Task.
         /// </summary>
         /// <typeparam name="T">The type to return.</typeparam>
         /// <param name="command">The command used to query on this connection.</param>
         /// <returns></returns>
-        Task<T> QuerySingleOrDefaultAsync<T>(CommandDefinition command);
+        public async Task<T> QuerySingleOrDefaultAsync<T>(CommandDefinition command)
+        {
+            return await _connection.QuerySingleOrDefaultAsync<T>(command);
+        }
 
     }
 }

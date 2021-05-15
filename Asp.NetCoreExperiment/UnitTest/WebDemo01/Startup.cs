@@ -30,15 +30,18 @@ namespace WebDemo01
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            // services.AddScoped<IDbConnection, MySqlConnection>();
-            // services.AddScoped<IDbConnection, SqlConnection>();
-            // services.AddScoped<IReadDapper, MySqlReadDapper>();
-            // services.AddScoped<IReadDapper, MsSqlReadDapper>();
+            services.AddScoped<IDbConnection, MySqlConnection>();
+            services.AddScoped<IDapperPlusRead, DapperPlusRead>();
+            services.AddScoped<IDapperPlusWrite, DapperPlusWrite>();
 
+            //services.AddScoped<IDbConnection, SqlConnection>();
 
             services.AddScoped<IDbConnection, MySqlConnection>();
-            services.AddScoped<IReadDapper, ReadDapper>();
-            services.AddScoped<IWriteDapper, WriteDapper>();
+            services.AddScoped<IDapperPlus, DapperPlus>();
+
+
+            services.AddScoped<IDapperPlusRead, DapperPlusRead>();
+            services.AddScoped<IDapperPlusWrite, DapperPlusWrite>();
 
             services.AddScoped<IShopService, ShopService>();
         }
