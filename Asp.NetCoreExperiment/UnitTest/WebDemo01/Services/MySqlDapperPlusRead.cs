@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace WebDemo01.Services
 {
-    public class MySqlReadDapper : DapperPlusRead
+    public class MySqlDapperPlusRead : DapperPlusRead
     {
-        public MySqlReadDapper(IEnumerable<IDbConnection> connections, IConfiguration configuration)
+        public MySqlDapperPlusRead(IEnumerable<IDbConnection> connections, IConfiguration configuration)
         {
             var connectionStrings = configuration.GetSection("ConnectionStrings").Get<Dictionary<string, string>>();
             var readConnectionStrings = connectionStrings.Where(s => s.Key.ToLower().Contains("read"));

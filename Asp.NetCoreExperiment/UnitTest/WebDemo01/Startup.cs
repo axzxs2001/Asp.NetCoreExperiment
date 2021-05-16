@@ -30,18 +30,28 @@ namespace WebDemo01
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddScoped<IDbConnection, MySqlConnection>();
-            services.AddScoped<IDapperPlusRead, DapperPlusRead>();
-            services.AddScoped<IDapperPlusWrite, DapperPlusWrite>();
+            //services.AddScoped<IDbConnection, MySqlConnection>();
+            //services.AddScoped<IDapperPlus, DapperPlus>();
 
+
+            //services.AddScoped<IDbConnection, MySqlConnection>();
+            //services.AddScoped<IDapperPlusRead, DapperPlusRead>();
+            //services.AddScoped<IDapperPlusWrite, DapperPlusWrite>();
+
+            //两种库
+            //services.AddScoped<IDbConnection, MySqlConnection>();
             //services.AddScoped<IDbConnection, SqlConnection>();
+            //services.AddScoped<IDapperPlus, MySqlDapperPlus>();
+            //services.AddScoped<IDapperPlus, MsSqlDapperPlus>();
 
+            //两种库，计写分离
             services.AddScoped<IDbConnection, MySqlConnection>();
-            services.AddScoped<IDapperPlus, DapperPlus>();
+            services.AddScoped<IDbConnection, SqlConnection>();
+            services.AddScoped<IDapperPlusRead, MySqlDapperPlusRead>();
+            services.AddScoped<IDapperPlusRead, MsSqlDapperPlusRead>();
+            services.AddScoped<IDapperPlusWrite, MySqlDapperPlusWrite>();
+            services.AddScoped<IDapperPlusWrite, MsSqlDapperPlusWrite>();
 
-
-            services.AddScoped<IDapperPlusRead, DapperPlusRead>();
-            services.AddScoped<IDapperPlusWrite, DapperPlusWrite>();
 
             services.AddScoped<IShopService, ShopService>();
         }

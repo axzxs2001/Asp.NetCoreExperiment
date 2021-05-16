@@ -15,7 +15,16 @@ namespace WebDemo01.Services
     /// </summary>
     public class DapperPlusWrite : IDapperPlusWrite
     {
-        private readonly IDbConnection _connection;
+        protected IDbConnection _connection;
+        /// <summary>
+        /// 无参构造
+        /// </summary>
+        public DapperPlusWrite()
+        {
+
+        }
+
+
         /// <summary>
         /// 构造
         /// </summary>
@@ -27,13 +36,7 @@ namespace WebDemo01.Services
             _connection = connection;
             _connection.ConnectionString = connectionStrings.Where(s => s.Key.ToLower().Contains("write")).FirstOrDefault().Value;
         }
-        /// <summary>
-        /// 无参构造
-        /// </summary>
-        public DapperPlusWrite()
-        {
 
-        }
         /// <summary>
         /// 连接
         /// </summary>

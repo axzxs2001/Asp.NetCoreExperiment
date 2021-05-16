@@ -15,7 +15,14 @@ namespace WebDemo01.Services
     /// </summary>
     public class DapperPlus : IDapperPlus
     {
-        private readonly IDbConnection _connection;
+        protected IDbConnection _connection;
+        /// <summary>
+        /// 无参构造函数
+        /// </summary>
+        public DapperPlus()
+        {
+        }
+
         /// <summary>
         /// 构造
         /// </summary>
@@ -25,7 +32,7 @@ namespace WebDemo01.Services
         {
             _connection = connection;
             _connection.ConnectionString = configuration.GetConnectionString("DefaultConnectionString");
-        }    
+        }
         /// <summary>
         /// 连接
         /// </summary>

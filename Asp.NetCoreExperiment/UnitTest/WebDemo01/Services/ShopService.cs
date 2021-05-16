@@ -13,13 +13,38 @@ namespace WebDemo01.Services
     }
     public class ShopService : IShopService
     {
-        private readonly IDapperPlusWrite _writeDapper;
-        private readonly IEnumerable<IDapperPlusRead> _readDappers;
-        public ShopService(IDapperPlusWrite writeDapper, IEnumerable<IDapperPlusRead> readDappers)
+        private readonly IDapperPlusWrite _mySqlDapperWrite;
+        private readonly IDapperPlusWrite _msSqlDapperWrite;
+        private readonly IDapperPlusRead _mySqlDapperRead;
+        private readonly IDapperPlusRead _msSqlDapperRead;
+        public ShopService(IEnumerable<IDapperPlusWrite> dapperWrites, IEnumerable<IDapperPlusRead> dapperReads)
         {
-            _writeDapper = writeDapper;
-            _readDappers = readDappers;
+            foreach (var dapperWrite in dapperWrites)
+            {
+                switch (dapperWrite)
+                {
+                    case MySqlDapperPlusWrite mySqlDapperPlusWrite:
+                        _mySqlDapperWrite = mySqlDapperPlusWrite;
+                        break;
+                    case MsSqlDapperPlusWrite msSqlDapperPlusWrite:
+                        _msSqlDapperWrite = msSqlDapperPlusWrite;
+                        break;
+                }
 
+            }
+            foreach (var dapperRead in dapperReads)
+            {
+                switch (dapperRead)
+                {
+                    case MySqlDapperPlusRead mySqlDapperPlusRead:
+                        _mySqlDapperRead = mySqlDapperPlusRead;
+                        break;
+                    case MsSqlDapperPlusRead msSqlDapperPlusRead:
+                        _msSqlDapperRead = msSqlDapperPlusRead;
+                        break;
+                }
+
+            }
         }
 
         public List<Goods> GetAllGoods()
