@@ -16,6 +16,7 @@ namespace RulesEngineSample.Services
         private readonly List<Coupon> _userCoupons;
         private readonly Order _order;
         private readonly User _user;
+        private readonly List<Goods> _goodses;
         public CouponService(ILogger<CouponService> logger)
         {
             _logger = logger;
@@ -27,7 +28,7 @@ namespace RulesEngineSample.Services
                     Code="YH01",
                     Name = "满500减20",
                     BeginTime = DateTime.Parse("2021-01-01"),
-                    EndTime = DateTime.Parse("2021-06-01"),
+                    EndTime = DateTime.Parse("2029-06-01"),
                     Expression = "input1.Details.Sum(s => s.Price * Convert.ToDecimal(s.Quantity))>= 500",
                     Symbol="-",
                     Number=20
@@ -39,7 +40,7 @@ namespace RulesEngineSample.Services
                     Code="YH02",
                     Name = "新人5元券",
                     BeginTime = DateTime.Parse("2021-01-01"),
-                    EndTime = DateTime.Parse("2021-06-01"),
+                    EndTime = DateTime.Parse("2029-06-01"),
                     Expression = "input1.Details.Count>0",
                     Symbol="-",
                     Number=5
@@ -50,8 +51,20 @@ namespace RulesEngineSample.Services
                     Code="YH03",
                     Name = "商品C五折",
                     BeginTime = DateTime.Parse("2021-01-01"),
-                    EndTime = DateTime.Parse("2021-06-01"),
+                    EndTime = DateTime.Parse("2029-06-01"),
                     Expression = "input1.Details.Where(s=>s.GoodsID==\"SP0000003\").Count()>0",
+                    Symbol="*",
+                    Number=0.5f,
+                    GoodsID="SP0000003"
+                },
+                 new Coupon
+                {
+                    ID = 4,
+                    Code="YH04",
+                    Name = "A类商品，满1000减200百",
+                    BeginTime = DateTime.Parse("2021-01-01"),
+                    EndTime = DateTime.Parse("2029-06-01"),
+                    Expression = "input1.Details.Join(input3,o=>o.GoodsID,g=>g.goodsID,(o,g)=>new{o.Price,o.Quantity,g.TypeID}).Where(s=>s.TypeID==\"A\").Sum(s=>s.Price*s.Quantity)>1000",
                     Symbol="*",
                     Number=0.5f,
                     GoodsID="SP0000003"
@@ -64,12 +77,20 @@ namespace RulesEngineSample.Services
                 OrderTime = DateTime.Now,
                 Details = new List<Detail>
                 {
-                    new Detail{ GoodsID="SP0000001", Name="商品A", Price=12.5m, Quantity=3},
+                    new Detail{ GoodsID="SP0000001", Name="商品A", Price=100m, Quantity=3},
                     new Detail{ GoodsID="SP0000002", Name="商品B", Price=100m, Quantity=4},
-                    new Detail{ GoodsID="SP0000003", Name="商品C", Price=22.3m, Quantity=5},
+                    new Detail{ GoodsID="SP0000003", Name="商品C", Price=100m, Quantity=5},
                 }
             };
             _user = new User { ID = 1, UserName = "zhangsan" };
+
+            _goodses = new List<Goods>
+            {
+                new Goods{ GoodsID="SP0000001",TypeID="A"},
+                new Goods{ GoodsID="SP0000002",TypeID="B"},
+                new Goods{ GoodsID="SP0000002",TypeID="C"},
+            };
+
         }
         /// <summary>
         /// 适配优惠券
@@ -86,7 +107,7 @@ namespace RulesEngineSample.Services
                 {
                     RuleName = coupon.Name,
                     SuccessEvent = coupon.Code,
-                    ErrorMessage = "规则应用失败",
+                    //ErrorMessage = "规则应用失败",
                     ErrorType = ErrorType.Error,
                     RuleExpressionType = RuleExpressionType.LambdaExpression,
                     Expression = coupon.Expression
@@ -95,8 +116,8 @@ namespace RulesEngineSample.Services
             }
             workRules.Rules = rules;
             var rulesEngine = new RulesEngine.RulesEngine(new WorkflowRules[] { workRules }, _logger, new ReSettings());
-            var ruleResults = await rulesEngine.ExecuteAllRulesAsync("优惠券", _order, _user);
-           // var valueCoupons = new List<string>();
+            var ruleResults = await rulesEngine.ExecuteAllRulesAsync("优惠券", _order, _user, _goodses);
+            // var valueCoupons = new List<string>();
             //处理结果
             var discountCoupons = new StringBuilder();
             foreach (var ruleResult in ruleResults)
@@ -105,6 +126,10 @@ namespace RulesEngineSample.Services
                 {
                     discountCoupons.AppendLine($"可以使用的优惠券 “{_userCoupons.SingleOrDefault(s => s.Code == ruleResult.Rule.SuccessEvent)?.Name}”, Code是：{ruleResult.Rule.SuccessEvent}");
                     //valueCoupons.Add(ruleResult.Rule.SuccessEvent);
+                }
+                else
+                {
+                    Console.WriteLine(ruleResult.ExceptionMessage);
                 }
             }
             //resultList.OnSuccess((eventName) =>
@@ -123,7 +148,7 @@ namespace RulesEngineSample.Services
         /// <param name="code"></param>
         /// <returns></returns>
         public string GetOrderAmount(string code)
-        {            
+        {
             var selectCoupon = _userCoupons.SingleOrDefault(s => s.Code == code);
             var orderAmount = 0m;
             switch (selectCoupon.Symbol)
@@ -182,5 +207,11 @@ namespace RulesEngineSample.Services
         public decimal Price { get; set; }
         public string Name { get; set; }
 
+    }
+
+    public class Goods
+    {
+        public string GoodsID { get; set; }
+        public string TypeID { get; set; }
     }
 }
