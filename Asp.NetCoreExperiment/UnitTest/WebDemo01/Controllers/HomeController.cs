@@ -30,7 +30,7 @@ namespace WebDemo01.Controllers
         public string Get()
         {
 
-            _shopService.FF();
+            _shopService.GetAllGoods();
             return "OK";
         }
     }
