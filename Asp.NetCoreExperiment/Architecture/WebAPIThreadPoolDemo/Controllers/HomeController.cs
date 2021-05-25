@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Dapper;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Linq;
 using System.Security.Cryptography;
@@ -67,5 +69,41 @@ namespace WebAPIThreadPoolDemo.Controllers
             }
             return await Task.FromResult<string>(hash.ToString());
         }
+
+        [HttpGet("/syncdata")]
+        public string SyncData()
+        {
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
+            using (var con = new SqlConnection("server=.;database=AdventureWorks2016;uid=sa;pwd=sa;"))
+            {
+                var sql = @$"select* from sales.SalesOrderDetail d join sales.SalesOrderHeader h on h.SalesOrderID= d.SalesOrderID
+-- join Production.Product p on d.ProductID= p.ProductID join Sales.Customer c on h.CustomerID= c.CustomerID 
+where 1=1 or 'a'!='{DateTime.Now}'";
+                var list = con.Query<dynamic>(sql).ToList();
+                Console.WriteLine(list.Count);
+            }
+            sw.Stop();
+            this._logger.LogInformation($"{sw.ElapsedMilliseconds }ms, thread count:{ThreadPool.ThreadCount}");
+            return "sync";
+        }
+        [HttpGet("/asyncdata")]
+        public async Task<string> AsyncData()
+        {
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
+            using (var con = new SqlConnection("server=.;database=AdventureWorks2016;uid=sa;pwd=sa;"))
+            {
+                var sql = @$"select* from sales.SalesOrderDetail d join sales.SalesOrderHeader h on h.SalesOrderID= d.SalesOrderID 
+-- join Production.Product p on d.ProductID= p.ProductID join Sales.Customer c on h.CustomerID= c.CustomerID
+where 1=1 or 'a'!='{DateTime.Now}'";
+                var list = (await con.QueryAsync<dynamic>(sql)).ToList();
+                Console.WriteLine(list.Count);
+            }
+            sw.Stop();
+            this._logger.LogInformation($"{sw.ElapsedMilliseconds }ms, thread count:{ThreadPool.ThreadCount}");
+            return "async";
+        }
+
     }
 }
