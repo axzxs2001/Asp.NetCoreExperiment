@@ -28,24 +28,22 @@ namespace WebAPIThreadPoolDemo.Controllers
         [HttpGet("/sync")]
         public string Sync()
         {
-            Stopwatch sw = new Stopwatch();
-            sw.Start();
-            //Thread.Sleep(1000);
+            var sw = new Stopwatch();
+            sw.Start(); 
             TakeCPU().Wait();
             sw.Stop();
-            this._logger.LogInformation($"{sw.ElapsedMilliseconds }ms, thread count:{ThreadPool.ThreadCount}");
+            this._logger.LogInformation($"用时:{sw.ElapsedMilliseconds }ms, 线程数:{ThreadPool.ThreadCount}");
             return "sync";
         }
 
         [HttpGet("/async")]
         public async Task<string> Async()
         {
-            Stopwatch sw = new Stopwatch();
+            var sw = new Stopwatch();
             sw.Start();
-            await TakeCPU();
-            // await Task.Delay(1000);
+            await TakeCPU(); 
             sw.Stop();
-            this._logger.LogInformation($"{sw.ElapsedMilliseconds }ms, thread count:{ThreadPool.ThreadCount}");
+            this._logger.LogInformation($"用时:{sw.ElapsedMilliseconds }ms, 线程数:{ThreadPool.ThreadCount}");
             return "async";
         }
 
@@ -73,36 +71,32 @@ namespace WebAPIThreadPoolDemo.Controllers
         [HttpGet("/syncdata")]
         public string SyncData()
         {
-            Stopwatch sw = new Stopwatch();
+            var sw = new Stopwatch();
             sw.Start();
-            using (var con = new SqlConnection("server=.;database=AdventureWorks2016;uid=sa;pwd=sa;"))
-            {
-                var sql = @$"select* from sales.SalesOrderDetail d join sales.SalesOrderHeader h on h.SalesOrderID= d.SalesOrderID
+            using var con = new SqlConnection("server=.;database=AdventureWorks2016;uid=sa;pwd=sa;");
+
+            var sql = @$"select* from sales.SalesOrderDetail d join sales.SalesOrderHeader h on h.SalesOrderID= d.SalesOrderID
 -- join Production.Product p on d.ProductID= p.ProductID join Sales.Customer c on h.CustomerID= c.CustomerID 
 where 1=1 or 'a'!='{DateTime.Now}'";
-                var list = con.Query<dynamic>(sql).ToList();
-                Console.WriteLine(list.Count);
-            }
+            var list = con.Query<dynamic>(sql).ToList();
+
             sw.Stop();
-            this._logger.LogInformation($"{sw.ElapsedMilliseconds }ms, thread count:{ThreadPool.ThreadCount}");
-            return "sync";
+            this._logger.LogInformation($"用时:{sw.ElapsedMilliseconds }ms, 线程数:{ThreadPool.ThreadCount}");
+            return "sync" + list.Count;
         }
         [HttpGet("/asyncdata")]
         public async Task<string> AsyncData()
         {
-            Stopwatch sw = new Stopwatch();
+            var sw = new Stopwatch();
             sw.Start();
-            using (var con = new SqlConnection("server=.;database=AdventureWorks2016;uid=sa;pwd=sa;"))
-            {
-                var sql = @$"select* from sales.SalesOrderDetail d join sales.SalesOrderHeader h on h.SalesOrderID= d.SalesOrderID 
+            using var con = new SqlConnection("server=.;database=AdventureWorks2016;uid=sa;pwd=sa;");
+            var sql = @$"select* from sales.SalesOrderDetail d join sales.SalesOrderHeader h on h.SalesOrderID= d.SalesOrderID 
 -- join Production.Product p on d.ProductID= p.ProductID join Sales.Customer c on h.CustomerID= c.CustomerID
 where 1=1 or 'a'!='{DateTime.Now}'";
-                var list = (await con.QueryAsync<dynamic>(sql)).ToList();
-                Console.WriteLine(list.Count);
-            }
+            var list = await con.QueryAsync<dynamic>(sql);
             sw.Stop();
-            this._logger.LogInformation($"{sw.ElapsedMilliseconds }ms, thread count:{ThreadPool.ThreadCount}");
-            return "async";
+            this._logger.LogInformation($"用时:{sw.ElapsedMilliseconds }ms, 线程数:{ThreadPool.ThreadCount}");
+            return "async" + list.Count();
         }
 
     }

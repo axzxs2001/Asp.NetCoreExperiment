@@ -16,7 +16,7 @@ namespace WebAPIThreadPoolDemo
         {
             //ab -n 100 -c 100 http://localhost:5000/syncdata
             //ab -n 100 -c 100 http://localhost:5000/asyncdata
-           // ThreadPool.SetMinThreads(50, 8);
+            // ThreadPool.SetMinThreads(50, 8);
             ThreadPool.GetMinThreads(out int worker, out int io);
             Console.WriteLine($"worker:{worker},IO:{io}");
             ThreadPool.GetMaxThreads(out int worker1, out int io1);
