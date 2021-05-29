@@ -30,8 +30,11 @@ namespace KeyWordsDemo
             //IDemo imp = new ImplicitAndExplicitDemo();
             //imp.Run();
 
-            IDemo rangdemo = new RangDemo();
-            rangdemo.Run();
+            //IDemo rangdemo = new RangDemo();
+            //rangdemo.Run();
+
+            IDemo fexcdemo = new FilterExceptionDemo();
+            fexcdemo.Run();
         }
     }
 
