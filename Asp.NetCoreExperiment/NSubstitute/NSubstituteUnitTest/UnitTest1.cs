@@ -20,24 +20,24 @@ namespace NSubstituteUnitTest
         public async Task AddUser_Default_Return()
         {
             var user = new User { UserName = "a", Password = "b" };
-            _userService.AddUserAsync(Arg.Any<User>()).Returns(true);          
+            _userService.AddUserAsync(Arg.Any<User>()).Returns(true);
             var result = await _userManage.AddUserAsync(user);
             Assert.Equal(true, result);
         }
 
         [Fact]
         public async Task AddUser_ServiceError_ReturnFalse()
-        {          
+        {
             var user = new User { UserName = "a", Password = "b" };
-            _userService.AddUserAsync(Arg.Any<User>()).Returns(false);          
+            _userService.AddUserAsync(Arg.Any<User>()).Returns(false);
             var result = await _userManage.AddUserAsync(user);
             Assert.Equal(false, result);
         }
         [Fact]
         public async Task AddUser_Exception_ReturnFalse()
-        {         
+        {
             var user = new User { UserName = "a", Password = "b" };
-            _userService.AddUserAsync(Arg.Any<User>()).Throws(new Exception("异常"));       
+            _userService.AddUserAsync(Arg.Any<User>()).Throws(new Exception("异常"));
             var result = await _userManage.AddUserAsync(user);
             Assert.Equal(false, result);
         }
@@ -53,9 +53,30 @@ namespace NSubstituteUnitTest
         [InlineData(" ", " ")]
         public async Task AddUser_IsNullOrEmpty_ReturnFalse(string userName, string password)
         {
-            var user = new User { UserName = userName, Password = password }; 
+            var user = new User { UserName = userName, Password = password };
             var result = await _userManage.AddUserAsync(user);
             Assert.Equal(false, result);
+        }
+        
+        [Theory]
+        [InlineData("稀饭", "烂代码")]
+        [InlineData("饺子", "好代码")]
+        [InlineData("饸饹", "优代码")]
+        public void Code_DifferentFood_DifferentResults(string food, string result)
+        {
+            //Arrange
+            var guiSuWei = new Programmer();
+            //Act
+            var codeResult = guiSuWei.Code(food);
+            //Assert
+            Assert.Equal(result, codeResult);
+        }
+    }
+    public class Programmer
+    {
+        public string Code(string food)
+        {
+            return "";
         }
     }
 
