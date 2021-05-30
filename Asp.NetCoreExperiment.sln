@@ -231,6 +231,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebDemo01.UnitTest", "Asp.N
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAPIThreadPoolDemo", "Asp.NetCoreExperiment\Architecture\WebAPIThreadPoolDemo\WebAPIThreadPoolDemo.csproj", "{2B757F68-8731-41DC-97EF-53ACD1494DBE}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NSubstitute", "NSubstitute", "{A1CC9F32-742F-4A4B-9E05-3F7E7D0EE49F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NSubstituteUnitTest", "Asp.NetCoreExperiment\NSubstitute\NSubstituteUnitTest\NSubstituteUnitTest.csproj", "{1E894423-F8C9-4A62-BB0C-71D01605B30D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -561,6 +565,10 @@ Global
 		{2B757F68-8731-41DC-97EF-53ACD1494DBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2B757F68-8731-41DC-97EF-53ACD1494DBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2B757F68-8731-41DC-97EF-53ACD1494DBE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E894423-F8C9-4A62-BB0C-71D01605B30D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E894423-F8C9-4A62-BB0C-71D01605B30D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E894423-F8C9-4A62-BB0C-71D01605B30D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E894423-F8C9-4A62-BB0C-71D01605B30D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -652,6 +660,7 @@ Global
 		{49839A4A-8706-43CD-A79E-F4E9C47A4753} = {DCA00EC4-3C03-4A9B-9BB7-25D4210BED4A}
 		{1E75ED51-7F9C-46ED-98C4-FDEAF278EE23} = {DCA00EC4-3C03-4A9B-9BB7-25D4210BED4A}
 		{2B757F68-8731-41DC-97EF-53ACD1494DBE} = {00DC5DBE-1C3D-41A4-BF7C-852A6FA13066}
+		{1E894423-F8C9-4A62-BB0C-71D01605B30D} = {A1CC9F32-742F-4A4B-9E05-3F7E7D0EE49F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
