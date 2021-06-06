@@ -1,0 +1,27 @@
+{
+  "Guid": "67ae335b-5d79-42dc-8ca7-236280ab9111",
+  "Request": {
+    "Path": {
+      "Matchers": [
+        {
+          "Name": "WildcardMatcher",
+          "Pattern": "/exact"
+        }
+      ]
+    },
+    "Params": [
+      {
+        "Name": "from",
+        "Matchers": [
+          {
+            "Name": "ExactMatcher",
+            "Pattern": "abc"
+          }
+        ]
+      }
+    ]
+  },
+  "Response": {
+    "Body": "Exact match gsw"
+  }
+}
