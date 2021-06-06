@@ -33,8 +33,14 @@ namespace KeyWordsDemo
             //IDemo rangdemo = new RangDemo();
             //rangdemo.Run();
 
-            IDemo fexcdemo = new FilterExceptionDemo();
-            fexcdemo.Run();
+            //IDemo fexcdemo = new FilterExceptionDemo();
+            //fexcdemo.Run();
+
+            //IDemo testDis = new TestIDisposable();
+            //testDis.Run();
+
+            IDemo enu = new TestIEnumerable();
+            enu.Run();
         }
     }
 
