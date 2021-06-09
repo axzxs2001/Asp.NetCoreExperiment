@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using static System.Console;
 
 namespace KeyWordsDemo
@@ -7,9 +8,13 @@ namespace KeyWordsDemo
     {
         void Run();
     }
+    interface IDemoAsync
+    {
+        Task RunAsync();
+    }
     class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
             //Demo nulldemo = new NullDemo();
             //nulldemo.Run();
@@ -39,8 +44,11 @@ namespace KeyWordsDemo
             //IDemo testDis = new TestIDisposable();
             //testDis.Run();
 
-            IDemo enu = new TestIEnumerable();
-            enu.Run();
+            //IDemo enu = new TestIEnumerable();
+            // enu.Run();
+
+            IDemoAsync asyncStream = new AsyncStreamDemo();
+            await asyncStream.RunAsync();
         }
     }
 
