@@ -6,6 +6,9 @@ using System.Net.WebSockets;
 using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using System.Security.Cryptography;
+using System.IO;
+using Dapper;
 
 namespace KeyWordsDemo
 {
@@ -31,10 +34,10 @@ namespace KeyWordsDemo
             {
                 var watch = new Stopwatch();
                 watch.Start();
-                var sb1 = new StringBuilder();
+                
                 await foreach (var order in producer.EnumerateOrderAsync())
                 {
-                    sb1.AppendLine(order.ToString());
+                   Console.WriteLine(order.ToString());
                 }
                 watch.Stop();
                 Console.Title = $"时长：{ watch.Elapsed.TotalSeconds}";
@@ -44,11 +47,10 @@ namespace KeyWordsDemo
             {
                 var watch = new Stopwatch();
                 watch.Start();
-                var orders = await producer.GetOrdersAsync();
-                var sb2 = new StringBuilder();
+                var orders = await producer.GetOrdersAsync();            
                 foreach (var order in orders)
                 {
-                    sb2.AppendLine(order.ToString());
+                    Console.WriteLine(order.ToString());
                 }
                 watch.Stop();
                 Console.Title = $"获取到数据：{orders.Count()} 时长：{ watch.Elapsed.TotalSeconds}";
@@ -89,64 +91,62 @@ namespace KeyWordsDemo
 
         }
 
-        public async Task<IEnumerable<POrder>> GetOrdersAsync()
+        public async Task<List<SalesOrderDetail>> GetOrdersAsync()
         {
-            using var con = new SqlConnection("server=.;database=AdventureWorks2016;uid=sa;pwd=sa;");
-            var sql = @"select p.Name,d.UnitPrice,d.OrderQty,a.City,* from Sales.SalesOrderDetail d join Sales.SalesOrderHeader h
-on d.SalesOrderID=h.SalesOrderID
-join Production.Product p on d.ProductID=p.ProductID
-join Person.Address a on a.AddressID=h.ShipToAddressID
-left join Sales.SalesPerson pe on pe.BusinessEntityID=h.SalesPersonID
-left join sales.SalesOrderHeaderSalesReason r on h.SalesOrderID=r.SalesOrderID";
-            var cmd = new SqlCommand(sql, con);
-            await con.OpenAsync();
-            var reader = await cmd.ExecuteReaderAsync();
-            var orders = new List<POrder>();
-            while (reader.Read())
+            var orders = new List<SalesOrderDetail>();
+            var offset = 0;
+            while (true)
             {
-                var order = new POrder
+                var list = (await QueryOrdersAsync(offset)).ToList();
+                orders.AddRange(list);
+                offset++;
+                if (list.Count < 100)
                 {
-                    Name = await reader.GetFieldValueAsync<string>(0),
-                    UnitPrice = await reader.GetFieldValueAsync<decimal>(1),
-                    OrderQty = await reader.GetFieldValueAsync<short>(2),
-                    City = await reader.GetFieldValueAsync<string>(3),
-                };
-                orders.Add(order);
+                    break;
+                }
             }
             return orders;
         }
-        public async IAsyncEnumerable<POrder> EnumerateOrderAsync()
+
+        public async IAsyncEnumerable<SalesOrderDetail> EnumerateOrderAsync()
+        {
+            var offset = 0;
+            while (true)
+            {
+                var list = (await QueryOrdersAsync(offset)).ToList();
+                foreach (var item in list)
+                {
+                    yield return item;
+                }
+                offset++;
+                if (list.Count < 100)
+                {
+                    break;
+                }
+            }
+
+        }
+        public async Task<IEnumerable<SalesOrderDetail>> QueryOrdersAsync(int offset)
         {
             using var con = new SqlConnection("server=.;database=AdventureWorks2016;uid=sa;pwd=sa;");
-            var sql = @"select p.Name,d.UnitPrice,d.OrderQty,a.City,* from Sales.SalesOrderDetail d join Sales.SalesOrderHeader h
-on d.SalesOrderID=h.SalesOrderID
-join Production.Product p on d.ProductID=p.ProductID
-join Person.Address a on a.AddressID=h.ShipToAddressID
-left join Sales.SalesPerson pe on pe.BusinessEntityID=h.SalesPersonID
-left join sales.SalesOrderHeaderSalesReason r on h.SalesOrderID=r.SalesOrderID";
-            var cmd = new SqlCommand(sql, con);
-            await con.OpenAsync();
-            var reader = await cmd.ExecuteReaderAsync();
-            while (reader.Read())
-            {
-                var order = new POrder
-                {
-                    Name = await reader.GetFieldValueAsync<string>(0),
-                    UnitPrice = await reader.GetFieldValueAsync<decimal>(1),
-                    OrderQty = await reader.GetFieldValueAsync<short>(2),
-                    City = await reader.GetFieldValueAsync<string>(3),
-                };
-                yield return order;
-            }
+            var sql = @$"select * from Sales.SalesOrderDetail order by SalesOrderID,SalesOrderDetailID  offset {offset*100} row fetch next 100 row only";
+            //假如这里醒询有延时
+           // await Task.Delay(100);
+            return await con.QueryAsync<SalesOrderDetail>(sql);
         }
     }
-    class POrder
+    class SalesOrderDetail
     {
-        public string Name { get; set; }
-        public decimal UnitPrice { get; set; }
-
+        public int SalesOrderID { get; set; }
+        public string CarrierTrackingNumber { get; set; }
         public short OrderQty { get; set; }
-        public string City { get; set; }
+        public int ProductID { get; set; }
+        public int SpecialOfferID { get; set; }
+        public decimal UnitPrice { get; set; }
+        public decimal UnitPriceDiscount { get; set; }
+        public Guid rowguid { get; set; }
+        public DateTime ModifiedDate { get; set; }
+
         public override string ToString()
         {
             return System.Text.Json.JsonSerializer.Serialize(this);
@@ -154,4 +154,65 @@ left join sales.SalesOrderHeaderSalesReason r on h.SalesOrderID=r.SalesOrderID";
         }
 
     }
+
+    public class DESHelper
+    {
+        //密钥
+        public static byte[] _KEY = new byte[] { 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08 };
+        //向量
+        public static byte[] _IV = new byte[] { 0x08, 0x07, 0x06, 0x05, 0x04, 0x03, 0x02, 0x01 };
+
+        /// <summary>
+        /// DES加密操作
+        /// </summary>
+        /// <param name="normalTxt"></param>
+        /// <returns></returns>
+        public string DesEncrypt(string normalTxt)
+        {
+            //byte[] byKey = System.Text.ASCIIEncoding.ASCII.GetBytes(_KEY);
+            //byte[] byIV = System.Text.ASCIIEncoding.ASCII.GetBytes(_IV);
+
+            DESCryptoServiceProvider cryptoProvider = new DESCryptoServiceProvider();
+            int i = cryptoProvider.KeySize;
+            MemoryStream ms = new MemoryStream();
+            CryptoStream cst = new CryptoStream(ms, cryptoProvider.CreateEncryptor(_KEY, _IV), CryptoStreamMode.Write);
+
+            StreamWriter sw = new StreamWriter(cst);
+            sw.Write(normalTxt);
+            sw.Flush();
+            cst.FlushFinalBlock();
+            sw.Flush();
+
+            string strRet = Convert.ToBase64String(ms.GetBuffer(), 0, (int)ms.Length);
+            return strRet;
+        }
+
+        /// <summary>
+        /// DES解密操作
+        /// </summary>
+        /// <param name="securityTxt">加密字符串</param>
+        /// <returns></returns>
+        public string DesDecrypt(string securityTxt)//解密  
+        {
+            //byte[] byKey = System.Text.ASCIIEncoding.ASCII.GetBytes(_KEY);
+            //byte[] byIV = System.Text.ASCIIEncoding.ASCII.GetBytes(_IV);
+            byte[] byEnc;
+            try
+            {
+                securityTxt.Replace("_%_", "/");
+                securityTxt.Replace("-%-", "#");
+                byEnc = Convert.FromBase64String(securityTxt);
+            }
+            catch
+            {
+                return null;
+            }
+            DESCryptoServiceProvider cryptoProvider = new DESCryptoServiceProvider();
+            MemoryStream ms = new MemoryStream(byEnc);
+            CryptoStream cst = new CryptoStream(ms, cryptoProvider.CreateDecryptor(_KEY, _IV), CryptoStreamMode.Read);
+            StreamReader sr = new StreamReader(cst);
+            return sr.ReadToEnd();
+        }
+    }
+
 }
