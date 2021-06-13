@@ -50,9 +50,11 @@ namespace KeyWordsDemo
             //IDemo enu = new TestIEnumerable();
             // enu.Run();
 
-            IDemoAsync asyncStream = new AsyncStreamDemo();
-            await asyncStream.RunAsync();
+            //IDemoAsync asyncStream = new AsyncStreamDemo();
+            //await asyncStream.RunAsync();
 
+            IDemo refd = new RefDemo();
+            refd.Run();
 
 
         }
