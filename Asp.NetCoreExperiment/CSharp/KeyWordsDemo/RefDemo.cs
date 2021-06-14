@@ -52,14 +52,14 @@ namespace KeyWordsDemo
 
         }
 
-        private static readonly PropertyInfo CachedProperty1 = typeof(VeryInternalClass).GetProperty("VeryPrivateProperty", BindingFlags.Instance | BindingFlags.NonPublic);
-        private readonly static Func<VeryInternalClass, string> GetPropertyDelegate1 = (Func<VeryInternalClass, string>)Delegate.CreateDelegate(typeof(Func<VeryInternalClass, string>), CachedProperty1.GetGetMethod(true)!);
-        public static string CompliledDelegate1()
-        {
-            var someClass = new VeryInternalClass();
-            return GetPropertyDelegate1(someClass);
+        //private static readonly PropertyInfo CachedProperty1 = typeof(VeryInternalClass).GetProperty("VeryPrivateProperty", BindingFlags.Instance | BindingFlags.NonPublic);
+        //private readonly static Func<VeryInternalClass, string> GetPropertyDelegate1 = (Func<VeryInternalClass, string>)Delegate.CreateDelegate(typeof(Func<VeryInternalClass, string>), CachedProperty1.GetGetMethod(true)!);
+        //public static string CompliledDelegate1()
+        //{
+        //    var someClass = new VeryInternalClass();
+        //    return GetPropertyDelegate1(someClass);
 
-        }
+        //}
 
 
 
