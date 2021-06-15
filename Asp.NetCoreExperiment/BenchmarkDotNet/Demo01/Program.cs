@@ -21,7 +21,7 @@ public class Program
 
 
         BenchmarkRunner.Run<TestProperty>();
-        BenchmarkRunner.Run<TestMethod>();
+        //BenchmarkRunner.Run<TestMethod>();
 
     }
 }
@@ -139,6 +139,7 @@ public class TestMethod
 
 public class MyClass
 {
+   // private string _myProperty = DateTime.Now.ToString();
     public string MyProperty { get { return DateTime.Now.ToString(); } }
 
     public string MyMethod()
