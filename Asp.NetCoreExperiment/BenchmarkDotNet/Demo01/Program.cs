@@ -9,50 +9,141 @@ public class Program
 {
     public static void Main(string[] args)
     {
-        //var test = new Test();
-        //Console.WriteLine(test.A());
-        //Console.WriteLine(test.B());
-        //Console.WriteLine(test.C());
-        BenchmarkRunner.Run<Test>();
+        //var testMet = new TestMethod();
+        //Console.WriteLine(testMet.MethodA());
+        //Console.WriteLine(testMet.MethodB());
+        //Console.WriteLine(testMet.MethodC());
+
+        //var testPro = new TestProperty();
+        //Console.WriteLine(testPro.PropertyA());
+        //Console.WriteLine(testPro.PropertyB());
+        //Console.WriteLine(testPro.PropertyC());
+
+
+        BenchmarkRunner.Run<TestProperty>();
+        BenchmarkRunner.Run<TestMethod>();
+
     }
 }
 [MemoryDiagnoser]
-public class Test
+public class TestProperty
 {
+    private readonly MyClass _myClass;
+    private readonly Func<MyClass, string> _delegate;
     private readonly PropertyInfo _proinfo;
-    private readonly MyClass _test;
-    private readonly Func<MyClass, string> _del;
-    private readonly MethodInfo _methodinfo;
-    public Test()
+
+    public TestProperty()
     {
-        _test = new MyClass() { MyProperty = "abc" };
-        _proinfo = _test.GetType().GetProperty("MyProperty");
-        _methodinfo = _proinfo.GetGetMethod(true);
-        _del = (Func<MyClass, string>)Delegate.CreateDelegate(typeof(Func<MyClass, string>), _proinfo.GetGetMethod(true)!);
+        _myClass = new MyClass();
+        _proinfo = _myClass.GetType().GetProperty("MyProperty");
+        _delegate = (Func<MyClass, string>)Delegate.CreateDelegate(typeof(Func<MyClass, string>), _proinfo.GetGetMethod(true)!);
     }
 
     [Benchmark]
-    public string A()
+    public string PropertyA()
     {
-        var value = _proinfo.GetValue(_test);
-        return value.ToString();
+        return _myClass.MyProperty;
     }
     [Benchmark]
-    public string B()
+    public string PropertyAExt()
     {
-        var value = _methodinfo.Invoke(_test, new object[0]);
-        return value.ToString();
+        var myClass = new MyClass();
+        return myClass.MyProperty;
+    }
+
+    [Benchmark]
+    public string PropertyB()
+    {
+        return _proinfo.GetValue(_myClass).ToString();
+
     }
     [Benchmark]
-    public string C()
+    public string PropertyBExt()
     {
-        var value = _del(_test);
+        var myClass = new MyClass();
+        var proinfo = myClass.GetType().GetProperty("MyProperty");
+        return proinfo.GetValue(myClass).ToString();
+    }
+
+    [Benchmark]
+    public string PropertyC()
+    {
+        var value = _delegate(_myClass);
         return value;
     }
+    [Benchmark]
+    public string PropertyCExt()
+    {
+        var myClass = new MyClass();
+        var proinfo = myClass.GetType().GetProperty("MyProperty");
+        var dele = (Func<MyClass, string>)Delegate.CreateDelegate(typeof(Func<MyClass, string>), proinfo.GetGetMethod(true)!);
+        return dele(_myClass);
+
+    }
+}
+
+[MemoryDiagnoser]
+public class TestMethod
+{
+    private readonly MyClass _myClass;
+    private readonly Func<MyClass, string> _delegate;
+    private readonly MethodInfo _methodinfo;
+
+
+    public TestMethod()
+    {
+        _myClass = new MyClass();
+        _methodinfo = _myClass.GetType().GetMethod("MyMethod");
+        _delegate = (Func<MyClass, string>)Delegate.CreateDelegate(typeof(Func<MyClass, string>), _methodinfo);
+    }
+
+    [Benchmark]
+    public string MethodA()
+    {
+        return _myClass.MyMethod();
+    }
+    [Benchmark]
+    public string MethodAExt()
+    {
+        var myClass = new MyClass();
+        return myClass.MyMethod();
+    }
+
+    [Benchmark]
+    public string MethodB()
+    {
+        return _methodinfo.Invoke(_myClass, new object[0]).ToString();
+    }
+    [Benchmark]
+    public string MethodBExt()
+    {
+        var myClass = new MyClass();
+        var methodinfo = _myClass.GetType().GetMethod("MyMethod");
+        return methodinfo.Invoke(myClass, new object[0]).ToString();
+    }
+    [Benchmark]
+    public string MethodC()
+    {
+        return _delegate(_myClass);
+    }
+    [Benchmark]
+    public string MethodCExt()
+    {
+        var myClass = new MyClass();
+        var methodinfo = myClass.GetType().GetMethod("MyMethod");
+        var dele = (Func<MyClass, string>)Delegate.CreateDelegate(typeof(Func<MyClass, string>), methodinfo);
+        return dele(myClass);
+    }
+
 }
 
 public class MyClass
 {
-    public string MyProperty { get; set; }
+    public string MyProperty { get { return DateTime.Now.ToString(); } }
+
+    public string MyMethod()
+    {
+        return DateTime.Now.ToString();
+    }
 }
 
