@@ -12,7 +12,7 @@
     "WebAPI": {
       "commandName": "Project",
       "dotnetRunMessages": "true",
-      "launchBrowser": true,
+      "launchBrowser": false,
       "hotReloadProfile": "aspnetcore",
       "launchUrl": "swagger",
       "applicationUrl": "http://localhost:5000",

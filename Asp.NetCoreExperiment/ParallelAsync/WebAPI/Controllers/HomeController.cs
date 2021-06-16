@@ -30,6 +30,10 @@ namespace WebAPI.Controllers
         public async Task<IActionResult> GetAPI002()
         {
             await Task.Delay(1000);
+            if (DateTime.Now.Second % 2 == 0)
+            {
+                throw new Exception("api002异常");
+            }
             return new JsonResult(new { result = true, data = "api002 返回成功" });
         }
         [HttpGet("/api003")]
