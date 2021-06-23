@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.28711.60
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31410.414
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CSharp", "CSharp", "{0C2286BE-F1F4-4E52-A9FA-1EF056CD9159}"
 EndProject
@@ -247,9 +247,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo01", "Asp.NetCoreExperi
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ParallelAsync", "ParallelAsync", "{EA58B2DE-BCD9-4EB9-8C35-736A6F278AA5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAPI", "Asp.NetCoreExperiment\ParallelAsync\WebAPI\WebAPI.csproj", "{09B7A9F3-9930-41C8-98BE-E20917FB9F1F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAPI", "Asp.NetCoreExperiment\ParallelAsync\WebAPI\WebAPI.csproj", "{09B7A9F3-9930-41C8-98BE-E20917FB9F1F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "Asp.NetCoreExperiment\ParallelAsync\Client\Client.csproj", "{2433A4DD-21A5-45E6-8F59-E884A06F6C9A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Client", "Asp.NetCoreExperiment\ParallelAsync\Client\Client.csproj", "{2433A4DD-21A5-45E6-8F59-E884A06F6C9A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorSample", "Asp.NetCoreExperiment\Blazor\BlazorSample\BlazorSample.csproj", "{AFEAFCAF-822B-4D7B-949F-F5BA514E98FA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -605,6 +607,10 @@ Global
 		{2433A4DD-21A5-45E6-8F59-E884A06F6C9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2433A4DD-21A5-45E6-8F59-E884A06F6C9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2433A4DD-21A5-45E6-8F59-E884A06F6C9A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AFEAFCAF-822B-4D7B-949F-F5BA514E98FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFEAFCAF-822B-4D7B-949F-F5BA514E98FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFEAFCAF-822B-4D7B-949F-F5BA514E98FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFEAFCAF-822B-4D7B-949F-F5BA514E98FA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -703,6 +709,7 @@ Global
 		{EA58B2DE-BCD9-4EB9-8C35-736A6F278AA5} = {00DC5DBE-1C3D-41A4-BF7C-852A6FA13066}
 		{09B7A9F3-9930-41C8-98BE-E20917FB9F1F} = {EA58B2DE-BCD9-4EB9-8C35-736A6F278AA5}
 		{2433A4DD-21A5-45E6-8F59-E884A06F6C9A} = {EA58B2DE-BCD9-4EB9-8C35-736A6F278AA5}
+		{AFEAFCAF-822B-4D7B-949F-F5BA514E98FA} = {81B7EFE5-84A7-4CD6-89E7-C9C37E1FA56D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
