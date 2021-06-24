@@ -18,11 +18,11 @@ public class Program
         //IDemo demo2 = new MethodDemo();
         //demo2.Run();
 
-        IDemo demo3 = new DapperQueryDemo();
-        demo3?.Run();
+        var t = new TestMethod();
+        t.MethodD();
+
+       // IDemo demo3 = new DapperQueryDemo();
+        //demo3?.Run();
     }
 }
-class A
-{
-    public List<string> Items { get; set; }
-}
+
