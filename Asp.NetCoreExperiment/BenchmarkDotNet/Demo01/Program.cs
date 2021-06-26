@@ -15,13 +15,10 @@ public class Program
         //IDemo demo1 = new PropertyDemo();
         //demo1.Run();
 
-        //IDemo demo2 = new MethodDemo();
-        //demo2.Run();
+        IDemo demo2 = new MethodDemo();
+        demo2.Run();
 
-        var t = new TestMethod();
-        t.MethodD();
-
-       // IDemo demo3 = new DapperQueryDemo();
+        // IDemo demo3 = new DapperQueryDemo();
         //demo3?.Run();
     }
 }

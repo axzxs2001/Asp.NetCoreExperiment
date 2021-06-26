@@ -70,34 +70,34 @@ namespace Demo01
         }
 
        // [Benchmark]
-        public string MethodD()
-        {
-            // 创建一个程序集构建器            
-            var assemblyBuilder = AssemblyBuilder.DefineDynamicAssembly(new AssemblyName("Demo01"), AssemblyBuilderAccess.Run);
-            // 使用程序集构建器创建一个模块构建器
-            var moduleBuilder = assemblyBuilder.DefineDynamicModule("Demo01");
-            // 使用模块构建器创建一个类型构建器
-            var typeBuilder = moduleBuilder.DefineType("Demo01.TClass", TypeAttributes.Public);
+        //public string MethodD()
+        //{
+        //    // 创建一个程序集构建器            
+        //    var assemblyBuilder = AssemblyBuilder.DefineDynamicAssembly(new AssemblyName("Demo01"), AssemblyBuilderAccess.Run);
+        //    // 使用程序集构建器创建一个模块构建器
+        //    var moduleBuilder = assemblyBuilder.DefineDynamicModule("Demo01");
+        //    // 使用模块构建器创建一个类型构建器
+        //    var typeBuilder = moduleBuilder.DefineType("Demo01.TClass", TypeAttributes.Public);
 
-            // 使用类型构建器创建一个方法构建器
-            var methodBuilder = typeBuilder.DefineMethod("MyMethod", MethodAttributes.Public, typeof(string), null);
-            // 通过方法构建器获取一个MSIL生成器
-            var IL = methodBuilder.GetILGenerator();
-            // 开始编写方法的执行逻辑  
-            IL.Emit(OpCodes.Call, typeof(TClass).GetMethod("MyMethod"));
-            IL.Emit(OpCodes.Nop);
-            // 退出函数
-            IL.Emit(OpCodes.Ret);
-            //方法结束
-            // 从类型构建器中创建出类型
-            var dynamicType = typeBuilder.CreateType();
-            // 通过反射创建出动态类型的实例
-            var tClass = Activator.CreateInstance(dynamicType);
-            var myMethod = dynamicType.GetMethod("MyMethod");
-            return myMethod.Invoke(tClass,new object[0]).ToString();
+        //    // 使用类型构建器创建一个方法构建器
+        //    var methodBuilder = typeBuilder.DefineMethod("MyMethod", MethodAttributes.Public, typeof(string), null);
+        //    // 通过方法构建器获取一个MSIL生成器
+        //    var IL = methodBuilder.GetILGenerator();
+        //    // 开始编写方法的执行逻辑  
+        //    IL.Emit(OpCodes.Call, typeof(TClass).GetMethod("MyMethod"));
+        //    IL.Emit(OpCodes.Nop);
+        //    // 退出函数
+        //    IL.Emit(OpCodes.Ret);
+        //    //方法结束
+        //    // 从类型构建器中创建出类型
+        //    var dynamicType = typeBuilder.CreateType();
+        //    // 通过反射创建出动态类型的实例
+        //    var tClass = Activator.CreateInstance(dynamicType);
+        //    var myMethod = dynamicType.GetMethod("MyMethod");
+        //    return myMethod.Invoke(tClass,new object[0]).ToString();
 
 
-        }
+        //}
     }
 
     public class TClass
