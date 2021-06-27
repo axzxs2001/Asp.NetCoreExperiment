@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
-
+using static System.Console;
 namespace Client
 {
     class Program
@@ -12,46 +12,76 @@ namespace Client
         {
             while (true)
             {
-                Console.WriteLine("回车开始执行");
-                Console.ReadLine();
-                var httpClient = new HttpClient();
+                WriteLine("回车开始执行");
+                ReadLine();
+
                 var stopwatch = Stopwatch.StartNew();
+                //await SyncCall();
+                //WriteLine($"用时{stopwatch.ElapsedMilliseconds}ms");
 
+                ////WriteLine("===========================================");
+                //stopwatch.Restart();
 
-                //var result1 = await GetAPI001(httpClient);
-                //Console.WriteLine(result1);
-                //var result2 = await GetAPI002(httpClient);
-                //Console.WriteLine(result2);
-                //var result3 = await GetAPI003(httpClient);
-                //Console.WriteLine(result3);
-
-
-                // var results = await Task.WhenAll(GetAPI001(httpClient), GetAPI002(httpClient), GetAPI003(httpClient));
-               // Console.WriteLine(results);
-
-                //var allTasks = Task.WhenAll(GetAPI001(httpClient), GetAPI002(httpClient), GetAPI003(httpClient));
-                //try
-                //{
-                //    var results = await allTasks;
-                //    foreach (var result in results)
-                //    {
-                //        Console.WriteLine(result);
-                //    }
-                //}
-                //catch (Exception exc)
-                //{
-                //    Console.WriteLine($"捕捉到的异常：{exc.Message}");
-                //}
-                //if (allTasks.Exception != null)
-                //{
-                //    Console.WriteLine($"AllTasks异常：{ allTasks.Exception.Message}");
-                //}
-
-
-                Console.WriteLine($"用时{stopwatch.ElapsedMilliseconds}ms");
-            }         
+                await AsyncCall();
+                WriteLine($"用时{stopwatch.ElapsedMilliseconds}ms");
+            }
         }
 
+
+        static async Task SyncCall()
+        {
+            using var httpClient = new HttpClient();
+            try
+            {
+                var result1 = await GetAPI001(httpClient);
+                WriteLine(result1);
+            }
+            catch (Exception exc)
+            {
+                WriteLine(exc.Message);
+            }
+            try
+            {
+                var result2 = await GetAPI002(httpClient);
+                Console.WriteLine(result2);
+
+            }
+            catch (Exception exc)
+            {
+                WriteLine(exc.Message);
+            }
+            try
+            {
+                var result3 = await GetAPI003(httpClient);
+                Console.WriteLine(result3);
+            }
+            catch (Exception exc)
+            {
+                WriteLine(exc.Message);
+            }
+        }
+
+        static async Task AsyncCall()
+        {
+            using var httpClient = new HttpClient();
+            var allTasks = Task.WhenAll(GetAPI001(httpClient), GetAPI002(httpClient), GetAPI003(httpClient));
+            try
+            {
+                var results = await allTasks;
+                foreach (var result in results)
+                {
+                    Console.WriteLine(result);
+                }
+            }
+            catch (Exception exc)
+            {
+                Console.WriteLine($"捕捉到的异常：{exc.Message}");
+            }
+            if (allTasks.Exception != null)
+            {
+                Console.WriteLine($"AllTasks异常：{ allTasks.Exception.Message}");
+            }
+        }
         private static async Task<string> GetAPI001(HttpClient httpClient)
         {
             var content = await httpClient.GetStringAsync("http://localhost:5000/api001");
@@ -65,8 +95,6 @@ namespace Client
                 return result.Message;
             }
         }
-
-
         private static async Task<string> GetAPI002(HttpClient httpClient)
         {
             var content = await httpClient.GetStringAsync("http://localhost:5000/api002");
