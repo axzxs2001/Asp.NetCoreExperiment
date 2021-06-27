@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -40,6 +41,19 @@ namespace WebAPI.Controllers
             _logger.LogInformation("GetAPI003");
             await Task.Delay(1000);
             return new JsonResult(new { result = true, data = "api003 返回成功" });
+        }
+
+        [HttpGet("/api004")]
+        public IActionResult GetAPI004()
+        {          
+            // _logger.LogInformation("GetAPI004");
+            return new JsonResult(new { result = true, data = "api004 返回成功" });
+        }
+
+        [HttpGet("/api005")]
+        public string GetAPI005()
+        {  
+            return  "api004 返回成功" ;
         }
     }
 }
