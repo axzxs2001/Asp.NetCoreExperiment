@@ -1,6 +1,7 @@
 ﻿using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Running;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -64,8 +65,8 @@ namespace Demo01
         [Benchmark]
         public List<string> UnlimitedParallelVersion() => ParallelVersion(-1);
 
-        //[Benchmark]
-        //public List<string> LimitedParallelVersion() => ParallelVersion(4);
+        [Benchmark]
+        public List<string> LimitedParallelVersion() => ParallelVersion(4);
 
         public List<string> ParallelVersion(int maxDegreeOfParallelism)
         {
@@ -77,6 +78,7 @@ namespace Demo01
             }, i => list.Add(tasks[i]()));
             return list;
         }
+
 
         [Benchmark]
         public async Task<List<string>> WhenAllVersion()
@@ -99,6 +101,48 @@ namespace Demo01
                 return result.Message;
             }
         }
+
+
+
+        [Benchmark]
+        public async Task<List<string>> AsyncParallelVersion() => await AsyncParallelVersion(100);
+
+        public async Task<List<string>> AsyncParallelVersion(int batches)
+        {
+            var list = new List<string>();
+            var tasks = Enumerable.Range(0, taskCount)
+                .Select(_ => new Func<Task<string>>(() => GetAPI004(httpClient))).ToList();
+
+            await ParallelForEachAsync(tasks, batches, async func =>
+            {
+                list.Add(await func());
+
+            });
+            return list;
+        }
+
+
+        public Task ParallelForEachAsync<T>(IEnumerable<T> source, int degreeOfParallelization, Func<T, Task> body)
+        {
+            async Task AwaitPartition(IEnumerator<T> partition)
+            {
+                using (partition)
+                {
+                    while (partition.MoveNext())
+                    {
+                        await body(partition.Current);
+                    }
+                }
+            }
+            return Task.WhenAll(
+                Partitioner
+                .Create(source)
+                .GetPartitions(degreeOfParallelization)
+                .AsParallel()
+                .Select(AwaitPartition));
+        }
+
+
     }
     class ResponseResult<T>
     {
