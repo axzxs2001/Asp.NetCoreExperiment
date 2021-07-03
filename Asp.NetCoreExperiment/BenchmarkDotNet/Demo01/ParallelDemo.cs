@@ -15,14 +15,14 @@ namespace Demo01
     {
         public void Run()
         {
-            BenchmarkRunner.Run<ForHttpClientDemo>();
+            BenchmarkRunner.Run<TestParallelDemo>();
         }
     }
 
-    public class ForDemo
+    public class TestParallelDemo
     {
         [Benchmark]
-        public int[] ParallelForEach()
+        public int[] ParallelForDemo()
         {
             var array = new int[1_000_000];
             Parallel.For(0, array.Length, i =>
@@ -33,7 +33,7 @@ namespace Demo01
             return array;
         }
         [Benchmark]
-        public int[] NormalForEach()
+        public int[] ForDemo()
         {
             var array = new int[1_000_000];
             for (var i = 0; i < array.Length; i++)
@@ -43,7 +43,6 @@ namespace Demo01
             }
             return array;
         }
-
     }
     public class ForHttpClientDemo
     {
