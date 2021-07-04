@@ -253,6 +253,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Client", "Asp.NetCoreExperi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorSample", "Asp.NetCoreExperiment\Blazor\BlazorSample\BlazorSample.csproj", "{AFEAFCAF-822B-4D7B-949F-F5BA514E98FA}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Playwright", "Playwright", "{8FC15888-DEEA-4E7D-89B3-C2A7468A6711}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlaywrightDemo01", "Asp.NetCoreExperiment\Playwright\PlaywrightDemo01\PlaywrightDemo01.csproj", "{FA549EF5-AAD7-4A87-B291-36A1F5DACF31}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -611,6 +615,10 @@ Global
 		{AFEAFCAF-822B-4D7B-949F-F5BA514E98FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AFEAFCAF-822B-4D7B-949F-F5BA514E98FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AFEAFCAF-822B-4D7B-949F-F5BA514E98FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA549EF5-AAD7-4A87-B291-36A1F5DACF31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA549EF5-AAD7-4A87-B291-36A1F5DACF31}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA549EF5-AAD7-4A87-B291-36A1F5DACF31}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA549EF5-AAD7-4A87-B291-36A1F5DACF31}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -710,6 +718,7 @@ Global
 		{09B7A9F3-9930-41C8-98BE-E20917FB9F1F} = {EA58B2DE-BCD9-4EB9-8C35-736A6F278AA5}
 		{2433A4DD-21A5-45E6-8F59-E884A06F6C9A} = {EA58B2DE-BCD9-4EB9-8C35-736A6F278AA5}
 		{AFEAFCAF-822B-4D7B-949F-F5BA514E98FA} = {81B7EFE5-84A7-4CD6-89E7-C9C37E1FA56D}
+		{FA549EF5-AAD7-4A87-B291-36A1F5DACF31} = {8FC15888-DEEA-4E7D-89B3-C2A7468A6711}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
