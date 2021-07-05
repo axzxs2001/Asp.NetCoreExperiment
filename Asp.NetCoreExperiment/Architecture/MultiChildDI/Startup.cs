@@ -26,15 +26,18 @@ namespace MultiChildDI
 
         public void ConfigureServices(IServiceCollection services)
         {
+            //services.AddSingleton<IDemoService, DemoService01>();
+            //services.AddSingleton<IDemoService, DemoService02>();
+            //services.AddSingleton<IDemoService, DemoService03>();
 
-            //services.AddScoped<IDemoService, DemoService01>();
-            //services.AddScoped<IDemoService, DemoService02>();
-            //services.AddScoped<IDemoService, DemoService03>();
+            services.AddScoped<IDemoService, DemoService01>();
+            services.AddScoped<IDemoService, DemoService02>();
+            services.AddScoped<IDemoService, DemoService03>();
 
-            services.AddScoped<DemoService01>();
-            services.AddScoped<DemoService02>();
-            services.AddScoped<DemoService03>();
-            services.AddScoped<IDemoServiceFactory, DemoServiceFactory>();
+            //services.AddScoped<DemoService01>();
+            //services.AddScoped<DemoService02>();
+            //services.AddScoped<DemoService03>();
+            //services.AddScoped<IDemoServiceFactory, DemoServiceFactory>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
