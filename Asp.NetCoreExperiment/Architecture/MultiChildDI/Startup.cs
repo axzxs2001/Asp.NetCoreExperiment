@@ -26,6 +26,9 @@ namespace MultiChildDI
 
         public void ConfigureServices(IServiceCollection services)
         {
+
+         
+
             //services.AddSingleton<IDemoService, DemoService01>();
             //services.AddSingleton<IDemoService, DemoService02>();
             //services.AddSingleton<IDemoService, DemoService03>();
@@ -42,10 +45,15 @@ namespace MultiChildDI
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "MultiChildDI", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title =  "MultiChildDI", Version = "v1" });
             });
         }
-
+        private void OnShutdown()
+        {
+            Console.WriteLine("Shutting down server, performing some cleanup ...");
+            System.Threading.Thread.Sleep(20000);
+            // ... perform cleanup tasks like removing cache and other stuff
+        }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
@@ -56,7 +64,8 @@ namespace MultiChildDI
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "MultiChildDI v1"));
             }
-
+            var applicationLifetime = app.ApplicationServices.GetRequiredService<IHostApplicationLifetime>();
+            applicationLifetime.ApplicationStopping.Register(OnShutdown);
             app.UseRouting();
 
             app.UseAuthorization();
