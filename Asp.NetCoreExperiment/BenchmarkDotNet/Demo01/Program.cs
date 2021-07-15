@@ -29,6 +29,8 @@ public class Program
 
         IDemo demo5 = new ParallelDemo2();
         demo5?.Run();
+
+        Console.Read();
     }
 
 

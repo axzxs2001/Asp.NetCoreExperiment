@@ -25,7 +25,7 @@ namespace Demo01
         public void DemoAsync()
         {
             var list = new List<string>();
-            for (var i = 0; i < 80000; i++)
+            for (var i = 0; i < 800000; i++)
             {
                 list.Add(ToMD5Hash($"{i}{DateTime.Now.ToString("yyyyMMddHHmmssfffffff")}"));
             }
@@ -39,7 +39,7 @@ namespace Demo01
         public async Task PartitionerDemoAsync()
         {
             var source = new List<string>();
-            for (var i = 0; i < 80000; i++)
+            for (var i = 0; i < 800000; i++)
             {
                 source.Add($"{i}{DateTime.Now.ToString("yyyyMMddHHmmssfffffff")}");
             }

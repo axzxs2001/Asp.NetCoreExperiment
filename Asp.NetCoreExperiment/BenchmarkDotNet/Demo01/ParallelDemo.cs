@@ -24,7 +24,7 @@ namespace Demo01
         [Benchmark]
         public int[] ParallelForDemo()
         {
-            var array = new int[1_000_000];
+            var array = new int[10_000_000];
             Parallel.For(0, array.Length, i =>
             {
                 array[i] = i;
@@ -35,7 +35,7 @@ namespace Demo01
         [Benchmark]
         public int[] ForDemo()
         {
-            var array = new int[1_000_000];
+            var array = new int[10_000_000];
             for (var i = 0; i < array.Length; i++)
             {
                 array[i] = i;
