@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,16 +27,19 @@ namespace WebSample.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<WeatherForecast> Get()
+        public async Task<IEnumerable<WeatherForecast>> Get()
         {
+            var client = new HttpClient();
+            var content = await client.GetStringAsync("https://www.google.com");
+
             var rng = new Random();
-            var _list = Enumerable.Range(1, 1).Select(index => new WeatherForecast
+            var _list = Enumerable.Range(1, 10).Select(index => new WeatherForecast
             {
+                Num = accumulate(),
                 Date = DateTime.Now.AddDays(index),
                 TemperatureC = rng.Next(-20, 55),
                 Summary = Summaries[rng.Next(Summaries.Length)],
-                Describe = ToMD5Hash(Summaries[rng.Next(Summaries.Length)] + DateTime.Now.ToString("HHmmssffffff")),
-                Num= accumulate()
+                Describe = ToMD5Hash(Summaries[rng.Next(Summaries.Length)]) + content,
             })
             .ToArray();
             return _list;
@@ -43,8 +47,8 @@ namespace WebSample.Controllers
 
         ulong accumulate()
         {
-            ulong num=0;
-            for (ulong i = 1; i <= ulong.MaxValue; i++)
+            ulong num = 0;
+            for (ulong i = 1; i <= 10; i++)
             {
                 num = i;
             }
