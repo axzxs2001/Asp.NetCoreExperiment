@@ -7,6 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="UnitTest1cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="UnitTest1cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="JustMock" Version="2021.2.511.1" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.4" />
     <PackageReference Include="Moq" Version="4.16.1" />
