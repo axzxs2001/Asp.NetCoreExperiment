@@ -281,7 +281,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentDemo01", "Asp.NetCore
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Redis", "Redis", "{05A5264F-DA17-417D-85E6-F0740221BD5F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedisDemo01", "Asp.NetCoreExperiment\Redis\RedisDemo01\RedisDemo01.csproj", "{C72F7EAB-BBF5-477D-A6E0-8712C43FE985}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedisDemo01", "Asp.NetCoreExperiment\Redis\RedisDemo01\RedisDemo01.csproj", "{C72F7EAB-BBF5-477D-A6E0-8712C43FE985}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FluentdWeb", "FluentdWeb", "{57726AB3-5A82-4EA2-B2B8-8799E8991E48}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentdWebDemo01", "Asp.NetCoreExperiment\FluentdWeb\FluentdWebDemo01\FluentdWebDemo01.csproj", "{FF37FB2C-A9A8-4663-8DF5-E6308ED502DE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -681,6 +685,10 @@ Global
 		{C72F7EAB-BBF5-477D-A6E0-8712C43FE985}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C72F7EAB-BBF5-477D-A6E0-8712C43FE985}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C72F7EAB-BBF5-477D-A6E0-8712C43FE985}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF37FB2C-A9A8-4663-8DF5-E6308ED502DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF37FB2C-A9A8-4663-8DF5-E6308ED502DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF37FB2C-A9A8-4663-8DF5-E6308ED502DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF37FB2C-A9A8-4663-8DF5-E6308ED502DE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -790,6 +798,7 @@ Global
 		{033542BF-CEE4-47CB-9CBD-517A572B56DB} = {F7E7E02C-51A7-47EC-968B-ACBCB17B104E}
 		{F6CEA1B5-753B-4FF1-9F1E-0C1CCEC9B9B9} = {0AF7B7EB-E2CF-4F99-ACEF-97301F1748C5}
 		{C72F7EAB-BBF5-477D-A6E0-8712C43FE985} = {05A5264F-DA17-417D-85E6-F0740221BD5F}
+		{FF37FB2C-A9A8-4663-8DF5-E6308ED502DE} = {57726AB3-5A82-4EA2-B2B8-8799E8991E48}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
