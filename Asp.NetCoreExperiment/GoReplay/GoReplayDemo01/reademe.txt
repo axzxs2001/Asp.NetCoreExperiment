@@ -1,0 +1,13 @@
+﻿gor --input-raw :5000 --output-file request.gor
+
+
+gor --input-file=request_0.gor --output-http="http://localhost:5000"
+
+
+注意：一定要通过另一个台电脑访问，同机的访问不录制
+windows下需要安装WinPcap
+
+
+
+重定向，增加header
+gor --input-raw :5000 --output-http "http://192.168.0.9:5000" --http-set-header "X-NSS-UUID: dfewfewfewfwef"

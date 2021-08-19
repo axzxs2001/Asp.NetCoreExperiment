@@ -285,7 +285,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedisDemo01", "Asp.NetCoreE
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FluentdWeb", "FluentdWeb", "{57726AB3-5A82-4EA2-B2B8-8799E8991E48}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentdWebDemo01", "Asp.NetCoreExperiment\FluentdWeb\FluentdWebDemo01\FluentdWebDemo01.csproj", "{FF37FB2C-A9A8-4663-8DF5-E6308ED502DE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentdWebDemo01", "Asp.NetCoreExperiment\FluentdWeb\FluentdWebDemo01\FluentdWebDemo01.csproj", "{FF37FB2C-A9A8-4663-8DF5-E6308ED502DE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GoReplay", "GoReplay", "{6C7F36D3-16E3-461E-9A6D-6BD10197EDDD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoReplayDemo01", "Asp.NetCoreExperiment\GoReplay\GoReplayDemo01\GoReplayDemo01.csproj", "{DB64F04B-375D-4052-8151-64529F8186F6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -689,6 +693,10 @@ Global
 		{FF37FB2C-A9A8-4663-8DF5-E6308ED502DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FF37FB2C-A9A8-4663-8DF5-E6308ED502DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FF37FB2C-A9A8-4663-8DF5-E6308ED502DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DB64F04B-375D-4052-8151-64529F8186F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB64F04B-375D-4052-8151-64529F8186F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB64F04B-375D-4052-8151-64529F8186F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB64F04B-375D-4052-8151-64529F8186F6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -799,6 +807,7 @@ Global
 		{F6CEA1B5-753B-4FF1-9F1E-0C1CCEC9B9B9} = {0AF7B7EB-E2CF-4F99-ACEF-97301F1748C5}
 		{C72F7EAB-BBF5-477D-A6E0-8712C43FE985} = {05A5264F-DA17-417D-85E6-F0740221BD5F}
 		{FF37FB2C-A9A8-4663-8DF5-E6308ED502DE} = {57726AB3-5A82-4EA2-B2B8-8799E8991E48}
+		{DB64F04B-375D-4052-8151-64529F8186F6} = {6C7F36D3-16E3-461E-9A6D-6BD10197EDDD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
