@@ -1,12 +1,12 @@
-﻿gor --input-raw :5000 --output-file request.gor
-
-
-gor --input-file=request_0.gor --output-http="http://localhost:5000"
-
-
-注意：一定要通过另一个台电脑访问，同机的访问不录制
+﻿注意：一定要通过另一个台电脑访问，同机的访问不录制
 windows下需要安装WinPcap
 
+
+录制流量到request.gor
+gor --input-raw :5000 --output-file request.gor
+
+播放流量
+gor --input-file=request_0.gor --output-http="http://localhost:5000"
 
 
 重定向，增加header
