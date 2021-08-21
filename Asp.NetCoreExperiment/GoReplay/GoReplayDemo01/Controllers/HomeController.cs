@@ -29,7 +29,7 @@ public class HomeController : ControllerBase
     {
         _logger.LogInformation($"X-NSS-UUID:{Request.Headers["X-NSS-UUID"]}");
         _logger.LogInformation(System.Text.Json.JsonSerializer.Serialize(pay));
-        pay.Status = "SUCCESS";
+        pay.Status = 200;
         return new JsonResult(pay);
     }
 
@@ -39,7 +39,7 @@ public class HomeController : ControllerBase
 public class Pay
 {
     public string Code { get; set; }
-    public int Amount { get; set; }
+    public decimal Amount { get; set; }
 
-    public string Status { get; set; }
+    public int Status { get; set; }
 }
