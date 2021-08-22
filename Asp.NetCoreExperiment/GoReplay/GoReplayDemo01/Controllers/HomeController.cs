@@ -24,19 +24,19 @@ public class HomeController : ControllerBase
         var content = await client.GetStringAsync("https://www.google.com");
         return $"{DateTime.Now.ToString()}-{id}-----------{content}";
     }
-    [HttpPost("/pay")]
-    public IActionResult Post([FromBody] Pay pay)
+    [HttpPost("/order")]
+    public IActionResult Post([FromBody] Order order)
     {
         _logger.LogInformation($"X-NSS-UUID:{Request.Headers["X-NSS-UUID"]}");
-        _logger.LogInformation(System.Text.Json.JsonSerializer.Serialize(pay));
-        pay.Status = 200;
-        return new JsonResult(pay);
+        _logger.LogInformation(System.Text.Json.JsonSerializer.Serialize(order));
+        order.Status = 200;
+        return new JsonResult(order);
     }
 
 
 }
 
-public class Pay
+public class Order
 {
     public string Code { get; set; }
     public decimal Amount { get; set; }
