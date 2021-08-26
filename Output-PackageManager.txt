@@ -1,0 +1,22 @@
+﻿Restoring packages for C:\MyFile\Source\Repos\Asp.NetCoreExperiment\Asp.NetCoreExperiment\GraphQL\graphql-dotnet\graphqldotnet_demo01\graphqldotnet_demo01.csproj...
+  GET https://api.nuget.org/v3-flatcontainer/graphql.server.ui.graphiql/index.json
+  GET https://f.feedz.io/featherhttp/framework/nuget/v3/packages/graphql.server.ui.graphiql/index.json
+  OK https://api.nuget.org/v3-flatcontainer/graphql.server.ui.graphiql/index.json 725ms
+  GET https://api.nuget.org/v3-flatcontainer/graphql.server.ui.graphiql/5.0.2/graphql.server.ui.graphiql.5.0.2.nupkg
+  GET https://dev-nuget.starpay.jp/v3/package/graphql.server.ui.graphiql/index.json
+  NotFound https://dev-nuget.starpay.jp/v3/package/graphql.server.ui.graphiql/index.json 169ms
+  OK https://api.nuget.org/v3-flatcontainer/graphql.server.ui.graphiql/5.0.2/graphql.server.ui.graphiql.5.0.2.nupkg 723ms
+  NotFound https://f.feedz.io/featherhttp/framework/nuget/v3/packages/graphql.server.ui.graphiql/index.json 915ms
+Installed GraphQL.Server.Ui.GraphiQL 5.0.2 from https://api.nuget.org/v3/index.json with content hash aPi9iJ+O85lN9zoXg88Ha602PJEOw8x3xh2Q+MzAhfu93KXG6hrtqpJElNMl2p+hvSCTBNNK5Hk0RbEbUtNDSA==.
+Installing NuGet package GraphQL.Server.Ui.GraphiQL 5.0.2.
+Committing restore...
+Writing assets file to disk. Path: C:\MyFile\Source\Repos\Asp.NetCoreExperiment\Asp.NetCoreExperiment\GraphQL\graphql-dotnet\graphqldotnet_demo01\obj\project.assets.json
+Successfully installed 'GraphQL.Server.Ui.GraphiQL 5.0.2' to graphqldotnet_demo01
+Executing nuget actions took 116 ms
+Time Elapsed: 00:00:03.2581900
+========== Finished ==========
+
+Time Elapsed: 00:00:00.0979360
+========== Finished ==========
+
+

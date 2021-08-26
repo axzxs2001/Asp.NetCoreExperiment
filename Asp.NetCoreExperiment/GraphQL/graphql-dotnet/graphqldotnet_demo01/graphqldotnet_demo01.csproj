@@ -6,6 +6,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="GraphQL" Version="4.6.0" />
+    <PackageReference Include="GraphQL.Server.Ui.Altair" Version="5.0.2" />
+    <PackageReference Include="GraphQL.Server.Ui.GraphiQL" Version="5.0.2" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
   </ItemGroup>
 
