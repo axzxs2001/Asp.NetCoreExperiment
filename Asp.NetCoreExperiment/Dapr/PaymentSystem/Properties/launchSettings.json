@@ -9,7 +9,7 @@
     }
   },
   "profiles": {
-    "ServiceInvokeDemo01": {
+    "PaymentSystem": {
       "commandName": "Project",
       "dotnetRunMessages": false,
       "launchBrowser": false,

@@ -9,7 +9,7 @@
     }
   },
   "profiles": {
-    "ServiceInvokeDemo": {
+    "OrderSystem": {
       "commandName": "Project",
       "dotnetRunMessages": false,
       "launchBrowser": false,
