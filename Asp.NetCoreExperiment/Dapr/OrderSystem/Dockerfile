@@ -6,10 +6,10 @@ EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["Asp.NetCoreExperiment/Dapr/OrderSystem/OrderSystem.csproj", "Asp.NetCoreExperiment/Dapr/OrderSystem/"]
-RUN dotnet restore "Asp.NetCoreExperiment/Dapr/OrderSystem/OrderSystem.csproj"
+COPY ["OrderSystem/OrderSystem.csproj", "OrderSystem/"]
+RUN dotnet restore "OrderSystem/OrderSystem.csproj"
 COPY . .
-WORKDIR "/src/Asp.NetCoreExperiment/Dapr/OrderSystem"
+WORKDIR "/src/OrderSystem"
 RUN dotnet build "OrderSystem.csproj" -c Release -o /app/build
 
 FROM build AS publish

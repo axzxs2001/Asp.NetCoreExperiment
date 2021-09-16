@@ -318,7 +318,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderSystem", "Asp.NetCoreE
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaymentSystem", "Asp.NetCoreExperiment\Dapr\PaymentSystem\PaymentSystem.csproj", "{09952A55-A6B0-48B9-A3C3-9E638AB8F0C8}"
 EndProject
-Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "Asp.NetCoreExperiment\Dapr\docker-compose.dcproj", "{34683970-FD11-41D0-917A-7BEF88C31FAF}"
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "Asp.NetCoreExperiment\Dapr\B2C\docker-compose.dcproj", "{34683970-FD11-41D0-917A-7BEF88C31FAF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

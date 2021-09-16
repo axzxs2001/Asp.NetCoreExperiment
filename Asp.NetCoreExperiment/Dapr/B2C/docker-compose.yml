@@ -5,7 +5,7 @@ services:
     image: ${DOCKER_REGISTRY-}ordersystem
     build:
       context: .
-      dockerfile: OrderSystem/Dockerfile
+      dockerfile: ../OrderSystem/Dockerfile
     ports:
       - "3500:3500"
   ordersystem-dapr:
@@ -19,7 +19,7 @@ services:
     image: ${DOCKER_REGISTRY-}paymentsystem
     build:
       context: .
-      dockerfile: PaymentSystem/Dockerfile
+      dockerfile: ../PaymentSystem/Dockerfile
     #ports:
     #  - "52001:3500"
   paymentsystem1-dapr:
@@ -33,7 +33,7 @@ services:
     image: ${DOCKER_REGISTRY-}paymentsystem
     build:
       context: .
-      dockerfile: PaymentSystem/Dockerfile
+      dockerfile: ../PaymentSystem/Dockerfile
     #ports:
     #  - "52002:3500"
   paymentsystem2-dapr:

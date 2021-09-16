@@ -6,10 +6,10 @@ EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["Asp.NetCoreExperiment/Dapr/PaymentSystem/PaymentSystem.csproj", "Asp.NetCoreExperiment/Dapr/PaymentSystem/"]
-RUN dotnet restore "Asp.NetCoreExperiment/Dapr/PaymentSystem/PaymentSystem.csproj"
+COPY ["PaymentSystem/PaymentSystem.csproj", "PaymentSystem/"]
+RUN dotnet restore "PaymentSystem/PaymentSystem.csproj"
 COPY . .
-WORKDIR "/src/Asp.NetCoreExperiment/Dapr/PaymentSystem"
+WORKDIR "/src/PaymentSystem"
 RUN dotnet build "PaymentSystem.csproj" -c Release -o /app/build
 
 FROM build AS publish
