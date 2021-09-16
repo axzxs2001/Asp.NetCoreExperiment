@@ -318,6 +318,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderSystem", "Asp.NetCoreE
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaymentSystem", "Asp.NetCoreExperiment\Dapr\PaymentSystem\PaymentSystem.csproj", "{09952A55-A6B0-48B9-A3C3-9E638AB8F0C8}"
 EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "Asp.NetCoreExperiment\Dapr\docker-compose.dcproj", "{34683970-FD11-41D0-917A-7BEF88C31FAF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -760,6 +762,10 @@ Global
 		{09952A55-A6B0-48B9-A3C3-9E638AB8F0C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{09952A55-A6B0-48B9-A3C3-9E638AB8F0C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{09952A55-A6B0-48B9-A3C3-9E638AB8F0C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{34683970-FD11-41D0-917A-7BEF88C31FAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{34683970-FD11-41D0-917A-7BEF88C31FAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{34683970-FD11-41D0-917A-7BEF88C31FAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{34683970-FD11-41D0-917A-7BEF88C31FAF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -882,6 +888,7 @@ Global
 		{22352FBA-F9BA-49F7-AE98-8C53DEC4F9C6} = {8EA8914B-AA0D-42BE-AA20-2E442827B183}
 		{E25E4E1C-B47B-452B-81BC-F4F6E61ECB5C} = {708FFF92-4BF1-40B7-A2A4-2FAEF10ACEBF}
 		{09952A55-A6B0-48B9-A3C3-9E638AB8F0C8} = {708FFF92-4BF1-40B7-A2A4-2FAEF10ACEBF}
+		{34683970-FD11-41D0-917A-7BEF88C31FAF} = {708FFF92-4BF1-40B7-A2A4-2FAEF10ACEBF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}

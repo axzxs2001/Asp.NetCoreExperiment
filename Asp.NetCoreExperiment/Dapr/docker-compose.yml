@@ -1,0 +1,44 @@
+version: '3.4'
+
+services:
+  ordersystem:
+    image: ${DOCKER_REGISTRY-}ordersystem
+    build:
+      context: .
+      dockerfile: OrderSystem/Dockerfile
+    ports:
+      - "3500:3500"
+  ordersystem-dapr:
+     image: "daprio/daprd:latest"
+     command: [ "./daprd", "-app-id", "order", "-app-port", "80" ]
+     depends_on:
+       - ordersystem
+     network_mode: "service:ordersystem"
+
+  paymentsystem1:
+    image: ${DOCKER_REGISTRY-}paymentsystem
+    build:
+      context: .
+      dockerfile: PaymentSystem/Dockerfile
+    #ports:
+    #  - "52001:3500"
+  paymentsystem1-dapr:
+     image: "daprio/daprd:latest"
+     command: [ "./daprd", "-app-id", "pay", "-app-port", "80" ]
+     depends_on:
+       - paymentsystem1
+     network_mode: "service:paymentsystem1"
+
+  paymentsystem2:
+    image: ${DOCKER_REGISTRY-}paymentsystem
+    build:
+      context: .
+      dockerfile: PaymentSystem/Dockerfile
+    #ports:
+    #  - "52002:3500"
+  paymentsystem2-dapr:
+     image: "daprio/daprd:latest"
+     command: [ "./daprd", "-app-id", "pay", "-app-port", "80" ]
+     depends_on:
+       - paymentsystem2
+     network_mode: "service:paymentsystem2"
