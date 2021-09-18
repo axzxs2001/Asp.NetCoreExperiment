@@ -1,44 +1,100 @@
 version: '3.4'
 
 services:
+  ############################
+  # ordersystem app + Dapr sidecar
+  ############################
   ordersystem:
     image: ${DOCKER_REGISTRY-}ordersystem
+    depends_on:
+      - redis
+      - placement
     build:
-      context: .
-      dockerfile: ../OrderSystem/Dockerfile
+      context: ../
+      dockerfile: /OrderSystem/Dockerfile
     ports:
       - "3500:3500"
+    volumes:   
+      - ../OrderSystem:/OrderSystem  
+    networks:
+      - hello-dapr
   ordersystem-dapr:
      image: "daprio/daprd:latest"
-     command: [ "./daprd", "-app-id", "order", "-app-port", "80" ]
+     command: [ "./daprd", "-app-id", "order", "-app-port", "80","-placement-host-address", "placement:50006","-components-path","/components"]
+     build:
+       context: ../
      depends_on:
        - ordersystem
      network_mode: "service:ordersystem"
-
+     volumes:   
+      - ../components:/components  
+  ############################
+  # paymentsystem1 app + Dapr sidecar
+  ############################    
   paymentsystem1:
     image: ${DOCKER_REGISTRY-}paymentsystem
     build:
-      context: .
-      dockerfile: ../PaymentSystem/Dockerfile
-    #ports:
-    #  - "52001:3500"
+      context: ../
+      dockerfile: /PaymentSystem/Dockerfile
+    ports:
+      - "3601:3500"
+    volumes:   
+      - ../PaymentSystem:/PaymentSystem      
+    networks:
+      - hello-dapr      
   paymentsystem1-dapr:
      image: "daprio/daprd:latest"
-     command: [ "./daprd", "-app-id", "pay", "-app-port", "80" ]
+     command: [ "./daprd", "-app-id", "pay", "-app-port", "80","-placement-host-address", "placement:50006","-components-path","/components" ]
+     build:
+       context: ../
      depends_on:
        - paymentsystem1
      network_mode: "service:paymentsystem1"
-
+     volumes:   
+      - ../components:/components 
+  ############################
+  # paymentsystem2 app + Dapr sidecar
+  ############################          
   paymentsystem2:
     image: ${DOCKER_REGISTRY-}paymentsystem
     build:
-      context: .
-      dockerfile: ../PaymentSystem/Dockerfile
-    #ports:
-    #  - "52002:3500"
+      context: ../
+      dockerfile: /PaymentSystem/Dockerfile
+    volumes:   
+      - ../PaymentSystem:/PaymentSystem            
+    ports:
+      - "3602:3500"
+    networks:
+      - hello-dapr      
   paymentsystem2-dapr:
      image: "daprio/daprd:latest"
-     command: [ "./daprd", "-app-id", "pay", "-app-port", "80" ]
+     command: [ "./daprd", "-app-id", "pay", "-app-port", "80" ,"-placement-host-address", "placement:50006","-components-path","/components"]
+     build:
+       context: ../
      depends_on:
        - paymentsystem2
      network_mode: "service:paymentsystem2"
+     volumes:   
+      - ../components:/components       
+  ############################
+  # Dapr placement service
+  ############################
+  placement:
+    image: "daprio/dapr"
+    command: ["./placement", "-port", "50006"]
+    ports:
+      - "50006:50006"
+    networks:
+      - hello-dapr
+  ############################
+  # Redis state store
+  ############################
+  redis:
+    image: "redis:alpine"
+    ports:
+      - "6380:6379"
+    networks:
+      - hello-dapr
+networks:
+    hello-dapr:     
+     

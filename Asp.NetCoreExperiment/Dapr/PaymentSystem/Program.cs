@@ -11,7 +11,7 @@ builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new() { Title = "PaymentSystem", Version = "v1" });
 });
-
+builder.Services.AddHttpClient();
 var app = builder.Build();
 
 if (builder.Environment.IsDevelopment())
