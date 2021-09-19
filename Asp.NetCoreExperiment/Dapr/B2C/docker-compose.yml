@@ -1,9 +1,9 @@
 version: '3.4'
 
 services:
-  ############################
-  # ordersystem app + Dapr sidecar
-  ############################
+  #┌────────────────────────────────┐
+  #│ ordersystem app + Dapr sidecar │
+  #└────────────────────────────────┘
   ordersystem:
     image: ${DOCKER_REGISTRY-}ordersystem
     depends_on:
@@ -17,7 +17,7 @@ services:
     volumes:   
       - ../OrderSystem:/OrderSystem  
     networks:
-      - hello-dapr
+      - b2c-dapr
   ordersystem-dapr:
      image: "daprio/daprd:latest"
      command: [ "./daprd", "-app-id", "order", "-app-port", "80","-placement-host-address", "placement:50006","-components-path","/components"]
@@ -28,9 +28,10 @@ services:
      network_mode: "service:ordersystem"
      volumes:   
       - ../components:/components  
-  ############################
-  # paymentsystem1 app + Dapr sidecar
-  ############################    
+  
+  #┌───────────────────────────────────┐
+  #│ paymentsystem1 app + Dapr sidecar │
+  #└───────────────────────────────────┘  
   paymentsystem1:
     image: ${DOCKER_REGISTRY-}paymentsystem
     build:
@@ -41,7 +42,7 @@ services:
     volumes:   
       - ../PaymentSystem:/PaymentSystem      
     networks:
-      - hello-dapr      
+      - b2c-dapr      
   paymentsystem1-dapr:
      image: "daprio/daprd:latest"
      command: [ "./daprd", "-app-id", "pay", "-app-port", "80","-placement-host-address", "placement:50006","-components-path","/components" ]
@@ -52,9 +53,10 @@ services:
      network_mode: "service:paymentsystem1"
      volumes:   
       - ../components:/components 
-  ############################
-  # paymentsystem2 app + Dapr sidecar
-  ############################          
+ 
+  #┌───────────────────────────────────┐
+  #│ paymentsystem2 app + Dapr sidecar │
+  #└───────────────────────────────────┘   
   paymentsystem2:
     image: ${DOCKER_REGISTRY-}paymentsystem
     build:
@@ -65,7 +67,7 @@ services:
     ports:
       - "3602:3500"
     networks:
-      - hello-dapr      
+      - b2c-dapr      
   paymentsystem2-dapr:
      image: "daprio/daprd:latest"
      command: [ "./daprd", "-app-id", "pay", "-app-port", "80" ,"-placement-host-address", "placement:50006","-components-path","/components"]
@@ -76,25 +78,26 @@ services:
      network_mode: "service:paymentsystem2"
      volumes:   
       - ../components:/components       
-  ############################
-  # Dapr placement service
-  ############################
+
+  #┌────────────────────────┐
+  #│ Dapr placement service │
+  #└────────────────────────┘  
   placement:
     image: "daprio/dapr"
     command: ["./placement", "-port", "50006"]
     ports:
       - "50006:50006"
     networks:
-      - hello-dapr
-  ############################
-  # Redis state store
-  ############################
+      - b2c-dapr
+
+  #┌───────────────────┐
+  #│ Redis state store │
+  #└───────────────────┘  
   redis:
-    image: "redis:alpine"
+    image: "redis:latest"
     ports:
       - "6380:6379"
     networks:
-      - hello-dapr
+      - b2c-dapr
 networks:
-    hello-dapr:     
-     
+    b2c-dapr:

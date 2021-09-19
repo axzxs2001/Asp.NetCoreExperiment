@@ -45,7 +45,7 @@ public class HomeController : ControllerBase
     {
         var client = _clientFactory.CreateClient();
         var response = await client.GetAsync($"{_stateUrl}/{key}");
-        return Ok(await response.Content.ReadAsStringAsync());
+        return new JsonResult(new { key = await response.Content.ReadAsStringAsync(), host = Dns.GetHostName() });
     }
     [HttpPost("/readekeys")]
     public async Task<IActionResult> ReadKeys([FromBody] string[] keys)
