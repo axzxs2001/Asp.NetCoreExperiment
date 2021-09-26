@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using System;
 using System.Net;
 using System.Net.Http;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace PaymentSystem.Controllers;
 [ApiController]
@@ -29,7 +31,7 @@ public class HomeController : ControllerBase
         _logger.LogInformation($"支付完成");
         return new JsonResult(new { result = true, message = "支付成功", host = Dns.GetHostName() });
     }
-
+    #region state
     [HttpPost("/writekeys")]
     public async Task<IActionResult> WriteKeys([FromBody] KeyEntity[] keys)
     {
@@ -45,7 +47,8 @@ public class HomeController : ControllerBase
     {
         var client = _clientFactory.CreateClient();
         var response = await client.GetAsync($"{_stateUrl}/{key}");
-        return new JsonResult(new { key = await response.Content.ReadAsStringAsync(), host = Dns.GetHostName() });
+        var dataString = await response.Content.ReadAsStringAsync();
+        return new JsonResult(new { result = true, data = (string.IsNullOrEmpty(dataString) ? null : System.Text.Json.JsonSerializer.Deserialize<OrderPayment>(dataString)), host = Dns.GetHostName() });
     }
     [HttpPost("/readekeys")]
     public async Task<IActionResult> ReadKeys([FromBody] string[] keys)
@@ -64,10 +67,56 @@ public class HomeController : ControllerBase
         var response = await client.DeleteAsync($"{_stateUrl}/{key}");
         return Ok(await response.Content.ReadAsStringAsync());
     }
+    #endregion
+
+    #region etag
+    [HttpPost("/writekeyswithetag")]
+    public async Task<IActionResult> WriteKeysWithEtag([FromBody] KeyEntityWithEtag[] keys)
+    {
+        var client = _clientFactory.CreateClient();
+        var jsonContent = System.Text.Json.JsonSerializer.Serialize(keys);
+        _logger.LogInformation("-------------------------------------------");
+        _logger.LogInformation(jsonContent);
+        var content = new StringContent(jsonContent);
+        var response = await client.PostAsync(_stateUrl, content);
+        return Ok(await response.Content.ReadAsStringAsync());
+    }
+
+    [HttpGet("/readekeywithetag/{key}")]
+    public async Task<IActionResult> ReadKeyWithEtag(string key)
+    {
+        var client = _clientFactory.CreateClient();
+        var response = await client.GetAsync($"{_stateUrl}/{key}");
+        _logger.LogInformation("=============================================");
+        _logger.LogInformation("readekeywithetag headers:");
+        foreach (var head in response.Headers)
+        {
+            _logger.LogInformation($"{head.Key}:{head.Value}");
+        }
+        var dataString = await response.Content.ReadAsStringAsync();
+        var data = (string.IsNullOrEmpty(dataString) ? null : System.Text.Json.JsonSerializer.Deserialize<OrderPayment>(dataString));
+        return new JsonResult(new { result = true, data = new { data = data, etag = response.Headers.SingleOrDefault(s => s.Key.ToLower() == "etag") }, host = Dns.GetHostName() });
+    }
+    #endregion
 }
 
 public class KeyEntity
 {
     public string Key { get; set; }
-    public string Value { get; set; }
+    public OrderPayment Value { get; set; }
+}
+
+public class OrderPayment
+{
+    public string PayOrder { get; set; }
+    public decimal PayTotal { get; set; }
+    public string PayType { get; set; }
+    public DateTime PayTime { get; set; }
+}
+
+public class KeyEntityWithEtag
+{
+    public string Key { get; set; }
+    public OrderPayment Value { get; set; }
+    public string Etag { get; set; }
 }

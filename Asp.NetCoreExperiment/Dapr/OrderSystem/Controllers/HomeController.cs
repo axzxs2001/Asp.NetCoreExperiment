@@ -58,7 +58,8 @@ public class HomeController : ControllerBase
     {
         var client = _clientFactory.CreateClient();
         var response = await client.GetAsync($"{_stateUrl}/{key}");
-        return new JsonResult(new { key = await response.Content.ReadAsStringAsync(), host = Dns.GetHostName() });
+        var dataString = await response.Content.ReadAsStringAsync();
+        return new JsonResult(new { result = true, data = dataString, host = Dns.GetHostName() });
     }
     [HttpPost("/readekeys")]
     public async Task<IActionResult> ReadKeys([FromBody] string[] keys)
@@ -81,5 +82,15 @@ public class HomeController : ControllerBase
 public class KeyEntity
 {
     public string Key { get; set; }
-    public string Value { get; set; }
+    public OrderPayment Value { get; set; }
+}
+
+public class OrderPayment
+{
+    public string PayOrder { get; set; }
+
+    public decimal PayTotal { get; set; }
+    public string PayType { get; set; }
+
+    public DateTime PayTime { get; set; }
 }
