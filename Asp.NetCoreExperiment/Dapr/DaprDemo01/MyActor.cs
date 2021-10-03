@@ -18,6 +18,7 @@ namespace DaprDemo01
         /// <param name="host">The Dapr.Actors.Runtime.ActorHost that will host this actor instance.</param>
         public MyActor(ActorHost host) : base(host)
         {
+         
         }
 
         /// <summary>

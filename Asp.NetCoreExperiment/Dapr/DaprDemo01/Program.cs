@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Dapr.Actors.AspNetCore;
 
 namespace DaprDemo01
 {
@@ -20,6 +21,10 @@ namespace DaprDemo01
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
+                    webBuilder.UseActors(options =>
+                    {
+                        options.Actors.RegisterActor<MyActor>();
+                    });
                     webBuilder.UseStartup<Startup>();
                 });
     }
