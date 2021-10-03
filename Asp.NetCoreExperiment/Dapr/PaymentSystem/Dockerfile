@@ -4,7 +4,7 @@ EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["/PaymentSystem/PaymentSystem.csproj", "PaymentSystem/"]
+COPY ["PaymentSystem/PaymentSystem.csproj", "PaymentSystem/"]
 RUN dotnet restore "PaymentSystem/PaymentSystem.csproj"
 COPY . .
 WORKDIR "/src/PaymentSystem"

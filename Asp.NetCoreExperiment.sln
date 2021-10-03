@@ -322,6 +322,8 @@ Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "Asp.NetCo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StateDemo01", "Asp.NetCoreExperiment\Dapr\StateDemo01\StateDemo01.csproj", "{1ED93341-E5E1-4CE7-927C-6FE7C7474E42}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoticeSystem", "Asp.NetCoreExperiment\Dapr\NoticeSystem\NoticeSystem.csproj", "{4327ED18-D85A-4790-9737-13384CE6EF12}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -772,6 +774,10 @@ Global
 		{1ED93341-E5E1-4CE7-927C-6FE7C7474E42}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1ED93341-E5E1-4CE7-927C-6FE7C7474E42}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1ED93341-E5E1-4CE7-927C-6FE7C7474E42}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4327ED18-D85A-4790-9737-13384CE6EF12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4327ED18-D85A-4790-9737-13384CE6EF12}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4327ED18-D85A-4790-9737-13384CE6EF12}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4327ED18-D85A-4790-9737-13384CE6EF12}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -896,6 +902,7 @@ Global
 		{09952A55-A6B0-48B9-A3C3-9E638AB8F0C8} = {708FFF92-4BF1-40B7-A2A4-2FAEF10ACEBF}
 		{34683970-FD11-41D0-917A-7BEF88C31FAF} = {708FFF92-4BF1-40B7-A2A4-2FAEF10ACEBF}
 		{1ED93341-E5E1-4CE7-927C-6FE7C7474E42} = {708FFF92-4BF1-40B7-A2A4-2FAEF10ACEBF}
+		{4327ED18-D85A-4790-9737-13384CE6EF12} = {708FFF92-4BF1-40B7-A2A4-2FAEF10ACEBF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}

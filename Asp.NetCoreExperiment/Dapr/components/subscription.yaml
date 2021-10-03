@@ -1,0 +1,11 @@
+apiVersion: dapr.io/v1alpha1
+kind: Subscription
+metadata:
+  name: myevent-subscription
+spec:
+  topic: orderComplete
+  route: /ordercomplete
+  pubsubname: pubsub
+scopes:
+- pay
+- notice

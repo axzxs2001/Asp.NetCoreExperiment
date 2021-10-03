@@ -1,11 +1,11 @@
 version: '3.4'
 
 services:
-  # ordersystem:
-    # environment:
-      # - ASPNETCORE_ENVIRONMENT=Development
-    # ports:
-      # - "80"
+  ordersystem:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "80"
 
   paymentsystem1:
     environment:
@@ -18,3 +18,15 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
     ports:
       - "80"    
+      
+  noticesystem1:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "80"
+
+  noticesystem2:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "80"          

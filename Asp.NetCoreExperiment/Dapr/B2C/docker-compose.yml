@@ -1,69 +1,41 @@
+
 version: '3.4'
 
 services:
   #┌────────────────────────────────┐
   #│ ordersystem app + Dapr sidecar │
   #└────────────────────────────────┘
-  # ordersystem:
-    # image: ${DOCKER_REGISTRY-}ordersystem
-    # depends_on:
-      # - redis
-      # - placement
-    # build:
-      # context: ../
-      # dockerfile: /OrderSystem/Dockerfile
-    # ports:
-      # - "3500:3500"
-    # volumes:   
-      # - ../OrderSystem:/OrderSystem  
-    # networks:
-      # - b2c-dapr
-  # ordersystem-dapr:
-     # image: "daprio/daprd:latest"
-     # command: [ "./daprd", "-app-id", "order", "-app-port", "80","-placement-host-address", "placement:50006","-components-path","/components"]
-     # build:
-       # context: ../
-     # depends_on:
-       # - ordersystem
-     # network_mode: "service:ordersystem"
-     # volumes:   
-      # - ../components_order:/components  
-      
-
-  #┌─────────────────────────┐
-  #│ Dapr placement1 service │
-  #└─────────────────────────┘  
-  placement:
-    image: "daprio/dapr"
-    command: ["./placement", "-port", "50006"]
+  ordersystem:
+    image: ${DOCKER_REGISTRY-}ordersystem
+    depends_on:
+      - redis
+      - placement
+    build:
+      context: ../
+      dockerfile: OrderSystem/Dockerfile
     ports:
-      - "50006:50006"
+      - "3500:3500"
+    volumes:   
+      - ../OrderSystem:/OrderSystem  
     networks:
       - b2c-dapr
-
-  #┌────────────────────┐
-  #│ Redis1 state store │
-  #└────────────────────┘  
-  redis:
-    image: "redis:latest"
-    ports:
-      - "6380:6379"
-    networks:
-      - b2c-dapr
-
- 
+  ordersystem-dapr:
+     image: "daprio/daprd:latest"
+     command: [ "./daprd", "-app-id", "order", "-app-port", "80","-placement-host-address", "placement:50006","-components-path","/components"]
+     depends_on:
+       - ordersystem
+     network_mode: "service:ordersystem"
+     volumes:   
+      - ../components:/components  
   
   #┌───────────────────────────────────┐
   #│ paymentsystem1 app + Dapr sidecar │
   #└───────────────────────────────────┘  
   paymentsystem1:
     image: ${DOCKER_REGISTRY-}paymentsystem
-    depends_on:
-      - redis
-      - placement
     build:
       context: ../
-      dockerfile: /PaymentSystem/Dockerfile
+      dockerfile: PaymentSystem/Dockerfile
     ports:
       - "3601:3500"
     volumes:   
@@ -73,26 +45,20 @@ services:
   paymentsystem1-dapr:
      image: "daprio/daprd:latest"
      command: [ "./daprd", "-app-id", "pay", "-app-port", "80","-placement-host-address", "placement:50006","-components-path","/components" ]
-     build:
-       context: ../
      depends_on:
        - paymentsystem1
      network_mode: "service:paymentsystem1"
      volumes:   
       - ../components:/components 
-
-
+ 
   #┌───────────────────────────────────┐
   #│ paymentsystem2 app + Dapr sidecar │
   #└───────────────────────────────────┘   
   paymentsystem2:
     image: ${DOCKER_REGISTRY-}paymentsystem
-    depends_on:
-      - redis
-      - placement 
     build:
       context: ../
-      dockerfile: /PaymentSystem/Dockerfile
+      dockerfile: PaymentSystem/Dockerfile
     volumes:   
       - ../PaymentSystem:/PaymentSystem            
     ports:
@@ -102,12 +68,78 @@ services:
   paymentsystem2-dapr:
      image: "daprio/daprd:latest"
      command: [ "./daprd", "-app-id", "pay", "-app-port", "80" ,"-placement-host-address", "placement:50006","-components-path","/components"]
-     build:
-       context: ../
      depends_on:
        - paymentsystem2
      network_mode: "service:paymentsystem2"
      volumes:   
+      - ../components:/components       
+
+  #┌───────────────────────────────────┐
+  #│ noticesystem1 app + Dapr sidecar │
+  #└───────────────────────────────────┘  
+  noticesystem1:
+    image: ${DOCKER_REGISTRY-}noticesystem
+    build:
+      context: ../
+      dockerfile: NoticeSystem/Dockerfile
+    ports:
+      - "3701:3500"
+    volumes:   
+      - ../NoticeSystem:/NoticeSystem      
+    networks:
+      - b2c-dapr      
+  noticesystem1-dapr:
+     image: "daprio/daprd:latest"
+     command: [ "./daprd", "-app-id", "notice", "-app-port", "80","-placement-host-address", "placement:50006","-components-path","/components" ]
+     depends_on:
+       - noticesystem1
+     network_mode: "service:noticesystem1"
+     volumes:   
       - ../components:/components 
+
+
+  #┌───────────────────────────────────┐
+  #│ noticesystem2 app + Dapr sidecar │
+  #└───────────────────────────────────┘  
+  noticesystem2:
+    image: ${DOCKER_REGISTRY-}noticesystem
+    build:
+      context: ../
+      dockerfile: NoticeSystem/Dockerfile
+    ports:
+      - "3702:3500"
+    volumes:   
+      - ../NoticeSystem:/NoticeSystem      
+    networks:
+      - b2c-dapr      
+  noticesystem2-dapr:
+     image: "daprio/daprd:latest"
+     command: [ "./daprd", "-app-id", "notice", "-app-port", "80","-placement-host-address", "placement:50006","-components-path","/components" ]
+     depends_on:
+       - noticesystem2
+     network_mode: "service:noticesystem2"
+     volumes:   
+      - ../components:/components 
+
+  #┌────────────────────────┐
+  #│ Dapr placement service │
+  #└────────────────────────┘  
+  placement:
+    image: "daprio/dapr"
+    command: ["./placement", "-port", "50006"]
+    ports:
+      - "50006:50006"
+    networks:
+      - b2c-dapr
+
+  #┌───────────────────┐
+  #│ Redis state store │
+  #└───────────────────┘  
+  redis:
+    image: "redis:latest"
+    ports:
+      - "6380:6379"
+    networks:
+      - b2c-dapr
 networks:
-  b2c-dapr:
+    b2c-dapr:

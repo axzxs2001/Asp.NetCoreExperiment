@@ -7,6 +7,8 @@ using System.Net.Http;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Linq;
+using System.IO;
+using System.Text.RegularExpressions;
 
 namespace PaymentSystem.Controllers;
 [ApiController]
@@ -23,6 +25,37 @@ public class HomeController : ControllerBase
         _logger = logger;
     }
 
+    [HttpPost("/ordercomplete")]
+    public async Task<IActionResult> OrderComplete()
+    {
+        try
+        {
+            _logger.LogInformation("PaymentSystem OrderComplete runing……");
+            using var reader = new StreamReader(Request.Body, System.Text.Encoding.UTF8);
+            var content = await reader.ReadToEndAsync();
+            var pubBody = Newtonsoft.Json.JsonConvert.DeserializeObject<PubBody>(content);
+            _logger.LogInformation($"---------  HostName:{Dns.GetHostName()},OrderNo:{pubBody?.data.OrderNo},OrderAmount:{pubBody?.data.Amount},OrderTime:{pubBody?.data.OrderTime} -----------");
+            await Task.Delay(200);
+            _logger.LogInformation($"subscription pay complete");
+            _logger.LogInformation($"return  SUCCESS");
+            return new JsonResult(new
+            {
+                Status = "SUCCESS"
+            });
+        }
+        catch (Exception exc)
+        {
+            _logger.LogCritical(exc, exc.Message);
+            _logger.LogInformation($"return  RETRY");
+            return new JsonResult(new
+            {
+                Status = "RETRY"
+            });
+        }
+    }
+
+    #region service invoke
+
     [HttpGet("/pay")]
     public async Task<IActionResult> TestGet()
     {
@@ -31,6 +64,7 @@ public class HomeController : ControllerBase
         _logger.LogInformation($"支付完成");
         return new JsonResult(new { result = true, message = "支付成功", host = Dns.GetHostName() });
     }
+    #endregion
     #region state
     [HttpPost("/writekeys")]
     public async Task<IActionResult> WriteKeys([FromBody] KeyEntity[] keys)
@@ -68,7 +102,6 @@ public class HomeController : ControllerBase
         return Ok(await response.Content.ReadAsStringAsync());
     }
     #endregion
-
     #region etag
     [HttpPost("/writekeyswithetag")]
     public async Task<IActionResult> WriteKeysWithEtag([FromBody] KeyEntityWithEtag[] keys)
@@ -98,6 +131,27 @@ public class HomeController : ControllerBase
         return new JsonResult(new { result = true, data = new { data = data, etag = response.Headers.SingleOrDefault(s => s.Key.ToLower() == "etag") }, host = Dns.GetHostName() });
     }
     #endregion
+}
+
+public class PubBody
+{
+    public string id { get; set; }
+    public string source { get; set; }
+    public string pubsubname { get; set; }
+    public string traceid { get; set; }
+    public PubOrder data { get; set; }
+    public string specversion { get; set; }
+    public string datacontenttype { get; set; }
+    public string type { get; set; }
+    public string topic { get; set; }
+}
+
+
+public class PubOrder
+{
+    public string OrderNo { get; set; }
+    public decimal Amount { get; set; }
+    public DateTime OrderTime { get; set; }
 }
 
 public class KeyEntity

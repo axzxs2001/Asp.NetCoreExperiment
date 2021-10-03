@@ -15,13 +15,38 @@ public class HomeController : ControllerBase
     private readonly IHttpClientFactory _clientFactory;
     private readonly string? _payUrl;
     private readonly string _stateUrl;
+    private readonly string _publishUrl;
     public HomeController(ILogger<HomeController> logger, IHttpClientFactory clientFactory, IConfiguration configuration)
     {
         _stateUrl = configuration.GetSection("StateUrl").Value;
         _payUrl = configuration.GetSection("payurl").Value;
+        _publishUrl = configuration.GetSection("PublishUrl").Value;
         _clientFactory = clientFactory;
         _logger = logger;
     }
+
+    [HttpGet("/orderpub/{orderno}")]
+    public async Task<IActionResult> OrderPub(string orderno)
+    {
+        try
+        {
+            _logger.LogInformation($"Order,publish");
+            await Task.Delay(400);
+            var client = _clientFactory.CreateClient();
+
+            var stringContent = new StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(new { OrderNo = orderno, Amount = 30000, OrderTime = DateTime.UtcNow}), System.Text.Encoding.UTF8, "application/json");
+            _logger.LogInformation(stringContent.ToString());
+            var content = await client.PostAsync(_publishUrl, stringContent);
+            return new JsonResult(new { order_result = "Order success,and publish", pay_result = content });
+        }
+        catch (Exception exc)
+        {
+            _logger.LogCritical(exc, exc.Message);
+            return new JsonResult(new { order_result = "Order success,and publish,pay exception", message = exc.Message });
+        }
+    }
+
+
     [HttpGet("/order")]
     public async Task<IActionResult> Order()
     {
