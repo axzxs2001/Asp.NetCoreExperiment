@@ -1,6 +1,4 @@
-
 version: '3.4'
-
 services:
   #┌────────────────────────────────┐
   #│ ordersystem app + Dapr sidecar │
@@ -9,30 +7,40 @@ services:
     image: ${DOCKER_REGISTRY-}ordersystem
     depends_on:
       - redis
-      - placement
+      - placement 
+      - rabbitmq         
+      - zipkin       
     build:
       context: ../
       dockerfile: OrderSystem/Dockerfile
     ports:
-      - "3500:3500"
+      - "3500:3500"    
     volumes:   
       - ../OrderSystem:/OrderSystem  
     networks:
       - b2c-dapr
   ordersystem-dapr:
      image: "daprio/daprd:latest"
-     command: [ "./daprd", "-app-id", "order", "-app-port", "80","-placement-host-address", "placement:50006","-components-path","/components"]
+     command: [ "./daprd", "-app-id", "order", "-app-port", "80","-placement-host-address", "placement:50006","-components-path","/components","-config","/home/nonroot/.dapr/config.yaml" ]
      depends_on:
        - ordersystem
      network_mode: "service:ordersystem"
      volumes:   
-      - ../components:/components  
+      - ../components:/components 
+      - ../:/home/nonroot/.dapr        
+
+  
   
   #┌───────────────────────────────────┐
   #│ paymentsystem1 app + Dapr sidecar │
   #└───────────────────────────────────┘  
   paymentsystem1:
     image: ${DOCKER_REGISTRY-}paymentsystem
+    depends_on:
+      - redis
+      - placement 
+      - rabbitmq   
+      - zipkin      
     build:
       context: ../
       dockerfile: PaymentSystem/Dockerfile
@@ -44,18 +52,24 @@ services:
       - b2c-dapr      
   paymentsystem1-dapr:
      image: "daprio/daprd:latest"
-     command: [ "./daprd", "-app-id", "pay", "-app-port", "80","-placement-host-address", "placement:50006","-components-path","/components" ]
+     command: [ "./daprd", "-app-id", "pay", "-app-port", "80","-placement-host-address", "placement:50006","-components-path","/components","-config","/home/nonroot/.dapr/config.yaml" ]
      depends_on:
        - paymentsystem1
      network_mode: "service:paymentsystem1"
      volumes:   
       - ../components:/components 
- 
+      - ../:/home/nonroot/.dapr     
+      
   #┌───────────────────────────────────┐
   #│ paymentsystem2 app + Dapr sidecar │
   #└───────────────────────────────────┘   
   paymentsystem2:
     image: ${DOCKER_REGISTRY-}paymentsystem
+    depends_on:
+      - redis
+      - placement   
+      - rabbitmq   
+      - zipkin        
     build:
       context: ../
       dockerfile: PaymentSystem/Dockerfile
@@ -67,18 +81,24 @@ services:
       - b2c-dapr      
   paymentsystem2-dapr:
      image: "daprio/daprd:latest"
-     command: [ "./daprd", "-app-id", "pay", "-app-port", "80" ,"-placement-host-address", "placement:50006","-components-path","/components"]
+     command: [ "./daprd", "-app-id", "pay", "-app-port", "80" ,"-placement-host-address", "placement:50006","-components-path","/components","-config","/home/nonroot/.dapr/config.yaml"]
      depends_on:
        - paymentsystem2
      network_mode: "service:paymentsystem2"
      volumes:   
       - ../components:/components       
+      - ../:/home/nonroot/.dapr     
 
   #┌───────────────────────────────────┐
-  #│ noticesystem1 app + Dapr sidecar │
+  #│ noticesystem1 app + Dapr sidecar  │
   #└───────────────────────────────────┘  
   noticesystem1:
     image: ${DOCKER_REGISTRY-}noticesystem
+    depends_on:
+      - redis
+      - placement  
+      - rabbitmq  
+      - zipkin         
     build:
       context: ../
       dockerfile: NoticeSystem/Dockerfile
@@ -90,19 +110,24 @@ services:
       - b2c-dapr      
   noticesystem1-dapr:
      image: "daprio/daprd:latest"
-     command: [ "./daprd", "-app-id", "notice", "-app-port", "80","-placement-host-address", "placement:50006","-components-path","/components" ]
+     command: [ "./daprd", "-app-id", "notice", "-app-port", "80","-placement-host-address", "placement:50006","-components-path","/components","-config","/home/nonroot/.dapr/config.yaml" ]
      depends_on:
        - noticesystem1
      network_mode: "service:noticesystem1"
      volumes:   
       - ../components:/components 
-
+      - ../:/home/nonroot/.dapr     
 
   #┌───────────────────────────────────┐
-  #│ noticesystem2 app + Dapr sidecar │
+  #│ noticesystem2 app + Dapr sidecar  │
   #└───────────────────────────────────┘  
   noticesystem2:
     image: ${DOCKER_REGISTRY-}noticesystem
+    depends_on:
+      - redis
+      - placement    
+      - rabbitmq  
+      - zipkin         
     build:
       context: ../
       dockerfile: NoticeSystem/Dockerfile
@@ -114,12 +139,16 @@ services:
       - b2c-dapr      
   noticesystem2-dapr:
      image: "daprio/daprd:latest"
-     command: [ "./daprd", "-app-id", "notice", "-app-port", "80","-placement-host-address", "placement:50006","-components-path","/components" ]
+     command: [ "./daprd", "-app-id", "notice", "-app-port", "80","-placement-host-address", "placement:50006","-components-path","/components" ,"-config","/home/nonroot/.dapr/config.yaml"]
      depends_on:
        - noticesystem2
      network_mode: "service:noticesystem2"
      volumes:   
       - ../components:/components 
+      - ../:/home/nonroot/.dapr     
+      
+ 
+  
 
   #┌────────────────────────┐
   #│ Dapr placement service │
@@ -132,14 +161,56 @@ services:
     networks:
       - b2c-dapr
 
+
+  #┌──────────────────────────┐
+  #│ Zipkin  service          │
+  #└──────────────────────────┘ 
+  zipkin:
+    image: "openzipkin/zipkin"
+    ports:
+      - "9411:9411"
+    networks:
+      - b2c-dapr
+
+
   #┌───────────────────┐
   #│ Redis state store │
   #└───────────────────┘  
   redis:
     image: "redis:latest"
     ports:
-      - "6380:6379"
+      - "6379:6379"
     networks:
       - b2c-dapr
+
+  #┌──────────────────────┐
+  #│ RabbitMQ             │
+  #└──────────────────────┘  
+  rabbitmq:
+    image: "rabbitmq:management"
+    ports:
+      - "15672:15672"
+      - "5672:5672" 
+    environment:
+      - RABBITMQ_DEFAULT_USER=admin
+      - RABBITMQ_DEFAULT_PASS=!2021que 
+    networks:
+      - b2c-dapr  
+
+
+  #┌────────────┐
+  #│ dashboard  │
+  #└────────────┘  
+  dashboard:
+    image: daprio/dashboard    
+    ports:
+      - "8080:8080"
+    networks:
+      - b2c-dapr 
+    volumes:   
+      - ../:/home/nonroot/.dapr     
+
+      
 networks:
     b2c-dapr:
+   

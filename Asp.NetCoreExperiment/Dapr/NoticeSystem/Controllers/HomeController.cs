@@ -9,10 +9,19 @@ namespace NoticeSystem.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         public HomeController(ILogger<HomeController> logger)
-        { 
+        {
             _logger = logger;
         }
 
+        [HttpPost("/orderupdate")]
+        public async Task<IActionResult> OrderUpdate()
+        {
+            _logger.LogInformation("NoticeSystem OrderUpdate¡­¡­");
+            using var reader = new StreamReader(Request.Body, System.Text.Encoding.UTF8);
+            var content = await reader.ReadToEndAsync();
+            _logger.LogInformation(content);
+            return new StatusCodeResult((int)HttpStatusCode.OK);           
+        }
         [HttpPost("/ordercomplete")]
         public async Task<IActionResult> OrderComplete()
         {
@@ -62,6 +71,6 @@ namespace NoticeSystem.Controllers
     {
         public string OrderNo { get; set; }
         public decimal Amount { get; set; }
-        public DateTime OrderTime { get; set; }     
+        public DateTime OrderTime { get; set; }
     }
 }

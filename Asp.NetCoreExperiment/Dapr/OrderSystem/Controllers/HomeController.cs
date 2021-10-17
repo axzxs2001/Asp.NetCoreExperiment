@@ -2,6 +2,8 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -16,11 +18,13 @@ public class HomeController : ControllerBase
     private readonly string? _payUrl;
     private readonly string _stateUrl;
     private readonly string _publishUrl;
+    private readonly string _secretUrl;
     public HomeController(ILogger<HomeController> logger, IHttpClientFactory clientFactory, IConfiguration configuration)
     {
         _stateUrl = configuration.GetSection("StateUrl").Value;
         _payUrl = configuration.GetSection("payurl").Value;
         _publishUrl = configuration.GetSection("PublishUrl").Value;
+        _secretUrl = configuration.GetSection("SecretUrl").Value;
         _clientFactory = clientFactory;
         _logger = logger;
     }
@@ -34,10 +38,24 @@ public class HomeController : ControllerBase
             await Task.Delay(400);
             var client = _clientFactory.CreateClient();
 
-            var stringContent = new StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(new { OrderNo = orderno, Amount = 30000, OrderTime = DateTime.UtcNow}), System.Text.Encoding.UTF8, "application/json");
+            var stringContent = new StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(new { OrderNo = orderno, Amount = 30000, OrderTime = DateTime.UtcNow }), System.Text.Encoding.UTF8, "application/json");
             _logger.LogInformation(stringContent.ToString());
-            var content = await client.PostAsync(_publishUrl, stringContent);
-            return new JsonResult(new { order_result = "Order success,and publish", pay_result = content });
+            var response = await client.PostAsync(_publishUrl, stringContent);
+
+
+            IEnumerable<string>? values1, values2;
+            string traceparentValue = "";
+            string tracestateValue = "";
+            if (response.Headers.TryGetValues("traceparent", out values1))
+            {
+                traceparentValue = values1.FirstOrDefault();
+            }
+            if (response.Headers.TryGetValues("tracestate", out values2))
+            {
+                tracestateValue = values2.FirstOrDefault();
+            }
+            var content = await response.Content.ReadAsStringAsync();
+            return new JsonResult(new { order_result = "Order success,and publish", pay_result = content, traceparentValue, tracestateValue });
         }
         catch (Exception exc)
         {
@@ -56,8 +74,26 @@ public class HomeController : ControllerBase
             await Task.Delay(400);
             _logger.LogInformation($"订单完成   调用支付系统");
             var client = _clientFactory.CreateClient();
-            var content = await client.GetStringAsync(_payUrl);
-            return new JsonResult(new { order_result = "订单成功", pay_result = content });
+            //var content = await client.GetStringAsync(_payUrl);
+
+            var request = new HttpRequestMessage(HttpMethod.Get, _payUrl);
+            var response = await client.SendAsync(request);
+
+
+            IEnumerable<string>? values1, values2;
+            string traceparentValue = "";
+            string tracestateValue = "";
+            if (response.Headers.TryGetValues("traceparent", out values1))
+            {
+                traceparentValue = values1.FirstOrDefault();
+            }
+            if (response.Headers.TryGetValues("tracestate", out values2))
+            {
+                tracestateValue = values2.FirstOrDefault();
+            }
+
+            var content = await response.Content.ReadAsStringAsync();
+            return new JsonResult(new { order_result = "订单成功", pay_result = content, traceparentValue, tracestateValue });
         }
         catch (Exception exc)
         {
@@ -65,6 +101,17 @@ public class HomeController : ControllerBase
             return new JsonResult(new { order_result = "订单成功，支付失败", message = exc.Message });
         }
     }
+
+
+    [HttpGet("/queryappkey")]
+    public async Task<IActionResult> QueryAppkey()
+    {
+        var client = _clientFactory.CreateClient();
+        var response = await client.GetAsync(_secretUrl);
+        var dataString = await response.Content.ReadAsStringAsync();
+        return new JsonResult(new { result = true, appkey = dataString, host = Dns.GetHostName() });
+    }
+
 
 
 

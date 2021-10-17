@@ -25,6 +25,18 @@ public class HomeController : ControllerBase
         _logger = logger;
     }
 
+    [HttpPost("/orderupdate")]
+    public async Task<IActionResult> OrderUpdate()
+    {
+        _logger.LogInformation("PaymentSystem OrderUpdate……");
+        using var reader = new StreamReader(Request.Body, System.Text.Encoding.UTF8);
+        var content = await reader.ReadToEndAsync();
+        _logger.LogInformation(content);
+            
+        return Ok("event is success");
+    }
+
+
     [HttpPost("/ordercomplete")]
     public async Task<IActionResult> OrderComplete()
     {
