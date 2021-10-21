@@ -5,14 +5,13 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 var builder = WebApplication.CreateBuilder(args);
-
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddActors(options =>
 {
-    options.HttpEndpoint = "http://localhost:3999";
-    options.Actors.RegisterActor<OrderFactorActor>();
+    options.HttpEndpoint = "http://localhost:3999";    
+    options.Actors.RegisterActor<AccountActor>();
 });
 
 var app = builder.Build();
@@ -30,5 +29,4 @@ app.UseEndpoints(endpoints =>
     endpoints.MapActorsHandlers();
 });
 app.MapControllers();
-
 app.Run();
