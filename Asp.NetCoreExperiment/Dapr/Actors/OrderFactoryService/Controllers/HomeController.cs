@@ -13,10 +13,11 @@ namespace OrderFactoryService.Controllers
             _logger = logger;
         }
 
-        [HttpGet("/abc")]
-        public IActionResult Get()
+        [HttpGet("/gettime")]
+        public IActionResult Get(string inTime)
         {
-            return Ok();
+            Task.Delay(3000).Wait();
+            return Ok($"传入时间：{inTime}，返回时间：{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff")}");
         }
     }
 }

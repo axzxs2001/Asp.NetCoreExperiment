@@ -3,7 +3,8 @@ using Dapr.Actors;
 using Dapr.Actors.Client;
 
 
-Console.WriteLine("Startup up...");
+Console.WriteLine("回车开始");
+
 Console.ReadLine();
 var actorType = "OrderFactorActor";
 var actorId = new ActorId("1");
@@ -15,28 +16,56 @@ var proxy = factory.CreateActorProxy<IOrderFactoryActory.Interfaces.IOrderFactor
 //    HttpEndpoint = "http://localhost:3999"
 //});
 
-var amount = await proxy.GetOrderAmountAsync(new IOrderFactoryActory.Interfaces.Order()
+
+
+new Thread(CallHttp).Start();
+new Thread(CallHttp).Start();
+
+
+new Thread(CallActor).Start(proxy);
+new Thread(CallActor).Start(proxy);
+
+Console.WriteLine("回车结束");
+Console.ReadLine();
+
+static void SetGetState()
 {
-    OrderNo = "0001",
-    OrderType = "B",
-    Amount = 1000,
-    Quantity = 20
+    //Console.WriteLine($"Calling SetDataAsync on {actorType}:{actorId}...");
+    //var response = await proxy.SetOrderAsync(new IOrderFactoryActory.Interfaces.Order()
+    //{
+    //    OrderNo = "0001",
+    //    OrderType = "B",
+    //    Amount = amount,
+    //    Quantity = 20
 
-});
-Console.WriteLine($"计算结果：{amount}");
+    //});
+    //Console.WriteLine($"Set response: {response}");
 
-Console.WriteLine($"Calling SetDataAsync on {actorType}:{actorId}...");
+    //Console.WriteLine($"Calling GetDataAsync on {actorType}:{actorId}...");
+    //var order = await proxy.GetOrderAsync();
+    //Console.WriteLine($"Got response: {order}");
+}
 
-var response = await proxy.SetOrderAsync(new IOrderFactoryActory.Interfaces.Order()
+static void Call(IOrderFactoryActory.Interfaces.IOrderFactoryActory proxy)
 {
-    OrderNo = "0001",
-    OrderType = "B",
-    Amount = amount,
-    Quantity = 20
+    var amount = proxy.GetOrderAmountAsync(new IOrderFactoryActory.Interfaces.Order()
+    {
+        OrderNo = "0001",
+        OrderType = "B",
+        Amount = DateTime.Now.Millisecond,
+        Quantity = 20
 
-});
-Console.WriteLine($"Set response: {response}");
-
-Console.WriteLine($"Calling GetDataAsync on {actorType}:{actorId}...");
-var order = await proxy.GetOrderAsync();
-Console.WriteLine($"Got response: {order}");
+    }).Result;
+    Console.WriteLine($"计算结果：{amount}");
+}
+static void CallActor(object? obj)
+{
+    var proxy = obj as IOrderFactoryActory.Interfaces.IOrderFactoryActory;
+    var time = proxy.GetTime(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff")).Result;
+    Console.WriteLine(time);
+}
+static void CallHttp()
+{
+    var client = new HttpClient();
+    Console.WriteLine(client.GetStringAsync("http://localhost:5000/gettime?intime=" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff")).Result);
+}

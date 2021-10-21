@@ -29,6 +29,6 @@ app.UseEndpoints(endpoints =>
 {   
     endpoints.MapActorsHandlers();
 });
-//app.MapControllers();
+app.MapControllers();
 
 app.Run();

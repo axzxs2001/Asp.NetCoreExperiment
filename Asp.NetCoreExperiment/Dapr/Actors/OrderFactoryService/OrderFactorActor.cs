@@ -6,11 +6,12 @@ namespace OrderFactoryService
     public class OrderFactorActor : Actor, IOrderFactoryActory.Interfaces.IOrderFactoryActory, IRemindable
     {
         public OrderFactorActor(ActorHost host) : base(host)
-        {           
+        {
         }
 
-        public  Task<decimal> GetOrderAmountAsync(Order order)
+        public Task<decimal> GetOrderAmountAsync(Order order)
         {
+            Task.Delay(3000).Wait();
             var discount = 1.0f;
             switch (order.OrderType)
             {
@@ -31,10 +32,14 @@ namespace OrderFactoryService
                 case 20:
                     return Task.FromResult<decimal>(order.Amount * Convert.ToDecimal(discount) * 0.7m);
                 default:
-                    return  Task.FromResult<decimal>(order.Amount * Convert.ToDecimal(discount));
+                    return Task.FromResult<decimal>(order.Amount * Convert.ToDecimal(discount));
             }
         }
-
+        public Task<string> GetTime(string inTime)
+        {
+            Task.Delay(3000).Wait();
+            return Task.FromResult($"传入时间：{inTime}，返回时间：{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff")}");
+        }
 
         protected override Task OnActivateAsync()
         {
@@ -99,6 +104,6 @@ namespace OrderFactoryService
             return this.UnregisterTimerAsync("MyTimer");
         }
 
-       
+
     }
 }

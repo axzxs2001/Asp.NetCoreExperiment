@@ -4,6 +4,7 @@ namespace IOrderFactoryActory.Interfaces
 {
     public interface IOrderFactoryActory : IActor
     {
+        Task<string> GetTime(string inTime);
         Task<decimal> GetOrderAmountAsync(Order order);
         Task<string> SetOrderAsync(Order data);
         Task<Order> GetOrderAsync();
