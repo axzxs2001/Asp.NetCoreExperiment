@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Http;
 using System;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Routing;
+using Yarp.ReverseProxy.Configuration;
 
 namespace YARPDemo01
 {
@@ -21,6 +22,18 @@ namespace YARPDemo01
     /// </summary>
     public class PermissionHandler : AuthorizationHandler<PermissionRequirement>
     {
+        readonly List<Permission> _userPermissions;
+        readonly IProxyConfigProvider _proxyConfig;
+        public PermissionHandler(List<Permission> userPermissions)
+        {
+            _userPermissions = userPermissions;
+        }
+        public PermissionHandler(List<Permission> userPermissions, IProxyConfigProvider proxyConfig)
+        {
+            _proxyConfig = proxyConfig;
+            _userPermissions = userPermissions;
+        }
+
         /// <summary>
         /// 用户权限
         /// </summary>
@@ -34,34 +47,70 @@ namespace YARPDemo01
         /// <returns></returns>
         protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, PermissionRequirement requirement)
         {
-            //请求的url
-            var questUrl = "";
-            //请求谓词
-            var method = "";
-            if (context.Resource is RouteEndpoint)
-            {
-                var route = (context.Resource as Microsoft.AspNetCore.Routing.RouteEndpoint);
-                if (route.RoutePattern.Parameters.Count > 0)
-                {
-                    questUrl = $"{route.RoutePattern.Defaults["controller"].ToString().ToLower() }/{route.RoutePattern.Defaults["action"].ToString().ToLower()}";
-                }
-                else
-                {
-                    questUrl = route.RoutePattern.RawText;
-                }
-            }
-            else
-            {
-                var fileContext = (context.Resource as HttpContext);
-                questUrl = fileContext?.Request?.Path.Value?.ToLower();
-                method = fileContext?.Request?.Method;
-            }
+            var memoryProvider = (_proxyConfig as InMemoryConfigProvider);
+            var fileContext = (context.Resource as HttpContext);
+            var questUrl = fileContext?.Request?.Path.Value?.ToLower();
+            var method = fileContext?.Request?.Method;
+
             //赋值用户权限
-            UserPermissions = requirement.Permissions;
+            UserPermissions = _userPermissions;
             //是否经过验证
             var isAuthenticated = context?.User?.Identity?.IsAuthenticated;
             if (isAuthenticated.HasValue && isAuthenticated.Value)
             {
+                #region 处理配置文件
+                if (questUrl.Contains("add"))
+                {
+                    var name = questUrl.Split('/', StringSplitOptions.RemoveEmptyEntries)[2];
+                    var port = questUrl.Split('/', StringSplitOptions.RemoveEmptyEntries)[3];
+                    var routes = new List<RouteConfig>(memoryProvider.GetConfig().Routes);
+                    routes.Add(new RouteConfig()
+                    {
+                        RouteId = name,
+                        ClusterId = $"{name}_cluster",
+                        AuthorizationPolicy = "Permission",
+                        Match = new RouteMatch
+                        {
+                            Path = $"/{name}/{{**catch-all}}"
+                        }
+                    });
+
+
+                    var clusters = new List<ClusterConfig>(memoryProvider.GetConfig().Clusters);
+                    clusters.Add(new ClusterConfig()
+                    {
+                        ClusterId = $"{name}_cluster",
+                        Destinations = new Dictionary<string, DestinationConfig>(StringComparer.OrdinalIgnoreCase)
+                    {
+                        { $"{name}_cluster/destination", new DestinationConfig() { Address = $"https://localhost:{port}/" } }
+                    }
+                    });
+
+                    memoryProvider.Update(routes, clusters);
+                }
+                if (questUrl.Contains("delete"))
+                {
+                    var name = questUrl.Split('/', StringSplitOptions.RemoveEmptyEntries)[2];
+                    var routes = new List<RouteConfig>();
+                    foreach (var route in memoryProvider.GetConfig().Routes)
+                    {
+                        if (route.RouteId != name)
+                        {
+                            routes.Add(route);
+                        }
+                    }
+                    var clusters = new List<ClusterConfig>();
+                    foreach (var cluster in memoryProvider.GetConfig().Clusters)
+                    {
+                        if (cluster.ClusterId != name)
+                        {
+                            clusters.Add(cluster);
+                        }
+                    }
+                    memoryProvider.Update(routes, clusters);
+                }
+                #endregion
+
                 if (UserPermissions.Where(w => w.Url.ToLower() == questUrl).Count() > 0)
                 {
                     context.Succeed(requirement);
@@ -69,7 +118,6 @@ namespace YARPDemo01
                 else
                 {
                     context.Fail();
-                    //context.Succeed(requirement);
                 }
             }
             return Task.CompletedTask;
