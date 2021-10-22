@@ -17,11 +17,10 @@ services:
       - "3500:3500"    
     volumes:   
       - ../OrderSystem:/OrderSystem  
-    networks:
-      - b2c-dapr
+
   ordersystem-dapr:
      image: "daprio/daprd:latest"
-     command: [ "./daprd", "-app-id", "order", "-app-port", "80","-placement-host-address", "placement:50006","-components-path","/components","-config","/home/nonroot/.dapr/config.yaml" ]
+     command: [ "./daprd", "-app-id", "order","-app-port", "80","-placement-host-address", "placement:50006","-components-path","/components","-config","/home/nonroot/.dapr/config.yaml" ]
      depends_on:
        - ordersystem
      network_mode: "service:ordersystem"
@@ -48,8 +47,7 @@ services:
       - "3601:3500"
     volumes:   
       - ../PaymentSystem:/PaymentSystem      
-    networks:
-      - b2c-dapr      
+      
   paymentsystem1-dapr:
      image: "daprio/daprd:latest"
      command: [ "./daprd", "-app-id", "pay", "-app-port", "80","-placement-host-address", "placement:50006","-components-path","/components","-config","/home/nonroot/.dapr/config.yaml" ]
@@ -77,8 +75,7 @@ services:
       - ../PaymentSystem:/PaymentSystem            
     ports:
       - "3602:3500"
-    networks:
-      - b2c-dapr      
+      
   paymentsystem2-dapr:
      image: "daprio/daprd:latest"
      command: [ "./daprd", "-app-id", "pay", "-app-port", "80" ,"-placement-host-address", "placement:50006","-components-path","/components","-config","/home/nonroot/.dapr/config.yaml"]
@@ -106,8 +103,7 @@ services:
       - "3701:3500"
     volumes:   
       - ../NoticeSystem:/NoticeSystem      
-    networks:
-      - b2c-dapr      
+      
   noticesystem1-dapr:
      image: "daprio/daprd:latest"
      command: [ "./daprd", "-app-id", "notice", "-app-port", "80","-placement-host-address", "placement:50006","-components-path","/components","-config","/home/nonroot/.dapr/config.yaml" ]
@@ -135,8 +131,7 @@ services:
       - "3702:3500"
     volumes:   
       - ../NoticeSystem:/NoticeSystem      
-    networks:
-      - b2c-dapr      
+      
   noticesystem2-dapr:
      image: "daprio/daprd:latest"
      command: [ "./daprd", "-app-id", "notice", "-app-port", "80","-placement-host-address", "placement:50006","-components-path","/components" ,"-config","/home/nonroot/.dapr/config.yaml"]
@@ -158,8 +153,7 @@ services:
     command: ["./placement", "-port", "50006"]
     ports:
       - "50006:50006"
-    networks:
-      - b2c-dapr
+
 
 
   #┌──────────────────────────┐
@@ -169,8 +163,7 @@ services:
     image: "openzipkin/zipkin"
     ports:
       - "9411:9411"
-    networks:
-      - b2c-dapr
+
 
 
   #┌───────────────────┐
@@ -180,8 +173,7 @@ services:
     image: "redis:latest"
     ports:
       - "6379:6379"
-    networks:
-      - b2c-dapr
+
 
   #┌──────────────────────┐
   #│ RabbitMQ             │
@@ -194,8 +186,7 @@ services:
     environment:
       - RABBITMQ_DEFAULT_USER=admin
       - RABBITMQ_DEFAULT_PASS=!2021que 
-    networks:
-      - b2c-dapr  
+  
 
 
   #┌────────────┐
@@ -205,12 +196,14 @@ services:
     image: daprio/dashboard    
     ports:
       - "8080:8080"
-    networks:
-      - b2c-dapr 
+ 
     volumes:   
       - ../:/home/nonroot/.dapr     
 
-      
 networks:
-    b2c-dapr:
+  default:
+    name: dapr_network
+    driver: bridge      
+#networks:
+#    b2c-dapr:
    

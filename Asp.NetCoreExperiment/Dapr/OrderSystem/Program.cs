@@ -4,13 +4,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using System.Net;
 
-System.Console.WriteLine("##################" + Dns.GetHostName());
-foreach (var address in Dns.GetHostEntry(Dns.GetHostName()).AddressList)
-{
-    System.Console.WriteLine("##################" + address.AddressFamily.ToString());
-    System.Console.WriteLine("##################" + address.ToString());
-    System.Console.WriteLine("##################" + address.MapToIPv4().ToString());
-}
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddHttpClient();

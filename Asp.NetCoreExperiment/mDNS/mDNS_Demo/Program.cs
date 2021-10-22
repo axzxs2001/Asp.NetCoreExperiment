@@ -2,7 +2,7 @@
 using System.Net.Sockets;
 
 
-var ip = "172.";
+var ip = "pay";
 var mdns = new MulticastService();
 var sd = new ServiceDiscovery(mdns);
 
