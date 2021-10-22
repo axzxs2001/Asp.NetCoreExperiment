@@ -27,5 +27,9 @@ namespace IOrderFactoryActory.Interfaces
     public interface IAccountActor : IActor
     {
         Task<string> GetTimeAsync(string inTime);
+
+        Task<decimal> ChargeAsync(decimal amount);
     }
+
+    
 }

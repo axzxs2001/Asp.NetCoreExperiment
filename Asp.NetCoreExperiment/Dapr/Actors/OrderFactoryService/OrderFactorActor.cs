@@ -103,17 +103,4 @@ namespace OrderFactoryService
     //    }
     //}
 
-    public class AccountActor: Actor, IAccountActor
-    {      
-        public AccountActor(ActorHost host) : base(host)
-        {           
-        }
-        public async Task<string> GetTimeAsync(string inTime)
-        {
-            Console.WriteLine($"{this.Id}开始");
-            Task.Delay(3000).Wait();
-            Console.WriteLine($"{this.Id}结束");
-            return await  Task.FromResult($"Actor ID:{this.Id} 传入时间：{inTime}，返回时间：{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff")}");
-        }
-    }
 }
