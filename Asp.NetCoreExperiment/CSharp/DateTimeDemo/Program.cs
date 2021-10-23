@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Data;
 using System.Globalization;
 using Dapper;
+using Microsoft.Data.SqlClient;
 using MySql.Data.MySqlClient;
 using Npgsql;
 
@@ -10,17 +12,32 @@ namespace DateTimeDemo
     {
         static void Main(string[] args)
         {
-            DateOnly date = DateOnly.FromDateTime(DateTime.Now);
-            Console.WriteLine(date);
-            Console.WriteLine(date.ToLongDateString());
-            Console.WriteLine(date.ToShortDateString());
-            Console.WriteLine(DateOnly.FromDayNumber(735000));
+            Console.WriteLine(DateOnly.FromDateTime(DateTime.Now));
+            Console.WriteLine(DateOnly.Parse("2021-10-23"));
+            Console.WriteLine(DateOnly.FromDayNumber(738085)); 
+            
+            Console.WriteLine(TimeOnly.FromDateTime(DateTime.Now));
+            Console.WriteLine(TimeOnly.FromTimeSpan(new TimeSpan(12,12,12)));
+            Console.WriteLine(TimeOnly.Parse("12:13:14"));
+            Console.WriteLine(TimeOnly.ParseExact("12时13分14秒","HH时mm分ss秒"));
 
-            TimeOnly time = TimeOnly.FromDateTime(DateTime.Now);
-            Console.WriteLine(time);
-            Console.WriteLine(time.ToLongTimeString());
-            Console.WriteLine(time.ToShortTimeString());
 
+            Console.WriteLine(TimeOnly.FromDateTime(DateTime.Now).ToLongTimeString());
+
+
+            using var con = new SqlConnection("server=.;database=testdb;uid=sa;pwd=sa;TrustServerCertificate=True;");
+            var sql = @"
+INSERT INTO [dbo].[Test]
+           ([CreateDate]
+           ,[CreateTime])
+     VALUES
+           (@CreateDate
+           ,@CreateTime)";
+            using var cmd = new SqlCommand(sql, con);
+            con.Open();
+            cmd.Parameters.Add(new SqlParameter("@CreateDate", SqlDbType.Date) { Value = DateOnly.FromDateTime(DateTime.Now) });
+            cmd.Parameters.Add(new SqlParameter("@CreateTime", SqlDbType.Time) { Value = TimeOnly.FromDateTime(DateTime.Now) });
+            cmd.ExecuteNonQuery();
 
 
             //           using var con = new NpgsqlConnection("Server=.;Port=5432;UserId=postgres;Password=postgres2018;Database=postgres;");
@@ -28,30 +45,30 @@ namespace DateTimeDemo
             // time_test, time_str, time_test_no, date_test, date_str, date_test_no, datetime_test, datetime_str, datetime_test_no)
             //VALUES (@time_test, @time_str, @time_test_no, @date_test, @date_str, @date_test_no, @datetime_test, @datetime_str, @datetime_test_no);", new { time_test = TimeOnly.FromDateTime(DateTime.Now), time_str = TimeOnly.FromDateTime(DateTime.Now), time_test_no = TimeOnly.FromDateTime(DateTime.Now), date_test = TimeOnly.FromDateTime(DateTime.Now), date_str = TimeOnly.FromDateTime(DateTime.Now), date_test_no = TimeOnly.FromDateTime(DateTime.Now), datetime_test = DateTime.Now, datetime_str = DateTime.Now, datetime_test_no = DateTime.Now });
 
-            using var con = new MySqlConnection("Server=127.0.0.1;Database=shortdomain;Uid=root;Pwd=mars2020;");
-            con.Execute(@"INSERT INTO timetest(
-             time_test, time_str,  date_test, date_str,  datetime_test, datetime_str)
-            VALUES (@time_test, @time_str,  @date_test, @date_str,  @datetime_test, @datetime_str );", new { time_test = (DateTime.Now), time_str = (DateTime.Now), date_test = (DateTime.Now), date_str = (DateTime.Now), datetime_test = DateTime.Now, datetime_str = DateTime.Now });
+            //using var con = new MySqlConnection("Server=127.0.0.1;Database=shortdomain;Uid=root;Pwd=mars2020;");
+            //con.Execute(@"INSERT INTO timetest(
+            // time_test, time_str,  date_test, date_str,  datetime_test, datetime_str)
+            //VALUES (@time_test, @time_str,  @date_test, @date_str,  @datetime_test, @datetime_str );", new { time_test = (DateTime.Now), time_str = (DateTime.Now), date_test = (DateTime.Now), date_str = (DateTime.Now), datetime_test = DateTime.Now, datetime_str = DateTime.Now });
 
 
-//            using var con = new MySqlConnection("Server=127.0.0.1;Database=shortdomain;Uid=root;Pwd=mars2020;");
-//            var sql = @"INSERT INTO timetest(
-//	 time_test,-- time_str,  
-//date_test,-- date_str,  
-//datetime_test-- datetime_str)
-//	VALUES (@time_test, -- @time_str, 
-//@date_test, -- @date_str, 
-//@datetime_test -- @datetime_str 
-//);";
-//            using var cmd = new MySqlCommand(sql, con);
-//            con.Open();
-//            cmd.Parameters.Add(new MySqlParameter("@time_test", MySqlDbType.Time) { Value = TimeOnly.FromDateTime(DateTime.Now) });
-//           // cmd.Parameters.Add(new MySqlParameter("@time_str", MySqlDbType.Time) { Value = TimeOnly.FromDateTime(DateTime.Now) });
-//            cmd.Parameters.Add(new MySqlParameter("@date_test", MySqlDbType.Date) { Value = DateOnly.FromDateTime(DateTime.Now) });
-//           // cmd.Parameters.Add(new MySqlParameter("@date_str", MySqlDbType.Date) { Value = DateOnly.FromDateTime(DateTime.Now) });
-//            cmd.Parameters.Add(new MySqlParameter("@datetime_test", MySqlDbType.DateTime) { Value = DateTime.Now });
-//           // cmd.Parameters.Add(new MySqlParameter("@datetime_str", MySqlDbType.DateTime) { Value = DateTime.Now });
-//            cmd.ExecuteNonQuery();
+            //            using var con = new MySqlConnection("Server=127.0.0.1;Database=shortdomain;Uid=root;Pwd=mars2020;");
+            //            var sql = @"INSERT INTO timetest(
+            //	 time_test,-- time_str,  
+            //date_test,-- date_str,  
+            //datetime_test-- datetime_str)
+            //	VALUES (@time_test, -- @time_str, 
+            //@date_test, -- @date_str, 
+            //@datetime_test -- @datetime_str 
+            //);";
+            //            using var cmd = new MySqlCommand(sql, con);
+            //            con.Open();
+            //            cmd.Parameters.Add(new MySqlParameter("@time_test", MySqlDbType.Time) { Value = TimeOnly.FromDateTime(DateTime.Now) });
+            //           // cmd.Parameters.Add(new MySqlParameter("@time_str", MySqlDbType.Time) { Value = TimeOnly.FromDateTime(DateTime.Now) });
+            //            cmd.Parameters.Add(new MySqlParameter("@date_test", MySqlDbType.Date) { Value = DateOnly.FromDateTime(DateTime.Now) });
+            //           // cmd.Parameters.Add(new MySqlParameter("@date_str", MySqlDbType.Date) { Value = DateOnly.FromDateTime(DateTime.Now) });
+            //            cmd.Parameters.Add(new MySqlParameter("@datetime_test", MySqlDbType.DateTime) { Value = DateTime.Now });
+            //           // cmd.Parameters.Add(new MySqlParameter("@datetime_str", MySqlDbType.DateTime) { Value = DateTime.Now });
+            //            cmd.ExecuteNonQuery();
 
         }
 

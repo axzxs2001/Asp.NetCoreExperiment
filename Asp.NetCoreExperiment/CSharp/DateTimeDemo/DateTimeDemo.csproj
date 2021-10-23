@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="Dapper" Version="2.0.90" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="4.0.0-preview3.21293.2" />
     <PackageReference Include="MySql.Data" Version="8.0.26" />
     <PackageReference Include="Npgsql" Version="6.0.0-rc.1" />
   </ItemGroup>
