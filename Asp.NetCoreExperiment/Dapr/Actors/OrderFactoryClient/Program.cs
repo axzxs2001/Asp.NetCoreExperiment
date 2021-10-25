@@ -5,45 +5,67 @@ using Quartz;
 using Quartz.Impl;
 using System.Security.Cryptography;
 
-
 Console.WriteLine("回车开始");
 Console.ReadLine();
-
-var scheduler = await RunJobAsync();
+var actorType = "OrderFactorActor";
+var actorId = new ActorId("1");
 var factory = new ActorProxyFactory(new ActorProxyOptions { HttpEndpoint = "http://localhost:3999" });
-var accountNo = "808080808080808080";
-var account = CreateActor(factory, accountNo);
-var total = 0m;
-while (true)
+var proxy = factory.CreateActorProxy<IOrderFactoryActory.Interfaces.IOrderFactoryActory>(actorId, actorType);
+
+
+//proxy.RegisterReminder();
+//Console.WriteLine("回车停止");
+//Console.ReadLine();
+//proxy.UnregisterReminder();
+
+
+proxy.RegisterTimer();
+Console.WriteLine("回车停止");
+Console.ReadLine();
+proxy.UnregisterTimer();
+
+
+static async Task StarActorMethod()
 {
-    var tasks = new List<Task>();
-    for (var i = 0; i < 50; i++)
+
+    Console.WriteLine("回车开始");
+    Console.ReadLine();
+
+    var scheduler = await RunJobAsync();
+    var factory = new ActorProxyFactory(new ActorProxyOptions { HttpEndpoint = "http://localhost:3999" });
+    var accountNo = "808080808080808080";
+    var account = CreateActor(factory, accountNo);
+    var total = 0m;
+    while (true)
     {
-        var amount = RandomNumberGenerator.GetInt32(100, 5000);
-        var chargeTask = new Task(async () =>
+        var tasks = new List<Task>();
+        for (var i = 0; i < 50; i++)
         {
-            var balance = await account.ChargeAsync(amount);
-            Console.WriteLine($"****   账户：{accountNo}  本次存款：{amount}  缓存余额：{balance}   ****");
-        });
-        tasks.Add(chargeTask);
-        total += amount;
-    }
+            var amount = RandomNumberGenerator.GetInt32(100, 5000);
+            var chargeTask = new Task(async () =>
+            {
+                var balance = await account.ChargeAsync(amount);
+                Console.WriteLine($"****   账户：{accountNo}  本次存款：{amount}  缓存余额：{balance}   ****");
+            });
+            tasks.Add(chargeTask);
+            total += amount;
+        }
 
-    foreach (var task in tasks)
-    {
-        task.Start();
-    }
+        foreach (var task in tasks)
+        {
+            task.Start();
+        }
 
-    Console.WriteLine($"全部存款汇总：{total}");   
-    Console.WriteLine("回车继续发一批，退出按E");
-    if (Console.ReadLine() == "E")
-    {
-        break;
+        Console.WriteLine($"全部存款汇总：{total}");
+        Console.WriteLine("回车继续发一批，退出按E");
+        if (Console.ReadLine() == "E")
+        {
+            break;
+        }
     }
+    await scheduler.Shutdown();
+
 }
-await scheduler.Shutdown();
-
-
 
 static IAccountActor CreateActor(ActorProxyFactory factory, string accountNo)
 {

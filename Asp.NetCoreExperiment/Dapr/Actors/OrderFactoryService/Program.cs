@@ -12,6 +12,7 @@ builder.Services.AddActors(options =>
 {
     options.HttpEndpoint = "http://localhost:3999";    
     options.Actors.RegisterActor<AccountActor>();
+    options.Actors.RegisterActor<OrderFactorActor>();
 });
 
 var app = builder.Build();
