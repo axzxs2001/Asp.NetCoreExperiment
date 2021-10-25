@@ -15,6 +15,9 @@ using System;
 using Yarp.ReverseProxy.Configuration;
 using System.Threading;
 using Microsoft.Extensions.Primitives;
+using System.IO;
+using System.Linq;
+using Yarp.ReverseProxy.Transforms;
 
 namespace YARPDemo01
 {
@@ -35,7 +38,8 @@ namespace YARPDemo01
                 {
                     RouteId = "webapi01",
                     ClusterId = "webapi01_cluster",
-                    AuthorizationPolicy="Permission",
+                    //AuthorizationPolicy="Permission",
+                  
                     Match = new RouteMatch
                     {
                         Path = "/webapi01/{**catch-all}"
@@ -91,8 +95,15 @@ namespace YARPDemo01
                 }
             };
 
-
-            services.AddReverseProxy().LoadFromMemory(routes, clusters);
+            services.AddReverseProxy().LoadFromMemory(routes, clusters).AddTransforms(builderContext =>
+            {
+                //通过不同的body添加不同的header
+                builderContext.AddRequestTransform(async transformContext =>
+               {
+                   var content = await transformContext.ProxyRequest.Content.ReadAsStringAsync();
+                   transformContext.ProxyRequest.Headers.Add("X-NSS-UUID", "ABCD" + DateTime.Now.ToString()); 
+               });
+            });
             // services.AddReverseProxy().LoadFromConfig(Configuration.GetSection("ReverseProxy"));
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -100,7 +111,7 @@ namespace YARPDemo01
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-            }
+            }         
             app.UseAuthentication();
             app.UseRouting();
             app.UseAuthorization();

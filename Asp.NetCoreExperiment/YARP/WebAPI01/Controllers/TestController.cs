@@ -9,17 +9,17 @@ using System.Threading.Tasks;
 
 namespace WebAPI01.Controllers
 {
-  
+
     [ApiController]
     [Route("[controller]")]
     public class TestController : ControllerBase
     {
-      
+
         private readonly ILogger<TestController> _logger;
 
         public TestController(ILogger<TestController> logger)
         {
-            _logger = logger;          
+            _logger = logger;
         }
 
         [HttpGet("/webapi01/test1")]
@@ -35,5 +35,19 @@ namespace WebAPI01.Controllers
             return "WebAPI01.TestController.Get3";
         }
 
+
+        [HttpPost("/webapi01/postdata")]
+        public string AddData([FromBody] Person person)
+        {
+            _logger.LogInformation($"X-NSS-UUID:{Request.Headers["X-NSS-UUID"]}");
+            _logger.LogInformation(System.Text.Json.JsonSerializer.Serialize(person));
+            return "ok";
+        }
+
+    }
+    public class Person
+    {
+        public string Name { get; set; }
+        public string Email { get; set; }
     }
 }
