@@ -1,4 +1,5 @@
 ﻿namespace NameSpaceDemo2;
+
 class Demo02Class
 {
 
