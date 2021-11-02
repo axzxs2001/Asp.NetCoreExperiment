@@ -3,8 +3,17 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net6.0</TargetFramework>
+    <LangVersion>10.0</LangVersion>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
+
+  <ItemGroup>
+    <EditorConfigFiles Remove="C:\MyFile\Source\Repos\Asp.NetCoreExperiment\Asp.NetCoreExperiment\CSharp\NameSpaceDemo\.editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="C:\MyFile\Source\Repos\Asp.NetCoreExperiment\Asp.NetCoreExperiment\CSharp\NameSpaceDemo\.editorconfig" />
+  </ItemGroup>
 
 </Project>
