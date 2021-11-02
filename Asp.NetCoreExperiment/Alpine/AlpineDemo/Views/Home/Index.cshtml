@@ -1,0 +1,59 @@
+﻿@{
+	ViewData["Title"] = "Home Page";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div x-data="{data:getlist()}">
+	<button @@click="query()">Expand</button>
+	<table>
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>name</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr x-for="item in data.list">
+				<td x-text></td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+
+<div x-data="{ open: false }">
+	<button @@click="open = true">Expand</button>
+	<span x-show="open">
+		Content...
+	</span>
+</div>
+
+<div x-data="dropdown()">
+	<button x-on:click="open">Open</button>
+	<div x-show="isOpen()" x-on:click.away="close">
+		Dropdown
+	</div>
+</div>
+
+
+@section Scripts{
+<script defer src="~/js/Alpine.js"></script>
+<script>
+	function dropdown() {
+	  return {
+		  show: false,
+		  open() { this.show = true },
+		  close() { this.show = false },
+		  isOpen() { return this.show === true },
+	  }
+	}
+	function getlist() {
+	  return {
+		  list:[]
+		  query() {
+			  list=[{id:1,name:"aaa"},{id:2,name:"bbb"}]
+		  }
+	  }
+	}
+</script>
+
+}
