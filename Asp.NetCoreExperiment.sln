@@ -308,7 +308,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "graphqldotnet_demo02", "Asp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SortCollectionDome", "Asp.NetCoreExperiment\CSharp\SortCollectionDome\SortCollectionDome.csproj", "{9EE0FBE3-24C6-4FA2-B56E-A440CF0B0C4E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DaprTest", "Asp.NetCoreExperiment\Dapr\DaprTest\DaprTest.csproj", "{3AF9D9F7-3D19-4434-B8DD-6A784BAAC5B0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DaprTest", "Asp.NetCoreExperiment\Dapr\DaprTest\DaprTest.csproj", "{3AF9D9F7-3D19-4434-B8DD-6A784BAAC5B0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "mDNS", "mDNS", "{8EA8914B-AA0D-42BE-AA20-2E442827B183}"
 EndProject
@@ -320,7 +320,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaymentSystem", "Asp.NetCor
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "Asp.NetCoreExperiment\Dapr\B2C\docker-compose.dcproj", "{34683970-FD11-41D0-917A-7BEF88C31FAF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StateDemo01", "Asp.NetCoreExperiment\Dapr\StateDemo01\StateDemo01.csproj", "{1ED93341-E5E1-4CE7-927C-6FE7C7474E42}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StateDemo01", "Asp.NetCoreExperiment\Dapr\StateDemo01\StateDemo01.csproj", "{1ED93341-E5E1-4CE7-927C-6FE7C7474E42}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NoticeSystem", "Asp.NetCoreExperiment\Dapr\NoticeSystem\NoticeSystem.csproj", "{4327ED18-D85A-4790-9737-13384CE6EF12}"
 EndProject
@@ -336,7 +336,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NameSpaceDemo", "Asp.NetCor
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Alpine", "Alpine", "{E73BDE3C-905A-4B6F-84DF-D598257C02B7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlpineDemo", "Asp.NetCoreExperiment\Alpine\AlpineDemo\AlpineDemo.csproj", "{1BC1CBDC-65C5-45F8-9C27-CE0C759A1DC7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlpineDemo", "Asp.NetCoreExperiment\Alpine\AlpineDemo\AlpineDemo.csproj", "{1BC1CBDC-65C5-45F8-9C27-CE0C759A1DC7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StringInterpolationHandler", "Asp.NetCoreExperiment\CSharp\StringInterpolationHandler\StringInterpolationHandler.csproj", "{16A2B302-E564-4EE9-A3B0-759E8836C318}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -812,6 +814,10 @@ Global
 		{1BC1CBDC-65C5-45F8-9C27-CE0C759A1DC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1BC1CBDC-65C5-45F8-9C27-CE0C759A1DC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1BC1CBDC-65C5-45F8-9C27-CE0C759A1DC7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16A2B302-E564-4EE9-A3B0-759E8836C318}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16A2B302-E564-4EE9-A3B0-759E8836C318}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16A2B302-E564-4EE9-A3B0-759E8836C318}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16A2B302-E564-4EE9-A3B0-759E8836C318}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -943,6 +949,7 @@ Global
 		{723779B8-1142-4F81-9EDB-176EB5100A6A} = {DA31B74E-976D-4DF1-8AE9-5BD0E1DCCC9B}
 		{2DDF65F8-6576-4EFC-B483-E5E848609C88} = {0C2286BE-F1F4-4E52-A9FA-1EF056CD9159}
 		{1BC1CBDC-65C5-45F8-9C27-CE0C759A1DC7} = {E73BDE3C-905A-4B6F-84DF-D598257C02B7}
+		{16A2B302-E564-4EE9-A3B0-759E8836C318} = {0C2286BE-F1F4-4E52-A9FA-1EF056CD9159}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
