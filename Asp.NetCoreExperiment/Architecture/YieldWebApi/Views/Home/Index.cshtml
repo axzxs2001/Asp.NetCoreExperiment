@@ -1,0 +1,36 @@
+﻿@{
+	ViewData["Title"] = "Home Page";
+}
+<div class="text-center">
+	<h1 class="display-4">实时加载</h1>
+	<div id="divmessage" class="alert alert-warning" role="alert">
+		<span id="message"></span>
+	</div>
+	<ul id="data" class="list-group">
+	</ul>
+</div>
+@section Scripts{
+<script>
+	$(function() {
+		var xhr=new $.ajaxSettings.xhr();	
+		xhr.onreadystatechange=function(){
+			if(xhr.readyState==3){
+				var list=JSON.parse(xhr.responseText.replace(']','')+']');
+				$("#message").html("加载中…… 【"+list.length+"】")
+				var html=""
+				$(list).each(function(index,item){
+					html+='<li  class="list-group-item">'+item.id+"  "+item.time+"</li>"
+				})
+				$("#data").html(html)
+			}else if(xhr.readyState==4){
+				var list=JSON.parse(xhr.responseText.replace(']','')+']');
+				$("#message").html("加载完成，共"+list.length+"条记录")
+				$("#divmessage").removeClass("alert-warning")
+				$("#divmessage").addClass("alert-success")
+			}
+		}
+		xhr.open('GET', '/getents')
+		xhr.send()
+	});
+</script>
+}

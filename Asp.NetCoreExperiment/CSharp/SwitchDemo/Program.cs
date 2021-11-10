@@ -1,13 +1,13 @@
 ﻿using static System.Console;
 
-//Demo01();
-//Demo02();
-//Demo03();
-//Demo04();
-//Demo05();
-//Demo06();
-//Demo07();
-//Demo08();
+Demo01();
+Demo02();
+Demo03();
+Demo04();
+Demo05();
+Demo06();
+Demo07();
+Demo08();
 Demo09();
 
 
@@ -17,10 +17,10 @@ Demo09();
 static void Demo01()
 {
     var numbers = new int[] { 10, 20, 30 };
-    WriteLine(GetSourceLabel(numbers));  // output: 1
+    WriteLine(GetSourceLabel(numbers));  
 
     var letters = new List<char> { 'a', 'b', 'c', 'd' };
-    WriteLine(GetSourceLabel(letters));  // output: 2
+    WriteLine(GetSourceLabel(letters)); 
 
     int GetSourceLabel<T>(IEnumerable<T> source) => source switch
     {
