@@ -1,14 +1,19 @@
-﻿using static System.Console;
+﻿using SwitchDemo;
+using static System.Console;
 
-Demo01();
-Demo02();
-Demo03();
-Demo04();
-Demo05();
-Demo06();
-Demo07();
-Demo08();
-Demo09();
+
+var one = new ClassOne();
+one.Run();
+
+//Demo01();
+//Demo02();
+//Demo03();
+//Demo04();
+//Demo05();
+//Demo06();
+//Demo07();
+//Demo08();
+//Demo09();
 
 
 /// <summary>
