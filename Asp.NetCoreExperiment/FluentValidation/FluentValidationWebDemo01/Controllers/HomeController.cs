@@ -33,5 +33,16 @@ namespace FluentValidationWebDemo01.Controllers
             _logger.LogError("验证Person失败");
             return BadRequest("person没有验证通过");
         }
+        [HttpPost("/addperson2")]
+        public IActionResult AddPerson2([FromBody] Person person)
+        {
+            _logger.LogInformation("添加Person");
+            if (ModelState.IsValid)
+            {
+                return Ok("验证成功后，假装这里作了后端业务处理");
+            }
+            _logger.LogError("验证Person失败");
+            return BadRequest("person没有验证通过");
+        }
     }
 }
