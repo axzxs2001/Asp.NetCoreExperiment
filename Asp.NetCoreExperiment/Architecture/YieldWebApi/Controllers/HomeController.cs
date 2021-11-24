@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Security.Cryptography;
 using YieldWebApi.Models;
 
 namespace YieldWebApi.Controllers
@@ -31,11 +32,11 @@ namespace YieldWebApi.Controllers
 
         [HttpGet("/getents")]
         public async IAsyncEnumerable<Entity> GetEntitys()
-        {
+        {           
             for (var i = 0; i < 20; i++)
             {
                 _logger.LogInformation(i.ToString());
-                await Task.Delay(300);
+                await Task.Delay(RandomNumberGenerator.GetInt32(100, 500));
                 yield return new Entity { ID = i, Time = DateTime.Now };
             }
         }

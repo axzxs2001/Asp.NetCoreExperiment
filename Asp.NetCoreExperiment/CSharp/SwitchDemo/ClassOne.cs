@@ -6,27 +6,29 @@ using System.Threading.Tasks;
 
 namespace SwitchDemo;
 
-
 public class ClassOne
 {
     public void Run()
     {
-        var entity = new CSVFormatCreater();
+        var entity = new YamlFormatCreater();
         var data = new Data();
-        GetData(entity, data);
-
+        Console.WriteLine(GetData(entity, data));
     }
     public string GetData(IFormatCreater entity, Data data) => entity switch
     {
         CSVFormatCreater csvFormatCreater => csvFormatCreater.ToCSV(data),
         JsonFormatCreater jsonFormatCreater => jsonFormatCreater.ToJson(data),
         XMLFormatCreater xmlFormatCreater => xmlFormatCreater.ToXML(data),
-        _ => "都不是"
+        YamlFormatCreater yamlFormatCreater => yamlFormatCreater.ToYAML(data),
+        _ => "this format is not adapted"
     };
 }
 
 public class Data
 {
+    public int ID { get; set; }
+    public string? Name { get; set; }
+    public string? Model { get; set; }
 }
 public interface IFormatCreater
 { }
@@ -34,20 +36,27 @@ public class CSVFormatCreater : IFormatCreater
 {
     public string ToCSV(Data data)
     {
-        return "Entity01.Method01";
+        return "To CSV";
     }
 }
 public class JsonFormatCreater : IFormatCreater
 {
     public string ToJson(Data data)
     {
-        return "Entity02.Method02";
+        return "To JSON";
     }
 }
 public class XMLFormatCreater : IFormatCreater
 {
     public string ToXML(Data data)
     {
-        return "Entity03.Method03";
+        return "To XML";
+    }
+}
+public class YamlFormatCreater : IFormatCreater
+{
+    public string ToYAML(Data data)
+    {
+        return "To YAML";
     }
 }
