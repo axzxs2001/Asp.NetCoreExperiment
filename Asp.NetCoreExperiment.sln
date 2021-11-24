@@ -344,7 +344,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SwitchDemo", "Asp.NetCoreEx
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YieldWebApi", "Asp.NetCoreExperiment\Architecture\YieldWebApi\YieldWebApi.csproj", "{48B53216-030C-4A36-AEFB-4E0D8DA56549}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NullReferenceDemo", "Asp.NetCoreExperiment\CSharp\NullReferenceDemo\NullReferenceDemo.csproj", "{420AF1EE-7470-46BA-B0EE-8005FE120E70}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NullReferenceDemo", "Asp.NetCoreExperiment\CSharp\NullReferenceDemo\NullReferenceDemo.csproj", "{420AF1EE-7470-46BA-B0EE-8005FE120E70}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WinFormsDemo", "Asp.NetCoreExperiment\Architecture\WinFormsDemo\WinFormsDemo.csproj", "{F09F7872-623D-497B-BA45-18A9B6937CEF}"
 EndProject
@@ -352,7 +352,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Performances", "Performance
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MVCAPI", "Asp.NetCoreExperiment\Architecture\performances\MVCAPI\MVCAPI.csproj", "{A29CF471-61DE-43F8-A0D2-A1114EEA73A2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniAPI", "Asp.NetCoreExperiment\Architecture\performances\MiniAPI\MiniAPI.csproj", "{97201542-B60C-4273-AE6A-8B17959938F9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiniAPI", "Asp.NetCoreExperiment\Architecture\performances\MiniAPI\MiniAPI.csproj", "{97201542-B60C-4273-AE6A-8B17959938F9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "conf2021", "conf2021", "{5AA03A33-019C-4F35-938E-280FDEB13595}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exam", "Asp.NetCoreExperiment\GraphQL\conf2021\Exam\Exam.csproj", "{953B76A6-E922-4D49-AD20-BF66ADB3B6FF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -856,6 +860,10 @@ Global
 		{97201542-B60C-4273-AE6A-8B17959938F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{97201542-B60C-4273-AE6A-8B17959938F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{97201542-B60C-4273-AE6A-8B17959938F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{953B76A6-E922-4D49-AD20-BF66ADB3B6FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{953B76A6-E922-4D49-AD20-BF66ADB3B6FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{953B76A6-E922-4D49-AD20-BF66ADB3B6FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{953B76A6-E922-4D49-AD20-BF66ADB3B6FF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -995,6 +1003,8 @@ Global
 		{CD982FC9-4A78-4543-BFCC-6BF2DD24FB7D} = {00DC5DBE-1C3D-41A4-BF7C-852A6FA13066}
 		{A29CF471-61DE-43F8-A0D2-A1114EEA73A2} = {CD982FC9-4A78-4543-BFCC-6BF2DD24FB7D}
 		{97201542-B60C-4273-AE6A-8B17959938F9} = {CD982FC9-4A78-4543-BFCC-6BF2DD24FB7D}
+		{5AA03A33-019C-4F35-938E-280FDEB13595} = {DA6111FE-704A-4B77-8CB9-A38873BC1FA5}
+		{953B76A6-E922-4D49-AD20-BF66ADB3B6FF} = {5AA03A33-019C-4F35-938E-280FDEB13595}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
