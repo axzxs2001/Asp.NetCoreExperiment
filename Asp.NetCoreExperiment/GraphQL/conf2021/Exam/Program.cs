@@ -1,3 +1,4 @@
+using Exam;
 using Exam.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,8 +10,10 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<IExamContext,ExamContext>(options =>
-     options.UseSqlServer(builder.Configuration.GetConnectionString("ExamDatabase")));
+builder.Services.AddDbContext<IExamContext, ExamContext>(options =>
+      options.UseSqlServer(builder.Configuration.GetConnectionString("ExamDatabase")));
+
+builder.Services.AddGraphQLServer().AddQueryType<Query>().AddProjections().AddFiltering().AddSorting();
 
 var app = builder.Build();
 
@@ -24,5 +27,5 @@ if (app.Environment.IsDevelopment())
 app.UseAuthorization();
 
 app.MapControllers();
-
+app.MapGraphQL("/graphql");
 app.Run();

@@ -18,8 +18,11 @@ namespace Exam.Models
         public int QuestionCount { get; set; }
 
         public DateTime CreateTime { get; set; }
-
+        [UseFiltering]
+        [UseSorting]
         public virtual ICollection<ExamPaperQuestion> ExamPaperQuestions { get; set; }
+        [UseFiltering]
+        [UseSorting]
         public virtual ICollection<UserExam> UserExams { get; set; }
     }
 }
