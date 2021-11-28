@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Exam.Models
 {
-    public partial class ExamContext : DbContext, IExamContext
+    public partial class ExamContext : DbContext
     {
         public ExamContext()
         {
@@ -27,7 +27,7 @@ namespace Exam.Models
         public virtual DbSet<UserExamAnswer> UserExamAnswers { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {          
+        {
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
