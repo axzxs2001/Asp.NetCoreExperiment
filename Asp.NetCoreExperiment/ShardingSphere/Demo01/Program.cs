@@ -14,7 +14,7 @@ var constrbuilder = new MySqlConnectionStringBuilder()
 
 Console.WriteLine(constrbuilder.ConnectionString);
 
-MySqlConnectorDemo(constrbuilder);
+//MySqlConnectorDemo(constrbuilder);
 MySqlDemo(constrbuilder);
 
 static void MySqlConnectorDemo(MySqlConnectionStringBuilder constrbuilder)
