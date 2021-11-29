@@ -368,6 +368,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinFormsDemo", "Asp.NetCore
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleDemo", "Asp.NetCoreExperiment\HotReload\ConsoleDemo\ConsoleDemo.csproj", "{DC54D296-6741-465A-8325-1A6CF581EC52}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphQLClient", "Asp.NetCoreExperiment\GraphQL\conf2021\GraphQLClient\GraphQLClient.csproj", "{20CB4006-FB1C-4805-BD10-525B5D8D8337}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -886,6 +888,10 @@ Global
 		{DC54D296-6741-465A-8325-1A6CF581EC52}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DC54D296-6741-465A-8325-1A6CF581EC52}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DC54D296-6741-465A-8325-1A6CF581EC52}.Release|Any CPU.Build.0 = Release|Any CPU
+		{20CB4006-FB1C-4805-BD10-525B5D8D8337}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{20CB4006-FB1C-4805-BD10-525B5D8D8337}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{20CB4006-FB1C-4805-BD10-525B5D8D8337}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{20CB4006-FB1C-4805-BD10-525B5D8D8337}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1030,6 +1036,7 @@ Global
 		{F2C5C680-AE1E-4EDD-854D-2B4EDD746374} = {D6DBAD03-3657-477C-9F38-61CE3BC0343C}
 		{CFD1CAA9-B309-44E4-A7F2-9FAF537BAC6D} = {D46CC313-E22B-4204-B0AA-F4A175CC8E6D}
 		{DC54D296-6741-465A-8325-1A6CF581EC52} = {D46CC313-E22B-4204-B0AA-F4A175CC8E6D}
+		{20CB4006-FB1C-4805-BD10-525B5D8D8337} = {5AA03A33-019C-4F35-938E-280FDEB13595}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
