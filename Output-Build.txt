@@ -1,0 +1,5 @@
+﻿Build started...
+1>------ Build started: Project: MiniAPICourse, Configuration: Debug Any CPU ------
+1>Skipping analyzers to speed up the build. You can execute 'Build' or 'Rebuild' command to run analyzers.
+1>MiniAPICourse -> C:\MyFile\Source\Repos\Asp.NetCoreExperiment\Asp.NetCoreExperiment\MiniAPI\MiniAPICourse\bin\Debug\net6.0\MiniAPICourse.dll
+========== Build: 1 succeeded, 0 failed, 0 up-to-date, 0 skipped ==========
