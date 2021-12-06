@@ -1,14 +1,32 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using MiniAPICourse;
 using MiniAPICourse.Models;
-using System.Reflection;
+using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder();
+
+var jsonSerializer = new JsonSerializerOptions
+{
+    PropertyNameCaseInsensitive = true 
+};
+
+
+builder.Services.Configure<JsonOptions>(options =>
+{
+    options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
+});
 
 builder.Services.AddRouting(options =>
 {
     options.ConstraintMap["Uint"] = typeof(Uint);
 });
+
+
+builder.Services.AddDbContext<ExamContext>(options =>
+      options.UseSqlServer(builder.Configuration.GetConnectionString("ExamDatabase")));
+
 
 var app = builder.Build();
 
@@ -21,8 +39,6 @@ app.MapGet("/area/{postcode:regex(^[0-9]{{3}}-[0-9]{{4}}$)}", (string postcode) 
 //参数路由
 app.MapGet("/question/{id:Uint}", (uint id) => $"查询ID为{id}试题");
 #endregion
-
-
 
 #region 第二个参数
 
@@ -48,66 +64,19 @@ app.MapGet("/area1/hotel", (Area1 area) => $"TryParse Area1:{System.Text.Json.Js
 app.MapGet("/area2/hotel", (Area2 area) => $"BindAsync Area2:{System.Text.Json.JsonSerializer.Serialize(area)}");
 #endregion
 
+#region Response
+
+app.MapGet("/resp", async (ExamContext exam) => Results.Json(await exam.Questions.ToArrayAsync(), jsonSerializer));
+app.MapGet("/resp1", async (ExamContext exam) => Results.Json(await exam.Questions.ToArrayAsync()));
+#endregion
+
 app.Run();
 
 
-public class Area1
+public class AAA : JsonNamingPolicy
 {
-    public Coordinates[]? Coordinateses { get; set; }
-    public static bool TryParse(string? value, IFormatProvider? provider, out Area1? area)
+    public override string ConvertName(string name)
     {
-        var CoordinatesGroupStrings = value?.Split(new string[] { "[(", ")]", "),(" },
-                StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
-
-        if (CoordinatesGroupStrings != null)
-        {
-            var coordinatesList = new List<Coordinates>();
-            foreach (var coordinateGroupString in CoordinatesGroupStrings)
-            {
-                var coordinateStrings = coordinateGroupString.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
-
-                var latitudeResult = double.TryParse(coordinateStrings[0], out double latitude);
-                var longitudeResult = double.TryParse(coordinateStrings[1], out double longitude);
-                if (latitudeResult && longitudeResult)
-                {
-                    coordinatesList.Add(new Coordinates(latitude, longitude));
-                }
-            }
-            area = new Area1 { Coordinateses = coordinatesList.ToArray() };
-            return true;
-        }
-        area = null;
-        return false;
-    }
-}
-public record Coordinates(double Latitude, double Longitude);
-
-public class Area2
-{
-    public Coordinates[]? Coordinateses { get; set; }
-
-    public static ValueTask<Area2?> BindAsync(HttpContext context, ParameterInfo parameter)
-    {
-        var CoordinatesGroupStrings = context.Request.Query["area"].ToString().Split(new string[] { "[(", ")]", "),(" },
-               StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
-
-        if (CoordinatesGroupStrings != null)
-        {
-            var coordinatesList = new List<Coordinates>();
-            foreach (var coordinateGroupString in CoordinatesGroupStrings)
-            {
-                var coordinateStrings = coordinateGroupString.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
-
-                var latitudeResult = double.TryParse(coordinateStrings[0], out double latitude);
-                var longitudeResult = double.TryParse(coordinateStrings[1], out double longitude);
-                if (latitudeResult && longitudeResult)
-                {
-                    coordinatesList.Add(new Coordinates(latitude, longitude));
-                }
-            }
-            return ValueTask.FromResult<Area2?>(new Area2 { Coordinateses = coordinatesList.ToArray() });
-
-        }
-        return ValueTask.FromResult<Area2?>(null);
+        throw new NotImplementedException();
     }
 }
