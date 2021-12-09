@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\**" />
+    <Content Remove="Migrations\**" />
+    <EmbeddedResource Remove="Migrations\**" />
+    <None Remove="Migrations\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="HotChocolate.AspNetCore" Version="12.4.0-rc.1" />
     <PackageReference Include="HotChocolate.Data.EntityFramework" Version="12.4.0-rc.1" />
     <PackageReference Include="Microsoft.Data.Sqlite.Core" Version="6.0.0" />
@@ -21,7 +28,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Migrations\" />
     <Folder Include="Models\" />
   </ItemGroup>
 

@@ -14,8 +14,9 @@ builder.Services.AddDbContext<ExamContext>(options =>
 
 builder.Services 
     .AddGraphQLServer()  
-    .AddQueryType<Query>()
-
+    .AddQueryType<Query>()  
+    .AddTypeExtension<ExamPaperExtend>()
+ 
     .AddInterfaceType<IDescribe>()
     .AddType<QuestionTypeDescribe>()
     .AddType<SubjectTypeDescribe>()

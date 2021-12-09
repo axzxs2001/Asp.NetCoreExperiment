@@ -1,8 +1,11 @@
 ﻿using Exam.Models;
+using HotChocolate.Types.Pagination;
+
 namespace Exam;
 
 public class Query
 {
+
     [Serial]
     [UseProjection]
     [UseFiltering]
@@ -53,5 +56,12 @@ public class QuestionTypeDescribe : IDescribe
 {
     public int Id { get; set; }
     public string? Describe { get; set; }
-    public string[] Types { get; set; } = new string[] {"单选题","多选题","判断题" };
+    public string[] Types { get; set; } = new string[] { "单选题", "多选题", "判断题" };
+}
+
+[ExtendObjectType(typeof(ExamPaper))]
+public class ExamPaperExtend
+{
+    public double Scores([Parent] ExamPaper paper) => paper.Questions.Sum(s => s.Score);
+    public int Count([Parent] ExamPaper paper) => paper.Questions.Count;
 }

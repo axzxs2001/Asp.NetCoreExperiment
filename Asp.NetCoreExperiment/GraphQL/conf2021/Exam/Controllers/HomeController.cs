@@ -63,9 +63,7 @@ namespace Exam.Controllers
                 var examPaper = new ExamPaper
                 {
                     Title = "C#初级试题一（2021）",
-                    Memo = "",
-                    TotalScore = 100,
-                    QuestionCount = 10,
+                    Memo = "",            
                     CreateTime = DateTime.Now
                 };
                 ExamPaper[] examPagers ={
@@ -73,9 +71,7 @@ namespace Exam.Controllers
                 new ExamPaper
                 {
                     Title="C#初级试题二（2021）",
-                    Memo="",
-                    TotalScore=100,
-                    QuestionCount=10,
+                    Memo="",                 
                     CreateTime=DateTime .Now
                 },
 
@@ -83,9 +79,7 @@ namespace Exam.Controllers
                 {
 
                     Title="C#初级试题三（2021）",
-                    Memo="",
-                    TotalScore=100,
-                    QuestionCount=10,
+                    Memo="",                
                     CreateTime=DateTime .Now
                 },
             };

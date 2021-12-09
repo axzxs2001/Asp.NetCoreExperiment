@@ -15,8 +15,7 @@ namespace Exam.Models
         public int Id { get; set; }
         public string Title { get; set; } = null!;
         public string? Memo { get; set; }
-        public double TotalScore { get; set; }
-        public int QuestionCount { get; set; }
+
         public DateTime CreateTime { get; set; }
       
         [UseFiltering]
