@@ -3,12 +3,13 @@ using System.Collections.Generic;
 
 namespace Exam.Models
 {
+ 
     public partial class ExamPaper
     {
         public ExamPaper()
         {
-            ExamPaperQuestions = new HashSet<ExamPaperQuestion>();
             UserExams = new HashSet<UserExam>();
+            Questions = new HashSet<Question>();
         }
 
         public int Id { get; set; }
@@ -16,13 +17,14 @@ namespace Exam.Models
         public string? Memo { get; set; }
         public double TotalScore { get; set; }
         public int QuestionCount { get; set; }
-
         public DateTime CreateTime { get; set; }
-        [UseFiltering]
-        [UseSorting]
-        public virtual ICollection<ExamPaperQuestion> ExamPaperQuestions { get; set; }
+      
         [UseFiltering]
         [UseSorting]
         public virtual ICollection<UserExam> UserExams { get; set; }
+  
+        [UseFiltering]
+        [UseSorting]
+        public virtual ICollection<Question> Questions { get; set; }
     }
 }

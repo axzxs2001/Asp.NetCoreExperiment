@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 
 namespace Exam.Models
-{
+{   
     public partial class Question
     {
         public Question()
         {
             Answers = new HashSet<Answer>();
-            ExamPaperQuestions = new HashSet<ExamPaperQuestion>();
+            ExamPapers = new HashSet<ExamPaper>();
         }
 
         public int Id { get; set; }
@@ -20,6 +20,8 @@ namespace Exam.Models
         public virtual QuestionType QuestionType { get; set; } = null!;
         public virtual SubjectType SujectType { get; set; } = null!;
         public virtual ICollection<Answer> Answers { get; set; }
-        public virtual ICollection<ExamPaperQuestion> ExamPaperQuestions { get; set; }
+
+        public virtual ICollection<ExamPaper> ExamPapers { get; set; }
     }
+
 }

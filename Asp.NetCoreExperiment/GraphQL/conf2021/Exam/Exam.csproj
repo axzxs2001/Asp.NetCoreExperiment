@@ -7,8 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="HotChocolate.AspNetCore" Version="12.4.0-preview.10" />
-    <PackageReference Include="HotChocolate.Data.EntityFramework" Version="12.4.0-preview.10" />
+    <PackageReference Include="HotChocolate.AspNetCore" Version="12.4.0-rc.1" />
+    <PackageReference Include="HotChocolate.Data.EntityFramework" Version="12.4.0-rc.1" />
     <PackageReference Include="Microsoft.Data.Sqlite.Core" Version="6.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.0">
       <PrivateAssets>all</PrivateAssets>
@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <Folder Include="Migrations\" />
+    <Folder Include="Models\" />
   </ItemGroup>
 
 </Project>

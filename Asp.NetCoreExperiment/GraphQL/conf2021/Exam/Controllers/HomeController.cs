@@ -1,8 +1,10 @@
+
 using Exam.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using System.Data.Common;
+using System.Linq;
 
 namespace Exam.Controllers
 {
@@ -38,7 +40,7 @@ namespace Exam.Controllers
                 {
                     TypeName = "≈–∂œÃ‚"
                 }
-             };                
+             };
                 await _context.QuestionTypes.AddRangeAsync(questionTypes);
                 await _context.SaveChangesAsync();
                 #endregion
@@ -76,7 +78,7 @@ namespace Exam.Controllers
                     QuestionCount=10,
                     CreateTime=DateTime .Now
                 },
-              
+
                 new ExamPaper
                 {
 
@@ -501,64 +503,6 @@ class MyClass
                 await _context.Users.AddRangeAsync(users);
                 await _context.SaveChangesAsync();
                 #endregion
-
-                #region  ‘æÌ ‘Ã‚
-                ExamPaperQuestion[] examPaperQuestions =
-                {
-                    new ExamPaperQuestion
-                    {
-                         QuestionId=question1.Id,
-                         ExamPaperId=examPaper.Id
-                    },
-                    new ExamPaperQuestion
-                    {
-                         QuestionId=question2.Id,
-                         ExamPaperId=examPaper.Id
-                    },
-                    new ExamPaperQuestion
-                    {
-                         QuestionId=question3.Id,
-                         ExamPaperId=examPaper.Id
-                    },
-                    new ExamPaperQuestion
-                    {
-                         QuestionId=question4.Id,
-                         ExamPaperId=examPaper.Id
-                    },
-                    new ExamPaperQuestion
-                    {
-                         QuestionId=question5.Id,
-                         ExamPaperId=examPaper.Id
-                    },
-                    new ExamPaperQuestion
-                    {
-                         QuestionId=question6.Id,
-                         ExamPaperId=examPaper.Id
-                    },
-                    new ExamPaperQuestion
-                    {
-                         QuestionId=question7.Id,
-                         ExamPaperId=examPaper.Id
-                    },
-                    new ExamPaperQuestion
-                    {
-                         QuestionId=question8.Id,
-                         ExamPaperId=examPaper.Id
-                    },
-                    new ExamPaperQuestion
-                    {
-                         QuestionId=question9.Id,
-                         ExamPaperId=examPaper.Id
-                    },
-                    new ExamPaperQuestion
-                    {
-                         QuestionId=question10.Id,
-                         ExamPaperId=examPaper.Id
-                    },
-                };
-                await _context.ExamPaperQuestions.AddRangeAsync(examPaperQuestions);
-                await _context.SaveChangesAsync();
-                #endregion
                 #region ”√ªß
                 UserExam[] userExams =
                 {
@@ -573,6 +517,25 @@ class MyClass
                 await _context.UserExams.AddRangeAsync(userExams);
                 await _context.SaveChangesAsync();
                 #endregion
+                #region  ‘æÌ ‘Ã‚
+                examPaper.Questions.Add(question1);
+                examPaper.Questions.Add(question2);
+                examPaper.Questions.Add(question3);
+                examPaper.Questions.Add(question4);
+                examPaper.Questions.Add(question5);
+                examPaper.Questions.Add(question6);
+                examPaper.Questions.Add(question7);
+                examPaper.Questions.Add(question8);
+                examPaper.Questions.Add(question9);
+                examPaper.Questions.Add(question10);
+
+                foreach (var userExam in userExams)
+                {
+                    examPaper.UserExams.Add(userExam);
+                }
+                await _context.SaveChangesAsync();
+                #endregion
+
                 return true;
             }
             catch (Exception exc)

@@ -1,9 +1,5 @@
 ﻿已启动生成…
-1>------ 已启动生成: 项目: Demo01Generator, 配置: Debug Any CPU ------
-1>你正在使用 .NET 的预览版。请查看 https://aka.ms/dotnet-core-preview
-1>Demo01Generator -> C:\MyFile\Source\Repos\Asp.NetCoreExperiment\Demo01Generator\bin\Debug\netstandard2.1\Demo01Generator.dll
-2>------ 已启动生成: 项目: Demo01, 配置: Debug Any CPU ------
-2>CSC : warning CS8032: 无法从 C:\MyFile\Source\Repos\Asp.NetCoreExperiment\Demo01Generator\bin\Debug\netstandard2.1\Demo01Generator.dll 创建分析器 Demo01Generator.HelloWorldGenerator 的实例: 未能加载文件或程序集“netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51”或它的某一个依赖项。系统找不到指定的文件。。
-2>C:\MyFile\Source\Repos\Asp.NetCoreExperiment\Asp.NetCoreExperiment\SourceGenerator\Demo01\UseHelloWorldGenerator.cs(14,13,14,32): error CS0103: 当前上下文中不存在名称“HelloWorldGenerated”
-2>已完成生成项目“Demo01.csproj”的操作 - 失败。
-========== 生成: 成功 1 个，失败 1 个，最新 0 个，跳过 0 个 ==========
+1>------ 已启动生成: 项目: Exam, 配置: Debug Any CPU ------
+1>跳过分析器以加快生成速度。可以执行“生成”或“重新生成”命令来运行分析器。
+1>Exam -> C:\myfile\Source\Repos\Asp.NetCoreExperiment\Asp.NetCoreExperiment\GraphQL\conf2021\Exam\bin\Debug\net6.0\Exam.dll
+========== 生成: 成功 1 个，失败 0 个，最新 0 个，跳过 0 个 ==========

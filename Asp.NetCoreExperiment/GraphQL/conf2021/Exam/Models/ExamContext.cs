@@ -18,7 +18,6 @@ namespace Exam.Models
 
         public virtual DbSet<Answer> Answers { get; set; } = null!;
         public virtual DbSet<ExamPaper> ExamPapers { get; set; } = null!;
-        public virtual DbSet<ExamPaperQuestion> ExamPaperQuestions { get; set; } = null!;
         public virtual DbSet<Question> Questions { get; set; } = null!;
         public virtual DbSet<QuestionType> QuestionTypes { get; set; } = null!;
         public virtual DbSet<SubjectType> SubjectTypes { get; set; } = null!;
@@ -27,7 +26,7 @@ namespace Exam.Models
         public virtual DbSet<UserExamAnswer> UserExamAnswers { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
+        {           
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -55,34 +54,28 @@ namespace Exam.Models
             {
                 entity.Property(e => e.Id).HasColumnName("ID");
 
+                entity.Property(e => e.CreateTime).HasDefaultValueSql("(getdate())");
+
                 entity.Property(e => e.Memo).HasMaxLength(1000);
 
                 entity.Property(e => e.Title).HasMaxLength(200);
 
-                entity.Property(e => e.CreateTime)
-                .HasColumnName("CreateTime")
-                .HasDefaultValueSql("(getdate())"); ;
-            });
+                entity.HasMany(d => d.Questions)
+                    .WithMany(p => p.ExamPapers)
+                    .UsingEntity<Dictionary<string, object>>(
+                        "ExamPaperQuestion",
+                        l => l.HasOne<Question>().WithMany().HasForeignKey("QuestionId").OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_ExamPaperQuestions_Questions"),
+                        r => r.HasOne<ExamPaper>().WithMany().HasForeignKey("ExamPaperId").OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_ExamPaperQuestions_ExamPapers"),
+                        j =>
+                        {
+                            j.HasKey("ExamPaperId", "QuestionId").HasName("PK_ExamPaperQuestions_1");
 
-            modelBuilder.Entity<ExamPaperQuestion>(entity =>
-            {
-                entity.Property(e => e.Id).HasColumnName("ID");
+                            j.ToTable("ExamPaperQuestions");
 
-                entity.Property(e => e.ExamPaperId).HasColumnName("ExamPaperID");
+                            j.IndexerProperty<int>("ExamPaperId").HasColumnName("ExamPaperID");
 
-                entity.Property(e => e.QuestionId).HasColumnName("QuestionID");
-
-                entity.HasOne(d => d.ExamPaper)
-                    .WithMany(p => p.ExamPaperQuestions)
-                    .HasForeignKey(d => d.ExamPaperId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_ExamPaperQuestions_ExamPapers");
-
-                entity.HasOne(d => d.Question)
-                    .WithMany(p => p.ExamPaperQuestions)
-                    .HasForeignKey(d => d.QuestionId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_ExamPaperQuestions_Questions");
+                            j.IndexerProperty<int>("QuestionId").HasColumnName("QuestionID");
+                        });
             });
 
             modelBuilder.Entity<Question>(entity =>
@@ -134,7 +127,9 @@ namespace Exam.Models
 
                 entity.Property(e => e.Salt).HasMaxLength(50);
 
-                entity.Property(e => e.Tel).HasMaxLength(11);
+                entity.Property(e => e.Tel)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
 
                 entity.Property(e => e.UserName).HasMaxLength(50);
             });

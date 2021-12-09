@@ -12,7 +12,17 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<ExamContext>(options =>
       options.UseSqlServer(builder.Configuration.GetConnectionString("ExamDatabase")));
 
-builder.Services.AddGraphQLServer().AddQueryType<Query>().AddProjections().AddFiltering().AddSorting();
+builder.Services 
+    .AddGraphQLServer()  
+    .AddQueryType<Query>()
+
+    .AddInterfaceType<IDescribe>()
+    .AddType<QuestionTypeDescribe>()
+    .AddType<SubjectTypeDescribe>()
+    
+    .AddProjections()
+    .AddFiltering()
+    .AddSorting();
 
 var app = builder.Build();
 

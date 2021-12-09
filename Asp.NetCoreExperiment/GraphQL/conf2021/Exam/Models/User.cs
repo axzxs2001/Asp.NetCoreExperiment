@@ -15,7 +15,7 @@ namespace Exam.Models
         public string Password { get; set; } = null!;
         public string Salt { get; set; } = null!;
         public string Name { get; set; } = null!;
-        public string Tel { get; set; }
+        public string? Tel { get; set; }
 
         public virtual ICollection<UserExam> UserExams { get; set; }
     }
