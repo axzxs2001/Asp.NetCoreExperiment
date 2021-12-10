@@ -20,6 +20,8 @@ builder.Services
     .AddInterfaceType<IDescribe>()
     .AddType<QuestionTypeDescribe>()
     .AddType<SubjectTypeDescribe>()
+
+    .AddMutationType<Mutation>()
     
     .AddProjections()
     .AddFiltering()
