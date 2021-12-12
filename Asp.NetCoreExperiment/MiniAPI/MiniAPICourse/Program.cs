@@ -9,6 +9,19 @@ using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder();
 
+//取值
+Console.WriteLine(builder.Configuration.GetSection("Setting:Url").Value);
+
+
+//绑定
+var setting = new Setting1();
+builder.Configuration.GetSection("Setting").Bind(setting);
+
+Console.WriteLine(setting.Method);
+
+
+
+
 var jsonSerializer = new JsonSerializerOptions
 {
     PropertyNameCaseInsensitive = true
@@ -18,6 +31,7 @@ var jsonSerializer = new JsonSerializerOptions
 builder.Services.Configure<JsonOptions>(options =>
 {
     options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
+
 });
 
 builder.Services.AddRouting(options =>
@@ -92,6 +106,16 @@ app.MapGet("/resp1", async (ExamContext exam) => Results.Json(await exam.Questio
 app.Run();
 
 
+
+record Setting
+{
+    public string Url { get; set; }
+    public string TimeOut { get; set; }
+    public string Method { set; get; }
+}
+
+
+record Setting1(string Url = null, string TimeOut = null, string Method = null);
 public class AAA : JsonNamingPolicy
 {
     public override string ConvertName(string name)
