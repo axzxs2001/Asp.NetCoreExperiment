@@ -3,13 +3,15 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using MiniAPICourse;
 using MiniAPICourse.Models;
+using System.Net.Mime;
+using System.Text;
 using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder();
 
 var jsonSerializer = new JsonSerializerOptions
 {
-    PropertyNameCaseInsensitive = true 
+    PropertyNameCaseInsensitive = true
 };
 
 
@@ -66,6 +68,23 @@ app.MapGet("/area2/hotel", (Area2 area) => $"BindAsync Area2:{System.Text.Json.J
 
 #region Response
 
+app.MapGet("/hi", () => "Hellow Mini API");
+
+app.MapGet("/answers/{questionid}", (int questionId, ExamContext exam) => exam.Answers.Where(s => s.QuestionId == questionId));
+
+app.MapGet("/yaml/questions/{id}", (int id, ExamContext exam) =>
+   Results.Extensions.Yaml(exam.Questions.Where(s => s.Id == id).Include("Answers").Select(s => new
+   {
+       s.Id,
+       Question = s.Question1,
+       s.Score,
+       QuestionType = s.QuestionType.TypeName,
+       SubjectType = s.SujectType.TypeName,
+       Answers = s.Answers.Select(t => new { t.Id, Answer = t.Answer1 })
+   }))
+);
+
+
 app.MapGet("/resp", async (ExamContext exam) => Results.Json(await exam.Questions.ToArrayAsync(), jsonSerializer));
 app.MapGet("/resp1", async (ExamContext exam) => Results.Json(await exam.Questions.ToArrayAsync()));
 #endregion
@@ -78,5 +97,30 @@ public class AAA : JsonNamingPolicy
     public override string ConvertName(string name)
     {
         throw new NotImplementedException();
+    }
+}
+
+
+static class ResultsExtensions
+{
+    public static IResult Yaml(this IResultExtensions resultExtensions, object yamlObject)
+    {
+        ArgumentNullException.ThrowIfNull(resultExtensions, nameof(resultExtensions));
+        var serialzer = new YamlDotNet.Serialization.SerializerBuilder().Build();
+        return new YamlResult(serialzer.Serialize(yamlObject));
+    }
+}
+class YamlResult : IResult
+{
+    private readonly string _yaml;
+    public YamlResult(string yaml)
+    {
+        _yaml = yaml;
+    }
+    public Task ExecuteAsync(HttpContext httpContext)
+    {
+        httpContext.Response.ContentType = "yaml";
+        httpContext.Response.ContentLength = Encoding.UTF8.GetByteCount(_yaml);
+        return httpContext.Response.WriteAsync(_yaml);
     }
 }
