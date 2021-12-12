@@ -14,8 +14,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="HotChocolate.AspNetCore" Version="12.4.0-rc.1" />
-    <PackageReference Include="HotChocolate.Data.EntityFramework" Version="12.4.0-rc.1" />
+    <PackageReference Include="HotChocolate.AspNetCore" Version="12.4.0-rc.2" />
+    <PackageReference Include="HotChocolate.Data.EntityFramework" Version="12.4.0-rc.2" />
+    <PackageReference Include="HotChocolate.Types" Version="12.4.0-rc.2" />
     <PackageReference Include="Microsoft.Data.Sqlite.Core" Version="6.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.0">
       <PrivateAssets>all</PrivateAssets>

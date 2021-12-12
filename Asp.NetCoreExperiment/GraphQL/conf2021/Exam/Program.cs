@@ -21,7 +21,7 @@ builder.Services
     .AddType<QuestionTypeDescribe>()
     .AddType<SubjectTypeDescribe>()
 
-    .AddMutationType<Mutation>()
+    .AddMutationType<UserMutation>()
     
     .AddProjections()
     .AddFiltering()
