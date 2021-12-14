@@ -6,12 +6,15 @@ namespace Exam;
 public class Query
 {
 
+    [GraphQLDescription("试卷")]
     [Serial]
     [UseProjection]
     [UseFiltering]
     [UseSorting]
     public IQueryable<ExamPaper> GetExamPaper([Service] ExamContext context) =>
         context.ExamPapers;
+
+    [GraphQLDescription("试题")]
     [UsePaging(MaxPageSize = 3)]
     [UseProjection]
     [UseFiltering]
@@ -19,7 +22,7 @@ public class Query
     public IQueryable<Question> GetQuestions([Service] ExamContext context) =>
     context.Questions;
 
-
+    [GraphQLDescription("继承描述")]
     [UseProjection]
     [UseFiltering]
     [UseSorting]
