@@ -83,7 +83,7 @@ foreach (var exam in queryData.data.examPaper)
     Console.WriteLine($"| {exam.id} |  {exam.title}| {exam.scores}| {exam.count}  |{exam.createTime}| {exam.memo}");
 }
 Console.WriteLine("=========================================");
-Console.WriteLine(backJson);
+//Console.WriteLine(backJson);
 Console.WriteLine("查询完成");
 Console.ReadLine();
 
