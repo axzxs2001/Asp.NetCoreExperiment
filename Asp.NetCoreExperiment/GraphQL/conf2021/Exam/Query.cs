@@ -62,6 +62,8 @@ public class QuestionTypeDescribe : IDescribe
 [ExtendObjectType(typeof(ExamPaper))]
 public class ExamPaperExtend
 {
+    [GraphQLDescription("总分数")]
     public double Scores([Parent] ExamPaper paper) => paper.Questions.Sum(s => s.Score);
+    [GraphQLDescription("数量")]
     public int Count([Parent] ExamPaper paper) => paper.Questions.Count;
 }
