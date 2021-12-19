@@ -12,6 +12,7 @@ public class Query
     [UseSorting]
     public IQueryable<ExamPaper> GetExamPaper([Service] ExamContext context) =>
         context.ExamPapers;
+
     [UsePaging(MaxPageSize = 3)]
     [UseProjection]
     [UseFiltering]

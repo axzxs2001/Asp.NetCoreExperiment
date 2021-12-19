@@ -63,7 +63,7 @@ namespace Exam.Controllers
                 var examPaper = new ExamPaper
                 {
                     Title = "C#初级试题一（2021）",
-                    Memo = "",            
+                    Memo = "",
                     CreateTime = DateTime.Now
                 };
                 ExamPaper[] examPagers ={
@@ -71,7 +71,7 @@ namespace Exam.Controllers
                 new ExamPaper
                 {
                     Title="C#初级试题二（2021）",
-                    Memo="",                 
+                    Memo="",
                     CreateTime=DateTime .Now
                 },
 
@@ -79,7 +79,7 @@ namespace Exam.Controllers
                 {
 
                     Title="C#初级试题三（2021）",
-                    Memo="",                
+                    Memo="",
                     CreateTime=DateTime .Now
                 },
             };
@@ -163,6 +163,7 @@ class MyClass
                     SujectTypeId = subjectType.Id,
                     Score = 10
                 };
+
                 Question[] questions = {
                question1,
                question2,
@@ -460,14 +461,7 @@ class MyClass
                     IsTrue=true,
                     Sequre="D",
                     Answer1="bytes转换成float"
-                },
-               new Answer
-                {
-                    QuestionId=question3.Id,
-                    IsTrue=false,
-                    Sequre="A",
-                    Answer1=""
-                }
+                }           
             };
                 await _context.Answers.AddRangeAsync(answers);
                 await _context.SaveChangesAsync();
