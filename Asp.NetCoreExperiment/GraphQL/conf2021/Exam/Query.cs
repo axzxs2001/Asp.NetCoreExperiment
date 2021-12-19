@@ -6,6 +6,7 @@ namespace Exam;
 public class Query
 {
 
+    [GraphQLDescription("试卷")]
     [Serial]
     [UseProjection]
     [UseFiltering]
@@ -13,6 +14,7 @@ public class Query
     public IQueryable<ExamPaper> GetExamPaper([Service] ExamContext context) =>
         context.ExamPapers;
 
+    [GraphQLDescription("试题")]
     [UsePaging(MaxPageSize = 3)]
     [UseProjection]
     [UseFiltering]
@@ -20,7 +22,7 @@ public class Query
     public IQueryable<Question> GetQuestions([Service] ExamContext context) =>
     context.Questions;
 
-
+    [GraphQLDescription("继承描述")]
     [UseProjection]
     [UseFiltering]
     [UseSorting]
@@ -63,6 +65,8 @@ public class QuestionTypeDescribe : IDescribe
 [ExtendObjectType(typeof(ExamPaper))]
 public class ExamPaperExtend
 {
+    [GraphQLDescription("总分数")]
     public double Scores([Parent] ExamPaper paper) => paper.Questions.Sum(s => s.Score);
+    [GraphQLDescription("数量")]
     public int Count([Parent] ExamPaper paper) => paper.Questions.Count;
 }
