@@ -10,6 +10,16 @@ using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder();
 
+
+builder.Host.ConfigureAppConfiguration((hostingContext, config) =>
+{
+    config.AddIniFile("myconfig.ini",
+                       optional: true,
+                       reloadOnChange: true);
+});
+//ini取值
+Console.WriteLine(builder.Configuration.GetSection("iniconfig:key1").Value);
+
 //取值
 Console.WriteLine(builder.Configuration.GetSection("Setting:Url").Value);
 
@@ -26,20 +36,25 @@ builder.Services.AddDbContext<ExamContext>(options =>
       options.UseSqlServer(builder.Configuration.GetConnectionString("ExamDatabase")));
 
 var app = builder.Build();
+
+app.MapGet("/config", (IConfiguration config) =>
+{
+    return config.GetSection("Setting:Method").Value;
+});
+
 app.MapGet("/snapshot", (IOptionsSnapshot<Setting> options) =>
 {
     return options.Value;
 });
-app.MapGet("/monitor", (IOptionsMonitor<Setting> options) =>
+app.MapGet("/monitorstart", (IOptionsMonitor<Setting> options) =>
 {
     options.OnChange(seting =>
     {
         Console.WriteLine(seting.Url);
     });
-    
     return options.CurrentValue;
-
 });
+
 app.Run();
 
 
