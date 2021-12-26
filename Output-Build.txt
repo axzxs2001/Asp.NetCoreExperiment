@@ -1,6 +1,7 @@
 ﻿Build started...
-1>------ Build started: Project: Exam, Configuration: Debug Any CPU ------
+1>------ Build started: Project: MiniAPICourse, Configuration: Debug Any CPU ------
 1>Skipping analyzers to speed up the build. You can execute 'Build' or 'Rebuild' command to run analyzers.
-1>C:\MyFile\Source\Repos\Asp.NetCoreExperiment\Asp.NetCoreExperiment\GraphQL\conf2021\Exam\Program.cs(18,23,18,38): error CS0246: The type or namespace name 'ExamPaperExtend' could not be found (are you missing a using directive or an assembly reference?)
-1>Done building project "Exam.csproj" -- FAILED.
-========== Build: 0 succeeded, 1 failed, 0 up-to-date, 0 skipped ==========
+1>C:\MyFile\Source\Repos\Asp.NetCoreExperiment\Asp.NetCoreExperiment\MiniAPI\MiniAPICourse\Models\ExamContext.cs(32,10,32,379): warning CS1030: #warning: 'To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.'
+1>MiniAPICourse -> C:\MyFile\Source\Repos\Asp.NetCoreExperiment\Asp.NetCoreExperiment\MiniAPI\MiniAPICourse\bin\Debug\net6.0\MiniAPICourse.dll
+1>Done building project "MiniAPICourse.csproj".
+========== Build: 1 succeeded, 0 failed, 0 up-to-date, 0 skipped ==========
