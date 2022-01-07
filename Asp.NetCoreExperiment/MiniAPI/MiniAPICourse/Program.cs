@@ -3,6 +3,8 @@
 builder.Services.AddScoped<IScopedService, ScopedService>();
 builder.Services.AddTransient<ITransientService, TransientService>();
 builder.Services.AddSingleton<ISingletonService, SingletonService>();
+
+
 var app = builder.Build();
 
 app.Use(async (context, next) =>

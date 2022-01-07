@@ -376,6 +376,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Speech", "Speech", "{D1C93D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpeechToText", "Asp.NetCoreExperiment\Speech\SpeechToText\SpeechToText.csproj", "{AB3D6BA4-054D-4883-BFA6-AC221D4535DB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutofacDemo", "Asp.NetCoreExperiment\MiniAPI\AutofacDemo\AutofacDemo.csproj", "{3C29E429-8D43-4DD7-B3C0-3FAC9179308C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -906,6 +908,10 @@ Global
 		{AB3D6BA4-054D-4883-BFA6-AC221D4535DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AB3D6BA4-054D-4883-BFA6-AC221D4535DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AB3D6BA4-054D-4883-BFA6-AC221D4535DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C29E429-8D43-4DD7-B3C0-3FAC9179308C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C29E429-8D43-4DD7-B3C0-3FAC9179308C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C29E429-8D43-4DD7-B3C0-3FAC9179308C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C29E429-8D43-4DD7-B3C0-3FAC9179308C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1053,6 +1059,7 @@ Global
 		{20CB4006-FB1C-4805-BD10-525B5D8D8337} = {5AA03A33-019C-4F35-938E-280FDEB13595}
 		{7932536D-C4AA-44CE-BE42-B187187835D4} = {8A78305E-BFFF-4F09-BE2F-3BAB7088C3FE}
 		{AB3D6BA4-054D-4883-BFA6-AC221D4535DB} = {D1C93D23-D4E5-409B-9103-9A2BB209CBF5}
+		{3C29E429-8D43-4DD7-B3C0-3FAC9179308C} = {8A78305E-BFFF-4F09-BE2F-3BAB7088C3FE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
