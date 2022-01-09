@@ -4,6 +4,9 @@ builder.Services.AddScoped<IScopedService, ScopedService>();
 builder.Services.AddTransient<ITransientService, TransientService>();
 builder.Services.AddSingleton<ISingletonService, SingletonService>();
 
+builder.Services.AddScoped<IDelivery, FedEx>();
+builder.Services.AddScoped<IDelivery, UPS>();
+
 
 var app = builder.Build();
 
@@ -31,12 +34,27 @@ app.Use(async (context, next) =>
 });
 
 app.MapGet("/transient", (ITransientService transientService) => transientService.Call());
-
 app.MapGet("/scoped", (IScopedService scopedService) => scopedService.Call());
-
 app.MapGet("/singleton", (ISingletonService singletonService) => singletonService.Call());
 
+app.MapPost("/order", (IEnumerable<IDelivery> deliveries, Order order) =>
+{
+    //这里有一堆逻辑
+    if (order.Amount > 1000)
+    {
+        var fedEx = deliveries.SingleOrDefault(s => s is FedEx);
+        fedEx?.Send();
+    }
+    else
+    {
+        var usp = deliveries.SingleOrDefault(s => s is UPS);
+        usp?.Send();
+    }
+});
+
 app.Run();
+
+
 
 
 public interface ITransientService
@@ -61,7 +79,7 @@ public class ScopedService : IScopedService
     public DateTime Time { get; init; } = DateTime.Now;
     public string Call()
     {
-        return $"ScopedService {Time.ToString("yyyy-MM-dd HH:mm:ss.fffffff")} test……";      
+        return $"ScopedService {Time.ToString("yyyy-MM-dd HH:mm:ss.fffffff")} test……";
     }
 }
 
@@ -74,6 +92,29 @@ public class SingletonService : ISingletonService
     public DateTime Time { get; init; } = DateTime.Now;
     public string Call()
     {
-        return $"TSingletonService {Time.ToString("yyyy-MM-dd HH:mm:ss.fffffff")} test……";       
+        return $"TSingletonService {Time.ToString("yyyy-MM-dd HH:mm:ss.fffffff")} test……";
+    }
+}
+
+class Order
+{
+    public decimal Amount { get; set; }
+}
+public interface IDelivery
+{
+    void Send();
+}
+public class FedEx : IDelivery
+{
+    public void Send()
+    {
+        Console.WriteLine("FedEx API");
+    }
+}
+public class UPS : IDelivery
+{
+    public void Send()
+    {
+        Console.WriteLine("UPS API");
     }
 }
