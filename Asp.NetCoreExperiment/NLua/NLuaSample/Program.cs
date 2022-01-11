@@ -1,4 +1,6 @@
-﻿using NLua;
+﻿using BenchmarkDotNet.Attributes;
+using BenchmarkDotNet.Running;
+using NLua;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,15 +8,28 @@ using System.Text;
 
 namespace NLuaSample
 {
-    class Program
+    public class Program
     {
         static void Main(string[] args)
         {
-            try
-            {         
-        
+            BenchmarkRunner.Run<Program>();
+
+            //Console.WriteLine("------------------");
+            //Console.WriteLine("表达式Demo");
+            //Console.WriteLine(ExecExpression<double>("y=10+x*(5 + 2)", "y", new KeyValuePair<string, double>("x", 10.25)));
+
+            //Console.WriteLine("------------------");
+            //Console.WriteLine("反调C#实例Demo");
+            //InvockClassObject();
+        }
+
+        [Benchmark]
+        public void LoadFuncation()
+        {
+            //try
+            //{
                 Console.WriteLine("函数Demo");
-                var tel = "123-4567-89ab";
+                var tel = "123-4567-891";
                 var functionBody = @"
 function GetTel(tel)
     local newStr=string.gsub(tel,""-"","""")                
@@ -25,19 +40,11 @@ end
                 {
                     Console.WriteLine(obj);
                 }
-            }
-            catch (Exception exc)
-            {
-                Console.WriteLine(exc.Message);
-            }
-
-            Console.WriteLine("------------------");
-            Console.WriteLine("表达式Demo");
-            Console.WriteLine(ExecExpression<double>("y=10+x*(5 + 2)", "y", new KeyValuePair<string, double>("x", 10.25)));
-
-            Console.WriteLine("------------------");
-            Console.WriteLine("反调C#实例Demo");
-            InvockClassObject();
+            //}
+            //catch (Exception exc)
+            //{
+            //    Console.WriteLine(exc.Message);
+            //}
         }
 
         /// <summary>

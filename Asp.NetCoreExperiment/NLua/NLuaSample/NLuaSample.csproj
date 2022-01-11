@@ -6,7 +6,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="NLua" Version="1.5.6" />
+    <PackageReference Include="BenchmarkDotNet" Version="0.13.1" />
+    <PackageReference Include="NLua" Version="1.6.0" />
   </ItemGroup>
 
 </Project>
