@@ -1,120 +1,47 @@
 ﻿var builder = WebApplication.CreateBuilder();
 
-builder.Services.AddScoped<IScopedService, ScopedService>();
-builder.Services.AddTransient<ITransientService, TransientService>();
-builder.Services.AddSingleton<ISingletonService, SingletonService>();
-
-builder.Services.AddScoped<IDelivery, FedEx>();
-builder.Services.AddScoped<IDelivery, UPS>();
-
-
 var app = builder.Build();
 
 app.Use(async (context, next) =>
 {
-    if (context.Request.Path.HasValue)
-    {
-        switch (context.Request.Path.Value)
-        {
-            case string s when s.Contains("transient"):
-                var transientService = context.RequestServices.GetService<ITransientService>();
-                Console.WriteLine($"--------------{transientService?.Call()}");
-                break;
-            case string s when s.Contains("scoped"):
-                var scopedService = context.RequestServices.GetService<IScopedService>();
-                Console.WriteLine($"--------------{scopedService?.Call()}");
-                break;
-            case string s when s.Contains("singleton"):
-                var singletonService = context.RequestServices.GetService<ISingletonService>();
-                Console.WriteLine($"--------------{singletonService?.Call()}");
-                break;
-        }
-    }
+    Console.WriteLine("{0}，第1个中间——前", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.FFFFFFF"));
     await next.Invoke();
+    Console.WriteLine("{0}，第1个中间——后", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.FFFFFFF"));
 });
-
-app.MapGet("/transient", (ITransientService transientService) => transientService.Call());
-app.MapGet("/scoped", (IScopedService scopedService) => scopedService.Call());
-app.MapGet("/singleton", (ISingletonService singletonService) => singletonService.Call());
-
-app.MapPost("/order", (IEnumerable<IDelivery> deliveries, Order order) =>
+app.Use(async (context, next) =>
 {
-    //这里有一堆逻辑
-    if (order.Amount > 1000)
-    {
-        var fedEx = deliveries.SingleOrDefault(s => s is FedEx);
-        fedEx?.Send();
-    }
-    else
-    {
-        var usp = deliveries.SingleOrDefault(s => s is UPS);
-        usp?.Send();
-    }
+    Console.WriteLine("{0}，第2个中间——前", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.FFFFFFF"));
+    await next.Invoke();
+    Console.WriteLine("{0}，第2个中间——后", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.FFFFFFF"));
 });
+
+app.UseThird();
+
+app.MapGet("/test", () => "ok");
 
 app.Run();
 
 
-
-
-public interface ITransientService
+public static class ThirdMiddlewareExtensions
 {
-    string Call();
-}
-public class TransientService : ITransientService
-{
-    public DateTime Time { get; init; } = DateTime.Now;
-    public string Call()
+    public static void UseThird(this WebApplication app)
     {
-        return $"TransientService {Time.ToString("yyyy-MM-dd HH:mm:ss.fffffff")} test……";
+        app.UseMiddleware<ThirdMiddleware>();
     }
 }
+public class ThirdMiddleware
+{
+    private readonly RequestDelegate _next;
 
-public interface IScopedService
-{
-    string Call();
-}
-public class ScopedService : IScopedService
-{
-    public DateTime Time { get; init; } = DateTime.Now;
-    public string Call()
+    public ThirdMiddleware(RequestDelegate next)
     {
-        return $"ScopedService {Time.ToString("yyyy-MM-dd HH:mm:ss.fffffff")} test……";
+        _next = next;
     }
-}
 
-public interface ISingletonService
-{
-    string Call();
-}
-public class SingletonService : ISingletonService
-{
-    public DateTime Time { get; init; } = DateTime.Now;
-    public string Call()
+    public async Task InvokeAsync(HttpContext context)
     {
-        return $"TSingletonService {Time.ToString("yyyy-MM-dd HH:mm:ss.fffffff")} test……";
-    }
-}
-
-class Order
-{
-    public decimal Amount { get; set; }
-}
-public interface IDelivery
-{
-    void Send();
-}
-public class FedEx : IDelivery
-{
-    public void Send()
-    {
-        Console.WriteLine("FedEx API");
-    }
-}
-public class UPS : IDelivery
-{
-    public void Send()
-    {
-        Console.WriteLine("UPS API");
+        Console.WriteLine("{0}，第3个中间——前", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.FFFFFFF"));
+        await _next(context);
+        Console.WriteLine("{0}，第3个中间——后", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.FFFFFFF"));
     }
 }
