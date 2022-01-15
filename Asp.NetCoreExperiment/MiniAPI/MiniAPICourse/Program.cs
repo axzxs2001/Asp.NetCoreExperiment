@@ -1,47 +1,40 @@
-﻿var builder = WebApplication.CreateBuilder();
+﻿using MiniAPICourse.Services;
 
+var builder = WebApplication.CreateBuilder();
+builder.Services.AddScoped<ILogDemoService, LogDemoService>();
 var app = builder.Build();
 
-app.Use(async (context, next) =>
+app.MapGet("/test", (ILogger<Program> logger, ILogDemoService logDemo) =>
 {
-    Console.WriteLine("{0}，第1个中间——前", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.FFFFFFF"));
-    await next.Invoke();
-    Console.WriteLine("{0}，第1个中间——后", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.FFFFFFF"));
+    logger.LogInformation("test");
+    logDemo.Demo01();
+    return "ok";
 });
-app.Use(async (context, next) =>
-{
-    Console.WriteLine("{0}，第2个中间——前", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.FFFFFFF"));
-    await next.Invoke();
-    Console.WriteLine("{0}，第2个中间——后", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.FFFFFFF"));
-});
-
-app.UseThird();
-
-app.MapGet("/test", () => "ok");
 
 app.Run();
 
-
-public static class ThirdMiddlewareExtensions
+namespace MiniAPICourse.Services
 {
-    public static void UseThird(this WebApplication app)
+    public interface ILogDemoService
     {
-        app.UseMiddleware<ThirdMiddleware>();
+        void Demo01();
     }
-}
-public class ThirdMiddleware
-{
-    private readonly RequestDelegate _next;
-
-    public ThirdMiddleware(RequestDelegate next)
+    public class LogDemoService : ILogDemoService
     {
-        _next = next;
-    }
+        private readonly ILogger<LogDemoService> _logger;
+        public LogDemoService(ILogger<LogDemoService> logger)
+        {
+            _logger = logger;
+        }
 
-    public async Task InvokeAsync(HttpContext context)
-    {
-        Console.WriteLine("{0}，第3个中间——前", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.FFFFFFF"));
-        await _next(context);
-        Console.WriteLine("{0}，第3个中间——后", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.FFFFFFF"));
+        public void Demo01()
+        {
+            _logger.LogTrace("Trace");
+            _logger.LogDebug("Debug");
+            _logger.LogInformation("Information");
+            _logger.LogWarning("Warning");
+            _logger.LogError("Error");
+            _logger.LogCritical("Critical");
+        }
     }
 }
