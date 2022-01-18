@@ -2,9 +2,7 @@ using Microsoft.Extensions.Localization;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
 builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
-
 
 var app = builder.Build();
 
@@ -23,8 +21,6 @@ app.MapGet("/demo", (IStringLocalizer<SharedResource> sharedLocalizer) =>
 });
 
 app.Run();
-
-
 
 public class SharedResource
 {
