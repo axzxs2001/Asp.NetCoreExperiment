@@ -13,4 +13,8 @@
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.13.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\WebAPI01\WebAPI01.csproj" />
+  </ItemGroup>
+
 </Project>
