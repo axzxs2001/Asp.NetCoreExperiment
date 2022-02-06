@@ -1,0 +1,248 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">欢迎学习MiniAPI</h1>
+    <p>本例是跨域知识的分享。</p>
+</div>
+@*<p id="test1-get">
+
+</p>
+<p id="test1-post">
+
+</p>
+<p id="test1-delete">
+
+</p>
+<p id="test1-put">
+
+</p>
+<hr />
+<p id="test2-get">
+
+</p>
+<p id="test2-post">
+
+</p>
+<p id="test2-delete">
+
+</p>
+<p id="test2-put">
+
+</p>
+
+
+<p id="test3-get"></p>
+<p id="test3-post"></p>
+<p id="test3-delete"></p>
+<p id="test3-put"></p>
+
+<hr />*@
+<p id="test4-get">
+
+</p>
+<p id="test4-post">
+
+</p>
+<p id="test4-delete">
+
+</p>
+<p id="test4-put">
+
+</p>
+@section Scripts{
+<script>
+      $(function(){
+         // $.ajax({
+         //     url: 'http://localhost:5001/test1',
+         //     type: 'GET',
+         // }).done(function( data, textStatus, jqXHR ) {
+         //     $("#test1-get").html("test1 get:"+data)
+         // }).fail(function( jqXHR, textStatus, errorThrown) {
+         //     $("#test1-get").html("test1 get:"+textStatus)
+         // });
+
+         //   $.ajax({
+         //     url: 'http://localhost:5001/test1',
+         //     type: 'POST',
+         // }).done(function( data, textStatus, jqXHR ) {
+         //     $("#test1-post").html("test1:"+data)
+         // }).fail(function( jqXHR, textStatus, errorThrown) {
+         //     $("#test1-post").html("test1:"+textStatus)
+         // });
+
+         //$.ajax({
+         //     url: 'http://localhost:5001/test1',
+         //     type: 'DELETE',
+         // }).done(function( data, textStatus, jqXHR ) {
+         //     $("#test1-delete").html("test1 delete:"+data)
+         // }).fail(function( jqXHR, textStatus, errorThrown) {
+         //     $("#test1-delete").html("test1 detele:"+textStatus)
+         // });
+
+
+         //$.ajax({
+         //     url: 'http://localhost:5001/test1',
+         //     type: 'PUT',
+         // }).done(function( data, textStatus, jqXHR ) {
+         //     $("#test1-put").html("test1 put:"+data)
+         // }).fail(function( jqXHR, textStatus, errorThrown) {
+         //     $("#test1-put").html("test1 put:"+textStatus)
+         // });
+
+
+
+
+         // $.ajax({
+         //     url: 'http://localhost:5001/test2',
+         //     type: 'GET',
+         // }).done(function( data, textStatus, jqXHR ) {
+         //     $("#test2-get").html("test2 get:"+data)
+         // }).fail(function( jqXHR, textStatus, errorThrown) {
+         //     $("#test2-get").html("test2 get:"+textStatus)
+         // });
+
+
+         // $.ajax({
+         //     url: 'http://localhost:5001/test2',
+         //     type: 'POST',
+         // }).done(function( data, textStatus, jqXHR ) {
+         //     $("#test2-post").html("test2:"+data)
+         // }).fail(function( jqXHR, textStatus, errorThrown) {
+         //     $("#test2-post").html("test2:"+textStatus)
+         // });
+
+         //$.ajax({
+         //     url: 'http://localhost:5001/test2',
+         //     type: 'DELETE',
+         // }).done(function( data, textStatus, jqXHR ) {
+         //     $("#test2-delete").html("test2 delete:"+data)
+         // }).fail(function( jqXHR, textStatus, errorThrown) {
+         //     $("#test2-delete").html("test2 detele:"+textStatus)
+         // });
+
+
+         //$.ajax({
+         //     url: 'http://localhost:5001/test2',
+         //     type: 'PUT',
+         // }).done(function( data, textStatus, jqXHR ) {
+         //     $("#test2-put").html("test2 put:"+data)
+         // }).fail(function( jqXHR, textStatus, errorThrown) {
+         //     $("#test2-put").html("test2 put:"+textStatus)
+         // });
+
+
+          // $.ajax({
+          //    url: 'http://localhost:5001/test3',
+          //    type: 'GET',
+          //    headers: {
+          //        "x-cors-header":"gsw"
+          //    }
+          //}).done(function( data, textStatus, jqXHR ) {
+          //    $("#test3-get").html("test3 get:"+data)
+          //}).fail(function( jqXHR, textStatus, errorThrown) {
+          //    $("#test3-get").html("test3 get:"+textStatus)
+          //});
+
+
+          // $.ajax({
+          //    url: 'http://localhost:5001/test3',
+          //    type: 'POST',
+          //    headers: {
+          //        "x-cors-header":"gsw"
+          //    }
+          //}).done(function( data, textStatus, jqXHR ) {
+          //    $("#test3-post").html("test3 post:"+data)
+          //}).fail(function( jqXHR, textStatus, errorThrown) {
+          //    $("#test3-post").html("test3 post:"+textStatus)
+          //});
+
+
+
+          // $.ajax({
+          //    url: 'http://localhost:5001/test3',
+          //    type: 'PUT',
+          //    headers: {
+          //        "x-cors-header":"gsw"
+          //    }
+          //}).done(function( data, textStatus, jqXHR ) {
+          //    $("#test3-put").html("test3 put:"+data)
+          //}).fail(function( jqXHR, textStatus, errorThrown) {
+          //    $("#test3-put").html("test3 put:"+textStatus)
+          //});
+
+
+
+          // $.ajax({
+          //    url: 'http://localhost:5001/test3',
+          //    type: 'DELETE',
+          //    headers: {
+          //       "x-cors-header":"gsw",  
+          //       "x-key":"gsw",   
+          //    }
+          //}).done(function( data, textStatus, jqXHR ) {
+          //    $("#test3-delete").html("test3 delete:"+data)
+          //}).fail(function( jqXHR, textStatus, errorThrown) {
+          //    $("#test3-delete").html("test3 delete:"+textStatus)
+          //});
+
+
+
+
+          $.ajax({
+              url: 'http://localhost:5001/test4',
+              type: 'GET',
+              xhrFields: {
+                  withCredentials: true
+              }
+          }).done(function( data, textStatus, jqXHR ) {
+              $("#test4-get").html("test4 get:"+data)
+          }).fail(function( jqXHR, textStatus, errorThrown) {
+              $("#test4-get").html("test4 get:"+textStatus)
+          });
+
+
+           $.ajax({
+              url: 'http://localhost:5001/test4',
+              type: 'POST',
+              xhrFields: {
+                  withCredentials: true
+              }
+          }).done(function( data, textStatus, jqXHR ) {
+              $("#test4-post").html("test4 post:"+data)
+          }).fail(function( jqXHR, textStatus, errorThrown) {
+              $("#test4-post").html("test4 post:"+textStatus)
+          });
+
+
+           $.ajax({
+              url: 'http://localhost:5001/test4',
+              type: 'PUT',
+              xhrFields: {
+                  withCredentials: true
+              }
+          }).done(function( data, textStatus, jqXHR ) {
+              $("#test4-put").html("test4 put:"+data)
+          }).fail(function( jqXHR, textStatus, errorThrown) {
+              $("#test4-put").html("test4 put:"+textStatus)
+          });
+
+
+           $.ajax({
+              url: 'http://localhost:5001/test4',
+              type: 'DELETE',
+              xhrFields: {
+                  withCredentials: true
+              }
+          }).done(function( data, textStatus, jqXHR ) {
+              $("#test4-delete").html("test4 delete:"+data)
+          }).fail(function( jqXHR, textStatus, errorThrown) {
+              $("#test4-delete").html("test4 delete:"+textStatus)
+          });
+
+      });
+</script>
+}

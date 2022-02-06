@@ -1,5 +1,6 @@
 ﻿已启动生成…
-1>------ 已启动生成: 项目: Exam, 配置: Debug Any CPU ------
+1>------ 已启动生成: 项目: CORSDemo01, 配置: Debug Any CPU ------
+1>你正在使用 .NET 的预览版。请查看 https://aka.ms/dotnet-core-preview
 1>跳过分析器以加快生成速度。可以执行“生成”或“重新生成”命令来运行分析器。
-1>Exam -> C:\myfile\Source\Repos\Asp.NetCoreExperiment\Asp.NetCoreExperiment\GraphQL\conf2021\Exam\bin\Debug\net6.0\Exam.dll
-========== 生成: 成功 1 个，失败 0 个，最新 0 个，跳过 0 个 ==========
+1>CORSDemo01 -> C:\MyFile\Source\Repos\Asp.NetCoreExperiment\Asp.NetCoreExperiment\CORS\CORSDemo01\bin\Debug\net6.0\CORSDemo01.dll
+========== 生成: 成功 1 个，失败 0 个，最新 1 个，跳过 0 个 ==========
