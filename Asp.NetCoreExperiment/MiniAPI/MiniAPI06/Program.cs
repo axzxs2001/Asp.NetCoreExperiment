@@ -14,5 +14,11 @@ app.MapGet("/test", (IDataProtectionProvider provider,ILogger<Program> logger) =
     logger.LogInformation(protector.Unprotect(protectString));
     return "ok";
 });
+app.MapGet("/test/{sec}", (IDataProtectionProvider provider, ILogger<Program> logger,string  sec) =>
+{
+    var protector = provider.CreateProtector("a.b.c");    
+    logger.LogInformation(protector.Unprotect(sec));
+    return "ok";
+});
 
 app.Run();
