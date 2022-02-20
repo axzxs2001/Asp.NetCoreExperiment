@@ -4,7 +4,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
-{
+{   
+
     c.SwaggerDoc("v1",
        new OpenApiInfo
        {
@@ -52,8 +53,11 @@ if (app.Environment.IsDevelopment())
         c.EnablePersistAuthorization();
     });
 }
-
-app.MapPut("/test", (Data data) =>
+/// <summary>
+/// É¾³ıTest
+/// </summary>
+/// <returns></returns>
+app.MapPut("/test",  (Data data) =>
 {
 })
 .WithName("puttest")

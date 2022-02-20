@@ -33,7 +33,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: "Policy4",
             builder =>
             {
-                builder.WithOrigins("http://localhost:5280")
+                builder.WithOrigins("http://new-way.xin:10005")
                 //.AllowCredentials()
                 .AllowAnyMethod()
                 ;
