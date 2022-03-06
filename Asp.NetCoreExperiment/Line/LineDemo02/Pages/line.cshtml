@@ -1,0 +1,16 @@
+﻿@page
+@model LineDemo02.Pages.lineModel
+@{
+    if (Model._user != null)
+    {
+        <p>
+            <strong>User ID:</strong> <code>@Model._user.userId</code>
+        </p>
+        <p>
+            <strong>User ID:</strong> <code>@Model._user.displayName</code>
+        </p>
+        <p>
+            <img src=@Model._user.pictureUrl />
+        </p>
+    }
+}
