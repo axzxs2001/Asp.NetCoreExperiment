@@ -1,5 +1,6 @@
 using Polly;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services
@@ -7,35 +8,35 @@ builder.Services
     {
         httpclient.BaseAddress = new Uri("http://localhost:5258");
     })
-    //.AddTransientHttpErrorPolicy(policyBuilder =>
-    //    policyBuilder.WaitAndRetryAsync(3, retryNumber =>
-    //    {
-    //        switch (retryNumber)
-    //        {
-    //            case 1:
-    //                return TimeSpan.FromMilliseconds(500);
-    //            case 2:
-    //                return TimeSpan.FromMilliseconds(1000);
-    //            case 3:
-    //                return TimeSpan.FromMilliseconds(1500);
-    //            default:
-    //                return TimeSpan.FromMilliseconds(100);
-    //        }
-    //    }))
+    .AddTransientHttpErrorPolicy(policyBuilder =>
+        policyBuilder.WaitAndRetryAsync(3, retryNumber =>
+        {
+            switch (retryNumber)
+            {
+                case 1:
+                    return TimeSpan.FromMilliseconds(500);
+                case 2:
+                    return TimeSpan.FromMilliseconds(1000);
+                case 3:
+                    return TimeSpan.FromMilliseconds(1500);
+                default:
+                    return TimeSpan.FromMilliseconds(100);
+            }
+        }))
+    .AddTransientHttpErrorPolicy(policyBuilder =>
+  policyBuilder.CircuitBreakerAsync(5, TimeSpan.FromSeconds(30)));
 
-    //.AddTransientHttpErrorPolicy(policyBuilder =>
-    //  policyBuilder.CircuitBreakerAsync(5, TimeSpan.FromSeconds(30)));
+//在5秒内4次请求，如果50%失败，就熔断10秒
+//.AddTransientHttpErrorPolicy(policyBuilder =>
+//  policyBuilder.AdvancedCircuitBreakerAsync(0.5d, TimeSpan.FromSeconds(5), 4, TimeSpan.FromSeconds(10)));
 
-    //在5秒内4次请求，如果50%失败，就熔断10秒
-    //.AddTransientHttpErrorPolicy(policyBuilder =>
-    //  policyBuilder.AdvancedCircuitBreakerAsync(0.5d, TimeSpan.FromSeconds(5), 4, TimeSpan.FromSeconds(10)));
+//.AddTransientHttpErrorPolicy(policyBuilder => policyBuilder.FallbackAsync(new HttpResponseMessage(System.Net.HttpStatusCode.BadRequest)));
 
-    //.AddTransientHttpErrorPolicy(policyBuilder => policyBuilder.FallbackAsync(new HttpResponseMessage(System.Net.HttpStatusCode.BadRequest)));
+//.AddTransientHttpErrorPolicy(policyBuilder => policyBuilder.RetryAsync(3));
 
-    .AddTransientHttpErrorPolicy(policyBuilder => policyBuilder.RetryAsync(3));
-
+//一直重试
 //.AddTransientHttpErrorPolicy(policyBuilder => policyBuilder.RetryForeverAsync());
-
+//每2秒重试一次
 //.AddTransientHttpErrorPolicy(policyBuilder => policyBuilder.WaitAndRetryForeverAsync(retryNumber =>
 //{
 //    Console.WriteLine(retryNumber);
@@ -87,3 +88,4 @@ static class Count
 
     public static DateTime? Time;
 }
+
