@@ -4,7 +4,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
-{   
+{
 
     c.SwaggerDoc("v1",
        new OpenApiInfo
@@ -57,7 +57,7 @@ if (app.Environment.IsDevelopment())
 /// 删除Test
 /// </summary>
 /// <returns></returns>
-app.MapPut("/test",  (Data data) =>
+app.MapPut("/test", (Data data) =>
 {
 })
 .WithName("puttest")
@@ -69,17 +69,17 @@ app.MapDelete("/test/{id}", TestHandle.DeleteTest)
 .WithTags("all test");
 
 
-app.MapGet("/test/{id}", (HttpRequest request, int id) =>
+app.MapGet("/test/{id}",[EndpointDescription("Sends a Hello request to the backend")] (HttpRequest request,int id) =>
 {
     Console.WriteLine(request.Headers["Authorization"]);
 })
-.WithName("gettest")
-.WithTags("all test")
+.WithName("名称")
+.WithTags("all test").WithDescription("描述").WithDisplayName("显示名").WithSummary("汇总")//.WithGroupName("组名")
 .Produces<Data>(StatusCodes.Status200OK)
 .Produces(StatusCodes.Status404NotFound);
 
 
-app.MapPost("/test", (Data data) =>
+app.MapPost("/test",(Data data) =>
  {
  })
 .WithName("posttest")
@@ -91,7 +91,7 @@ app.Run();
 class TestHandle
 {
     /// <summary>
-    /// 删除Test
+    /// 删除Test333
     /// </summary>
     /// <param name="id">Data的主键</param>
     /// <returns></returns>
