@@ -5,6 +5,7 @@ using OpenTracing.Util;
 using Jaeger.Samplers;
 using Jaeger.Senders.Thrift;
 using Jaeger.Senders;
+using Jaeger.Reporters;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,10 +21,10 @@ builder.Services.AddSingleton<ITracer>(serviceProvider =>
     Jaeger.Configuration.SenderConfiguration.DefaultSenderResolver = new SenderResolver(loggerFactory)
         .RegisterSenderFactory<ThriftSenderFactory>();
 
-
+  
     var tracer = new Tracer.Builder(serviceName)
         .WithLoggerFactory(loggerFactory)
-        .WithSampler(new ConstSampler(true))
+        .WithSampler(new ConstSampler(true))   
         .Build();
 
     GlobalTracer.Register(tracer);

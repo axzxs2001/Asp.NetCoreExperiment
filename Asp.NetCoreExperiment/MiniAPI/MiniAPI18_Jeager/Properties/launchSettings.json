@@ -12,7 +12,7 @@
     "MiniAPI18_Jeager": {
       "commandName": "Project",
       "dotnetRunMessages": true,
-      "launchBrowser": true,
+      "launchBrowser": false,
       "launchUrl": "order",
       "applicationUrl": "http://localhost:5282",
       "environmentVariables": {
