@@ -1,16 +1,13 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk.Web">
 
 	<PropertyGroup>
-		<OutputType>WinExe</OutputType>
-		<TargetFramework>net7.0-windows</TargetFramework>
+		<TargetFramework>net7.0</TargetFramework>
 		<Nullable>enable</Nullable>
-		<UseWindowsForms>true</UseWindowsForms>
 		<ImplicitUsings>enable</ImplicitUsings>
-
 		<IlcOptimizationPreference>Size</IlcOptimizationPreference>
 		<IlcGenerateStackTraceData>false</IlcGenerateStackTraceData>
 	</PropertyGroup>
-	<ItemGroup>	
+	<ItemGroup>
 		<PackageReference Include="Microsoft.DotNet.ILCompiler" Version="7.0.0-preview.2.22152.2" />
 	</ItemGroup>
 </Project>
