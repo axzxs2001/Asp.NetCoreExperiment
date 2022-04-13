@@ -1,0 +1,61 @@
+@using WinFormsBlazor01.Models
+@using WinFormsBlazor01.Services
+@using Microsoft.AspNetCore.Components.Web
+@using Dapper
+@using Microsoft.Data.SqlClient;
+
+
+<div class="row">
+    <div class="col-12">
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" id="FindName" placeholder="请输入名称" @bind="FindName" aria-describedby="button-addon2">
+            <button class="btn btn-outline-secondary" type="button" @onclick="GetQuestions" id="button-addon2">查询</button>
+        </div>
+    </div>
+</div>
+
+@code {
+    private readonly IExamService _examService;
+    private readonly IServiceProvider _service;
+    public Query(IExamService examService, IServiceProvider service)
+    {
+        _service = service;
+        _examService = examService;
+    }
+    private string? FindName { get; set; }
+
+    List<Question> questions = new List<Question>();
+    public string title = "";
+    async Task GetQuestions()
+    {
+        questions = (await _examService.GetQuestions(FindName)).ToList();
+    }
+}
+<div class="row">
+    @title
+</div>
+<div class="row">
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr class="table-dark">
+                <th scope="col">编号</th>
+                <th scope="col">名称</th>
+                <th scope="col">分数</th>
+                <th scope="col">试题类型</th>
+                <th scope="col">科目类型</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var question in questions!)
+            {
+                <tr>
+                    <td>@question.ID</td>
+                    <td>@question.QuestionName</td>
+                    <td>@question.Score</td>
+                    <td>@question.QuestionTypeID</td>
+                    <td>@question.SubjectTypeID</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
