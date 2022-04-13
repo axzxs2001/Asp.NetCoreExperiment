@@ -16,18 +16,12 @@ namespace BlazorWinForm
             {
                 Dock = DockStyle.Fill,
                 HostPage = "wwwroot/index.html",
-                Services = serviceCollection.BuildServiceProvider(), 
+                Services = serviceCollection.BuildServiceProvider(),
             };
             blazor.AutoScroll = false;
             blazor.RootComponents.Add<Query>("#app");
             Controls.Add(blazor);
         }
     }
-    class Goods
-    {
-        public string spid { get; set; }
-        public string spmch { get; set; }
-        public string shpchd { get; set; }
-        public string shpgg { get; set; }
-    }
+
 }
