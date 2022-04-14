@@ -1,39 +1,66 @@
 
 var builder = WebApplication.CreateBuilder(args);
 
-
+builder.Services.AddScoped<IRouteHandlerFilter, MyFilter>();
 var app = builder.Build();
 
 
 
+Data GetData(string no)
+{
+    Console.WriteLine($"Get方法中：no={no}");
+    return new Data { No = no, Name = "test" + DateTime.Now };
+};
 
-app.MapGet("/test0/{name}", (string name) =>
-{
-    return "OK";
-}).AddFilter((RouteHandlerInvocationContext context, RouteHandlerFilterDelegate next) =>
-{
-    var name = (string?)context.Parameters[0];
-    if (name == "Bob")
+
+app.MapGet("/data1/{no}", GetData)
+    .AddFilter((RouteHandlerInvocationContext context, RouteHandlerFilterDelegate next) =>
     {
-        return new ValueTask<object?>("No Bob's allowed");
-    }
-    return next(context);
-});
+        var no = (string?)context.Parameters[0];
+        Console.WriteLine($"Get方法前： no={no}");
+        if (no != null && !no.StartsWith("NO"))
+        {
+            return new ValueTask<object?>("no is error!");
+        }
+        var result = next(context);
+        if (result.IsCompleted)
+        {
+            Console.WriteLine($"Get方法后：结果={result.Result}");
+        }
+        return result;
+    });
 
 
-
-app.MapGet("/test1/{name}", (string name) =>
+string AddTest(Data data)
 {
+    Console.WriteLine($"Post方法中：no={data.No}");
     return "OK";
-})
+}
+app.MapPost("/data1", AddTest)
+    .AddFilter((RouteHandlerInvocationContext context, RouteHandlerFilterDelegate next) =>
+    {
+        var data = (Data?)context.Parameters[0];
+        Console.WriteLine($"Post方法前： data={data}");
+        var result = next(context);
+        if (result.IsCompleted)
+        {
+            Console.WriteLine($"Post方法后：结果={result.Result}");
+        }      
+        return result;
+    });
+
+
+
+
+app.MapGet("/data2/{no}", GetData)
 .AddFilter((RouteHandlerContext routeHandlerContext, RouteHandlerFilterDelegate next) =>
 {
     return (context) =>
     {
-        var name = (string?)context.Parameters[0];
-        if (name == "Bob")
+        var no = (string?)context.Parameters[0];
+        if (no != null && !no.StartsWith("NO"))
         {
-            return new ValueTask<object?>("No Bob's allowed");
+            return new ValueTask<object?>("no is error!");
         }
         return next(context);
     };
@@ -41,10 +68,7 @@ app.MapGet("/test1/{name}", (string name) =>
 
 
 
-app.MapGet("/test2/{name}", (string name) =>
-{
-    return "OK";
-}).AddFilter<MyFilter>();
+app.MapGet("/data3/{name}", GetData).AddFilter<MyFilter>();
 
 
 app.Run();
@@ -54,11 +78,17 @@ public class MyFilter : IRouteHandlerFilter
 {
     public ValueTask<object?> InvokeAsync(RouteHandlerInvocationContext context, RouteHandlerFilterDelegate next)
     {
-        var name = (string?)context.Parameters[0];
-        if (name == "Bob")
+        var no = (string?)context.Parameters[0];
+        if (no != null && !no.StartsWith("NO"))
         {
-            return new ValueTask<object?>("No Bob's allowed");
+            return new ValueTask<object?>("no is error!");
         }
         return next(context);
     }
+}
+
+public record Data
+{
+    public string No { get; set; }
+    public string Name { get; set; }
 }
