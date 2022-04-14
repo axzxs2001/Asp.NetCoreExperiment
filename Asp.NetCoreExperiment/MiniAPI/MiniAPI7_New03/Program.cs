@@ -1,7 +1,6 @@
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddScoped<IRouteHandlerFilter, MyFilter>();
 var app = builder.Build();
 
 
