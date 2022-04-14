@@ -19,6 +19,28 @@ var app = builder.Build();
 //        return await next(context);
 //    });
 
+app.MapGet("/data0/{no}", (string no) =>
+{
+    Console.WriteLine($"Get方法中：no={no}");
+    return new Data { No = no, Name = "test" + DateTime.Now };
+
+}).AddFilter((RouteHandlerInvocationContext context, RouteHandlerFilterDelegate next) =>
+    {
+        var no = (string?)context.Parameters[0];
+        Console.WriteLine($"Get方法前： no={no}");
+        if (no != null && !no.StartsWith("NO"))
+        {
+            return new ValueTask<object?>("no is error!");
+        }
+        var result = next(context);
+        if (result.IsCompleted)
+        {
+            Console.WriteLine($"Get方法后：结果={result.Result}");
+        }
+        return result;
+    });
+
+
 
 Data GetData(string no)
 {
