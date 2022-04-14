@@ -5,6 +5,20 @@ builder.Services.AddScoped<IRouteHandlerFilter, MyFilter>();
 var app = builder.Build();
 
 
+//string SayHello(string name) => $"Hello, {name}!.";
+//app.MapGet("/hello/{name}", SayHello)
+//    .AddFilter(async (RouteHandlerInvocationContext context, RouteHandlerFilterDelegate next) =>
+//    {
+//        return await next(context);
+//    });
+
+
+//app.MapGet("/hello/{name}", (string name) => $"Hello, {name}!.")
+//    .AddFilter(async (RouteHandlerInvocationContext context, RouteHandlerFilterDelegate next) =>
+//    {
+//        return await next(context);
+//    });
+
 
 Data GetData(string no)
 {
@@ -45,7 +59,7 @@ app.MapPost("/data1", AddTest)
         if (result.IsCompleted)
         {
             Console.WriteLine($"Post方法后：结果={result.Result}");
-        }      
+        }
         return result;
     });
 
