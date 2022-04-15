@@ -450,7 +450,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestWeb3", "Asp.NetCoreExpe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WinFormsBlazor01", "Asp.NetCoreExperiment\Blazor\WinFormsBlazor01\WinFormsBlazor01.csproj", "{C4F289C4-EB0A-4275-89EC-1E05DB01280D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniAPI7_New03", "Asp.NetCoreExperiment\MiniAPI\MiniAPI7_New03\MiniAPI7_New03.csproj", "{2479A590-4303-4F4A-BA08-E834B587136E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiniAPI7_New03", "Asp.NetCoreExperiment\MiniAPI\MiniAPI7_New03\MiniAPI7_New03.csproj", "{2479A590-4303-4F4A-BA08-E834B587136E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniMiddlewareScopedDI", "Asp.NetCoreExperiment\MiniAPI\MiniMiddlewareScopedDI\MiniMiddlewareScopedDI.csproj", "{28391221-7C16-4F47-BA67-3C8DD19F9ECC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -1118,6 +1120,10 @@ Global
 		{2479A590-4303-4F4A-BA08-E834B587136E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2479A590-4303-4F4A-BA08-E834B587136E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2479A590-4303-4F4A-BA08-E834B587136E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28391221-7C16-4F47-BA67-3C8DD19F9ECC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28391221-7C16-4F47-BA67-3C8DD19F9ECC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28391221-7C16-4F47-BA67-3C8DD19F9ECC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28391221-7C16-4F47-BA67-3C8DD19F9ECC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1299,6 +1305,7 @@ Global
 		{0336DCF0-96A5-4356-B639-91ABCC60942B} = {EF6FD166-D027-43E0-B9DA-7F31868CC8DD}
 		{C4F289C4-EB0A-4275-89EC-1E05DB01280D} = {81B7EFE5-84A7-4CD6-89E7-C9C37E1FA56D}
 		{2479A590-4303-4F4A-BA08-E834B587136E} = {8A78305E-BFFF-4F09-BE2F-3BAB7088C3FE}
+		{28391221-7C16-4F47-BA67-3C8DD19F9ECC} = {8A78305E-BFFF-4F09-BE2F-3BAB7088C3FE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}

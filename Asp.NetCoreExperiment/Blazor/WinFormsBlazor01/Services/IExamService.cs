@@ -9,6 +9,6 @@ namespace WinFormsBlazor01.Services
 {
     public interface IExamService
     {
-        Task<IEnumerable<Question>> GetQuestions(string? fileName);
+        Task<IEnumerable<Question>> GetQuestions(string? fileName);      
     }
 }

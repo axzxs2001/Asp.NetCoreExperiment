@@ -3,6 +3,8 @@
 @using Microsoft.AspNetCore.Components.Web
 @using Dapper
 @using Microsoft.Data.SqlClient;
+@using Microsoft.JSInterop;
+@inject IExamService examService
 
 
 <div class="row">
@@ -13,26 +15,18 @@
         </div>
     </div>
 </div>
-
 @code {
-    private readonly IExamService _examService;
-    private readonly IServiceProvider _service;
-    public Query(IExamService examService, IServiceProvider service)
-    {
-        _service = service;
-        _examService = examService;
-    }
-    private string? FindName { get; set; }
 
+    private string? FindName { get; set; }
     List<Question> questions = new List<Question>();
-    public string title = "";
     async Task GetQuestions()
     {
-        questions = (await _examService.GetQuestions(FindName)).ToList();
+        eventHub.CallDotNet("abc", "123");
+        questions = (await examService.GetQuestions(FindName)).ToList();
     }
 }
 <div class="row">
-    @title
+    <h2 id="title"></h2>
 </div>
 <div class="row">
     <table class="table table-striped table-hover">

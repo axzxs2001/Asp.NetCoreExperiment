@@ -2,32 +2,36 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Components.WebView.WindowsForms;
 using WinFormsBlazor01.Services;
 using WinFormsBlazor01.Razors;
+using Microsoft.JSInterop;
+
 
 namespace WinFormsBlazor01
 {
     public partial class MainForm : Form
     {
-        ServiceCollection services = new ServiceCollection();
+        IEventHub _eventHub;
         public MainForm()
         {
             InitializeComponent();
+            _eventHub = BlazorService.CretaeBlazorService<IExamService, ExamService, Query>(queryBlazorWebView);
+            _eventHub.OnCallDotNet += _eventHub_OnCallDotNet;
 
-            services.AddWindowsFormsBlazorWebView();
-            services.AddSingleton<IExamService, ExamService>();
-            queryBlazorWebView.HostPage = "wwwroot\\index.html";
-            queryBlazorWebView.Services = services.BuildServiceProvider();
-            queryBlazorWebView.RootComponents.Add<Query>("#app");
-            services.AddSingleton(this);
+
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void _eventHub_OnCallDotNet(object sender, string eventName, object?[]? eventArgs)
         {
+            if (eventName == "abc")
+            {
+                MessageBox.Show(eventArgs[0].ToString());
+            }
         }
+     
 
         private void button1_Click(object sender, EventArgs e)
         {
-          
-
+            _eventHub.CallJS("showtitle", DateTime.Now);
         }
     }
+
 }
