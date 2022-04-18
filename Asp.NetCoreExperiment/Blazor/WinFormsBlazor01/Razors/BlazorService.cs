@@ -30,35 +30,17 @@ namespace WinFormsBlazor01.Razors
             blazorWebView.RootComponents.Add<RazorPage>("#app");
             return eventHub;
         }
-    }
-
-    public abstract class EventComponent : ComponentBase
-    {
-       
-        protected override void OnInitialized()
+        public static IEventHub CretaeBlazorService<RazorPage>(BlazorWebView blazorWebView) where RazorPage : IComponent
         {
-            IEventHub? eventHub = null;
-            IJSRuntime? js = null;
-            foreach (var pro in this.GetType().GetProperties(System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance))
-            {
-                if (typeof(IEventHub).IsInstanceOfType(pro.GetValue(this, new object[0])))
-                {
-                    eventHub = pro.GetValue(this, new object[0]) as IEventHub;
-                }
-                if (typeof(IJSRuntime).IsInstanceOfType(pro.GetValue(this, new object[0])))
-                {
-                    js = pro.GetValue(this, new object[0]) as IJSRuntime;
-                }
-            }
-            if (eventHub != null && js != null)
-            {
-                eventHub.OnCallJS += async (s, n, e) =>
-                {                    
-                    await js.InvokeAsync<object>(n, e);
-                };
-            }
-            base.OnInitialized();
+            var services = new ServiceCollection();
+            services.AddWindowsFormsBlazorWebView();   
+            var eventHub = new EventHub();
+            services.AddSingleton<IEventHub>(eventHub);
+            blazorWebView.HostPage = "wwwroot\\index.html";
+            blazorWebView.Services = services.BuildServiceProvider();
+
+            blazorWebView.RootComponents.Add<RazorPage>("#app");
+            return eventHub;
         }
     }
-
 }

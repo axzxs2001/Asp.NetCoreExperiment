@@ -5,14 +5,14 @@ function showtitle(title) {
 
 
 
-//window.getHelloMessage = (name) => {
+window.getHelloMessage = (name) => {
 
-//    DotNet.invokeMethodAsync("WinFormsBlazor01", "GetHelloMessageAsync", name)
-//        .then(data => {
-//            alert(data);
+    DotNet.invokeMethodAsync("WinFormsBlazor01", "GetHelloMessageAsync", name)
+        .then(data => {
+            alert(data);
 
-//        });
-//};
+        });
+};
 
 class GreetingHelpers {
     static dotNetHelper;
@@ -25,13 +25,12 @@ class GreetingHelpers {
         const msg =await GreetingHelpers.dotNetHelper.invokeMethodAsync('SayHello',name);
         alert(`Message from .NET: "${msg}"`);
     }
+
+    static async callForm2(name) {
+     
+        const msg = await GreetingHelpers.dotNetHelper.invokeMethodAsync('CallForm2', name);
+       // alert(`.NET: "${msg}"`);
+    }
+    
 }
 window.GreetingHelpers = GreetingHelpers;
-//window.sayHello = (dotNetHelper, name) => {
-//    alert(dotNetHelper)
- 
-//    return dotNetHelper.invokeMethodAsync("SayHello", name);
-//    //.then(data => {
-//    //    alert(data)
-//    //});
-//};

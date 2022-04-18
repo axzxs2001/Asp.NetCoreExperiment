@@ -12,10 +12,12 @@ namespace WinFormsBlazor01
 
         void CallJS(string eventName, params object?[]? eventArgs);
 
-        event EventHubHandler<object?[]>? OnCallDotNet;
+        event EventHubHandler<object?[]>? OnCallCSharp;
 
-        void CallDotNet(string eventName, params object?[]? eventArgs);
+        void CallCSharp(string eventName, params object?[]? eventArgs);
+
+        string? EventName { get; set; }
     }
 
-    public delegate void EventHubHandler<TEventArgs>(object sender, string eventName, TEventArgs? eventArgs);
+    public delegate void EventHubHandler<TEventArgs>(object sender, TEventArgs? eventArgs);
 }

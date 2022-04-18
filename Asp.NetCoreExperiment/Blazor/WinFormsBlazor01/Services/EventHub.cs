@@ -10,20 +10,24 @@ namespace WinFormsBlazor01
     {
         public event EventHubHandler<object?[]>? OnCallJS;
 
+        public string? EventName { get; set; }
+
         public void CallJS(string eventName, params object?[]? eventArgs)
         {
             if (OnCallJS != null)
             {
-                OnCallJS(this, eventName, eventArgs);
+                EventName = eventName;
+                OnCallJS(this, eventArgs);
             }
         }
-        public event EventHubHandler<object?[]>? OnCallDotNet;
+        public event EventHubHandler<object?[]>? OnCallCSharp;
 
-        public void CallDotNet(string eventName, params object?[]? eventArgs)
+        public void CallCSharp(string eventName, params object?[]? eventArgs)
         {
-            if (OnCallDotNet != null)
+            if (OnCallCSharp != null)
             {
-                OnCallDotNet(this, eventName, eventArgs);
+                EventName = eventName;
+                OnCallCSharp(this, eventArgs);
             }
         }
     }

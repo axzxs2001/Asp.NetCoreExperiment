@@ -1,0 +1,43 @@
+@using WinFormsBlazor01.Models
+@using WinFormsBlazor01.Services
+@using Microsoft.AspNetCore.Components.Web
+
+
+<div class="row">
+    <h2>我是HTML窗体</h2>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" id="FindName" placeholder="请输入信息" @bind="InputName" aria-describedby="button-addon2">
+
+            <button class="btn btn-outline-secondary" type="button" @onclick="CallForm" id="button-addon2">触发WinForm事件</button>
+
+            <button class="btn btn-outline-secondary" type="button" onclick="GreetingHelpers.callForm2(document.getElementById('FindName').value)" id="button-addon2">JS触发WinForm事件</button>
+      
+        </div>
+    </div>
+</div>
+<div class="row">
+    <h3 id="title"></h3>
+</div>
+@code {
+    private string? InputName;
+    #region 方法一
+    void CallForm()
+    {
+        eventHub.CallCSharp("clientclick", "html里的数据：" + InputName + "，" + DateTime.Now);
+    }
+    #endregion
+
+    #region 方法二
+    [JSInvokable]
+    public async Task<string> CallForm2(string name)
+    {
+        eventHub.CallCSharp("clientclick", "html里的数据：" + name + "，" + DateTime.Now);
+        return await Task.FromResult("ok");
+    }
+   
+    #endregion
+}

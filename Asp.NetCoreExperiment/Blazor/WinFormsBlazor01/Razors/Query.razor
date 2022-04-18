@@ -23,40 +23,23 @@
     List<Question> questions = new List<Question>();
 
     async Task GetQuestions()
-    {
-        eventHub.CallDotNet("clientclick", "html里传过来的数据");
-        questions = (await examService.GetQuestions(FindName)).ToList();
-        
+    {       
+        questions = (await examService.GetQuestions(FindName)).ToList();        
     }
 
 
+    
     [JSInvokable]
     public static async Task<string> GetHelloMessageAsync(string name) => await Task.FromResult($"Hello!{name}");
 
 
 
-    private  DotNetObjectReference<Query>? dotNetHelper;
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
-            dotNetHelper = DotNetObjectReference.Create(this);
-            await js.InvokeVoidAsync("GreetingHelpers.setDotNetHelper",dotNetHelper);
-        }
-    }
-
     [JSInvokable]
-    public async Task<string> SayHello(string name) => await Task.FromResult($"Hello!{name}");
+    public async Task<string> SayHello(string name) => await Task.FromResult($"Hello!{name}");   
 
-
-    public void Dispose()
-    {
-        dotNetHelper?.Dispose();
-    }
+   
 }
-<div class="row">
-    <h2 id="title"></h2>
-</div>
+
 <div class="row">
     <table class="table table-striped table-hover">
         <thead>
