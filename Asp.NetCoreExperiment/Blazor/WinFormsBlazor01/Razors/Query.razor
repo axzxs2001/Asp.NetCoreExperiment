@@ -3,7 +3,7 @@
 @using Microsoft.AspNetCore.Components.Web
 @using Dapper
 @using Microsoft.Data.SqlClient;
-@using Microsoft.JSInterop;
+@implements IDisposable
 @inject IExamService examService
 
 
@@ -12,6 +12,8 @@
         <div class="input-group mb-3">
             <input type="text" class="form-control" id="FindName" placeholder="请输入名称" @bind="FindName" aria-describedby="button-addon2">
             <button class="btn btn-outline-secondary" type="button" @onclick="GetQuestions" id="button-addon2">查询</button>
+            <button class="btn btn-outline-secondary" type="button" onclick="getHelloMessage('gsw')" id="button-addon2">静态调用DotNet</button>     
+            <button class="btn btn-outline-secondary" type="button" onclick="GreetingHelpers.sayHello('gsw')" id="button-addon2">实例化调用DotNet</button>
         </div>
     </div>
 </div>
@@ -19,10 +21,37 @@
 
     private string? FindName { get; set; }
     List<Question> questions = new List<Question>();
+
     async Task GetQuestions()
     {
-        eventHub.CallDotNet("abc", "123");
+        eventHub.CallDotNet("clientclick", "html里传过来的数据");
         questions = (await examService.GetQuestions(FindName)).ToList();
+        
+    }
+
+
+    [JSInvokable]
+    public static async Task<string> GetHelloMessageAsync(string name) => await Task.FromResult($"Hello!{name}");
+
+
+
+    private  DotNetObjectReference<Query>? dotNetHelper;
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            dotNetHelper = DotNetObjectReference.Create(this);
+            await js.InvokeVoidAsync("GreetingHelpers.setDotNetHelper",dotNetHelper);
+        }
+    }
+
+    [JSInvokable]
+    public async Task<string> SayHello(string name) => await Task.FromResult($"Hello!{name}");
+
+
+    public void Dispose()
+    {
+        dotNetHelper?.Dispose();
     }
 }
 <div class="row">
@@ -53,3 +82,4 @@
         </tbody>
     </table>
 </div>
+

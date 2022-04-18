@@ -21,16 +21,16 @@ namespace WinFormsBlazor01
 
         private void _eventHub_OnCallDotNet(object sender, string eventName, object?[]? eventArgs)
         {
-            if (eventName == "abc")
+            if (eventName == "clientclick" && eventArgs != null && eventArgs.Length > 0)
             {
-                MessageBox.Show(eventArgs[0].ToString());
+                MessageBox.Show(eventArgs[0]?.ToString());
             }
         }
-     
+
 
         private void button1_Click(object sender, EventArgs e)
         {
-            _eventHub.CallJS("showtitle", DateTime.Now);
+            _eventHub.CallJS("showtitle", "窗体中数据：" + DateTime.Now);
         }
     }
 
