@@ -1,0 +1,46 @@
+@using Microsoft.AspNetCore.Components.Web
+@using Microsoft.JSInterop;
+@inject IJSRuntime js
+@implements IDisposable
+
+<div class="row">
+    <div class="col-12">
+        <div class="input-group mb-3">
+            <button class="btn btn-outline-secondary" type="button" @onclick="CallJS" id="button-addon2">C#调用JS</button>
+            <button class="btn btn-outline-secondary" type="button" onclick="callStaticCSharp('gsw')" id="button-addon2">C#静态调用JS</button>
+            <button class="btn btn-outline-secondary" type="button" onclick="CallHelpers.callInstanceCSharp('gsw')" id="button-addon2">C#实例化调用JS</button>
+        </div>
+    </div>
+</div>
+
+<div>
+    <h2 id="title"></h2>
+</div>
+<div>
+    <h2 id="message" style="color:red"></h2>
+</div>
+@code {
+    async Task CallJS()
+    {
+        await js.InvokeAsync<object>("showtitle", "当前时间：" + DateTime.Now);
+    }
+
+
+
+    [JSInvokable]
+    public static async Task<string> CallStaticCSharpAsync(string name) => await Task.FromResult($"来自C#静态方法，当前时间：{DateTime.Now}");
+
+    [JSInvokable]
+    public async Task<string> CallInstanceCSharpAsync(string name) => await Task.FromResult($"来自C#实例方法，当前时间：{DateTime.Now}");
+
+    protected DotNetObjectReference<DomePage>? dotNetHelper;
+    protected override async Task OnInitializedAsync()
+    {
+        dotNetHelper = DotNetObjectReference.Create(this);
+        await js.InvokeVoidAsync("CallHelpers.DotNetHelper", dotNetHelper);
+    }
+    public void Dispose()
+    {
+        dotNetHelper?.Dispose();
+    }
+}

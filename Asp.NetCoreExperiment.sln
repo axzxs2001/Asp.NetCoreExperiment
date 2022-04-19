@@ -456,6 +456,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiniMiddlewareScopedDI", "A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharp11Demo", "Asp.NetCoreExperiment\CSharp\CSharp11Demo\CSharp11Demo.csproj", "{77EDC1C0-8653-4D16-B928-A2781F1C2517}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinFormsBlazor02", "Asp.NetCoreExperiment\Blazor\WinFormsBlazor02\WinFormsBlazor02.csproj", "{EFF2FC64-7326-4C89-B40E-3B2EBE825AFB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -1130,6 +1132,10 @@ Global
 		{77EDC1C0-8653-4D16-B928-A2781F1C2517}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{77EDC1C0-8653-4D16-B928-A2781F1C2517}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{77EDC1C0-8653-4D16-B928-A2781F1C2517}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EFF2FC64-7326-4C89-B40E-3B2EBE825AFB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EFF2FC64-7326-4C89-B40E-3B2EBE825AFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EFF2FC64-7326-4C89-B40E-3B2EBE825AFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EFF2FC64-7326-4C89-B40E-3B2EBE825AFB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1313,6 +1319,7 @@ Global
 		{2479A590-4303-4F4A-BA08-E834B587136E} = {8A78305E-BFFF-4F09-BE2F-3BAB7088C3FE}
 		{28391221-7C16-4F47-BA67-3C8DD19F9ECC} = {8A78305E-BFFF-4F09-BE2F-3BAB7088C3FE}
 		{77EDC1C0-8653-4D16-B928-A2781F1C2517} = {0C2286BE-F1F4-4E52-A9FA-1EF056CD9159}
+		{EFF2FC64-7326-4C89-B40E-3B2EBE825AFB} = {81B7EFE5-84A7-4CD6-89E7-C9C37E1FA56D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
