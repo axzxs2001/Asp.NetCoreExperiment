@@ -30,50 +30,51 @@
         {
             this.addBlazorWebView = new Microsoft.AspNetCore.Components.WebView.WindowsForms.BlazorWebView();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.txtNo = new System.Windows.Forms.TextBox();
+            this.labBackMessage = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.labMessage = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // addBlazorWebView
             // 
             this.addBlazorWebView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.addBlazorWebView.Location = new System.Drawing.Point(0, 84);
+            this.addBlazorWebView.Location = new System.Drawing.Point(0, 176);
             this.addBlazorWebView.Name = "addBlazorWebView";
-            this.addBlazorWebView.Size = new System.Drawing.Size(800, 366);
+            this.addBlazorWebView.Size = new System.Drawing.Size(967, 414);
             this.addBlazorWebView.TabIndex = 1;
             this.addBlazorWebView.Text = "queryBlazorWebView";
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.txtNo);
+            this.panel1.Controls.Add(this.labBackMessage);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.labMessage);
             this.panel1.Controls.Add(this.button1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(800, 84);
+            this.panel1.Size = new System.Drawing.Size(967, 176);
             this.panel1.TabIndex = 2;
             // 
-            // labMessage
+            // txtNo
             // 
-            this.labMessage.AutoSize = true;
-            this.labMessage.Location = new System.Drawing.Point(290, 49);
-            this.labMessage.Name = "labMessage";
-            this.labMessage.Size = new System.Drawing.Size(43, 17);
-            this.labMessage.TabIndex = 3;
-            this.labMessage.Text = "label1";
+            this.txtNo.Location = new System.Drawing.Point(423, 39);
+            this.txtNo.Name = "txtNo";
+            this.txtNo.Size = new System.Drawing.Size(362, 23);
+            this.txtNo.TabIndex = 6;
             // 
-            // button1
+            // labBackMessage
             // 
-            this.button1.Location = new System.Drawing.Point(639, 11);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(149, 34);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "触发Html事件";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.labBackMessage.AutoSize = true;
+            this.labBackMessage.Location = new System.Drawing.Point(423, 111);
+            this.labBackMessage.Name = "labBackMessage";
+            this.labBackMessage.Size = new System.Drawing.Size(73, 17);
+            this.labBackMessage.TabIndex = 5;
+            this.labBackMessage.Text = "-------------";
             // 
             // label1
             // 
@@ -85,11 +86,31 @@
             this.label1.TabIndex = 4;
             this.label1.Text = "我是WinForm窗体";
             // 
+            // labMessage
+            // 
+            this.labMessage.AutoSize = true;
+            this.labMessage.ForeColor = System.Drawing.Color.Red;
+            this.labMessage.Location = new System.Drawing.Point(38, 91);
+            this.labMessage.Name = "labMessage";
+            this.labMessage.Size = new System.Drawing.Size(116, 17);
+            this.labMessage.TabIndex = 3;
+            this.labMessage.Text = "============";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(817, 82);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(121, 34);
+            this.button1.TabIndex = 2;
+            this.button1.Text = "触发Html事件";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // AddForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(967, 590);
             this.Controls.Add(this.addBlazorWebView);
             this.Controls.Add(this.panel1);
             this.Name = "AddForm";
@@ -107,5 +128,7 @@
         private Button button1;
         private Label labMessage;
         private Label label1;
+        private Label labBackMessage;
+        private TextBox txtNo;
     }
 }

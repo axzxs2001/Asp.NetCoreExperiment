@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.AspNetCore.Components.WebView.WindowsForms;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.JSInterop;
-using WinFormsBlazor01.Services;
 
 namespace WinFormsBlazor01.Razors
 {

@@ -1,5 +1,3 @@
-@using WinFormsBlazor01.Models
-@using WinFormsBlazor01.Services
 @using Microsoft.AspNetCore.Components.Web
 
 
@@ -12,10 +10,10 @@
         <div class="input-group mb-3">
             <input type="text" class="form-control" id="FindName" placeholder="请输入信息" @bind="InputName" aria-describedby="button-addon2">
 
-            <button class="btn btn-outline-secondary" type="button" @onclick="CallForm" id="button-addon2">触发WinForm事件</button>
+            <button class="btn btn-outline-secondary" type="button" @onclick="CallForm1" id="button-addon2">razorC#触发WinForm事件</button>
 
-            <button class="btn btn-outline-secondary" type="button" onclick="GreetingHelpers.callForm2(document.getElementById('FindName').value)" id="button-addon2">JS触发WinForm事件</button>
-      
+            <button class="btn btn-outline-secondary" type="button" onclick="CallHelpers.callForm2(document.getElementById('FindName').value)" id="button-addon2">JS触发WinForm事件</button>
+
         </div>
     </div>
 </div>
@@ -23,21 +21,27 @@
     <h3 id="title"></h3>
 </div>
 @code {
-    private string? InputName;
+    private string? InputName="ABCDEFG123456";
     #region 方法一
-    void CallForm()
+    async void CallForm1()
     {
-        eventHub.CallCSharp("clientclick", "html里的数据：" + InputName + "，" + DateTime.Now);
+        var result = await eventHub.CallCSharpAsync("clientclick", InputName);
+        MessageBox.Show("razor中C#接到的返回结果：" + result.ToString());
     }
     #endregion
 
     #region 方法二
+    /// <summary>
+    /// 这个方法是js中调过来的
+    /// </summary>
+    /// <param name="name"></param>
+    /// <returns></returns>
     [JSInvokable]
-    public async Task<string> CallForm2(string name)
+    public async Task<object> CallForm2(string name)
     {
-        eventHub.CallCSharp("clientclick", "html里的数据：" + name + "，" + DateTime.Now);
-        return await Task.FromResult("ok");
+        var result = await eventHub.CallCSharpAsync("clientclick",  name );
+        return result;
     }
-   
+
     #endregion
 }

@@ -29,18 +29,18 @@ namespace WinFormsBlazor01.Razors
             }
             if (eventHub != null && js != null)
             {
-
-                eventHub.OnCallJS += async (sender, eventArgs) =>
+                eventHub.OnCallJSAsync += CallAsync;
+                async Task<object> CallAsync(object sender, object?[]? eventArgs)
                 {
                     var eventhub = sender as EventHub;
-                    await js.InvokeAsync<object>(eventhub?.EventName!, eventArgs);
-                };
+                    return await js.InvokeAsync<object>(eventhub?.EventName!, eventArgs);
+                }
             }
 
             if (js != null)
             {
                 dotNetHelper = DotNetObjectReference.Create(this);
-                await js.InvokeVoidAsync("GreetingHelpers.setDotNetHelper", dotNetHelper);
+                await js.InvokeVoidAsync("CallHelpers.DotNetHelper", dotNetHelper);
             }
             base.OnInitialized();
         }
