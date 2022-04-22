@@ -11,9 +11,10 @@ class CallHelpers {
         CallHelpers.dotNetHelper = value;
     }
 
-    static async callForm2(name) {
-
-        const msg = await CallHelpers.dotNetHelper.invokeMethodAsync('CallForm2', name);
+   
+    static async callWinForm(name) {
+        //CallWinFormMethod方法是默认调用CSharp方法的名称
+        const msg = await CallHelpers.dotNetHelper.invokeMethodAsync('CallWinFormMethod', 'clientclick', name);
         alert(`JS接到WinForm的返回值: "${msg}"`);
     }
 }

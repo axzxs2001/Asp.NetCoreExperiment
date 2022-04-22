@@ -12,7 +12,7 @@
 
             <button class="btn btn-outline-secondary" type="button" @onclick="CallForm1" id="button-addon2">razorC#触发WinForm事件</button>
 
-            <button class="btn btn-outline-secondary" type="button" onclick="CallHelpers.callForm2(document.getElementById('FindName').value)" id="button-addon2">JS触发WinForm事件</button>
+            <button class="btn btn-outline-secondary" type="button" onclick="CallHelpers.callWinForm(document.getElementById('FindName').value)" id="button-addon2">JS触发WinForm事件</button>
 
         </div>
     </div>
@@ -21,7 +21,7 @@
     <h3 id="title"></h3>
 </div>
 @code {
-    private string? InputName="ABCDEFG123456";
+    private string? InputName = "ABCDEFG123456";
     #region 方法一
     async void CallForm1()
     {
@@ -30,18 +30,4 @@
     }
     #endregion
 
-    #region 方法二
-    /// <summary>
-    /// 这个方法是js中调过来的
-    /// </summary>
-    /// <param name="name"></param>
-    /// <returns></returns>
-    [JSInvokable]
-    public async Task<object> CallForm2(string name)
-    {
-        var result = await eventHub.CallCSharpAsync("clientclick",  name );
-        return result;
-    }
-
-    #endregion
 }
