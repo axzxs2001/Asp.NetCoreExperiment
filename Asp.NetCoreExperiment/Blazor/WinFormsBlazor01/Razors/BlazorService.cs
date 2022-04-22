@@ -13,7 +13,7 @@ namespace WinFormsBlazor01.Razors
 {
     public class BlazorService
     {
-        public static IEventHub CretaeBlazorService<IService, Service, RazorPage>(BlazorWebView blazorWebView)
+        public static IEventHub CretaeBlazorService<IService, Service, RazorPage>(BlazorWebView blazorWebView, string containerName = "app", string hostPage = "wwwroot\\index.html")
             where IService : class
             where Service : class, IService
             where RazorPage : IComponent
@@ -23,22 +23,22 @@ namespace WinFormsBlazor01.Razors
             services.AddSingleton<IService, Service>();
             var eventHub = new EventHub();
             services.AddSingleton<IEventHub>(eventHub);
-            blazorWebView.HostPage = "wwwroot\\index.html";
+            blazorWebView.HostPage = hostPage;
             blazorWebView.Services = services.BuildServiceProvider();
 
-            blazorWebView.RootComponents.Add<RazorPage>("#app");
+            blazorWebView.RootComponents.Add<RazorPage>($"#{containerName}");
             return eventHub;
         }
-        public static IEventHub CretaeBlazorService<RazorPage>(BlazorWebView blazorWebView) where RazorPage : IComponent
+        public static IEventHub CretaeBlazorService<RazorPage>(BlazorWebView blazorWebView, string containerName = "app", string hostPage = "wwwroot\\index.html") where RazorPage : IComponent
         {
             var services = new ServiceCollection();
-            services.AddWindowsFormsBlazorWebView();   
+            services.AddWindowsFormsBlazorWebView();
             var eventHub = new EventHub();
             services.AddSingleton<IEventHub>(eventHub);
-            blazorWebView.HostPage = "wwwroot\\index.html";
+            blazorWebView.HostPage = hostPage;
             blazorWebView.Services = services.BuildServiceProvider();
 
-            blazorWebView.RootComponents.Add<RazorPage>("#app");
+            blazorWebView.RootComponents.Add<RazorPage>($"#{containerName}");
             return eventHub;
         }
     }
