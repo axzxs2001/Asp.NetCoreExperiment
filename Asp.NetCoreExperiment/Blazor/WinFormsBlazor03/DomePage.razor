@@ -1,11 +1,13 @@
 @using Microsoft.AspNetCore.Components.Web
 @inject Button but
+@inject System.Windows.Forms.Timer timer
+@using Microsoft.JSInterop;
+@inject IJSRuntime js
+
 <div>
-    <h2 id="title"></h2>
+    <h2 id="title">折线图</h2>
 </div>
-<div>
-    <h2 id="message" style="color:red"></h2>
-</div>
+<canvas id="myChart" width="400" height="400"></canvas>
 @code {
     protected override void OnInitialized()
     {
@@ -14,5 +16,18 @@
         {
             MessageBox.Show("按钮");
         };
+        var data = new List<Point>();
+        timer.Tick += async (s, e) =>
+        {
+            var random = new Random();
+            data.Add(new Point { X = random.Next(5, 100), Y = random.Next(0, 95) });
+            await CallJS(data.ToArray());
+        };
+
+        async Task CallJS(Point[] data)
+        {
+            await js.InvokeAsync<object>("showLines", data);
+        }
+
     }
 }

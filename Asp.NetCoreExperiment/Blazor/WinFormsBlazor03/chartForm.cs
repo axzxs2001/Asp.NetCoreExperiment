@@ -2,14 +2,15 @@ using Microsoft.AspNetCore.Components.WebView.WindowsForms;
 using Microsoft.Extensions.DependencyInjection;
 namespace WinFormsBlazor03
 {
-    public partial class Form1 : Form
+    public partial class chartForm : Form
     {
-        public Form1()
+        public chartForm()
         {
             InitializeComponent();
             var services = new ServiceCollection();
             services.AddWindowsFormsBlazorWebView();
             services.AddSingleton(this.button1);
+            services.AddSingleton(this.timer1);
             blazorWebView1.HostPage = "wwwroot\\index.html";
             blazorWebView1.Services = services.BuildServiceProvider();
             blazorWebView1.RootComponents.Add<DomePage>("#app");
@@ -20,5 +21,11 @@ namespace WinFormsBlazor03
         {
 
         }
+    }
+
+    class Point
+    {
+        public int X { get; set; }
+        public int Y { get; set; }
     }
 }

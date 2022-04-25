@@ -21,31 +21,22 @@
     <script src="js/bootstrap.min.js"></script>
 
     <script>
-        function showtitle(title) {
-            document.getElementById("title").innerText = title
+        function showLines(data) {
+            var ctx = document.getElementById("myChart");
+            var myLineChart = new Chart(ctx, {
+                type: "line",
+                data: data,
+                options: {
+                    scales: {
+                        yAxes: [
+                            {
+                                stacked: true
+                            }
+                        ]
+                    }
+                }
+            });
         }
-
-        //调用静态C#方法
-        window.callStaticCSharp = (name) => {
-
-            DotNet.invokeMethodAsync("WinFormsBlazor02", "CallStaticCSharpAsync", name)
-                .then(data => {
-                    document.getElementById("message").innerText = data                  
-                });
-        };
-        //调用实体化C#方法
-        class CallHelpers {
-            static dotNetHelper;
-
-            static DotNetHelper(value) {
-                CallHelpers.dotNetHelper = value;
-            }
-            static async callInstanceCSharp(name) {
-                const msg = await CallHelpers.dotNetHelper.invokeMethodAsync('CallInstanceCSharpAsync', name);
-                document.getElementById("message").innerText = msg            
-            }         
-        }
-        window.CallHelpers = CallHelpers;
     </script>
 </body>
 </html>
