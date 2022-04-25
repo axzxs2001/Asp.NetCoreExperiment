@@ -7,6 +7,7 @@ namespace WinFormsBlazor03
         public chartForm()
         {
             InitializeComponent();
+            timer1.Enabled = false;
             var services = new ServiceCollection();
             services.AddWindowsFormsBlazorWebView();
             services.AddSingleton(this.button1);

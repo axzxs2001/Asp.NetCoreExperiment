@@ -42,7 +42,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(800, 70);
+            this.panel1.Size = new System.Drawing.Size(1028, 70);
             this.panel1.TabIndex = 0;
             // 
             // button1
@@ -59,7 +59,7 @@
             this.blazorWebView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.blazorWebView1.Location = new System.Drawing.Point(0, 70);
             this.blazorWebView1.Name = "blazorWebView1";
-            this.blazorWebView1.Size = new System.Drawing.Size(800, 380);
+            this.blazorWebView1.Size = new System.Drawing.Size(1028, 567);
             this.blazorWebView1.TabIndex = 1;
             this.blazorWebView1.Text = "blazorWebView1";
             // 
@@ -68,14 +68,14 @@
             this.timer1.Enabled = true;
             this.timer1.Interval = 1000;
             // 
-            // Form1
+            // chartForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1028, 637);
             this.Controls.Add(this.blazorWebView1);
             this.Controls.Add(this.panel1);
-            this.Name = "Form1";
+            this.Name = "chartForm";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.panel1.ResumeLayout(false);
