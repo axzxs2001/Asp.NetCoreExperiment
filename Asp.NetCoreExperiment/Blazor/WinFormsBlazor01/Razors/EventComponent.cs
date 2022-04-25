@@ -15,7 +15,6 @@ namespace WinFormsBlazor01.Razors
         private IEventHub? _eventHub = null;
         protected override async Task OnInitializedAsync()
         {
-
             IJSRuntime? js = null;
             foreach (var pro in this.GetType().GetProperties(System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance))
             {
