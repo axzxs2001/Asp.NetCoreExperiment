@@ -9,7 +9,8 @@
 </div>
 <canvas id="myChart" width="400" height="200"></canvas>
 @code {
-    List<int> data = new List<int>();
+    List<int> data1 = new List<int>();
+    List<int> data2 = new List<int>();
     List<int> labels = new List<int>();
     int key = 2000;
     protected override void OnInitialized()
@@ -20,21 +21,24 @@
             await js.InvokeAsync<object>("createChart");
             timer.Enabled = true;
         };
-
+        
         timer.Tick += async (s, e) =>
         {
             var random = new Random();
-            data.Add(random.Next(10, 100));
+            data1.Add(random.Next(-100, 100));
+            data2.Add(random.Next(-120, 150));
             labels.Add(key);
             key++;
-            var newData = data.Count > 20 ? data.ToArray()[^20..] : data.ToArray();
+            var newData1 = data1.Count > 20 ? data1.ToArray()[^20..] : data1.ToArray();
+            var newData2 = data2.Count > 20 ? data2.ToArray()[^20..] : data2.ToArray();
             var newLabels = labels.Count > 20 ? labels.ToArray()[^20..] : labels.ToArray();
-            data = new List<int>(newData);
+            data1 = new List<int>(newData1);
+            data2 = new List<int>(newData2);
             labels = new List<int>(newLabels);
-            await CallJS(newData, newLabels);
+            await CallJS(new int[][] { newData1, newData2 }, newLabels);
         };
 
-        async Task CallJS(int[] data, int[] labels)
+        async Task CallJS(int[][] data, int[] labels)
         {
             await js.InvokeAsync<object>("showLines", data, labels);
         }

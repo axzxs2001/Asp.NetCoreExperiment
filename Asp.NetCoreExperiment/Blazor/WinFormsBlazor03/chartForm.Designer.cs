@@ -42,24 +42,24 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1028, 70);
+            this.panel1.Size = new System.Drawing.Size(1028, 64);
             this.panel1.TabIndex = 0;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(607, 21);
+            this.button1.Location = new System.Drawing.Point(851, 12);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(165, 34);
             this.button1.TabIndex = 0;
-            this.button1.Text = "button1";
+            this.button1.Text = "开始采集";
             this.button1.UseVisualStyleBackColor = true;
             // 
             // blazorWebView1
             // 
             this.blazorWebView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.blazorWebView1.Location = new System.Drawing.Point(0, 70);
+            this.blazorWebView1.Location = new System.Drawing.Point(0, 64);
             this.blazorWebView1.Name = "blazorWebView1";
-            this.blazorWebView1.Size = new System.Drawing.Size(1028, 567);
+            this.blazorWebView1.Size = new System.Drawing.Size(1028, 573);
             this.blazorWebView1.TabIndex = 1;
             this.blazorWebView1.Text = "blazorWebView1";
             // 

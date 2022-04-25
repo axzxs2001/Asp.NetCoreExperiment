@@ -28,34 +28,28 @@
             labels: [2000],
             datasets: [{
                 data: [500],
-                label: "Africa",
-               // borderColor: "#3e95cd",
+                label: "张三",           
                 borderColor: "#ad255d",
+                fill: false
+            },
+            {
+                data: [500],
+                label: "李四",
+                 borderColor: "#3e95cd",          
                 fill: false
             }
             ]
         }
+        
         var optionsAnimation = {
-            //Boolean - If we want to override with a hard coded scale
-            scaleOverride: true,
-            //** Required if scaleOverride is true **
-            //Number - The number of steps in a hard coded scale
-            scaleSteps: 10,
-            //Number - The value jump in the hard coded scale
-            scaleStepWidth: 10,
-            //Number - The scale starting value
-            scaleStartValue: 0,
+            animation: false,        
             lineTension: 0.4,
             scales: {
-                yAxes: [{
-                    display: true,
-                    ticks: {
-                        beginAtZero: true,                      
-                  
-                        max: 500
-                    }
-                }]
-            }
+                y: {
+                    min: -300,
+                    max: 300,
+                }
+            }            
         }
         var myLineChart
         function createChart() {
@@ -63,12 +57,13 @@
             myLineChart = new Chart(ctx, {
                 type: 'line',
                 data: data,
-                options: optionsAnimation             
+                options: optionsAnimation
             });
         }
         function showLines(data, labels) {
             this.data.labels = labels
-            this.data.datasets[0].data = data
+            this.data.datasets[0].data = data[0]
+            this.data.datasets[1].data = data[1]
             myLineChart.update();
         }
     </script>
