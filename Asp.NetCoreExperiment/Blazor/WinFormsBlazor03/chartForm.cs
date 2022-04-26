@@ -17,16 +17,6 @@ namespace WinFormsBlazor03
             blazorWebView1.RootComponents.Add<DomePage>("#app");
 
         }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-        }
     }
-
-    class Point
-    {
-        public int X { get; set; }
-        public int Y { get; set; }
-    }
+    
 }
