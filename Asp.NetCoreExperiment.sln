@@ -468,6 +468,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DebuggerVisualizerDemo", "A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinFormsBlazor03", "Asp.NetCoreExperiment\Blazor\WinFormsBlazor03\WinFormsBlazor03.csproj", "{E6573739-55CE-44CF-A0BC-623F04D4175D}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Castle.Core", "Castle.Core", "{86DD0DBB-A7B1-4B9C-BBD6-5138A77D1709}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CastleDemo01", "Asp.NetCoreExperiment\Castle.Core\CastleDemo01\CastleDemo01.csproj", "{162083C0-9FE9-4554-B4CD-81D87373C285}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -1146,6 +1150,10 @@ Global
 		{EFF2FC64-7326-4C89-B40E-3B2EBE825AFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EFF2FC64-7326-4C89-B40E-3B2EBE825AFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EFF2FC64-7326-4C89-B40E-3B2EBE825AFB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{162083C0-9FE9-4554-B4CD-81D87373C285}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{162083C0-9FE9-4554-B4CD-81D87373C285}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{162083C0-9FE9-4554-B4CD-81D87373C285}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{162083C0-9FE9-4554-B4CD-81D87373C285}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1330,6 +1338,7 @@ Global
 		{28391221-7C16-4F47-BA67-3C8DD19F9ECC} = {8A78305E-BFFF-4F09-BE2F-3BAB7088C3FE}
 		{77EDC1C0-8653-4D16-B928-A2781F1C2517} = {0C2286BE-F1F4-4E52-A9FA-1EF056CD9159}
 		{EFF2FC64-7326-4C89-B40E-3B2EBE825AFB} = {81B7EFE5-84A7-4CD6-89E7-C9C37E1FA56D}
+		{162083C0-9FE9-4554-B4CD-81D87373C285} = {86DD0DBB-A7B1-4B9C-BBD6-5138A77D1709}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
