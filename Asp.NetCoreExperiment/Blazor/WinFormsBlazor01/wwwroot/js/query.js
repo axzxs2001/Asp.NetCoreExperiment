@@ -1,36 +1,21 @@
 ﻿
 function showtitle(title) {
-    document.getElementById("title").innerText = title
+    document.getElementById("title").innerText = "JS接到WinForm数据：" + title
+    return title
 }
 
-
-
-window.getHelloMessage = (name) => {
-
-    DotNet.invokeMethodAsync("WinFormsBlazor01", "GetHelloMessageAsync", name)
-        .then(data => {
-            alert(data);
-
-        });
-};
-
-class GreetingHelpers {
+class CallHelpers {
     static dotNetHelper;
 
-    static setDotNetHelper(value) {
-        GreetingHelpers.dotNetHelper = value;
+    static DotNetHelper(value) {
+        CallHelpers.dotNetHelper = value;
     }
 
-    static async sayHello(name) {     
-        const msg =await GreetingHelpers.dotNetHelper.invokeMethodAsync('SayHello',name);
-        alert(`Message from .NET: "${msg}"`);
+   
+    static async callWinForm(name) {
+        //CallWinFormMethod方法是默认调用CSharp方法的名称
+        const msg = await CallHelpers.dotNetHelper.invokeMethodAsync('CallWinFormMethod', 'clientclick', name);
+        alert(`JS接到WinForm的返回值: "${msg}"`);
     }
-
-    static async callForm2(name) {
-     
-        const msg = await GreetingHelpers.dotNetHelper.invokeMethodAsync('CallForm2', name);
-       // alert(`.NET: "${msg}"`);
-    }
-    
 }
-window.GreetingHelpers = GreetingHelpers;
+window.CallHelpers = CallHelpers;

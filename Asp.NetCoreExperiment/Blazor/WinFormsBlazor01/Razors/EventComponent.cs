@@ -12,37 +12,47 @@ namespace WinFormsBlazor01.Razors
     public abstract class EventComponent : ComponentBase, IDisposable
     {
         protected DotNetObjectReference<EventComponent>? dotNetHelper;
+        private IEventHub? _eventHub = null;
         protected override async Task OnInitializedAsync()
         {
-            IEventHub? eventHub = null;
             IJSRuntime? js = null;
             foreach (var pro in this.GetType().GetProperties(System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance))
             {
                 if (typeof(IEventHub).IsInstanceOfType(pro.GetValue(this, new object[0])))
                 {
-                    eventHub = pro.GetValue(this, new object[0]) as IEventHub;
+                    _eventHub = pro.GetValue(this, new object[0]) as IEventHub;
                 }
                 if (typeof(IJSRuntime).IsInstanceOfType(pro.GetValue(this, new object[0])))
                 {
                     js = pro.GetValue(this, new object[0]) as IJSRuntime;
                 }
             }
-            if (eventHub != null && js != null)
+            if (_eventHub != null && js != null)
             {
-
-                eventHub.OnCallJS += async (sender, eventArgs) =>
+                _eventHub.OnCallJSAsync += CallAsync;
+                async Task<object> CallAsync(object sender, object?[]? eventArgs)
                 {
                     var eventhub = sender as EventHub;
-                    await js.InvokeAsync<object>(eventhub?.EventName!, eventArgs);
-                };
+                    return await js.InvokeAsync<object>(eventhub?.EventName!, eventArgs);
+                }
             }
 
             if (js != null)
             {
                 dotNetHelper = DotNetObjectReference.Create(this);
-                await js.InvokeVoidAsync("GreetingHelpers.setDotNetHelper", dotNetHelper);
+                await js.InvokeVoidAsync("CallHelpers.DotNetHelper", dotNetHelper);
             }
             base.OnInitialized();
+        }
+
+        [JSInvokable]
+        public async Task<object> CallWinFormMethod(string methodName, string name)
+        {
+            if (_eventHub == null)
+            {
+                throw new Exception("EventHus is null");
+            }
+            return await _eventHub.CallCSharpAsync(methodName, name);
         }
 
         public void Dispose()

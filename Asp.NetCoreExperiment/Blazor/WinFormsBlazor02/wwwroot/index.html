@@ -19,7 +19,8 @@
     </div>
     <script src="_framework/blazor.webview.js"></script>
     <script src="js/bootstrap.min.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
+    
     <script>
         function showtitle(title) {
             document.getElementById("title").innerText = title
@@ -30,7 +31,7 @@
 
             DotNet.invokeMethodAsync("WinFormsBlazor02", "CallStaticCSharpAsync", name)
                 .then(data => {
-                    document.getElementById("message").innerText = data                  
+                    document.getElementById("message").innerText = data
                 });
         };
         //调用实体化C#方法
@@ -42,8 +43,8 @@
             }
             static async callInstanceCSharp(name) {
                 const msg = await CallHelpers.dotNetHelper.invokeMethodAsync('CallInstanceCSharpAsync', name);
-                document.getElementById("message").innerText = msg            
-            }         
+                document.getElementById("message").innerText = msg
+            }
         }
         window.CallHelpers = CallHelpers;
     </script>

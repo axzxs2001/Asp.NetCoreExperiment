@@ -8,27 +8,30 @@ namespace WinFormsBlazor01
 {
     public class EventHub : IEventHub
     {
-        public event EventHubHandler<object?[]>? OnCallJS;
-
         public string? EventName { get; set; }
 
-        public void CallJS(string eventName, params object?[]? eventArgs)
-        {
-            if (OnCallJS != null)
-            {
-                EventName = eventName;
-                OnCallJS(this, eventArgs);
-            }
-        }
-        public event EventHubHandler<object?[]>? OnCallCSharp;
+        public event EventHubHandlerAsync<object?[]>? OnCallJSAsync;
 
-        public void CallCSharp(string eventName, params object?[]? eventArgs)
+        public async Task<object> CallJSAsync(string eventName, params object?[]? eventArgs)
         {
-            if (OnCallCSharp != null)
+            if (OnCallJSAsync != null)
             {
                 EventName = eventName;
-                OnCallCSharp(this, eventArgs);
+                return await OnCallJSAsync(this, eventArgs);               
             }
+            return await Task.FromResult("");
+        }
+
+        public event EventHubHandlerAsync<object?[]>? OnCallCSharpAsync;
+
+        public async Task<object> CallCSharpAsync(string eventName, params object?[]? eventArgs)
+        {
+            if (OnCallCSharpAsync != null)
+            {
+                EventName = eventName;
+                return await OnCallCSharpAsync(this, eventArgs);          
+            }
+            return "";
         }
     }
 }

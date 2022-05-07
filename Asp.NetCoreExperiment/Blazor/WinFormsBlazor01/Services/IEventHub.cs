@@ -6,18 +6,16 @@ using System.Threading.Tasks;
 
 namespace WinFormsBlazor01
 {
+    public delegate Task<object> EventHubHandlerAsync<TEventArgs>(object sender, TEventArgs? eventArgs);
+ 
     public interface IEventHub
     {
-        event EventHubHandler<object?[]>? OnCallJS;
-
-        void CallJS(string eventName, params object?[]? eventArgs);
-
-        event EventHubHandler<object?[]>? OnCallCSharp;
-
-        void CallCSharp(string eventName, params object?[]? eventArgs);
-
         string? EventName { get; set; }
-    }
+        
+        event EventHubHandlerAsync<object?[]>? OnCallJSAsync;
+        Task<object> CallJSAsync(string eventName, params object?[]? eventArgs);
 
-    public delegate void EventHubHandler<TEventArgs>(object sender, TEventArgs? eventArgs);
+        event EventHubHandlerAsync<object?[]>? OnCallCSharpAsync;
+        Task<object> CallCSharpAsync(string eventName, params object?[]? eventArgs);
+    }
 }

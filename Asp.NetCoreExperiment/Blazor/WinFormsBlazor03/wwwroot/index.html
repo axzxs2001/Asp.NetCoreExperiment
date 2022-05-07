@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WinFormsBlazor</title>
+    <base href="/" />
+    <link href="{PROJECT NAME}.styles.css" rel="stylesheet" />
+    <link href="css/app.css" rel="stylesheet" />
+    <link href="WinFormsBlazor.styles.css" rel="stylesheet" />
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="app" class="container">Loading...</div>
+    <div id="blazor-error-ui">
+        An unhandled error has occurred.
+        <a href="" class="reload">Reload</a>
+        <a class="dismiss">🗙</a>
+    </div>
+    <script src="_framework/blazor.webview.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
+
+
+    <script>
+
+        var data = {
+            labels: [2000],
+            datasets: [{
+                data: [500],
+                label: "张三",           
+                borderColor: "#ad255d",
+                fill: false
+            },
+            {
+                data: [500],
+                label: "李四",
+                 borderColor: "#3e95cd",          
+                fill: false
+            }
+            ]
+        }
+        
+        var optionsAnimation = {
+            animation: false,        
+            lineTension: 0.4,
+            scales: {
+                y: {
+                    min: -300,
+                    max: 300,
+                }
+            }            
+        }
+        var myLineChart
+        function createChart() {
+            var ctx = document.getElementById("myChart");
+            myLineChart = new Chart(ctx, {
+                type: 'line',
+                data: data,
+                options: optionsAnimation
+            });
+        }
+        function showLines(data, labels) {
+            this.data.labels = labels
+            this.data.datasets[0].data = data[0]
+            this.data.datasets[1].data = data[1]
+            myLineChart.update();
+        }
+    </script>
+</body>
+</html>
