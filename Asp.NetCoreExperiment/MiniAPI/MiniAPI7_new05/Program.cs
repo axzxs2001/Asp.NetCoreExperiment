@@ -25,8 +25,7 @@ app.MapGet("/test_file", () =>
     return TypedResults.File(bytes, contentType: "text", fileDownloadName: "test.txt");
 });
 app.MapGet("/test_physicalfile", () =>
-{
-    Results
+{  
     return TypedResults.PhysicalFile(Directory.GetCurrentDirectory() + "/download.txt", contentType: "text", fileDownloadName: "download.txt");
 });
 //app.MapGet("/test_virtualfile", () =>
