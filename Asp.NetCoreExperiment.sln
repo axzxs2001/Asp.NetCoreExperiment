@@ -486,6 +486,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiniAPI7_new06", "Asp.NetCo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChannelsDemo", "Asp.NetCoreExperiment\CSharp\ChannelsDemo\ChannelsDemo.csproj", "{66F2D13B-6E07-44CB-942C-AE6156196ECD}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Command", "Command", "{904BE231-38EA-4855-8E22-3813F3748749}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommandDemo01", "Asp.NetCoreExperiment\Command\CommandDemo01\CommandDemo01.csproj", "{EEC9C2C9-35DA-4C40-813C-31334CC6090C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -1204,6 +1208,10 @@ Global
 		{66F2D13B-6E07-44CB-942C-AE6156196ECD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{66F2D13B-6E07-44CB-942C-AE6156196ECD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{66F2D13B-6E07-44CB-942C-AE6156196ECD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EEC9C2C9-35DA-4C40-813C-31334CC6090C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EEC9C2C9-35DA-4C40-813C-31334CC6090C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EEC9C2C9-35DA-4C40-813C-31334CC6090C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EEC9C2C9-35DA-4C40-813C-31334CC6090C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1399,6 +1407,7 @@ Global
 		{98377785-1320-4AA1-808B-5DE945D3096F} = {0C2286BE-F1F4-4E52-A9FA-1EF056CD9159}
 		{5EEC0C96-5B89-4D56-B27C-97B5D2228521} = {8A78305E-BFFF-4F09-BE2F-3BAB7088C3FE}
 		{66F2D13B-6E07-44CB-942C-AE6156196ECD} = {0C2286BE-F1F4-4E52-A9FA-1EF056CD9159}
+		{EEC9C2C9-35DA-4C40-813C-31334CC6090C} = {904BE231-38EA-4855-8E22-3813F3748749}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
