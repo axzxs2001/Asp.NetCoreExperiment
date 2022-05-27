@@ -480,15 +480,19 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiniAPI7_new04", "Asp.NetCo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiniAPI7_new05", "Asp.NetCoreExperiment\MiniAPI\MiniAPI7_new05\MiniAPI7_new05.csproj", "{DF0A403B-B0E4-4633-BF27-4397E8A0342C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LittleTime", "Asp.NetCoreExperiment\CSharp\LittleTime\LittleTime.csproj", "{98377785-1320-4AA1-808B-5DE945D3096F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LittleTime", "Asp.NetCoreExperiment\CSharp\LittleTime\LittleTime.csproj", "{98377785-1320-4AA1-808B-5DE945D3096F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiniAPI7_new06", "Asp.NetCoreExperiment\MiniAPI\MiniAPI7_new06\MiniAPI7_new06.csproj", "{5EEC0C96-5B89-4D56-B27C-97B5D2228521}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChannelsDemo", "Asp.NetCoreExperiment\CSharp\ChannelsDemo\ChannelsDemo.csproj", "{66F2D13B-6E07-44CB-942C-AE6156196ECD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChannelsDemo", "Asp.NetCoreExperiment\CSharp\ChannelsDemo\ChannelsDemo.csproj", "{66F2D13B-6E07-44CB-942C-AE6156196ECD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Command", "Command", "{904BE231-38EA-4855-8E22-3813F3748749}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommandDemo01", "Asp.NetCoreExperiment\Command\CommandDemo01\CommandDemo01.csproj", "{EEC9C2C9-35DA-4C40-813C-31334CC6090C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CommandDemo01", "Asp.NetCoreExperiment\Command\CommandDemo01\CommandDemo01.csproj", "{EEC9C2C9-35DA-4C40-813C-31334CC6090C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MVC", "MVC", "{51A12DF0-D1A8-4C02-8A46-7291CF92802D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AttributeFilterDemo", "Asp.NetCoreExperiment\MVC\AttributeFilterDemo\AttributeFilterDemo.csproj", "{FDCBE1E8-0740-4C21-9A7C-0AAC21C9B816}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -1212,6 +1216,10 @@ Global
 		{EEC9C2C9-35DA-4C40-813C-31334CC6090C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EEC9C2C9-35DA-4C40-813C-31334CC6090C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EEC9C2C9-35DA-4C40-813C-31334CC6090C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FDCBE1E8-0740-4C21-9A7C-0AAC21C9B816}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FDCBE1E8-0740-4C21-9A7C-0AAC21C9B816}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FDCBE1E8-0740-4C21-9A7C-0AAC21C9B816}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FDCBE1E8-0740-4C21-9A7C-0AAC21C9B816}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1408,6 +1416,7 @@ Global
 		{5EEC0C96-5B89-4D56-B27C-97B5D2228521} = {8A78305E-BFFF-4F09-BE2F-3BAB7088C3FE}
 		{66F2D13B-6E07-44CB-942C-AE6156196ECD} = {0C2286BE-F1F4-4E52-A9FA-1EF056CD9159}
 		{EEC9C2C9-35DA-4C40-813C-31334CC6090C} = {904BE231-38EA-4855-8E22-3813F3748749}
+		{FDCBE1E8-0740-4C21-9A7C-0AAC21C9B816} = {51A12DF0-D1A8-4C02-8A46-7291CF92802D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
