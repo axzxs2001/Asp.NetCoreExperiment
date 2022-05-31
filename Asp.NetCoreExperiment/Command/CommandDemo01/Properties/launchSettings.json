@@ -2,7 +2,7 @@
   "profiles": {
     "CommandDemo01": {
       "commandName": "Project",
-      "commandLineArgs": "show Red"
+      "commandLineArgs": "show red green"
     }
   }
 }

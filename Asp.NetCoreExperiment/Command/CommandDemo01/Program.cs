@@ -8,11 +8,170 @@ using System.CommandLine.Parsing;
 
 //await Command01Async(args);
 
-await Command04Async(args);
+//await Command04Async(args);
 //await Command05Async(args);
 //await Command06Async(args);
+//await Command07Async(args);
 
-//dotnet run show green red
+//await Command08Async(args);
+
+//await Command09Async(args);
+
+await Command10Async(args);
+
+//这个方法无法输入，请换用Option
+static async Task Command10Async(string[] args)
+{
+    //创建根命令
+    var rootCommand = new RootCommand("这是一个命令行工具：旦猫");
+    rootCommand.SetHandler(() =>
+    {
+        Console.WriteLine("欢迎使用《旦猫》");
+    });
+    //创建子命令 show
+    var showCommand = new Command("show", "显示一些信息");
+
+
+    //创建参数 color
+    var colorArgument = new Argument<ConsoleColor[]>(name: "color", description: "设置输出信息的色彩", parse: ParseColor<ConsoleColor>)
+    {
+        Arity = ArgumentArity.OneOrMore,
+    };
+    //类型转换内置方法
+    ConsoleColor[] ParseColor<ConsoleColor>(ArgumentResult result)
+    {
+        var colors = new List<ConsoleColor>();
+        foreach (var color in result.Tokens)
+        {
+            colors.Add((ConsoleColor)Enum.Parse(typeof(ConsoleColor), color.Value.ToString(), true));
+        }
+        return colors.ToArray();
+    }
+    //创建参数 times
+    var timesArgument = new Argument<int[]>(name: "times", description: "设置输出的次数")
+    {
+        //这里设置只有一个times参数
+        Arity = ArgumentArity.ZeroOrMore,
+    };
+    //添加参数到show命令中
+    showCommand.AddArgument(timesArgument);
+    showCommand.AddArgument(colorArgument);
+    //设置命令show执行的动作，这是带上times参数，类型为ConsoleColor数组
+    showCommand.SetHandler((int[] times, ConsoleColor[] colors) =>
+    {
+        foreach (var time in times)
+        {
+            Console.WriteLine($"这是《旦猫》的show命令,time:{time}");
+        }
+        foreach (var color in colors)
+        {
+            Console.ForegroundColor = color;
+            Console.WriteLine($"这是《旦猫》的show命令");
+            Console.ResetColor();
+        }
+    }, timesArgument, colorArgument);
+    //添加命令show到 根命令中
+    rootCommand.Add(showCommand);
+    await rootCommand.InvokeAsync(args);
+}
+
+
+static async Task Command09Async(string[] args)
+{
+    //创建根命令
+    var rootCommand = new RootCommand("这是一个命令行工具：旦猫");
+    rootCommand.SetHandler(() =>
+    {
+        Console.WriteLine("欢迎使用《旦猫》");
+    });
+    //创建子命令 show
+    var showCommand = new Command("show", "显示一些信息");
+
+
+    //创建参数 color
+    var colorArgument = new Argument<ConsoleColor[]>(name: "color", description: "设置输出信息的色彩", parse: ParseColor<ConsoleColor>)
+    {
+        Arity = ArgumentArity.OneOrMore,
+    };
+    //类型转换内置方法
+    ConsoleColor[] ParseColor<ConsoleColor>(ArgumentResult result)
+    {
+        var colors = new List<ConsoleColor>();
+        foreach (var color in result.Tokens)
+        {
+            colors.Add((ConsoleColor)Enum.Parse(typeof(ConsoleColor), color.Value.ToString(), true));
+        }
+        return colors.ToArray();
+    }
+    //创建参数 times
+    var timesArgument = new Argument<int>(name: "times", description: "设置输出的次数")
+    {
+        //这里设置只有一个times参数
+        Arity = ArgumentArity.ExactlyOne,
+    };
+    //添加参数到show命令中
+    showCommand.AddArgument(timesArgument);
+    showCommand.AddArgument(colorArgument);
+    //设置命令show执行的动作，这是带上times参数，类型为ConsoleColor数组
+    showCommand.SetHandler((int times, ConsoleColor[] colors) =>
+    {
+        for (var i = 1; i <= times; i++)
+        {
+            foreach (var color in colors)
+            {
+                Console.ForegroundColor = color;
+                Console.WriteLine($"这是《旦猫》的show命令");
+                Console.ResetColor();
+            }
+        }
+    }, timesArgument, colorArgument);
+    //添加命令show到 根命令中
+    rootCommand.Add(showCommand);
+    await rootCommand.InvokeAsync(args);
+}
+
+static async Task Command08Async(string[] args)
+{
+    //创建根命令
+    var rootCommand = new RootCommand("这是一个命令行工具：旦猫");
+    rootCommand.SetHandler(() =>
+    {
+        Console.WriteLine("欢迎使用《旦猫》");
+    });
+    //创建子命令 show
+    var showCommand = new Command("show", "显示一些信息");
+
+    //创建参数 color
+    var colorArgument = new Argument<string>(name: "color", description: "设置输出信息的色彩")
+    {
+        //这里设置只有一个color参数
+        Arity = ArgumentArity.ExactlyOne,
+    };
+    //创建参数 times
+    var timesArgument = new Argument<int>(name: "times", description: "设置输出的次数")
+    {
+        //这里设置只有一个times参数
+        Arity = ArgumentArity.ExactlyOne,
+    };
+    //添加参数到show命令中
+    showCommand.AddArgument(colorArgument);
+    showCommand.AddArgument(timesArgument);
+    //设置命令show执行的动作，这是带上color参数，类型为string
+    showCommand.SetHandler((string color, int times) =>
+    {
+        for (var i = 1; i <= times; i++)
+        {
+            Console.ForegroundColor = (ConsoleColor)Enum.Parse(typeof(ConsoleColor), color, true);
+            Console.WriteLine($"这是《旦猫》的show命令");
+        }
+        Console.ResetColor();
+    }, colorArgument, timesArgument);
+    //添加命令show到 根命令中
+    rootCommand.Add(showCommand);
+    await rootCommand.InvokeAsync(args);
+}
+
+
 static async Task Command06Async(string[] args)
 {
     //创建根命令
@@ -31,7 +190,7 @@ static async Task Command06Async(string[] args)
     };
     //添加参数到show命令中
     showCommand.AddArgument(showArgument);
-    //设置命令show执行的动作，这是带上times参数，类型为整弄
+    //设置命令show执行的动作，这是带上times参数，类型为string数组
     showCommand.SetHandler((string[] colors) =>
     {
         foreach (var color in colors)
@@ -47,6 +206,52 @@ static async Task Command06Async(string[] args)
                     break;
                 }
             }
+        }
+    }, showArgument);
+    //添加命令show到 根命令中
+    rootCommand.Add(showCommand);
+    await rootCommand.InvokeAsync(args);
+}
+
+
+static async Task Command07Async(string[] args)
+{
+    //创建根命令
+    var rootCommand = new RootCommand("这是一个命令行工具：旦猫");
+    rootCommand.SetHandler(() =>
+    {
+        Console.WriteLine("欢迎使用《旦猫》");
+    });
+    //创建子命令 show
+    var showCommand = new Command("show", "显示一些信息");
+
+
+    //创建参数 color
+    var showArgument = new Argument<ConsoleColor[]>(name: "color", description: "设置输出信息的色彩", parse: ParseColor<ConsoleColor>)
+    {
+        Arity = ArgumentArity.OneOrMore,
+    };
+    //类型转换内置方法
+    ConsoleColor[] ParseColor<ConsoleColor>(ArgumentResult result)
+    {
+        var colors = new List<ConsoleColor>();
+        foreach (var color in result.Tokens)
+        {
+            colors.Add((ConsoleColor)Enum.Parse(typeof(ConsoleColor), color.Value.ToString(), true));
+        }
+        return colors.ToArray();
+    }
+
+    //添加参数到show命令中
+    showCommand.AddArgument(showArgument);
+    //设置命令show执行的动作，这是带上times参数，类型为ConsoleColor数组
+    showCommand.SetHandler((ConsoleColor[] colors) =>
+    {
+        foreach (var color in colors)
+        {
+            Console.ForegroundColor = color;
+            Console.WriteLine($"这是《旦猫》的show命令");
+            Console.ResetColor();
         }
     }, showArgument);
     //添加命令show到 根命令中
@@ -71,6 +276,7 @@ static async Task Command05Async(string[] args)
     {
         Arity = ArgumentArity.ExactlyOne,
     };
+    //类型转换内置方法
     ConsoleColor ParseColor<ConsoleColor>(ArgumentResult result)
     {
         var color = result.Tokens[0].Value;
@@ -78,7 +284,7 @@ static async Task Command05Async(string[] args)
     }
     //添加参数到show命令中
     showCommand.AddArgument(showArgument);
-    //设置命令show执行的动作，这是带上times参数，类型为整弄
+    //设置命令show执行的动作，这是带上times参数，类型为ConsoleColor
     showCommand.SetHandler((ConsoleColor color) =>
     {
         Console.ForegroundColor = color;
@@ -105,16 +311,17 @@ static async Task Command04Async(string[] args)
     //创建参数 color
     var showArgument = new Argument<string>(name: "color", description: "设置输出信息的色彩")
     {
+        //这里设置只有一个color参数
         Arity = ArgumentArity.ExactlyOne,
     };
     //添加参数到show命令中
     showCommand.AddArgument(showArgument);
-    //设置命令show执行的动作，这是带上times参数，类型为整弄
+    //设置命令show执行的动作，这是带上color参数，类型为string
     showCommand.SetHandler((string color) =>
     {
-        Console.ForegroundColor = (ConsoleColor)Enum.Parse(typeof(ConsoleColor), color,true);
+        Console.ForegroundColor = (ConsoleColor)Enum.Parse(typeof(ConsoleColor), color, true);
         Console.WriteLine($"这是《旦猫》的show命令");
-        Console.ResetColor();      
+        Console.ResetColor();
     }, showArgument);
     //添加命令show到 根命令中
     rootCommand.Add(showCommand);
