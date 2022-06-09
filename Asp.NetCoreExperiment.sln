@@ -492,12 +492,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CommandDemo01", "Asp.NetCor
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MVC", "MVC", "{51A12DF0-D1A8-4C02-8A46-7291CF92802D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AttributeFilterDemo", "Asp.NetCoreExperiment\MVC\AttributeFilterDemo\AttributeFilterDemo.csproj", "{FDCBE1E8-0740-4C21-9A7C-0AAC21C9B816}"
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CommandDemo01", "Asp.NetCoreExperiment\Command\CommandDemo01\CommandDemo01.csproj", "{EEC9C2C9-35DA-4C40-813C-31334CC6090C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AttributeFilterDemo", "Asp.NetCoreExperiment\MVC\AttributeFilterDemo\AttributeFilterDemo.csproj", "{FDCBE1E8-0740-4C21-9A7C-0AAC21C9B816}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "QuestPDF", "QuestPDF", "{81240DAF-191C-4245-A4A2-445032C9CBB9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuestPDFDemo01", "Asp.NetCoreExperiment\QuestPDF\QuestPDFDemo01\QuestPDFDemo01.csproj", "{78751C98-84BB-438D-B8FA-5934AC3465C6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuestPDFDemo01", "Asp.NetCoreExperiment\QuestPDF\QuestPDFDemo01\QuestPDFDemo01.csproj", "{78751C98-84BB-438D-B8FA-5934AC3465C6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -1221,6 +1220,14 @@ Global
 		{EEC9C2C9-35DA-4C40-813C-31334CC6090C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EEC9C2C9-35DA-4C40-813C-31334CC6090C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EEC9C2C9-35DA-4C40-813C-31334CC6090C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FDCBE1E8-0740-4C21-9A7C-0AAC21C9B816}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FDCBE1E8-0740-4C21-9A7C-0AAC21C9B816}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FDCBE1E8-0740-4C21-9A7C-0AAC21C9B816}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FDCBE1E8-0740-4C21-9A7C-0AAC21C9B816}.Release|Any CPU.Build.0 = Release|Any CPU
+		{78751C98-84BB-438D-B8FA-5934AC3465C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78751C98-84BB-438D-B8FA-5934AC3465C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78751C98-84BB-438D-B8FA-5934AC3465C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78751C98-84BB-438D-B8FA-5934AC3465C6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
