@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "CommandDemo01": {
+      "commandName": "Project",
+      "commandLineArgs": "show red green"
+    }
+  }
+}
