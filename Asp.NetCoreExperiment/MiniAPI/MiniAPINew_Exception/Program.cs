@@ -50,13 +50,13 @@ public class OrderService : IOrderServgice
 
 public class Result<T>
 {
-    private readonly Exception? _exception;
-    private readonly T _value;
+    private readonly Exception _exception;
+    private readonly T? _value;
 
     public Result(T value)
     {
         _value = value;
-        _exception = null;
+        _exception = new Exception();
     }
     public Result(Exception exception)
     {
@@ -64,9 +64,9 @@ public class Result<T>
         _value = default(T);
     }
 
-    public static implicit operator Result<T>(T value) => new Result<T>(value);
+    //public static implicit operator Result<T>(T value) => new Result<T>(value);
 
-    public static implicit operator Result<T>(Exception exception) => new Result<T>(exception);
+    //public static implicit operator Result<T>(Exception exception) => new Result<T>(exception);
 
     public IResult Match(Func<T, IResult> onSuccess, Func<Exception, IResult> onFailure)
     {
