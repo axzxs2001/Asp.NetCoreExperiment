@@ -7,17 +7,18 @@ builder.Services.AddScoped<IOrderServgice, OrderService>();
 var app = builder.Build();
 
 
-app.MapGet("/test/{name}", (IOrderServgice orderServgice,string name) =>
+app.MapGet("/test/{name}", (IOrderServgice orderServgice, string name) =>
 {
     var r = orderServgice.AddOrder(name);
     return r.Match(
          s =>
          {
 
-             return TypedResults.Ok();
+             return TypedResults.Ok(s);
          },
          f =>
          {
+             Console.WriteLine(f.Message);
              return TypedResults.StatusCode(500);
          });
 
@@ -48,7 +49,7 @@ public class OrderService : IOrderServgice
 }
 
 public class Result<T>
-{  
+{
     private readonly Exception? _exception;
     private readonly T _value;
 
