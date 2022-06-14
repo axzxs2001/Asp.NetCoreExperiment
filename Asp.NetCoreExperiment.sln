@@ -498,7 +498,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "QuestPDF", "QuestPDF", "{81
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuestPDFDemo01", "Asp.NetCoreExperiment\QuestPDF\QuestPDFDemo01\QuestPDFDemo01.csproj", "{78751C98-84BB-438D-B8FA-5934AC3465C6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniAPINew_Exception", "Asp.NetCoreExperiment\MiniAPI\MiniAPINew_Exception\MiniAPINew_Exception.csproj", "{23324F03-87C8-440B-A241-9EBEE8530A02}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiniAPINew_Exception", "Asp.NetCoreExperiment\MiniAPI\MiniAPINew_Exception\MiniAPINew_Exception.csproj", "{23324F03-87C8-440B-A241-9EBEE8530A02}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniAPIRouteDemo", "Asp.NetCoreExperiment\MiniAPI\MiniAPIRouteDemo\MiniAPIRouteDemo.csproj", "{1E092601-A2D4-41A0-96D9-8D8BF82A9D3C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -1234,6 +1236,10 @@ Global
 		{23324F03-87C8-440B-A241-9EBEE8530A02}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{23324F03-87C8-440B-A241-9EBEE8530A02}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{23324F03-87C8-440B-A241-9EBEE8530A02}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E092601-A2D4-41A0-96D9-8D8BF82A9D3C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E092601-A2D4-41A0-96D9-8D8BF82A9D3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E092601-A2D4-41A0-96D9-8D8BF82A9D3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E092601-A2D4-41A0-96D9-8D8BF82A9D3C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1433,6 +1439,7 @@ Global
 		{FDCBE1E8-0740-4C21-9A7C-0AAC21C9B816} = {0C2286BE-F1F4-4E52-A9FA-1EF056CD9159}
 		{78751C98-84BB-438D-B8FA-5934AC3465C6} = {81240DAF-191C-4245-A4A2-445032C9CBB9}
 		{23324F03-87C8-440B-A241-9EBEE8530A02} = {8A78305E-BFFF-4F09-BE2F-3BAB7088C3FE}
+		{1E092601-A2D4-41A0-96D9-8D8BF82A9D3C} = {8A78305E-BFFF-4F09-BE2F-3BAB7088C3FE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
