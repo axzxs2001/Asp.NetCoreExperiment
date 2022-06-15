@@ -500,7 +500,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuestPDFDemo01", "Asp.NetCo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiniAPINew_Exception", "Asp.NetCoreExperiment\MiniAPI\MiniAPINew_Exception\MiniAPINew_Exception.csproj", "{23324F03-87C8-440B-A241-9EBEE8530A02}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniAPIRouteDemo", "Asp.NetCoreExperiment\MiniAPI\MiniAPIRouteDemo\MiniAPIRouteDemo.csproj", "{1E092601-A2D4-41A0-96D9-8D8BF82A9D3C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiniAPIRouteDemo", "Asp.NetCoreExperiment\MiniAPI\MiniAPIRouteDemo\MiniAPIRouteDemo.csproj", "{1E092601-A2D4-41A0-96D9-8D8BF82A9D3C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniAPI7_new07", "Asp.NetCoreExperiment\MiniAPI\MiniAPI7_new07\MiniAPI7_new07.csproj", "{72D008F2-0A0C-4D33-8527-DD8EB1EA7DE4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -1240,6 +1242,10 @@ Global
 		{1E092601-A2D4-41A0-96D9-8D8BF82A9D3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1E092601-A2D4-41A0-96D9-8D8BF82A9D3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1E092601-A2D4-41A0-96D9-8D8BF82A9D3C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72D008F2-0A0C-4D33-8527-DD8EB1EA7DE4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72D008F2-0A0C-4D33-8527-DD8EB1EA7DE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72D008F2-0A0C-4D33-8527-DD8EB1EA7DE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72D008F2-0A0C-4D33-8527-DD8EB1EA7DE4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1440,6 +1446,7 @@ Global
 		{78751C98-84BB-438D-B8FA-5934AC3465C6} = {81240DAF-191C-4245-A4A2-445032C9CBB9}
 		{23324F03-87C8-440B-A241-9EBEE8530A02} = {8A78305E-BFFF-4F09-BE2F-3BAB7088C3FE}
 		{1E092601-A2D4-41A0-96D9-8D8BF82A9D3C} = {8A78305E-BFFF-4F09-BE2F-3BAB7088C3FE}
+		{72D008F2-0A0C-4D33-8527-DD8EB1EA7DE4} = {8A78305E-BFFF-4F09-BE2F-3BAB7088C3FE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
