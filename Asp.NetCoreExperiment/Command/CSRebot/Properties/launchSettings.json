@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "CSRebot": {
+      "commandName": "Project",
+      "commandLineArgs": "dbto -l C# -constr \"server=localhost;database=testdb;uid=sa;pwd=sa;encrypt=true;trustservercertificate=true\" -t mssql",
+      "sqlDebugging": true
+    }
+  }
+}

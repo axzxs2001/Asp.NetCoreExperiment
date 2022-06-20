@@ -15,11 +15,11 @@ using System.CommandLine.Parsing;
 
 //await Command08Async(args);
 
-//await Command09Async(args);
+await Command09Async(args);
 
-await Command10Async(args);
+//await Command10Async(args);
 
-//这个方法无法输入，请换用Option
+//这个方法无法输入，请换用Option，因为两个参数都是数组，无法知道那里是数组和数组的边界
 static async Task Command10Async(string[] args)
 {
     //创建根命令
@@ -329,41 +329,41 @@ static async Task Command04Async(string[] args)
 }
 
 
-//static async Task Command03Async(string[] args)
-//{
-//    await new DateCommand().InvokeAsync(args);
-//}
+static async Task Command03Async(string[] args)
+{
+    await new DateCommand().InvokeAsync(args);
+}
 
-//static async Task Command02Async(string[] args)
-//{
-//    //创建根命令
-//    var rootCommand = new RootCommand("这是一个命令行工具：旦猫");
-//    rootCommand.SetHandler(() =>
-//    {
-//        Console.WriteLine("欢迎使用《旦猫》");
-//    });
-//    //创建子命令 show
-//    var showCommand = new Command("show", "显示一些信息");
-//    //创建子命令选项 times 别名 t
-//    var timesOption = new Option<int>(name: "--times", description: "显示的次数", getDefaultValue: () => 1)
-//    {
-//        IsHidden = true,
-//    };
-//    timesOption.AddAlias("-t");
-//    //添加选项到show命令中
-//    showCommand.AddOption(timesOption);
-//    //设置命令show执行的动作，这是带上times参数，类型为整弄
-//    showCommand.SetHandler((int times) =>
-//    {
-//        for (var i = 1; i <= times; i++)
-//        {
-//            Console.WriteLine($"这是《旦猫》的show命令,显示次数={i}");
-//        }
-//    }, timesOption);
-//    //添加命令show到 根命令中
-//    rootCommand.Add(showCommand);
-//    await rootCommand.InvokeAsync(args);
-//}
+static async Task Command02Async(string[] args)
+{
+    //创建根命令
+    var rootCommand = new RootCommand("这是一个命令行工具：旦猫");
+    rootCommand.SetHandler(() =>
+    {
+        Console.WriteLine("欢迎使用《旦猫》");
+    });
+    //创建子命令 show
+    var showCommand = new Command("show", "显示一些信息");
+    //创建子命令选项 times 别名 t
+    var timesOption = new Option<int>(name: "--times", description: "显示的次数", getDefaultValue: () => 1)
+    {
+        IsHidden = true,
+    };
+    timesOption.AddAlias("-t");
+    //添加选项到show命令中
+    showCommand.AddOption(timesOption);
+    //设置命令show执行的动作，这是带上times参数，类型为整弄
+    showCommand.SetHandler((int times) =>
+    {
+        for (var i = 1; i <= times; i++)
+        {
+            Console.WriteLine($"这是《旦猫》的show命令,显示次数={i}");
+        }
+    }, timesOption);
+    //添加命令show到 根命令中
+    rootCommand.Add(showCommand);
+    await rootCommand.InvokeAsync(args);
+}
 
 
 //static async Task Command01Async(string[] args)
