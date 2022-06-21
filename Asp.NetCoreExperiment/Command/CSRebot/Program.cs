@@ -2,14 +2,24 @@
 using System.CommandLine;
 using System.CommandLine.Binding;
 using System.Data;
-using Dapper;
 using System.Text;
+using System;
 
+
+//dotnet run dbto -l C# -constr 'server=localhost;database=mqpay;uid=sa;pwd=sa;encrypt=true;trustservercertificate=true' -t mssql
+
+//完成后，选中项目并打包，然后进入项目所有的文件夹执行工具安装命令
+//dotnet tool install -g --add-source ./nupkg CSRebot
 //创建根命令
 var rootCommand = new RootCommand("这是一款C#开发辅助工具，CSRebot");
 rootCommand.SetHandler(() =>
 {
-    Console.WriteLine("欢迎使用CSRebot");
+    Console.WriteLine("老桂欢迎您使用CSRebot!");
+    Console.ForegroundColor = ConsoleColor.Green;
+    Console.WriteLine("\r\n   ___________ ____       __          __ \r\n  / ____/ ___// __ \\___  / /_  ____  / /_\r\n / /    \\__ \\/ /_/ / _ \\/ __ \\/ __ \\/ __/\r\n/ /___ ___/ / _, _/  __/ /_/ / /_/ / /_  \r\n\\____//____/_/ |_|\\___/_.___/\\____/\\__/  \r\n                                         \r\n");
+    Console.ResetColor();
+    Console.WriteLine("help command：csrebot -h");
+    Console.WriteLine();
 });
 //创建子命令 show
 var dbtoCommand = new Command("dbto", "从数据库生成");
@@ -80,7 +90,6 @@ static async Task DBToCSharpAsync(string connectionString, string dbType)
     {
         case "mssql":
             await MSSQLToCSharpAsync(connectionString);
-            Console.WriteLine("mssql");
             break;
 
         default:
@@ -91,7 +100,16 @@ static async Task DBToCSharpAsync(string connectionString, string dbType)
 static async Task MSSQLToCSharpAsync(string connectionString)
 {
     using var con = new SqlConnection(connectionString);
-    var tableNames = await con.QueryAsync<string>("select name from sysobjects where xtype='U'");
+    using var cmd = new SqlCommand("select name from sysobjects where xtype='U'", con);
+    await con.OpenAsync();
+    using var reader = await cmd.ExecuteReaderAsync();
+    var tableNames = new List<string>();
+    while (reader.Read())
+    {
+        tableNames.Add(reader.GetString(0));
+    }
+    await reader.CloseAsync();
+
     var dbPath = $"{Environment.CurrentDirectory}\\{con.Database}";
     if (!Directory.Exists(dbPath))
     {
@@ -99,7 +117,17 @@ static async Task MSSQLToCSharpAsync(string connectionString)
     }
     foreach (var tableName in tableNames)
     {
-        var tablefieldses = await con.QueryAsync<dynamic>("SELECT syscolumns.name,systypes.name as typename FROM syscolumns, systypes WHERE syscolumns.xusertype = systypes.xusertype AND syscolumns.id = object_id(@tablename)", new { tableName });
+        using var fileCmd = new SqlCommand("SELECT syscolumns.name,systypes.name as typename FROM syscolumns, systypes WHERE syscolumns.xusertype = systypes.xusertype AND syscolumns.id = object_id(@tablename)", con);
+        fileCmd.Parameters.Add("tablename", SqlDbType.VarChar).Value = tableName;
+        using var fileReader = await fileCmd.ExecuteReaderAsync();
+        var tablefieldses = new List<dynamic>();
+        while (fileReader.Read())
+        {
+            tablefieldses.Add(new { name = fileReader.GetString(0), typename = fileReader.GetString(1) });
+        }
+        fileReader.Close();
+        await fileReader.DisposeAsync();
+
         var csBuilder = new StringBuilder();
         csBuilder.AppendLine($"public class {tableName}");
         csBuilder.AppendLine("{");
@@ -118,11 +146,36 @@ static class TypeMap
 {
     internal static Dictionary<string, string> MSSQLToCSharp => new Dictionary<string, string>
     {
+        {"bigint","long"},
+        {"binary","byte[]"},
+        {"bit","bool"},
+        {"char","string"},
+        {"date","DateTime"},
+        {"datetime","DateTime"},
+        {"datetime2","DateTime"},
+        {"datetimeoffset","DateTimeOffset" },
+        {"decimal","decimal" },
+        {"float","double" },
+        {"image","byte[]" },
         {"int","int" },
-        {"varchar","string" },
+        {"money","decimal" },
+        {"nchar","string" },
+        {"ntext","string" },
+        {"numeric","decimal" },
         {"nvarchar","string" },
-        {"bit","bool" },
-        {"bigint","long" },
+        {"real","float" },
+        {"rowversion","byte[]" },
+        {"smalldatetime","DateTime" },
+        {"smallint","short" },
+        {"smallmoney","decimal" },
+        {"sql_variant","object"},
+        {"text","string" },
+        {"time","TimeSpan" },
+        {"timestamp","byte[]" },
+        {"tinyint","byte" },
+        {"uniqueidentifier","Guid" },
+        {"varbinary","byte[]" },
+        {"varchar","string" },
     };
 
     internal static Dictionary<string, string> MySQLToCSharp => new Dictionary<string, string>
