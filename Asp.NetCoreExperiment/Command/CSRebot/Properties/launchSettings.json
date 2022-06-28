@@ -2,7 +2,7 @@
   "profiles": {
     "CSRebot": {
       "commandName": "Project",
-      "commandLineArgs": "dbto -l C# -constr \"server=localhost;database=testdb;uid=sa;pwd=sa;encrypt=true;trustservercertificate=true\" -t mssql",
+      "commandLineArgs": "dbto -l C# -constr 'server=localhost;database=starpay;uid=root;pwd=gsw790622;' -t mysql",
       "sqlDebugging": true
     }
   }
