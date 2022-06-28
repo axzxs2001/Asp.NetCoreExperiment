@@ -37,7 +37,7 @@ var dbtoCommand = new Command("dbto", "从数据库生成");
 var languageOption = new Option<string>(name: "--language", description: "从数据库生成实体类的语言")
 {
     IsRequired = true,
-}.FromAmong("c#", "C#", "csharp", "CSharp", "go", "GO", "java", "JAVA");
+}.FromAmong("c#", "C#", "csharp", "CSharp", "CSHARP", "go", "GO", "java", "JAVA");
 languageOption.AddAlias("-lan");
 languageOption.AddAlias("-l");
 //添加language选项到dbto命令中
