@@ -15,6 +15,7 @@ using NpgsqlTypes;
 
 //dotnet run dbto -l C# -constr 'server=localhost;database=abcd;uid=sa;pwd=sa;encrypt=true;trustservercertificate=true' -t mssql
 //dotnet run dbto -l C# -constr 'server=localhost;database=abcd;uid=root;pwd=mars2020;' -t mysql
+//dotnet run dbto -l C# -constr 'Server=127.0.0.1;Port=5432;UserId=postgres;Password=postgres2018;Database=stealthdb;'-t pgsql
 //完成后，选中项目并打包，然后进入项目所有的文件夹执行工具安装命令
 //dotnet tool install -g --add-source ./nupkg CSRebot
 //创建根命令
@@ -266,7 +267,7 @@ AND A.atttypid=T.oid;", con);
         var tablefieldses = new List<dynamic>();
         while (fileReader.Read())
         {
-            tablefieldses.Add(new { name = fileReader.GetString(0), typename = fileReader.GetString(1), comment = fileReader.GetString(2), isnull = fileReader.GetBoolean(3) });
+            tablefieldses.Add(new { name = fileReader.GetString(0), typename = fileReader.GetString(1), comment = fileReader.IsDBNull(2) ? null : fileReader.GetString(2), isnull = fileReader.GetBoolean(3) });
         }
         fileReader.Close();
         await fileReader.DisposeAsync();
@@ -346,7 +347,7 @@ static class TypeMap
         {"mediumint","int" },
         {"mediumint unsigned","int" },
         {"bigint","long" },
-        {"bigint unsigned","ulong" },        
+        {"bigint unsigned","ulong" },
         {"float","float" },
         {"double","double" },
         {"real","double" },
@@ -386,6 +387,7 @@ static class TypeMap
     };
     internal static Dictionary<string, string> PgSQLToCSharp => new Dictionary<string, string>
     {
+        {"bool","bool" },
         {"boolean","bool" },
         {"smallint","short" },
         {"int2","short" },
@@ -404,10 +406,9 @@ static class TypeMap
         {"timestamp with time zone","DateTime" },
         {"timestamp without time zone","DateTime" },
         {"time","DateTime" },
-        {"time with time zone","DateTime" },
+        {"time with time zone","DateTimeOffset" },
         {"time without time zone","DateTime" },
-        {"interval","DateTime" },
-        {"timestamp with time zone","DateTimeOffset" },
+        {"interval","DateTime" },      
         {"char","string" },
         {"varchar","string" },
         {"text","string" },
