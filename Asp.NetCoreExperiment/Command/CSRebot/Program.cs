@@ -11,6 +11,7 @@ using File = System.IO.File;
 using MySql.Data.MySqlClient;
 using Npgsql;
 using NpgsqlTypes;
+using System.Drawing;
 
 
 //dotnet run dbto -l C# -constr 'server=localhost;database=abcd;uid=sa;pwd=sa;encrypt=true;trustservercertificate=true' -t mssql
@@ -69,15 +70,17 @@ dbtoCommand.AddOption(dbTypeOption);
 #endregion
 
 //设置命令dbto执行的动作，这是带上language参数
-dbtoCommand.SetHandler(async (string language, string connectionstring, string dbType) =>
+dbtoCommand.SetHandler(async (string language, string connectionString, string dbType) =>
 {
+    var dataBase = await GetDataBaseInfomationAsync(connectionString, dbType);
     switch (language.ToLower())
     {
         case "c#":
         case "csharp":
-            await DBToCSharpAsync(connectionstring, dbType);
+            await DBToCSharpAsync(dataBase.DBName, dbType, dataBase.Tables);
             break;
         case "go":
+
             break;
         case "java":
             break;
@@ -92,25 +95,57 @@ rootCommand.Add(dbtoCommand);
 await rootCommand.InvokeAsync(args);
 
 
-static async Task DBToCSharpAsync(string connectionString, string dbType)
+#region 生成的语言c#,go
+static async Task DBToCSharpAsync(string dbName, string dbType, List<(string TableName, List<dynamic> Columns)> tables)
+{
+
+    var dbPath = $"{Environment.CurrentDirectory}\\{dbName}";
+    if (!Directory.Exists(dbPath))
+    {
+        Directory.CreateDirectory(dbPath);
+    }
+    foreach (var table in tables)
+    {
+        var csBuilder = new StringBuilder();
+        csBuilder.AppendLine($"public class {table.TableName}");
+        csBuilder.AppendLine("{");
+        foreach (var column in table.Columns)
+        {
+            var typeName = TypeMap.Types[dbType][column.typename];
+            var name = column.name;
+            if (!string.IsNullOrWhiteSpace(column.comment))
+            {
+                csBuilder.AppendLine(@$"
+   /// <summary>
+   /// {column.comment}
+   /// </summary>");
+            }
+            csBuilder.AppendLine($"   public {(typeName == "string" && column.isnull == "YES" ? "string?" : typeName)} {name}{{get;set;}}");
+        }
+        csBuilder.AppendLine("}");
+        await File.WriteAllTextAsync($"{dbPath}\\{table.TableName}.cs", csBuilder.ToString(), Encoding.UTF8);
+    }
+}
+#endregion
+
+#region 获取mssql,mysql,pgsql的库，表信息
+static async Task<(string DBName, List<(string TableName, List<dynamic> Columns)> Tables)> GetDataBaseInfomationAsync(string connectionString, string dbType)
 {
     switch (dbType.ToLower())
     {
         case "mssql":
-            await MSSQLToCSharpAsync(connectionString);
-            break;
+            return await GetMSSQLInfomationAsync(connectionString);
         case "mysql":
-            await MySQLToCSharpAsync(connectionString);
-            break;
+            return await GetMySQLInfomationAsync(connectionString);
         case "pgsql":
-            await PgSQLToCSharpAsync(connectionString);
-            break;
+            return await GetPgSQLInfomationAsync(connectionString);
         default:
-            break;
+            throw new Exception($"\"{dbType}\" is error");
     }
+
 }
 
-static async Task MSSQLToCSharpAsync(string connectionString)
+static async Task<(string DBName, List<(string TableName, List<dynamic> Columns)> Tables)> GetMSSQLInfomationAsync(string connectionString)
 {
     using var con = new SqlConnection(connectionString);
     using var cmd = new SqlCommand("select name from sysobjects where xtype='U'", con);
@@ -122,12 +157,7 @@ static async Task MSSQLToCSharpAsync(string connectionString)
         tableNames.Add(reader.GetString(0));
     }
     await reader.CloseAsync();
-
-    var dbPath = $"{Environment.CurrentDirectory}\\{con.Database}";
-    if (!Directory.Exists(dbPath))
-    {
-        Directory.CreateDirectory(dbPath);
-    }
+    var tablesInformations = new List<(string TableName, List<dynamic> Columns)>();
     foreach (var tableName in tableNames)
     {
         using var fileCmd = new SqlCommand(@"
@@ -151,30 +181,13 @@ where t.name=@tablename and col.TABLE_NAME=@tablename
         }
         fileReader.Close();
         await fileReader.DisposeAsync();
-
-        var csBuilder = new StringBuilder();
-        csBuilder.AppendLine($"public class {tableName}");
-        csBuilder.AppendLine("{");
-        foreach (var tablefields in tablefieldses)
-        {
-            var typeName = TypeMap.MSSQLToCSharp[tablefields.typename];
-            var name = tablefields.name;
-            if (!string.IsNullOrWhiteSpace(tablefields.comment))
-            {
-                csBuilder.AppendLine(@$"
-   /// <summary>
-   /// {tablefields.comment}
-   /// </summary>");
-            }
-            csBuilder.AppendLine($"   public {(typeName == "string" && tablefields.isnull == "YES" ? "string?" : typeName)} {name}{{get;set;}}");
-        }
-        csBuilder.AppendLine("}");
-        File.WriteAllText($"{dbPath}\\{tableName}.cs", csBuilder.ToString(), Encoding.UTF8);
+        tablesInformations.Add((tableName, tablefieldses));
     }
+
+    return (con.Database, tablesInformations);
 }
 
-
-static async Task MySQLToCSharpAsync(string connectionString)
+static async Task<(string DBName, List<(string TableName, List<dynamic> Columns)> Tables)> GetMySQLInfomationAsync(string connectionString)
 {
     using var con = new MySqlConnection(connectionString);
     using var cmd = new MySqlCommand("SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA=@databasename;", con);
@@ -188,11 +201,7 @@ static async Task MySQLToCSharpAsync(string connectionString)
     }
     await reader.CloseAsync();
 
-    var dbPath = $"{Environment.CurrentDirectory}\\{con.Database}";
-    if (!Directory.Exists(dbPath))
-    {
-        Directory.CreateDirectory(dbPath);
-    }
+    var tablesInformations = new List<(string TableName, List<dynamic> Columns)>();
     foreach (var tableName in tableNames)
     {
         using var fileCmd = new MySqlCommand("select column_name as name,data_type as typename,column_comment as comment,is_nullable as isnull from information_schema.columns where table_name=@tablename", con);
@@ -205,29 +214,12 @@ static async Task MySQLToCSharpAsync(string connectionString)
         }
         fileReader.Close();
         await fileReader.DisposeAsync();
-
-        var csBuilder = new StringBuilder();
-        csBuilder.AppendLine($"public class {tableName}");
-        csBuilder.AppendLine("{");
-        foreach (var tablefields in tablefieldses)
-        {
-            var typeName = TypeMap.MySQLToCSharp[tablefields.typename];
-            var name = tablefields.name;
-            if (!string.IsNullOrWhiteSpace(tablefields.comment))
-            {
-                csBuilder.AppendLine(@$"
-   /// <summary>
-   /// {tablefields.comment}
-   /// </summary>");
-            }
-            csBuilder.AppendLine($"   public {(typeName == "string" && tablefields.isnull == "YES" ? "string?" : typeName)} {name}{{get;set;}}");
-        }
-        csBuilder.AppendLine("}");
-        File.WriteAllText($"{dbPath}\\{tableName}.cs", csBuilder.ToString(), Encoding.UTF8);
+        tablesInformations.Add((tableName, tablefieldses));
     }
+    return (con.Database, tablesInformations);
 }
 
-static async Task PgSQLToCSharpAsync(string connectionString)
+static async Task<(string DBName, List<(string TableName, List<dynamic> Columns)> Tables)> GetPgSQLInfomationAsync(string connectionString)
 {
     using var con = new NpgsqlConnection(connectionString);
     using var cmd = new NpgsqlCommand("select tablename from pg_tables where schemaname='public'", con);
@@ -241,18 +233,14 @@ static async Task PgSQLToCSharpAsync(string connectionString)
     }
     await reader.CloseAsync();
 
-    var dbPath = $"{Environment.CurrentDirectory}\\{con.Database}";
-    if (!Directory.Exists(dbPath))
-    {
-        Directory.CreateDirectory(dbPath);
-    }
+    var tablesInformations = new List<(string TableName, List<dynamic> Columns)>();
     foreach (var tableName in tableNames)
     {
         using var fileCmd = new NpgsqlCommand(@"SELECT	
 	A.attname AS name,
     T.typname AS typename,
 	col_description (A.attrelid, A.attnum) AS comment,
-	A.attnotnull AS isnull	
+	case when A.attnotnull=true then 'YES' else 'NO' end AS isnull	
 FROM
 	pg_class AS C,
 	pg_attribute AS A,
@@ -267,35 +255,40 @@ AND A.atttypid=T.oid;", con);
         var tablefieldses = new List<dynamic>();
         while (fileReader.Read())
         {
-            tablefieldses.Add(new { name = fileReader.GetString(0), typename = fileReader.GetString(1), comment = fileReader.IsDBNull(2) ? null : fileReader.GetString(2), isnull = fileReader.GetBoolean(3) });
+            tablefieldses.Add(new { name = fileReader.GetString(0), typename = fileReader.GetString(1), comment = fileReader.IsDBNull(2) ? null : fileReader.GetString(2), isnull = fileReader.GetString(3) });
         }
         fileReader.Close();
         await fileReader.DisposeAsync();
-
-        var csBuilder = new StringBuilder();
-        csBuilder.AppendLine($"public class {tableName}");
-        csBuilder.AppendLine("{");
-        foreach (var tablefields in tablefieldses)
-        {
-            var typeName = TypeMap.PgSQLToCSharp[tablefields.typename];
-            var name = tablefields.name;
-            if (!string.IsNullOrWhiteSpace(tablefields.comment))
-            {
-                csBuilder.AppendLine(@$"
-   /// <summary>
-   /// {tablefields.comment}
-   /// </summary>");
-            }
-            csBuilder.AppendLine($"   public {(typeName == "string" && tablefields.isnull ? "string?" : typeName)} {name}{{get;set;}}");
-        }
-        csBuilder.AppendLine("}");
-        File.WriteAllText($"{dbPath}\\{tableName}.cs", csBuilder.ToString(), Encoding.UTF8);
+        tablesInformations.Add((tableName, tablefieldses));
     }
+    return (con.Database, tablesInformations);
 }
+#endregion
 
+
+#region 语言和数据库映射关系
 static class TypeMap
 {
-    internal static Dictionary<string, string> MSSQLToCSharp => new Dictionary<string, string>
+    static readonly Dictionary<string, Dictionary<string, string>> typeMap;
+    static TypeMap()
+    {
+        typeMap = new Dictionary<string, Dictionary<string, string>>()
+        {
+            {"mssql", MSSQLToCSharp},
+            {"mysql", MySQLToCSharp},
+            {"pgsql", PgSQLToCSharp},
+        };
+    }
+
+    public static Dictionary<string, Dictionary<string, string>> Types
+    {
+        get
+        {
+            return typeMap;
+        }
+    }
+
+    static Dictionary<string, string> MSSQLToCSharp => new Dictionary<string, string>
     {
         {"bigint","long"},
         {"binary","byte[]"},
@@ -329,7 +322,7 @@ static class TypeMap
         {"varchar","string" },
     };
 
-    internal static Dictionary<string, string> MySQLToCSharp => new Dictionary<string, string>
+    static Dictionary<string, string> MySQLToCSharp => new Dictionary<string, string>
     {
 
         {"bool","bool"},
@@ -385,7 +378,7 @@ static class TypeMap
         {"char byte","byte[]" },
         {"json","text" },
     };
-    internal static Dictionary<string, string> PgSQLToCSharp => new Dictionary<string, string>
+    static Dictionary<string, string> PgSQLToCSharp => new Dictionary<string, string>
     {
         {"bool","bool" },
         {"boolean","bool" },
@@ -408,7 +401,7 @@ static class TypeMap
         {"time","DateTime" },
         {"time with time zone","DateTimeOffset" },
         {"time without time zone","DateTime" },
-        {"interval","DateTime" },      
+        {"interval","DateTime" },
         {"char","string" },
         {"varchar","string" },
         {"text","string" },
@@ -437,3 +430,4 @@ static class TypeMap
     };
 }
 
+#endregion
