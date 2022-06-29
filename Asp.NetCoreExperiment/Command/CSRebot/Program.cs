@@ -71,7 +71,7 @@ dbtoCommand.AddOption(dbTypeOption);
 #region annotation
 //创建子命令选项 annotation 别名 ann
 var annotationOption = new Option<string>(name: "--annotation", description: "注解，生成go语言时，在每个数据项后面，如:`db:\"{$name}\" json:\"{$name}\"`");
-dbTypeOption.AddAlias("-ann");
+annotationOption.AddAlias("-ann");
 dbtoCommand.AddOption(annotationOption);
 #endregion
 
@@ -147,8 +147,6 @@ static async Task DBToGoAsync(string dbName, string dbType, List<(string TableNa
 	}
 	foreach (var table in tables)
 	{
-	  
-
 		var nameMaxLen = 0;
 		var typeMaxLen = 0;
 		var existTime = false;
@@ -158,9 +156,9 @@ static async Task DBToGoAsync(string dbName, string dbType, List<(string TableNa
 			{
 				nameMaxLen = column.name.Length;
 			}
-			if (column.typename.Length > typeMaxLen)
+			if (TypeMap.Types["go"][dbType][column.typename].Length > typeMaxLen)
 			{
-				typeMaxLen = column.name.Length;
+				typeMaxLen = TypeMap.Types["go"][dbType][column.typename].Length;			
 			}
 			if ("time.Time" == TypeMap.Types["go"][dbType][column.typename])
 			{
@@ -171,9 +169,12 @@ static async Task DBToGoAsync(string dbName, string dbType, List<(string TableNa
 		csBuilder.AppendLine($"package {dbName}");
 
 		csBuilder.AppendLine();
-		csBuilder.AppendLine($"import (");
-		csBuilder.AppendLine($"\t\ttime");
-		csBuilder.AppendLine($")");
+		if (existTime)
+		{
+			csBuilder.AppendLine($"import (");
+			csBuilder.AppendLine($"\t\ttime");
+			csBuilder.AppendLine($")");
+		}
 		csBuilder.AppendLine();
 		csBuilder.AppendLine($"type {table.TableName} struct{{");
 
@@ -181,7 +182,7 @@ static async Task DBToGoAsync(string dbName, string dbType, List<(string TableNa
 		{
 			var typeName = TypeMap.Types["go"][dbType][column.typename];
 			var name = column.name;
-
+			
 			csBuilder.Append($"\t\t{name.PadRight(nameMaxLen)} {typeName.PadRight(typeMaxLen)} ");
 			if (!string.IsNullOrWhiteSpace(annotation))
 			{
@@ -189,7 +190,7 @@ static async Task DBToGoAsync(string dbName, string dbType, List<(string TableNa
 			}
 			if (!string.IsNullOrWhiteSpace(column.comment))
 			{
-				csBuilder.Append(@$"//{column.comment}");
+				csBuilder.Append($"//{column.comment}");
 			}
 			csBuilder.AppendLine();
 		}
