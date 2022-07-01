@@ -34,7 +34,7 @@ namespace ClientDemo01
                 var content = await _httpclient.GetStringAsync($"{Url}/{TableName}/{ValueMember}/{DisplayMember}");
 
 
-                var list = JsonSerializer.Deserialize<DataTable>(content);
+                var list = JsonSerializer.Deserialize<dynamic>(content);
                 var table = new DataTable();
                 table.Columns.Add(ValueMember, typeof(string));
                 table.Columns.Add(DisplayMember, typeof(string));
