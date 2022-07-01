@@ -1,32 +1,19 @@
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
 
-app.MapGet("/weatherforecast", () =>
+app.MapGet("/kv/{*path}", (string path) =>
 {
-    var forecast = Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateTime.Now.AddDays(index),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
+    app.Logger.LogInformation($"{path}");
+
+    return TypedResults.Json(
+          new List<dynamic> { new { Name = "aaaa", ID = 1 }, new { Name = "bbbb",ID = 2} },
+          new System.Text.Json.JsonSerializerOptions { PropertyNameCaseInsensitive = false });
+
 });
 
 app.Run();
-
-internal record WeatherForecast(DateTime Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
