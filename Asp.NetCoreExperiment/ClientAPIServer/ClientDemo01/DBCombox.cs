@@ -22,37 +22,98 @@ namespace ClientDemo01
         {
             _httpclient = new HttpClient();
         }
-        protected override void OnHandleCreated(EventArgs e)
+
+
+        protected async override void CreateHandle()
         {
-            base.OnHandleCreated(e);
+            base.CreateHandle();
+            await DBControlInit();
         }
-        protected override async void OnCreateControl()
+
+        private async Task DBControlInit()
         {
-            base.OnCreateControl();
-            if (!string.IsNullOrWhiteSpace(Url) && !string.IsNullOrWhiteSpace(TableName) && !string.IsNullOrWhiteSpace(DisplayMember) && !string.IsNullOrWhiteSpace(ValueMember))
+            try
             {
-                var content = await _httpclient.GetStringAsync($"{Url}/{TableName}/{ValueMember}/{DisplayMember}");
-
-
-                var list = JsonSerializer.Deserialize<dynamic>(content);
-                var table = new DataTable();
-                table.Columns.Add(ValueMember, typeof(string));
-                table.Columns.Add(DisplayMember, typeof(string));
+                if (!string.IsNullOrWhiteSpace(Url) && !string.IsNullOrWhiteSpace(TableName) && !string.IsNullOrWhiteSpace(DisplayMember) && !string.IsNullOrWhiteSpace(ValueMember))
+                {
+                    var content = await _httpclient.GetStringAsync($"{Url}/{TableName}/{ValueMember}/{DisplayMember}");
+                    var table = JsonToDataTable(content);
+                    DataSource = table;
+                }
+            }
+            catch { }
+        }
+        private DataTable JsonToDataTable(string json)
+        {
+            var table = new DataTable();
+            var list = JsonSerializer.Deserialize<IList<Dictionary<String, Object>>>(json);
+            var columns = list?.First().Select(d => d.Key);
+            if (list != null && columns != null)
+            {
+                foreach (var item in columns)
+                {
+                    table.Columns.Add(item);
+                }
                 foreach (var item in list)
                 {
-                    table.Rows.Add(
-                        item.GetProperty(ValueMember).GetRawText(),
-                        item.GetProperty(DisplayMember).GetRawText().Trim('"')
-                        );
-                    //var value = ((JsonElement)item).GetProperty(ValueMember).GetRawText();
-                    //var display = ((JsonElement)item).GetProperty(DisplayMember).GetRawText().Trim('"');
-                    //newlist.Add(new { Value = value, Display = display });
+                    table.Rows.Add(item.Values.ToArray());
                 }
-
-                DataSource = table;
-
             }
+            return table;
+        }
+    }
+
+
+    public class DBListBox : ListBox
+    {
+        private readonly HttpClient _httpclient;
+        /// <summary>
+        /// 后端Url
+        /// </summary>
+        public string? Url { get; set; }
+
+        public string? TableName { get; set; }
+        public DBListBox()
+        {
+            _httpclient = new HttpClient();
+        }
+        protected async override void CreateHandle()
+        {
+            base.CreateHandle();
+            await DBControlInit();
         }
 
+        private async Task DBControlInit()
+        {
+            try
+            {
+                if (!string.IsNullOrWhiteSpace(Url) && !string.IsNullOrWhiteSpace(TableName) && !string.IsNullOrWhiteSpace(DisplayMember) && !string.IsNullOrWhiteSpace(ValueMember))
+                {
+                    var content = await _httpclient.GetStringAsync($"{Url}/{TableName}/{ValueMember}/{DisplayMember}");
+                    var table = JsonToDataTable(content);
+                    DataSource = table;
+                }
+            }
+            catch { }
+        }
+        private DataTable JsonToDataTable(string json)
+        {
+            var table = new DataTable();
+            var list = JsonSerializer.Deserialize<IList<Dictionary<String, Object>>>(json);
+            var columns = list?.First().Select(d => d.Key);
+            if (list != null && columns != null)
+            {
+                foreach (var item in columns)
+                {
+                    table.Columns.Add(item);
+                }
+                foreach (var item in list)
+                {
+                    table.Rows.Add(item.Values.ToArray());
+                }
+            }
+            return table;
+        }
     }
 }
+
