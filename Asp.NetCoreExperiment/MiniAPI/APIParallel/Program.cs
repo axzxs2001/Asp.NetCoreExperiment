@@ -2,19 +2,14 @@ using System.Threading.Channels;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
-
 var app = builder.Build();
-
-
-
-
 
 app.MapGet("/test", async () =>
 {
     Console.WriteLine($"开始时间 {DateTime.Now.ToString("HH:mm:ss")}");
     var channels = new List<Channel<Parameter>>();
     var len = 5;
+    //创建Channel,并关联ReadAsync方法
     for (int i = 0; i < len; i++)
     {
         var channel = Channel.CreateUnbounded<Parameter>(new UnboundedChannelOptions() { AllowSynchronousContinuations = true });
@@ -25,13 +20,15 @@ app.MapGet("/test", async () =>
             await ReadAsync(channel);
         });
     }
-
+    //向Channel发送信息
     for (int i = 0; i < channels.Count; i++)
     {
         var channel = channels[i];
         await channel.Writer.WriteAsync(new Parameter { I = i });
         Console.WriteLine($"Write {i}");
     }
+
+    //读取返回Channel，如果有返回True，API提前返回，留下的Channel给RemainingReadAsync执行
     for (int i = 0; i < channels.Count; i++)
     {
         var channel = channels[i];
@@ -65,7 +62,7 @@ app.MapGet("/test", async () =>
 });
 
 app.Run();
-
+//处理剩余Channelr方法
 async Task RemainingReadAsync(Channel<Parameter> channel)
 {
     if (channel != null && await channel.Reader.WaitToReadAsync())
@@ -76,7 +73,7 @@ async Task RemainingReadAsync(Channel<Parameter> channel)
         }
     }
 }
-
+//读取Channel的方法
 async Task ReadAsync(Channel<Parameter> channel)
 {
     if (channel != null && await channel.Reader.WaitToReadAsync())
@@ -97,7 +94,7 @@ async Task ReadAsync(Channel<Parameter> channel)
     }
 }
 
-
+//参数
 class Parameter
 {
     public int I { get; set; }
