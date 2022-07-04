@@ -41,7 +41,7 @@
             this.dbListBox1.Name = "dbListBox1";
             this.dbListBox1.Size = new System.Drawing.Size(180, 124);
             this.dbListBox1.TabIndex = 0;
-            this.dbListBox1.TableName = "type";
+            this.dbListBox1.DataSourceName = "type";
             this.dbListBox1.Url = "http://localhost:5235/kv/";
             this.dbListBox1.ValueMember = "ID";
             // 
@@ -53,7 +53,7 @@
             this.dbCombox1.Name = "dbCombox1";
             this.dbCombox1.Size = new System.Drawing.Size(182, 32);
             this.dbCombox1.TabIndex = 1;
-            this.dbCombox1.TableName = "type";
+            this.dbCombox1.DataSourceName = "type";
             this.dbCombox1.Url = "http://localhost:5235/kv/";
             this.dbCombox1.ValueMember = "ID";
             // 
