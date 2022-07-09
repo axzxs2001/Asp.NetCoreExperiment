@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+
+
+option csharp_namespace = "GrpcService1";
+
+package todo;
+
+
+service IToDoService { 
+  rpc AddToDo (AddToDoRequest) returns (AddToDoReply);
+  rpc RemoveToDo (RemoveToDoRequest) returns (RemoveToDoReply);
+  rpc QueryToDo(google.protobuf.Empty) returns (QueryToDoReply);
+}
+
+
+message AddToDoRequest {
+  ToDo toDo = 1;
+}
+
+message AddToDoReply {
+  bool result=1;
+}
+
+message RemoveToDoRequest {
+  string title = 1;
+}
+
+message RemoveToDoReply {
+  bool result=1;
+}
+
+
+message QueryToDoReply {
+  repeated ToDo toDos = 1;
+}
+
+message ToDo {
+  string title = 1;
+  string message = 2;
+  google.protobuf.Timestamp createOn = 3;
+}
