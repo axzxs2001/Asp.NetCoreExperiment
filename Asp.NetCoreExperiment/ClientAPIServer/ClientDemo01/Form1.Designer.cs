@@ -41,7 +41,7 @@
             this.dbListBox1.FormattingEnabled = true;
             this.dbListBox1.ItemHeight = 17;
             this.dbListBox1.Location = new System.Drawing.Point(135, 51);
-            this.dbListBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dbListBox1.Margin = new System.Windows.Forms.Padding(2);
             this.dbListBox1.Name = "dbListBox1";
             this.dbListBox1.Size = new System.Drawing.Size(116, 89);
             this.dbListBox1.TabIndex = 0;
@@ -54,7 +54,7 @@
             this.dbCombox1.DisplayMember = "Name";
             this.dbCombox1.FormattingEnabled = true;
             this.dbCombox1.Location = new System.Drawing.Point(135, 22);
-            this.dbCombox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dbCombox1.Margin = new System.Windows.Forms.Padding(2);
             this.dbCombox1.Name = "dbCombox1";
             this.dbCombox1.Size = new System.Drawing.Size(117, 25);
             this.dbCombox1.TabIndex = 1;

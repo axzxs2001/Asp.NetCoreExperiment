@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.Linq;
 using System.Net.Http;
@@ -16,17 +17,29 @@ namespace ClientDemo01
 
         /// <summary>
         /// 后端Url
-        /// </summary>
-        public string? Url { get; set; }
+        /// </summary> 
+        [Browsable(true)]
+        [Description("后端Url"), Category("远程数据"), DefaultValue("")]
+        public string? Url
+        {
+            get;
+            set;
+        }
+
         /// <summary>
         /// 数据源名称
         /// </summary>
+        [Browsable(true)]
+        [Description("访问Url后端数据源名称"), Category("远程数据"), DefaultValue("")]
         public string? DataSourceName { get; set; }
 
         protected async override void CreateHandle()
         {
             base.CreateHandle();
-            await this.DBControlInit(Url, DataSourceName);
+            if (!string.IsNullOrWhiteSpace(Url) && !string.IsNullOrWhiteSpace(DataSourceName))
+            {
+                await this.DBControlInit(Url, DataSourceName);
+            }
         }
     }
 
@@ -37,16 +50,23 @@ namespace ClientDemo01
         /// <summary>
         /// 后端Url
         /// </summary>
+        [Browsable(true)]
+        [Description("后端Url"), Category("远程数据"), DefaultValue("")]
         public string? Url { get; set; }
         /// <summary>
         /// 数据源名称
         /// </summary>
+        [Browsable(true)]
+        [Description("访问Url后端数据源名称"), Category("远程数据"), DefaultValue("")]
         public string? DataSourceName { get; set; }
 
         protected async override void CreateHandle()
         {
             base.CreateHandle();
-            await this.DBControlInit(Url, DataSourceName);
+            if (!string.IsNullOrWhiteSpace(Url) && !string.IsNullOrWhiteSpace(DataSourceName))
+            {
+                await this.DBControlInit(Url, DataSourceName);
+            }
         }
     }
 }
@@ -88,3 +108,13 @@ namespace DBExpand
     }
 
 }
+
+/*
+ 在.NET体系里，一直有一批很少发声的开发者，他们在默默的为行业贡献，那就是.NET CS开发者，即奋斗在WinForm，WPF框架下的开发者。为什么很少发声？以至于大家都把这部分开发者忘记了呢？
+1、技术成熟，没有新内容
+2、行业间通用性的技术较少
+3、社区少
+4、CS上一般都是商业产品：控件Dev，报表
+ 
+ 
+ */
