@@ -36,8 +36,8 @@
             // 
             // dbListBox1
             // 
-            this.dbListBox1.DataSourceName = "type";
-            this.dbListBox1.DisplayMember = "Name";
+            this.dbListBox1.DataSourceName = "city";
+            this.dbListBox1.DisplayMember = "Value";
             this.dbListBox1.FormattingEnabled = true;
             this.dbListBox1.ItemHeight = 17;
             this.dbListBox1.Location = new System.Drawing.Point(135, 51);
@@ -46,7 +46,7 @@
             this.dbListBox1.Size = new System.Drawing.Size(116, 89);
             this.dbListBox1.TabIndex = 0;
             this.dbListBox1.Url = "http://localhost:5235/kv/";
-            this.dbListBox1.ValueMember = "ID";
+            this.dbListBox1.ValueMember = "Key";
             // 
             // dbCombox1
             // 

@@ -43,9 +43,11 @@ namespace ClientDemo01
         }
     }
 
+    public interface IKKK
+    {
+    }
 
-
-    public class DBListBox : ListBox
+    public class DBListBox : ListBox, IKKK
     {
         /// <summary>
         /// 后端Url
