@@ -8,12 +8,12 @@ using System.Security.Policy;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
-using DBExpand;
 
 
-namespace ClientDemo01
+
+namespace DBControl
 {
-    public class DBCombox : ComboBox
+    public class DBControl : ComboBox
     {
 
         /// <summary>
@@ -43,7 +43,6 @@ namespace ClientDemo01
             }
         }
     }
-
 
 
     public class DBListBox : ListBox
@@ -95,9 +94,7 @@ namespace ClientDemo01
         }
     }
 
-}
-namespace DBExpand
-{
+
     public static class ControlExpand
     {
         static HttpClient _httpClient = new HttpClient();

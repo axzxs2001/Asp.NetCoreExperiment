@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.dbListBox1 = new ClientDemo01.DBListBox();
-            this.dbCombox1 = new ClientDemo01.DBCombox();
-            this.dataGridView1 = new ClientDemo01.DBDataGridView();
+            this.dbListBox1 = new DBControl.DBListBox();
+            this.dbCombox1 = new DBControl.DBControl();
+            this.dataGridView1 = new DBControl.DBDataGridView();
             this.DGTBC_ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DGTB_Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DGTBC_Price = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -121,9 +121,9 @@
 
         }
 
-        private DBListBox dbListBox1;
-        private DBCombox dbCombox1;
-        private DBDataGridView dataGridView1;
+        private DBControl.DBListBox dbListBox1;
+        private DBControl.DBControl dbCombox1;
+        private DBControl.DBDataGridView dataGridView1;
         private DataGridViewTextBoxColumn DGTBC_ID;
         private DataGridViewTextBoxColumn DGTBC_Name;
         private DataGridViewTextBoxColumn DGTBC_Price;
