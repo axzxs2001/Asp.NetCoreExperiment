@@ -10,6 +10,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using DBExpand;
 
+
 namespace ClientDemo01
 {
     public class DBCombox : ComboBox
@@ -43,11 +44,9 @@ namespace ClientDemo01
         }
     }
 
-    public interface IKKK
-    {
-    }
 
-    public class DBListBox : ListBox, IKKK
+
+    public class DBListBox : ListBox
     {
         /// <summary>
         /// 后端Url
@@ -71,6 +70,31 @@ namespace ClientDemo01
             }
         }
     }
+
+    public class DBDataGridView : DataGridView
+    {
+        /// <summary>
+        /// 后端Url
+        /// </summary>
+        [Browsable(true)]
+        [Description("后端Url"), Category("远程数据"), DefaultValue("")]
+        public string? Url { get; set; }
+        /// <summary>
+        /// 数据源名称
+        /// </summary>
+        [Browsable(true)]
+        [Description("访问Url后端数据源名称"), Category("远程数据"), DefaultValue("")]
+        public string? DataSourceName { get; set; }
+        protected async override void CreateHandle()
+        {
+            base.CreateHandle();
+            if (!string.IsNullOrWhiteSpace(Url) && !string.IsNullOrWhiteSpace(DataSourceName))
+            {
+                await this.DBGridInit(Url, DataSourceName);
+            }
+        }
+    }
+
 }
 namespace DBExpand
 {
@@ -83,7 +107,8 @@ namespace DBExpand
             {
                 if (!string.IsNullOrWhiteSpace(url) && !string.IsNullOrWhiteSpace(dataSourceName) && !string.IsNullOrWhiteSpace(control.DisplayMember) && !string.IsNullOrWhiteSpace(control.ValueMember))
                 {
-                    var content = await _httpClient.GetStringAsync($"{url}/{dataSourceName}/{control.ValueMember}/{control.DisplayMember}");
+                    url = $"{url.TrimEnd('/', '\\')}/{dataSourceName}?fields={control.ValueMember},{control.DisplayMember}";
+                    var content = await _httpClient.GetStringAsync(url);
                     var table = JsonToDataTable(content);
                     control.DataSource = table;
                 }
@@ -106,6 +131,24 @@ namespace DBExpand
                 }
             }
             return table;
+        }
+
+        public static async Task DBGridInit(this DataGridView control, string url, string dataSourceName)
+        {
+            if (!control.IsAncestorSiteInDesignMode)
+            {
+                if (!string.IsNullOrWhiteSpace(url) && !string.IsNullOrWhiteSpace(dataSourceName) && control.Columns.Count > 0)
+                {
+                    var fieldList = new List<string>();
+                    foreach (DataGridViewColumn column in control.Columns)
+                    {
+                        fieldList.Add(column.DataPropertyName);
+                    }
+                    var content = await _httpClient.GetStringAsync($"{url.TrimEnd('/', '\\')}/{dataSourceName}?fields={string.Join(',', fieldList)}");
+                    var table = JsonToDataTable(content);
+                    control.DataSource = table;
+                }
+            }
         }
     }
 

@@ -30,8 +30,12 @@
         {
             this.dbListBox1 = new ClientDemo01.DBListBox();
             this.dbCombox1 = new ClientDemo01.DBCombox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.dataGridView1 = new ClientDemo01.DBDataGridView();
+            this.DGTBC_ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DGTB_Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DGTBC_Price = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DGTBC_Quantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // dbListBox1
@@ -45,7 +49,7 @@
             this.dbListBox1.Name = "dbListBox1";
             this.dbListBox1.Size = new System.Drawing.Size(116, 89);
             this.dbListBox1.TabIndex = 0;
-            this.dbListBox1.Url = "http://localhost:5235/kv/";
+            this.dbListBox1.Url = "http://localhost:5235/parame/";
             this.dbListBox1.ValueMember = "Key";
             // 
             // dbCombox1
@@ -58,46 +62,73 @@
             this.dbCombox1.Name = "dbCombox1";
             this.dbCombox1.Size = new System.Drawing.Size(117, 25);
             this.dbCombox1.TabIndex = 1;
-            this.dbCombox1.Url = "http://localhost:5235/kv/";
+            this.dbCombox1.Url = "http://localhost:5235/parame/";
             this.dbCombox1.ValueMember = "ID";
             // 
-            // comboBox1
+            // dataGridView1
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(498, 22);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 25);
-            this.comboBox1.TabIndex = 2;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.DGTBC_ID,
+            this.DGTB_Name,
+            this.DGTBC_Price,
+            this.DGTBC_Quantity});
+            this.dataGridView1.DataSourceName = "order";
+            this.dataGridView1.Location = new System.Drawing.Point(302, 22);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RowTemplate.Height = 25;
+            this.dataGridView1.Size = new System.Drawing.Size(479, 253);
+            this.dataGridView1.TabIndex = 2;
+            this.dataGridView1.Url = "http://localhost:5235/parame/";
             // 
-            // listBox1
+            // DGTBC_ID
             // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 17;
-            this.listBox1.Location = new System.Drawing.Point(498, 53);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(120, 89);
-            this.listBox1.TabIndex = 3;
+            this.DGTBC_ID.DataPropertyName = "ID";
+            this.DGTBC_ID.HeaderText = "编号";
+            this.DGTBC_ID.Name = "DGTBC_ID";
+            // 
+            // DGTB_Name
+            // 
+            this.DGTB_Name.DataPropertyName = "Name";
+            this.DGTB_Name.HeaderText = "名称";
+            this.DGTB_Name.Name = "DGTB_Name";
+            // 
+            // DGTBC_Price
+            // 
+            this.DGTBC_Price.DataPropertyName = "Price";
+            this.DGTBC_Price.HeaderText = "价格";
+            this.DGTBC_Price.Name = "DGTBC_Price";
+            // 
+            // DGTBC_Quantity
+            // 
+            this.DGTBC_Quantity.DataPropertyName = "Quantity";
+            this.DGTBC_Quantity.HeaderText = "数量";
+            this.DGTBC_Quantity.Name = "DGTBC_Quantity";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(751, 279);
-            this.Controls.Add(this.listBox1);
-            this.Controls.Add(this.comboBox1);
+            this.ClientSize = new System.Drawing.Size(822, 366);
+            this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.dbCombox1);
             this.Controls.Add(this.dbListBox1);
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         private DBListBox dbListBox1;
         private DBCombox dbCombox1;
-        private ComboBox comboBox1;
-        private ListBox listBox1;
+        private DBDataGridView dataGridView1;
+        private DataGridViewTextBoxColumn DGTBC_ID;
+        private DataGridViewTextBoxColumn DGTBC_Name;
+        private DataGridViewTextBoxColumn DGTBC_Price;
+        private DataGridViewTextBoxColumn DGTBC_Quantity;
+        private DataGridViewTextBoxColumn DGTB_Name;
 
         #endregion
         //private DBCombox dbCombox1;

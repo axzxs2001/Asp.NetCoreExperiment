@@ -21,12 +21,13 @@ app.Use(async (context, next) =>
 });
 
 
-app.MapGet("/kv/{*path}", (IParameService parameService, string path) =>
+app.MapGet("/parame/{dataSource}", (IParameService parameService, string dataSource, string fields) =>
 {
-    app.Logger.LogInformation($"{path}");
+    app.Logger.LogInformation($"{dataSource}");
+
     return TypedResults.Json(
-          parameService.GetParames(path),
-          new System.Text.Json.JsonSerializerOptions { PropertyNameCaseInsensitive = false });
+          parameService.GetParames(dataSource, fields),
+              new System.Text.Json.JsonSerializerOptions { PropertyNameCaseInsensitive = false });
 });
 
 app.Run();
@@ -34,7 +35,7 @@ app.Run();
 
 public interface IParameService
 {
-    IList<dynamic> GetParames(string path);
+    IList<dynamic> GetParames(string dataSource, string fields);
 }
 public class ParameService : IParameService
 {
@@ -43,7 +44,7 @@ public class ParameService : IParameService
     {
         _logger = logger;
     }
-    public IList<dynamic> GetParames(string path)
+    public IList<dynamic> GetParames(string dataSource, string fields)
     {
         var dir = new Dictionary<string, List<dynamic>>()
         {
@@ -64,13 +65,22 @@ public class ParameService : IParameService
                     new { Key=2,Value="ShangHai"},
                     new { Key=3,Value="ShenZhen"}
                 }
+
+            },
+            {
+                "order",
+                 new List<dynamic>
+                {
+                    new { ID=1,Name="AAAA",Price=11.1m,Quantity=10},
+                    new { ID=2,Name="BBBB",Price=12.2m,Quantity=12},
+                    new { ID=3,Name="CCCC",Price=13.3m,Quantity=13},
+                }
             }
         };
-        var parames = path.Split("/", StringSplitOptions.RemoveEmptyEntries);
-        if (parames.Length >= 3)
-        {
-            _logger.LogInformation($"select {parames[1]},{parames[2]} from {parames[0]}");
-        }
-        return dir[parames[0].ToLower()];
+
+        _logger.LogInformation($"select {fields} from {dataSource}");
+        return dir[dataSource.ToLower()];
+
+
     }
 }
