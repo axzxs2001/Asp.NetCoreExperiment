@@ -528,7 +528,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gRPCClient", "Asp.NetCoreEx
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MemoryStack", "Asp.NetCoreExperiment\CSharp\MemoryStack\MemoryStack.csproj", "{80368D1F-6CB4-4CBF-8675-F2C63F26F11C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniAPI7_Cache", "Asp.NetCoreExperiment\MiniAPI\MiniAPI7_Cache\MiniAPI7_Cache.csproj", "{F7A8CD27-F6CD-43F6-B1FD-7B4B78E962C9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiniAPI7_Cache", "Asp.NetCoreExperiment\MiniAPI\MiniAPI7_Cache\MiniAPI7_Cache.csproj", "{F7A8CD27-F6CD-43F6-B1FD-7B4B78E962C9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TypeConvertDemo", "TypeConvertDemo\TypeConvertDemo.csproj", "{7B30D9D7-B38E-4FC6-804E-5DAFB643539B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -1316,6 +1318,10 @@ Global
 		{F7A8CD27-F6CD-43F6-B1FD-7B4B78E962C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F7A8CD27-F6CD-43F6-B1FD-7B4B78E962C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F7A8CD27-F6CD-43F6-B1FD-7B4B78E962C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B30D9D7-B38E-4FC6-804E-5DAFB643539B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B30D9D7-B38E-4FC6-804E-5DAFB643539B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B30D9D7-B38E-4FC6-804E-5DAFB643539B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B30D9D7-B38E-4FC6-804E-5DAFB643539B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1528,6 +1534,7 @@ Global
 		{04D3D399-FBF3-43C0-ACD3-246B4E7B7095} = {5353C1A3-2E40-4343-B365-4F873B4AAE3A}
 		{80368D1F-6CB4-4CBF-8675-F2C63F26F11C} = {0C2286BE-F1F4-4E52-A9FA-1EF056CD9159}
 		{F7A8CD27-F6CD-43F6-B1FD-7B4B78E962C9} = {8A78305E-BFFF-4F09-BE2F-3BAB7088C3FE}
+		{7B30D9D7-B38E-4FC6-804E-5DAFB643539B} = {0C2286BE-F1F4-4E52-A9FA-1EF056CD9159}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
