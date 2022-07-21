@@ -2,23 +2,19 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Drawing.Design;
 using System.Linq;
 using System.Net.Http;
 using System.Security.Policy;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
-
-
+using System.Web;
 
 namespace DBControl
 {
-    public class DBControl : ComboBox
+    public class DBComBox : ComboBox
     {
-
-        /// <summary>
-        /// 后端Url
-        /// </summary> 
         [Browsable(true)]
         [Description("后端Url"), Category("远程数据"), DefaultValue("")]
         public string? Url
@@ -27,19 +23,21 @@ namespace DBControl
             set;
         }
 
-        /// <summary>
-        /// 数据源名称
-        /// </summary>
         [Browsable(true)]
         [Description("访问Url后端数据源名称"), Category("远程数据"), DefaultValue("")]
         public string? DataSourceName { get; set; }
 
+        [Browsable(true)]
+        [Description("查询数据源条件参数"), Category("远程数据"), DefaultValue("")]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
+        public List<DBCondition>? Conditions { get; set; } = new List<DBCondition>();
+
         protected async override void CreateHandle()
         {
             base.CreateHandle();
-            if (!string.IsNullOrWhiteSpace(Url) && !string.IsNullOrWhiteSpace(DataSourceName))
+            if (!string.IsNullOrWhiteSpace(Url) && !string.IsNullOrWhiteSpace(DataSourceName) && Conditions != null)
             {
-                await this.DBControlInit(Url, DataSourceName);
+                await this.DBControlInit(Url, DataSourceName, Conditions);
             }
         }
     }
@@ -60,15 +58,23 @@ namespace DBControl
         [Description("访问Url后端数据源名称"), Category("远程数据"), DefaultValue("")]
         public string? DataSourceName { get; set; }
 
+        [Browsable(true)]
+        [Description("查询数据源条件参数"), Category("远程数据"), DefaultValue("")]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
+
+
+        public List<DBCondition>? Conditions { get; set; } = new List<DBCondition>();
+
         protected async override void CreateHandle()
         {
             base.CreateHandle();
-            if (!string.IsNullOrWhiteSpace(Url) && !string.IsNullOrWhiteSpace(DataSourceName))
+            if (!string.IsNullOrWhiteSpace(Url) && !string.IsNullOrWhiteSpace(DataSourceName) && Conditions != null)
             {
-                await this.DBControlInit(Url, DataSourceName);
+                await this.DBControlInit(Url, DataSourceName, Conditions);
             }
         }
     }
+
 
     public class DBDataGridView : DataGridView
     {
@@ -84,12 +90,18 @@ namespace DBControl
         [Browsable(true)]
         [Description("访问Url后端数据源名称"), Category("远程数据"), DefaultValue("")]
         public string? DataSourceName { get; set; }
+
+        [Browsable(true)]
+        [Description("查询数据源条件参数"), Category("远程数据"), DefaultValue("")]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
+        public List<DBCondition>? Conditions { get; set; } = new List<DBCondition>();
+
         protected async override void CreateHandle()
         {
             base.CreateHandle();
-            if (!string.IsNullOrWhiteSpace(Url) && !string.IsNullOrWhiteSpace(DataSourceName))
+            if (!string.IsNullOrWhiteSpace(Url) && !string.IsNullOrWhiteSpace(DataSourceName) && Conditions != null)
             {
-                await this.DBGridInit(Url, DataSourceName);
+                await this.DBGridInit(Url, DataSourceName, Conditions);
             }
         }
     }
@@ -98,13 +110,18 @@ namespace DBControl
     public static class ControlExpand
     {
         static HttpClient _httpClient = new HttpClient();
-        public static async Task DBControlInit(this ListControl control, string url, string dataSourceName)
+        public static async Task DBControlInit(this ListControl control, string url, string dataSourceName, List<DBCondition>? conditions)
         {
             if (!control.IsAncestorSiteInDesignMode)
             {
                 if (!string.IsNullOrWhiteSpace(url) && !string.IsNullOrWhiteSpace(dataSourceName) && !string.IsNullOrWhiteSpace(control.DisplayMember) && !string.IsNullOrWhiteSpace(control.ValueMember))
                 {
-                    url = $"{url.TrimEnd('/', '\\')}/{dataSourceName}?fields={control.ValueMember},{control.DisplayMember}";
+                    url = $"{url.TrimEnd('/', '\\')}/{dataSourceName}?fields={Uri.EscapeDataString(control.ValueMember)},{Uri.EscapeDataString(control.DisplayMember)}";
+                    if (conditions != null && conditions.Count > 0)
+                    {
+                        var arr = conditions.Select(s => $"({s.Name},{s.Symbol},{s.Value})").ToArray();
+                        url += "&conditions=" + Uri.EscapeDataString(string.Join(',', arr));
+                    }
                     var content = await _httpClient.GetStringAsync(url);
                     var table = JsonToDataTable(content);
                     control.DataSource = table;
@@ -130,7 +147,7 @@ namespace DBControl
             return table;
         }
 
-        public static async Task DBGridInit(this DataGridView control, string url, string dataSourceName)
+        public static async Task DBGridInit(this DataGridView control, string url, string dataSourceName, List<DBCondition>? conditions)
         {
             if (!control.IsAncestorSiteInDesignMode)
             {
@@ -141,12 +158,33 @@ namespace DBControl
                     {
                         fieldList.Add(column.DataPropertyName);
                     }
-                    var content = await _httpClient.GetStringAsync($"{url.TrimEnd('/', '\\')}/{dataSourceName}?fields={string.Join(',', fieldList)}");
+                    url = $"{url.TrimEnd('/', '\\')}/{dataSourceName}?fields={Uri.EscapeDataString(string.Join(',', fieldList))}";
+                    if (conditions != null && conditions.Count > 0)
+                    {
+                        var arr = conditions.Select(s => $"({s.Name},{s.Symbol},{s.Value})").ToArray();
+                        url += "&conditions=" + Uri.EscapeDataString(string.Join(',', arr));
+                    }
+                    
+                    var content = await _httpClient.GetStringAsync(url);
                     var table = JsonToDataTable(content);
                     control.DataSource = table;
                 }
             }
         }
+    }
+
+    public class DBCondition
+    {
+        [Browsable(true)]
+        [Description("查询条件名称"), Category("数据"), DefaultValue("")]
+        [DisplayName]
+        public string? Name { get; set; }
+        [Browsable(true)]
+        [Description("符号"), Category("数据"), DefaultValue("")]
+        public string? Symbol { get; set; }
+        [Browsable(true)]
+        [Description("查询条件值"), Category("数据"), DefaultValue("")]
+        public string? Value { get; set; }
     }
 
 }

@@ -28,8 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
+            DBControl.DBCondition dbCondition1 = new DBControl.DBCondition();
+            DBControl.DBCondition dbCondition2 = new DBControl.DBCondition();
+            DBControl.DBCondition dbCondition3 = new DBControl.DBCondition();
+            DBControl.DBCondition dbCondition4 = new DBControl.DBCondition();
+            DBControl.DBCondition dbCondition5 = new DBControl.DBCondition();
+            DBControl.DBCondition dbCondition6 = new DBControl.DBCondition();
             this.dbListBox1 = new DBControl.DBListBox();
-            this.dbCombox1 = new DBControl.DBControl();
+            this.dbCombox1 = new DBControl.DBComBox();
             this.dataGridView1 = new DBControl.DBDataGridView();
             this.DGTBC_ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DGTB_Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -40,6 +46,10 @@
             // 
             // dbListBox1
             // 
+            dbCondition1.Name = "type";
+            dbCondition1.Symbol = "=";
+            dbCondition1.Value = "101";
+            this.dbListBox1.Conditions.Add(dbCondition1);
             this.dbListBox1.DataSourceName = "city";
             this.dbListBox1.DisplayMember = "Value";
             this.dbListBox1.FormattingEnabled = true;
@@ -54,6 +64,10 @@
             // 
             // dbCombox1
             // 
+            dbCondition2.Name = "type";
+            dbCondition2.Symbol = "=";
+            dbCondition2.Value = "2";
+            this.dbCombox1.Conditions.Add(dbCondition2);
             this.dbCombox1.DataSourceName = "type";
             this.dbCombox1.DisplayMember = "Name";
             this.dbCombox1.FormattingEnabled = true;
@@ -73,8 +87,24 @@
             this.DGTB_Name,
             this.DGTBC_Price,
             this.DGTBC_Quantity});
+            dbCondition3.Name = "name";
+            dbCondition3.Symbol = "like";
+            dbCondition3.Value = "%abc%";
+            dbCondition4.Name = "age";
+            dbCondition4.Symbol = ">=";
+            dbCondition4.Value = "10";
+            dbCondition5.Name = "type";
+            dbCondition5.Symbol = "like";
+            dbCondition5.Value = "%大%";
+            dbCondition6.Name = "ppt";
+            dbCondition6.Symbol = "like";
+            dbCondition6.Value = "%123%";
+            this.dataGridView1.Conditions.Add(dbCondition3);
+            this.dataGridView1.Conditions.Add(dbCondition4);
+            this.dataGridView1.Conditions.Add(dbCondition5);
+            this.dataGridView1.Conditions.Add(dbCondition6);
             this.dataGridView1.DataSourceName = "order";
-            this.dataGridView1.Location = new System.Drawing.Point(302, 22);
+            this.dataGridView1.Location = new System.Drawing.Point(305, 22);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowTemplate.Height = 25;
             this.dataGridView1.Size = new System.Drawing.Size(479, 253);
@@ -122,7 +152,7 @@
         }
 
         private DBControl.DBListBox dbListBox1;
-        private DBControl.DBControl dbCombox1;
+        private DBControl.DBComBox dbCombox1;
         private DBControl.DBDataGridView dataGridView1;
         private DataGridViewTextBoxColumn DGTBC_ID;
         private DataGridViewTextBoxColumn DGTBC_Name;

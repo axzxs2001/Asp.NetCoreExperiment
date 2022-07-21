@@ -1,7 +1,14 @@
+using System.Net;
+using System.Text;
+using System.Text.Encodings.Web;
+using System.Text.Unicode;
+using System.Web;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddResponseCaching();
 builder.Services.AddSingleton<IParameService, ParameService>();
+
 
 var app = builder.Build();
 
@@ -21,21 +28,20 @@ app.Use(async (context, next) =>
 });
 
 
-app.MapGet("/parame/{dataSource}", (IParameService parameService, string dataSource, string fields) =>
+app.MapGet("/parame/{dataSource}", (IParameService parameService, string dataSource, string fields, string conditions) =>
 {
-    app.Logger.LogInformation($"{dataSource}");
-
+  
+    app.Logger.LogInformation($"{conditions}");
     return TypedResults.Json(
-          parameService.GetParames(dataSource, fields),
+          parameService.GetParames(dataSource, fields, conditions),
               new System.Text.Json.JsonSerializerOptions { PropertyNameCaseInsensitive = false });
 });
-
 app.Run();
 
 
 public interface IParameService
 {
-    IList<dynamic> GetParames(string dataSource, string fields);
+    IList<dynamic> GetParames(string dataSource, string fields, string conditions);
 }
 public class ParameService : IParameService
 {
@@ -44,7 +50,7 @@ public class ParameService : IParameService
     {
         _logger = logger;
     }
-    public IList<dynamic> GetParames(string dataSource, string fields)
+    public IList<dynamic> GetParames(string dataSource, string fields, string conditions)
     {
         var dir = new Dictionary<string, List<dynamic>>()
         {
@@ -78,7 +84,19 @@ public class ParameService : IParameService
             }
         };
 
-        _logger.LogInformation($"select {fields} from {dataSource}");
+        var sql = $"select {fields} from {dataSource}";
+        if (conditions != null && conditions.Length > 0)
+        {
+            var whereBuilder = new StringBuilder(" where ");
+            var conditionArr = conditions.Split(new string[] { "(", "),(", ")" }, StringSplitOptions.RemoveEmptyEntries);
+            foreach (var condition in conditionArr)
+            {
+                var arr = condition.Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries);
+                whereBuilder.Append($" {arr[0]} {arr[1]} '{arr[2]}' and");
+            }
+            sql += whereBuilder.ToString().Substring(0, whereBuilder.Length - 3);
+        }
+        _logger.LogInformation(sql);
         return dir[dataSource.ToLower()];
 
 
