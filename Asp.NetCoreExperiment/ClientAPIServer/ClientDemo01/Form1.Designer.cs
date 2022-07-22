@@ -54,10 +54,10 @@
             this.dbListBox1.DisplayMember = "Value";
             this.dbListBox1.FormattingEnabled = true;
             this.dbListBox1.ItemHeight = 17;
-            this.dbListBox1.Location = new System.Drawing.Point(135, 51);
+            this.dbListBox1.Location = new System.Drawing.Point(12, 40);
             this.dbListBox1.Margin = new System.Windows.Forms.Padding(2);
             this.dbListBox1.Name = "dbListBox1";
-            this.dbListBox1.Size = new System.Drawing.Size(116, 89);
+            this.dbListBox1.Size = new System.Drawing.Size(303, 89);
             this.dbListBox1.TabIndex = 0;
             this.dbListBox1.Url = "http://localhost:5235/parame/";
             this.dbListBox1.ValueMember = "Key";
@@ -71,10 +71,10 @@
             this.dbCombox1.DataSourceName = "type";
             this.dbCombox1.DisplayMember = "Name";
             this.dbCombox1.FormattingEnabled = true;
-            this.dbCombox1.Location = new System.Drawing.Point(135, 22);
+            this.dbCombox1.Location = new System.Drawing.Point(12, 11);
             this.dbCombox1.Margin = new System.Windows.Forms.Padding(2);
             this.dbCombox1.Name = "dbCombox1";
-            this.dbCombox1.Size = new System.Drawing.Size(117, 25);
+            this.dbCombox1.Size = new System.Drawing.Size(303, 25);
             this.dbCombox1.TabIndex = 1;
             this.dbCombox1.Url = "http://localhost:5235/parame/";
             this.dbCombox1.ValueMember = "ID";
@@ -104,10 +104,10 @@
             this.dataGridView1.Conditions.Add(dbCondition5);
             this.dataGridView1.Conditions.Add(dbCondition6);
             this.dataGridView1.DataSourceName = "order";
-            this.dataGridView1.Location = new System.Drawing.Point(305, 22);
+            this.dataGridView1.Location = new System.Drawing.Point(12, 134);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowTemplate.Height = 25;
-            this.dataGridView1.Size = new System.Drawing.Size(479, 253);
+            this.dataGridView1.Size = new System.Drawing.Size(477, 232);
             this.dataGridView1.TabIndex = 2;
             this.dataGridView1.Url = "http://localhost:5235/parame/";
             // 
@@ -139,7 +139,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(822, 366);
+            this.ClientSize = new System.Drawing.Size(494, 376);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.dbCombox1);
             this.Controls.Add(this.dbListBox1);
