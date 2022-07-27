@@ -3,19 +3,13 @@ namespace WinFormDemo01
     internal static class Program
     {
         [STAThread]
-        static void Main()
-        {
-      
+        static int Main(string[] args)
+        {           
+
+            MessageBox.Show($"Main方法中收到的参数：{string.Join(',', args)}");
             ApplicationConfiguration.Initialize();
-
             Application.Run(new Form1());
-
-        }
-        static bool MessageLoopCallback()
-        {
-            return true;
-        }
-
+            return 101;
+        }      
     }
-    
 }

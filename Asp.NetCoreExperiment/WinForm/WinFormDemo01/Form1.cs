@@ -9,19 +9,12 @@ namespace WinFormDemo01
 
         private void button1_Click(object sender, EventArgs e)
         {
-       
-            //throw new Exception("ffff");
-            //Application.Restart();
-            //try
-            //{
-            //    this.Text = (string?)Clipboard.GetDataObject()?.GetData(DataFormats.Text);
-            //    //Application.Exit();
-            //}catch(Exception exc)
-            //{
-
-
-            //    MessageBox.Show(exc.ToString());
-            //}
-        }
+           //MessageBox.Show(Environment.CommandLine);
+            var args = Environment.GetCommandLineArgs();
+            if (args.Length > 1)
+            {
+                label1.Text = $"主程序：{args[0]},\r\n\r\n参数：{string.Join(',', args[1..])}";
+            }  
+        }     
     }
 }
