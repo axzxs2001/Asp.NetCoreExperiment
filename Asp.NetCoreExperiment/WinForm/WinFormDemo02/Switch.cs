@@ -14,10 +14,8 @@ namespace WinFormDemo02
 
         private CheckBoxState state = CheckBoxState.UncheckedNormal;
 
-        public Switch()
-            : base()
+        public Switch(): base()
         {
-
             this.Location = new Point(50, 50);
             this.Size = new Size(50, 25);
             this.Font = SystemFonts.IconTitleFont;
