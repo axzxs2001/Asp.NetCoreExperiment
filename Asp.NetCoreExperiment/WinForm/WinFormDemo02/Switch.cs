@@ -8,6 +8,7 @@ using System.Windows.Forms.VisualStyles;
 
 namespace WinFormDemo02
 {
+    [ToolboxBitmap("C:\\MyFile\\Asp.NetCoreExperiment\\Asp.NetCoreExperiment\\WinForm\\WinFormDemo02\\switch.png")]
     public class Switch : Control
     {
         private Rectangle textRectangleValue = new Rectangle();
@@ -15,7 +16,7 @@ namespace WinFormDemo02
         private CheckBoxState state = CheckBoxState.UncheckedNormal;
 
         public Switch(): base()
-        {
+        {            
             this.Location = new Point(50, 50);
             this.Size = new Size(50, 25);
             this.Font = SystemFonts.IconTitleFont;
