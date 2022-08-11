@@ -8,81 +8,106 @@ namespace WinFormsDemo06
         {
             InitializeComponent();
         }
-        bool mark = true;
+        static bool mark = true;
         private void startButton_Click(object sender, EventArgs e)
         {
             Task.Run(() =>
             {
-                foreach (var item in list)
+                try
                 {
-                    if (mark == false)
-                    {
-                        break;
-                    }
-                    var dotString = "";
-                    for (var i = 0; i < item.Time; i++)
+                    foreach (var item in list)
                     {
                         if (mark == false)
                         {
                             break;
                         }
-                        if (i % 6 == 0)
+                        var dotString = "";
+                        for (var i = 0; i < item.Time; i++)
                         {
-                            dotString = ".";
+                            if (mark == false)
+                            {
+                                break;
+                            }
+                            if (i % 6 == 0)
+                            {
+                                dotString = ".";
+                            }
+                            else
+                            {
+                                dotString += ".";
+                            }
+                            this.Invoke(() =>
+                            {
+                                messageLabel.Text = $"{item.Name}{dotString}";
+                            });
+                            SpinWait.SpinUntil(() => false, 100);
                         }
-                        else
-                        {
-                            dotString += ".";
-                        }
+                    }
+                    if (mark)
+                    {
+                        mark = false;
+                        MessageBox.Show("完成医保所有数据同步");
+                    }
+                    else
+                    {
                         this.Invoke(() =>
                         {
-                            messageLabel.Text = $"{item.Name}{dotString}";
+                            this.Close();
                         });
-                        SpinWait.SpinUntil(() => false, 500);
                     }
                 }
-                this.Invoke(() =>
+                catch (Exception exc)
                 {
-                    this.Close();
-                });
+                    File.WriteAllText(Directory.GetCurrentDirectory() + "/log.txt", exc.Message);
+
+                }
             });
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            //if (mark)
-            //{
-            //    e.Cancel = true;
-            //    mark = false;
-
-            //}
+            if (mark)
+            {
+                e.Cancel = true;
+                mark = false;
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             Task.Run(() =>
             {
-                foreach (var item in list)
+                try
                 {
-                    var dotString = "";
-                    for (var i = 0; i < item.Time; i++)
+                    foreach (var item in list)
                     {
-                        if (i % 6 == 0)
+                        var dotString = "";
+                        for (var i = 0; i < item.Time; i++)
                         {
-                            dotString = ".";
+                            if (i % 6 == 0)
+                            {
+                                dotString = ".";
+                            }
+                            else
+                            {
+                                dotString += ".";
+                            }
+                            this.Invoke(() =>
+                            {
+                                messageLabel.Text = $"{item.Name}{dotString}";
+                            });
+                            SpinWait.SpinUntil(() => false, 300);
                         }
-                        else
-                        {
-                            dotString += ".";
-                        }
-                        this.Invoke(() =>
-                        {
-                            messageLabel.Text = $"{item.Name}{dotString}";
-                        });
-                        SpinWait.SpinUntil(() => false, 300);
                     }
+                    MessageBox.Show("完成医保所有数据同步");
+                }
+                catch (Exception exc)
+                {
+                    File.WriteAllText(Directory.GetCurrentDirectory() + "/log.txt", exc.Message);
+
                 }
             });
+
         }
         static List<Item> list;
         private void Form1_Load(object sender, EventArgs e)
@@ -114,9 +139,10 @@ namespace WinFormsDemo06
                             dotString += ".";
                         }
                         messageLabel.Text = $"{item.Name}{dotString}";
-                        Thread.Sleep(300);
+                        SpinWait.SpinUntil(() => false, 300);
                     }
                 }
+                MessageBox.Show("完成医保所有数据同步");
             });
         }
     }
