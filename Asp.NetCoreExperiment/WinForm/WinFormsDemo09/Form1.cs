@@ -20,34 +20,31 @@ namespace WinFormsDemo09
         private void button1_Click(object sender, EventArgs e)
         {
             var rootNode = treeView1.Nodes.Add("0", "ÖÐ¹ú");
+           
             using var con = new Microsoft.Data.SqlClient.SqlConnection("server=.;database=exam;uid=gsw;pwd=gsw;TrustServerCertificate=true");
-            var list = con.Query<Province>("select sid,pid,name from province").ToList();
+            list = con.Query<Province>("select sid,pid,name from province").ToList();
 
-            LoadProvince(rootNode, list);
+            LoadProvince(rootNode);
 
             //var rootPath = textBox1.Text;
             //var rootNode = treeView1.Nodes.Add(rootPath, Path.GetFileName(rootPath));
             //LoadFile(rootNode);
         }
-        void LoadProvince(TreeNode node, List<Province> list)
+        static List<Province> list = new List<Province>();
+        void LoadProvince(TreeNode node)
         {
             Task.Run(() =>
+            {
+                foreach (var item in list.Where(s => s.pid == node.Name).OrderBy(s=>s.sid))
                 {
-                    try
+                    TreeNode childNode = new TreeNode();
+                    this.Invoke(() =>
                     {
-                        foreach (var item in list.Where(s => s.pid == node.Name))
-                        {
-                            var childNode = node.Nodes.Add(item.sid, item.name);
-
-                            LoadProvince(childNode, list);
-
-                        }
-                    }
-                    catch (Exception exc)
-                    {
-                        // File.WriteAllText(Directory.GetCurrentDirectory() + "/log.txt", exc.Message);
-                    }
-                });
+                        childNode = node.Nodes.Add(item.sid, item.name);
+                    });
+                    LoadProvince(childNode);
+                }
+            });
         }
         void LoadProvince(TreeNode node, int i)
         {
