@@ -2,6 +2,7 @@ using Dapper;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace WinFormsDemo09
 {
@@ -14,18 +15,17 @@ namespace WinFormsDemo09
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            using var con = new Microsoft.Data.SqlClient.SqlConnection("server=.;database=exam;uid=gsw;pwd=gsw;TrustServerCertificate=true");
+            list = con.Query<Province>("select sid,pid,name from province").ToList();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
+            treeView1.Nodes.Clear();
             var rootNode = treeView1.Nodes.Add("0", "ÖÐ¹ú");
-           
-            using var con = new Microsoft.Data.SqlClient.SqlConnection("server=.;database=exam;uid=gsw;pwd=gsw;TrustServerCertificate=true");
-            list = con.Query<Province>("select sid,pid,name from province").ToList();
 
             LoadProvince(rootNode);
-
+       
             //var rootPath = textBox1.Text;
             //var rootNode = treeView1.Nodes.Add(rootPath, Path.GetFileName(rootPath));
             //LoadFile(rootNode);
@@ -35,15 +35,26 @@ namespace WinFormsDemo09
         {
             Task.Run(() =>
             {
-                foreach (var item in list.Where(s => s.pid == node.Name).OrderBy(s=>s.sid))
+                foreach (var item in list.Where(s => s.pid == node.Name).OrderBy(s => s.sid))
                 {
-                    TreeNode childNode = new TreeNode();
                     this.Invoke(() =>
                     {
-                        childNode = node.Nodes.Add(item.sid, item.name);
+                    
+                        // TreeNode childNode = new TreeNode();
+                        var childNode = node.Nodes.Add(item.sid, item.name);
+                        if(node.Level==0)
+                        {
+                            node.Expand();
+                        }
                     });
-                    LoadProvince(childNode);
                 }
+                Task.Run(() =>
+                {
+                    foreach (TreeNode childNode in node.Nodes)
+                    {
+                        LoadProvince(childNode);                 
+                    }
+                });
             });
         }
         void LoadProvince(TreeNode node, int i)
