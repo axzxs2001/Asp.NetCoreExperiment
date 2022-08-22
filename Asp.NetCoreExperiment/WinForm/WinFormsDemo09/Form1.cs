@@ -1,8 +1,10 @@
 using Dapper;
 using System.Collections.Generic;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Runtime.Serialization;
 using System.Windows.Forms;
 using System.Xml.Linq;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using System.Collections;
 
 namespace WinFormsDemo09
 {
@@ -17,6 +19,8 @@ namespace WinFormsDemo09
         {
             using var con = new Microsoft.Data.SqlClient.SqlConnection("server=.;database=exam;uid=gsw;pwd=gsw;TrustServerCertificate=true");
             list = con.Query<Province>("select sid,pid,name from province").ToList();
+            var rootNode = treeView2.Nodes.Add("0", "中国");
+            LoadProvince(rootNode, 1);
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -25,11 +29,43 @@ namespace WinFormsDemo09
             var rootNode = treeView1.Nodes.Add("0", "中国");
 
             LoadProvince(rootNode);
-       
+
+            //var tn = new TreeNode();
+            //tn.Text = "中国";
+            //tn.Name = "0";
+
+            //LoadProvinceA(tn);
+            //treeView1.Nodes.Add(tn);
+
+
+
             //var rootPath = textBox1.Text;
             //var rootNode = treeView1.Nodes.Add(rootPath, Path.GetFileName(rootPath));
             //LoadFile(rootNode);
         }
+        void LoadProvinceA(TreeNode node)
+        {
+            Task.Run(() =>
+            {
+                foreach (var item in list.Where(s => s.pid == node.Name).OrderBy(s => s.sid))
+                {
+                    var childNode = node.Nodes.Add(item.sid, item.name);
+                    // foreach (TreeNode childNode in node.Nodes)
+                    {
+                        LoadProvince(childNode);
+                    }
+                }
+                //Task.Run(() =>
+                //{
+                //    foreach (TreeNode childNode in node.Nodes)
+                //    {
+                //        LoadProvince(childNode);
+                //    }
+                //});
+            });
+        }
+
+
         static List<Province> list = new List<Province>();
         void LoadProvince(TreeNode node)
         {
@@ -39,10 +75,10 @@ namespace WinFormsDemo09
                 {
                     this.Invoke(() =>
                     {
-                    
+
                         // TreeNode childNode = new TreeNode();
-                        var childNode = node.Nodes.Add(item.sid, item.name);                           
-                        if(node.Level==0)
+                        var childNode = node.Nodes.Add(item.sid, item.name);
+                        if (node.Level == 0)
                         {
                             node.Expand();
                         }
@@ -52,7 +88,7 @@ namespace WinFormsDemo09
                 {
                     foreach (TreeNode childNode in node.Nodes)
                     {
-                        LoadProvince(childNode);                 
+                        LoadProvince(childNode);
                     }
                 });
             });
@@ -60,9 +96,7 @@ namespace WinFormsDemo09
         void LoadProvince(TreeNode node, int i)
         {
             i++;
-            using var con = new Microsoft.Data.SqlClient.SqlConnection("server=.;database=exam;uid=gsw;pwd=gsw;TrustServerCertificate=true");
-            var list = con.Query<Province>("select sid,pid,name from province where pid=@pid", new { pid = node.Name });
-            foreach (var item in list)
+            foreach (var item in list.Where(s => s.pid == node.Name))
             {
                 var childNode = node.Nodes.Add(item.sid, item.name);
                 if (i < 3)
@@ -87,7 +121,56 @@ namespace WinFormsDemo09
 
         private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            //LoadProvince(e.Node, 1);
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            var fs = new FileStream(Directory.GetCurrentDirectory() + "/DataFile.dat", FileMode.Create);
+            // Construct a BinaryFormatter and use it to serialize the data to the stream.
+            try
+            {
+                var formatter = new BinaryFormatter();
+                formatter.Serialize(fs, treeView1.Nodes[0]);
+            }
+            catch (SerializationException ee)
+            {
+                MessageBox.Show("Failed to serialize. Reason: " + ee.Message);
+                throw;
+            }
+            finally
+            {
+                fs.Close();
+            }
+
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            var fs = new FileStream(Directory.GetCurrentDirectory() + "/DataFile.dat", FileMode.Open);
+            try
+            {
+                BinaryFormatter formatter = new BinaryFormatter();
+
+                // Deserialize the hashtable from the file and
+                // assign the reference to the local variable.
+                treeView1.Nodes.Add((TreeNode)formatter.Deserialize(fs));
+            }
+            catch (SerializationException ee)
+            {
+                MessageBox.Show("Failed to serialize. Reason: " + ee.Message);
+                throw;
+            }
+            finally
+            {
+                fs.Close();
+            }
+
+        }
+
+        private void treeView2_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            LoadProvince(e.Node, 1);
         }
     }
     class Province
