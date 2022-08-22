@@ -41,7 +41,7 @@ namespace WinFormsDemo09
                     {
                     
                         // TreeNode childNode = new TreeNode();
-                        var childNode = node.Nodes.Add(item.sid, item.name);
+                        var childNode = node.Nodes.Add(item.sid, item.name);                           
                         if(node.Level==0)
                         {
                             node.Expand();
