@@ -85,9 +85,9 @@
             this.subjectLabel.Font = new System.Drawing.Font("Microsoft YaHei UI", 26F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.subjectLabel.Location = new System.Drawing.Point(226, 65);
             this.subjectLabel.Name = "subjectLabel";
-            this.subjectLabel.Size = new System.Drawing.Size(341, 67);
+            this.subjectLabel.Size = new System.Drawing.Size(362, 67);
             this.subjectLabel.TabIndex = 6;
-            this.subjectLabel.Text = "这是一个系统";
+            this.subjectLabel.Text = "WinForm系统";
             // 
             // LoginForm
             // 

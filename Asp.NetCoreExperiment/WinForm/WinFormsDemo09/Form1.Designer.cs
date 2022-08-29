@@ -28,13 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.treeView1 = new System.Windows.Forms.TreeView();
+            this.treeView2 = new MyTreeView();
             this.panel1 = new System.Windows.Forms.Panel();
             this.button3 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.treeView2 = new System.Windows.Forms.TreeView();
+            this.treeView1 = new System.Windows.Forms.TreeView();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -104,8 +104,7 @@
             this.treeView2.Name = "treeView2";
             this.treeView2.Size = new System.Drawing.Size(679, 1294);
             this.treeView2.TabIndex = 2;
-            this.treeView2.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView2_AfterSelect);
-            // 
+         // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
@@ -131,6 +130,6 @@
         private TextBox textBox1;
         private Button button3;
         private Button button2;
-        private TreeView treeView2;
+        private MyTreeView treeView2;
     }
 }

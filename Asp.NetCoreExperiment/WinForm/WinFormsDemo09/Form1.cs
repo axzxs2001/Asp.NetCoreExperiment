@@ -21,6 +21,9 @@ namespace WinFormsDemo09
             list = con.Query<Province>("select sid,pid,name from province").ToList();
             var rootNode = treeView2.Nodes.Add("0", "ÖÐ¹ú");
             LoadProvince(rootNode, 1);
+            this.treeView2.BeforeExpand += new System.Windows.Forms.TreeViewCancelEventHandler(this.treeView2_BeforeExpand);
+
+
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -50,10 +53,11 @@ namespace WinFormsDemo09
                 foreach (var item in list.Where(s => s.pid == node.Name).OrderBy(s => s.sid))
                 {
                     var childNode = node.Nodes.Add(item.sid, item.name);
-                    // foreach (TreeNode childNode in node.Nodes)
-                    {
-                        LoadProvince(childNode);
-                    }
+
+                    //foreach (TreeNode childNode in node.Nodes)
+                    //{
+                    //    LoadProvince(childNode);
+                    //}
                 }
                 //Task.Run(() =>
                 //{
@@ -75,30 +79,40 @@ namespace WinFormsDemo09
                 {
                     this.Invoke(() =>
                     {
-
-                        // TreeNode childNode = new TreeNode();
-                        var childNode = node.Nodes.Add(item.sid, item.name);
+                        node.Nodes.Add(item.sid, item.name);
                         if (node.Level == 0)
                         {
                             node.Expand();
                         }
                     });
                 }
-                Task.Run(() =>
+                foreach (TreeNode childNode in node.Nodes)
                 {
-                    foreach (TreeNode childNode in node.Nodes)
-                    {
-                        LoadProvince(childNode);
-                    }
-                });
+                    LoadProvince(childNode);
+                }
             });
         }
+
+        //void LoadProvince(TreeNode node)
+        //{
+
+        //    foreach (var item in list.Where(s => s.pid == node.Name))
+        //    {
+        //        var childNode = node.Nodes.Add(item.sid, item.name);
+        //        LoadProvince(childNode);
+        //    }
+        //}
+
         void LoadProvince(TreeNode node, int i)
         {
             i++;
             foreach (var item in list.Where(s => s.pid == node.Name))
             {
                 var childNode = node.Nodes.Add(item.sid, item.name);
+                if (node.Level == 0)
+                {
+                    node.Expand();
+                }
                 if (i < 3)
                 {
                     LoadProvince(childNode, i);
@@ -131,7 +145,7 @@ namespace WinFormsDemo09
             try
             {
                 var formatter = new BinaryFormatter();
-                formatter.Serialize(fs, treeView1.Nodes[0]);
+                formatter.Serialize(fs, treeView2);
             }
             catch (SerializationException ee)
             {
@@ -168,9 +182,15 @@ namespace WinFormsDemo09
 
         }
 
-        private void treeView2_AfterSelect(object sender, TreeViewEventArgs e)
+
+
+        private void treeView2_BeforeExpand(object sender, TreeViewCancelEventArgs e)
         {
-            LoadProvince(e.Node, 1);
+            if (e.Node != null && e.Node.Nodes != null && e.Node.Nodes.Count > 0)
+            {
+                e.Node.Nodes.Clear();
+                LoadProvince(e.Node, 1);
+            }
         }
     }
     class Province
@@ -180,4 +200,11 @@ namespace WinFormsDemo09
         public string name { get; set; }
 
     }
+
+    [Serializable]    
+    public class MyTreeView : TreeView
+    {        
+
+    }
+
 }
