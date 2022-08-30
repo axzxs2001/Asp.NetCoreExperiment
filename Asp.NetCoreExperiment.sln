@@ -556,7 +556,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiniAPI7_New8", "Asp.NetCor
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WinFormsDemo09", "Asp.NetCoreExperiment\WinForm\WinFormsDemo09\WinFormsDemo09.csproj", "{78105F02-D9AD-404C-A2AC-4EC04A4E7B62}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinFormDemo10", "Asp.NetCoreExperiment\WinForm\WinFormDemo10\WinFormDemo10.csproj", "{CD8289DC-415D-4A79-AD77-52D255FF9F6A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WinFormDemo10", "Asp.NetCoreExperiment\WinForm\WinFormDemo10\WinFormDemo10.csproj", "{CD8289DC-415D-4A79-AD77-52D255FF9F6A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinFormDemo11", "Asp.NetCoreExperiment\WinForm\WinFormDemo11\WinFormDemo11.csproj", "{484747CF-6B85-42BB-99C4-9901D46EBEB1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -1396,6 +1398,10 @@ Global
 		{CD8289DC-415D-4A79-AD77-52D255FF9F6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CD8289DC-415D-4A79-AD77-52D255FF9F6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CD8289DC-415D-4A79-AD77-52D255FF9F6A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{484747CF-6B85-42BB-99C4-9901D46EBEB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{484747CF-6B85-42BB-99C4-9901D46EBEB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{484747CF-6B85-42BB-99C4-9901D46EBEB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{484747CF-6B85-42BB-99C4-9901D46EBEB1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1621,6 +1627,7 @@ Global
 		{93D837AF-F235-4E43-A2DF-AF3A778174F3} = {8A78305E-BFFF-4F09-BE2F-3BAB7088C3FE}
 		{78105F02-D9AD-404C-A2AC-4EC04A4E7B62} = {1854E8D2-3AD0-4341-B513-775243F22C52}
 		{CD8289DC-415D-4A79-AD77-52D255FF9F6A} = {1854E8D2-3AD0-4341-B513-775243F22C52}
+		{484747CF-6B85-42BB-99C4-9901D46EBEB1} = {1854E8D2-3AD0-4341-B513-775243F22C52}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
