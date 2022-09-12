@@ -131,7 +131,7 @@ namespace DBControl
         static DataTable JsonToDataTable(string json)
         {
             var table = new DataTable();
-            var list = JsonSerializer.Deserialize<IList<Dictionary<String, Object>>>(json);
+            var list = JsonSerializer.Deserialize<IList<Dictionary<string, dynamic>>>(json);
             var columns = list?.First().Select(d => d.Key);
             if (list != null && columns != null)
             {
@@ -146,6 +146,10 @@ namespace DBControl
             }
             return table;
         }
+
+
+ 
+
 
         public static async Task DBGridInit(this DataGridView control, string url, string dataSourceName, List<DBCondition>? conditions)
         {
@@ -180,7 +184,7 @@ namespace DBControl
         [DisplayName]
         public string? Name { get; set; }
         [Browsable(true)]
-        [Description("符号"), Category("数据"), DefaultValue("")]
+        [Description("条件符号"), Category("数据"), DefaultValue("")]
         public string? Symbol { get; set; }
         [Browsable(true)]
         [Description("查询条件值"), Category("数据"), DefaultValue("")]
