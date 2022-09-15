@@ -9,4 +9,28 @@
 		<LangVersion>preview</LangVersion>
 	</PropertyGroup>
 
+	<ItemGroup>
+	  <None Remove="ggrid.bmp" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Include="ggrid.bmp" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Update="DBComBox.resx">
+	    <Generator></Generator>
+	  </EmbeddedResource>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="ggrid.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Resources\" />
+	</ItemGroup>
+
 </Project>
