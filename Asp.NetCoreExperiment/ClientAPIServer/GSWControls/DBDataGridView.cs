@@ -1,17 +1,16 @@
-﻿using DBControl;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DBControl
+namespace GSWControls
 {
     [ToolboxItem(true)]
-    [ToolboxBitmap("C:\\MyFile\\Asp.NetCoreExperiment\\Asp.NetCoreExperiment\\ClientAPIServer\\ClientDemo01\\ggrid.png")]
+    [ToolboxBitmap("C:\\MyFile\\Asp.NetCoreExperiment\\Asp.NetCoreExperiment\\ClientAPIServer\\GSWControls\\ggrid.png")]
     public class DBDataGridView : DataGridView
-    {   
+    {
         /// <summary>
         /// 后端Url
         /// </summary>

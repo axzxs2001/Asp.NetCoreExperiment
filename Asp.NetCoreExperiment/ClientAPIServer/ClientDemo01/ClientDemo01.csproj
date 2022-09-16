@@ -10,27 +10,11 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <None Remove="ggrid.bmp" />
+	  <Folder Include="Properties\" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <EmbeddedResource Include="ggrid.bmp" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <EmbeddedResource Update="DBComBox.resx">
-	    <Generator></Generator>
-	  </EmbeddedResource>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <None Update="ggrid.png">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </None>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Resources\" />
+	  <ProjectReference Include="..\GSWControls\GSWControls.csproj" />
 	</ItemGroup>
 
 </Project>

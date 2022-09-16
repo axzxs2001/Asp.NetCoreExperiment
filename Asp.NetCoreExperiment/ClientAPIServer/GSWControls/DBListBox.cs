@@ -1,25 +1,31 @@
-﻿using DBControl;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics.Contracts;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DBControl
+namespace GSWControls
 {
+    /// <summary>
+    /// abcd
+    /// </summary>
+    [DisplayName("d")]
     [ToolboxItem(true)]
-    [ToolboxBitmap(typeof(DBComBox),"ggrid")]
-    public class DBComBox : ComboBox
+    [ToolboxBitmap("C:\\MyFile\\Asp.NetCoreExperiment\\Asp.NetCoreExperiment\\ClientAPIServer\\GSWControls\\ggrid.png")]
+    public class DBListBox : ListBox
     {
+        /// <summary>
+        /// 后端Url
+        /// </summary>
         [Browsable(true)]
         [Description("后端Url"), Category("远程数据"), DefaultValue("")]
-        public string? Url
-        {
-            get;
-            set;
-        }
-
+        public string? Url { get; set; }
+        /// <summary>
+        /// 数据源名称
+        /// </summary>
         [Browsable(true)]
         [Description("访问Url后端数据源名称"), Category("远程数据"), DefaultValue("")]
         public string? DataSourceName { get; set; }
@@ -38,4 +44,5 @@ namespace DBControl
             }
         }
     }
+
 }

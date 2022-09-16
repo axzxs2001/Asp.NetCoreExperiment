@@ -1,4 +1,6 @@
-﻿namespace ClientDemo01
+﻿using GSWControls;
+
+namespace ClientDemo01
 {
     partial class Form1
     {
@@ -28,13 +30,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DBControl.DBCondition dbCondition1 = new DBControl.DBCondition();
-            DBControl.DBCondition dbCondition2 = new DBControl.DBCondition();
-            DBControl.DBCondition dbCondition3 = new DBControl.DBCondition();
-            DBControl.DBCondition dbCondition4 = new DBControl.DBCondition();
-            this.dbListBox1 = new DBControl.DBListBox();
-            this.dbCombox1 = new DBControl.DBComBox();
-            this.dataGridView1 = new DBControl.DBDataGridView();
+            DBCondition dbCondition1 = new DBCondition();
+            DBCondition dbCondition2 = new DBCondition();
+            DBCondition dbCondition3 = new DBCondition();
+            DBCondition dbCondition4 = new DBCondition();
+            this.dbListBox1 = new DBListBox();
+            this.dbCombox1 = new DBComBox();
+            this.dataGridView1 = new DBDataGridView();
             this.DGTBC_ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DGTB_Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DGTBC_Price = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -141,9 +143,9 @@
 
         }
 
-        private DBControl.DBListBox dbListBox1;
-        private DBControl.DBComBox dbCombox1;
-        private DBControl.DBDataGridView dataGridView1;
+        private DBListBox dbListBox1;
+        private DBComBox dbCombox1;
+        private DBDataGridView dataGridView1;
         private DataGridViewTextBoxColumn DGTBC_ID;
         private DataGridViewTextBoxColumn DGTBC_Name;
         private DataGridViewTextBoxColumn DGTBC_Price;

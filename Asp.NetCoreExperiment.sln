@@ -560,6 +560,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WinFormDemo10", "Asp.NetCor
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinFormDemo11", "Asp.NetCoreExperiment\WinForm\WinFormDemo11\WinFormDemo11.csproj", "{484747CF-6B85-42BB-99C4-9901D46EBEB1}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GSWControls", "Asp.NetCoreExperiment\ClientAPIServer\GSWControls\GSWControls.csproj", "{E9DD3534-AC5D-4DE3-B0D3-E293928808B4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -1402,6 +1404,10 @@ Global
 		{484747CF-6B85-42BB-99C4-9901D46EBEB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{484747CF-6B85-42BB-99C4-9901D46EBEB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{484747CF-6B85-42BB-99C4-9901D46EBEB1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E9DD3534-AC5D-4DE3-B0D3-E293928808B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E9DD3534-AC5D-4DE3-B0D3-E293928808B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E9DD3534-AC5D-4DE3-B0D3-E293928808B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E9DD3534-AC5D-4DE3-B0D3-E293928808B4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1628,6 +1634,7 @@ Global
 		{78105F02-D9AD-404C-A2AC-4EC04A4E7B62} = {1854E8D2-3AD0-4341-B513-775243F22C52}
 		{CD8289DC-415D-4A79-AD77-52D255FF9F6A} = {1854E8D2-3AD0-4341-B513-775243F22C52}
 		{484747CF-6B85-42BB-99C4-9901D46EBEB1} = {1854E8D2-3AD0-4341-B513-775243F22C52}
+		{E9DD3534-AC5D-4DE3-B0D3-E293928808B4} = {F1324E1A-EBA6-4DF9-B197-7A541428DE4E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}

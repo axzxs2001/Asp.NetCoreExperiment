@@ -1,5 +1,4 @@
-﻿using ClientDemo01;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,7 +11,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using System.Web;
 
-namespace DBControl
+namespace GSWControls
 {
 
     public static class ControlExpand
@@ -56,7 +55,7 @@ namespace DBControl
         }
 
 
- 
+
 
 
         public static async Task DBGridInit(this DataGridView control, string url, string dataSourceName, List<DBCondition>? conditions)
@@ -76,7 +75,7 @@ namespace DBControl
                         var arr = conditions.Select(s => $"({s.Name},{s.Symbol},{s.Value})").ToArray();
                         url += "&conditions=" + Uri.EscapeDataString(string.Join(',', arr));
                     }
-                    
+
                     var content = await _httpClient.GetStringAsync(url);
                     var table = JsonToDataTable(content);
                     control.DataSource = table;
@@ -101,13 +100,3 @@ namespace DBControl
 
 }
 
-/*
- 在.NET体系里，一直有一批很少发声的开发者，他们在默默的为行业贡献，那就是.NET CS开发者，即奋斗在WinForm，WPF框架下的开发者。为什么很少发声？以至于大家都把这部分开发者忘记了呢？
-1、技术成熟，没有更多的新内容
-2、行业软件，更多的解决业务的复杂性，技术问题相对较少
-3、CS的三方库很多是商业产品：Dev控件，各种报表，有厂家提供更商质量的咨询服务
-如果你用.NET做传统行业的，也可以私信一下你的感受。
-
- 
- 
- */

@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="ggrid.bmp" />
+    <None Remove="ggrid.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="ggrid.bmp" />
+    <EmbeddedResource Include="ggrid.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="DBComBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="DBDataGridView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="DBListBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+  </ItemGroup>
+
+</Project>
