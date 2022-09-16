@@ -7,18 +7,14 @@ using System.Threading.Tasks;
 
 namespace GSWControls
 {
- 
+
     [ToolboxItem(true)]
     [ToolboxBitmap(typeof(DBComBox), "GSWControls.ggrid.bmp")]
     public class DBComBox : ComboBox
-    {        
+    {
         [Browsable(true)]
         [Description("后端Url"), Category("远程数据"), DefaultValue("")]
-        public string? Url
-        {
-            get;
-            set;
-        }
+        public string? Url { get; set; }
 
         [Browsable(true)]
         [Description("访问Url后端数据源名称"), Category("远程数据"), DefaultValue("")]
