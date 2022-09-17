@@ -8,18 +8,13 @@ using System.Threading.Tasks;
 namespace GSWControls
 {
     [ToolboxItem(true)]
-    [ToolboxBitmap("C:\\MyFile\\Asp.NetCoreExperiment\\Asp.NetCoreExperiment\\ClientAPIServer\\GSWControls\\ggrid.png")]
+    [ToolboxBitmap(typeof(DBDataGridView), "ggrid.png")]
     public class DBDataGridView : DataGridView
-    {
-        /// <summary>
-        /// 后端Url
-        /// </summary>
+    {        
         [Browsable(true)]
         [Description("后端Url"), Category("远程数据"), DefaultValue("")]
-        public string? Url { get; set; }
-        /// <summary>
-        /// 数据源名称
-        /// </summary>
+        public string? Url { get; set; }    
+        
         [Browsable(true)]
         [Description("访问Url后端数据源名称"), Category("远程数据"), DefaultValue("")]
         public string? DataSourceName { get; set; }

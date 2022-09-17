@@ -6,16 +6,12 @@
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
-
   <ItemGroup>
-    <None Remove="ggrid.bmp" />
-    <None Remove="ggrid.png" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Include="ggrid.bmp" />
-    <EmbeddedResource Include="ggrid.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    <EmbeddedResource Include="glist.png">
+    </EmbeddedResource>
+    <EmbeddedResource Include="ggrid.png"> 
+    </EmbeddedResource>
+    <EmbeddedResource Include="gcom.png">
     </EmbeddedResource>
   </ItemGroup>
 
@@ -30,5 +26,4 @@
       <SubType>Component</SubType>
     </Compile>
   </ItemGroup>
-
 </Project>
