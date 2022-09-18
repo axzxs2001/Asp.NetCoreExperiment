@@ -54,10 +54,6 @@ namespace GSWControls
             return table;
         }
 
-
-
-
-
         public static async Task DBGridInit(this DataGridView control, string url, string dataSourceName, List<DBCondition>? conditions)
         {
             if (!control.IsAncestorSiteInDesignMode)

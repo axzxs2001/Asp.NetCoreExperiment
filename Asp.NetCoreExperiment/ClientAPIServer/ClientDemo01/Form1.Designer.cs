@@ -30,13 +30,13 @@ namespace ClientDemo01
         /// </summary>
         private void InitializeComponent()
         {
-            DBCondition dbCondition1 = new DBCondition();
-            DBCondition dbCondition2 = new DBCondition();
-            DBCondition dbCondition3 = new DBCondition();
-            DBCondition dbCondition4 = new DBCondition();
-            this.dbListBox1 = new DBListBox();
-            this.dbCombox1 = new DBComBox();
-            this.dataGridView1 = new DBDataGridView();
+            GSWControls.DBCondition dbCondition1 = new GSWControls.DBCondition();
+            GSWControls.DBCondition dbCondition2 = new GSWControls.DBCondition();
+            GSWControls.DBCondition dbCondition3 = new GSWControls.DBCondition();
+            GSWControls.DBCondition dbCondition4 = new GSWControls.DBCondition();
+            this.dbListBox1 = new GSWControls.DBListBox();
+            this.dbCombox1 = new GSWControls.DBComBox();
+            this.dataGridView1 = new GSWControls.DBDataGridView();
             this.DGTBC_ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DGTB_Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DGTBC_Price = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -53,11 +53,10 @@ namespace ClientDemo01
             this.dbListBox1.DataSourceName = "city";
             this.dbListBox1.DisplayMember = "Value";
             this.dbListBox1.FormattingEnabled = true;
-            this.dbListBox1.ItemHeight = 17;
-            this.dbListBox1.Location = new System.Drawing.Point(12, 40);
-            this.dbListBox1.Margin = new System.Windows.Forms.Padding(2);
+            this.dbListBox1.ItemHeight = 24;
+            this.dbListBox1.Location = new System.Drawing.Point(19, 56);
             this.dbListBox1.Name = "dbListBox1";
-            this.dbListBox1.Size = new System.Drawing.Size(303, 89);
+            this.dbListBox1.Size = new System.Drawing.Size(474, 124);
             this.dbListBox1.TabIndex = 0;
             this.dbListBox1.Url = "http://127.0.0.1:5235/parame/";
             this.dbListBox1.ValueMember = "Key";
@@ -71,10 +70,9 @@ namespace ClientDemo01
             this.dbCombox1.DataSourceName = "type";
             this.dbCombox1.DisplayMember = "Name";
             this.dbCombox1.FormattingEnabled = true;
-            this.dbCombox1.Location = new System.Drawing.Point(12, 11);
-            this.dbCombox1.Margin = new System.Windows.Forms.Padding(2);
+            this.dbCombox1.Location = new System.Drawing.Point(19, 16);
             this.dbCombox1.Name = "dbCombox1";
-            this.dbCombox1.Size = new System.Drawing.Size(303, 25);
+            this.dbCombox1.Size = new System.Drawing.Size(474, 32);
             this.dbCombox1.TabIndex = 1;
             this.dbCombox1.Url = "http://127.0.0.1:5235/parame/";
             this.dbCombox1.ValueMember = "ID";
@@ -96,10 +94,12 @@ namespace ClientDemo01
             this.dataGridView1.Conditions.Add(dbCondition3);
             this.dataGridView1.Conditions.Add(dbCondition4);
             this.dataGridView1.DataSourceName = "order";
-            this.dataGridView1.Location = new System.Drawing.Point(12, 134);
+            this.dataGridView1.Location = new System.Drawing.Point(19, 189);
+            this.dataGridView1.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RowHeadersWidth = 62;
             this.dataGridView1.RowTemplate.Height = 25;
-            this.dataGridView1.Size = new System.Drawing.Size(477, 232);
+            this.dataGridView1.Size = new System.Drawing.Size(750, 328);
             this.dataGridView1.TabIndex = 2;
             this.dataGridView1.Url = "http://127.0.0.1:5235/parame/";
             // 
@@ -107,36 +107,44 @@ namespace ClientDemo01
             // 
             this.DGTBC_ID.DataPropertyName = "ID";
             this.DGTBC_ID.HeaderText = "编号";
+            this.DGTBC_ID.MinimumWidth = 8;
             this.DGTBC_ID.Name = "DGTBC_ID";
+            this.DGTBC_ID.Width = 150;
             // 
             // DGTB_Name
             // 
             this.DGTB_Name.DataPropertyName = "Name";
             this.DGTB_Name.HeaderText = "名称";
+            this.DGTB_Name.MinimumWidth = 8;
             this.DGTB_Name.Name = "DGTB_Name";
+            this.DGTB_Name.Width = 150;
             // 
             // DGTBC_Price
             // 
             this.DGTBC_Price.DataPropertyName = "Price";
             this.DGTBC_Price.HeaderText = "价格";
+            this.DGTBC_Price.MinimumWidth = 8;
             this.DGTBC_Price.Name = "DGTBC_Price";
+            this.DGTBC_Price.Width = 150;
             // 
             // DGTBC_Quantity
             // 
             this.DGTBC_Quantity.DataPropertyName = "Quantity";
             this.DGTBC_Quantity.HeaderText = "数量";
+            this.DGTBC_Quantity.MinimumWidth = 8;
             this.DGTBC_Quantity.Name = "DGTBC_Quantity";
+            this.DGTBC_Quantity.Width = 150;
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(494, 376);
+            this.ClientSize = new System.Drawing.Size(776, 531);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.dbCombox1);
             this.Controls.Add(this.dbListBox1);
+            this.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.Name = "Form1";
-            this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
