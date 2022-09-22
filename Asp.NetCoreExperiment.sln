@@ -562,6 +562,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinFormDemo11", "Asp.NetCor
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GSWControls", "Asp.NetCoreExperiment\ClientAPIServer\GSWControls\GSWControls.csproj", "{E9DD3534-AC5D-4DE3-B0D3-E293928808B4}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CloseXML", "CloseXML", "{8C994867-4C3D-42C7-9BDE-8F5453773DB0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExcelTest", "Asp.NetCoreExperiment\CloseXML\ExcelTest\ExcelTest.csproj", "{DA691C34-01FF-41C4-BA7B-C4D5270FAD03}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -1408,6 +1412,10 @@ Global
 		{E9DD3534-AC5D-4DE3-B0D3-E293928808B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E9DD3534-AC5D-4DE3-B0D3-E293928808B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E9DD3534-AC5D-4DE3-B0D3-E293928808B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA691C34-01FF-41C4-BA7B-C4D5270FAD03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA691C34-01FF-41C4-BA7B-C4D5270FAD03}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA691C34-01FF-41C4-BA7B-C4D5270FAD03}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA691C34-01FF-41C4-BA7B-C4D5270FAD03}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1635,6 +1643,7 @@ Global
 		{CD8289DC-415D-4A79-AD77-52D255FF9F6A} = {1854E8D2-3AD0-4341-B513-775243F22C52}
 		{484747CF-6B85-42BB-99C4-9901D46EBEB1} = {1854E8D2-3AD0-4341-B513-775243F22C52}
 		{E9DD3534-AC5D-4DE3-B0D3-E293928808B4} = {F1324E1A-EBA6-4DF9-B197-7A541428DE4E}
+		{DA691C34-01FF-41C4-BA7B-C4D5270FAD03} = {8C994867-4C3D-42C7-9BDE-8F5453773DB0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
