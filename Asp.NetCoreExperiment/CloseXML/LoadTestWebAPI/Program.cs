@@ -7,6 +7,9 @@ using QRCoder;
 using Microsoft.AspNetCore.Mvc;
 using QuestPDF.Drawing;
 
+
+Environment.SetEnvironmentVariable("DOTNET_PerfMapEnabled", "1");
+Environment.SetEnvironmentVariable("DOTNET_EnableEventLog", "1");
 var builder = WebApplication.CreateBuilder(args);
 
 
@@ -32,6 +35,9 @@ app.MapGet("/getpdf", () =>
     {
         table.Rows.Add(row.ToString(), row.ToString(), row.ToString(), row.ToString(), row.ToString(), row.ToString(), row.ToString(), DateTime.Now + "按复位法如何使用发扫八月瓜wwewrwerewfdsfdswefwefewfwefwefew" + row, row.ToString(), row.ToString());
     }
+
+    // return new FileContentResult(GetPDF(table), "application/pdf");
+    // return new FileStreamResult(new MemoryStream(GetPDF(table)),Microsoft.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/pdf"));
     return TypedResults.File(GetPDF(table), contentType: "application/pdf", fileDownloadName: "a.pdf");
 
 
@@ -42,10 +48,11 @@ app.Run();
 static byte[] GetPDF(DataTable dt)
 {
 
-    return QuestPDF.Fluent.Document.Create(container =>
+
+    var doc = QuestPDF.Fluent.Document.Create(container =>
     {
 
-        var stream = File.OpenRead(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "fonts", "MEIRYO.TTC"));
+        using var stream = File.OpenRead(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "fonts", "MEIRYO.TTC"));
         FontManager.RegisterFont(stream);
         container.Page(page =>
         {
@@ -63,7 +70,6 @@ static byte[] GetPDF(DataTable dt)
                     x.Item().Table(table =>
                     {
 
-
                         table.ColumnsDefinition(columns =>
                         {
                             for (var i = 0; i < dt.Columns.Count; i++)
@@ -73,7 +79,6 @@ static byte[] GetPDF(DataTable dt)
                             }
 
                         });
-
 
                         table.Header(header =>
                         {
@@ -90,7 +95,6 @@ static byte[] GetPDF(DataTable dt)
                                 return container.DefaultTextStyle(x => x.SemiBold().FontSize(11)).PaddingVertical(5).BorderBottom(1).BorderColor(Colors.Black);
                             }
                         });
-
 
                         foreach (DataRow row in dt.Rows)
                         {
@@ -127,7 +131,8 @@ static byte[] GetPDF(DataTable dt)
 
                 });
         });
-    }).GeneratePdf();
+    });
+    return doc.GeneratePdf();
 
 
 }

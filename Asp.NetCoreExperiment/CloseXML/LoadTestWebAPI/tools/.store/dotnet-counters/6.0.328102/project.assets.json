@@ -91,16 +91,16 @@
     ]
   },
   "packageFolders": {
-    "/app/tools/.store/.stage/1gdkwfz1.3xr": {}
+    "/app/tools/.store/.stage/xivexobt.wxx": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/tmp/ajbyoqne.w05/restore.csproj",
+      "projectUniqueName": "/tmp/ssf4ywwp.suy/restore.csproj",
       "projectName": "restore",
-      "projectPath": "/tmp/ajbyoqne.w05/restore.csproj",
-      "packagesPath": "/app/tools/.store/.stage/1gdkwfz1.3xr",
-      "outputPath": "/app/tools/.store/.stage/1gdkwfz1.3xr/",
+      "projectPath": "/tmp/ssf4ywwp.suy/restore.csproj",
+      "packagesPath": "/app/tools/.store/.stage/xivexobt.wxx",
+      "outputPath": "/app/tools/.store/.stage/xivexobt.wxx/",
       "projectStyle": "DotnetToolReference",
       "configFilePaths": [
         "/root/.nuget/NuGet/NuGet.Config"

@@ -1,5 +1,3 @@
-#See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
-
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS base
 WORKDIR /app
 EXPOSE 80
@@ -18,8 +16,11 @@ RUN dotnet publish "LoadTestWebAPI.csproj" -c Release -o /app/publish /p:UseAppH
 FROM base AS final
 WORKDIR /app
 
+RUN apt-get update -y
+RUN apt-get install procps -y
+RUN dotnet tool install  --tool-path /app/tools  dotnet-counters -y
 
-RUN apt-get update && apt-get install -y --allow-unauthenticated libgdiplus libc6-dev
+RUN apt-get install -y --allow-unauthenticated libgdiplus libc6-dev
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "LoadTestWebAPI.dll"]
 
