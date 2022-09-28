@@ -1,0 +1,155 @@
+{
+  "version": 3,
+  "targets": {
+    "net7.0": {
+      "dotnet-counters/6.0.328102": {
+        "type": "package"
+      }
+    },
+    "net7.0/any": {
+      "dotnet-counters/6.0.328102": {
+        "type": "package",
+        "tools": {
+          "tools/netcoreapp3.1/any/Dia2Lib.dll": {},
+          "tools/netcoreapp3.1/any/DotnetToolSettings.xml": {},
+          "tools/netcoreapp3.1/any/Microsoft.Bcl.AsyncInterfaces.dll": {},
+          "tools/netcoreapp3.1/any/Microsoft.Diagnostics.FastSerialization.dll": {},
+          "tools/netcoreapp3.1/any/Microsoft.Diagnostics.NETCore.Client.dll": {},
+          "tools/netcoreapp3.1/any/Microsoft.Diagnostics.NETCore.Client.pdb": {},
+          "tools/netcoreapp3.1/any/Microsoft.Diagnostics.NETCore.Client.xml": {},
+          "tools/netcoreapp3.1/any/Microsoft.Diagnostics.Tracing.TraceEvent.dll": {},
+          "tools/netcoreapp3.1/any/Microsoft.Extensions.Configuration.Abstractions.dll": {},
+          "tools/netcoreapp3.1/any/Microsoft.Extensions.Configuration.Binder.dll": {},
+          "tools/netcoreapp3.1/any/Microsoft.Extensions.Configuration.dll": {},
+          "tools/netcoreapp3.1/any/Microsoft.Extensions.DependencyInjection.Abstractions.dll": {},
+          "tools/netcoreapp3.1/any/Microsoft.Extensions.Logging.Abstractions.dll": {},
+          "tools/netcoreapp3.1/any/Microsoft.Extensions.Logging.dll": {},
+          "tools/netcoreapp3.1/any/Microsoft.Extensions.Options.dll": {},
+          "tools/netcoreapp3.1/any/Microsoft.Extensions.Primitives.dll": {},
+          "tools/netcoreapp3.1/any/OSExtensions.dll": {},
+          "tools/netcoreapp3.1/any/System.CommandLine.Rendering.dll": {},
+          "tools/netcoreapp3.1/any/System.CommandLine.dll": {},
+          "tools/netcoreapp3.1/any/TraceReloggerLib.dll": {},
+          "tools/netcoreapp3.1/any/dotnet-counters.deps.json": {},
+          "tools/netcoreapp3.1/any/dotnet-counters.dll": {},
+          "tools/netcoreapp3.1/any/dotnet-counters.pdb": {},
+          "tools/netcoreapp3.1/any/dotnet-counters.runtimeconfig.json": {},
+          "tools/netcoreapp3.1/any/shims/osx-x64/dotnet-counters": {},
+          "tools/netcoreapp3.1/any/shims/win-arm/dotnet-counters.exe": {},
+          "tools/netcoreapp3.1/any/shims/win-x64/dotnet-counters.exe": {},
+          "tools/netcoreapp3.1/any/shims/win-x86/dotnet-counters.exe": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "dotnet-counters/6.0.328102": {
+      "sha512": "+aKUjFx8eTvISLAoNQK/sOrWifQSLR932IvGHCoZsWyzkIUzj4whXju3gAUN5/1g7wq8ntoloiTCJ/xt9Hy5dw==",
+      "type": "package",
+      "path": "dotnet-counters/6.0.328102",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "dotnet-counters.6.0.328102.nupkg.sha512",
+        "dotnet-counters.nuspec",
+        "tools/netcoreapp3.1/any/Dia2Lib.dll",
+        "tools/netcoreapp3.1/any/DotnetToolSettings.xml",
+        "tools/netcoreapp3.1/any/Microsoft.Bcl.AsyncInterfaces.dll",
+        "tools/netcoreapp3.1/any/Microsoft.Diagnostics.FastSerialization.dll",
+        "tools/netcoreapp3.1/any/Microsoft.Diagnostics.NETCore.Client.dll",
+        "tools/netcoreapp3.1/any/Microsoft.Diagnostics.NETCore.Client.pdb",
+        "tools/netcoreapp3.1/any/Microsoft.Diagnostics.NETCore.Client.xml",
+        "tools/netcoreapp3.1/any/Microsoft.Diagnostics.Tracing.TraceEvent.dll",
+        "tools/netcoreapp3.1/any/Microsoft.Extensions.Configuration.Abstractions.dll",
+        "tools/netcoreapp3.1/any/Microsoft.Extensions.Configuration.Binder.dll",
+        "tools/netcoreapp3.1/any/Microsoft.Extensions.Configuration.dll",
+        "tools/netcoreapp3.1/any/Microsoft.Extensions.DependencyInjection.Abstractions.dll",
+        "tools/netcoreapp3.1/any/Microsoft.Extensions.Logging.Abstractions.dll",
+        "tools/netcoreapp3.1/any/Microsoft.Extensions.Logging.dll",
+        "tools/netcoreapp3.1/any/Microsoft.Extensions.Options.dll",
+        "tools/netcoreapp3.1/any/Microsoft.Extensions.Primitives.dll",
+        "tools/netcoreapp3.1/any/OSExtensions.dll",
+        "tools/netcoreapp3.1/any/System.CommandLine.Rendering.dll",
+        "tools/netcoreapp3.1/any/System.CommandLine.dll",
+        "tools/netcoreapp3.1/any/TraceReloggerLib.dll",
+        "tools/netcoreapp3.1/any/dotnet-counters.deps.json",
+        "tools/netcoreapp3.1/any/dotnet-counters.dll",
+        "tools/netcoreapp3.1/any/dotnet-counters.pdb",
+        "tools/netcoreapp3.1/any/dotnet-counters.runtimeconfig.json",
+        "tools/netcoreapp3.1/any/shims/osx-x64/dotnet-counters",
+        "tools/netcoreapp3.1/any/shims/win-arm/dotnet-counters.exe",
+        "tools/netcoreapp3.1/any/shims/win-x64/dotnet-counters.exe",
+        "tools/netcoreapp3.1/any/shims/win-x86/dotnet-counters.exe"
+      ]
+    }
+  },
+  "projectFileDependencyGroups": {
+    "net7.0": [
+      "dotnet-counters >= *"
+    ]
+  },
+  "packageFolders": {
+    "/app/tools/.store/.stage/1gdkwfz1.3xr": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "/tmp/ajbyoqne.w05/restore.csproj",
+      "projectName": "restore",
+      "projectPath": "/tmp/ajbyoqne.w05/restore.csproj",
+      "packagesPath": "/app/tools/.store/.stage/1gdkwfz1.3xr",
+      "outputPath": "/app/tools/.store/.stage/1gdkwfz1.3xr/",
+      "projectStyle": "DotnetToolReference",
+      "configFilePaths": [
+        "/root/.nuget/NuGet/NuGet.Config"
+      ],
+      "originalTargetFrameworks": [
+        "net7.0"
+      ],
+      "sources": {
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "projectReferences": {}
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      }
+    },
+    "frameworks": {
+      "net7.0": {
+        "targetAlias": "net7.0",
+        "dependencies": {
+          "dotnet-counters": {
+            "target": "Package",
+            "version": "[*, )"
+          }
+        },
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48",
+          "net481"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/7.0.100-rc.1.22431.12/RuntimeIdentifierGraph.json"
+      }
+    },
+    "runtimes": {
+      "any": {
+        "#import": []
+      }
+    }
+  }
+}

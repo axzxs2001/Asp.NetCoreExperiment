@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="QRCoder" Version="1.4.3" />
     <PackageReference Include="QuestPDF" Version="2022.6.0-prerelease" />
   </ItemGroup>
 

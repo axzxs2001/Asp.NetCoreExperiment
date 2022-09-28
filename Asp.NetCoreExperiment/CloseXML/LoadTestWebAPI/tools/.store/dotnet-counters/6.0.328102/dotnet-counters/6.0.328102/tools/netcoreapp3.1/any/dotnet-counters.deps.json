@@ -1,0 +1,397 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v3.1",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v3.1": {
+      "dotnet-counters/6.0.328102": {
+        "dependencies": {
+          "Microsoft.CodeAnalysis.FxCopAnalyzers": "3.0.0-beta3.final",
+          "Microsoft.DiaSymReader.Pdb2Pdb": "1.1.0-beta2-19575-01",
+          "Microsoft.Diagnostics.NETCore.Client": "0.2.328102",
+          "Microsoft.Diagnostics.Tracing.TraceEvent": "2.0.64",
+          "Microsoft.SourceLink.AzureRepos.Git": "1.2.0-beta-22271-02",
+          "Microsoft.SourceLink.GitHub": "1.2.0-beta-22271-02",
+          "System.CommandLine": "2.0.0-beta1.20468.1",
+          "System.CommandLine.Rendering": "2.0.0-beta1.20074.1"
+        },
+        "runtime": {
+          "dotnet-counters.dll": {}
+        }
+      },
+      "Microsoft.Bcl.AsyncInterfaces/1.1.0": {
+        "runtime": {
+          "lib/netstandard2.1/Microsoft.Bcl.AsyncInterfaces.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "4.700.19.56404"
+          }
+        }
+      },
+      "Microsoft.Build.Tasks.Git/1.2.0-beta-22271-02": {},
+      "Microsoft.CodeAnalysis.FxCopAnalyzers/3.0.0-beta3.final": {
+        "dependencies": {
+          "Microsoft.CodeAnalysis.VersionCheckAnalyzer": "3.0.0-beta3.final",
+          "Microsoft.CodeQuality.Analyzers": "3.0.0-beta3.final",
+          "Microsoft.NetCore.Analyzers": "3.0.0-beta3.final",
+          "Microsoft.NetFramework.Analyzers": "3.0.0-beta3.final"
+        }
+      },
+      "Microsoft.CodeAnalysis.VersionCheckAnalyzer/3.0.0-beta3.final": {},
+      "Microsoft.CodeQuality.Analyzers/3.0.0-beta3.final": {},
+      "Microsoft.CSharp/4.4.1": {},
+      "Microsoft.Diagnostics.Tracing.TraceEvent/2.0.64": {
+        "dependencies": {
+          "System.Runtime.CompilerServices.Unsafe": "4.5.2"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Dia2Lib.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "2.0.0.0"
+          },
+          "lib/netstandard2.0/Microsoft.Diagnostics.FastSerialization.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          },
+          "lib/netstandard2.0/Microsoft.Diagnostics.Tracing.TraceEvent.dll": {
+            "assemblyVersion": "2.0.64.0",
+            "fileVersion": "2.0.64.0"
+          },
+          "lib/netstandard2.0/OSExtensions.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          },
+          "lib/netstandard2.0/TraceReloggerLib.dll": {
+            "assemblyVersion": "0.0.0.0",
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      },
+      "Microsoft.DiaSymReader.Pdb2Pdb/1.1.0-beta2-19575-01": {},
+      "Microsoft.Extensions.Configuration/2.1.1": {
+        "dependencies": {
+          "Microsoft.Extensions.Configuration.Abstractions": "2.1.1"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.Extensions.Configuration.dll": {
+            "assemblyVersion": "2.1.1.0",
+            "fileVersion": "2.1.1.18157"
+          }
+        }
+      },
+      "Microsoft.Extensions.Configuration.Abstractions/2.1.1": {
+        "dependencies": {
+          "Microsoft.Extensions.Primitives": "2.1.1"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.Extensions.Configuration.Abstractions.dll": {
+            "assemblyVersion": "2.1.1.0",
+            "fileVersion": "2.1.1.18157"
+          }
+        }
+      },
+      "Microsoft.Extensions.Configuration.Binder/2.1.1": {
+        "dependencies": {
+          "Microsoft.Extensions.Configuration": "2.1.1"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.Extensions.Configuration.Binder.dll": {
+            "assemblyVersion": "2.1.1.0",
+            "fileVersion": "2.1.1.18157"
+          }
+        }
+      },
+      "Microsoft.Extensions.DependencyInjection.Abstractions/2.1.1": {
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll": {
+            "assemblyVersion": "2.1.1.0",
+            "fileVersion": "2.1.1.18157"
+          }
+        }
+      },
+      "Microsoft.Extensions.Logging/2.1.1": {
+        "dependencies": {
+          "Microsoft.Extensions.Configuration.Binder": "2.1.1",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "2.1.1",
+          "Microsoft.Extensions.Logging.Abstractions": "2.1.1",
+          "Microsoft.Extensions.Options": "2.1.1"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.Extensions.Logging.dll": {
+            "assemblyVersion": "2.1.1.0",
+            "fileVersion": "2.1.1.18157"
+          }
+        }
+      },
+      "Microsoft.Extensions.Logging.Abstractions/2.1.1": {
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.Extensions.Logging.Abstractions.dll": {
+            "assemblyVersion": "2.1.1.0",
+            "fileVersion": "2.1.1.18157"
+          }
+        }
+      },
+      "Microsoft.Extensions.Options/2.1.1": {
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "2.1.1",
+          "Microsoft.Extensions.Primitives": "2.1.1"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.Extensions.Options.dll": {
+            "assemblyVersion": "2.1.1.0",
+            "fileVersion": "2.1.1.18157"
+          }
+        }
+      },
+      "Microsoft.Extensions.Primitives/2.1.1": {
+        "dependencies": {
+          "System.Memory": "4.5.4",
+          "System.Runtime.CompilerServices.Unsafe": "4.5.2"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.Extensions.Primitives.dll": {
+            "assemblyVersion": "2.1.1.0",
+            "fileVersion": "2.1.1.18157"
+          }
+        }
+      },
+      "Microsoft.NetCore.Analyzers/3.0.0-beta3.final": {},
+      "Microsoft.NetFramework.Analyzers/3.0.0-beta3.final": {},
+      "Microsoft.SourceLink.AzureRepos.Git/1.2.0-beta-22271-02": {
+        "dependencies": {
+          "Microsoft.Build.Tasks.Git": "1.2.0-beta-22271-02",
+          "Microsoft.SourceLink.Common": "1.2.0-beta-22271-02"
+        }
+      },
+      "Microsoft.SourceLink.Common/1.2.0-beta-22271-02": {},
+      "Microsoft.SourceLink.GitHub/1.2.0-beta-22271-02": {
+        "dependencies": {
+          "Microsoft.Build.Tasks.Git": "1.2.0-beta-22271-02",
+          "Microsoft.SourceLink.Common": "1.2.0-beta-22271-02"
+        }
+      },
+      "System.CommandLine/2.0.0-beta1.20468.1": {
+        "dependencies": {
+          "Microsoft.CSharp": "4.4.1",
+          "System.Memory": "4.5.4"
+        },
+        "runtime": {
+          "lib/netstandard2.0/System.CommandLine.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "2.0.20.46801"
+          }
+        }
+      },
+      "System.CommandLine.Rendering/2.0.0-beta1.20074.1": {
+        "dependencies": {
+          "System.CommandLine": "2.0.0-beta1.20468.1"
+        },
+        "runtime": {
+          "lib/netstandard2.0/System.CommandLine.Rendering.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "2.0.20.7401"
+          }
+        }
+      },
+      "System.Memory/4.5.4": {},
+      "System.Runtime.CompilerServices.Unsafe/4.5.2": {},
+      "Microsoft.Diagnostics.NETCore.Client/0.2.328102": {
+        "dependencies": {
+          "Microsoft.Bcl.AsyncInterfaces": "1.1.0",
+          "Microsoft.Extensions.Logging": "2.1.1"
+        },
+        "runtime": {
+          "Microsoft.Diagnostics.NETCore.Client.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "dotnet-counters/6.0.328102": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Microsoft.Bcl.AsyncInterfaces/1.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-1Am6l4Vpn3/K32daEqZI+FFr96OlZkgwK2LcT3pZ2zWubR5zTPW3/FkO1Rat9kb7oQOa4rxgl9LJHc5tspCWfg==",
+      "path": "microsoft.bcl.asyncinterfaces/1.1.0",
+      "hashPath": "microsoft.bcl.asyncinterfaces.1.1.0.nupkg.sha512"
+    },
+    "Microsoft.Build.Tasks.Git/1.2.0-beta-22271-02": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-xPUd45G6yjbr8tB3AUGuxbcN5uwyuaW+7Hs+TrYwbLJWIixxDiT6jtSa+kggJIhY0lsvc2ekOsqflS7NNwOZNw==",
+      "path": "microsoft.build.tasks.git/1.2.0-beta-22271-02",
+      "hashPath": "microsoft.build.tasks.git.1.2.0-beta-22271-02.nupkg.sha512"
+    },
+    "Microsoft.CodeAnalysis.FxCopAnalyzers/3.0.0-beta3.final": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-i/GUnco+v3fWk0bMCsIRTu9FSHlUpKBgsFVY+4SZE6ciSu27MJ28djuGEdXRi9+xnTKH7YwFbPCq/sUTqrKiEw==",
+      "path": "microsoft.codeanalysis.fxcopanalyzers/3.0.0-beta3.final",
+      "hashPath": "microsoft.codeanalysis.fxcopanalyzers.3.0.0-beta3.final.nupkg.sha512"
+    },
+    "Microsoft.CodeAnalysis.VersionCheckAnalyzer/3.0.0-beta3.final": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-JZWHUZGW4gNS4AJJ1TU6gyaBmWB3nzCDPzKoUmL/XmE1510MjJ3EXj4nxUgeOGAJX5DnuUKfMIkTuxReuwMHXg==",
+      "path": "microsoft.codeanalysis.versioncheckanalyzer/3.0.0-beta3.final",
+      "hashPath": "microsoft.codeanalysis.versioncheckanalyzer.3.0.0-beta3.final.nupkg.sha512"
+    },
+    "Microsoft.CodeQuality.Analyzers/3.0.0-beta3.final": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-PYuwb1tJ47T/qlA2M8rxlF+3R275AbleOrT2a/8fw0XmqG4DR/6DQOqXg6PW1lYwlUFk7YSO2+cKqdz1eDFA1w==",
+      "path": "microsoft.codequality.analyzers/3.0.0-beta3.final",
+      "hashPath": "microsoft.codequality.analyzers.3.0.0-beta3.final.nupkg.sha512"
+    },
+    "Microsoft.CSharp/4.4.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-A5hI3gk6WpcBI0QGZY6/d5CCaYUxJgi7iENn1uYEng+Olo8RfI5ReGVkjXjeu3VR3srLvVYREATXa2M0X7FYJA==",
+      "path": "microsoft.csharp/4.4.1",
+      "hashPath": "microsoft.csharp.4.4.1.nupkg.sha512"
+    },
+    "Microsoft.Diagnostics.Tracing.TraceEvent/2.0.64": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-rO4Wp2MejdXrCjlpwkwzoxay92beJGgJ7P9zbIt2zHD6/AeUbDBhYcRKU1eMb6g2ac3YS6CDkYbJCEBTh9DK2w==",
+      "path": "microsoft.diagnostics.tracing.traceevent/2.0.64",
+      "hashPath": "microsoft.diagnostics.tracing.traceevent.2.0.64.nupkg.sha512"
+    },
+    "Microsoft.DiaSymReader.Pdb2Pdb/1.1.0-beta2-19575-01": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-kY6eTNkeWLHvfOjg97Q7tgQKrPpX+Y3fR6fS4nyfpgFLHBxHriLBR4v3e9t71it91gIMEeKUqOqrFJ7Pj48eHA==",
+      "path": "microsoft.diasymreader.pdb2pdb/1.1.0-beta2-19575-01",
+      "hashPath": "microsoft.diasymreader.pdb2pdb.1.1.0-beta2-19575-01.nupkg.sha512"
+    },
+    "Microsoft.Extensions.Configuration/2.1.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-LjVKO6P2y52c5ZhTLX/w8zc5H4Y3J/LJsgqTBj49TtFq/hAtVNue/WA0F6/7GMY90xhD7K0MDZ4qpOeWXbLvzg==",
+      "path": "microsoft.extensions.configuration/2.1.1",
+      "hashPath": "microsoft.extensions.configuration.2.1.1.nupkg.sha512"
+    },
+    "Microsoft.Extensions.Configuration.Abstractions/2.1.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-VfuZJNa0WUshZ/+8BFZAhwFKiKuu/qOUCFntfdLpHj7vcRnsGHqd3G2Hse78DM+pgozczGM63lGPRLmy+uhUOA==",
+      "path": "microsoft.extensions.configuration.abstractions/2.1.1",
+      "hashPath": "microsoft.extensions.configuration.abstractions.2.1.1.nupkg.sha512"
+    },
+    "Microsoft.Extensions.Configuration.Binder/2.1.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-fcLCTS03poWE4v9tSNBr3pWn0QwGgAn1vzqHXlXgvqZeOc7LvQNzaWcKRQZTdEc3+YhQKwMsOtm3VKSA2aWQ8w==",
+      "path": "microsoft.extensions.configuration.binder/2.1.1",
+      "hashPath": "microsoft.extensions.configuration.binder.2.1.1.nupkg.sha512"
+    },
+    "Microsoft.Extensions.DependencyInjection.Abstractions/2.1.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-MgYpU5cwZohUMKKg3sbPhvGG+eAZ/59E9UwPwlrUkyXU+PGzqwZg9yyQNjhxuAWmoNoFReoemeCku50prYSGzA==",
+      "path": "microsoft.extensions.dependencyinjection.abstractions/2.1.1",
+      "hashPath": "microsoft.extensions.dependencyinjection.abstractions.2.1.1.nupkg.sha512"
+    },
+    "Microsoft.Extensions.Logging/2.1.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-hh+mkOAQDTp6XH80xJt3+wwYVzkbwYQl9XZRCz4Um0JjP/o7N9vHM3rZ6wwwtr+BBe/L6iBO2sz0px6OWBzqZQ==",
+      "path": "microsoft.extensions.logging/2.1.1",
+      "hashPath": "microsoft.extensions.logging.2.1.1.nupkg.sha512"
+    },
+    "Microsoft.Extensions.Logging.Abstractions/2.1.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-XRzK7ZF+O6FzdfWrlFTi1Rgj2080ZDsd46vzOjadHUB0Cz5kOvDG8vI7caa5YFrsHQpcfn0DxtjS4E46N4FZsA==",
+      "path": "microsoft.extensions.logging.abstractions/2.1.1",
+      "hashPath": "microsoft.extensions.logging.abstractions.2.1.1.nupkg.sha512"
+    },
+    "Microsoft.Extensions.Options/2.1.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-V7lXCU78lAbzaulCGFKojcCyG8RTJicEbiBkPJjFqiqXwndEBBIehdXRMWEVU3UtzQ1yDvphiWUL9th6/4gJ7w==",
+      "path": "microsoft.extensions.options/2.1.1",
+      "hashPath": "microsoft.extensions.options.2.1.1.nupkg.sha512"
+    },
+    "Microsoft.Extensions.Primitives/2.1.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-scJ1GZNIxMmjpENh0UZ8XCQ6vzr/LzeF9WvEA51Ix2OQGAs9WPgPu8ABVUdvpKPLuor/t05gm6menJK3PwqOXg==",
+      "path": "microsoft.extensions.primitives/2.1.1",
+      "hashPath": "microsoft.extensions.primitives.2.1.1.nupkg.sha512"
+    },
+    "Microsoft.NetCore.Analyzers/3.0.0-beta3.final": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-8bBXxGdXHVzNJ/LBeTUdzDzXDZCqHPJ9WZoZ5GwgW3E6X9tmDXpBQ+dODfm50emQfkxd8no0OgSLZtt8zMU5Kg==",
+      "path": "microsoft.netcore.analyzers/3.0.0-beta3.final",
+      "hashPath": "microsoft.netcore.analyzers.3.0.0-beta3.final.nupkg.sha512"
+    },
+    "Microsoft.NetFramework.Analyzers/3.0.0-beta3.final": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Ii6e2TaUiIqjbrD9jpwV+hgqHTkShGS5h5GmlN9/mAsApgwTrTQd2IIEbS9oQ5XbcNx3bDCfQi7D3RI1ZS4oQg==",
+      "path": "microsoft.netframework.analyzers/3.0.0-beta3.final",
+      "hashPath": "microsoft.netframework.analyzers.3.0.0-beta3.final.nupkg.sha512"
+    },
+    "Microsoft.SourceLink.AzureRepos.Git/1.2.0-beta-22271-02": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-qmmgZ0rAPcTBYmijbMz0uKTut3m/AZsBXl0eMcYca5Ze0eAj4PcVPJ7K5uO9sVixLiz1Yn1dAvbdpZsp4gD1FA==",
+      "path": "microsoft.sourcelink.azurerepos.git/1.2.0-beta-22271-02",
+      "hashPath": "microsoft.sourcelink.azurerepos.git.1.2.0-beta-22271-02.nupkg.sha512"
+    },
+    "Microsoft.SourceLink.Common/1.2.0-beta-22271-02": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-j+vjAeYjE+4XO15mrtSqA8sl8mpwNn3TyQ9vW6boAT8vTCRQQCeKKNCj2cJ8us3PI82PDo41jNJ/g28gAitX/g==",
+      "path": "microsoft.sourcelink.common/1.2.0-beta-22271-02",
+      "hashPath": "microsoft.sourcelink.common.1.2.0-beta-22271-02.nupkg.sha512"
+    },
+    "Microsoft.SourceLink.GitHub/1.2.0-beta-22271-02": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-q3aqBQZzQneAEIsg1gwpfUwH7+XKz81E7xnxHXIAdRgBwXiBR6dg+ZeIjDeUNLJziAMPEy7D5wGnxn3Dta+TRw==",
+      "path": "microsoft.sourcelink.github/1.2.0-beta-22271-02",
+      "hashPath": "microsoft.sourcelink.github.1.2.0-beta-22271-02.nupkg.sha512"
+    },
+    "System.CommandLine/2.0.0-beta1.20468.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-hhwPjxMHf1t7CLC6e+bODJBU8c37ZoDLXJqKM/QA/8xElUFszHuhznmgmEUeuBRhF9NeR142t3kXM9SfuSkfNA==",
+      "path": "system.commandline/2.0.0-beta1.20468.1",
+      "hashPath": "system.commandline.2.0.0-beta1.20468.1.nupkg.sha512"
+    },
+    "System.CommandLine.Rendering/2.0.0-beta1.20074.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-hAxZAdk2DXC6b6M9bXyTShDFOpXQtGuEyWdxpg0BSCL7iIDk5FjieDsm77PcqUM6utKfh+NuAqiSBZWeVOiF9Q==",
+      "path": "system.commandline.rendering/2.0.0-beta1.20074.1",
+      "hashPath": "system.commandline.rendering.2.0.0-beta1.20074.1.nupkg.sha512"
+    },
+    "System.Memory/4.5.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-1MbJTHS1lZ4bS4FmsJjnuGJOu88ZzTT2rLvrhW7Ygic+pC0NWA+3hgAen0HRdsocuQXCkUTdFn9yHJJhsijDXw==",
+      "path": "system.memory/4.5.4",
+      "hashPath": "system.memory.4.5.4.nupkg.sha512"
+    },
+    "System.Runtime.CompilerServices.Unsafe/4.5.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-wprSFgext8cwqymChhrBLu62LMg/1u92bU+VOwyfBimSPVFXtsNqEWC92Pf9ofzJFlk4IHmJA75EDJn1b2goAQ==",
+      "path": "system.runtime.compilerservices.unsafe/4.5.2",
+      "hashPath": "system.runtime.compilerservices.unsafe.4.5.2.nupkg.sha512"
+    },
+    "Microsoft.Diagnostics.NETCore.Client/0.2.328102": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

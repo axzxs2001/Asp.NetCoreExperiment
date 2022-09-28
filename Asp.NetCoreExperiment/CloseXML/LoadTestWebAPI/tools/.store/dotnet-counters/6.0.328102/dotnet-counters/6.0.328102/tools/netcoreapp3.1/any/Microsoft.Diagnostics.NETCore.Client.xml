@@ -1,0 +1,567 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.Diagnostics.NETCore.Client</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.Diagnostics.NETCore.Client.DiagnosticsClient">
+            <summary>
+            This is a top-level class that contains methods to send various diagnostics command to the runtime.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Diagnostics.NETCore.Client.DiagnosticsClient.WaitForConnection(System.TimeSpan)">
+            <summary>
+            Wait for an available diagnostic endpoint to the runtime instance.
+            </summary>
+            <param name="timeout">The amount of time to wait before cancelling the wait for the connection.</param>
+        </member>
+        <member name="M:Microsoft.Diagnostics.NETCore.Client.DiagnosticsClient.WaitForConnectionAsync(System.Threading.CancellationToken)">
+            <summary>
+            Wait for an available diagnostic endpoint to the runtime instance.
+            </summary>
+            <param name="token">The token to monitor for cancellation requests.</param>
+            <returns>
+            A task the completes when a diagnostic endpoint to the runtime instance becomes available.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Diagnostics.NETCore.Client.DiagnosticsClient.StartEventPipeSession(System.Collections.Generic.IEnumerable{Microsoft.Diagnostics.NETCore.Client.EventPipeProvider},System.Boolean,System.Int32)">
+            <summary>
+            Start tracing the application and return an EventPipeSession object
+            </summary>
+            <param name="providers">An IEnumerable containing the list of Providers to turn on.</param>
+            <param name="requestRundown">If true, request rundown events from the runtime</param>
+            <param name="circularBufferMB">The size of the runtime's buffer for collecting events in MB</param>
+            <returns>
+            An EventPipeSession object representing the EventPipe session that just started.
+            </returns> 
+        </member>
+        <member name="M:Microsoft.Diagnostics.NETCore.Client.DiagnosticsClient.StartEventPipeSession(Microsoft.Diagnostics.NETCore.Client.EventPipeProvider,System.Boolean,System.Int32)">
+            <summary>
+            Start tracing the application and return an EventPipeSession object
+            </summary>
+            <param name="provider">An EventPipeProvider to turn on.</param>
+            <param name="requestRundown">If true, request rundown events from the runtime</param>
+            <param name="circularBufferMB">The size of the runtime's buffer for collecting events in MB</param>
+            <returns>
+            An EventPipeSession object representing the EventPipe session that just started.
+            </returns> 
+        </member>
+        <member name="M:Microsoft.Diagnostics.NETCore.Client.DiagnosticsClient.StartEventPipeSessionAsync(System.Collections.Generic.IEnumerable{Microsoft.Diagnostics.NETCore.Client.EventPipeProvider},System.Boolean,System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Start tracing the application and return an EventPipeSession object
+            </summary>
+            <param name="providers">An IEnumerable containing the list of Providers to turn on.</param>
+            <param name="requestRundown">If true, request rundown events from the runtime</param>
+            <param name="circularBufferMB">The size of the runtime's buffer for collecting events in MB</param>
+            <param name="token">The token to monitor for cancellation requests.</param>
+            <returns>
+            An EventPipeSession object representing the EventPipe session that just started.
+            </returns> 
+        </member>
+        <member name="M:Microsoft.Diagnostics.NETCore.Client.DiagnosticsClient.StartEventPipeSessionAsync(Microsoft.Diagnostics.NETCore.Client.EventPipeProvider,System.Boolean,System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Start tracing the application and return an EventPipeSession object
+            </summary>
+            <param name="provider">An EventPipeProvider to turn on.</param>
+            <param name="requestRundown">If true, request rundown events from the runtime</param>
+            <param name="circularBufferMB">The size of the runtime's buffer for collecting events in MB</param>
+            <param name="token">The token to monitor for cancellation requests.</param>
+            <returns>
+            An EventPipeSession object representing the EventPipe session that just started.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Diagnostics.NETCore.Client.DiagnosticsClient.WriteDump(Microsoft.Diagnostics.NETCore.Client.DumpType,System.String,System.Boolean)">
+            <summary>
+            Trigger a core dump generation.
+            </summary> 
+            <param name="dumpType">Type of the dump to be generated</param>
+            <param name="dumpPath">Full path to the dump to be generated. By default it is /tmp/coredump.{pid}</param>
+            <param name="logDumpGeneration">When set to true, display the dump generation debug log to the console.</param>
+        </member>
+        <member name="M:Microsoft.Diagnostics.NETCore.Client.DiagnosticsClient.WriteDump(Microsoft.Diagnostics.NETCore.Client.DumpType,System.String,Microsoft.Diagnostics.NETCore.Client.WriteDumpFlags)">
+            <summary>
+            Trigger a core dump generation.
+            </summary> 
+            <param name="dumpType">Type of the dump to be generated</param>
+            <param name="dumpPath">Full path to the dump to be generated. By default it is /tmp/coredump.{pid}</param>
+            <param name="flags">logging and crash report flags. On runtimes less than 6.0, only LoggingEnabled is supported.</param>
+        </member>
+        <member name="M:Microsoft.Diagnostics.NETCore.Client.DiagnosticsClient.WriteDumpAsync(Microsoft.Diagnostics.NETCore.Client.DumpType,System.String,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Trigger a core dump generation.
+            </summary> 
+            <param name="dumpType">Type of the dump to be generated</param>
+            <param name="dumpPath">Full path to the dump to be generated. By default it is /tmp/coredump.{pid}</param>
+            <param name="logDumpGeneration">When set to true, display the dump generation debug log to the console.</param>
+            <param name="token">The token to monitor for cancellation requests.</param>
+        </member>
+        <member name="M:Microsoft.Diagnostics.NETCore.Client.DiagnosticsClient.WriteDumpAsync(Microsoft.Diagnostics.NETCore.Client.DumpType,System.String,Microsoft.Diagnostics.NETCore.Client.WriteDumpFlags,System.Threading.CancellationToken)">
+            <summary>
+            Trigger a core dump generation.
+            </summary> 
+            <param name="dumpType">Type of the dump to be generated</param>
+            <param name="dumpPath">Full path to the dump to be generated. By default it is /tmp/coredump.{pid}</param>
+            <param name="flags">logging and crash report flags. On runtimes less than 6.0, only LoggingEnabled is supported.</param>
+            <param name="token">The token to monitor for cancellation requests.</param>
+        </member>
+        <member name="M:Microsoft.Diagnostics.NETCore.Client.DiagnosticsClient.AttachProfiler(System.TimeSpan,System.Guid,System.String,System.Byte[])">
+            <summary>
+            Attach a profiler.
+            </summary>
+            <param name="attachTimeout">Timeout for attaching the profiler</param>
+            <param name="profilerGuid">Guid for the profiler to be attached</param>
+            <param name="profilerPath">Path to the profiler to be attached</param>
+            <param name="additionalData">Additional data to be passed to the profiler</param>
+        </member>
+        <member name="M:Microsoft.Diagnostics.NETCore.Client.DiagnosticsClient.SetStartupProfiler(System.Guid,System.String)">
+            <summary>
+            Set a profiler as the startup profiler. It is only valid to issue this command
+            while the runtime is paused at startup.
+            </summary>
+            <param name="profilerGuid">Guid for the profiler to be attached</param>
+            <param name="profilerPath">Path to the profiler to be attached</param>
+        </member>
+        <member name="M:Microsoft.Diagnostics.NETCore.Client.DiagnosticsClient.ResumeRuntime">
+            <summary>
+            Tell the runtime to resume execution after being paused at startup.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Diagnostics.NETCore.Client.DiagnosticsClient.SetEnvironmentVariable(System.String,System.String)">
+            <summary>
+            Set an environment variable in the target process.
+            </summary>
+            <param name="name">The name of the environment variable to set.</param>
+            <param name="value">The value of the environment variable to set.</param>
+        </member>
+        <member name="M:Microsoft.Diagnostics.NETCore.Client.DiagnosticsClient.GetProcessEnvironment">
+            <summary>
+            Gets all environement variables and their values from the target process.
+            </summary>
+            <returns>A dictionary containing all of the environment variables defined in the target process.</returns>
+        </member>
+        <member name="M:Microsoft.Diagnostics.NETCore.Client.DiagnosticsClient.GetPublishedProcesses">
+            <summary>
+            Get all the active processes that can be attached to.
+            </summary>
+            <returns>
+            IEnumerable of all the active process IDs.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Diagnostics.NETCore.Client.EventPipeSession.Stop">
+            <summary>
+             Stops the given session
+            </summary>
+        </member>
+        <member name="T:Microsoft.Diagnostics.NETCore.Client.IpcAdvertise">
+            ==ADVERTISE PROTOCOL==
+            Before standard IPC Protocol communication can occur on a client-mode connection
+            the runtime must advertise itself over the connection. ALL SUBSEQUENT COMMUNICATION 
+            IS STANDARD DIAGNOSTICS IPC PROTOCOL COMMUNICATION.
+            
+            The flow for Advertise is a one-way burst of 34 bytes consisting of
+            8 bytes  - "ADVR_V1\0" (ASCII chars + null byte)
+            16 bytes - CLR Instance Cookie (little-endian)
+            8 bytes  - PID (little-endian)
+            2 bytes  - future
+        </member>
+        <member name="M:Microsoft.Diagnostics.NETCore.Client.IpcClient.SendMessage(Microsoft.Diagnostics.NETCore.Client.IpcEndpoint,Microsoft.Diagnostics.NETCore.Client.IpcMessage)">
+            <summary>
+            Sends a single DiagnosticsIpc Message to the dotnet process associated with the <paramref name="endpoint"/>.
+            </summary>
+            <param name="endpoint">An endpoint that provides a diagnostics connection to a runtime instance.</param>
+            <param name="message">The DiagnosticsIpc Message to be sent</param>
+            <returns>An <see cref="T:Microsoft.Diagnostics.NETCore.Client.IpcMessage"/> that is the response message.</returns>
+        </member>
+        <member name="M:Microsoft.Diagnostics.NETCore.Client.IpcClient.SendMessageGetContinuation(Microsoft.Diagnostics.NETCore.Client.IpcEndpoint,Microsoft.Diagnostics.NETCore.Client.IpcMessage)">
+            <summary>
+            Sends a single DiagnosticsIpc Message to the dotnet process associated with the <paramref name="endpoint"/>.
+            </summary>
+            <param name="endpoint">An endpoint that provides a diagnostics connection to a runtime instance.</param>
+            <param name="message">The DiagnosticsIpc Message to be sent</param>
+            <returns>An <see cref="T:Microsoft.Diagnostics.NETCore.Client.IpcResponse"/> containing the response message and continuation stream.</returns>
+        </member>
+        <member name="M:Microsoft.Diagnostics.NETCore.Client.IpcClient.SendMessageAsync(Microsoft.Diagnostics.NETCore.Client.IpcEndpoint,Microsoft.Diagnostics.NETCore.Client.IpcMessage,System.Threading.CancellationToken)">
+            <summary>
+            Sends a single DiagnosticsIpc Message to the dotnet process associated with the <paramref name="endpoint"/>.
+            </summary>
+            <param name="endpoint">An endpoint that provides a diagnostics connection to a runtime instance.</param>
+            <param name="message">The DiagnosticsIpc Message to be sent</param>
+            <param name="cancellationToken">The token to monitor for cancellation requests.</param>
+            <returns>An <see cref="T:Microsoft.Diagnostics.NETCore.Client.IpcMessage"/> that is the response message.</returns>
+        </member>
+        <member name="M:Microsoft.Diagnostics.NETCore.Client.IpcClient.SendMessageGetContinuationAsync(Microsoft.Diagnostics.NETCore.Client.IpcEndpoint,Microsoft.Diagnostics.NETCore.Client.IpcMessage,System.Threading.CancellationToken)">
+            <summary>
+            Sends a single DiagnosticsIpc Message to the dotnet process associated with the <paramref name="endpoint"/>.
+            </summary>
+            <param name="endpoint">An endpoint that provides a diagnostics connection to a runtime instance.</param>
+            <param name="message">The DiagnosticsIpc Message to be sent</param>
+            <param name="cancellationToken">The token to monitor for cancellation requests.</param>
+            <returns>An <see cref="T:Microsoft.Diagnostics.NETCore.Client.IpcResponse"/> containing the response message and continuation stream.</returns>
+        </member>
+        <member name="T:Microsoft.Diagnostics.NETCore.Client.DiagnosticsIpcError">
+            <summary>
+            Errors (HRESULT) returned for DiagnosticsServerCommandId.Error responses.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Diagnostics.NETCore.Client.DiagnosticsMessageType">
+            <summary>
+            Different diagnostic message types that are handled by the runtime.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Diagnostics.NETCore.Client.DiagnosticsMessageType.GenerateCoreDump">
+            <summary>
+            Initiates core dump generation 
+            </summary>
+        </member>
+        <member name="F:Microsoft.Diagnostics.NETCore.Client.DiagnosticsMessageType.StartEventPipeTracing">
+            <summary>
+            Starts an EventPipe session that writes events to a file when the session is stopped or the application exits.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Diagnostics.NETCore.Client.DiagnosticsMessageType.StopEventPipeTracing">
+            <summary>
+            Stops an EventPipe session.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Diagnostics.NETCore.Client.DiagnosticsMessageType.CollectEventPipeTracing">
+            <summary>
+            Starts an EventPipe session that sends events out-of-proc through IPC.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Diagnostics.NETCore.Client.DiagnosticsMessageType.AttachProfiler">
+            <summary>
+            Attaches a profiler to an existing process
+            </summary>
+        </member>
+        <member name="T:Microsoft.Diagnostics.NETCore.Client.MessageHeader">
+            <summary>
+            Message header used to send commands to the .NET Core runtime through IPC.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Diagnostics.NETCore.Client.MessageHeader.RequestType">
+            <summary>
+            Request type.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Diagnostics.NETCore.Client.MessageHeader.Pid">
+            <summary>
+            Remote process Id.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Diagnostics.NETCore.Client.IpcEndpoint.Connect(System.TimeSpan)">
+            <summary>
+            Connects to the underlying IPC transport and opens a read/write-able Stream
+            </summary>
+            <param name="timeout">The amount of time to block attempting to connect</param>
+            <returns>A stream used for writing and reading data to and from the target .NET process</returns>
+        </member>
+        <member name="M:Microsoft.Diagnostics.NETCore.Client.IpcEndpoint.ConnectAsync(System.Threading.CancellationToken)">
+            <summary>
+            Connects to the underlying IPC transport and opens a read/write-able Stream
+            </summary>
+            <param name="token">The token to monitor for cancellation requests.</param>
+            <returns>
+            A task that completes with a stream used for writing and reading data to and from the target .NET process.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Diagnostics.NETCore.Client.IpcEndpoint.WaitForConnection(System.TimeSpan)">
+            <summary>
+            Wait for an available diagnostic endpoint to the runtime instance.
+            </summary>
+            <param name="timeout">The amount of time to wait before cancelling the wait for the connection.</param>
+        </member>
+        <member name="M:Microsoft.Diagnostics.NETCore.Client.IpcEndpoint.WaitForConnectionAsync(System.Threading.CancellationToken)">
+            <summary>
+            Wait for an available diagnostic endpoint to the runtime instance.
+            </summary>
+            <param name="token">The token to monitor for cancellation requests.</param>
+            <returns>
+            A task that completes when a diagnostic endpoint to the runtime instance becomes available.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Diagnostics.NETCore.Client.ServerIpcEndpoint.Connect(System.TimeSpan)">
+            <remarks>
+            This will block until the diagnostic stream is provided. This block can happen if
+            the stream is acquired previously and the runtime instance has not yet reconnected
+            to the reversed diagnostics server.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Diagnostics.NETCore.Client.PidIpcEndpoint.#ctor(System.Int32)">
+            <summary>
+            Creates a reference to a .NET process's IPC Transport
+            using the default rules for a given pid
+            </summary>
+            <param name="pid">The pid of the target process</param>
+            <returns>A reference to the IPC Transport</returns>
+        </member>
+        <member name="T:Microsoft.Diagnostics.NETCore.Client.ProcessInfo">
+            ==ProcessInfo==
+            The response payload to issuing the GetProcessInfo command.
+            
+            8 bytes  - PID (little-endian)
+            16 bytes - CLR Runtime Instance Cookie (little-endian)
+            # bytes  - Command line string length and data
+            # bytes  - Operating system string length and data
+            # bytes  - Process architecture string length and data
+            
+            ==ProcessInfo2==
+            The response payload to issuing the GetProcessInfo2 command.
+            
+            8 bytes  - PID (little-endian)
+            16 bytes - CLR Runtime Instance Cookie (little-endian)
+            # bytes  - Command line string length and data
+            # bytes  - Operating system string length and data
+            # bytes  - Process architecture string length and data
+            # bytes  - Managed entrypoint assembly name
+            # bytes  - CLR product version string (may include prerelease labels)
+            
+            
+            The "string length and data" fields are variable length:
+            4 bytes            - Length of string data in UTF-16 characters
+            (2 * length) bytes - The data of the string encoded using Unicode
+                                 (includes null terminating character)
+        </member>
+        <member name="M:Microsoft.Diagnostics.NETCore.Client.ProcessInfo.ParseV1(System.Byte[])">
+            <summary>
+            Parses a ProcessInfo payload.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Diagnostics.NETCore.Client.ProcessInfo.ParseV2(System.Byte[])">
+            <summary>
+            Parses a ProcessInfo2 payload.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Diagnostics.NETCore.Client.DiagnosticsServerRouterFactory">
+            <summary>
+            Base class representing a Diagnostics Server router factory.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Diagnostics.NETCore.Client.TcpServerRouterFactory">
+            <summary>
+            This class represent a TCP/IP server endpoint used when building up router instances.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Diagnostics.NETCore.Client.TcpClientRouterFactory">
+            <summary>
+            This class represent a TCP/IP client endpoint used when building up router instances.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Diagnostics.NETCore.Client.IpcServerRouterFactory">
+            <summary>
+            This class represent a IPC server endpoint used when building up router instances.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Diagnostics.NETCore.Client.IpcClientRouterFactory">
+            <summary>
+            This class represent a IPC client endpoint used when building up router instances.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Diagnostics.NETCore.Client.IpcServerTcpServerRouterFactory">
+            <summary>
+            This class creates IPC Server - TCP Server router instances.
+            Supports NamedPipes/UnixDomainSocket server and TCP/IP server.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Diagnostics.NETCore.Client.IpcServerTcpClientRouterFactory">
+            <summary>
+            This class creates IPC Server - TCP Client router instances.
+            Supports NamedPipes/UnixDomainSocket server and TCP/IP client.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Diagnostics.NETCore.Client.IpcClientTcpServerRouterFactory">
+            <summary>
+            This class creates IPC Client - TCP Server router instances.
+            Supports NamedPipes/UnixDomainSocket client and TCP/IP server.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Diagnostics.NETCore.Client.IpcClientTcpClientRouterFactory">
+            <summary>
+            This class creates IPC Client - TCP Client router instances.
+            Supports NamedPipes/UnixDomainSocket client and TCP/IP client.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Diagnostics.NETCore.Client.DiagnosticsServerRouterRunner">
+            <summary>
+            Class used to run different flavours of Diagnostics Server routers.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Diagnostics.NETCore.Client.HandleableCollection`1">
+            <summary>
+            A collection of objects that allows for observability and mutability using handlers.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Diagnostics.NETCore.Client.HandleableCollection`1.DefaultHandler">
+            <summary>
+            Accepts the first item it encounters and requests that the item is removed from the collection.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Diagnostics.NETCore.Client.HandleableCollection`1.System#Collections#IEnumerable#GetEnumerator">
+            <summary>
+            Returns an enumerator that iterates through the underlying collection.
+            </summary>
+            <remarks>
+            The returned enumerator is over a copy of the underlying collection so that there are no concurrency issues.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Diagnostics.NETCore.Client.HandleableCollection`1.System#Collections#Generic#IEnumerable{T}#GetEnumerator">
+            <summary>
+            Returns an enumerator that iterates through the underlying collection.
+            </summary>
+            <remarks>
+            The returned enumerator is over a copy of the underlying collection so that there are no concurrency issues.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Diagnostics.NETCore.Client.HandleableCollection`1.Dispose">
+            <summary>
+            Disposes the <see cref="T:Microsoft.Diagnostics.NETCore.Client.HandleableCollection`1"/> by clearing all items and handlers.
+            </summary>
+            <remarks>
+            All pending handlers with throw <see cref="T:System.ObjectDisposedException"/>.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Diagnostics.NETCore.Client.HandleableCollection`1.Add(`0@)">
+            <summary>
+            Adds an item so that it may be observed by a handler.
+            </summary>
+            <param name="item">Item to add to the collection.</param>
+            <remarks>
+            The item may be immediately consumed if a handler removes the item, thus it may
+            not be stored into the underlying list.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Diagnostics.NETCore.Client.HandleableCollection`1.Handle(System.TimeSpan)">
+            <summary>
+            Returns the first item offered to the handler
+            or waits for a future item if no item is immediately available.
+            </summary>
+            <param name="timeout">The amount of time to wait before cancelling the handler.</param>
+            <returns>The first item offered to the handler.</returns>
+        </member>
+        <member name="M:Microsoft.Diagnostics.NETCore.Client.HandleableCollection`1.Handle(Microsoft.Diagnostics.NETCore.Client.HandleableCollection{`0}.Handler,System.TimeSpan)">
+            <summary>
+            Returns the item on which the handler completes or waits for future items
+            if the handler does not immediately complete.
+            </summary>
+            <param name="handler">The handler that determines on which item to complete.</param>
+            <param name="timeout">The amount of time to wait before cancelling the handler.</param>
+            <returns>The item on which the handler completes.</returns>
+        </member>
+        <member name="M:Microsoft.Diagnostics.NETCore.Client.HandleableCollection`1.HandleAsync(System.Threading.CancellationToken)">
+            <summary>
+            Returns the first item offered to the handler
+            or waits for a future item if no item is immediately available.
+            </summary>
+            <param name="token">The token to monitor for cancellation requests.</param>
+            <returns>A task that completes with the first item offered to the handler.</returns>
+        </member>
+        <member name="M:Microsoft.Diagnostics.NETCore.Client.HandleableCollection`1.HandleAsync(Microsoft.Diagnostics.NETCore.Client.HandleableCollection{`0}.Handler,System.Threading.CancellationToken)">
+            <summary>
+            Returns the item on which the handler completes and waits for future items
+            if the handler does not immediately complete.
+            </summary>
+            <param name="handler">The handler that determines on which item to complete.</param>
+            <param name="token">The token to monitor for cancellation requests.</param>
+            <returns>A task that completes with the item on which the handler completes.</returns>
+        </member>
+        <member name="M:Microsoft.Diagnostics.NETCore.Client.HandleableCollection`1.ClearItems">
+            <summary>
+            Clears all items from the collection.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Diagnostics.NETCore.Client.IpcEndpointInfo">
+            <summary>
+            Represents a runtine instance connection to a reversed diagnostics server.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Diagnostics.NETCore.Client.IpcEndpointInfo.Endpoint">
+            <summary>
+            An endpoint used to retrieve diagnostic information from the associated runtime instance.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Diagnostics.NETCore.Client.IpcEndpointInfo.ProcessId">
+            <summary>
+            The identifier of the process that is unique within its process namespace.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Diagnostics.NETCore.Client.IpcEndpointInfo.RuntimeInstanceCookie">
+            <summary>
+            The unique identifier of the runtime instance.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Diagnostics.NETCore.Client.ReversedDiagnosticsServer">
+            <summary>
+            Establishes server endpoint for runtime instances to connect when
+            configured to provide diagnostic endpoints in reverse mode.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Diagnostics.NETCore.Client.ReversedDiagnosticsServer.#ctor(System.String)">
+            <summary>
+            Constructs the <see cref="T:Microsoft.Diagnostics.NETCore.Client.ReversedDiagnosticsServer"/> instance with an endpoint bound
+            to the location specified by <paramref name="address"/>.
+            </summary>
+            <param name="address">
+            The server endpoint.
+            On Windows, this can be a full pipe path or the name without the "\\.\pipe\" prefix.
+            On all other systems, this must be the full file path of the socket.
+            </param>
+        </member>
+        <member name="M:Microsoft.Diagnostics.NETCore.Client.ReversedDiagnosticsServer.#ctor(System.String,System.Boolean)">
+             <summary>
+             Constructs the <see cref="T:Microsoft.Diagnostics.NETCore.Client.ReversedDiagnosticsServer"/> instance with an endpoint bound
+             to the location specified by <paramref name="address"/>.
+             </summary>
+             <param name="address">
+             The server endpoint.
+             On Windows, this can be a full pipe path or the name without the "\\.\pipe\" prefix.
+             On all other systems, this must be the full file path of the socket.
+             When TcpIp is enabled, this can also be host:port of the listening socket.
+             </param>
+             <param name="enableTcpIpProtocol">
+             Add TcpIp as a supported protocol for ReversedDiagnosticServer. When enabled, address will
+             be analyzed and if on format host:port, ReversedDiagnosticServer will try to bind
+             a TcpIp listener to host and port.
+            
+             </param>
+        </member>
+        <member name="M:Microsoft.Diagnostics.NETCore.Client.ReversedDiagnosticsServer.Start">
+            <summary>
+            Starts listening at the address for new connections.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Diagnostics.NETCore.Client.ReversedDiagnosticsServer.Start(System.Int32)">
+            <summary>
+            Starts listening at the address for new connections.
+            </summary>
+            <param name="maxConnections">The maximum number of connections the server will support.</param>
+        </member>
+        <member name="M:Microsoft.Diagnostics.NETCore.Client.ReversedDiagnosticsServer.Accept(System.TimeSpan)">
+            <summary>
+            Gets endpoint information when a new runtime instance connects to the server.
+            </summary>
+            <param name="timeout">The amount of time to wait before cancelling the accept operation.</param>
+            <returns>An <see cref="T:Microsoft.Diagnostics.NETCore.Client.IpcEndpointInfo"/> value that contains information about the new runtime instance connection.</returns>
+        </member>
+        <member name="M:Microsoft.Diagnostics.NETCore.Client.ReversedDiagnosticsServer.AcceptAsync(System.Threading.CancellationToken)">
+            <summary>
+            Gets endpoint information when a new runtime instance connects to the server.
+            </summary>
+            <param name="token">The token to monitor for cancellation requests.</param>
+            <returns>A task that completes with a <see cref="T:Microsoft.Diagnostics.NETCore.Client.IpcEndpointInfo"/> value that contains information about the new runtime instance connection.</returns>
+        </member>
+        <member name="M:Microsoft.Diagnostics.NETCore.Client.ReversedDiagnosticsServer.RemoveConnection(System.Guid)">
+            <summary>
+            Removes endpoint information from the server so that it is no longer tracked.
+            </summary>
+            <param name="runtimeCookie">The runtime instance cookie that corresponds to the endpoint to be removed.</param>
+            <returns>True if the endpoint existed and was removed; otherwise false.</returns>
+        </member>
+        <member name="M:Microsoft.Diagnostics.NETCore.Client.ReversedDiagnosticsServer.ListenAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Listens at the address for new connections.
+            </summary>
+            <param name="maxConnections">The maximum number of connections the server will support.</param>
+            <param name="token">The token to monitor for cancellation requests.</param>
+            <returns>A task that completes when the server is no longer listening at the address.</returns>
+        </member>
+    </members>
+</doc>

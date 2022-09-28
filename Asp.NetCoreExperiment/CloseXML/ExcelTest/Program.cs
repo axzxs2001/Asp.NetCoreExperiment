@@ -22,13 +22,18 @@ while (true)
     for (var i = 1; i < 200; i++)
     {
 
+ 
 
-        var qrCodeData = qrGenerator.CreateQrCode(DateTime.Now.ToString("yyMMddHHmmssfffffff") + "QRCodeGeneratoQRCodeGeneratoQRCodeGeneratoQRCodeGeneratoQRCodeGenerato", QRCodeGenerator.ECCLevel.L);
-        var qrCode = new QRCode(qrCodeData);
-        var qrCodeImage = qrCode.GetGraphic(10, Color.Black, Color.White, false);
+        //var qrCodeData = qrGenerator.CreateQrCode(DateTime.Now.ToString("yyMMddHHmmssfffffff") + "QRCodeGeneratoQRCodeGeneratoQRCodeGeneratoQRCodeGeneratoQRCodeGenerato", QRCodeGenerator.ECCLevel.L);
+        //var qrCode = new QRCode(qrCodeData);
+        //var qrCodeImage = qrCode.GetGraphic(10, Color.Black, Color.White, false);
 
-        var imgStream = new MemoryStream();
-        qrCodeImage.Save(imgStream, ImageFormat.Bmp);
+        byte[] qrCodeAsBitmapByteArr = PngByteQRCodeHelper.GetQRCode(DateTime.Now.ToString("yyMMddHHmmssfffffff") + "QRCodeGeneratoQRCodeGeneratoodeGeneratoQRCodeGeneratoodeGeneratoQRCodeGeneratoodeGeneratoQRCodeGeneratoodeGeneratoQRCodeGeneratoodeGeneratoQRCodeGeneratoodeGeneratoQRCodeGeneratoodeGeneratoQRCodeGeneratoodeGeneratoQRCodeGeneratoodeGeneratoQRCodeGeneratoodeGeneratoQRCodeGeneratoodeGenereneratoodeGenereneratoodeGenereneratoodeGenereneratoodeGenereneratoodeGenereneratoodeGenereneratoodeGenereneratoodeGenereneratoodeGenereneratoodeGenereneratoodeGenereneratoodeGenereneratoodeGenereneratoodeGenereneratoodeGenereneratoodeGenereneratoodeGenereneratoodeGenereneratoodeGenereneratoodeGenereneratoodeGenereneratoodeGenereneratoodeGenereneratoodeGenereneratoodeGenereneratoodeGenereneratoodeGenereneratoodeGenereneratoodeGenereneratoodeGenereneratoodeGenereneratoodeGenereneratoodeGenereneratoodeGenereneratoodeGeneratoQRCodeGeneratoodeGeneratoQRCodeGeneratoQRCodeGeneratoQRCodeGeneratoQRCodeGenerato", QRCodeGenerator.ECCLevel.Q, 20, false);
+   
+
+
+        var imgStream = new MemoryStream(qrCodeAsBitmapByteArr);
+        //qrCodeImage.Save(imgStream, ImageFormat.Bmp);
         imgStream.Seek(0, SeekOrigin.Begin);
 
 
