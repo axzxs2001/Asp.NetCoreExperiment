@@ -8,19 +8,13 @@ using Microsoft.AspNetCore.Mvc;
 using QuestPDF.Drawing;
 
 
-Environment.SetEnvironmentVariable("DOTNET_PerfMapEnabled", "1");
-Environment.SetEnvironmentVariable("DOTNET_EnableEventLog", "1");
+
 var builder = WebApplication.CreateBuilder(args);
-
-
-
 var app = builder.Build();
 
 app.MapGet("/test", () =>
 {
     return "ok";
-
-
 });
 
 
@@ -33,13 +27,10 @@ app.MapGet("/getpdf", () =>
     }
     for (var row = 0; row < 1000; row++)
     {
-        table.Rows.Add(row.ToString(), row.ToString(), row.ToString(), row.ToString(), row.ToString(), row.ToString(), row.ToString(), DateTime.Now + "按复位法如何使用发扫八月瓜wwewrwerewfdsfdswefwefewfwefwefew" + row, row.ToString(), row.ToString());
+        table.Rows.Add(row.ToString(), row.ToString(), row.ToString(), row.ToString(), row.ToString(), row.ToString(), row.ToString(), DateTime.Now + "wwewrwerewfdsfdswefwefewfwefwefew" + row, row.ToString(), row.ToString());
     }
 
-    // return new FileContentResult(GetPDF(table), "application/pdf");
-    // return new FileStreamResult(new MemoryStream(GetPDF(table)),Microsoft.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/pdf"));
     return TypedResults.File(GetPDF(table), contentType: "application/pdf", fileDownloadName: "a.pdf");
-
 
 });
 
@@ -47,8 +38,6 @@ app.Run();
 
 static byte[] GetPDF(DataTable dt)
 {
-
-
     var doc = QuestPDF.Fluent.Document.Create(container =>
     {
 
@@ -133,6 +122,4 @@ static byte[] GetPDF(DataTable dt)
         });
     });
     return doc.GeneratePdf();
-
-
 }
