@@ -1,5 +1,4 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
 	<PropertyGroup>
 		<OutputType>Exe</OutputType>
 		<TargetFramework>net6.0</TargetFramework>
@@ -8,11 +7,8 @@
 		<ServerGarbageCollection>false</ServerGarbageCollection>
 		<ConcurrentGarbageCollection>true</ConcurrentGarbageCollection>
 	</PropertyGroup>
-
 	<ItemGroup>
-		<PackageReference Include="Aspose.Cells" Version="22.9.0" />
 		<PackageReference Include="ClosedXML" Version="0.96.0" />
 		<PackageReference Include="QRCoder" Version="1.4.2" />
 	</ItemGroup>
-
 </Project>
