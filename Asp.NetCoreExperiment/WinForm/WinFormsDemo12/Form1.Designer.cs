@@ -33,22 +33,23 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(608, 753);
+            this.button1.Location = new System.Drawing.Point(82, 777);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(180, 62);
             this.button1.TabIndex = 0;
             this.button1.Text = "画图";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+       
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1313, 851);
+            this.ClientSize = new System.Drawing.Size(336, 851);
             this.Controls.Add(this.button1);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Form1";     
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.Form1_Paint);
             this.ResumeLayout(false);
 
         }
