@@ -8,11 +8,6 @@ using Microsoft.AspNetCore.Mvc;
 using QuestPDF.Drawing;
 using QuestPDF;
 
-using var stream = File.OpenRead(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "fonts", "MEIRYO.TTC"));
-FontManager.RegisterFont(stream);
-
-Settings.EnableCaching = true;
-Settings.EnableDebugging = false;
 
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
@@ -47,6 +42,12 @@ static byte[] GetPDF(DataTable dt)
 {
     var doc = QuestPDF.Fluent.Document.Create(container =>
     {
+        using var stream = File.OpenRead(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "fonts", "MEIRYO.TTC"));
+        FontManager.RegisterFont(stream);
+
+        //Settings.EnableCaching = true;
+        //Settings.EnableDebugging = false;
+
 
         container.Page(page =>
         {
