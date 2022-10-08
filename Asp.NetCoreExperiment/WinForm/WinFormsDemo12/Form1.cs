@@ -13,12 +13,9 @@ namespace WinFormsDemo12
         }
 
 
-        void Draw()
+        void Draw(Graphics graphics)
         {
-           
-            using var graphics = this.CreateGraphics();
             var y = 15;
-
             using var logo = new Bitmap(Directory.GetCurrentDirectory() + "/aeon.png");
             graphics.DrawImage(MakeGrayscale(logo), 60, y, 200, 80);
             graphics.DrawLine(new Pen(Color.Black, 2), 10, y += 80, 310, y);
@@ -67,7 +64,27 @@ namespace WinFormsDemo12
         }
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
-            Draw();       
+
+        }
+
+        private void printDocument1_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+        {
+            if (e.Graphics != null)
+            {
+                Draw(e.Graphics);
+
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            printDocument1.Print();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            var graphics = this.CreateGraphics();
+            Draw(graphics);
         }
     }
 }

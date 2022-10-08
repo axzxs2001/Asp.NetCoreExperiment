@@ -239,6 +239,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NSubstituteUnitTest", "Asp.NetCoreExperiment\NSubstitute\NSubstituteUnitTest\NSubstituteUnitTest.csproj", "{1E894423-F8C9-4A62-BB0C-71D01605B30D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WireMock.Net", "WireMock.Net", "{B0619877-6723-47A4-874B-1D7AE8756C9D}"
+	ProjectSection(SolutionItems) = preProject
+		Asp.NetCoreExperiment\WinForm\WinFormsDemo12\Program.cs = Asp.NetCoreExperiment\WinForm\WinFormsDemo12\Program.cs
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo001", "Asp.NetCoreExperiment\WireMock.Net\Demo001\Demo001.csproj", "{9ADE36CD-FFEE-4AFB-9090-5224ADF8DEB4}"
 EndProject
