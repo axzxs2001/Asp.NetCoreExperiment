@@ -16,9 +16,9 @@ namespace WinFormsDemo12
         void Draw(Graphics graphics)
         {
             var y = 15;
-            using var logo = new Bitmap(Directory.GetCurrentDirectory() + "/aeon.png");
-            graphics.DrawImage(MakeGrayscale(logo), 60, y, 200, 80);
-            graphics.DrawLine(new Pen(Color.Black, 2), 10, y += 80, 310, y);
+            using var logo = new Bitmap(Directory.GetCurrentDirectory() + "/plum.png");
+            graphics.DrawImage(MakeGrayscale(logo), 10, y, 300, 100);
+            graphics.DrawLine(new Pen(Color.Black, 2), 10, y += 100, 310, y);
             graphics.DrawLine(new Pen(Color.Black, 2), 10, y += 4, 310, y);
             var font = new Font("ºÚÌå", 10);
             var brush = new SolidBrush(Color.Black);
