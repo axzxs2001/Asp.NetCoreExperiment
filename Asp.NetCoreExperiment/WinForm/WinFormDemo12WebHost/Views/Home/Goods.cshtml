@@ -1,0 +1,311 @@
+﻿@{
+    ViewData["Title"] = "商品管理";
+}
+
+
+@section Css{
+    <style>
+        .form-switch {
+            display: flex !important;
+            flex-direction: row-reverse !important;
+            justify-content: space-between !important;
+        }
+    </style>
+}
+
+
+<div x-data="querydata()" id="ttt">
+    <div class="row" style="margin:4px">
+
+        <div class="col-sm-4">
+        </div>
+        <div class="col-sm-4">
+        </div>
+
+        <div class="col-sm-4" style="text-align:right" style="margin:4px 0px">
+
+            <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#addgoods">
+                追加
+            </button>
+
+        </div>
+    </div>
+    <hr />
+
+    <div class="mb-3 row">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>名前</th>
+                    <th>価格</th>
+                    <th>説明</th>
+                    <th>有効</th>
+                    <th>シリアル番号</th>
+                    <th>製品タイプ</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <template x-for="goods in Goodses">
+                    <tr>
+                        <td x-text="goods.ID"></td>
+                        <td x-text="goods.Name"></td>
+                        <td x-text="goods.Price"></td>
+                        <td x-text="goods.Describe"></td>
+                        <td x-text="goods.Validate"></td>
+                        <td x-text="goods.SerialNumber"> </td>
+                        <td x-text="goods.GoodsType"></td>
+                        <td>
+                            <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modifygoods" x-on:click="modify(goods)">改訂</button>
+                            <button type="button" class="btn btn-danger btn-sm" x-on:click="remove(goods.ID)">消去</button>
+                        </td>
+                    </tr>
+                </template>
+            </tbody>
+        </table>
+
+    </div>
+
+
+    <div class="modal fade" id="addgoods" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel"> 追加Goods</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="mb-3 row">
+                            <label for="GoodsTypeID" class="col-sm-4 col-form-label">Goodsタイプ</label>
+                            <div class="col-sm-8">
+
+                                <select class="form-select" x-model="Goods.GoodsTypeID" id="GoodsTypeID" aria-label="Default select example">
+                                    <option selected>製品タイプ</option>
+                                    <template x-for="(item,index) in GoodsTypes" :key="index">
+                                        <option x-text="item.Name" :value="item.ID"></option>
+                                    </template>
+                                </select>
+
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label for="name" class="col-sm-4 col-form-label">お名前</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" x-model="Goods.Name" placeholder="" id="Name">
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label for="Price" class="col-sm-4 col-form-label">価格</label>
+                            <div class="col-sm-8">
+                                <input type="number" class="form-control" x-model="Goods.Price" placeholder="" min="1" id="Price">
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label for="Describe" class="col-sm-4 col-form-label">説明</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" x-model="Goods.Describe" placeholder="" min="1" id="Describe">
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label for="SerialNumber" class="col-sm-4 col-form-label">シリアル番号</label>
+                            <div class="col-sm-8">
+                                <input type="number" class="form-control" x-model="Goods.SerialNumber" placeholder="" min="1" id="SerialNumber">
+                            </div>
+                        </div>
+                        <div class="form-check form-switch mb-3 row" style="margin-left:150px">
+                            <label class="form-check-label" for="IsCollapse">有効</label>
+                            <input class="form-check-input" type="checkbox" role="switch" x-model="Goods.Validate" id="Validate" checked>
+                        </div>
+
+                        <div></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉鎖</button>
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" x-on:click="sava">保存</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modifygoods" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel"> 追加Goods</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="mb-3 row">
+                            <label for="GoodsTypeID" class="col-sm-4 col-form-label">Goodsタイプ</label>
+                            <div class="col-sm-8">
+
+                                <select class="form-select" x-model="ModifyGoods.GoodsTypeID" id="GoodsTypeID" aria-label="Default select example">
+                                    <option selected>製品タイプ</option>
+                                    <template x-for="(item,index) in GoodsTypes" :key="index">
+                                        <option x-text="item.Name" :value="item.ID"></option>
+                                    </template>
+                                </select>
+
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label for="name" class="col-sm-4 col-form-label">お名前</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" x-model="ModifyGoods.Name" placeholder="" id="Name">
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label for="Price" class="col-sm-4 col-form-label">価格</label>
+                            <div class="col-sm-8">
+                                <input type="number" class="form-control" x-model="ModifyGoods.Price" placeholder="" min="1" id="Price">
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label for="Describe" class="col-sm-4 col-form-label">説明</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" x-model="ModifyGoods.Describe" placeholder="" min="1" id="Describe">
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label for="SerialNumber" class="col-sm-4 col-form-label">シリアル番号</label>
+                            <div class="col-sm-8">
+                                <input type="number" class="form-control" x-model="ModifyGoods.SerialNumber" placeholder="" min="1" id="SerialNumber">
+                            </div>
+                        </div>
+                        <div class="form-check form-switch mb-3 row" style="margin-left:150px">
+                            <label class="form-check-label" for="IsCollapse">有効</label>
+                            <input class="form-check-input" type="checkbox" role="switch" x-model="ModifyGoods.Validate" id="Validate" checked>
+                        </div>
+
+                        <div></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉鎖</button>
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" x-on:click="savamodify">保存</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    @section Scripts{
+        <script src="~/js/Alpine.js" defer></script>
+        <script>
+
+            function querydata() {
+                return {
+
+                    GoodsTypes: [],
+                    Goodses: [],
+                    Goods: {
+                        Name: '',
+                        Price: 0,
+                        Describe: '',
+                        Validate: true,
+                        SerialNumber: 0,
+                        GoodsTypeID: 0,
+                        GoodsType: '',
+                    },
+                    ModifyGoods: {
+                        Name: '',
+                        Price: 0,
+                        Describe: '',
+                        Validate: true,
+                        SerialNumber: 0,
+                        GoodsTypeID: 0,
+                        GoodsType: '',
+                    },
+                    init() {
+                        that = this
+                        $.get("/home/goodses", {}, function (data) {
+                            if (data != null) {
+                                that.GoodsTypes = data.Data.GoodsTypes
+                                that.Goodses = data.Data.Goodses
+                            } else {
+                                console.log("/Home/Goodses is error")
+                            }
+                        });
+                    },
+                    sava() {
+                        $.ajax({
+                            type: "POST",
+                            url: "/home/goods",
+                            data: this.Goods,
+                            success: function (data) {
+
+                                if (data.Result) {
+                                    alert("送信に成功!")
+                                    that.init()
+                                    that.Goods = {
+                                        Name: '',
+                                        Price: 0,
+                                        Describe: '',
+                                        Validate: true,
+                                        SerialNumber: 0,
+                                        GoodsTypeID: 0,
+                                        GoodsType: '',
+                                    }
+                                } else {
+                                    alert("提出に失敗しました：" + data.Message)
+                                }
+                            }
+                        });
+                    },
+                    modify(goods) {
+                        console.log(goods)
+                        this.ModifyGoods = goods
+                    },
+                    savamodify() {
+                        $.ajax({
+                            type: "PUT",
+                            url: "/home/Goods",
+                            data: this.ModifyGoods,
+                            success: function (data) {
+
+                                if (data.Result) {
+                                    alert("送信に成功!")
+                                    that.init()
+                                    
+                                } else {
+                                    alert("提出に失敗しました：" + data.Message)
+                                }
+                            }
+                        });
+
+                    },
+                    remove(id) {
+                        if (window.confirm("削除してもよろしいですか?")) {
+                            that = this
+
+                            $.ajax({
+                                type: "DELETE",
+                                url: "/home/Goods",
+                                data: { "id": id },
+                                success: function (data) {
+                                    if (data.Result) {
+                                        alert("消去に成功!")
+                                        that.init()
+                                    } else {
+                                        alert("提出に失敗しました：" + data.Message)
+                                    }
+                                }
+                            });
+                        }
+                    }
+                }
+            }
+        </script>
+    }
+</div>
+
