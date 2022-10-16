@@ -262,47 +262,47 @@
                             }
                         });
                     },
-                    modify(goods) {
-                        console.log(goods)
-                        this.ModifyGoods = goods
-                    },
-                    savamodify() {
-                        $.ajax({
-                            type: "PUT",
-                            url: "/home/Goods",
-                            data: this.ModifyGoods,
-                            success: function (data) {
+                    //modify(goods) {
+                    //    console.log(goods)
+                    //    this.ModifyGoods = goods
+                    //},
+                    //savamodify() {
+                    //    $.ajax({
+                    //        type: "PUT",
+                    //        url: "/home/Goods",
+                    //        data: this.ModifyGoods,
+                    //        success: function (data) {
 
-                                if (data.Result) {
-                                    alert("送信に成功!")
-                                    that.init()
+                    //            if (data.Result) {
+                    //                alert("送信に成功!")
+                    //                that.init()
                                     
-                                } else {
-                                    alert("提出に失敗しました：" + data.Message)
-                                }
-                            }
-                        });
+                    //            } else {
+                    //                alert("提出に失敗しました：" + data.Message)
+                    //            }
+                    //        }
+                    //    });
 
-                    },
-                    remove(id) {
-                        if (window.confirm("削除してもよろしいですか?")) {
-                            that = this
+                    //},
+                    //remove(id) {
+                    //    if (window.confirm("削除してもよろしいですか?")) {
+                    //        that = this
 
-                            $.ajax({
-                                type: "DELETE",
-                                url: "/home/Goods",
-                                data: { "id": id },
-                                success: function (data) {
-                                    if (data.Result) {
-                                        alert("消去に成功!")
-                                        that.init()
-                                    } else {
-                                        alert("提出に失敗しました：" + data.Message)
-                                    }
-                                }
-                            });
-                        }
-                    }
+                    //        $.ajax({
+                    //            type: "DELETE",
+                    //            url: "/home/Goods",
+                    //            data: { "id": id },
+                    //            success: function (data) {
+                    //                if (data.Result) {
+                    //                    alert("消去に成功!")
+                    //                    that.init()
+                    //                } else {
+                    //                    alert("提出に失敗しました：" + data.Message)
+                    //                }
+                    //            }
+                    //        });
+                    //    }
+                    //}
                 }
             }
         </script>

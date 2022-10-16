@@ -12,12 +12,10 @@ namespace WinFormsDemo13
         private void Form1_Load(object sender, EventArgs e)
         {
             webView21.Source = new Uri(@"http://localhost:5026/home/goods");
-
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-
             var js = """
                 $(".btn-info").click()
                 """;
@@ -47,13 +45,8 @@ namespace WinFormsDemo13
                 $("#addgoods .btn-primary").click()
                 """;
             webView21.CoreWebView2.ExecuteScriptAsync(js);
-
         }
-
-        private void button4_Click(object sender, EventArgs e)
-        {
-
-        }
+      
 
         private void CoreWebView2_ScriptDialogOpening(object? sender, Microsoft.Web.WebView2.Core.CoreWebView2ScriptDialogOpeningEventArgs e)
         {
