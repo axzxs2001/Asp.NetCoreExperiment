@@ -1,0 +1,32 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div id="title">
+    
+</div>
+
+<div id="main" style="width: 600px;height:400px;">
+
+
+</div>
+
+@section Scripts{
+    <script src="~/js/echarts.min.js"></script>
+    <script>
+        $(function () {
+            $.get("/html", function (data, status) {
+                $("#title").html(data)
+
+
+
+                $.get("/ui?a=$b=", function (data, status) {
+                    eval(data)
+
+                });
+
+            });
+        })
+
+    </script>
+}

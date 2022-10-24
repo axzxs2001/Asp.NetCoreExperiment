@@ -374,9 +374,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiniAPICourse", "Asp.NetCor
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Speech", "Speech", "{D1C93D23-D4E5-409B-9103-9A2BB209CBF5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpeechToText", "Asp.NetCoreExperiment\Speech\SpeechToText\SpeechToText.csproj", "{AB3D6BA4-054D-4883-BFA6-AC221D4535DB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpeechToText", "Asp.NetCoreExperiment\Speech\SpeechToText\SpeechToText.csproj", "{AB3D6BA4-054D-4883-BFA6-AC221D4535DB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutofacDemo", "Asp.NetCoreExperiment\MiniAPI\AutofacDemo\AutofacDemo.csproj", "{3C29E429-8D43-4DD7-B3C0-3FAC9179308C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutofacDemo", "Asp.NetCoreExperiment\MiniAPI\AutofacDemo\AutofacDemo.csproj", "{3C29E429-8D43-4DD7-B3C0-3FAC9179308C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiniAPI02", "Asp.NetCoreExperiment\MiniAPI\MiniAPI02\MiniAPI02.csproj", "{9FD71378-E408-4682-9D07-44D5A4F8D855}"
 EndProject
@@ -510,7 +510,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CSRebot", "Asp.NetCoreExper
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CSharp11_New01", "Asp.NetCoreExperiment\CSharp\CSharp11_New01\CSharp11_New01.csproj", "{20E1EDFA-BB54-456B-878C-4430CD28061A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Book", "Asp.NetCoreExperiment\CSharp\Book\Book.csproj", "{81A499BB-2D0C-40D2-83BF-42EC79D542EC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Book", "Asp.NetCoreExperiment\CSharp\Book\Book.csproj", "{81A499BB-2D0C-40D2-83BF-42EC79D542EC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ClientAPIServer", "ClientAPIServer", "{F1324E1A-EBA6-4DF9-B197-7A541428DE4E}"
 EndProject
@@ -518,7 +518,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClientDemo01", "Asp.NetCore
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "APIServer01", "Asp.NetCoreExperiment\ClientAPIServer\APIServer01\APIServer01.csproj", "{1ED278A2-DDF0-4656-B57B-27DAD2537C2D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APIParallel", "Asp.NetCoreExperiment\MiniAPI\APIParallel\APIParallel.csproj", "{FA4A700A-F21F-4245-A90C-43D814BBEEBE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "APIParallel", "Asp.NetCoreExperiment\MiniAPI\APIParallel\APIParallel.csproj", "{FA4A700A-F21F-4245-A90C-43D814BBEEBE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "gRPC", "gRPC", "{5353C1A3-2E40-4343-B365-4F873B4AAE3A}"
 EndProject
@@ -558,7 +558,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WinFormsDemo09", "Asp.NetCo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WinFormDemo10", "Asp.NetCoreExperiment\WinForm\WinFormDemo10\WinFormDemo10.csproj", "{CD8289DC-415D-4A79-AD77-52D255FF9F6A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinFormDemo11", "Asp.NetCoreExperiment\WinForm\WinFormDemo11\WinFormDemo11.csproj", "{484747CF-6B85-42BB-99C4-9901D46EBEB1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WinFormDemo11", "Asp.NetCoreExperiment\WinForm\WinFormDemo11\WinFormDemo11.csproj", "{484747CF-6B85-42BB-99C4-9901D46EBEB1}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GSWControls", "Asp.NetCoreExperiment\ClientAPIServer\GSWControls\GSWControls.csproj", "{E9DD3534-AC5D-4DE3-B0D3-E293928808B4}"
 EndProject
@@ -576,7 +576,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WinFormsDemo13", "Asp.NetCo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WinFormDemo13WebHost", "Asp.NetCoreExperiment\WinForm\WinFormDemo12WebHost\WinFormDemo13WebHost.csproj", "{85992A6F-905D-499F-A3DC-A919F59D13AA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinFormsDemo14", "Asp.NetCoreExperiment\WinForm\WinFormsDemo14\WinFormsDemo14.csproj", "{D5415E4A-8336-4880-85EF-94D188FFF4C3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WinFormsDemo14", "Asp.NetCoreExperiment\WinForm\WinFormsDemo14\WinFormsDemo14.csproj", "{D5415E4A-8336-4880-85EF-94D188FFF4C3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EChart", "EChart", "{5DD0FA87-06B4-441C-8E2D-2E81BC29D5CD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EChartDemo01", "Asp.NetCoreExperiment\EChart\EChartDemo01\EChartDemo01.csproj", "{FA68E8C7-0E8A-44B5-A63E-ABC517F6ED43}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -1264,6 +1268,10 @@ Global
 		{04C43104-E795-44BA-BB9A-C38CD75E5175}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{04C43104-E795-44BA-BB9A-C38CD75E5175}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{04C43104-E795-44BA-BB9A-C38CD75E5175}.Release|Any CPU.Build.0 = Release|Any CPU
+		{67142EBC-1692-4883-B107-DADFFD9B1F1E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67142EBC-1692-4883-B107-DADFFD9B1F1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67142EBC-1692-4883-B107-DADFFD9B1F1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67142EBC-1692-4883-B107-DADFFD9B1F1E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E6573739-55CE-44CF-A0BC-623F04D4175D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E6573739-55CE-44CF-A0BC-623F04D4175D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E6573739-55CE-44CF-A0BC-623F04D4175D}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -1452,6 +1460,10 @@ Global
 		{D5415E4A-8336-4880-85EF-94D188FFF4C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D5415E4A-8336-4880-85EF-94D188FFF4C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D5415E4A-8336-4880-85EF-94D188FFF4C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA68E8C7-0E8A-44B5-A63E-ABC517F6ED43}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA68E8C7-0E8A-44B5-A63E-ABC517F6ED43}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA68E8C7-0E8A-44B5-A63E-ABC517F6ED43}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA68E8C7-0E8A-44B5-A63E-ABC517F6ED43}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1686,6 +1698,7 @@ Global
 		{CCCF52E6-0783-4708-A290-DEBB61D6F63E} = {1854E8D2-3AD0-4341-B513-775243F22C52}
 		{85992A6F-905D-499F-A3DC-A919F59D13AA} = {1854E8D2-3AD0-4341-B513-775243F22C52}
 		{D5415E4A-8336-4880-85EF-94D188FFF4C3} = {1854E8D2-3AD0-4341-B513-775243F22C52}
+		{FA68E8C7-0E8A-44B5-A63E-ABC517F6ED43} = {5DD0FA87-06B4-441C-8E2D-2E81BC29D5CD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
