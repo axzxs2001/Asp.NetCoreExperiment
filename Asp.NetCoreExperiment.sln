@@ -582,6 +582,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EChart", "EChart", "{5DD0FA
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EChartDemo01", "Asp.NetCoreExperiment\EChart\EChartDemo01\EChartDemo01.csproj", "{FA68E8C7-0E8A-44B5-A63E-ABC517F6ED43}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinFormsDemo15", "Asp.NetCoreExperiment\WinForm\WinFormsDemo15\WinFormsDemo15.csproj", "{DA333022-606F-4C93-BB51-E6F18D24B6C1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -1464,6 +1466,10 @@ Global
 		{FA68E8C7-0E8A-44B5-A63E-ABC517F6ED43}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FA68E8C7-0E8A-44B5-A63E-ABC517F6ED43}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FA68E8C7-0E8A-44B5-A63E-ABC517F6ED43}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA333022-606F-4C93-BB51-E6F18D24B6C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA333022-606F-4C93-BB51-E6F18D24B6C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA333022-606F-4C93-BB51-E6F18D24B6C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA333022-606F-4C93-BB51-E6F18D24B6C1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1699,6 +1705,7 @@ Global
 		{85992A6F-905D-499F-A3DC-A919F59D13AA} = {1854E8D2-3AD0-4341-B513-775243F22C52}
 		{D5415E4A-8336-4880-85EF-94D188FFF4C3} = {1854E8D2-3AD0-4341-B513-775243F22C52}
 		{FA68E8C7-0E8A-44B5-A63E-ABC517F6ED43} = {5DD0FA87-06B4-441C-8E2D-2E81BC29D5CD}
+		{DA333022-606F-4C93-BB51-E6F18D24B6C1} = {1854E8D2-3AD0-4341-B513-775243F22C52}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
