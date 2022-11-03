@@ -12,6 +12,9 @@ namespace WinFormsDemo15
         {
             InitializeComponent();
         }
+        /// <summary>
+        /// 创建连接后的网络流
+        /// </summary>
         NetworkStream _stream;
         private void ConnectionButton_Click(object sender, EventArgs e)
         {
@@ -26,6 +29,9 @@ namespace WinFormsDemo15
                 ReciveMessage(_stream);
             }
         }
+        /// <summary>
+        /// 在一个新线程中接收TcpClient连接
+        /// </summary>
         void AcceptTcpClient()
         {
             Task.Run(() =>
@@ -41,7 +47,10 @@ namespace WinFormsDemo15
                 ReciveMessage(_stream);
             });
         }
-
+        /// <summary>
+        /// 接收消息
+        /// </summary>
+        /// <param name="stream">网络流</param>
         void ReciveMessage(NetworkStream stream)
         {
             Task.Run(() =>
@@ -58,7 +67,11 @@ namespace WinFormsDemo15
                 }
             });
         }
-
+        /// <summary>
+        /// 发送消息
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SendButton_Click(object sender, EventArgs e)
         {
             var messageArr = System.Text.Encoding.UTF8.GetBytes(MyTextBox.Text);
