@@ -73,7 +73,36 @@ namespace WinFormsDemo16
             MessageBox.Show(person.ToString());
         }
 
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            textBox1.DataBindings.Add(new Binding("Text", person, "Name"));
 
+            dateTimePicker1.DataBindings.Add(new Binding("Text", person, "Birthday"));
+
+            comboBox1.DataSource = Enum.GetValues(typeof(Sex));
+            comboBox1.DataBindings.Add(new Binding("SelectedItem", person, "Sex"));
+
+            dataGridView1.DataSource = person.Goodses;
+
+            checkBox1.DataBindings.Add(new Binding("Checked", person, "IsTest"));
+
+            listBox1.DataSource = new List<Tel>
+            {
+                new Tel{Name="手机",No="13333333333" },
+                new Tel{Name="电话",No="88888888" },
+            };
+            listBox1.DisplayMember = "Name";
+            listBox1.ValueMember = "No";
+            listBox1.DataBindings.Add(new Binding("SelectedItem", person, "Tel"));
+
+
+            radioButton1.DataBindings.Add(new Binding("Checked", person, "IsResult"));
+            var b = new Binding("Checked", person, "IsResult");
+            b.Format += B_Format;
+            b.Parse += B_Parse;
+            radioButton2.DataBindings.Add(b);
+
+        }
     }
     record Tel
     {
@@ -88,7 +117,7 @@ namespace WinFormsDemo16
         public Tel Tel { get; set; }
         public bool IsResult { get; set; }
         public bool IsTest { get; set; }
-        public List<Goods> Goodses { get; set; } 
+        public List<Goods> Goodses { get; set; }
         public string GoodsString
         {
             get
