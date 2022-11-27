@@ -11,7 +11,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Components.WebView.WindowsForms" Version="6.0.300-rc.1.5355" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0-preview.2.22152.2" />
     <PackageReference Include="Microsoft.NET.Sdk.Razor" Version="5.0.0-preview.8.20414.8" />
-    <PackageReference Include="System.Data.SqlClient" Version="4.8.3" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
   </ItemGroup>
 
   <ItemGroup>
