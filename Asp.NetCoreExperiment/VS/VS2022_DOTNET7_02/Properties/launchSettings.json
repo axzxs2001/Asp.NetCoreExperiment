@@ -18,6 +18,7 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
+      //这里
       "devTunnelEnabled": true,
       "devTunnelAccess": "public"
     } 
