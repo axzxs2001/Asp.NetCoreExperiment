@@ -32,3 +32,7 @@ Console.WriteLine(h2);
 Console.WriteLine(h3);
 
 var aaa = new Int128Converter();
+
+
+DateOnly dateOnly = DateOnly.Parse("2022-11-01");
+TimeOnly timeOnly = TimeOnly.FromDateTime(DateTime.Now);
