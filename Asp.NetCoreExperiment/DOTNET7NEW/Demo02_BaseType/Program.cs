@@ -1,9 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
-using System.Numerics;
-
-
-var i16 = Int16.MaxValue;
+using System.Numericsvar i16 = Int16.MaxValue;
 Console.WriteLine($"Int16：{i16}");
 var i32 = Int32.MaxValue;
 Console.WriteLine($"Int32：{i32}");
