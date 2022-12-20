@@ -35,6 +35,12 @@ int i = 123;
 Console.WriteLine($"int值：{i}，占{Marshal.SizeOf(i)}字节");
 Console.WriteLine("----------------------------------");
 
+Console.WriteLine($"nint max：{nint.MaxValue}");
+Console.WriteLine($"nint min：{nint.MinValue}");
+nint n = 123;
+Console.WriteLine($"nint值：{n}，占{Marshal.SizeOf(n)}字节");
+Console.WriteLine("----------------------------------");
+
 Console.WriteLine($"long max：{long.MaxValue}");
 Console.WriteLine($"long min：{long.MinValue}");
 long l = 123;
@@ -53,6 +59,11 @@ Half h = (Half)43210.123456789;
 Console.WriteLine($"Half值：{h}，占{Marshal.SizeOf(h)}字节");
 Console.WriteLine("----------------------------------");
 
+Console.WriteLine($"Half max：{Half.MaxValue}");
+Console.WriteLine($"Half min：{Half.MinValue}");
+Half h = (Half)43210.123456789;
+Console.WriteLine($"Half值：{h}，占{Marshal.SizeOf(h)}字节");
+Console.WriteLine("----------------------------------");
 
 Console.WriteLine($"float max：{float.MaxValue}");
 Console.WriteLine($"float min：{float.MinValue}");
@@ -66,12 +77,9 @@ double d = 0.123456789012345678d;
 Console.WriteLine($"double值：{d}，占{Marshal.SizeOf(d)}字节");
 
 Console.WriteLine("----------------------------------");
+
 Console.WriteLine($"decimal max：{decimal.MaxValue}");
 Console.WriteLine($"decimal min：{decimal.MinValue}");
-decimal m = 123456789.12345678901234567890123456m;
-Console.WriteLine($"decimal值：{m}，占{Marshal.SizeOf(m)}字节");
-m = 0.12345678901234567890123456m;
-Console.WriteLine($"decimal值：{m}，占{Marshal.SizeOf(m)}字节");
-m = 12345678901234567890.12345678901234567890123456m;
+var m = 0.12345678901234567890123456m;
 Console.WriteLine($"decimal值：{m}，占{Marshal.SizeOf(m)}字节");
 Console.WriteLine("----------------------------------");
