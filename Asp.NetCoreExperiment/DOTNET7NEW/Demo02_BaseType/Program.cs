@@ -59,12 +59,6 @@ Half h = (Half)43210.123456789;
 Console.WriteLine($"Half值：{h}，占{Marshal.SizeOf(h)}字节");
 Console.WriteLine("----------------------------------");
 
-Console.WriteLine($"Half max：{Half.MaxValue}");
-Console.WriteLine($"Half min：{Half.MinValue}");
-Half h = (Half)43210.123456789;
-Console.WriteLine($"Half值：{h}，占{Marshal.SizeOf(h)}字节");
-Console.WriteLine("----------------------------------");
-
 Console.WriteLine($"float max：{float.MaxValue}");
 Console.WriteLine($"float min：{float.MinValue}");
 float f = 0.123456789f;
