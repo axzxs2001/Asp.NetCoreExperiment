@@ -1,11 +1,12 @@
 ﻿
+using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Text.Json.Serialization.Metadata;
 
-//Test01();
+Test01();
 //Test02();
-Test03();
+//Test03();
 
 static void Test03()
 {
@@ -64,7 +65,7 @@ static void Test02()
 
 static void Test01()
 {
-    var wechatCustomer = new WechatChildCustomer
+    var wechatCustomer = new WechatCustomer
     {
         Name = "张三",
         City = "东京",
@@ -73,12 +74,8 @@ static void Test01()
         PostalCode = "3000235",
         EMail = "abcde@gmail.com",
         Tel = "08-9563-2356",
-        WechatNo = "wechat_gsw",
-        SubWechatNo = "subWechat_gsw",
+        WechatNo = "wechat_gsw"
     };
-    PrintCustomer(wechatCustomer);
-
-
     var lineCustomer = new LineCustomer
     {
         Name = "张三",
@@ -90,21 +87,41 @@ static void Test01()
         Tel = "08-9563-2356",
         LineNo = "line_gsw"
     };
-    PrintCustomer(lineCustomer);
 
     //共用打印方法
     void PrintCustomer(Customer customer)
     {
-        var json = JsonSerializer.Serialize<Customer>(customer);
+        var options = new JsonSerializerOptions
+        {
+            TypeInfoResolver = new PolymorphicTypeResolver(),
+            Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
+            WriteIndented = true
+        };
+        var json = JsonSerializer.Serialize<Customer>(customer, options);
+        Console.WriteLine(json);
+        if (customer is WechatCustomer)
+        {
+            var wechat = JsonSerializer.Deserialize<WechatCustomer>(json, options);
+            Console.WriteLine(wechat);
+        }
+    }
+    void PrintCustomer1(Customer customer)
+    {
+        var json = JsonSerializer.Serialize<Customer>(customer, new JsonSerializerOptions
+        {
+            TypeInfoResolver = new PolymorphicTypeResolver()
+        });
         Console.WriteLine(json);
     }
+    PrintCustomer(wechatCustomer);
+    PrintCustomer(lineCustomer);
 }
 //[JsonPolymorphic(TypeDiscriminatorPropertyName = "customerType")]
-//[JsonPolymorphic(TypeDiscriminatorPropertyName = "customerType", UnknownDerivedTypeHandling = JsonUnknownDerivedTypeHandling.FallBackToNearestAncestor)]
-//[JsonDerivedType(typeof(Customer), typeDiscriminator: "customer")]
+////[JsonPolymorphic(TypeDiscriminatorPropertyName = "customerType", UnknownDerivedTypeHandling = JsonUnknownDerivedTypeHandling.FallBackToNearestAncestor)]
+////[JsonDerivedType(typeof(Customer), typeDiscriminator: "customer")]
 //[JsonDerivedType(typeof(WechatCustomer), typeDiscriminator: "wechatCustomer")]
 //[JsonDerivedType(typeof(LineCustomer), typeDiscriminator: "lineCustomer")]
-public class Customer
+public record Customer
 {
     public string Name { get; set; }
     public string Address { get; set; }
@@ -113,19 +130,18 @@ public class Customer
     public string PostalCode { get; set; }
     public string EMail { get; set; }
     public string Tel { get; set; }
-
 }
 
-public class WechatCustomer : Customer
+public record WechatCustomer : Customer
 {
     public string? WechatNo { get; set; }
 }
-public class LineCustomer : Customer
+public record LineCustomer : Customer
 {
     public string? LineNo { get; set; }
 }
 
-public class WechatChildCustomer : WechatCustomer
+public record WechatChildCustomer : WechatCustomer
 {
     public string? SubWechatNo { get; set; }
 }
@@ -143,9 +159,9 @@ public class PolymorphicTypeResolver : DefaultJsonTypeInfoResolver
         {
             jsonTypeInfo.PolymorphismOptions = new JsonPolymorphismOptions
             {
-                TypeDiscriminatorPropertyName = "customer",
-                IgnoreUnrecognizedTypeDiscriminators = true,
-                UnknownDerivedTypeHandling = JsonUnknownDerivedTypeHandling.FallBackToNearestAncestor,
+                TypeDiscriminatorPropertyName = "CustomerType",
+                //IgnoreUnrecognizedTypeDiscriminators = true,
+                //UnknownDerivedTypeHandling = JsonUnknownDerivedTypeHandling.FallBackToNearestAncestor,
                 DerivedTypes =
                 {
                     new JsonDerivedType(typeof(WechatCustomer), "wechatCustomer"),
@@ -153,7 +169,6 @@ public class PolymorphicTypeResolver : DefaultJsonTypeInfoResolver
                 }
             };
         }
-
         return jsonTypeInfo;
     }
 }
