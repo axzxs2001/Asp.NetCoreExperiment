@@ -2,35 +2,85 @@
 
 using System.Globalization;
 
-CultureInfo.CurrentCulture = CultureInfo.GetCultureInfo("zh-cn");
-Console.WriteLine($"|{"12345",-10}|{"12345",10}|");
-Console.WriteLine($"{DateTime.Now:yyyy-MM-dd}");
+Console.WriteLine("\"a\" 是小写的");
+Console.WriteLine(@"""a"" 是小写的");
+var str1 = "这是一段文字";
+Console.WriteLine(str1);
+var str2 = $"时间：{DateTime.Now}";
+Console.WriteLine(str2);
+var str2_1 = $"时间：{DateTime.Now:yyyy-MM-dd}";
+Console.WriteLine(str2_1);
 
-Console.WriteLine($"{123:D10}");
+var str3 = @"SELECT ID
+,Question
+,Score
+,QuestionTypeID
+,SubjectTypeID
+FROM Questions";
+Console.WriteLine(str3);
 
-Console.WriteLine($"{12.32:C2}");
+var str3_1 = @$"SELECT ID
+,Question
+,Score
+,QuestionTypeID
+,SubjectTypeID
+FROM Questions WHERE Score>{10}";
+Console.WriteLine(str3_1);
+var str3_2 = $@"SELECT ID
+,Question
+,Score
+,QuestionTypeID
+,SubjectTypeID
+FROM Questions WHERE Score>{10}";
+Console.WriteLine(str3_2);
 
-var ci = new CultureInfo("zh-cn");
+var str4 = """
+           SELECT ID
+           ,Question
+           ,Score
+           ,QuestionTypeID
+           ,SubjectTypeID
+           FROM Questions
+           """;
+Console.WriteLine(str4);
 
-Console.WriteLine($"{12.32}");
+var str4_1 = $"""
+           SELECT ID
+           ,Question
+           ,Score
+           ,QuestionTypeID
+           ,SubjectTypeID
+           FROM Questions
+           WHERE Score>{10}
+           """;
+Console.WriteLine(str4_1);
+//CultureInfo.CurrentCulture = CultureInfo.GetCultureInfo("zh-cn");
+//Console.WriteLine($"|{"12345",-10}|{"12345",10}|");
+//Console.WriteLine($"{DateTime.Now:yyyy-MM-dd}");
 
-Console.WriteLine($"{12.32.ToString("C2", ci)}");
+//Console.WriteLine($"{123:D10}");
+
+//Console.WriteLine($"{12.32:C2}");
+
+//var ci = new CultureInfo("en-us");
+//Console.WriteLine(12.32.ToString("C2", ci));
+//Console.WriteLine($"{12.32}");
 
 
-var speedOfLight = 299792.458;
-FormattableString message = $"The speed of light is {speedOfLight:N3} km/s.";
+//var speedOfLight = 299792.458;
+//FormattableString message = $"The speed of light is {speedOfLight:N3} km/s.";
 
 
 
-var messageInCurrentCulture = message.ToString();
-var specificCulture = System.Globalization.CultureInfo.GetCultureInfo("en-IN");
-var messageInSpecificCulture = message.ToString(specificCulture);
+//var messageInCurrentCulture = message.ToString();
+//var specificCulture = System.Globalization.CultureInfo.GetCultureInfo("en-IN");
+//var messageInSpecificCulture = message.ToString(specificCulture);
 
-var messageInInvariantCulture = FormattableString.Invariant(message);
+//var messageInInvariantCulture = FormattableString.Invariant(message);
 
-Console.WriteLine($"{System.Globalization.CultureInfo.CurrentCulture,-10} {messageInCurrentCulture}");
-Console.WriteLine($"{specificCulture,-10} {messageInSpecificCulture}");
-Console.WriteLine($"{"Invariant",-10} {messageInInvariantCulture}");
+//Console.WriteLine($"{System.Globalization.CultureInfo.CurrentCulture,-10} {messageInCurrentCulture}");
+//Console.WriteLine($"{specificCulture,-10} {messageInSpecificCulture}");
+//Console.WriteLine($"{"Invariant",-10} {messageInInvariantCulture}");
 
 
 Console.ReadLine();
@@ -49,6 +99,9 @@ var classString = """
                   """;
 Console.WriteLine("C# class：\r\n{0}", classString);
 
+
+
+
 var jsonString = """
                  {
                      "firstName": "John",
@@ -61,21 +114,10 @@ var jsonString = """
                          "city": "New York",
                          "state": "NY",
                          "postalCode": "10021"
-                     },
-                     "phoneNumber": 
-                     [
-                         {
-                           "type": "home",
-                           "number": "212 555-1234"
-                         },
-                         {
-                           "type": "fax",
-                           "number": "646 555-4567"
-                         }
-                     ]
+                     }                    
                  } 
                  """;
-Console.WriteLine("json：\r\n{0}", jsonString);
+Console.WriteLine(jsonString);
 
 var xmlString = """
                 <?xml version="1.0"?>
@@ -101,18 +143,18 @@ Console.WriteLine("xml：\r\n{0}", xmlString);
 
 
 var yamlString = """
-               url: http://www.yiibai.com              
-               server:
-                   host: http://www.yiibai.com              
-               server:
-                   - 120.168.0.21
-                   - 120.168.0.22
-                   - 120.168.0.23
+                 url: http://www.yiibai.com              
+                 server:
+                     host: http://www.yiibai.com              
+                 server:
+                     - 120.168.0.21
+                     - 120.168.0.22
+                     - 120.168.0.23
              
-               pi: 3.14   
-               hasChild: true  
-               name: '你好YAML' 
-               """;
+                 pi: 3.14   
+                 hasChild: true  
+                 name: '你好YAML' 
+                 """;
 Console.WriteLine("yaml：\r\n{0}", yamlString);
 
 Console.ReadLine();
