@@ -13,7 +13,6 @@ order.Name = "批发";
 order.Pirce = 12.34m;
 Console.WriteLine(order);
 
-
 [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
 public class DataFormatAttribute<T> : Attribute
 {
@@ -63,18 +62,16 @@ public abstract class Entity
     }
 }
 
-[DataFormatAttribute<JsonFormatter>()]
+[DataFormat<JsonFormatter>()]
 public class Person : Entity
 {
     public int ID { get; set; }
     public string? Name { get; set; }
 }
-[DataFormatAttribute<XmlFormatter>()]
+[DataFormat<XmlFormatter>()]
 public class Order : Entity
 {
     public int ID { get; set; }
     public string? Name { get; set; }
     public decimal Pirce { get; set; }
 }
-
-
