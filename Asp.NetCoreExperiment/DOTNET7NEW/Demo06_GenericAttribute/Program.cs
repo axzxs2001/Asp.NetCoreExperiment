@@ -1,8 +1,6 @@
 ﻿using System.Reflection;
 using System.Text;
 
-Console.WriteLine("Hello, World!");
-
 
 var person = new Person();
 person.ID = 10;
@@ -16,10 +14,32 @@ order.Pirce = 12.34m;
 Console.WriteLine(order);
 
 
-//[AttributeUsage(AttributeTargets.All, AllowMultiple = true)]
-public class DataAttribute<T> : Attribute
+[AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
+public class DataFormatAttribute<T> : Attribute
 {
-    public T? ABCD { get; set; }
+}
+public interface IFormatter
+{
+    string ConvertTo(object obj);
+}
+
+public class JsonFormatter : IFormatter
+{
+    public string ConvertTo(object obj)
+    {
+        return System.Text.Json.JsonSerializer.Serialize(obj);
+    }
+}
+public class XmlFormatter : IFormatter
+{
+    public string ConvertTo(object obj)
+    {
+        var ser = new System.Xml.Serialization.XmlSerializer(obj.GetType());
+        using var memory = new MemoryStream();
+        ser.Serialize(memory, obj);
+        var bytes = memory.GetBuffer();
+        return Encoding.UTF8.GetString(bytes, 0, bytes.Length);
+    }
 }
 
 public abstract class Entity
@@ -34,7 +54,7 @@ public abstract class Entity
                 var pars = attr.GetType().GenericTypeArguments;
                 foreach (var par in pars)
                 {
-                    var format = Activator.CreateInstance(par) as IFormat;
+                    var format = Activator.CreateInstance(par) as IFormatter;
                     return format?.ConvertTo(this);
                 }
             }
@@ -43,13 +63,13 @@ public abstract class Entity
     }
 }
 
-[DataAttribute<JsonFormat>()]
+[DataFormatAttribute<JsonFormatter>()]
 public class Person : Entity
 {
     public int ID { get; set; }
     public string? Name { get; set; }
 }
-[DataAttribute<XmlFormat>()]
+[DataFormatAttribute<XmlFormatter>()]
 public class Order : Entity
 {
     public int ID { get; set; }
@@ -58,26 +78,3 @@ public class Order : Entity
 }
 
 
-public interface IFormat
-{
-    string ConvertTo(object obj);
-}
-
-public class JsonFormat : IFormat
-{
-    public string ConvertTo(object obj)
-    {
-        return System.Text.Json.JsonSerializer.Serialize(obj);
-    }
-}
-public class XmlFormat : IFormat
-{
-    public string ConvertTo(object obj)
-    {
-        var ser = new System.Xml.Serialization.XmlSerializer(obj.GetType());
-        using var memory = new MemoryStream();
-        ser.Serialize(memory, obj);
-        var bytes = memory.GetBuffer();
-        return Encoding.UTF8.GetString(bytes, 0, bytes.Length);
-    }
-}
