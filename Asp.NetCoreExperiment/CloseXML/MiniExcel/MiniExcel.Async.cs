@@ -24,9 +24,9 @@
         {
             await ExcelWriterFactory.GetProvider(stream, value, sheetName, excelType, configuration, printHeader).SaveAsAsync(cancellationToken);
         }
-        public static async Task SaveAsAsync(this Stream stream, object value, bool printHeader = true, string sheetName = "Sheet1", ExcelType excelType = ExcelType.XLSX, IConfiguration configuration = null, CancellationToken cancellationToken = default(CancellationToken), Action<MiniExcelStreamWriter, IDataReader, int, Action<MiniExcelStreamWriter, int, int, object, ExcelColumnInfo>> action =null)
+        public static async Task SaveAsAsync(this Stream stream, object value, bool printHeader = true, string sheetName = "Sheet1", ExcelType excelType = ExcelType.XLSX, IConfiguration configuration = null, CancellationToken cancellationToken = default(CancellationToken), Func<IDataReader, List<KeyValuePair<int, object>>> func =null)
         {
-            await ExcelWriterFactory.GetProvider(stream, value, sheetName, excelType, configuration, printHeader, action).SaveAsAsync(cancellationToken);
+            await ExcelWriterFactory.GetProvider(stream, value, sheetName, excelType, configuration, printHeader, func).SaveAsAsync(cancellationToken);
         }
 
         public static async Task SaveAsAsync(this Stream stream, object value, bool printHeader = true, string sheetName = "Sheet1", ExcelType excelType = ExcelType.XLSX, IConfiguration configuration = null, CancellationToken cancellationToken = default(CancellationToken), Dictionary<string, KeyValuePair<string, string>> replaceDictionary =null)

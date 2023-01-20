@@ -16,8 +16,8 @@ var app = builder.Build();
 
 app.MapGet("/getfile", async (HttpContext context) =>
 {
-    using var con = new NpgsqlConnection("Server=127.0.0.1;Port=5432;UserId=postgres;Password=postgres;Database=***;Pooling=true;MinPoolSize=1;MaxPoolSize=100;CommandTimeout=300;");
-    var data = await con.ExecuteReaderAsync("select * from wxbsrecord order by recordid limit 1000000;");
+    using var con = new NpgsqlConnection("Server=127.0.0.1;Port=5432;UserId=postgres;Password=postgres2018;Database=;Pooling=true;MinPoolSize=1;MaxPoolSize=100;CommandTimeout=300;");
+    var data = await con.ExecuteReaderAsync("select outtradeno,recordid,entname,endtime,tradestate,orderamount,detail from wxbsrecord order by recordid limit 1000000;");
     var memoryStream = new MemoryStream();
     var templatePath = Directory.GetCurrentDirectory() + "/aaa.xlsx";
     var config = new OpenXmlConfiguration()
@@ -35,25 +35,27 @@ app.MapGet("/getfile", async (HttpContext context) =>
     };
     // await memoryStream.SaveAsAsync(value: data, configuration: config, replaceDictionary: replaceDictionary);
     var formats = new Dictionary<string, string> { { "endtime", "yyyy/MM/dd" }, { "orderamount", "000,000" } };
-    var replaceDictionary = new Dictionary<string, KeyValuePair<string, string>> { { "02M714CC0307P20200730180609", new KeyValuePair<string, string>("detail", "桂素伟") } };
+    var replaceList = new List<(string OriginalColumnName, string OriginalColumnValue, string ReplaceColumnName, string ReplaceColumnValue)> { new("outtradeno", "02M714CC0307P20200730180609", "detail", "桂素伟") };
 
-        await memoryStream.SaveAsAsync(value: data, configuration: config, action: NewMethod);
+    await memoryStream.SaveAsAsync(value: data, configuration: config, func: BuildStreamData);
     memoryStream.Seek(0, SeekOrigin.Begin);
     var fileName = DateTime.Now.ToString("yyyyMMddhhssmm") + ".xlsx";
     var contentType = "application/octet-stream";
 
     return TypedResults.File(fileStream: memoryStream, contentType: contentType, fileDownloadName: fileName);
 
-    void NewMethod(MiniExcelStreamWriter writer, IDataReader reader, int yIndex, Action<MiniExcelStreamWriter, int, int, object, ExcelColumnInfo> WriteCell)
+    List<KeyValuePair<int, object>> BuildStreamData(IDataReader reader)
     {
         var xIndex = 1;
         var fieldCount = reader.FieldCount;
-        var contents = new Dictionary<int, KeyValuePair<string, object>>();
-        KeyValuePair<string, string>? replaceBody = null;
+
+        var contents = new List<(int xIndex, string columnName, object cellValue)>();
+        var replaceRows = new List<(string columnName, object cellValue)>();
         for (int i = 0; i < fieldCount; i++)
         {
             var cellValue = reader.GetValue(i);
             var columnName = reader.GetName(i);
+            //处理格式
             if (formats.ContainsKey(columnName.ToLower()))
             {
                 var format = formats[columnName.ToLower()];
@@ -66,24 +68,39 @@ app.MapGet("/getfile", async (HttpContext context) =>
                     cellValue = Convert.ToInt64(cellValue).ToString(format);
                 }
             }
-            if (replaceDictionary.ContainsKey(cellValue.ToString()))
+            //找到要替换列
+            foreach (var replaceItem in replaceList)
             {
-                replaceBody = replaceDictionary[cellValue.ToString()];
+                if (replaceItem.OriginalColumnName == columnName && replaceItem.OriginalColumnValue == cellValue.ToString())
+                {
+                    replaceRows.Add((replaceItem.ReplaceColumnName, replaceItem.ReplaceColumnValue));
+                }
             }
-            contents.Add(xIndex, new KeyValuePair<string, object>(columnName, cellValue));
+
+            contents.Add((xIndex, columnName, cellValue));
             xIndex++;
         }
-        foreach (var kv in contents)
+        var returnContents = new List<KeyValuePair<int, object>>();
+
+        foreach (var ele in contents)
         {
-            if (replaceBody.HasValue && kv.Value.Key == replaceBody.Value.Key)
+            var isReplace = false;
+            foreach (var replaceItem in replaceRows)
             {
-                WriteCell(writer, yIndex, kv.Key, replaceBody.Value.Value, null);
+                if (ele.columnName == replaceItem.columnName)
+                {
+                    returnContents.Add(new KeyValuePair<int, object>(ele.xIndex, replaceItem.cellValue));
+                    isReplace = true;
+                    break;
+                }
             }
-            else
+            if (isReplace == false)
             {
-                WriteCell(writer, yIndex, kv.Key, kv.Value.Value, null);
+                returnContents.Add(new KeyValuePair<int, object>(ele.xIndex, ele.cellValue));
             }
         }
+        return returnContents;
+
     }
 
 });

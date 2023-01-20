@@ -54,7 +54,7 @@ namespace MiniExcelLibs.OpenXml
         private readonly List<FileDto> _files = new List<FileDto>();
         private int currentSheetIndex = 0;
         private readonly Dictionary<string, KeyValuePair<string, string>> _replaceDirectory;
-        private readonly Action<MiniExcelStreamWriter, IDataReader, int, Action<MiniExcelStreamWriter, int, int, object, ExcelColumnInfo>> _action;
+        private readonly Func<IDataReader, List<KeyValuePair<int, object>>> _func;
 
         public ExcelOpenXmlSheetWriter(Stream stream, object value, string sheetName, IConfiguration configuration, bool printHeader)
         {
@@ -71,9 +71,9 @@ namespace MiniExcelLibs.OpenXml
             _sheets.Add(new SheetDto { Name = sheetName, SheetIdx = 1 }); //TODO:remove
 
         }
-        public ExcelOpenXmlSheetWriter(Stream stream, object value, string sheetName, IConfiguration configuration, bool printHeader, Action<MiniExcelStreamWriter, IDataReader, int, Action<MiniExcelStreamWriter, int, int, object, ExcelColumnInfo>> action)
+        public ExcelOpenXmlSheetWriter(Stream stream, object value, string sheetName, IConfiguration configuration, bool printHeader, Func<IDataReader, List<KeyValuePair<int, object>>> func)
         {
-            _action = action;
+            _func = func;
             this._stream = stream;
             // Why ZipArchiveMode.Update not ZipArchiveMode.Create?
             // R : Mode create - ZipArchiveEntry does not support seeking.'
@@ -655,24 +655,12 @@ namespace MiniExcelLibs.OpenXml
 
                 while (reader.Read())
                 {
-
-
                     writer.Write($"<x:row r=\"{yIndex}\">");
-                    xIndex = xy.Item1;
-
-                    _action(writer, reader, yIndex, WriteCell);
-
-
-
-                    //for (int i = 0; i < fieldCount; i++)
-                    //{
-                    //    var cellValue = reader.GetValue(i);
-                    //    WriteCell(writer, yIndex, xIndex, cellValue, null);
-                    //    xIndex++;
-                    //}
-
-
-
+                    var list = _func(reader);
+                    foreach (var item in list)
+                    {
+                        WriteCell(writer, yIndex, item.Key, item.Value, null);
+                    }
                     writer.Write($"</x:row>");
                     yIndex++;
                 }
@@ -690,98 +678,6 @@ namespace MiniExcelLibs.OpenXml
         }
 
 
-
-
-        //private void GenerateSheetByIDataReader(MiniExcelStreamWriter writer, IDataReader reader)
-        //{
-        //    var xy = ExcelOpenXmlUtils.ConvertCellToXY("A1"); /*TODO:code smell*/
-        //    long dimensionWritePosition = 0;
-        //    writer.Write($@"<?xml version=""1.0"" encoding=""utf-8""?><x:worksheet xmlns:x=""http://schemas.openxmlformats.org/spreadsheetml/2006/main"">");
-        //    var yIndex = xy.Item2;
-        //    var xIndex = 0;
-        //    {
-
-        //        if (_configuration.FastMode)
-        //        {
-        //            dimensionWritePosition = writer.WriteAndFlush($@"<x:dimension ref=""");
-        //            writer.Write("                              />"); // end of code will be replaced
-        //        }
-
-        //        writer.Write("<x:sheetData>");
-        //        int fieldCount = reader.FieldCount;
-        //        if (_printHeader)
-        //        {
-        //            writer.Write($"<x:row r=\"{yIndex}\">");
-        //            xIndex = xy.Item1;
-        //            for (int i = 0; i < fieldCount; i++)
-        //            {
-        //                var r = ExcelOpenXmlUtils.ConvertXyToCell(xIndex, yIndex);
-        //                var columnName = reader.GetName(i);
-        //                columnName = _configuration.DynamicColumns.FirstOrDefault(s => s.Key.ToLower() == columnName.ToLower())?.Name;
-        //                WriteC(writer, r, columnName);
-        //                xIndex++;
-        //            }
-        //            writer.Write($"</x:row>");
-        //            yIndex++;
-        //        }
-
-        //        while (reader.Read())
-        //        {
-        //            writer.Write($"<x:row r=\"{yIndex}\">");
-        //            xIndex = xy.Item1;
-
-        //            var contents = new Dictionary<int, KeyValuePair<string, object>>();
-        //            KeyValuePair<string, string>? replaceBody = null;
-        //            for (int i = 0; i < fieldCount; i++)
-        //            {
-        //                var cellValue = reader.GetValue(i);
-        //                var columnName = reader.GetName(i);
-        //                var format = _configuration.DynamicColumns.FirstOrDefault(s => s.Key.ToLower() == columnName.ToLower())?.Format;
-        //                if (!string.IsNullOrWhiteSpace(format))
-        //                {
-        //                    if (cellValue is DateTime)
-        //                    {
-        //                        cellValue = Convert.ToDateTime(cellValue).ToString(format);
-        //                    }
-        //                    else
-        //                    {
-        //                        cellValue = Convert.ToInt64(cellValue).ToString(format);
-        //                    }
-        //                }
-        //                if (_replaceDirectory.ContainsKey(cellValue.ToString()))
-        //                {
-        //                    replaceBody = _replaceDirectory[cellValue.ToString()];
-        //                }
-        //                contents.Add(xIndex, new KeyValuePair<string, object>(columnName, cellValue));
-        //                xIndex++;
-        //            }
-        //            foreach (var kv in contents)
-        //            {
-        //                if (replaceBody.HasValue && kv.Value.Key == replaceBody.Value.Key)
-        //                {
-        //                    WriteCell(writer, yIndex, kv.Key, replaceBody.Value.Value, null);
-        //                }
-        //                else
-        //                {
-        //                    WriteCell(writer, yIndex, kv.Key, kv.Value.Value, null);
-        //                }
-        //            }
-
-        //            writer.Write($"</x:row>");
-        //            yIndex++;
-        //        }
-        //    }
-        //    writer.Write("</x:sheetData>");
-        //    if (_configuration.AutoFilter)
-        //        writer.Write($"<x:autoFilter ref=\"A1:{ExcelOpenXmlUtils.ConvertXyToCell((xIndex - 1)/*TODO:code smell*/, yIndex - 1)}\" />");
-        //    writer.WriteAndFlush("</x:worksheet>");
-
-        //    if (_configuration.FastMode)
-        //    {
-        //        writer.SetPosition(dimensionWritePosition);
-        //        writer.WriteAndFlush($@"A1:{ExcelOpenXmlUtils.ConvertXyToCell((xIndex - 1)/*TODO:code smell*/, yIndex - 1)}""");
-        //    }
-        //}
 
         private static void WriteC(MiniExcelStreamWriter writer, string r, string columnName)
         {

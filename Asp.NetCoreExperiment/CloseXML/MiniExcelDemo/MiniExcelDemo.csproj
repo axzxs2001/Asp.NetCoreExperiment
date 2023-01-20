@@ -15,10 +15,4 @@
     <ProjectReference Include="..\MiniExcel\MiniExcelLibs.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Update="aaa.xlsx">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
 </Project>

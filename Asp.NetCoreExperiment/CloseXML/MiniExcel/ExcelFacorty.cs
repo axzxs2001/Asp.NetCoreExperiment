@@ -44,7 +44,7 @@
                     throw new NotSupportedException($"Please Issue for me");
             }
         }
-        internal static IExcelWriter GetProvider(Stream stream, object value, string sheetName, ExcelType excelType, IConfiguration configuration, bool printHeader, Action<MiniExcelStreamWriter, IDataReader, int, Action<MiniExcelStreamWriter, int, int, object, ExcelColumnInfo>> action)
+        internal static IExcelWriter GetProvider(Stream stream, object value, string sheetName, ExcelType excelType, IConfiguration configuration, bool printHeader, Func<IDataReader,  List<KeyValuePair<int, object>>> func = null)
         {
             if (string.IsNullOrEmpty(sheetName))
                 throw new InvalidDataException("Sheet name can not be empty or null");
@@ -56,7 +56,7 @@
                 case ExcelType.CSV:
                     return new CsvWriter(stream, value, configuration, printHeader);
                 case ExcelType.XLSX:
-                    return new ExcelOpenXmlSheetWriter(stream, value, sheetName, configuration, printHeader, action);
+                    return new ExcelOpenXmlSheetWriter(stream, value, sheetName, configuration, printHeader, func);
                 default:
                     throw new NotSupportedException($"Please Issue for me");
             }
