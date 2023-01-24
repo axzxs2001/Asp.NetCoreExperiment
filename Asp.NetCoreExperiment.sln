@@ -608,11 +608,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo04_string", "Asp.NetCor
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo05_file", "Asp.NetCoreExperiment\DOTNET7NEW\Demo05_file\Demo05_file.csproj", "{5E1AEFF7-ADB0-4A9B-9D05-F5F9BD70BE9C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo06_GenericAttribute", "Asp.NetCoreExperiment\DOTNET7NEW\Demo06_GenericAttribute\Demo06_GenericAttribute.csproj", "{C4114F1A-5130-44B3-8BC2-1365407D9AFA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo06_GenericAttribute", "Asp.NetCoreExperiment\DOTNET7NEW\Demo06_GenericAttribute\Demo06_GenericAttribute.csproj", "{C4114F1A-5130-44B3-8BC2-1365407D9AFA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniExcelDemo", "Asp.NetCoreExperiment\CloseXML\MiniExcelDemo\MiniExcelDemo.csproj", "{E8E7A85A-6852-4CA2-B5E5-3F8928B4FB4A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiniExcelDemo", "Asp.NetCoreExperiment\CloseXML\MiniExcelDemo\MiniExcelDemo.csproj", "{E8E7A85A-6852-4CA2-B5E5-3F8928B4FB4A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiniExcelLibs", "Asp.NetCoreExperiment\CloseXML\MiniExcel\MiniExcelLibs.csproj", "{097903C9-1F81-4427-B4C8-530CB59687B8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo07_ListModel", "Asp.NetCoreExperiment\DOTNET7NEW\Demo07_ListModel\Demo07_ListModel.csproj", "{858959E1-0B5D-4DB2-8C6D-F1CF7E0A85D7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -1552,6 +1554,10 @@ Global
 		{097903C9-1F81-4427-B4C8-530CB59687B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{097903C9-1F81-4427-B4C8-530CB59687B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{097903C9-1F81-4427-B4C8-530CB59687B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{858959E1-0B5D-4DB2-8C6D-F1CF7E0A85D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{858959E1-0B5D-4DB2-8C6D-F1CF7E0A85D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{858959E1-0B5D-4DB2-8C6D-F1CF7E0A85D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{858959E1-0B5D-4DB2-8C6D-F1CF7E0A85D7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1801,6 +1807,7 @@ Global
 		{C4114F1A-5130-44B3-8BC2-1365407D9AFA} = {3870DA9C-79B5-4BEE-88A4-92F8A6AF6D17}
 		{E8E7A85A-6852-4CA2-B5E5-3F8928B4FB4A} = {8C994867-4C3D-42C7-9BDE-8F5453773DB0}
 		{097903C9-1F81-4427-B4C8-530CB59687B8} = {8C994867-4C3D-42C7-9BDE-8F5453773DB0}
+		{858959E1-0B5D-4DB2-8C6D-F1CF7E0A85D7} = {3870DA9C-79B5-4BEE-88A4-92F8A6AF6D17}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
