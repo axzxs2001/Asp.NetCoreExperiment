@@ -21,6 +21,7 @@ app.MapGet("/getfile", async (HttpContext context) =>
     var memoryStream = new MemoryStream(); 
     var config = new OpenXmlConfiguration()
     {
+        TableStyles = TableStyles.None,
         DynamicColumns = new DynamicExcelColumn[] {
             new DynamicExcelColumn("outtradeno") {Name="交易号" },
             new DynamicExcelColumn("recordid") {Name="编号" },
@@ -108,7 +109,7 @@ app.MapGet("/getfile", async (HttpContext context) =>
 //处理下载模版excel
 app.MapGet("/gettepfile", async (HttpContext context) =>
 {
-    using var con = new NpgsqlConnection("Server=127.0.0.1;Port=5432;UserId=postgres;Password=postgres2018;Database=starpayagenttmp;Pooling=true;MinPoolSize=1;MaxPoolSize=100;CommandTimeout=300;");
+    using var con = new NpgsqlConnection("Server=127.0.0.1;Port=5432;UserId=postgres;Password=postgres2018;Database=StarPayAgentTemp;Pooling=true;MinPoolSize=1;MaxPoolSize=100;CommandTimeout=300;");
     var data = await con.ExecuteReaderAsync("select outtradeno,recordid,entname,endtime,tradestate,orderamount,detail from wxbsrecord order by recordid limit 1000000;");
     var memoryStream = new MemoryStream();
     var templatePath = Directory.GetCurrentDirectory() + "/temp.xlsx";
