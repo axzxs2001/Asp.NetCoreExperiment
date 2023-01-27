@@ -44,7 +44,7 @@
                     throw new NotSupportedException($"Please Issue for me");
             }
         }
-        internal static IExcelWriter GetProvider(Stream stream, object value, string sheetName, ExcelType excelType, IConfiguration configuration, bool printHeader, Func<IDataReader,  List<KeyValuePair<int, object>>> func = null)
+        internal static IExcelWriter GetProvider(Stream stream, object value, string sheetName, ExcelType excelType, IConfiguration configuration, bool printHeader, Func<IDataReader,  List<Tuple<int,string, object>>> func = null)
         {
             if (string.IsNullOrEmpty(sheetName))
                 throw new InvalidDataException("Sheet name can not be empty or null");
@@ -61,23 +61,23 @@
                     throw new NotSupportedException($"Please Issue for me");
             }
         }
-        internal static IExcelWriter GetProvider(Stream stream, object value, string sheetName, ExcelType excelType, IConfiguration configuration, bool printHeader, Dictionary<string, KeyValuePair<string, string>> replaceDictionary)
-        {
-            if (string.IsNullOrEmpty(sheetName))
-                throw new InvalidDataException("Sheet name can not be empty or null");
-            if (excelType == ExcelType.UNKNOWN)
-                throw new InvalidDataException("Please specify excelType");
+        //internal static IExcelWriter GetProvider(Stream stream, object value, string sheetName, ExcelType excelType, IConfiguration configuration, bool printHeader, Dictionary<string, KeyValuePair<string, string>> replaceDictionary)
+        //{
+        //    if (string.IsNullOrEmpty(sheetName))
+        //        throw new InvalidDataException("Sheet name can not be empty or null");
+        //    if (excelType == ExcelType.UNKNOWN)
+        //        throw new InvalidDataException("Please specify excelType");
 
-            switch (excelType)
-            {
-                case ExcelType.CSV:
-                    return new CsvWriter(stream, value, configuration, printHeader);
-                case ExcelType.XLSX:
-                    return new ExcelOpenXmlSheetWriter(stream, value, sheetName, configuration, printHeader, replaceDictionary);
-                default:
-                    throw new NotSupportedException($"Please Issue for me");
-            }
-        }
+        //    switch (excelType)
+        //    {
+        //        case ExcelType.CSV:
+        //            return new CsvWriter(stream, value, configuration, printHeader);
+        //        case ExcelType.XLSX:
+        //            return new ExcelOpenXmlSheetWriter(stream, value, sheetName, configuration, printHeader, replaceDictionary);
+        //        default:
+        //            throw new NotSupportedException($"Please Issue for me");
+        //    }
+        //}
     }
 
     internal class ExcelTemplateFactory

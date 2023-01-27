@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
+using System.Data.SqlTypes;
 using System.Globalization;
 using System.IO;
 using System.IO.Compression;
@@ -52,12 +53,11 @@ namespace MiniExcelLibs.OpenXml
         private readonly object _value;
         private readonly List<SheetDto> _sheets = new List<SheetDto>();
         private readonly List<FileDto> _files = new List<FileDto>();
-        private int currentSheetIndex = 0;
-        private readonly Dictionary<string, KeyValuePair<string, string>> _replaceDirectory;
-        private readonly Func<IDataReader, List<KeyValuePair<int, object>>> _func;
+        private int currentSheetIndex = 0;      
+        private readonly Func<IDataReader, List<Tuple<int,string, object>>> _func;   
 
         public ExcelOpenXmlSheetWriter(Stream stream, object value, string sheetName, IConfiguration configuration, bool printHeader)
-        {
+        {       
             this._stream = stream;
             // Why ZipArchiveMode.Update not ZipArchiveMode.Create?
             // R : Mode create - ZipArchiveEntry does not support seeking.'
@@ -71,7 +71,7 @@ namespace MiniExcelLibs.OpenXml
             _sheets.Add(new SheetDto { Name = sheetName, SheetIdx = 1 }); //TODO:remove
 
         }
-        public ExcelOpenXmlSheetWriter(Stream stream, object value, string sheetName, IConfiguration configuration, bool printHeader, Func<IDataReader, List<KeyValuePair<int, object>>> func)
+        public ExcelOpenXmlSheetWriter(Stream stream, object value, string sheetName, IConfiguration configuration, bool printHeader, Func<IDataReader, List<Tuple<int,string, object>>> func)
         {
             _func = func;
             this._stream = stream;
@@ -86,22 +86,7 @@ namespace MiniExcelLibs.OpenXml
             this._value = value;
             _sheets.Add(new SheetDto { Name = sheetName, SheetIdx = 1 }); //TODO:remove
 
-        }
-        public ExcelOpenXmlSheetWriter(Stream stream, object value, string sheetName, IConfiguration configuration, bool printHeader, Dictionary<string, KeyValuePair<string, string>> replaceDirectory)
-        {
-            _replaceDirectory = replaceDirectory;
-            this._stream = stream;
-            // Why ZipArchiveMode.Update not ZipArchiveMode.Create?
-            // R : Mode create - ZipArchiveEntry does not support seeking.'
-            this._configuration = configuration as OpenXmlConfiguration ?? OpenXmlConfiguration.DefaultConfig;
-            if (_configuration.FastMode)
-                this._archive = new MiniExcelZipArchive(_stream, ZipArchiveMode.Update, true, _utf8WithBom);
-            else
-                this._archive = new MiniExcelZipArchive(_stream, ZipArchiveMode.Create, true, _utf8WithBom);
-            this._printHeader = printHeader;
-            this._value = value;
-            _sheets.Add(new SheetDto { Name = sheetName, SheetIdx = 1 }); //TODO:remove
-        }
+        }      
         public ExcelOpenXmlSheetWriter()
         {
         }
@@ -429,7 +414,7 @@ namespace MiniExcelLibs.OpenXml
             }
         }
 
-        private void WriteCell(MiniExcelStreamWriter writer, int rowIndex, int cellIndex, object value, ExcelColumnInfo p)
+        private void WriteCell(MiniExcelStreamWriter writer, int rowIndex, int cellIndex, object value, ExcelColumnInfo p=null,bool isMoney=false)
         {
             var v = string.Empty;
             var t = "str";
@@ -477,6 +462,11 @@ namespace MiniExcelLibs.OpenXml
                         t = "str"; //TODO: add style format
                     else
                         t = "n";
+
+                    if (isMoney)
+                    {
+                        s = "5";
+                    }
 
                     if (type.IsAssignableFrom(typeof(decimal)))
                         v = ((decimal)value).ToString(_configuration.Culture);
@@ -631,7 +621,7 @@ namespace MiniExcelLibs.OpenXml
 
                 if (_configuration.FastMode)
                 {
-                    dimensionWritePosition = writer.WriteAndFlush($@"<x:dimension ref=""");
+                     dimensionWritePosition = writer.WriteAndFlush($@"<x:dimension ref=""");
                     writer.Write("                              />"); // end of code will be replaced
                 }
 
@@ -659,7 +649,15 @@ namespace MiniExcelLibs.OpenXml
                     var list = _func(reader);
                     foreach (var item in list)
                     {
-                        WriteCell(writer, yIndex, item.Key, item.Value, null);
+                       var format= _configuration.DynamicColumns.FirstOrDefault(s => s.Key.ToLower() == item.Item2.ToLower())?.Format;
+                       if(!string.IsNullOrWhiteSpace(format)&& item.Item3 is DateTime)
+                        {                       
+                            WriteCell(writer, yIndex, item.Item1, Convert.ToDateTime(item.Item3).ToString(format));
+                        }
+                        else
+                        {
+                            WriteCell(writer, yIndex, item.Item1, item.Item3, null,format== "Currency");
+                        }
                     }
                     writer.Write($"</x:row>");
                     yIndex++;

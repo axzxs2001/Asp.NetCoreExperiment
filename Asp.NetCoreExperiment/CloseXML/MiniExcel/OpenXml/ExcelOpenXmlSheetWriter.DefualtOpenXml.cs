@@ -71,7 +71,7 @@ namespace MiniExcelLibs.OpenXml
         <x:font>
             <x:vertAlign val=""baseline"" />
             <x:sz val=""11"" />
-            <x:color rgb=""FFFFFFFF"" />
+            <x:color rgb=""00000000"" />
             <x:name val=""Calibri"" />
             <x:family val=""2"" />
         </x:font>
@@ -85,7 +85,7 @@ namespace MiniExcelLibs.OpenXml
         </x:fill>
         <x:fill>
             <x:patternFill patternType=""solid"">
-                <x:fgColor rgb=""284472C4"" />
+                <x:fgColor rgb=""FFFFFFFF"" />
             </x:patternFill>
         </x:fill>
     </x:fills>
@@ -125,7 +125,7 @@ namespace MiniExcelLibs.OpenXml
             </x:diagonal>
         </x:border>
     </x:borders>
-    <x:cellStyleXfs count=""3"">
+    <x:cellStyleXfs count=""4"">
         <x:xf numFmtId=""0"" fontId=""0"" fillId=""0"" borderId=""0"" applyNumberFormat=""1"" applyFill=""1"" applyBorder=""0"" applyAlignment=""1"" applyProtection=""1"">
             <x:protection locked=""1"" hidden=""0"" />
         </x:xf>
@@ -135,8 +135,11 @@ namespace MiniExcelLibs.OpenXml
         <x:xf numFmtId=""0"" fontId=""0"" fillId=""0"" borderId=""1"" applyNumberFormat=""1"" applyFill=""1"" applyBorder=""1"" applyAlignment=""1"" applyProtection=""1"">
             <x:protection locked=""1"" hidden=""0"" />
         </x:xf>
+        <x:xf numFmtId=""3"" fontId=""0"" fillId=""0"" borderId=""1"" applyNumberFormat=""1"" applyFill=""1"" applyBorder=""1"" applyAlignment=""1"" applyProtection=""1"">
+        <x:protection locked=""1"" hidden=""0""/>
+    </x:xf>
     </x:cellStyleXfs>
-    <x:cellXfs count=""4"">
+    <x:cellXfs count=""5"">
         <x:xf></x:xf>
         <x:xf numFmtId=""0"" fontId=""1"" fillId=""2"" borderId=""1"" xfId=""0"" applyNumberFormat=""1"" applyFill=""0"" applyBorder=""1"" applyAlignment=""1"" applyProtection=""1"">
             <x:alignment horizontal=""left"" vertical=""bottom"" textRotation=""0"" wrapText=""0"" indent=""0"" relativeIndent=""0"" justifyLastLine=""0"" shrinkToFit=""0"" readingOrder=""0"" />
@@ -153,6 +156,10 @@ namespace MiniExcelLibs.OpenXml
         <x:xf numFmtId=""0"" fontId=""0"" fillId=""0"" borderId=""1"" xfId=""0"" applyBorder=""1"" applyAlignment=""1"">
             <x:alignment horizontal=""fill""/>
         </x:xf>
+        <x:xf numFmtId=""3"" fontId=""0"" fillId=""0"" borderId=""1"" xfId=""0"" applyNumberFormat=""1"" applyFill=""1"" applyBorder=""1"" applyAlignment=""1"" applyProtection=""1"">
+             <x:alignment horizontal=""center"" vertical=""center"" textRotation=""0"" wrapText=""0"" indent=""0"" relativeIndent=""0"" justifyLastLine=""0"" shrinkToFit=""0"" readingOrder=""0""/>
+             <x:protection locked=""1"" hidden=""0""/>
+         </x:xf>
     </x:cellXfs>
     <x:cellStyles count=""1"">
         <x:cellStyle name=""Normal"" xfId=""0"" builtinId=""0"" />
