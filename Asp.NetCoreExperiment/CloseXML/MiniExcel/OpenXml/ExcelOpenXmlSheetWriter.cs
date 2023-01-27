@@ -625,8 +625,22 @@ namespace MiniExcelLibs.OpenXml
                     writer.Write("                              />"); // end of code will be replaced
                 }
 
-                writer.Write("<x:sheetData>");
                 int fieldCount = reader.FieldCount;
+                //处理列宽度
+                if (_printHeader)
+                {
+                    writer.Write($@"<x:cols>");
+                    for (int i = 0; i < fieldCount; i++)
+                    {      
+                        var columnName = reader.GetName(i);
+                        var width = _configuration.DynamicColumns.FirstOrDefault(s => s.Key.ToLower() == columnName)?.Width;
+                        writer.Write($@"<x:col min=""{i+ 1}"" max=""{i + 1}"" {(width.HasValue?$@"width=""{width.Value}""":"")} customWidth=""1"" />");
+                    }
+                    writer.Write($@"</x:cols>");
+                }
+                //处理数据
+                writer.Write("<x:sheetData>");
+                //处理表头
                 if (_printHeader)
                 {
                     writer.Write($"<x:row r=\"{yIndex}\">");
@@ -642,10 +656,11 @@ namespace MiniExcelLibs.OpenXml
                     writer.Write($"</x:row>");
                     yIndex++;
                 }
-
+                //处理数据
                 while (reader.Read())
                 {
                     writer.Write($"<x:row r=\"{yIndex}\">");
+                    //调用处理数据的接口
                     var list = _func(reader);
                     foreach (var item in list)
                     {

@@ -17,7 +17,7 @@ var app = builder.Build();
 app.MapGet("/getfile", async (HttpContext context) =>
 {
     using var con = new NpgsqlConnection("Server=127.0.0.1;Port=5432;UserId=postgres;Password=postgres2018;Database=;Pooling=true;MinPoolSize=1;MaxPoolSize=100;CommandTimeout=300;");
-    var data = await con.ExecuteReaderAsync("select outtradeno,recordid,entname,endtime,tradestate,case when tradestate='SUCCESS'then orderamount else -orderamount end as orderamount,detail,orderamount as deviceno from wxbsrecord order by recordid limit 1000000;");
+    var data = await con.ExecuteReaderAsync("select outtradeno,recordid,entname,endtime,tradestate,case when tradestate='SUCCESS'then orderamount else -orderamount end as orderamount,detail,orderamount as deviceno from wxbsrecord order by recordid limit 1000;");
     var memoryStream = new MemoryStream();
     var config = new OpenXmlConfiguration()
     {
@@ -25,14 +25,14 @@ app.MapGet("/getfile", async (HttpContext context) =>
         FastMode = true,
         TableStyles = TableStyles.Default,
         DynamicColumns = new DynamicExcelColumn[] {
-            new DynamicExcelColumn("outtradeno") {Name="交易号" },
-            new DynamicExcelColumn("recordid") {Name="编号" },
-            new DynamicExcelColumn("entname") {Name="企业名称" },
-            new DynamicExcelColumn("endtime") { Name="时间",  Format = "yyyy/MM/dd HH:mm:ss",Width=100 },
-            new DynamicExcelColumn("tradestate") { Name = "状态" },
-            new DynamicExcelColumn("orderamount") { Name = "金额",Format="Currency" },
-            new DynamicExcelColumn("detail") { Name = "备注" },
-            new DynamicExcelColumn("deviceno") { Name = "设置号" },
+            new DynamicExcelColumn("outtradeno") {Name="交易号",Width=40 },
+            new DynamicExcelColumn("recordid") {Name="编号",Width=40 },
+            new DynamicExcelColumn("entname") {Name="企业名称",Width=20  },
+            new DynamicExcelColumn("endtime") { Name="时间",  Format = "yyyy/MM/dd HH:mm:ss",Width=20 },
+            new DynamicExcelColumn("tradestate") { Name = "状态" ,Width=10},
+            new DynamicExcelColumn("orderamount") { Name = "金额",Format="Currency",Width=10 },
+            new DynamicExcelColumn("detail") { Name = "备注",Width=30 },
+            new DynamicExcelColumn("deviceno") { Name = "设备号",Width=10 },
         },
         IgnoreTemplateParameterMissing = false,
     };
