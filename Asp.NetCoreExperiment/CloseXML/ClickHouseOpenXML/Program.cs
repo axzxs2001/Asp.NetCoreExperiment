@@ -21,7 +21,7 @@ var app = builder.Build();
 app.MapGet("/getfile", async (IHttpClientFactory clientFactory, CancellationToken token) =>
 {
     var client = clientFactory.CreateClient();
-    var stream = await client.GetStreamAsync($"http://10.5.0.8:8123/?user=dev_owner&password=cmDevk19C610Dz1&query=select outtradeno,recordid,entname,endtime,tradestate,case when tradestate='SUCCESS 'then orderamount else -orderamount end as orderamount,detail,orderamount as deviceno from starpay.wxbsrecord order by recordid limit 1000000 FORMAT JSONCompactEachRowWithNamesAndTypes", token);
+    var stream = await client.GetStreamAsync($"http://10.5.0.8:8123/?user=dev_owner&password=mypassword&query=select outtradeno,recordid,entname,endtime,tradestate,case when tradestate='SUCCESS 'then orderamount else -orderamount end as orderamount,detail,orderamount as deviceno from record order by recordid limit 1000000 FORMAT JSONCompactEachRowWithNamesAndTypes", token);
 
 
     var utf8encoding = new UTF8Encoding(true);
