@@ -1,17 +1,20 @@
 using Microsoft.Extensions.Options;
 using System.ComponentModel.DataAnnotations;
-using System.Drawing;
+using System.Security.Cryptography;
 
 var builder = WebApplication.CreateBuilder(args);
-var config = builder.Configuration;
 builder.Services
-    .AddOptions<MyConfig>()
-    .Bind(config.GetSection(nameof(MyConfig)))
+    .AddOptions<APIConfig>()
+    .Bind(builder.Configuration.GetSection(nameof(APIConfig)))
     .Validate(c =>
     {
-        return c.TimeOut > 0 && c.TimeOut <= 2000 && c.Max >= -1.5 && c.Max <= 1.5 && Enum.TryParse<Category>(c.Category, true, out Category o);
+        return c.TimeOut > 0 && c.TimeOut <= 1000 && c.Max >= -1.5 && c.Max <= 1.5 && Enum.TryParse<Category>(c.Category, true, out Category o);
 
-    })
+    },"APIConfig≈‰÷√”–ŒÛ£°")
+    //.Validate<APIConfig>((c1, c2) => {
+        
+    //    return true;
+    //})
     //.ValidateDataAnnotations()
     .ValidateOnStart();
 
@@ -19,14 +22,14 @@ var app = builder.Build();
 
 
 
-app.MapGet("/test", (IOptions<MyConfig> options) =>
+app.MapGet("/apiconfig", (IOptions<APIConfig> options) =>
 {
     return options.Value;
 });
 
 app.Run();
 
-public class MyConfig
+public class APIConfig
 {
     [Range(0,1000)]
     public int TimeOut { get; set; }
@@ -39,7 +42,7 @@ public class MyConfig
 public enum Category
 {
     None,
-    Big,
+    Large,
     Small,
     Middle
 }
