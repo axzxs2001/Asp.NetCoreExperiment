@@ -8,3 +8,13 @@ GET https://www.google.com
 ### For more info on HTTP files go to https://aka.ms/vs/httpfile
 @a=10
 GET https://www.baidu.com?id={{a}}
+
+
+###
+
+POST https://localhose:5000
+Content-Type:application-json
+
+{
+
+}
