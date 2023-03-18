@@ -1,20 +1,37 @@
-# For more info on HTTP files go to https://aka.ms/vs/httpfile
-GET https://www.google.com
+### 查询
+GET http://localhost:5144/item/1
 
 
+### 参数查询
+@id=10
+GET http://localhost:5144/item/{{id}}
 
 
-
-### For more info on HTTP files go to https://aka.ms/vs/httpfile
-@a=10
-GET https://www.baidu.com?id={{a}}
-
-
-###
-
-POST https://localhose:5000
-Content-Type:application-json
+###添加
+POST http://localhost:5144/item
+Content-Type: application/json
 
 {
-
+  "name": "PS5",
+  "price": 2000,
+  "describe": "White"
 }
+
+
+###修改改
+PUT http://localhost:5144/item
+Content-Type: application/json
+
+{
+  "id":999,
+  "name": "PS5",
+  "price": 2000,
+  "describe": "White"
+}
+
+### 删除
+DELETE http://localhost:5144/item/1
+
+
+
+
