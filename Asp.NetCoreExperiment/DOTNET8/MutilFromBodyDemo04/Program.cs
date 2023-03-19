@@ -17,7 +17,7 @@ app.MapPost("/todos", ([FromBody] Todo todo, [FromBody] User user) =>
 app.Run();
 
 
-record Todo
+class Todo
 {
     public string Id { get; set; }
 }
