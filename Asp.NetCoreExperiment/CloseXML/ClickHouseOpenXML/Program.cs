@@ -9,19 +9,15 @@ using Microsoft.AspNetCore.Razor.TagHelpers;
 using static System.Net.WebRequestMethods;
 
 var builder = WebApplication.CreateBuilder(args);
-
 builder.Services.AddHttpClient();
-
 var app = builder.Build();
-
-
-
 
 
 app.MapGet("/getfile", async (IHttpClientFactory clientFactory, CancellationToken token) =>
 {
     var client = clientFactory.CreateClient();
-    var stream = await client.GetStreamAsync($"http://10.5.0.8:8123/?user=dev_owner&password=mypassword&query=select outtradeno,recordid,entname,endtime,tradestate,case when tradestate='SUCCESS 'then orderamount else -orderamount end as orderamount,detail,orderamount as deviceno from record order by recordid limit 1000000 FORMAT JSONCompactEachRowWithNamesAndTypes", token);
+    var sql = "select field1,field2,field3,field4,field5,field6,field7,field8,field9,field10 from tablename order by field1 limit 1000000";
+    var stream = await client.GetStreamAsync($"http://127.0.0.1:8123/?user=dev_owner&password=mypassword&query={sql} FORMAT JSONCompactEachRowWithNamesAndTypes", token);
 
 
     var utf8encoding = new UTF8Encoding(true);
@@ -36,7 +32,7 @@ app.MapGet("/getfile", async (IHttpClientFactory clientFactory, CancellationToke
 
     #region zip×é×°
     {
-        var _defaultRels = MinifyXml(@"<?xml version=""1.0"" encoding=""utf-8""?>
+        var _defaultRels = ReplaceString(@"<?xml version=""1.0"" encoding=""utf-8""?>
 <Relationships xmlns=""http://schemas.openxmlformats.org/package/2006/relationships"">
     <Relationship Type=""http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument"" Target=""xl/workbook.xml"" Id=""Rfc2254092b6248a9"" />
 </Relationships>");
@@ -44,7 +40,7 @@ app.MapGet("/getfile", async (IHttpClientFactory clientFactory, CancellationToke
 
     }
     {
-        var _defaultSharedString = MinifyXml("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\" ?><sst xmlns=\"http://schemas.openxmlformats.org/spreadsheetml/2006/main\" count=\"0\" uniqueCount=\"0\"></sst>");
+        var _defaultSharedString = ReplaceString("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\" ?><sst xmlns=\"http://schemas.openxmlformats.org/spreadsheetml/2006/main\" count=\"0\" uniqueCount=\"0\"></sst>");
 
         CreateZipEntry("xl/sharedStrings.xml", "application/vnd.openxmlformats-package.relationships+xml", _defaultSharedString);
     }
@@ -111,7 +107,7 @@ app.MapGet("/getfile", async (IHttpClientFactory clientFactory, CancellationToke
         writer.Flush();
     }
     {
-        string _defaultStylesXml = MinifyXml(@"<?xml version=""1.0"" encoding=""utf-8""?>
+        string _defaultStylesXml = ReplaceString(@"<?xml version=""1.0"" encoding=""utf-8""?>
 <x:styleSheet xmlns:x=""http://schemas.openxmlformats.org/spreadsheetml/2006/main"">
     <x:numFmts count=""1"">
         <x:numFmt numFmtId=""0"" formatCode="""" />
@@ -225,7 +221,7 @@ app.MapGet("/getfile", async (IHttpClientFactory clientFactory, CancellationToke
         CreateZipEntry(@"xl/styles.xml", "application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml", styleXml);
     }
     {
-        string _defaultDrawingXmlRels = MinifyXml(@"<?xml version=""1.0"" encoding=""utf-8"" standalone=""yes""?>
+        string _defaultDrawingXmlRels = ReplaceString(@"<?xml version=""1.0"" encoding=""utf-8"" standalone=""yes""?>
 <Relationships xmlns=""http://schemas.openxmlformats.org/package/2006/relationships"">
     {{format}}
 </Relationships>");
@@ -235,7 +231,7 @@ app.MapGet("/getfile", async (IHttpClientFactory clientFactory, CancellationToke
     }
     {
         var drawing = new StringBuilder();
-        string _defaultDrawing = MinifyXml(@"<?xml version=""1.0"" encoding=""utf-8"" standalone=""yes""?>
+        string _defaultDrawing = ReplaceString(@"<?xml version=""1.0"" encoding=""utf-8"" standalone=""yes""?>
 <xdr:wsDr xmlns:a=""http://schemas.openxmlformats.org/drawingml/2006/main""
     xmlns:r=""http://schemas.openxmlformats.org/officeDocument/2006/relationships""
     xmlns:xdr=""http://schemas.openxmlformats.org/drawingml/2006/spreadsheetDrawing"">
@@ -247,21 +243,17 @@ app.MapGet("/getfile", async (IHttpClientFactory clientFactory, CancellationToke
     {
         var workbookXml = new StringBuilder();
         var workbookRelsXml = new StringBuilder();
-
         var sheetId = 1;
         workbookXml.AppendLine($@"<x:sheet name=""{sheetName}"" sheetId=""{sheetId}"" r:id=""{id}"" />");
         workbookRelsXml.AppendLine($@"<Relationship Type=""http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet"" Target=""/{sheetPath}"" Id=""{id}"" />");
-
-        var sheetRelsXml = MinifyXml($@"<Relationship Type=""http://schemas.openxmlformats.org/officeDocument/2006/relationships/drawing"" Target=""../drawings/drawing{sheetId}.xml"" Id=""drawing{sheetId}"" />");
-        string _defaultSheetRelXml = MinifyXml(@"<?xml version=""1.0"" encoding=""UTF-8"" standalone=""yes""?>
+        var sheetRelsXml = ReplaceString($@"<Relationship Type=""http://schemas.openxmlformats.org/officeDocument/2006/relationships/drawing"" Target=""../drawings/drawing{sheetId}.xml"" Id=""drawing{sheetId}"" />");
+        string _defaultSheetRelXml = ReplaceString(@"<?xml version=""1.0"" encoding=""UTF-8"" standalone=""yes""?>
 <Relationships xmlns=""http://schemas.openxmlformats.org/package/2006/relationships"">
     {{format}}
 </Relationships>");
         CreateZipEntry($"xl/worksheets/_rels/sheet{sheetIdx}.xml.rels", "",
                 _defaultSheetRelXml.Replace("{{format}}", sheetRelsXml));
-
-
-        string _defaultWorkbookXml = MinifyXml(@"<?xml version=""1.0"" encoding=""utf-8""?>
+        string _defaultWorkbookXml = ReplaceString(@"<?xml version=""1.0"" encoding=""utf-8""?>
 <x:workbook xmlns:r=""http://schemas.openxmlformats.org/officeDocument/2006/relationships""
     xmlns:x=""http://schemas.openxmlformats.org/spreadsheetml/2006/main"">
     <x:sheets>
@@ -270,15 +262,13 @@ app.MapGet("/getfile", async (IHttpClientFactory clientFactory, CancellationToke
 </x:workbook>");
         CreateZipEntry(@"xl/workbook.xml", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml",
             _defaultWorkbookXml.Replace("{{sheets}}", workbookXml.ToString()));
-
-        string _defaultWorkbookXmlRels = MinifyXml(@"<?xml version=""1.0"" encoding=""utf-8""?>
+        string _defaultWorkbookXmlRels = ReplaceString(@"<?xml version=""1.0"" encoding=""utf-8""?>
 <Relationships xmlns=""http://schemas.openxmlformats.org/package/2006/relationships"">
     {{sheets}}
     <Relationship Type=""http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles"" Target=""/xl/styles.xml"" Id=""R3db9602ace774fdb"" />
 </Relationships>");
         CreateZipEntry(@"xl/_rels/workbook.xml.rels", "",
             _defaultWorkbookXmlRels.Replace("{{sheets}}", workbookRelsXml.ToString()));
-
         var sb = new StringBuilder(@"<?xml version=""1.0"" encoding=""UTF-8"" standalone=""yes""?><Types xmlns=""http://schemas.openxmlformats.org/package/2006/content-types""><Default ContentType=""application/vnd.openxmlformats-officedocument.spreadsheetml.printerSettings"" Extension=""bin""/><Default ContentType=""application/xml"" Extension=""xml""/><Default ContentType=""image/jpeg"" Extension=""jpg""/><Default ContentType=""image/png"" Extension=""png""/><Default ContentType=""image/gif"" Extension=""gif""/><Default ContentType=""application/vnd.openxmlformats-package.relationships+xml"" Extension=""rels""/>");
         foreach (var p in zipDictionary)
         {
@@ -308,16 +298,8 @@ app.MapGet("/getfile", async (IHttpClientFactory clientFactory, CancellationToke
 });
 app.Run();
 
-string MinifyXml(string xml) => xml.Replace("\r", "").Replace("\n", "").Replace("\t", "");
-void CreateZipEntry(ZipArchive _archive, string path, string contentType, string content, UTF8Encoding utf8encoding, Dictionary<string, ZipPackageInfo> _zipDictionary)
-{
-    ZipArchiveEntry entry = _archive.CreateEntry(path, CompressionLevel.Fastest);
-    using (var zipStream = entry.Open())
-    using (var writer = new StreamWriter(zipStream, utf8encoding, 5 * 1024 * 1024))
-        writer.Write(content);
-    if (!string.IsNullOrEmpty(contentType))
-        _zipDictionary.Add(path, new ZipPackageInfo(entry, contentType));
-}
+string ReplaceString(string xml) => xml.Replace("\r", "").Replace("\n", "").Replace("\t", "");
+
 string ConvertXyToCell(int x, int y)
 {
     int dividend = x;

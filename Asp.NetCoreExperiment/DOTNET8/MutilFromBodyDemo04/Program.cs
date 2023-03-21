@@ -19,7 +19,7 @@ app.Run();
 
 class Todo
 {
-    public string Id { get; set; }
+    public string? Id { get; set; }
 }
 record User
 {
