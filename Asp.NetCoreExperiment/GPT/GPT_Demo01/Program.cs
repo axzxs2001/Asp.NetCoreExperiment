@@ -9,51 +9,37 @@ using System;
 using System.Runtime.InteropServices;
 
 var key = File.ReadAllText(@"E:\\GPT\key.txt");
-
-var kernel = Kernel.Builder
-    //.WithMemoryStorage(new VolatileMemoryStore())
-    .Configure(c =>
-    {
-        //c.AddOpenAITextCompletionService("davinci-openai", "text-davinci-003", key);
-
-        // c.AddOpenAITextEmbeddingGenerationService("davinci-openai", "text-embedding-ada-002", key);
-
-        c.AddOpenAIChatCompletionService("davinci-openai", "gpt-4", key);
-
-    })
-    .Build();
-//kernel.ImportSkill(new TextMemorySkill());
-
-
-IChatCompletion chatGPT = kernel.GetService<IChatCompletion>();
-var chatHistory = (OpenAIChatHistory)chatGPT.CreateNewChat("你是一个.net专家");
-while (true)
+await Chat(key);
+//聊天
+static async Task Chat(string key)
 {
-    Console.WriteLine("问题：");
-    // First user message
-    chatHistory.AddUserMessage(Console.ReadLine());
-    var cfg = new ChatRequestSettings();
-    // First bot message
-    string reply = await chatGPT.GenerateMessageAsync(chatHistory, cfg);
-    chatHistory.AddAssistantMessage(reply);
+    var kernel = Kernel.Builder
+        .Configure(c =>
+        {
+            c.AddOpenAIChatCompletionService("davinci-openai", "gpt-4", key);
+        })
+        .Build();
 
-    //// Second user message
-    //chatHistory.AddUserMessage("I love history and philosophy, I'd like to learn something new about Greece, any suggestion?");
-
-    //// Second bot message
-    //reply = await chatGPT.GenerateMessageAsync(chatHistory, cfg);
-    //chatHistory.AddAssistantMessage(reply);
-
-    Console.WriteLine("聊天内容:");
-    Console.WriteLine("------------------------");
-    foreach (var message in chatHistory.Messages)
+    var chatGPT = kernel.GetService<IChatCompletion>();
+    var chatHistory = (OpenAIChatHistory)chatGPT.CreateNewChat("你是一个.net专家");
+    while (true)
     {
-        Console.WriteLine($"{message.AuthorRole}: {message.Content}");
+        Console.WriteLine("输入问题：");
+        chatHistory.AddUserMessage(Console.ReadLine());
+        var cfg = new ChatRequestSettings();
+        var reply = await chatGPT.GenerateMessageAsync(chatHistory, cfg);
+        chatHistory.AddAssistantMessage(reply);
+
+        Console.WriteLine("聊天内容:");
         Console.WriteLine("------------------------");
+        foreach (var message in chatHistory.Messages)
+        {
+            Console.WriteLine($"{message.AuthorRole}: {message.Content}");
+            Console.WriteLine("------------------------");
+        }
     }
+
 }
-
-
 
 
 
