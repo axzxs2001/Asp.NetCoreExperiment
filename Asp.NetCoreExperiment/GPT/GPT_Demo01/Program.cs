@@ -5,6 +5,7 @@ using Microsoft.SemanticKernel.Connectors.AI.OpenAI.ChatCompletion;
 using Microsoft.SemanticKernel.Connectors.AI.OpenAI.TextEmbedding;
 using Microsoft.SemanticKernel.CoreSkills;
 using Microsoft.SemanticKernel.Memory;
+using Microsoft.SemanticKernel.SkillDefinition;
 using System;
 using System.Runtime.InteropServices;
 
@@ -54,7 +55,6 @@ ChatBot:
         Console.WriteLine($"Bot:{resultContext.Result}");
     }
 }
-
 
 
 
