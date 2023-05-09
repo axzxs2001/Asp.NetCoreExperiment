@@ -8,8 +8,62 @@ using Microsoft.SemanticKernel.Memory;
 using System;
 using System.Runtime.InteropServices;
 
-var key = File.ReadAllText(@"E:\\GPT\key.txt");
-await Chat(key);
+var key = File.ReadAllText(@"C:\\GPT\key.txt");
+
+await BootAsync(key);
+
+static async Task BootAsync(string key)
+{
+    var kernel = Kernel.Builder
+        .Configure(c =>
+        {            
+            c.AddOpenAITextCompletionService("openai", "text-davinci-003", key);
+            c.AddOpenAITextEmbeddingGenerationService("openai", "text-embedding-ada-002", key);
+        })
+        .WithMemoryStorage(new VolatileMemoryStore())
+        .Build();
+    const string MemoryCollectionName = "aboutMe";
+
+    await kernel.Memory.SaveInformationAsync(MemoryCollectionName, id: "info1", text: "桂素伟，性别男，身高171cm，体重75千克");
+    await kernel.Memory.SaveInformationAsync(MemoryCollectionName, id: "info2", text: "桂素伟的职业是农民，他擅长种茄子");
+    await kernel.Memory.SaveInformationAsync(MemoryCollectionName, id: "info3", text: "桂素伟有20年的种地经验");
+    await kernel.Memory.SaveInformationAsync(MemoryCollectionName, id: "info4", text: "桂素伟现在信在五十亩村");
+    await kernel.Memory.SaveInformationAsync(MemoryCollectionName, id: "info5", text: "我是桂素伟");
+    //while (true)
+    //{
+    //    Console.WriteLine("请输入问题：");
+    //    var q = Console.ReadLine();
+    //    var response = await kernel.Memory.SearchAsync(MemoryCollectionName, q).FirstOrDefaultAsync();
+    //    Console.WriteLine(q + " " + response?.Metadata.Text);
+    //}
+
+
+    var prompt =
+    """
+给出答案或者不知道答案时说“非常抱歉，我没有找到你要的问题！”
+ 
+对话中的关于桂素伟的信息:
+{{ $fact }}
+ 
+User: {{ $ask }}
+ChatBot:
+""";
+    var skill = kernel.CreateSemanticFunction(prompt,temperature:0,topP:0);
+    while (true)
+    {
+        Console.WriteLine("请输入问题：");
+        var ask = Console.ReadLine();
+        var fact = await kernel.Memory.SearchAsync(MemoryCollectionName, ask).FirstOrDefaultAsync();
+        var context = kernel.CreateNewContext();
+        context["fact"] = fact?.Metadata?.Text;
+        context["ask"] = ask;
+        var resultContext = await skill.InvokeAsync(context);
+        Console.WriteLine($"Bot:{resultContext.Result}");
+    }
+}
+
+
+//await Chat(key);
 //聊天
 static async Task Chat(string key)
 {
