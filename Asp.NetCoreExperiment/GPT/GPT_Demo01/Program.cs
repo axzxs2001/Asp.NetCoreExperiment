@@ -40,6 +40,7 @@ static async Task BootAsync(string key)
 User: {{ $ask }}
 ChatBot:
 """;
+    
     var skill = kernel.CreateSemanticFunction(prompt,temperature:0,topP:0);
     while (true)
     {
