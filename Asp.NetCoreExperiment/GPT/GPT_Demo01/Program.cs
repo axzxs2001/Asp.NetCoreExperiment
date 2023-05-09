@@ -29,14 +29,6 @@ static async Task BootAsync(string key)
     await kernel.Memory.SaveInformationAsync(MemoryCollectionName, id: "info3", text: "桂素伟有20年的种地经验");
     await kernel.Memory.SaveInformationAsync(MemoryCollectionName, id: "info4", text: "桂素伟现在信在五十亩村");
     await kernel.Memory.SaveInformationAsync(MemoryCollectionName, id: "info5", text: "我是桂素伟");
-    //while (true)
-    //{
-    //    Console.WriteLine("请输入问题：");
-    //    var q = Console.ReadLine();
-    //    var response = await kernel.Memory.SearchAsync(MemoryCollectionName, q).FirstOrDefaultAsync();
-    //    Console.WriteLine(q + " " + response?.Metadata.Text);
-    //}
-
 
     var prompt =
     """
@@ -61,6 +53,9 @@ ChatBot:
         Console.WriteLine($"Bot:{resultContext.Result}");
     }
 }
+
+
+
 
 
 //await Chat(key);
