@@ -11,55 +11,54 @@ using System.Runtime.InteropServices;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 var key = File.ReadAllText(@"C:\\GPT\key.txt");
+await Demo.BotAsync(key);
+//var kernel = Kernel.Builder
+//    .Configure(c =>
+//    {
+//        c.AddOpenAITextCompletionService("openai", "text-davinci-003", key);
+//        c.AddOpenAITextEmbeddingGenerationService("openai", "text-embedding-ada-002", key);     
+//    })
+//    .WithMemoryStorage(new VolatileMemoryStore())
+//    .Build();
+//const string MemoryCollectionName = "aboutMe";
 
-var kernel = Kernel.Builder
-    .Configure(c =>
-    {
-        c.AddOpenAITextCompletionService("openai", "text-davinci-003", key);
-        c.AddOpenAITextEmbeddingGenerationService("openai", "text-embedding-ada-002", key);
-        c.AddOpenAITextCompletionService("openai", "text-davinci-003", key);
-    })
-    .WithMemoryStorage(new VolatileMemoryStore())
-    .Build();
-const string MemoryCollectionName = "aboutMe";
+//await kernel.Memory.SaveInformationAsync(MemoryCollectionName, id: "info1", text: "桂素伟，性别男，身高171cm，体重75千克");
+//await kernel.Memory.SaveInformationAsync(MemoryCollectionName, id: "info2", text: "桂素伟的职业是农民，他擅长种茄子");
+//await kernel.Memory.SaveInformationAsync(MemoryCollectionName, id: "info3", text: "桂素伟有20年的种地经验");
+//await kernel.Memory.SaveInformationAsync(MemoryCollectionName, id: "info4", text: "桂素伟现在信在五十亩村");
+//await kernel.Memory.SaveInformationAsync(MemoryCollectionName, id: "info5", text: "我是桂素伟");
 
-await kernel.Memory.SaveInformationAsync(MemoryCollectionName, id: "info1", text: "桂素伟，性别男，身高171cm，体重75千克");
-await kernel.Memory.SaveInformationAsync(MemoryCollectionName, id: "info2", text: "桂素伟的职业是农民，他擅长种茄子");
-await kernel.Memory.SaveInformationAsync(MemoryCollectionName, id: "info3", text: "桂素伟有20年的种地经验");
-await kernel.Memory.SaveInformationAsync(MemoryCollectionName, id: "info4", text: "桂素伟现在信在五十亩村");
-await kernel.Memory.SaveInformationAsync(MemoryCollectionName, id: "info5", text: "我是桂素伟");
+//var prompt =
+//"""
+//给出答案或者不知道答案时说“非常抱歉，我没有找到你要的问题！”
 
-var prompt =
-"""
-给出答案或者不知道答案时说“非常抱歉，我没有找到你要的问题！”
- 
-对话中的关于桂素伟的信息:
-{{ $fact }}
- 
-User: {{ $ask }}
-ChatBot:
-""";
+//对话中的关于桂素伟的信息:
+//{{ $fact }}
 
-var semanticFunction = kernel.CreateSemanticFunction(prompt, temperature: 0, topP: 0);
+//User: {{ $ask }}
+//ChatBot:
+//""";
 
-Console.WriteLine("请输入问题：");
-var ask = Console.ReadLine();
-var fact = await kernel.Memory.SearchAsync(MemoryCollectionName, ask).FirstOrDefaultAsync();
-//var context = kernel.CreateNewContext();
-//context["fact"] = fact?.Metadata?.Text;
-//context["ask"] = ask;
-//var resultContext = await semanticFunction.InvokeAsync(context);
-//Console.WriteLine($"Bot:{resultContext.Result}");
+//var semanticFunction = kernel.CreateSemanticFunction(prompt, temperature: 0, topP: 0);
 
-var textSkill = kernel.ImportSkill(new DateSkill(), nameof(DateSkill));
-var uppercaseFunction = textSkill["GGG"];
+//Console.WriteLine("请输入问题：");
+//var ask = Console.ReadLine();
+//var fact = await kernel.Memory.SearchAsync(MemoryCollectionName, ask).FirstOrDefaultAsync();
+////var context = kernel.CreateNewContext();
+////context["fact"] = fact?.Metadata?.Text;
+////context["ask"] = ask;
+////var resultContext = await semanticFunction.InvokeAsync(context);
+////Console.WriteLine($"Bot:{resultContext.Result}");
 
-var upperSummeryContext = await kernel.RunAsync(ask, semanticFunction, uppercaseFunction);
-upperSummeryContext["fact"] = fact?.Metadata?.Text;
-upperSummeryContext["ask"] = ask;
-upperSummeryContext["data"] = ask;
-//  输出结果
-Console.WriteLine(upperSummeryContext.Result);
+//var textSkill = kernel.ImportSkill(new DateSkill(), nameof(DateSkill));
+//var uppercaseFunction = textSkill["GGG"];
+
+//var upperSummeryContext = await kernel.RunAsync(ask, semanticFunction, uppercaseFunction);
+//upperSummeryContext["fact"] = fact?.Metadata?.Text;
+//upperSummeryContext["ask"] = ask;
+//upperSummeryContext["data"] = ask;
+////  输出结果
+//Console.WriteLine(upperSummeryContext.Result);
 
 public class DateSkill
 {
@@ -100,7 +99,7 @@ public class DateSkill
             Console.WriteLine(await GetTable(key, json));
         }
     }
-    async Task<string[]> GetDates(string key,string data)
+    async Task<string[]> GetDates(string key, string data)
     {
         var kernel = Kernel.Builder
             .Configure(c =>
@@ -113,7 +112,7 @@ public class DateSkill
         var chatHistory = (OpenAIChatHistory)chatGPT.CreateNewChat($"今天是{DateTime.Now}。");
         chatHistory.AddUserMessage("请分多行给出下面句子中的日期或时间。如果遇到今年，去年，本月等信息，转换成一个开始日期和结束日期，并且分行显示。");
 
-    
+
         chatHistory.AddUserMessage(data);
         var cfg = new ChatRequestSettings();
         var reply = await chatGPT.GenerateMessageAsync(chatHistory, cfg);
