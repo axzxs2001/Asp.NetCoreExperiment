@@ -5,60 +5,60 @@ using Microsoft.SemanticKernel.Connectors.AI.OpenAI.ChatCompletion;
 using Microsoft.SemanticKernel.Connectors.AI.OpenAI.TextEmbedding;
 using Microsoft.SemanticKernel.CoreSkills;
 using Microsoft.SemanticKernel.Memory;
+using Microsoft.SemanticKernel.SemanticFunctions;
 using Microsoft.SemanticKernel.SkillDefinition;
 using System;
 using System.Runtime.InteropServices;
+using System.Text.Json;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 var key = File.ReadAllText(@"C:\\GPT\key.txt");
-await Demo.BotAsync(key);
-//var kernel = Kernel.Builder
-//    .Configure(c =>
-//    {
-//        c.AddOpenAITextCompletionService("openai", "text-davinci-003", key);
-//        c.AddOpenAITextEmbeddingGenerationService("openai", "text-embedding-ada-002", key);     
-//    })
-//    .WithMemoryStorage(new VolatileMemoryStore())
-//    .Build();
-//const string MemoryCollectionName = "aboutMe";
+//await Demo.Bot1Async(key);
 
-//await kernel.Memory.SaveInformationAsync(MemoryCollectionName, id: "info1", text: "桂素伟，性别男，身高171cm，体重75千克");
-//await kernel.Memory.SaveInformationAsync(MemoryCollectionName, id: "info2", text: "桂素伟的职业是农民，他擅长种茄子");
-//await kernel.Memory.SaveInformationAsync(MemoryCollectionName, id: "info3", text: "桂素伟有20年的种地经验");
-//await kernel.Memory.SaveInformationAsync(MemoryCollectionName, id: "info4", text: "桂素伟现在信在五十亩村");
-//await kernel.Memory.SaveInformationAsync(MemoryCollectionName, id: "info5", text: "我是桂素伟");
+await LinkDemo.LinkerAsync(key);
 
-//var prompt =
-//"""
-//给出答案或者不知道答案时说“非常抱歉，我没有找到你要的问题！”
+public class LinkDemo
+{
+    public static async Task LinkerAsync(string key)
+    {
+        var kernel = Kernel.Builder
+            .Configure(c =>
+            {
+                c.AddOpenAITextCompletionService("text-davinci-003", key, serviceId: "openai");
+            })
+            .Build();
+        var prompt = $$"""
+        请给出下周语句中所包含的日期或者日期段的开始日期和结束日期。今天是{{DateTime.Now}}
+        +++++
+        {{"{{$input}}"}}
+        +++++
+        """;
+        var summaryFunction = kernel.CreateSemanticFunction(prompt, new PromptTemplateConfig());
 
-//对话中的关于桂素伟的信息:
-//{{ $fact }}
 
-//User: {{ $ask }}
-//ChatBot:
-//""";
+        var textSkill = kernel.ImportSkill(new TextSkill(), nameof(TextSkill));
+        var uppercaseFunction = textSkill[nameof(TextSkill.AddData)];
 
-//var semanticFunction = kernel.CreateSemanticFunction(prompt, temperature: 0, topP: 0);
+        while (true)
+        {
+            Console.WriteLine("请输入问题：");
+            var input = Console.ReadLine();
+            var resultContext = await kernel.RunAsync(input, summaryFunction, uppercaseFunction);
+            Console.WriteLine($"结果：{resultContext.Result}");
+        }
 
-//Console.WriteLine("请输入问题：");
-//var ask = Console.ReadLine();
-//var fact = await kernel.Memory.SearchAsync(MemoryCollectionName, ask).FirstOrDefaultAsync();
-////var context = kernel.CreateNewContext();
-////context["fact"] = fact?.Metadata?.Text;
-////context["ask"] = ask;
-////var resultContext = await semanticFunction.InvokeAsync(context);
-////Console.WriteLine($"Bot:{resultContext.Result}");
+    }
 
-//var textSkill = kernel.ImportSkill(new DateSkill(), nameof(DateSkill));
-//var uppercaseFunction = textSkill["GGG"];
+    class TextSkill
+    {
+        [SKFunction("Convert a string to uppercase.")]
+        public string AddData(string text)
+        {
+            return text + $"|||{DateTime.Now}";
+        }
+    }
+}
 
-//var upperSummeryContext = await kernel.RunAsync(ask, semanticFunction, uppercaseFunction);
-//upperSummeryContext["fact"] = fact?.Metadata?.Text;
-//upperSummeryContext["ask"] = ask;
-//upperSummeryContext["data"] = ask;
-////  输出结果
-//Console.WriteLine(upperSummeryContext.Result);
 
 public class DateSkill
 {
@@ -141,13 +141,13 @@ public class DateSkill
 public class Demo
 {
     //await BotAsync(key);
-    public static async Task BotAsync(string key)
+    public static async Task Bot2Async(string key)
     {
         var kernel = Kernel.Builder
             .Configure(c =>
             {
-                c.AddOpenAITextCompletionService("openai", "text-davinci-003", key);
-                c.AddOpenAITextEmbeddingGenerationService("openai", "text-embedding-ada-002", key);
+                c.AddOpenAITextCompletionService("text-davinci-003", key, serviceId: "openai");
+                c.AddOpenAITextEmbeddingGenerationService("text-embedding-ada-002", key, serviceId: "openai");
             })
             .WithMemoryStorage(new VolatileMemoryStore())
             .Build();
@@ -156,8 +156,54 @@ public class Demo
         await kernel.Memory.SaveInformationAsync(MemoryCollectionName, id: "info1", text: "桂素伟，性别男，身高171cm，体重75千克");
         await kernel.Memory.SaveInformationAsync(MemoryCollectionName, id: "info2", text: "桂素伟的职业是农民，他擅长种茄子");
         await kernel.Memory.SaveInformationAsync(MemoryCollectionName, id: "info3", text: "桂素伟有20年的种地经验");
-        await kernel.Memory.SaveInformationAsync(MemoryCollectionName, id: "info4", text: "桂素伟现在信在五十亩村");
-        await kernel.Memory.SaveInformationAsync(MemoryCollectionName, id: "info5", text: "我是桂素伟");
+        await kernel.Memory.SaveInformationAsync(MemoryCollectionName, id: "info4", text: "桂素伟现在住在五十亩村");
+        await kernel.Memory.SaveInformationAsync(MemoryCollectionName, id: "info5", text: "我叫桂素伟1");
+        await kernel.Memory.SaveInformationAsync(MemoryCollectionName, id: "info6", text: "我叫桂素伟2");
+
+        kernel.ImportSkill(new TextMemorySkill());
+
+        var prompt =
+        """
+给出答案或者不知道答案时说“非常抱歉，我没有找到你要的问题！”
+ 
+对话中的关于桂素伟的信息:
+{{ recall $ask }}
+ 
+User: {{ $ask }}
+ChatBot:
+""";
+
+        var semanticFunction = kernel.CreateSemanticFunction(prompt, temperature: 0.7, topP: 0.5);
+        var context = kernel.CreateNewContext();
+        while (true)
+        {
+            Console.WriteLine("请输入问题：");
+            var ask = Console.ReadLine();
+            context["ask"] = ask;
+            context[TextMemorySkill.CollectionParam] = MemoryCollectionName;
+
+            var resultContext = await semanticFunction.InvokeAsync(context);
+            Console.WriteLine($"Bot:{resultContext.Result}");
+        }
+    }
+    public static async Task Bot1Async(string key)
+    {
+        var kernel = Kernel.Builder
+            .Configure(c =>
+            {
+                c.AddOpenAITextCompletionService("text-davinci-003", key, serviceId: "openai");
+                c.AddOpenAITextEmbeddingGenerationService("text-embedding-ada-002", key, serviceId: "openai");
+            })
+            .WithMemoryStorage(new VolatileMemoryStore())
+            .Build();
+        const string MemoryCollectionName = "aboutMe";
+
+        await kernel.Memory.SaveInformationAsync(MemoryCollectionName, id: "info1", text: "桂素伟，性别男，身高171cm，体重75千克");
+        await kernel.Memory.SaveInformationAsync(MemoryCollectionName, id: "info2", text: "桂素伟的职业是农民，他擅长种茄子");
+        await kernel.Memory.SaveInformationAsync(MemoryCollectionName, id: "info3", text: "桂素伟有20年的种地经验");
+        await kernel.Memory.SaveInformationAsync(MemoryCollectionName, id: "info4", text: "桂素伟现在住在五十亩村");
+        await kernel.Memory.SaveInformationAsync(MemoryCollectionName, id: "info5", text: "我叫桂素伟1");
+        await kernel.Memory.SaveInformationAsync(MemoryCollectionName, id: "info6", text: "我叫桂素伟2");
 
         var prompt =
         """
@@ -170,13 +216,25 @@ User: {{ $ask }}
 ChatBot:
 """;
 
-        var semanticFunction = kernel.CreateSemanticFunction(prompt, temperature: 0, topP: 0);
+        var semanticFunction = kernel.CreateSemanticFunction(prompt, temperature: 0.7, topP: 0.5);
         while (true)
         {
             Console.WriteLine("请输入问题：");
             var ask = Console.ReadLine();
-            var fact = await kernel.Memory.SearchAsync(MemoryCollectionName, ask).FirstOrDefaultAsync();
+            var facts = kernel.Memory.SearchAsync(MemoryCollectionName, ask, limit: 10, withEmbeddings: true);
+            var factContent = "";
+            await facts.ForEachAsync(res =>
+            {
+                // Console.WriteLine($"全部:{res.Metadata.Text},{res.Relevance},{JsonSerializer.Serialize(res.Metadata)}");
+                if (res.Relevance > 0.7d)
+                {
+                    factContent += res.Metadata.Text + "\r\n";
+                }
+            });
+            Console.WriteLine(factContent);
+            var fact = await facts.FirstOrDefaultAsync();
             var context = kernel.CreateNewContext();
+            // context["fact"] = factContent;
             context["fact"] = fact?.Metadata?.Text;
             context["ask"] = ask;
             var resultContext = await semanticFunction.InvokeAsync(context);
