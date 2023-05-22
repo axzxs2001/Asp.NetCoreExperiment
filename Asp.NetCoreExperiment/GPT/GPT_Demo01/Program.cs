@@ -13,9 +13,9 @@ using System.Text.Json;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 var key = File.ReadAllText(@"C:\\GPT\key.txt");
-//await Demo.Bot1Async(key);
+await Demo.Chat(key);
 
-await LinkDemo.LinkerAsync(key);
+//await LinkDemo.LinkerAsync(key);
 
 public class LinkDemo
 {
@@ -247,27 +247,55 @@ ChatBot:
         var kernel = Kernel.Builder
             .Configure(c =>
             {
-                c.AddOpenAIChatCompletionService("davinci-openai", "gpt-4", key);
+                c.AddOpenAIChatCompletionService("gpt-4", key, serviceId: "davinci-openai");
             })
             .Build();
 
         var chatGPT = kernel.GetService<IChatCompletion>();
         var chatHistory = (OpenAIChatHistory)chatGPT.CreateNewChat("你是一个.net专家");
+        //while (true)
+        //{
+        //    Console.WriteLine("输入问题：");
+
+        //    chatHistory.AddUserMessage(Console.ReadLine());
+        //    var cfg = new ChatRequestSettings();
+        //    var reply = await chatGPT.GenerateMessageAsync(chatHistory, cfg);
+        //    chatHistory.AddAssistantMessage(reply);
+
+        //    Console.WriteLine("聊天内容:");
+        //    Console.WriteLine("------------------------");
+        //    foreach (var message in chatHistory.Messages)
+        //    {
+
+        //        Console.WriteLine($"{message.AuthorRole}: {message.Content}");
+        //        Console.WriteLine("------------------------");
+        //    }
+        //}
         while (true)
         {
             Console.WriteLine("输入问题：");
+
             chatHistory.AddUserMessage(Console.ReadLine());
             var cfg = new ChatRequestSettings();
-            var reply = await chatGPT.GenerateMessageAsync(chatHistory, cfg);
-            chatHistory.AddAssistantMessage(reply);
+            var reply = chatGPT.GenerateMessageStreamAsync(chatHistory, cfg);
+            var ccc = "";
+            await reply.ForEachAsync(s =>
+              {
+                  Console .Out.WriteAsync(s);
+                  //Console.WriteLine($"分段：{s}");
+                  ccc += s;
 
-            Console.WriteLine("聊天内容:");
-            Console.WriteLine("------------------------");
-            foreach (var message in chatHistory.Messages)
-            {
-                Console.WriteLine($"{message.AuthorRole}: {message.Content}");
-                Console.WriteLine("------------------------");
-            }
+              });
+            chatHistory.AddAssistantMessage(ccc);
+
+            //Console.WriteLine("聊天内容:");
+            //Console.WriteLine("------------------------");
+            //foreach (var message in chatHistory.Messages)
+            //{
+
+            //    Console.WriteLine($"{message.AuthorRole}: {message.Content}");
+            //    Console.WriteLine("------------------------");
+            //}
         }
 
     }
