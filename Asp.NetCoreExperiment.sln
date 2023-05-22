@@ -640,6 +640,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CustomLogger", "CustomLogge
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomLoogerDemo", "Asp.NetCoreExperiment\CustomLogger\CustomLoogerDemo\CustomLoogerDemo.csproj", "{62C46F0E-CB51-402E-8E4C-2C6DC7075EA2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinForm_GPTDemo", "Asp.NetCoreExperiment\GPT\WinForm_GPTDemo\WinForm_GPTDemo.csproj", "{839EF26C-CB53-46A2-A9D9-1DF3067E6FDD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -1618,6 +1620,10 @@ Global
 		{62C46F0E-CB51-402E-8E4C-2C6DC7075EA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{62C46F0E-CB51-402E-8E4C-2C6DC7075EA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{62C46F0E-CB51-402E-8E4C-2C6DC7075EA2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{839EF26C-CB53-46A2-A9D9-1DF3067E6FDD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{839EF26C-CB53-46A2-A9D9-1DF3067E6FDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{839EF26C-CB53-46A2-A9D9-1DF3067E6FDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{839EF26C-CB53-46A2-A9D9-1DF3067E6FDD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1877,6 +1883,7 @@ Global
 		{7B94311C-2D93-4FA1-81D3-6AA5AB5EFC4B} = {3C6828AC-EC80-43C1-B125-6E98F16B3D22}
 		{1C41EACA-4597-4E78-BB16-031D89B56127} = {3C6828AC-EC80-43C1-B125-6E98F16B3D22}
 		{62C46F0E-CB51-402E-8E4C-2C6DC7075EA2} = {6FA00EF3-1580-4CF2-8E4F-196652CF94B3}
+		{839EF26C-CB53-46A2-A9D9-1DF3067E6FDD} = {3C6828AC-EC80-43C1-B125-6E98F16B3D22}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
