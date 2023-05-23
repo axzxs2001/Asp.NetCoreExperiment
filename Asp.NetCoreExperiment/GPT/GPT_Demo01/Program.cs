@@ -237,6 +237,7 @@ ChatBot:
             // context["fact"] = factContent;
             context["fact"] = fact?.Metadata?.Text;
             context["ask"] = ask;
+         
             var resultContext = await semanticFunction.InvokeAsync(context);
             Console.WriteLine($"Bot:{resultContext.Result}");
         }
