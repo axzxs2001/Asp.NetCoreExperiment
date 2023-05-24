@@ -5,6 +5,7 @@ using Microsoft.SemanticKernel.Connectors.AI.OpenAI.ChatCompletion;
 using Microsoft.SemanticKernel.Connectors.AI.OpenAI.TextEmbedding;
 using Microsoft.SemanticKernel.CoreSkills;
 using Microsoft.SemanticKernel.Memory;
+using Microsoft.SemanticKernel.Planning;
 using Microsoft.SemanticKernel.SemanticFunctions;
 using Microsoft.SemanticKernel.SkillDefinition;
 using System;
@@ -13,9 +14,102 @@ using System.Text.Json;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 var key = File.ReadAllText(@"C:\\GPT\key.txt");
-await Demo.Chat(key);
+//await Demo.Chat(key);
 
 //await LinkDemo.LinkerAsync(key);
+await PlanDemo.StarPlan(key);
+
+public class PlanDemo
+{
+    public static async Task StarPlan(string key)
+    {
+        var kernel = Kernel.Builder
+            .Configure(c =>
+            {
+                c.AddOpenAITextCompletionService("text-davinci-003", apiKey: key, serviceId: "openai");
+            })
+            .Build();
+
+
+        var planner = new SequentialPlanner(kernel);
+        var plan = await planner.CreatePlanAsync("执行TextAddSkill");
+
+        var skills = kernel.ImportSkill(new TextAddSkill(), nameof(TextAddSkill));
+        plan.AddSteps(skills.Values.ToArray());
+
+        var prompt = $$"""
+        请给出下周语句中所包含的日期或者日期段的开始日期和结束日期。今天是{{DateTime.Now}}
+        +++++
+        {{"{{$input}}"}}
+        +++++
+        """;
+        var summaryFunction = kernel.CreateSemanticFunction(prompt, new PromptTemplateConfig(), skillName: "sem");
+        plan.AddSteps(summaryFunction);
+
+
+        var input = "明天是什么日子?";
+        #region 分步
+        var maxSteps = 10;
+        try
+        {
+            for (int step = 1; plan.HasNextStep && step < maxSteps; step++)
+            {
+                if (string.IsNullOrEmpty(input))
+                {
+                    await plan.InvokeNextStepAsync(kernel.CreateNewContext());
+                }
+                else
+                {
+                    plan = await kernel.StepAsync(input, plan);
+                }
+                if (!plan.HasNextStep)
+                {
+                    Console.WriteLine($"Step {step} - COMPLETE!");
+                    Console.WriteLine(plan.State.ToString());
+                    break;
+                }
+                Console.WriteLine($"Step {step} - Results so far:");
+                Console.WriteLine(plan.State.ToString());
+                input = plan.State.ToString();
+            }
+        }
+        catch (KernelException e)
+        {
+            Console.WriteLine($"Step - Execution failed:");
+            Console.WriteLine(e.Message);
+        }
+        return;
+        #endregion
+        #region 全部
+        var resultContext = await kernel.RunAsync(input, plan);
+        Console.WriteLine(resultContext.Result);
+        Console.WriteLine("---------------------");
+        #endregion
+    }
+    public class TextAddSkill
+    {
+        [SKFunction("add time1")]
+        public string AddData1(string text)
+        {
+            return text + $"++++ 下周";
+        }
+        [SKFunction("add time")]
+        public string AddData(string text)
+        {
+            return text + $" ++++ 下个月";
+        }
+    }
+}
+
+
+public class ConnectorDemo
+{
+    public void F()
+    {
+        // httpconnector
+    }
+
+}
 
 public class LinkDemo
 {
@@ -49,7 +143,7 @@ public class LinkDemo
 
     }
 
-    class TextSkill
+    public class TextSkill
     {
         [SKFunction("Convert a string to uppercase.")]
         public string AddData(string text)
@@ -237,7 +331,7 @@ ChatBot:
             // context["fact"] = factContent;
             context["fact"] = fact?.Metadata?.Text;
             context["ask"] = ask;
-         
+
             var resultContext = await semanticFunction.InvokeAsync(context);
             Console.WriteLine($"Bot:{resultContext.Result}");
         }
@@ -282,7 +376,7 @@ ChatBot:
             var ccc = "";
             await reply.ForEachAsync(s =>
               {
-                  Console .Out.WriteAsync(s);
+                  Console.Out.WriteAsync(s);
                   //Console.WriteLine($"分段：{s}");
                   ccc += s;
 
@@ -305,22 +399,4 @@ ChatBot:
 
 
 
-//var prompt = @"
-//请回答下面的问题：
-//{{$input}}
-//";
 
-
-
-//var i = 0;
-//while (true)
-//{
-//    i++;
-
-//    var summarize = kernel.CreateSemanticFunction(prompt, "f"+i, "sk1");
-//    Console.WriteLine("问题：");
-//    string input = Console.ReadLine();
-//    var context = await summarize.InvokeAsync(input);
-
-//    Console.WriteLine(context.Result);
-//}
