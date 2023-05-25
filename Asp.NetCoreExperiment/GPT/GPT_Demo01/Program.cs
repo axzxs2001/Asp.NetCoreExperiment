@@ -17,7 +17,9 @@ var key = File.ReadAllText(@"C:\\GPT\key.txt");
 //await Demo.Chat(key);
 
 //await LinkDemo.LinkerAsync(key);
-await PlanDemo.StarPlan(key);
+//await PlanDemo.StarPlan(key);
+await Demo.Chat(key);
+
 
 public class PlanDemo
 {
