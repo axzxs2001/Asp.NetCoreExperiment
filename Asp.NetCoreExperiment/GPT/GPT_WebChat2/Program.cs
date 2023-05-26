@@ -23,8 +23,8 @@ async IAsyncEnumerable<string> AskAsync(IChatCompletion chat, OpenAIChatHistory 
     var reply = chat.GenerateMessageStreamAsync(history, new ChatRequestSettings() { MaxTokens = 2048 });
     var answer = new StringBuilder();
     await foreach (var item in reply)
-    { 
-        if(item==null)
+    {
+        if (item == null)
         {
             continue;
         }
