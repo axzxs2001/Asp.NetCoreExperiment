@@ -376,7 +376,14 @@ ChatBot:
             var cfg = new ChatRequestSettings();
             var reply = chatGPT.GenerateMessageStreamAsync(chatHistory, cfg);
             var ccc = "";
-            await reply.ForEachAsync(s =>
+            await reply.ForEachAwaitAsync(async s =>
+             {
+                 Console.Out.WriteAsync(s);
+                 //Console.WriteLine($"分段：{s}");
+                 ccc += s;
+
+             });
+            await reply.ForEachAsync((s,i) =>
               {
                   Console.Out.WriteAsync(s);
                   //Console.WriteLine($"分段：{s}");

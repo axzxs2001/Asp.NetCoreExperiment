@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>jQuery Example</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <h3 class="display-4">小助手</h3>
+        </div>
+        <div class="row">
+            <div class="input-group mb-3">
+                <input type="text" id="ask" class="form-control" placeholder="请输入问题" aria-label="请输入问题" aria-describedby="chat">
+                <button class="btn btn-outline-secondary" type="button" id="chat">开始</button>
+            </div>
+        </div>
+        <div id="messagesdiv" class="row">
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        $(function () {
+            $("#chat").click(function () {
+                var askDiv = $("<div class='alert alert-primary'>");
+                askDiv.text("【您】" + $("#ask").val());
+                var answerDiv = $("<div class='alert alert-warning'>");
+                $("#messagesdiv").append(askDiv);
+                $("#messagesdiv").append(answerDiv);
+                var xhr = new $.ajaxSettings.xhr();
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState == 3) {
+                        var content = "";
+                        var list = JSON.parse(xhr.responseText.replace(']', '') + ']');
+                        $(list).each(function (index, item) {
+                            content += item
+                        })
+                        answerDiv.text(content)
+                    } else if (xhr.readyState == 4) {
+                        answerDiv.removeClass("alert-warning")
+                        answerDiv.addClass("alert-success")
+                        $("#ask").val("")
+                    }
+                }
+                xhr.open('GET', '/chat?ask=' + $("#ask").val())
+                xhr.send()
+            })
+        });
+    </script>
+</body>
+</html>
