@@ -20,7 +20,8 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        $(function () {
+        $(function () { 
+            var requestID = generateGuid();
             $("#chat").click(function () {
                 var askDiv = $("<div class='alert alert-primary'>");
                 askDiv.text("【您】" + $("#ask").val());
@@ -43,9 +44,17 @@
                     }
                 }
                 xhr.open('GET', '/chat?ask=' + $("#ask").val())
+                xhr.setRequestHeader('Request-ID', requestID);
                 xhr.send()
             })
         });
+        function generateGuid() {
+            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+                var r = Math.random() * 16 | 0,
+                    v = c === 'x' ? r : (r & 0x3 | 0x8);
+                return v.toString(16);
+            });
+        }
     </script>
 </body>
 </html>

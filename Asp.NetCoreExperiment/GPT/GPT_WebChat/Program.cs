@@ -7,7 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 var kernel = Kernel.Builder
     .Configure(c =>
     {
-        c.AddOpenAIChatCompletionService("gpt-4", key, serviceId: "davinci-openai");
+        c.AddOpenAIChatCompletionService("gpt-4", key, serviceId: "gsw_chat");
     })
     .Build();
 var chatGPT = kernel.GetService<IChatCompletion>();
