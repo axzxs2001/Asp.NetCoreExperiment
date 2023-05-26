@@ -1,13 +1,13 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <title>小助手</title>
+    <title>机器人</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
 </head>
 <body>
     <div class="container">
         <div class="row">
-            <h3 class="display-4">小助手</h3>
+            <h3 class="display-4">机器人</h3>
         </div>
         <div class="row">
             <div class="input-group mb-3">
@@ -25,25 +25,21 @@
                 var askDiv = $("<div class='alert alert-primary'>");
                 askDiv.text("【您】" + $("#ask").val());
                 var answerDiv = $("<div class='alert alert-warning'>");
+                answerDiv.text("……");
                 $("#messagesdiv").append(askDiv);
                 $("#messagesdiv").append(answerDiv);
-                var xhr = new $.ajaxSettings.xhr();
-                xhr.onreadystatechange = function () {
-                    if (xhr.readyState == 3) {
-                        var content = "";
-                        var list = JSON.parse(xhr.responseText.replace(']', '') + ']');
-                        $(list).each(function (index, item) {
-                            content += item
-                        })
-                        answerDiv.text(content)
-                    } else if (xhr.readyState == 4) {
-                        answerDiv.removeClass("alert-warning")
-                        answerDiv.addClass("alert-success")
-                        $("#ask").val("")
+                $.ajax({
+                    url: '/bot',  
+                    type: 'GET',
+                    dataType: 'text',  
+                    data: { ask: $("#ask").val() },
+                    success: function (data) {
+                        answerDiv.text(data)                   
+                    },
+                    error: function (xhr, status, error) {                        
+                        answerDiv.text(error) 
                     }
-                }
-                xhr.open('GET', '/chat?ask=' + $("#ask").val())
-                xhr.send()
+                });               
             })
         });
     </script>

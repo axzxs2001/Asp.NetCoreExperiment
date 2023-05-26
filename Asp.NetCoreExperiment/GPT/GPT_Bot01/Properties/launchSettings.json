@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "GPT_Bot01": {
+      "commandName": "Project",
+      "nativeDebugging": false
+    }
+  }
+}

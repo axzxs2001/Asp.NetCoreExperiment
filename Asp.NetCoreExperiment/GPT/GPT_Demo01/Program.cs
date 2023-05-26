@@ -271,13 +271,12 @@ ChatBot:
 
         var semanticFunction = kernel.CreateSemanticFunction(prompt, temperature: 0.7, topP: 0.5);
         var context = kernel.CreateNewContext();
+        context[TextMemorySkill.CollectionParam] = MemoryCollectionName;
         while (true)
         {
             Console.WriteLine("请输入问题：");
             var ask = Console.ReadLine();
             context["ask"] = ask;
-            context[TextMemorySkill.CollectionParam] = MemoryCollectionName;
-
             var resultContext = await semanticFunction.InvokeAsync(context);
             Console.WriteLine($"Bot:{resultContext.Result}");
         }
@@ -383,7 +382,7 @@ ChatBot:
                  ccc += s;
 
              });
-            await reply.ForEachAsync((s,i) =>
+            await reply.ForEachAsync((s, i) =>
               {
                   Console.Out.WriteAsync(s);
                   //Console.WriteLine($"分段：{s}");
