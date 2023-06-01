@@ -4,11 +4,8 @@ using Microsoft.SemanticKernel.Connectors.AI.OpenAI.ChatCompletion;
 using System.Text;
 var key = File.ReadAllText(@"C:\\GPT\key.txt");
 var builder = WebApplication.CreateBuilder(args);
-var kernel = Kernel.Builder
-    .Configure(c =>
-    {
-        c.AddOpenAIChatCompletionService("gpt-4", key, serviceId: "gsw_chat");
-    })
+var kernel = Kernel.Builder  
+    .WithOpenAIChatCompletionService("gpt-4", key, serviceId: "gsw_chat")
     .Build();
 var chatGPT = kernel.GetService<IChatCompletion>();
 builder.Services.AddSingleton(chatGPT);

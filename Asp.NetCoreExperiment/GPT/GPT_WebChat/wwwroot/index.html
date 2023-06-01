@@ -20,13 +20,19 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+        function textareaInput() {
+            $('#autoresizing-textarea').on('input', function () {
+                $(this).css('height', 'auto');
+                $(this).css('height', this.scrollHeight + 'px');
+            });
+        };  
         $(function () {
             $("#chat").click(function () {
                 var askDiv = $("<div class='alert alert-primary'>");
                 askDiv.text("【您】" + $("#ask").val());
-                var answerDiv = $("<div class='alert alert-warning'>");
+                var answerDiv = $("<textarea  class='alert alert-warning' style='min-height:150px'>");
                 $("#messagesdiv").append(askDiv);
-                $("#messagesdiv").append(answerDiv);
+                $("#messagesdiv").append(answerDiv);               
                 var xhr = new $.ajaxSettings.xhr();
                 xhr.onreadystatechange = function () {
                     if (xhr.readyState == 3) {
