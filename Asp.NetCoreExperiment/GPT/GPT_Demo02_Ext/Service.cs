@@ -33,35 +33,8 @@ namespace GPT_Demo02_Ext
             return result > 0;
         }
     }
-    public class ZuHu
-    {
-        /// <summary>
-        /// 编号
-        /// </summary>
-        public int BianHao { get; set; }
-        /// <summary>
-        /// 名称
-        /// </summary>
-        public string MingCheng { get; set; }
-        /// <summary>
-        /// 类型
-        /// </summary>
-        public int LeiXing { get; set; }
-        /// <summary>
-        /// 状态
-        /// </summary>
-        public int ZhuangTai { get; set; }
-        /// <summary>
-        /// 创建时间
-        /// </summary>
-        [YBDateTime("yyyyMMdd")]
-        public DateTime ChuangJianShiJian { get; set; }
-        public override string ToString()
-        {
-            return $"编号：{BianHao}，名称：{MingCheng}，类型：{LeiXing}，状态：{ZhuangTai}，创建时间：{ChuangJianShiJian}";
-        }
-    }
-    //参照上面的接口和类生成ZuHu的Service接口和类，别外添加一个逻辑删除的方法，把ZhuangTai改为0
+ 
+    //参照上面的接口和类生成ZuHu的Service接口和类，另外添加一个逻辑删除的方法，把ZhuangTai改为0
     public interface IZuHuService
     {
         Task<bool> Add(ZuHu zuHu);
