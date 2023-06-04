@@ -1,43 +1,60 @@
 ﻿
 using GPT_Demo02_Ext;
 
-public class 我的类
+/// <summary>
+/// 人员
+/// </summary>
+public class RenYuan
 {
-    public int 编号 { get; set; }
-    public string 名称 { get; set; }
-    public bool 性别 { get; set; }
-
+    /// <summary>
+    /// 编号
+    /// </summary>
+    public int BianHao { get; set; }
+    /// <summary>
+    /// 名称
+    /// </summary>
+    public string MingCheng { get; set; }
+    /// <summary>
+    /// 性别
+    /// </summary>
+    public bool XingBie { get; set; }
+    /// <summary>
+    /// 生日
+    /// </summary>
     [YBDateTime("yyyyMMdd")]
-    public DateTime 生日 { get; set; }
+    public DateTime ShengRi { get; set; }
     public override string ToString()
     {
-        return $"编号：{编号}，名称：{名称}，性别：{性别}";
+        return $"编号：{BianHao}，名称：{MingCheng}，性别：{XingBie}，生日：{ShengRi}";
     }
 }
 //参照上面类把下面数据生成类
-//租户：
-//租户ID
-//租户名称
-//租户类型
-//租户状态
-//租户创建时间
-public class 租户
+//租户：编号，名称，类型，状态，创建时间
+public class ZuHu
 {
-    public int 租户ID { get; set; }
-    public string 租户名称 { get; set; }
-    public string 租户类型 { get; set; }
-    public string 租户状态 { get; set; }
-
+    /// <summary>
+    /// 编号
+    /// </summary>
+    public int BianHao { get; set; }
+    /// <summary>
+    /// 名称
+    /// </summary>
+    public string MingCheng { get; set; }
+    /// <summary>
+    /// 类型
+    /// </summary>
+    public int LeiXing { get; set; }
+    /// <summary>
+    /// 状态
+    /// </summary>
+    public int ZhuangTai { get; set; }
+    /// <summary>
+    /// 创建时间
+    /// </summary>
     [YBDateTime("yyyyMMdd")]
-    public DateTime 租户创建时间 { get; set; }
+    public DateTime ChuangJianShiJian { get; set; }
     public override string ToString()
     {
-        return $"租户ID：{租户ID}，租户名称：{租户名称}，租户类型：{租户类型}，租户状态：{租户状态}";
+        return $"编号：{BianHao}，名称：{MingCheng}，类型：{LeiXing}，状态：{ZhuangTai}，创建时间：{ChuangJianShiJian}";
     }
 }
-
-
-
-
-
-
