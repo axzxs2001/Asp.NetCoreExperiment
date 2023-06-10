@@ -7,12 +7,9 @@ using System.Threading.Tasks;
 
 var key = File.ReadAllText(@"C:\\GPT\key.txt");
 var store = Directory.GetCurrentDirectory() + "/db.sqlite";
-var kernel = Kernel.Builder
-           .Configure(c =>
-           {
-               c.AddOpenAITextCompletionService("text-davinci-003", key, serviceId: "gsw");
-               c.AddOpenAITextEmbeddingGenerationService("text-embedding-ada-002", key, serviceId: "gs");
-           })
+var kernel = Kernel.Builder           
+           .WithOpenAITextCompletionService("text-davinci-003", key, serviceId: "gsw")
+           .WithOpenAITextEmbeddingGenerationService("text-embedding-ada-002", key, serviceId: "gsw")
            .WithMemoryStorage(await SqliteMemoryStore.ConnectAsync(store))
            .Build();
 
@@ -26,7 +23,7 @@ await kernel.Memory.SaveInformationAsync(MemoryCollectionName, id: "info5", text
 await kernel.Memory.SaveInformationAsync(MemoryCollectionName, id: "info6", text: "老家山西长治市省黎城县西井镇五十亩村");
 await kernel.Memory.SaveInformationAsync(MemoryCollectionName, id: "info7", text: "来自山西长治市省黎城县西井镇五十亩村");
 
-await Bot2(key, store, kernel);
+await Bot1(key, store, kernel);
 static async Task Bot1(string key, string store, IKernel kernel)
 {
     var prompt = """
@@ -43,7 +40,8 @@ static async Task Bot1(string key, string store, IKernel kernel)
         Console.WriteLine("请输入问题：");
         var ask = Console.ReadLine();
         var facts = kernel.Memory.SearchAsync(MemoryCollectionName, ask, limit: 10, withEmbeddings: true);
-        var fact = await facts.FirstOrDefaultAsync();
+        var fact= facts.ToBlockingEnumerable().FirstOrDefault();  
+        //var fact = await facts.FirstOrDefaultAsync();
         context["fact"] = fact?.Metadata?.Text!;
         context["ask"] = ask;
         var resultContext = await semanticFunction.InvokeAsync(context);
