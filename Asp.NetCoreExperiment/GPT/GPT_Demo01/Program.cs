@@ -318,16 +318,11 @@ ChatBot:
             var ask = Console.ReadLine();
             var facts = kernel.Memory.SearchAsync(MemoryCollectionName, ask, limit: 10, withEmbeddings: true);
             var factContent = "";
-            await facts.ForEachAsync(res =>
-            {
-                // Console.WriteLine($"全部:{res.Metadata.Text},{res.Relevance},{JsonSerializer.Serialize(res.Metadata)}");
-                if (res.Relevance > 0.7d)
-                {
-                    factContent += res.Metadata.Text + "\r\n";
-                }
-            });
+            var vvv = facts.GetAsyncEnumerator();
+            
+          
             Console.WriteLine(factContent);
-            var fact = await facts.FirstOrDefaultAsync();
+            var fact = facts.GetAsyncEnumerator().Current;
             var context = kernel.CreateNewContext();
             // context["fact"] = factContent;
             context["fact"] = fact?.Metadata?.Text;
@@ -374,21 +369,7 @@ ChatBot:
             chatHistory.AddUserMessage(Console.ReadLine());
             var cfg = new ChatRequestSettings();
             var reply = chatGPT.GenerateMessageStreamAsync(chatHistory, cfg);
-            var ccc = "";
-            await reply.ForEachAwaitAsync(async s =>
-             {
-                 Console.Out.WriteAsync(s);
-                 //Console.WriteLine($"分段：{s}");
-                 ccc += s;
-
-             });
-            await reply.ForEachAsync((s, i) =>
-              {
-                  Console.Out.WriteAsync(s);
-                  //Console.WriteLine($"分段：{s}");
-                  ccc += s;
-
-              });
+           
             chatHistory.AddAssistantMessage(ccc);
 
             //Console.WriteLine("聊天内容:");
