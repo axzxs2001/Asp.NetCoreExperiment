@@ -370,7 +370,7 @@ ChatBot:
             var cfg = new ChatRequestSettings();
             var reply = chatGPT.GenerateMessageStreamAsync(chatHistory, cfg);
            
-            chatHistory.AddAssistantMessage(ccc);
+         
 
             //Console.WriteLine("聊天内容:");
             //Console.WriteLine("------------------------");
