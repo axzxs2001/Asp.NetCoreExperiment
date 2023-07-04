@@ -3,11 +3,11 @@ using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.AI.ChatCompletion;
 using Microsoft.SemanticKernel.Connectors.AI.OpenAI.ChatCompletion;
 using Microsoft.SemanticKernel.Connectors.AI.OpenAI.TextEmbedding;
-using Microsoft.SemanticKernel.CoreSkills;
 using Microsoft.SemanticKernel.Memory;
 using Microsoft.SemanticKernel.Planning;
 using Microsoft.SemanticKernel.SemanticFunctions;
 using Microsoft.SemanticKernel.SkillDefinition;
+using Microsoft.SemanticKernel.Skills.Core;
 using System;
 using System.Runtime.InteropServices;
 using System.Text.Json;
@@ -18,7 +18,7 @@ var key = File.ReadAllText(@"C:\\GPT\key.txt");
 
 //await LinkDemo.LinkerAsync(key);
 //await PlanDemo.StarPlan(key);
-await Demo.Chat(key);
+await Demo.Bot2Async(key);
 
 
 public class PlanDemo
@@ -240,11 +240,8 @@ public class Demo
     public static async Task Bot2Async(string key)
     {
         var kernel = Kernel.Builder
-            .Configure(c =>
-            {
-                c.AddOpenAITextCompletionService("text-davinci-003", key, serviceId: "openai");
-                c.AddOpenAITextEmbeddingGenerationService("text-embedding-ada-002", key, serviceId: "openai");
-            })
+            .WithOpenAITextCompletionService("text-davinci-003", key, serviceId: "openai")
+            .WithOpenAITextEmbeddingGenerationService("text-embedding-ada-002", key, serviceId: "openai")
             .WithMemoryStorage(new VolatileMemoryStore())
             .Build();
         const string MemoryCollectionName = "aboutMe";
@@ -319,8 +316,8 @@ ChatBot:
             var facts = kernel.Memory.SearchAsync(MemoryCollectionName, ask, limit: 10, withEmbeddings: true);
             var factContent = "";
             var vvv = facts.GetAsyncEnumerator();
-            
-          
+
+
             Console.WriteLine(factContent);
             var fact = facts.GetAsyncEnumerator().Current;
             var context = kernel.CreateNewContext();
@@ -369,17 +366,17 @@ ChatBot:
             chatHistory.AddUserMessage(Console.ReadLine());
             var cfg = new ChatRequestSettings();
             var reply = chatGPT.GenerateMessageStreamAsync(chatHistory, cfg);
-           
-         
 
-            //Console.WriteLine("聊天内容:");
-            //Console.WriteLine("------------------------");
-            //foreach (var message in chatHistory.Messages)
-            //{
 
-            //    Console.WriteLine($"{message.AuthorRole}: {message.Content}");
-            //    Console.WriteLine("------------------------");
-            //}
+
+            Console.WriteLine("聊天内容:");
+            Console.WriteLine("------------------------");
+            foreach (var message in chatHistory.Messages)
+            {
+
+                Console.WriteLine($"{message.Role.Label}: {message.Content}");
+                Console.WriteLine("------------------------");
+            }
         }
 
     }
