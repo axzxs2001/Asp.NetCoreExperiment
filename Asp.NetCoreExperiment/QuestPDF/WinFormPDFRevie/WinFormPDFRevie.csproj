@@ -10,7 +10,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Ghostscript.NET" Version="1.2.3" />
     <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.1905-prerelease" />
+    <PackageReference Include="Pdfium.Net.SDK" Version="4.84.2704" />
+    <PackageReference Include="QuestPDF" Version="2023.6.0" />
   </ItemGroup>
 
   <ItemGroup>
