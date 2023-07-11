@@ -11,7 +11,6 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.1905-prerelease" />
-    <PackageReference Include="WebView2.Runtime.X86" Version="114.0.1823.79" />
   </ItemGroup>
 
   <ItemGroup>
