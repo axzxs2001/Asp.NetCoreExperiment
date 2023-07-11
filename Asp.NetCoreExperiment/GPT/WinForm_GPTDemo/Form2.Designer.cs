@@ -1,4 +1,6 @@
-﻿namespace WinForm_GPTDemo
+﻿using System;
+
+namespace WinForm_GPTDemo
 {
     partial class Form2
     {
@@ -28,66 +30,76 @@
         /// </summary>
         private void InitializeComponent()
         {
-            SuspendLayout();
-            // 标题标签 "姓名"
             lbl_title_name = new Label();
-            lbl_title_name.Name = "lbl_title_name";
-            lbl_title_name.Text = "姓名";
-            lbl_title_name.Location = new Point(20, 20); // 这里
-            this.Controls.Add(lbl_title_name); // 设定标签的位置，可以根据需要进行
-                                               // 内容标签 "姓名"
-            lbl_name = new Label();
-            lbl_name.Name = "lbl_name";
-            lbl_name.Text = ""; // 这里暂时设为空，内容将在其他地方设置
-            lbl_name.Location = new Point(80, 20); // 这里设定标签的位置，可以根据需要进行调整
-
-            // 标题标签 "年龄"
+            textBox1 = new TextBox();
+            textBox2 = new TextBox();
+            textBox3 = new TextBox();
             lbl_title_age = new Label();
+            SuspendLayout();
+            // 
+            // lbl_title_name
+            // 
+            lbl_title_name.Location = new Point(20, 20);
+            lbl_title_name.Name = "lbl_title_name";
+            lbl_title_name.Size = new Size(100, 23);
+            lbl_title_name.TabIndex = 0;
+            lbl_title_name.Text = "姓名";
+            // 
+            // textBox1
+            // 
+            textBox1.Location = new Point(150, 20); // Changed the location
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(100, 23);
+            textBox1.TabIndex = 4;
+            // 
+            // textBox2
+            // 
+            textBox2.Location = new Point(150, 60); // Changed the location
+            textBox2.Name = "textBox2";
+            textBox2.Size = new Size(100, 23);
+            textBox2.TabIndex = 5;
+            // 
+            // textBox3
+            // 
+            textBox3.Location = new Point(150, 100); // Changed the location
+            textBox3.Name = "textBox3";
+            textBox3.Size = new Size(100, 23);
+            textBox3.TabIndex = 5;
+            // 
+            // lbl_title_age
+            // 
+            lbl_title_age.Location = new Point(20, 60); // Changed the location
             lbl_title_age.Name = "lbl_title_age";
+            lbl_title_age.Size = new Size(100, 23);
+            lbl_title_age.TabIndex = 2;
             lbl_title_age.Text = "年龄";
-            lbl_title_age.Location = new Point(20, 50); // 这里设定标签的位置，可以根据需要进行调整
-
-            // 内容标签 "年龄"
-            lbl_age = new Label();
-            lbl_age.Name = "lbl_age";
-            lbl_age.Text = ""; // 这里暂时设为空，内容将在其他地方设置
-            lbl_age.Location = new Point(80, 50); // 这里设定标签的位置，可以根据需要进行调整
-
-            // 将标签添加到表单中
-
-            this.Controls.Add(lbl_name);
-            this.Controls.Add(lbl_title_age);
-            this.Controls.Add(lbl_age);
-            // 调整
             // 
             // Form2
             // 
             AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(701, 634);
+            ClientSize = new Size(701, 212);
+            Controls.Add(textBox3);
+            Controls.Add(textBox2);
+            Controls.Add(textBox1);
+            Controls.Add(lbl_title_name);
+            Controls.Add(lbl_title_age);
             Name = "Form2";
             Text = "Form2";
+            Load += Form2_Load;
             ResumeLayout(false);
-        }
-
-        private void CreateLabels()
-        {
-
-
-
+            PerformLayout();
         }
 
 
         private Label lbl_title_name;
-        private Label lbl_name;
         private Label lbl_title_age;
-        private Label lbl_age;
-
-
-
-
-
-
+        private TextBox textBox1;
+        private TextBox textBox2;
+        private TextBox textBox3;
         #endregion
+
+
     }
+
 }
