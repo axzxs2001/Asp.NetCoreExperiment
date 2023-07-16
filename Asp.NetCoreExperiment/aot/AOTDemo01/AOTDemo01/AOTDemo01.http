@@ -1,0 +1,11 @@
+@AOTDemo01_HostAddress = http://localhost:5161
+
+GET {{AOTDemo01_HostAddress}}/todos/
+Accept: application/json
+
+###
+
+GET {{AOTDemo01_HostAddress}}/todos/1
+Accept: application/json
+
+###
