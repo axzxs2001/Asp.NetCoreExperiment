@@ -3,7 +3,7 @@ using AutoUpdateService;
 var builder = WebApplication.CreateSlimBuilder(args);
 
 var app = builder.Build();
-
+app.UseStaticFiles();
 var sampleTodos = TodoGenerator.GenerateTodos().ToArray();
 
 var todosApi = app.MapGroup("/todos");

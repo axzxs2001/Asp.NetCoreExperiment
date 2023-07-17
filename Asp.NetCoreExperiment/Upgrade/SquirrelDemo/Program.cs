@@ -11,9 +11,7 @@ namespace SquirrelDemo
         static void Main()
         {
 
-            AutoUpdater.Start("https://example.com/your-app/update.xml");
-            AutoUpdater.UpdateMode = Mode.ForcedDownload;
-            AutoUpdater.CheckForUpdateEvent += AutoUpdater_CheckForUpdateEvent;
+
 
 
             // To customize application configuration such as set high DPI settings or default font,
@@ -22,9 +20,6 @@ namespace SquirrelDemo
             Application.Run(new Form1());
         }
 
-        private static void AutoUpdater_CheckForUpdateEvent(UpdateInfoEventArgs args)
-        {
-           
-        }
+   
     }
 }
