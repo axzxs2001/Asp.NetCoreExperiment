@@ -1,4 +1,5 @@
 using AutoUpdaterDotNET;
+using System.Net;
 
 namespace SquirrelDemo
 {
@@ -48,6 +49,16 @@ namespace SquirrelDemo
             //为http web请求设置User-Agent
             //AutoUpdater.HttpUserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36";
 
+            //设置代理
+            //AutoUpdater.Proxy = new WebProxy("", 1);
+            //var proxy = new WebProxy("ProxyIP:ProxyPort",1)
+            //{
+            //    Credentials = new NetworkCredential("ProxyUserName", "ProxyPassword")
+            //};
+            //AutoUpdater.Proxy = proxy;
+
+
+
             //启用错误报告
             AutoUpdater.ReportErrors = true;
 
@@ -68,6 +79,8 @@ namespace SquirrelDemo
 
             //自定义处理更新逻辑事件
             AutoUpdater.CheckForUpdateEvent += AutoUpdaterOnCheckForUpdateEvent;
+
+           
         }
 
 
@@ -112,7 +125,7 @@ namespace SquirrelDemo
                             if (AutoUpdater.DownloadUpdate(args))
                             {
                                 Application.Exit();
-                            }
+                            }                            
                         }
                         catch (Exception exception)
                         {
