@@ -662,6 +662,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Upgrade", "Upgrade", "{500A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SquirrelDemo", "Asp.NetCoreExperiment\Upgrade\SquirrelDemo\SquirrelDemo.csproj", "{6E97DCF6-B8D3-49FF-B670-FAA76E4653E3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniAPI8_Form", "Asp.NetCoreExperiment\MiniAPI\MiniAPI8_Form\MiniAPI8_Form.csproj", "{1BBBBB68-4FA7-4B8A-8A32-F34167948123}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -1676,6 +1678,10 @@ Global
 		{6E97DCF6-B8D3-49FF-B670-FAA76E4653E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6E97DCF6-B8D3-49FF-B670-FAA76E4653E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6E97DCF6-B8D3-49FF-B670-FAA76E4653E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1BBBBB68-4FA7-4B8A-8A32-F34167948123}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1BBBBB68-4FA7-4B8A-8A32-F34167948123}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1BBBBB68-4FA7-4B8A-8A32-F34167948123}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1BBBBB68-4FA7-4B8A-8A32-F34167948123}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1943,6 +1949,7 @@ Global
 		{6714B636-D15D-4EE2-AD93-E37408BF3A36} = {10784A37-B511-47A9-B918-432CB55398ED}
 		{817F1F0B-C25E-4CAD-90A5-23555E8E8BB2} = {19F3B3A9-5F42-4CC0-A96B-2D166D530856}
 		{16867CD3-87E1-4AEA-BE03-55869CCA0964} = {81240DAF-191C-4245-A4A2-445032C9CBB9}
+		{1BBBBB68-4FA7-4B8A-8A32-F34167948123} = {8A78305E-BFFF-4F09-BE2F-3BAB7088C3FE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
