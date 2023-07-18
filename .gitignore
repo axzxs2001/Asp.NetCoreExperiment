@@ -252,5 +252,3 @@ paket-files/
 *.sln.iml
 /Asp.NetCoreExperiment/Orleans/WebSample/WebSiloHost/OrleansAdoNetContent
 /Asp.NetCoreExperiment/Orleans/HelloWorld_SiloHost/OrleansAdoNetContent
-/Asp.NetCoreExperiment
-/.gitignore
