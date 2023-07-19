@@ -10,13 +10,13 @@ builder.Services.AddOpenTelemetry().WithMetrics(builder =>
         builder.AddPrometheusExporter();
 
         builder.AddMeter("Microsoft.AspNetCore.Hosting",
-                         "Microsoft.AspNetCore.Server.Kestrel"
-                         //"Microsoft.AspNetCore.Http.Connections",
-                         //"System.Runtime",                      
-                         //"System.Net.Http",
-                         //"System.Net.NameResolution",
-                         //"System.Net.Security",
-                         //"System.Net.Sockets"
+                         "Microsoft.AspNetCore.Server.Kestrel",
+                         "Microsoft.AspNetCore.Http.Connections",
+                         "System.Runtime",
+                         "System.Net.Http",
+                         "System.Net.NameResolution",
+                         "System.Net.Security",
+                         "System.Net.Sockets"
                          );
         builder.AddView("http-server-request-duration",
             new ExplicitBucketHistogramConfiguration
