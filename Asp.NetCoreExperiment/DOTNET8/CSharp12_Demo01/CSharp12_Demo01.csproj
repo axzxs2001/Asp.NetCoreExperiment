@@ -8,4 +8,8 @@
 		<LangVersion>preview</LangVersion>
 	</PropertyGroup>
 
+	<ItemGroup>
+	  <PackageReference Include="BenchmarkDotNet" Version="0.13.6" />
+	</ItemGroup>
+
 </Project>

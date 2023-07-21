@@ -1,37 +1,50 @@
 ﻿
-
+using BenchmarkDotNet.Attributes;
+using BenchmarkDotNet.Running;
 using System.Collections;
 using System.Runtime.CompilerServices;
 
-var season0 = new Season0();
-season0[0] = "春";
-season0[1] = "夏";
-season0[2] = "秋";
-season0[3] = "冬";
-P0(season0);
-var season1 = new Season1();
-season1[0] = "春";
-season1[1] = "夏";
-season1[2] = "秋";
-season1[3] = "冬";
-P1(season1);
+BenchmarkRunner.Run<Demo1>();
 
-
-
-void P0(Season0 season0)
+public class Demo1
 {
-    foreach (var s in season0)
+    Season0 season0;
+    Season1 season1;
+    [GlobalSetup]
+    public void Setup()
     {
-        Console.WriteLine(s);
+        season0 = new Season0();
+        season0[0] = "春";
+        season0[1] = "夏";
+        season0[2] = "秋";
+        season0[3] = "冬";
+
+        season1 = new Season1();
+        season1[0] = "春";
+        season1[1] = "夏";
+        season1[2] = "秋";
+        season1[3] = "冬";
     }
-}
 
 
-void P1(Season1 season1)
-{
-    foreach (var s in season1)
+    [Benchmark()]
+    public void P0()
     {
-        Console.WriteLine(s);
+        foreach (var s in season0)
+        {
+            var s0 = s;
+            //Console.WriteLine(s);
+        }
+    }
+
+    [Benchmark]
+    public void P1()
+    {
+        foreach (var s in season1)
+        {
+            var s0 = s;
+            //Console.WriteLine(s);
+        }
     }
 }
 
