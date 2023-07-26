@@ -15,6 +15,7 @@ namespace WaitForm
         public LoadingForm()
         {
             InitializeComponent();
+            this.FormBorderStyle = FormBorderStyle.None;
         }
 
         public string Message
@@ -35,6 +36,11 @@ namespace WaitForm
                 this.Close();
                 this.Dispose();
             });
+        }
+
+        private void LoadingForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

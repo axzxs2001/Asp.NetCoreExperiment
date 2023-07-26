@@ -36,24 +36,25 @@
             // 
             // pictureBox1
             // 
+            pictureBox1.BackColor = Color.White;
             pictureBox1.Dock = DockStyle.Top;
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
             pictureBox1.Location = new Point(0, 0);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(626, 215);
-            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox1.Size = new Size(647, 141);
+            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
             // 
             // messageLab
             // 
-            messageLab.BackColor = Color.White;
+            messageLab.BackColor = Color.Azure;
             messageLab.Dock = DockStyle.Fill;
             messageLab.Font = new Font("Microsoft YaHei UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            messageLab.Location = new Point(0, 215);
+            messageLab.Location = new Point(0, 141);
             messageLab.Name = "messageLab";
             messageLab.Padding = new Padding(30, 40, 30, 5);
-            messageLab.Size = new Size(626, 171);
+            messageLab.Size = new Size(647, 153);
             messageLab.TabIndex = 1;
             messageLab.Text = "正在加载中，请等待……";
             // 
@@ -61,15 +62,16 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(626, 386);
+            ClientSize = new Size(647, 294);
             Controls.Add(messageLab);
             Controls.Add(pictureBox1);
-            FormBorderStyle = FormBorderStyle.None;
             Name = "LoadingForm";
             ShowIcon = false;
             ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Loading";
+            TopMost = true;
+            Load += LoadingForm_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
         }
