@@ -23,6 +23,10 @@ namespace WaitForm
         {
             Task.Run(() =>
             {
+                while (_loading == null || _loading.IsDisposed)
+                {
+                    Thread.Sleep(10);
+                }
                 _loading.CloseAll();
             });
 

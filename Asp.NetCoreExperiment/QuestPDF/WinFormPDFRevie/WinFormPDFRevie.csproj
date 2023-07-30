@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net7.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="GhostScript.NetCore" Version="1.0.1" />
+    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.1905-prerelease" />
+    <PackageReference Include="Pdfium.Net.SDK" Version="4.84.2704" />
+    <PackageReference Include="QuestPDF" Version="2023.6.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="a.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="test.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>
