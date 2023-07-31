@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding="UTF-8"?>
+<item>
+	<!--在版本标记之间提供应用程序的最新版本。版本必须为X.X.X.X格式。-->
+	<version>1.0.0.2</version>
+
+	<!--在url标签之间提供最新版本安装程序文件或zip文件的url。自动更新。NET下载这里提供的文件，并在用户按下Update按钮时安装它。-->
+	<url>http://127.0.0.1:5000\AutoUpdate_Demo.zip</url>
+
+	<!--在changelog标记之间提供应用程序更改日志的URL。如果你不提供变更日志的URL，那么更新对话框将不会显示变更日志。-->
+	<!--<changelog>http://192.168.1.8/Updates/UpdateLog.html</changelog>-->
+
+	<!--如果你不想让用户跳过这个版本，可以将其设置为true。这将忽略“稍后提醒”和“跳过”选项，并在更新对话框中隐藏“稍后提醒”和“跳过”按钮。-->
+	<!--mandatory mode="2">true</mandatory -->
+
+	<!--可以在强制元素上提供minVersion属性。当您提供该选项时，只有当安装的应用程序版本小于您在这里指定的最小版本时才会触发强制选项。-->
+	<!--mandatory minVersion="1.2.0.0">true</mandatory -->
+
+	<!--args(可选):您可以在这个标记之间为安装程序提供命令行参数。您可以在命令行参数中包含%path%，它将被当前正在执行的应用程序所在目录的path所取代。-->
+	<!--mandatory args="xxxxx">false</mandatory -->
+
+	<!--提供更新文件的校验和。如果你做这个autotoupater。NET将在执行更新过程之前比较下载文件的校验和，以检查文件的完整性。
+    您可以在校验和标记中提供algorithm属性，以指定应该使用哪个算法来生成下载文件的校验和。目前支持MD5、SHA1、SHA256、SHA384和SHA512。-->
+	<!--checksum algorithm="MD5">Update file Checksum</checksum -->
+</item>
