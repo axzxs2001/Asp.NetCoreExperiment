@@ -4,7 +4,7 @@
 	<version>1.0.0.2</version>
 
 	<!--在url标签之间提供最新版本安装程序文件或zip文件的url。自动更新。NET下载这里提供的文件，并在用户按下Update按钮时安装它。-->
-	<url>http://127.0.0.1:5000\AutoUpdate_Demo.zip</url>
+	<url>http://127.0.0.1:5000/AutoUpdate_Demo.zip</url>
 
 	<!--在changelog标记之间提供应用程序更改日志的URL。如果你不提供变更日志的URL，那么更新对话框将不会显示变更日志。-->
 	<!--<changelog>http://192.168.1.8/Updates/UpdateLog.html</changelog>-->
