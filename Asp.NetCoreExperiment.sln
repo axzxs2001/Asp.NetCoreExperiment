@@ -672,6 +672,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "APIMetricDemo", "Asp.NetCor
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WaitForm", "Asp.NetCoreExperiment\WinForm\WaitForm\WaitForm.csproj", "{70E17997-9C9B-410C-A701-9EB4F97DACA0}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaiPai", "Asp.NetCoreExperiment\QuestPDF\TaiPai\TaiPai.csproj", "{54E1EF9F-1F6A-48B5-A4D0-171CE7F2AACF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -1706,6 +1708,10 @@ Global
 		{70E17997-9C9B-410C-A701-9EB4F97DACA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{70E17997-9C9B-410C-A701-9EB4F97DACA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{70E17997-9C9B-410C-A701-9EB4F97DACA0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{54E1EF9F-1F6A-48B5-A4D0-171CE7F2AACF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54E1EF9F-1F6A-48B5-A4D0-171CE7F2AACF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54E1EF9F-1F6A-48B5-A4D0-171CE7F2AACF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54E1EF9F-1F6A-48B5-A4D0-171CE7F2AACF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1979,6 +1985,7 @@ Global
 		{A762AD16-883F-47E9-970C-F7C7662732E2} = {81240DAF-191C-4245-A4A2-445032C9CBB9}
 		{BA4D31FA-EBC2-4695-845C-BEB2348FFDB6} = {19F3B3A9-5F42-4CC0-A96B-2D166D530856}
 		{70E17997-9C9B-410C-A701-9EB4F97DACA0} = {1854E8D2-3AD0-4341-B513-775243F22C52}
+		{54E1EF9F-1F6A-48B5-A4D0-171CE7F2AACF} = {81240DAF-191C-4245-A4A2-445032C9CBB9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}

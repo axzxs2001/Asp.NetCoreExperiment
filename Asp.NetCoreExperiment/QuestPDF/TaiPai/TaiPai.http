@@ -1,0 +1,11 @@
+@TaiPai_HostAddress = http://localhost:5021
+
+GET {{TaiPai_HostAddress}}/todos/
+Accept: application/json
+
+###
+
+GET {{TaiPai_HostAddress}}/todos/1
+Accept: application/json
+
+###
