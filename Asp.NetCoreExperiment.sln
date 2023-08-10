@@ -676,6 +676,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WinFormHotKey", "Asp.NetCor
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WinFormsSignal", "Asp.NetCoreExperiment\WinForm\WinFormsSignal\WinFormsSignal.csproj", "{0A29A042-54BB-4877-B858-54D24ED63B91}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityDemo", "Asp.NetCoreExperiment\MiniAPI\IdentityDemo\IdentityDemo.csproj", "{F698AD05-CB87-47AE-8729-DB83704E71EF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -1722,6 +1724,10 @@ Global
 		{0A29A042-54BB-4877-B858-54D24ED63B91}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0A29A042-54BB-4877-B858-54D24ED63B91}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0A29A042-54BB-4877-B858-54D24ED63B91}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F698AD05-CB87-47AE-8729-DB83704E71EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F698AD05-CB87-47AE-8729-DB83704E71EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F698AD05-CB87-47AE-8729-DB83704E71EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F698AD05-CB87-47AE-8729-DB83704E71EF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1998,6 +2004,7 @@ Global
 		{54E1EF9F-1F6A-48B5-A4D0-171CE7F2AACF} = {81240DAF-191C-4245-A4A2-445032C9CBB9}
 		{B3146E68-6C42-440E-9BC8-3530E0317E91} = {1854E8D2-3AD0-4341-B513-775243F22C52}
 		{0A29A042-54BB-4877-B858-54D24ED63B91} = {1854E8D2-3AD0-4341-B513-775243F22C52}
+		{F698AD05-CB87-47AE-8729-DB83704E71EF} = {8A78305E-BFFF-4F09-BE2F-3BAB7088C3FE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
