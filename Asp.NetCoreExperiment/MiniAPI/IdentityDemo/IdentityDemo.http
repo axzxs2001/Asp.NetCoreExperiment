@@ -1,11 +1,41 @@
-@IdentityDemo_HostAddress = http://localhost:5148
+@url=http://localhost:5148
+@user=admin
+@password=P@$$w0rd1
+@email=admin@notadomain.com
 
-GET {{IdentityDemo_HostAddress}}/todos/
-Accept: application/json
+POST {{url}}/register
+Content-Type: application/json
+
+{
+  "username": "{{user}}",
+  "password": "{{password}}",
+  "email": "{{email}}"
+}
 
 ###
 
-GET {{IdentityDemo_HostAddress}}/todos/1
-Accept: application/json
+POST {{url}}/login
+Content-Type: application/json
+
+{
+  "username": "{{user}}",
+  "password": "{{password}}"
+}
 
 ###
+
+@token=CfDJ8P__ksO37ipLh3JRmSxT0WkPgCfNRYWi8EtacOECVAvUJppY31mnW99Qj5gEYdNPvl6TZidvV8Acmw1JGtq85KPY_CQMtYSqgPSSzwIWwGTfSAErLVUriUa18f--k3SQ83IM9V7GQ3YLnh9GUiwFY7HS4p06ws7TgkJsADMK98kpQkkMeA-RHcIPfrVsnP3OkRwcsqhBI8TClQJ9DfuXr2znS194MZGv50ZCbx8kxcHizW12XfzxLyDZaw88NeKHDy48pJNmvkuzmCf18PdSnVzgCfGDoeCRG2_qWFnCb_4E9HE7Ew6CxK8dfd9po2Dl10M23B1jkUzw7i6oznl9klwPOTYXkHyQAOYKYAw0SL4mH3H8E-VD3K-E7cBwOcOvksoDamfEQc0IAYeA5c_GLUq1SXY8V-yC-la7BMXlOuXCMqn17LX3OimVNON5NO0isXG0J6O1QZRHout2AhqzoX48DXbRpZArMnnwqe1_deOuBitDWIEhxQjUnWREeiM7liIpFdW9XmpIvHxUBQsaViuDf90PG0n1UdG5uTNMgxK2KE3Dza2uLJ6xfHgVwnyYQ_3XD_igDFIYiga6-biPzOnprSVHOhB_KSSkpL3a1HmcJasO_ug8jGrksIgYdzMSvQtxFb9ZIQMwWJITVdsg_ci7dVtVaExHltMqbO3Ns9OAuWg7W_E0Pz5EzzoZYKcKyBA0nOD7p5XIaarWIpGE3d0
+GET {{url}}
+Authorization: Bearer {{token}}
+
+
+###
+
+@refreshToken=CfDJ8P__ksO37ipLh3JRmSxT0Wm7uj2e31BOzKcM5Sd13x51E6szzQvPQYQjbIYNAHeDt_a62Ywcub29ZuE1Ktj8oPZERPdQ32EnpzTLC5fOgj7Xcd2I8B3AO3kOXJG7rtQrLe-NKJ40zUNjo-UdKAe5wxYQIZanclglKs01ejP00tDn6hJWtA5bT0sgzudIH0agKZMbpeQ78RHiNH7yXovv0-54FCdiom79YOAAg24ls5dAaZ1IbJQLiBafy3WUYG9C-FR45rWjrxP7vz_nwPf9pdRdH6wyMmHDwnx4R3-l2n6dDRTyEU-eq_rAqQKjdWx9Yw8uQHPkWXr9b5jWEf_nO-CKxRD5iwxSeGmv1lOzpFPbyDqG9PMNSPHGGOQIcNnzioHidfJlPzMSYIBj-iwWCsXqq-GqTaLYsAJP-Ff3VF9kqcJVkO6RWQmbKa4X7ftU5JtraIuscV0yytGy4YreMMuTj-SHx8Vk06eknVDn82Abb2h6P3gDddsL3eVc6ZZfd_o4vkVZUbtSTlmUmPodCSkRy7It1AOcspHY1es_eo_cb_avYA5JViDo7ijjZ_3NpG6_eaz1ajylxfFLQkgpfb8p_rpQBRXja8qtzMBJFrjbKyLAu4_EwUa0UeRz4FGyAgRuMhmpxtrIcYJ8Q0nD8PdWPFWplXem9P3mU0kk7vL998tJQGLpaPjgua-UuLE-HA
+
+POST {{url}}/refresh
+Content-Type: application/json
+
+{
+  "refreshToken": "{{refreshToken}}"
+}
