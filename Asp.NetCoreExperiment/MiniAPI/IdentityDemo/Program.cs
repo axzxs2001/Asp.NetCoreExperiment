@@ -1,39 +1,33 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Security.Claims;
-using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateSlimBuilder(args);
 
 builder.Services.AddAuthentication().AddBearerToken(IdentityConstants.BearerScheme);
 builder.Services.AddAuthorizationBuilder();
 
-builder.Services.AddDbContext<AppDbContext>(options => options.UseInMemoryDatabase("AppDb"));
-
-
-
-builder.Services.AddIdentityCore<MyUser>()    
-                .AddEntityFrameworkStores<AppDbContext>()
+builder.Services.AddIdentityCore<IdentityUser>()
+                .AddEntityFrameworkStores<IdentityDbContext>()
                 .AddApiEndpoints();
 
-
-builder.Services.AddEndpointsApiExplorer();
+var dbPath = string.Format("Data Source={0}\\db.sqlite", Directory.GetCurrentDirectory());
+builder.Services.AddDbContext<IdentityDbContext>(options => options.UseSqlite(dbPath));
 
 
 var app = builder.Build();
-app.MapIdentityApi<MyUser>();
+app.MapIdentityApi<IdentityUser>();
 
-app.MapGet("/", (ClaimsPrincipal user) => $"Hello {user.Identity!.Name}").RequireAuthorization();
-
+app.MapGet("/", (ClaimsPrincipal user) => $"»¶Ó­£º {user.Identity!.Name}").RequireAuthorization();
 
 
 app.Run();
 
-class MyUser : IdentityUser { }
 
-class AppDbContext : IdentityDbContext<MyUser>
-{
-    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
-}
+
+//class MyDbContext : IdentityDbContext<IdentityUser>
+//{
+//    public MyDbContext(DbContextOptions<MyDbContext> options) : base(options)
+//    { }  
+//}
