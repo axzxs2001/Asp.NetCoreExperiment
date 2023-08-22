@@ -1,30 +1,44 @@
 
+using Microsoft.AspNetCore.DataProtection.KeyManagement;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using System.Collections;
 using System.Collections.Generic;
 
-var builder = WebApplication.CreateSlimBuilder(args);
+var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.TryAddKeyedScoped<IConfigRepository, ISMSConfigRepository>("smsRep");
+builder.Services.TryAddKeyedScoped<INotifyService, SMSService>("smsSev");
 builder.Services.AddScoped<SMS>();
-builder.Services.AddScoped<EMail>();
 
-builder.Services.AddKeyedScoped<IConfigRepository, ISMSConfigRepository>("smsRep");
-builder.Services.AddKeyedScoped<IConfigRepository, IEMailConfigRepository>("emailRep");
+builder.Services.TryAddKeyedSingleton<IConfigRepository, IEMailConfigRepository>("emailRep");
+builder.Services.TryAddKeyedSingleton<INotifyService, EMailService>("emailSev");
 
-builder.Services.AddKeyedScoped<INotifyService, EMailService>("emailSev");
-builder.Services.AddKeyedScoped<INotifyService, SMSService>("smsSev");
 var app = builder.Build();
 
-app.MapGet("/sms", ([FromServices]SMS sms, string message) => new { Result = sms.Notify(message), Messgae = message, Type = sms.GetType().Name });
-app.MapGet("/email", ([FromServices] EMail email, string message) => new { Result = email.Notify(message), Messgae = message, Type = email.GetType().Name });
+app.MapGet("/sms", (SMS sms, string message) =>
+{
+    return new { Result = sms.Notify(message), Messgae = message, Type = sms.GetType().Name };
+});
+app.MapGet("/email", (string message) =>
+{
+    var email = app.Services.GetRequiredKeyedService<INotifyService>("emailSev");
+    return new { Result = email.Notify(message), Messgae = message, Type = email.GetType().Name };
+});
 
-
-//app.MapGet("/sms", ([FromKeyedServices("smsSev")] INotifyService notifyService, string message) => new { Result = notifyService.Notify(message), Messgae = message, Type = notifyService.GetType().Name });
-//app.MapGet("/email", ([FromKeyedServices("smsSev")] INotifyService notifyService, string message) => new { Result = notifyService.Notify(message), Messgae = message, Type = notifyService.GetType().Name });
-
-
+//app.MapGet("/sms", ([FromServices] KeyedServiceConsumer keyedService, string message) =>
+//{
+//    return true;
+//    //return new { Result = keyedService["smsSev"].Notify(message), Messgae = message, Type = keyedService["smsSev"].GetType().Name };
+//});
+//app.MapGet("/sms", ([FromServices] IEnumerable<INotifyService> notifyServices, string message) =>
+//    {
+//        var notifyService = notifyServices.FirstOrDefault(x => x.GetType().Name == "SMSService");
+//        return new { Result = notifyService!.Notify(message), Messgae = message, Type = notifyService.GetType().Name };
+//    });
+//app.MapGet("/email", ([FromServices][FromKeyedServices("emailSev")] INotifyService notifyService, string message) => new { Result = notifyService.Notify(message), Messgae = message, Type = notifyService.GetType().Name });
 
 app.Run();
 
@@ -35,21 +49,30 @@ public class SMS([FromKeyedServices("smsSev")] INotifyService notifyService)
         return notifyService.Notify(message);
     }
 }
+//public class EMail([FromKeyedServices("emailSev")] INotifyService notifyService)
+//{
+//    public bool Notify(string message)
+//    {
+//        return notifyService.Notify(message);
+//    }
+//}
+//public class EMail(IServiceProvider keyedServiceProvider)
+//{
+//    public bool Notify(string message)
+//    {
+//        return keyedServiceProvider.GetRequiredKeyedService<INotifyService>("emailSev").Notify(message);
+//    }
+//}
 
-public class EMail([FromKeyedServices("emailSev")] INotifyService notifyService)
-{
-    public bool Notify(string message)
-    {
-        return notifyService.Notify(message);
-    }
-}
-
+//public class KeyedServiceConsumer(IKeyedServiceProvider keyedServiceProvider)
+//{
+//    //public INotifyService this[string key] => keyedServiceProvider.GetRequiredKeyedService<INotifyService>(key);
+//}
 
 public interface INotifyService
 {
     bool Notify(string message);
 }
-
 public class SMSService : INotifyService
 {
     private readonly Dictionary<string, dynamic> _configs;
