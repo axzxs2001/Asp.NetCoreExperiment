@@ -684,6 +684,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAPIDemo", "Asp.NetCoreEx
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APIKeysService", "Asp.NetCoreExperiment\MiniAPI\APIKeysService\APIKeysService.csproj", "{BA289D98-BFA6-4F5A-BA2C-64248A2ED5CB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LifecycleDemo", "Asp.NetCoreExperiment\MiniAPI\LifecycleDemo\LifecycleDemo.csproj", "{873C296B-730E-4DFE-BCF4-B336A080D7AF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -1746,6 +1748,10 @@ Global
 		{BA289D98-BFA6-4F5A-BA2C-64248A2ED5CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BA289D98-BFA6-4F5A-BA2C-64248A2ED5CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BA289D98-BFA6-4F5A-BA2C-64248A2ED5CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{873C296B-730E-4DFE-BCF4-B336A080D7AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{873C296B-730E-4DFE-BCF4-B336A080D7AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{873C296B-730E-4DFE-BCF4-B336A080D7AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{873C296B-730E-4DFE-BCF4-B336A080D7AF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -2026,6 +2032,7 @@ Global
 		{4E88F374-8726-40DB-AE81-7E82F155105E} = {10784A37-B511-47A9-B918-432CB55398ED}
 		{3AF2054C-0203-4CCA-A5BF-B6C02F2E7D6A} = {10784A37-B511-47A9-B918-432CB55398ED}
 		{BA289D98-BFA6-4F5A-BA2C-64248A2ED5CB} = {8A78305E-BFFF-4F09-BE2F-3BAB7088C3FE}
+		{873C296B-730E-4DFE-BCF4-B336A080D7AF} = {8A78305E-BFFF-4F09-BE2F-3BAB7088C3FE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
