@@ -668,7 +668,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PDFtoImage", "Asp.NetCoreEx
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "APIMetricDemo", "Asp.NetCoreExperiment\DOTNET8\APIMetricDemo\APIMetricDemo.csproj", "{BA4D31FA-EBC2-4695-845C-BEB2348FFDB6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WaitForm", "Asp.NetCoreExperiment\WinForm\WaitForm\WaitForm.csproj", "{70E17997-9C9B-410C-A701-9EB4F97DACA0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WaitForm", "Asp.NetCoreExperiment\WinForm\WaitForm\WaitForm.csproj", "{70E17997-9C9B-410C-A701-9EB4F97DACA0}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaiPai", "Asp.NetCoreExperiment\QuestPDF\TaiPai\TaiPai.csproj", "{54E1EF9F-1F6A-48B5-A4D0-171CE7F2AACF}"
 EndProject
@@ -676,11 +676,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WinFormHotKey", "Asp.NetCor
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WinFormsSignal", "Asp.NetCoreExperiment\WinForm\WinFormsSignal\WinFormsSignal.csproj", "{0A29A042-54BB-4877-B858-54D24ED63B91}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityDemo", "Asp.NetCoreExperiment\MiniAPI\IdentityDemo\IdentityDemo.csproj", "{F698AD05-CB87-47AE-8729-DB83704E71EF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityDemo", "Asp.NetCoreExperiment\MiniAPI\IdentityDemo\IdentityDemo.csproj", "{F698AD05-CB87-47AE-8729-DB83704E71EF}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AOTAPIDemo", "Asp.NetCoreExperiment\aot\AOTAPIDemo\AOTAPIDemo.csproj", "{4E88F374-8726-40DB-AE81-7E82F155105E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAPIDemo", "Asp.NetCoreExperiment\aot\WebAPIDemo\WebAPIDemo.csproj", "{3AF2054C-0203-4CCA-A5BF-B6C02F2E7D6A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APIKeysService", "Asp.NetCoreExperiment\MiniAPI\APIKeysService\APIKeysService.csproj", "{BA289D98-BFA6-4F5A-BA2C-64248A2ED5CB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -1740,6 +1742,10 @@ Global
 		{3AF2054C-0203-4CCA-A5BF-B6C02F2E7D6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3AF2054C-0203-4CCA-A5BF-B6C02F2E7D6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3AF2054C-0203-4CCA-A5BF-B6C02F2E7D6A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA289D98-BFA6-4F5A-BA2C-64248A2ED5CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA289D98-BFA6-4F5A-BA2C-64248A2ED5CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA289D98-BFA6-4F5A-BA2C-64248A2ED5CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA289D98-BFA6-4F5A-BA2C-64248A2ED5CB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -2019,6 +2025,7 @@ Global
 		{F698AD05-CB87-47AE-8729-DB83704E71EF} = {8A78305E-BFFF-4F09-BE2F-3BAB7088C3FE}
 		{4E88F374-8726-40DB-AE81-7E82F155105E} = {10784A37-B511-47A9-B918-432CB55398ED}
 		{3AF2054C-0203-4CCA-A5BF-B6C02F2E7D6A} = {10784A37-B511-47A9-B918-432CB55398ED}
+		{BA289D98-BFA6-4F5A-BA2C-64248A2ED5CB} = {8A78305E-BFFF-4F09-BE2F-3BAB7088C3FE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
