@@ -11,22 +11,22 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.TryAddKeyedScoped<IConfigRepository, ISMSConfigRepository>("smsRep");
 builder.Services.TryAddKeyedScoped<INotifyService, SMSService>("smsSev");
-builder.Services.AddScoped<SMS>();
+//builder.Services.AddScoped<SMS>();
 
 builder.Services.TryAddKeyedSingleton<IConfigRepository, IEMailConfigRepository>("emailRep");
 builder.Services.TryAddKeyedSingleton<INotifyService, EMailService>("emailSev");
 
 var app = builder.Build();
 
-app.MapGet("/sms", (SMS sms, string message) =>
-{
-    return new { Result = sms.Notify(message), Messgae = message, Type = sms.GetType().Name };
-});
-app.MapGet("/email", (string message) =>
-{
-    var email = app.Services.GetRequiredKeyedService<INotifyService>("emailSev");
-    return new { Result = email.Notify(message), Messgae = message, Type = email.GetType().Name };
-});
+//app.MapGet("/sms", (SMS sms, string message) =>
+//{
+//    return new { Result = sms.Notify(message), Messgae = message, Type = sms.GetType().Name };
+//});
+//app.MapGet("/email", (string message) =>
+//{
+//    var email = app.Services.GetRequiredKeyedService<INotifyService>("emailSev");
+//    return new { Result = email.Notify(message), Messgae = message, Type = email.GetType().Name };
+//});
 
 //app.MapGet("/sms", ([FromServices] KeyedServiceConsumer keyedService, string message) =>
 //{
@@ -38,17 +38,28 @@ app.MapGet("/email", (string message) =>
 //        var notifyService = notifyServices.FirstOrDefault(x => x.GetType().Name == "SMSService");
 //        return new { Result = notifyService!.Notify(message), Messgae = message, Type = notifyService.GetType().Name };
 //    });
-//app.MapGet("/email", ([FromServices][FromKeyedServices("emailSev")] INotifyService notifyService, string message) => new { Result = notifyService.Notify(message), Messgae = message, Type = notifyService.GetType().Name });
+app.MapGet("/email", ([FromKeyedServices("emailSev")] INotifyService notifyService, string message="") => new
+{
+    Result = notifyService.Notify(message),
+    Messgae = message,
+    Type = notifyService.GetType().Name
+});
+app.MapGet("/sms", ([FromKeyedServices("smsSev")] INotifyService notifyService, string message="") => new
+{
+    Result = notifyService.Notify(message),
+    Messgae = message,
+    Type = notifyService.GetType().Name
+});
 
 app.Run();
 
-public class SMS([FromKeyedServices("smsSev")] INotifyService notifyService)
-{
-    public bool Notify(string message)
-    {
-        return notifyService.Notify(message);
-    }
-}
+//public class SMS([FromKeyedServices("smsSev")] INotifyService notifyService)
+//{
+//    public bool Notify(string message)
+//    {
+//        return notifyService.Notify(message);
+//    }
+//}
 //public class EMail([FromKeyedServices("emailSev")] INotifyService notifyService)
 //{
 //    public bool Notify(string message)
