@@ -686,7 +686,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "APIKeysService", "Asp.NetCo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LifecycleDemo", "Asp.NetCoreExperiment\MiniAPI\LifecycleDemo\LifecycleDemo.csproj", "{873C296B-730E-4DFE-BCF4-B336A080D7AF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APIKeysService2", "Asp.NetCoreExperiment\MiniAPI\APIKeysService2\APIKeysService2.csproj", "{DD385106-D184-40FE-8150-988E79707BD5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "APIKeysService2", "Asp.NetCoreExperiment\MiniAPI\APIKeysService2\APIKeysService2.csproj", "{DD385106-D184-40FE-8150-988E79707BD5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqliteDemo", "Asp.NetCoreExperiment\CSharp\SqliteDemo\SqliteDemo.csproj", "{C538B1BA-5494-4DF5-9638-3E6AB93A9BA1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -1758,6 +1760,10 @@ Global
 		{DD385106-D184-40FE-8150-988E79707BD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DD385106-D184-40FE-8150-988E79707BD5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DD385106-D184-40FE-8150-988E79707BD5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C538B1BA-5494-4DF5-9638-3E6AB93A9BA1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C538B1BA-5494-4DF5-9638-3E6AB93A9BA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C538B1BA-5494-4DF5-9638-3E6AB93A9BA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C538B1BA-5494-4DF5-9638-3E6AB93A9BA1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -2040,6 +2046,7 @@ Global
 		{BA289D98-BFA6-4F5A-BA2C-64248A2ED5CB} = {8A78305E-BFFF-4F09-BE2F-3BAB7088C3FE}
 		{873C296B-730E-4DFE-BCF4-B336A080D7AF} = {8A78305E-BFFF-4F09-BE2F-3BAB7088C3FE}
 		{DD385106-D184-40FE-8150-988E79707BD5} = {8A78305E-BFFF-4F09-BE2F-3BAB7088C3FE}
+		{C538B1BA-5494-4DF5-9638-3E6AB93A9BA1} = {0C2286BE-F1F4-4E52-A9FA-1EF056CD9159}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
