@@ -4,7 +4,7 @@ using Microsoft.Data.Sqlite;
 using System.Buffers;
 using System.Data;
 
-var sql = "select * from drugGoods where (goodsCode like @value1||'%' or goodsName like '%'|| @value1||'%' or logogram like '%'||@value1||'%' ) and goodsCode is not null";
+var sql = "select * from drugGoods where (goodsCode like @value1||'%' or goodsName like '%'|| @value1||'%' or logogram like '%'||@value1||'%' )";
 var data = GetData(sql, new Dictionary<string, dynamic> { { "value1", ""} });
 
 
