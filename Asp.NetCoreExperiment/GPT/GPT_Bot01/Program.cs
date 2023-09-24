@@ -1,7 +1,8 @@
 ﻿
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.Connectors.Memory.Sqlite;
-using Microsoft.SemanticKernel.CoreSkills;
+using Microsoft.SemanticKernel.Skills.Core;
+using Microsoft.SemanticKernel.Skills;
 using Microsoft.SemanticKernel.Memory;
 using System.Threading.Tasks;
 
@@ -40,8 +41,9 @@ static async Task Bot1(string key, string store, IKernel kernel)
         Console.WriteLine("请输入问题：");
         var ask = Console.ReadLine();
         var facts = kernel.Memory.SearchAsync(MemoryCollectionName, ask, limit: 10, withEmbeddings: true);
-        var fact= facts.ToBlockingEnumerable().FirstOrDefault();  
+        var fact= facts.ToBlockingEnumerable().FirstOrDefault();
         //var fact = await facts.FirstOrDefaultAsync();
+        
         context["fact"] = fact?.Metadata?.Text!;
         context["ask"] = ask;
         var resultContext = await semanticFunction.InvokeAsync(context);
@@ -49,25 +51,25 @@ static async Task Bot1(string key, string store, IKernel kernel)
     }
 }
 
-static async Task Bot2(string key, string store, IKernel kernel)
-{
+//static async Task Bot2(string key, string store, IKernel kernel)
+//{
 
-    kernel.ImportSkill(new TextMemorySkill());
-    var prompt = """
-    给出答案或者不知道答案时说“非常抱歉，我没有找到你要的问题！”
-    对话中的关于桂素伟的信息:
-    {{ recall $ask }}
-    用户: {{ $ask }}
-    机器人:
-    """;
-    var semanticFunction = kernel.CreateSemanticFunction(prompt, temperature: 0.7, topP: 0.5);
-    var context = kernel.CreateNewContext();
-    context[TextMemorySkill.CollectionParam] = MemoryCollectionName;
-    while (true)
-    {
-        Console.WriteLine("请输入问题：");
-        context["ask"] = Console.ReadLine();
-        var resultContext = await semanticFunction.InvokeAsync(context);
-        Console.WriteLine($"Bot:{resultContext.Result}");
-    }
-}
+//    kernel.ImportSkill(new TextMemorySkill());
+//    var prompt = """
+//    给出答案或者不知道答案时说“非常抱歉，我没有找到你要的问题！”
+//    对话中的关于桂素伟的信息:
+//    {{ recall $ask }}
+//    用户: {{ $ask }}
+//    机器人:
+//    """;
+//    var semanticFunction = kernel.CreateSemanticFunction(prompt, temperature: 0.7, topP: 0.5);
+//    var context = kernel.CreateNewContext();
+//    context[TextMemorySkill.CollectionParam] = MemoryCollectionName;
+//    while (true)
+//    {
+//        Console.WriteLine("请输入问题：");
+//        context["ask"] = Console.ReadLine();
+//        var resultContext = await semanticFunction.InvokeAsync(context);
+//        Console.WriteLine($"Bot:{resultContext.Result}");
+//    }
+//}
