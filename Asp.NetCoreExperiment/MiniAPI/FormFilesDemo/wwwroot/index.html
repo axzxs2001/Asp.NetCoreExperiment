@@ -1,0 +1,18 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>文件上传表单</title>
+</head>
+<body>
+    <h2>上传文件</h2>
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <label for="name">名称：</label><input type="text" name="name" /><br><br>
+        <label for="description">描述：</label><textarea row="3" name="description"></textarea> <br><br>
+        <label for="file">文件：</label>
+        <!--<input type="file" name="Document" id="file" accept=".jpg, .png, .pdf">-->
+        <input type="file" name="documents" id="files" multiple accept=".jpg, .png, .pdf">
+        <br><br>
+        <input type="submit" name="submit" value="上传">
+    </form>
+</body>
+</html>
