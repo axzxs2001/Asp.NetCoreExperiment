@@ -692,7 +692,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqliteDemo", "Asp.NetCoreEx
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReflactfVsExtern", "Asp.NetCoreExperiment\CSharp\ReflactfVsExtern\ReflactfVsExtern.csproj", "{4D986839-A50C-4343-9EDA-F0E08B633943}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FormFilesDemo", "Asp.NetCoreExperiment\MiniAPI\FormFilesDemo\FormFilesDemo.csproj", "{9AEF9B8E-7916-431B-9CBE-F9279FCFFB1B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FormFilesDemo", "Asp.NetCoreExperiment\MiniAPI\FormFilesDemo\FormFilesDemo.csproj", "{9AEF9B8E-7916-431B-9CBE-F9279FCFFB1B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HandleNull", "Asp.NetCoreExperiment\CSharp\HandleNull\HandleNull.csproj", "{9234729B-DEA6-4298-BDF5-CAA748BBD156}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "recordORclass", "Asp.NetCoreExperiment\CSharp\recordORclass\recordORclass.csproj", "{47F35365-F00C-4EA1-B275-5F5DA2F370EF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -1776,6 +1780,14 @@ Global
 		{9AEF9B8E-7916-431B-9CBE-F9279FCFFB1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9AEF9B8E-7916-431B-9CBE-F9279FCFFB1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9AEF9B8E-7916-431B-9CBE-F9279FCFFB1B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9234729B-DEA6-4298-BDF5-CAA748BBD156}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9234729B-DEA6-4298-BDF5-CAA748BBD156}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9234729B-DEA6-4298-BDF5-CAA748BBD156}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9234729B-DEA6-4298-BDF5-CAA748BBD156}.Release|Any CPU.Build.0 = Release|Any CPU
+		{47F35365-F00C-4EA1-B275-5F5DA2F370EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{47F35365-F00C-4EA1-B275-5F5DA2F370EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{47F35365-F00C-4EA1-B275-5F5DA2F370EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{47F35365-F00C-4EA1-B275-5F5DA2F370EF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -2061,6 +2073,8 @@ Global
 		{C538B1BA-5494-4DF5-9638-3E6AB93A9BA1} = {0C2286BE-F1F4-4E52-A9FA-1EF056CD9159}
 		{4D986839-A50C-4343-9EDA-F0E08B633943} = {0C2286BE-F1F4-4E52-A9FA-1EF056CD9159}
 		{9AEF9B8E-7916-431B-9CBE-F9279FCFFB1B} = {8A78305E-BFFF-4F09-BE2F-3BAB7088C3FE}
+		{9234729B-DEA6-4298-BDF5-CAA748BBD156} = {0C2286BE-F1F4-4E52-A9FA-1EF056CD9159}
+		{47F35365-F00C-4EA1-B275-5F5DA2F370EF} = {0C2286BE-F1F4-4E52-A9FA-1EF056CD9159}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
