@@ -698,6 +698,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HandleNull", "Asp.NetCoreEx
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "recordORclass", "Asp.NetCoreExperiment\CSharp\recordORclass\recordORclass.csproj", "{47F35365-F00C-4EA1-B275-5F5DA2F370EF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompatibleDemo", "Asp.NetCoreExperiment\DOTNET8\CompatibleDemo\CompatibleDemo.csproj", "{48B3DA98-5719-422B-8D48-00397E848884}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -1788,6 +1790,10 @@ Global
 		{47F35365-F00C-4EA1-B275-5F5DA2F370EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{47F35365-F00C-4EA1-B275-5F5DA2F370EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{47F35365-F00C-4EA1-B275-5F5DA2F370EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{48B3DA98-5719-422B-8D48-00397E848884}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48B3DA98-5719-422B-8D48-00397E848884}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48B3DA98-5719-422B-8D48-00397E848884}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48B3DA98-5719-422B-8D48-00397E848884}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -2075,6 +2081,7 @@ Global
 		{9AEF9B8E-7916-431B-9CBE-F9279FCFFB1B} = {8A78305E-BFFF-4F09-BE2F-3BAB7088C3FE}
 		{9234729B-DEA6-4298-BDF5-CAA748BBD156} = {0C2286BE-F1F4-4E52-A9FA-1EF056CD9159}
 		{47F35365-F00C-4EA1-B275-5F5DA2F370EF} = {0C2286BE-F1F4-4E52-A9FA-1EF056CD9159}
+		{48B3DA98-5719-422B-8D48-00397E848884} = {19F3B3A9-5F42-4CC0-A96B-2D166D530856}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
