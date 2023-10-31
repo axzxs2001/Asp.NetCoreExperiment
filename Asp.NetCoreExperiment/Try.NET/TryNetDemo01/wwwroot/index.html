@@ -6,12 +6,38 @@
 </head>
 <body>
     <h2>Fibonacci Generator</h2>
-
-    <iframe src="https://try.dot.net?fromGist=8fb74f3197923ce3153071fe1e7e2215">
-
-        
+    <input onclick="run()" type="button" value="run code" />
+    <iframe id="example-iframe" src="/test">
     </iframe>
-  
+
     <script src="https://gist.github.com/axzxs2001/8fb74f3197923ce3153071fe1e7e2215.js"></script>
+    <script>
+        function run() {
+            setCode();
+           // runCode();
+        }
+        function runCode() {
+            postMessageToEditor({ type: "run" });
+        }
+        function setCode() {
+            postMessageToEditor({
+                type: "setWorkspace",
+                workspace: {
+                    workspaceType: "console",
+                    buffers: [{
+                        id: "Program.cs",
+                        content: "using System;\n\npublic class Program\n{\n    public static void Main()\n    {\n        Console.WriteLine(\"Hello World!\");\n    }\n}"
+                    }]
+                },
+                bufferId: "Program.cs"
+            });
+        }
+
+        function postMessageToEditor(message) {
+            console.log(document.getElementById('example-iframe').contentWindow)
+            console.log(message)
+            document.getElementById('example-iframe').contentWindow.postMessage(message,"http://127.0.0.1:8080/test");
+        }
+    </script>
 </body>
 </html>
