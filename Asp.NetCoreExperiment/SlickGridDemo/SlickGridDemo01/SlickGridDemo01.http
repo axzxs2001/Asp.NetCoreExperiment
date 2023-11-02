@@ -1,0 +1,6 @@
+@SlickGridDemo01_HostAddress = http://localhost:5288
+
+GET {{SlickGridDemo01_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
