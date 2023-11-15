@@ -1,0 +1,6 @@
+@AspireDemo01_HostAddress = http://localhost:5223
+
+GET {{AspireDemo01_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

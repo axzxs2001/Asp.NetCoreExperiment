@@ -722,7 +722,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AOTDemo01_dotnet8", "Asp.Ne
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AOTDemo02_dotnet8", "Asp.NetCoreExperiment\aot\AOTDemo02_dotnet8\AOTDemo02_dotnet8.csproj", "{7277629C-B8AB-401A-BD7E-D33D44DFF778}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AOTDemo03_dotnet8", "Asp.NetCoreExperiment\aot\AOTDemo03_dotnet8\AOTDemo03_dotnet8.csproj", "{FFBE2BD1-8839-428B-B7CA-8D7F88604409}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AOTDemo03_dotnet8", "Asp.NetCoreExperiment\aot\AOTDemo03_dotnet8\AOTDemo03_dotnet8.csproj", "{FFBE2BD1-8839-428B-B7CA-8D7F88604409}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Aspire", "Aspire", "{BE4888EC-30BC-43EE-A49D-15E861D6D4B3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspireDemo01", "Asp.NetCoreExperiment\Aspire\AspireDemo01\AspireDemo01.csproj", "{2B7411EF-4481-4C5E-B6EB-29D539F99ED6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -1858,6 +1862,10 @@ Global
 		{FFBE2BD1-8839-428B-B7CA-8D7F88604409}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FFBE2BD1-8839-428B-B7CA-8D7F88604409}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FFBE2BD1-8839-428B-B7CA-8D7F88604409}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B7411EF-4481-4C5E-B6EB-29D539F99ED6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B7411EF-4481-4C5E-B6EB-29D539F99ED6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B7411EF-4481-4C5E-B6EB-29D539F99ED6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B7411EF-4481-4C5E-B6EB-29D539F99ED6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -2156,6 +2164,7 @@ Global
 		{2672893B-6530-4F09-AA54-41A38201CD8B} = {10784A37-B511-47A9-B918-432CB55398ED}
 		{7277629C-B8AB-401A-BD7E-D33D44DFF778} = {10784A37-B511-47A9-B918-432CB55398ED}
 		{FFBE2BD1-8839-428B-B7CA-8D7F88604409} = {10784A37-B511-47A9-B918-432CB55398ED}
+		{2B7411EF-4481-4C5E-B6EB-29D539F99ED6} = {BE4888EC-30BC-43EE-A49D-15E861D6D4B3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
