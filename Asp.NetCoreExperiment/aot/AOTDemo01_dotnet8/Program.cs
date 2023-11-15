@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -29,9 +29,7 @@ builder.Services
 })
 .AddSingleton<IAuthorizationHandler, PermissionHandler>()
 .AddAuthentication(options =>
-{
-    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+{  
 }
 ).AddJwtBearer(opt =>
 {
@@ -90,9 +88,6 @@ app.MapGet("/login", () =>
             )
         );
 });
-#endregion
-
-#region 策略
 
 app.MapGet("/policy", (ClaimsPrincipal user) => $"Hello 用户：{user.Identity?.Name}, 角色：{user.Claims?.Where(s => s.Type == ClaimTypes.Role).First().Value}. This is a policy!").RequireAuthorization("Permission");
 #endregion
@@ -115,6 +110,7 @@ internal partial class AppJsonSerializerContext : JsonSerializerContext
 public class PermissionRequirement : IAuthorizationRequirement
 {
 }
+
 public class Permission
 {
     public string? RoleName { get; set; }
