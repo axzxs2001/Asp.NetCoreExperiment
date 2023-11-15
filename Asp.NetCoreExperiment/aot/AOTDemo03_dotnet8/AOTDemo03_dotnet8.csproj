@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+	<TargetFramework>net8.0</TargetFramework>
+	<Nullable>enable</Nullable>
+	<ImplicitUsings>enable</ImplicitUsings>
+	<InvariantGlobalization>true</InvariantGlobalization>
+	<PublishAot>true</PublishAot>
+  </PropertyGroup>
+	<ItemGroup>
+		<Reference Include="C:\MyFile\Source\Repos\Asp.NetCoreExperiment\Asp.NetCoreExperiment\aot\AOTDemo03_dotnet8\Microsoft.AspNetCore.dll">
+		  <Private>True</Private>
+		</Reference>
+	</ItemGroup>
+	<ItemGroup>
+	  <None Update="Microsoft.AspNetCore.dll">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	</ItemGroup>
+</Project>
