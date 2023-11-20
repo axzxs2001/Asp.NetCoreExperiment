@@ -1,5 +1,6 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows.Input;
 
 namespace WinFormBindDemo
 {
@@ -12,8 +13,14 @@ namespace WinFormBindDemo
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            var order = new Person();
-
+            var order = new Person()
+            {
+                FirstName = "¹ð",
+                LastName = "ËØÎ°"
+            };
+            DataContext = order;
+            textBox1.DataBindings.Add(new Binding(nameof(textBox1.Text), DataContext, nameof(order.FirstName), true, DataSourceUpdateMode.OnPropertyChanged));
+            textBox2.DataBindings.Add(new Binding(nameof(textBox2.Text), DataContext, nameof(order.FirstName), true, DataSourceUpdateMode.OnPropertyChanged));
         }
     }
 
@@ -37,12 +44,7 @@ namespace WinFormBindDemo
                 {
                     return;
                 }
-
                 _lastName = value;
-
-                // Notify the UI that the property has changed.
-                // Using CallerMemberName at the call site will automatically fill in
-                // the name of the property that changed.
                 OnPropertyChanged();
             }
         }
@@ -61,6 +63,20 @@ namespace WinFormBindDemo
                 _firstName = value;
                 OnPropertyChanged();
             }
+        }
+
+        public ICommand ButCommand { get; set; }
+        public Person()
+        {
+            ButCommand = new DelegateCommand(() =>
+            {
+                TodoList.Add(Task);
+
+                Task = string.Empty;
+
+                OnAddCommand?.RaiseCanExecuteChanged();
+                OnDeleteCommand?.RaiseCanExecuteChanged();
+            }, () => Task?.Length > 0);
         }
 
         private void OnPropertyChanged([CallerMemberName] string propertyName = "")
