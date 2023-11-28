@@ -1,7 +1,10 @@
-using Dapper;
 using Microsoft.Data.Sqlite;
 using System;
 using System.Data;
+using System.Data.Common;
+using System.Reflection;
+using System.Reflection.Metadata;
+using System.Reflection.PortableExecutable;
 using System.Text.Json.Serialization;
 
 
@@ -13,109 +16,91 @@ builder.Services.ConfigureHttpJsonOptions(options =>
 });
 
 var app = builder.Build();
-
-var sampleTodos = new Todo[] {
-    new(1, "Walk the dog"),
-    new(2, "Do the dishes", DateOnly.FromDateTime(DateTime.Now)),
-    new(3, "Do the laundry", DateOnly.FromDateTime(DateTime.Now.AddDays(1))),
-    new(4, "Clean the bathroom"),
-    new(5, "Clean the car", DateOnly.FromDateTime(DateTime.Now.AddDays(2)))
-};
-
 var todosApi = app.MapGroup("/todos");
-todosApi.MapGet("/", (ITODOService service) =>
-{ 
-    return service.GetTodos();
+todosApi.MapGet("/", async (ITODOService service) =>
+{
+    return await service.GetTodos();
 });
-todosApi.MapGet("/{id}", (int id) =>
-    sampleTodos.FirstOrDefault(a => a.Id == id) is { } todo
-        ? Results.Ok(todo)
-        : Results.NotFound());
+todosApi.MapPost("/", async (ITODOService service, Todo todo) =>
+{
+    return await service.AddTodo(todo);
+});
 
 app.Run();
 
-public record Todo(int Id, string? Title, DateOnly? DueBy = null, bool IsComplete = false);
+
+public class Todo
+{
+    public long Id { get; set; }
+    public string? Title { get; set; }
+    public DateTime DueBy { get; set; }
+    public bool IsComplete { get; set; }
+}
 
 [JsonSerializable(typeof(Todo[]))]
 [JsonSerializable(typeof(Todo))]
-
 internal partial class AppJsonSerializerContext : JsonSerializerContext
 {
-
 }
-
 interface ITODOService
 {
-    Todo[] GetTodos();
-    Todo[] GetTodos1();
+    Task<Todo[]> GetTodos();
+    Task<bool> AddTodo(Todo todo);
 }
 
 
 class TODOService : ITODOService
 {
-
-
-    public Todo[] GetTodos1()
+    public async Task<Todo[]> GetTodos()
     {
         using (var connection = new SqliteConnection($"Data Source={Directory.GetCurrentDirectory()}/todo.db"))
         {
-            connection.Open();
-            var command = connection.CreateCommand();
-            command.CommandText = @"select * from todos";
-            using (var reader = command.ExecuteReader())
-            {
-                var table = new DataTable();
-                table.Load(reader);
-                var todos = new List<Todo>();
-
-                foreach (DataRow row in table.Rows)
-                {
-                    var todo = new Todo(default(int), null, null, false);
-                    foreach (DataColumn col in table.Columns)
-                    {
-                    }
-                }
-                table.Rows[0].ItemArray[0].ToString();
-                return todos.ToArray();               
-            }
+            return (await QueryAsync(connection, "select * from todos")).ToArray();
         }
     }
-
-
-    public Todo[] GetTodos()
+    public async Task<bool> AddTodo(Todo todo)
     {
         using (var connection = new SqliteConnection($"Data Source={Directory.GetCurrentDirectory()}/todo.db"))
         {
-            connection.Open();
-            var command = connection.CreateCommand();
-            command.CommandText = @"select * from todos";
-            using (var reader = command.ExecuteReader())
-            {
-                var todos = new List<Todo>();
-                while (reader.Read())
-                {
-                    var name = reader.GetString(0);
-                    todos.Add(new Todo(
-                     GetValue<Int32>(reader.GetValue("Id")),
-                     reader.GetValue("Title").ToString(),
-                     GetValue<DateOnly>(reader.GetValue("DueBy")),
-                     GetValue<bool>(reader.GetValue("IsComplete"))
-                     ));
-                }
-                return todos.ToArray();
-            }
+            var sql = "insert into todos(Title,DueBy,IsComplete) values(@Title,@DueBy,@IsComplete)";
+            var result = await ExecuteAsync(connection, sql, todo);
+            return result > 0;
         }
     }
-
-    T GetValue<T>(object value) where T : struct, IParsable<T>
+    async Task<Todo[]> QueryAsync(SqliteConnection connection, string sql)
     {
-        if (value == null)
+        await connection.OpenAsync();
+        var command = connection.CreateCommand();
+        command.CommandText = sql;
+        using (var reader = await command.ExecuteReaderAsync())
         {
-            return default;
+            var todos = new List<Todo>();
+            while (await reader.ReadAsync())
+            {
+                var todo = Activator.CreateInstance(typeof(Todo));
+                foreach (var pro in typeof(Todo).GetProperties())
+                {
+                    Console.WriteLine("有了有了有了");
+                    var value = Convert.ChangeType(reader.GetValue(pro.Name), pro.PropertyType);
+                    pro.SetValue(todo, value);
+                }
+                todos.Add((Todo)todo!);
+            }
+            return todos.ToArray();
         }
-        else
+    }
+    async Task<int> ExecuteAsync(SqliteConnection connection, string sql, Todo todo)
+    {
+        await connection.OpenAsync();
+        var command = connection.CreateCommand();
+        command.CommandText = sql;
+
+        foreach (var pro in todo.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance))
         {
-            return T.Parse(value!.ToString()!, null);
+            command.Parameters.AddWithValue($"@{pro.Name}", pro.GetValue(todo));
         }
+        return await command.ExecuteNonQueryAsync();
     }
 }
+
+
