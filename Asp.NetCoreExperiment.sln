@@ -736,7 +736,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskAPI", "Asp.NetCoreExper
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestDemo01", "Asp.NetCoreExperiment\TaskDemo\TestDemo01\TestDemo01.csproj", "{45F23C2F-06D7-43AD-9DFB-204DEE758AE1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AOTDemo03_dapper", "Asp.NetCoreExperiment\aot\AOTDemo03_dapper\AOTDemo03_dapper.csproj", "{12BB8F5F-C610-447F-9DFF-8AF0434004E4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AOTDemo03_dapper", "Asp.NetCoreExperiment\aot\AOTDemo03_dapper\AOTDemo03_dapper.csproj", "{12BB8F5F-C610-447F-9DFF-8AF0434004E4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AOTDemo04_docker", "Asp.NetCoreExperiment\aot\AOTDemo04_docker\AOTDemo04_docker.csproj", "{95663DD8-D074-423C-9356-FE4AAAFBC755}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -1892,6 +1894,10 @@ Global
 		{12BB8F5F-C610-447F-9DFF-8AF0434004E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{12BB8F5F-C610-447F-9DFF-8AF0434004E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{12BB8F5F-C610-447F-9DFF-8AF0434004E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{95663DD8-D074-423C-9356-FE4AAAFBC755}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95663DD8-D074-423C-9356-FE4AAAFBC755}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95663DD8-D074-423C-9356-FE4AAAFBC755}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95663DD8-D074-423C-9356-FE4AAAFBC755}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -2195,6 +2201,7 @@ Global
 		{91789DA7-5CF6-4B79-B771-03479E206218} = {DA44C1BA-06CC-4CFE-A531-591C82DDEC30}
 		{45F23C2F-06D7-43AD-9DFB-204DEE758AE1} = {DA44C1BA-06CC-4CFE-A531-591C82DDEC30}
 		{12BB8F5F-C610-447F-9DFF-8AF0434004E4} = {10784A37-B511-47A9-B918-432CB55398ED}
+		{95663DD8-D074-423C-9356-FE4AAAFBC755} = {10784A37-B511-47A9-B918-432CB55398ED}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}

@@ -11,13 +11,4 @@
 	<ItemGroup>
 		<PackageReference Include="Microsoft.Data.Sqlite" Version="8.0.0" />
 	</ItemGroup>
-
-
-	<ItemGroup>
-		<RuntimeHostConfigurationOption Include="Switch.System.Reflection.Disabled.DoNotThrowForNames" Value="true" />
-		<RuntimeHostConfigurationOption Include="Switch.System.Reflection.Disabled.DoNotThrowForAssembly" Value="true" />
-		<RuntimeHostConfigurationOption Include="Switch.System.Reflection.Disabled.DoNotThrowForAttributes" Value="true" />
-		<RuntimeHostConfigurationOption Include="Switch.System.Reflection.Assembly.SimulatedCallingAssembly" Value="true" />
-		
-	</ItemGroup>
 </Project>

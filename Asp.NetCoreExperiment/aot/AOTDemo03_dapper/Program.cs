@@ -25,7 +25,11 @@ todosApi.MapPost("/", async (ITODOService service, Todo todo) =>
 {
     return await service.AddTodo(todo);
 });
-
+var itemApi = app.MapGroup("/item");
+itemApi.MapGet("/{**path}", async (HttpContext context) =>
+{
+    Console.WriteLine(context.Request.Path);
+});
 app.Run();
 
 
@@ -80,7 +84,6 @@ class TODOService : ITODOService
                 var todo = Activator.CreateInstance(typeof(Todo));
                 foreach (var pro in typeof(Todo).GetProperties())
                 {
-                    Console.WriteLine("有了有了有了");
                     var value = Convert.ChangeType(reader.GetValue(pro.Name), pro.PropertyType);
                     pro.SetValue(todo, value);
                 }
@@ -95,7 +98,7 @@ class TODOService : ITODOService
         var command = connection.CreateCommand();
         command.CommandText = sql;
 
-        foreach (var pro in todo.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance))
+        foreach (var pro in typeof(Todo).GetProperties())
         {
             command.Parameters.AddWithValue($"@{pro.Name}", pro.GetValue(todo));
         }
