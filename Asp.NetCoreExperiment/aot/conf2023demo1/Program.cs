@@ -1,4 +1,5 @@
 using Microsoft.Extensions.Logging;
+using System.Reflection;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateSlimBuilder(args);
@@ -12,18 +13,13 @@ var app = builder.Build();
 
 
 var todosApi = app.MapGroup("/todos");
-todosApi.MapGet("/pro1", () =>
+todosApi.MapGet("/", () =>
 {
-    var v = typeof(Todo).GetMembers();
-    app.Logger.LogInformation(typeof(Todo).GUID.ToString());
+    typeof(Todo).GetMembers();
     return GetPros(new Todo());
 
 });
-todosApi.MapGet("/pro2", () =>
-{
-    // return typeof(Todo).GetProperties().Select(x => x.Name).ToArray();
 
-});
 string[] GetPros<T>(T t)
 {
     return typeof(T).GetProperties().Select(x => x.Name).ToArray();
