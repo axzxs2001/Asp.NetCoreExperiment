@@ -1,0 +1,11 @@
+@conf2023demo1_HostAddress = http://localhost:5000
+
+GET {{conf2023demo1_HostAddress}}/todos/pro1
+Accept: application/json
+
+###
+
+GET {{conf2023demo1_HostAddress}}/todos/pro2
+Accept: application/json
+
+###
