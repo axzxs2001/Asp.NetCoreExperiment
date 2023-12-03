@@ -1,5 +1,6 @@
 using Microsoft.Extensions.Logging;
 using System.Reflection;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateSlimBuilder(args);
@@ -21,13 +22,8 @@ string[] GetPros<T>(T t)
 }
 app.Run();
 
-
 public class Todo
 {
-    static Todo()
-    {
-        typeof(Todo).GetMembers();
-    }
     public int Id { get; set; }
     public string? Title { get; set; }
     public DateOnly? DueBy { get; set; } = null;
@@ -37,4 +33,10 @@ public class Todo
 [JsonSerializable(typeof(string[]))]
 internal partial class AppJsonSerializerContext : JsonSerializerContext
 {
+    public override int GetHashCode()
+    {
+        typeof(Todo).GetMembers();
+        return base.GetHashCode();
+    }
 }
+

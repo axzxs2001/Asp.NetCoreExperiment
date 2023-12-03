@@ -636,7 +636,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GPT_Demo02_Ext", "Asp.NetCo
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CustomLogger", "CustomLogger", "{6FA00EF3-1580-4CF2-8E4F-196652CF94B3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomLoogerDemo", "Asp.NetCoreExperiment\CustomLogger\CustomLoogerDemo\CustomLoogerDemo.csproj", "{62C46F0E-CB51-402E-8E4C-2C6DC7075EA2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomLoogerDemo", "Asp.NetCoreExperiment\CustomLogger\CustomLoogerDemo\CustomLoogerDemo.csproj", "{62C46F0E-CB51-402E-8E4C-2C6DC7075EA2}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WinForm_GPTDemo", "Asp.NetCoreExperiment\GPT\WinForm_GPTDemo\WinForm_GPTDemo.csproj", "{839EF26C-CB53-46A2-A9D9-1DF3067E6FDD}"
 EndProject
@@ -676,7 +676,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WinFormHotKey", "Asp.NetCor
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WinFormsSignal", "Asp.NetCoreExperiment\WinForm\WinFormsSignal\WinFormsSignal.csproj", "{0A29A042-54BB-4877-B858-54D24ED63B91}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityDemo", "Asp.NetCoreExperiment\MiniAPI\IdentityDemo\IdentityDemo.csproj", "{F698AD05-CB87-47AE-8729-DB83704E71EF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityDemo", "Asp.NetCoreExperiment\MiniAPI\IdentityDemo\IdentityDemo.csproj", "{F698AD05-CB87-47AE-8729-DB83704E71EF}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AOTAPIDemo", "Asp.NetCoreExperiment\aot\AOTAPIDemo\AOTAPIDemo.csproj", "{4E88F374-8726-40DB-AE81-7E82F155105E}"
 EndProject
@@ -684,11 +684,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAPIDemo", "Asp.NetCoreEx
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "APIKeysService", "Asp.NetCoreExperiment\MiniAPI\APIKeysService\APIKeysService.csproj", "{BA289D98-BFA6-4F5A-BA2C-64248A2ED5CB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LifecycleDemo", "Asp.NetCoreExperiment\MiniAPI\LifecycleDemo\LifecycleDemo.csproj", "{873C296B-730E-4DFE-BCF4-B336A080D7AF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LifecycleDemo", "Asp.NetCoreExperiment\MiniAPI\LifecycleDemo\LifecycleDemo.csproj", "{873C296B-730E-4DFE-BCF4-B336A080D7AF}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "APIKeysService2", "Asp.NetCoreExperiment\MiniAPI\APIKeysService2\APIKeysService2.csproj", "{DD385106-D184-40FE-8150-988E79707BD5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqliteDemo", "Asp.NetCoreExperiment\CSharp\SqliteDemo\SqliteDemo.csproj", "{C538B1BA-5494-4DF5-9638-3E6AB93A9BA1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SqliteDemo", "Asp.NetCoreExperiment\CSharp\SqliteDemo\SqliteDemo.csproj", "{C538B1BA-5494-4DF5-9638-3E6AB93A9BA1}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReflactfVsExtern", "Asp.NetCoreExperiment\CSharp\ReflactfVsExtern\ReflactfVsExtern.csproj", "{4D986839-A50C-4343-9EDA-F0E08B633943}"
 EndProject
@@ -732,15 +732,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BindDemo", "Asp.NetCoreExpe
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TaskDemo", "TaskDemo", "{DA44C1BA-06CC-4CFE-A531-591C82DDEC30}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskAPI", "Asp.NetCoreExperiment\TaskDemo\TaskAPI\TaskAPI.csproj", "{91789DA7-5CF6-4B79-B771-03479E206218}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskAPI", "Asp.NetCoreExperiment\TaskDemo\TaskAPI\TaskAPI.csproj", "{91789DA7-5CF6-4B79-B771-03479E206218}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestDemo01", "Asp.NetCoreExperiment\TaskDemo\TestDemo01\TestDemo01.csproj", "{45F23C2F-06D7-43AD-9DFB-204DEE758AE1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestDemo01", "Asp.NetCoreExperiment\TaskDemo\TestDemo01\TestDemo01.csproj", "{45F23C2F-06D7-43AD-9DFB-204DEE758AE1}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AOTDemo03_dapper", "Asp.NetCoreExperiment\aot\AOTDemo03_dapper\AOTDemo03_dapper.csproj", "{12BB8F5F-C610-447F-9DFF-8AF0434004E4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AOTDemo04_docker", "Asp.NetCoreExperiment\aot\AOTDemo04_docker\AOTDemo04_docker.csproj", "{95663DD8-D074-423C-9356-FE4AAAFBC755}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AOTDemo04_docker", "Asp.NetCoreExperiment\aot\AOTDemo04_docker\AOTDemo04_docker.csproj", "{95663DD8-D074-423C-9356-FE4AAAFBC755}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "conf2023demo1", "Asp.NetCoreExperiment\aot\conf2023demo1\conf2023demo1.csproj", "{C227452D-BC1E-46C2-8FB7-C64D295F7A04}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "conf2023demo1", "Asp.NetCoreExperiment\aot\conf2023demo1\conf2023demo1.csproj", "{C227452D-BC1E-46C2-8FB7-C64D295F7A04}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "conf2023demo2", "Asp.NetCoreExperiment\aot\conf2023demo2\conf2023demo2.csproj", "{03B16191-88E4-40AD-B63C-1AA1E47124EE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -1904,6 +1906,10 @@ Global
 		{C227452D-BC1E-46C2-8FB7-C64D295F7A04}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C227452D-BC1E-46C2-8FB7-C64D295F7A04}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C227452D-BC1E-46C2-8FB7-C64D295F7A04}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03B16191-88E4-40AD-B63C-1AA1E47124EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03B16191-88E4-40AD-B63C-1AA1E47124EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03B16191-88E4-40AD-B63C-1AA1E47124EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03B16191-88E4-40AD-B63C-1AA1E47124EE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -2209,6 +2215,7 @@ Global
 		{12BB8F5F-C610-447F-9DFF-8AF0434004E4} = {10784A37-B511-47A9-B918-432CB55398ED}
 		{95663DD8-D074-423C-9356-FE4AAAFBC755} = {10784A37-B511-47A9-B918-432CB55398ED}
 		{C227452D-BC1E-46C2-8FB7-C64D295F7A04} = {10784A37-B511-47A9-B918-432CB55398ED}
+		{03B16191-88E4-40AD-B63C-1AA1E47124EE} = {10784A37-B511-47A9-B918-432CB55398ED}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
