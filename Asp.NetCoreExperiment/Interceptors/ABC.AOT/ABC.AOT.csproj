@@ -1,19 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<OutputType>Exe</OutputType>
 		<TargetFramework>net8.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
-		<LangVersion>preview</LangVersion>
-	</PropertyGroup>
-	<PropertyGroup>
 		<InterceptorsPreviewNamespaces>$(InterceptorsPreviewNamespaces);ABC.AOT</InterceptorsPreviewNamespaces>
-		<PlatformTarget>x64</PlatformTarget>
-
 	</PropertyGroup>
+
 	<ItemGroup>
-	  <ProjectReference Include="..\ABC.AOT\ABC.AOT.csproj" />
-	  <ProjectReference Include="..\ABC\ABC.csproj" />
+	  <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="3.8.0" />
 	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\ABC\ABC.csproj" />
+	</ItemGroup>
+
 </Project>
