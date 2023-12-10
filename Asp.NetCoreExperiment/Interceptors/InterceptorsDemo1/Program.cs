@@ -6,6 +6,8 @@ using System.Runtime.CompilerServices;
 var myClass = new ABC.AOT.MyClass();
 myClass.Print("参数");
 
+var myClass1 = new ABC.MyClass();
+myClass1.Print("参数");
 
 
 Console.ReadLine();

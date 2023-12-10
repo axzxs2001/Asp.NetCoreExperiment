@@ -4,7 +4,7 @@
 		<TargetFramework>net8.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
-		<InterceptorsPreviewNamespaces>$(InterceptorsPreviewNamespaces);ABC.AOT</InterceptorsPreviewNamespaces>
+		<InterceptorsPreviewNamespaces>$(InterceptorsPreviewNamespaces);ABC</InterceptorsPreviewNamespaces>
 	</PropertyGroup>
 
 	<ItemGroup>

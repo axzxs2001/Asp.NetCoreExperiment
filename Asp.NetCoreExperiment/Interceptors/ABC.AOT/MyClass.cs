@@ -15,7 +15,7 @@ namespace ABC.AOT
     }
 }
 
-namespace ABC.AOT
+namespace ABC
 {
     public static class MyClassIntercepts
     {
@@ -31,7 +31,7 @@ namespace ABC.AOT
 namespace System.Runtime.CompilerServices
 {
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = true)]
-    internal sealed class InterceptsLocationAttribute(string filePath, int line, int column) : Attribute
+    public sealed class InterceptsLocationAttribute(string filePath, int line, int column) : Attribute
     {
     }
 }
