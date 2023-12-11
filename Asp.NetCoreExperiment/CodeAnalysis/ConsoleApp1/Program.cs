@@ -2,3 +2,8 @@
 Console.WriteLine("Hello, World!");
 
 Console.ReadLine();
+
+class abc
+{
+
+}
