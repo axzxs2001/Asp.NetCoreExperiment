@@ -19,7 +19,7 @@ namespace ABC
 {
     public static class MyClassIntercepts
     {
-        [InterceptsLocation("C:\\MyFile\\Asp.NetCoreExperiment\\Asp.NetCoreExperiment\\Interceptors\\ABC.AOT\\MyClass.cs", 13, 18)]
+        [InterceptsLocation("C:\\MyFile\\Source\\Repos\\Asp.NetCoreExperiment\\Asp.NetCoreExperiment\\Interceptors\\ABC.AOT\\MyClass.cs", 13, 18)]
         public static void InterceptorPrint(this ABC.MyClass myclass, string s)
         {
             Console.WriteLine($"ABC.AOT下 MyClass.InterceptorPrint 拦截 ABC下MyClass.Print方法，参数是：{s}");
