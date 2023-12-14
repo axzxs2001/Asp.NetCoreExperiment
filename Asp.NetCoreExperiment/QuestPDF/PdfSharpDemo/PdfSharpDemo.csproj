@@ -11,4 +11,10 @@
     <PackageReference Include="PDFsharp" Version="6.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="TakaoGothic.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

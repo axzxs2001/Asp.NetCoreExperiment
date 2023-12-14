@@ -18,12 +18,14 @@ namespace PdfSharpExample
         }
         static void PDFWriter()
         {
-            GlobalFontSettings.FontResolver = new SegoeWpFontResolver();
-            var font = new XFont("segoe wp light", 10);
+            GlobalFontSettings.FontResolver = new CustomFontResolver();
+
+            //var font = new XFont("TakaoGothic.ttf", 10);
+            var font = new XFont("TakaoGothic", 10);
             var pen = new XPen(XColors.Black, 0.5);
             using var document = new PdfDocument();
             using var filestream = new System.IO.FileStream("output.pdf", System.IO.FileMode.OpenOrCreate, System.IO.FileAccess.ReadWrite);
-            var pageCount = 5000;
+            var pageCount = 50;
             for (var c = 0; c < pageCount; c++)
             {
                 var page = document.AddPage(new PdfPage { Width = new XUnit(1100) });
@@ -53,7 +55,7 @@ namespace PdfSharpExample
                 {
                     for (int j = 0; j < columns; j++)
                     {
-                        gfx.DrawString($"Cell  {c} {i + 1}-{j + 1}", font, XBrushes.Black, new XRect(startX + j * columnWidth, startY + i * rowHeight, columnWidth, rowHeight), XStringFormats.Center);
+                        gfx.DrawString($"お金の流れ{c} {i + 1}-{j + 1}", font, XBrushes.Black, new XRect(startX + j * columnWidth, startY + i * rowHeight, columnWidth, rowHeight), XStringFormats.Center);
                     }
                 }
                 gfx.DrawString($"{c + 1}/{pageCount}页", font, XBrushes.Black, new XRect(startX + columns, startY + rows * rowHeight, columnWidth, rowHeight), XStringFormats.Center);
@@ -64,4 +66,35 @@ namespace PdfSharpExample
             document.Dispose();
         }
     }
+
+
+
+public class CustomFontResolver : IFontResolver
+    {
+        public string DefaultFontName => "TakaoGothic";
+
+        public byte[] GetFont(string faceName)
+        {
+            if (faceName == "TakaoGothic")
+            {
+                // 替换为你的字体文件路径
+                return File.ReadAllBytes(@"TakaoGothic.ttf");
+            }
+
+            // 返回默认字体，如果没有找到指定字体
+            return null;
+        }
+
+        public FontResolverInfo ResolveTypeface(string familyName, bool isBold, bool isItalic)
+        {
+            if (familyName.Equals("TakaoGothic", StringComparison.InvariantCultureIgnoreCase))
+            {
+                return new FontResolverInfo("TakaoGothic");
+            }
+
+            // 返回默认字体
+            return new FontResolverInfo(DefaultFontName);
+        }
+    }
+
 }
