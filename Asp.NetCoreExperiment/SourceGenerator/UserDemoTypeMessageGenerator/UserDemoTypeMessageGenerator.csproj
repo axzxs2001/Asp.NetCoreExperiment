@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<OutputType>Exe</OutputType>
@@ -11,5 +11,10 @@
 	<ItemGroup>
 		<ProjectReference Include="..\TypeMessageGenerator\TypeMessageGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
 	</ItemGroup>
-
+	<ItemGroup>
+  		<None Remove="type.txt" />
+	</ItemGroup>
+	<ItemGroup>
+  		<EmbeddedResource Include="type.txt" />
+	</ItemGroup>
 </Project>
