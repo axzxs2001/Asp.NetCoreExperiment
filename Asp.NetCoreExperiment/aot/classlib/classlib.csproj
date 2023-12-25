@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>Library</OutputType>
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<LangVersion>12</LangVersion>
+		<Nullable>enable</Nullable>
+		<RuntimeIdentifiers>win-x64</RuntimeIdentifiers>
+		<PublishAot>true</PublishAot>
+	</PropertyGroup>
+
+
+	<ItemGroup>
+	  <PackageReference Include="Microsoft.DotNet.ILCompiler" Version="8.0.0" />
+	</ItemGroup>
+
+</Project>
