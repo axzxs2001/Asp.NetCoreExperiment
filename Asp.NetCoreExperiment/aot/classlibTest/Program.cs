@@ -4,21 +4,23 @@ using System.Runtime.InteropServices;
 using System.Text;
 
 Console.WriteLine(MyClass.int_add(1, 2));
+
 Console.WriteLine(MyClass.string_add("abcd", "efg"));
 
-var resultArray = new nint[6];
-var resultPtr = MyClass.get_strings();
+var resultPtr = MyClass.get_doubles();
+var Items = new double[2];
+for (int j = 0; j < 2; j++)
+{
+    Items[j] = Marshal.PtrToStructure<double>(resultPtr + j * Marshal.SizeOf<double>());
+    Console.WriteLine(Items[j]);
+}
 
-//for (int i = 0; i < 3; i++)
-//{
-//    var value = Marshal.ReadIntPtr(resultPtr + i);
-//    Console.WriteLine(Marshal.PtrToStringBSTR(value));
-//}
-//Marshal.Copy(resultPtr, resultArray, 0, resultArray.Length);
-//foreach (var i in resultArray)
-//{
-//    Console.WriteLine(Marshal.PtrToStringUTF8(i));
-//}
+var sum = MyClass.set_doubles(new double[] { 5.6, 6.7 }, 2);
+Console.WriteLine(sum);
+
+
+Console.ReadLine();
+
 
 public class MyClass
 {
@@ -31,5 +33,8 @@ public class MyClass
 
 
     [DllImport("classlib.dll")] // 指定DLL文件名
-    public static extern IntPtr get_strings();
+    public static extern IntPtr get_doubles();
+
+    [DllImport("classlib.dll")] // 指定DLL文件名
+    public static extern double set_doubles(double[] arr, int length);
 }

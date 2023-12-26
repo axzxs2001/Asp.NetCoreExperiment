@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
 
@@ -21,12 +22,21 @@ namespace classlib
             return Marshal.StringToCoTaskMemUTF8(s);
         }
 
-        [UnmanagedCallersOnly(EntryPoint = "get_strings")]
+        [UnmanagedCallersOnly(EntryPoint = "get_doubles")]
         public static IntPtr StringTest()
         {
-            var arr = new string[] { "a", "b", "c" }; 
-          
-            return Marshal.UnsafeAddrOfPinnedArrayElement(arr, 0);         
+            return Marshal.UnsafeAddrOfPinnedArrayElement(new double[] { 1.1, 1.2 }, 0);
+        }
+
+        [UnmanagedCallersOnly(EntryPoint = "set_doubles", CallConvs = new[] { typeof(CallConvCdecl) })]
+        public static double SetAll(IntPtr InItems, int InItemsLength)
+        {
+            var sum = 0d;
+            for (int i = 0; i < InItemsLength; i++)
+            {
+                sum += Marshal.PtrToStructure<double>(InItems + i * Marshal.SizeOf<double>());
+            }
+            return sum;
         }
     }
 }
