@@ -3,7 +3,7 @@ using Microsoft.SemanticKernel;
 
 
 var key = File.ReadAllText(@"C:\GPT\key.txt");
-const string ImageUri = "https://github.com/axzxs2001/Asp.NetCoreExperiment/blob/master/Asp.NetCoreExperiment/SemanticKernel/GPTVision/a.jpg";
+const string ImageUri = "https://github.com/axzxs2001/Asp.NetCoreExperiment/blob/master/Asp.NetCoreExperiment/SemanticKernel/GPTVision/a.png";
 
 var kernel = Kernel.CreateBuilder()
     .AddOpenAIChatCompletion("gpt-4-vision-preview", key)
