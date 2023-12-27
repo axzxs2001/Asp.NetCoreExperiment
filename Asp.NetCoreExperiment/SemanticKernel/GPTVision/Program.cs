@@ -1,33 +1,62 @@
 ﻿using Microsoft.SemanticKernel.ChatCompletion;
 using Microsoft.SemanticKernel;
+using Microsoft.SemanticKernel.Connectors.OpenAI;
 
 
 var key = File.ReadAllText(@"C:\GPT\key.txt");
-const string ImageUri = "https://github.com/axzxs2001/Asp.NetCoreExperiment/blob/master/Asp.NetCoreExperiment/SemanticKernel/GPTVision/a.png";
+const string ImageUri = "https://github.com/axzxs2001/Asp.NetCoreExperiment/blob/master/Asp.NetCoreExperiment/SemanticKernel/GPTVision/a.png?raw=true";
 
 var kernel = Kernel.CreateBuilder()
     .AddOpenAIChatCompletion("gpt-4-vision-preview", key)
     .Build();
 
-var chatCompletionService = kernel.GetRequiredService<IChatCompletionService>();
+var chatGPT = kernel.GetRequiredService<IChatCompletionService>();
 
 var chatHistory = new ChatHistory("You are a friendly assistant.");
 
 chatHistory.AddUserMessage(new ChatMessageContentItemCollection
         {
-            new TextContent("这个图片中有什么"),
+            new TextContent("这个图片展示什么？请精简单回答。"),
             new ImageContent(new Uri(ImageUri))
         });
 
-var reply = await chatCompletionService.GetChatMessageContentAsync(chatHistory);
-var list = chatCompletionService.GetStreamingChatMessageContentsAsync(chatHistory);
+var reply = await chatGPT.GetChatMessageContentAsync(chatHistory, new OpenAIPromptExecutionSettings() { MaxTokens = 1000 });
+Console.WriteLine(reply.Content);
 
-await foreach (var item in list)
+while (true)
 {
-    Console.Write($"{item.Content}");
+    Console.WriteLine("您输入问题：");
+    chatHistory.AddUserMessage(Console.ReadLine());
+    reply = await chatGPT.GetChatMessageContentAsync(chatHistory, new OpenAIPromptExecutionSettings() { MaxTokens = 1000 });
+    chatHistory.Add(reply);
+    await MessageStreamOutputAsync(chatGPT, chatHistory);
+    Console.WriteLine();
 }
 
-//
-//Console.WriteLine(reply.Content);
+
 
 Console.ReadKey();
+
+static async Task MessageStreamOutputAsync(IChatCompletionService chatGPT, ChatHistory chatHistory)
+{
+    var first = true;
+    AuthorRole? role = AuthorRole.Assistant;
+    var fullMessage = string.Empty;
+    var list = chatGPT.GetStreamingChatMessageContentsAsync(chatHistory, new OpenAIPromptExecutionSettings() { MaxTokens = 1000 });
+    await foreach (var item in list)
+    {
+        if (item == null)
+        {
+            continue;
+        }
+        if (first)
+        {
+            role = item.Role;
+            first = false;
+            Console.Write($"{role}：");
+        }
+        fullMessage += item.Content;
+        Console.Write($"{item.Content}");
+    }
+    chatHistory.AddMessage(role.Value, fullMessage);
+}
