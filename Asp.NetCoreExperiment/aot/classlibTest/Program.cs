@@ -18,7 +18,9 @@ for (int j = 0; j < 2; j++)
 var sum = MyClass.set_doubles(new double[] { 5.6, 6.7 }, 2);
 Console.WriteLine(sum);
 
-
+var orderP = MyClass.get_order();
+var order = Marshal.PtrToStructure<Order>(orderP);
+Console.WriteLine(order);
 Console.ReadLine();
 
 
@@ -37,4 +39,18 @@ public class MyClass
 
     [DllImport("classlib.dll")] // 指定DLL文件名
     public static extern double set_doubles(double[] arr, int length);
+
+
+    [DllImport("classlib.dll")] // 指定DLL文件名
+    public static extern IntPtr get_order();
+}
+
+public struct Order
+{
+    public int ID { get; set; }
+    public string Name { get; set; }
+    public override string ToString()
+    {
+        return $"Order  ID:{ID},Name:{Name}";
+    }
 }

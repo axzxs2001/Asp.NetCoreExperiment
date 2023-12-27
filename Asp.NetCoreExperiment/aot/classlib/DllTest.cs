@@ -38,6 +38,21 @@ namespace classlib
             }
             return sum;
         }
+
+        [UnmanagedCallersOnly(EntryPoint = "get_order")]
+        public static IntPtr get_order()
+        {
+            var order = new Order { ID = 1, Name = "订单1" };
+            IntPtr structPtr = Marshal.AllocHGlobal(Marshal.SizeOf(order));
+            Marshal.StructureToPtr(order, structPtr, false);
+            return structPtr;
+        }
+
+    }
+    public struct Order
+    {
+        public int ID { get; set; }
+        public string Name { get; set; }
     }
 }
 
