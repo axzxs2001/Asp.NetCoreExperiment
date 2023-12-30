@@ -756,15 +756,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CodeAnalysis", "CodeAnalysi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleApp1", "Asp.NetCoreExperiment\CodeAnalysis\ConsoleApp1\ConsoleApp1.csproj", "{7736E7A6-A622-4885-B0F5-A6580B0449D0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Analyzer1", "Asp.NetCoreExperiment\CodeAnalysis\Analyzer1\Analyzer1\Analyzer1.csproj", "{5D098183-272C-4D96-A712-0311CB076359}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Analyzer1", "Asp.NetCoreExperiment\CodeAnalysis\Analyzer1\Analyzer1\Analyzer1.csproj", "{5D098183-272C-4D96-A712-0311CB076359}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Analyzer1.CodeFixes", "Asp.NetCoreExperiment\CodeAnalysis\Analyzer1\Analyzer1.CodeFixes\Analyzer1.CodeFixes.csproj", "{F1687CFE-C561-4455-A652-2432E850A98C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Analyzer1.CodeFixes", "Asp.NetCoreExperiment\CodeAnalysis\Analyzer1\Analyzer1.CodeFixes\Analyzer1.CodeFixes.csproj", "{F1687CFE-C561-4455-A652-2432E850A98C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Analyzer1.Package", "Asp.NetCoreExperiment\CodeAnalysis\Analyzer1\Analyzer1.Package\Analyzer1.Package.csproj", "{4C27256E-4770-40A6-8957-122C525D702D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Analyzer1.Package", "Asp.NetCoreExperiment\CodeAnalysis\Analyzer1\Analyzer1.Package\Analyzer1.Package.csproj", "{4C27256E-4770-40A6-8957-122C525D702D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Analyzer1.Test", "Asp.NetCoreExperiment\CodeAnalysis\Analyzer1\Analyzer1.Test\Analyzer1.Test.csproj", "{0047E5D3-D070-41DC-A34A-C77D64D5D0B5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Analyzer1.Test", "Asp.NetCoreExperiment\CodeAnalysis\Analyzer1\Analyzer1.Test\Analyzer1.Test.csproj", "{0047E5D3-D070-41DC-A34A-C77D64D5D0B5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Analyzer1.Vsix", "Asp.NetCoreExperiment\CodeAnalysis\Analyzer1\Analyzer1.Vsix\Analyzer1.Vsix.csproj", "{E4992FFC-466B-415C-95DF-9EE22D6E2086}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Analyzer1.Vsix", "Asp.NetCoreExperiment\CodeAnalysis\Analyzer1\Analyzer1.Vsix\Analyzer1.Vsix.csproj", "{E4992FFC-466B-415C-95DF-9EE22D6E2086}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TypeMessageGenerator", "Asp.NetCoreExperiment\SourceGenerator\TypeMessageGenerator\TypeMessageGenerator.csproj", "{D666EC8B-901B-48C2-A28C-06FD94024143}"
 EndProject
@@ -772,13 +772,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserDemoTypeMessageGenerato
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InterceptorsDemo", "Asp.NetCoreExperiment\Interceptors\InterceptorsDemo\InterceptorsDemo.csproj", "{308C250C-5D5B-4A20-B471-6B8D678B723C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsposePDFDemo", "Asp.NetCoreExperiment\QuestPDF\AsposePDFDemo\AsposePDFDemo.csproj", "{C32DA8FD-04F1-45C9-9047-CF477D5A4B53}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AsposePDFDemo", "Asp.NetCoreExperiment\QuestPDF\AsposePDFDemo\AsposePDFDemo.csproj", "{C32DA8FD-04F1-45C9-9047-CF477D5A4B53}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuestPDFStream", "Asp.NetCoreExperiment\QuestPDF\QuestPDFStream\QuestPDFStream.csproj", "{40877E4B-16FA-4893-8537-2E8C89B93DC6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuestPDFStream", "Asp.NetCoreExperiment\QuestPDF\QuestPDFStream\QuestPDFStream.csproj", "{40877E4B-16FA-4893-8537-2E8C89B93DC6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PdfSharpDemo", "Asp.NetCoreExperiment\QuestPDF\PdfSharpDemo\PdfSharpDemo.csproj", "{118A6C78-00A8-4B85-8DFF-5B78E802F58A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PdfSharpDemo", "Asp.NetCoreExperiment\QuestPDF\PdfSharpDemo\PdfSharpDemo.csproj", "{118A6C78-00A8-4B85-8DFF-5B78E802F58A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PdfPigDemo", "Asp.NetCoreExperiment\QuestPDF\PdfPigDemo\PdfPigDemo.csproj", "{E506E6FE-C9CB-4A85-9727-D8604B6ECA66}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PdfPigDemo", "Asp.NetCoreExperiment\QuestPDF\PdfPigDemo\PdfPigDemo.csproj", "{E506E6FE-C9CB-4A85-9727-D8604B6ECA66}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TypeMemberGenerator", "Asp.NetCoreExperiment\SourceGenerator\TypeMemberGenerator\TypeMemberGenerator.csproj", "{A96C757C-B727-4705-AC8C-94361B5DF327}"
 EndProject
@@ -786,7 +786,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReflectionGenerator", "Asp.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "classlib", "Asp.NetCoreExperiment\aot\classlib\classlib.csproj", "{8403FF7A-EB4B-46CE-A2C8-B5055FAED648}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "classlibTest", "Asp.NetCoreExperiment\aot\classlibTest\classlibTest.csproj", "{65B92017-666B-4FD5-9C1F-F2AF581C2670}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "classlibTest", "Asp.NetCoreExperiment\aot\classlibTest\classlibTest.csproj", "{65B92017-666B-4FD5-9C1F-F2AF581C2670}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SemanticKernel", "SemanticKernel", "{645151F0-78B2-4F12-B95D-34FD387F37A8}"
 EndProject
@@ -795,6 +795,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatGPT", "Asp.NetCoreExperiment\SemanticKernel\ChatGPT\ChatGPT.csproj", "{4CF490FE-C6C5-42EC-9037-D3B970A885AF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GPTVision", "Asp.NetCoreExperiment\SemanticKernel\GPTVision\GPTVision.csproj", "{C3F0F923-03EE-45FA-ACED-3FA46EF1ACE2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SourceGeneratorDemo01", "Asp.NetCoreExperiment\SourceGenerator\SourceGeneratorDemo01\SourceGeneratorDemo01.csproj", "{53782EE0-DF23-401C-8E75-814067C5B5B9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -3402,6 +3404,18 @@ Global
 		{C3F0F923-03EE-45FA-ACED-3FA46EF1ACE2}.Release|arm64.Build.0 = Release|Any CPU
 		{C3F0F923-03EE-45FA-ACED-3FA46EF1ACE2}.Release|x86.ActiveCfg = Release|Any CPU
 		{C3F0F923-03EE-45FA-ACED-3FA46EF1ACE2}.Release|x86.Build.0 = Release|Any CPU
+		{53782EE0-DF23-401C-8E75-814067C5B5B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53782EE0-DF23-401C-8E75-814067C5B5B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53782EE0-DF23-401C-8E75-814067C5B5B9}.Debug|arm64.ActiveCfg = Debug|Any CPU
+		{53782EE0-DF23-401C-8E75-814067C5B5B9}.Debug|arm64.Build.0 = Debug|Any CPU
+		{53782EE0-DF23-401C-8E75-814067C5B5B9}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{53782EE0-DF23-401C-8E75-814067C5B5B9}.Debug|x86.Build.0 = Debug|Any CPU
+		{53782EE0-DF23-401C-8E75-814067C5B5B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53782EE0-DF23-401C-8E75-814067C5B5B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53782EE0-DF23-401C-8E75-814067C5B5B9}.Release|arm64.ActiveCfg = Release|Any CPU
+		{53782EE0-DF23-401C-8E75-814067C5B5B9}.Release|arm64.Build.0 = Release|Any CPU
+		{53782EE0-DF23-401C-8E75-814067C5B5B9}.Release|x86.ActiveCfg = Release|Any CPU
+		{53782EE0-DF23-401C-8E75-814067C5B5B9}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -3731,6 +3745,7 @@ Global
 		{86198C02-D326-4D76-87E7-033D3A00DCE8} = {645151F0-78B2-4F12-B95D-34FD387F37A8}
 		{4CF490FE-C6C5-42EC-9037-D3B970A885AF} = {645151F0-78B2-4F12-B95D-34FD387F37A8}
 		{C3F0F923-03EE-45FA-ACED-3FA46EF1ACE2} = {645151F0-78B2-4F12-B95D-34FD387F37A8}
+		{53782EE0-DF23-401C-8E75-814067C5B5B9} = {F7BCE713-D368-49EF-BEBD-6904EC23DB66}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
