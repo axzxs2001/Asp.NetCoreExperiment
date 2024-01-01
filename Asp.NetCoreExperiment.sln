@@ -796,11 +796,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatGPT", "Asp.NetCoreExper
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GPTVision", "Asp.NetCoreExperiment\SemanticKernel\GPTVision\GPTVision.csproj", "{C3F0F923-03EE-45FA-ACED-3FA46EF1ACE2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SourceGeneratorDemo01", "Asp.NetCoreExperiment\SourceGenerator\SourceGeneratorDemo01\SourceGeneratorDemo01.csproj", "{53782EE0-DF23-401C-8E75-814067C5B5B9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SourceGeneratorDemo01", "Asp.NetCoreExperiment\SourceGenerator\SourceGeneratorDemo01\SourceGeneratorDemo01.csproj", "{53782EE0-DF23-401C-8E75-814067C5B5B9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SourceGeneratorDemo02", "Asp.NetCoreExperiment\SourceGenerator\SourceGeneratorDemo02\SourceGeneratorDemo02.csproj", "{154C230D-2132-4464-AA25-35100D719CC2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SourceGeneratorDemo02", "Asp.NetCoreExperiment\SourceGenerator\SourceGeneratorDemo02\SourceGeneratorDemo02.csproj", "{154C230D-2132-4464-AA25-35100D719CC2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SourceGeneratorDemo03", "Asp.NetCoreExperiment\SourceGenerator\SourceGeneratorDemo03\SourceGeneratorDemo03.csproj", "{701934A5-D5B6-4188-AA1D-441E6D0BF760}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SourceGeneratorDemo03", "Asp.NetCoreExperiment\SourceGenerator\SourceGeneratorDemo03\SourceGeneratorDemo03.csproj", "{701934A5-D5B6-4188-AA1D-441E6D0BF760}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DapperAOTGenerator", "Asp.NetCoreExperiment\SourceGenerator\DapperAOTGenerator\DapperAOTGenerator.csproj", "{2FA55EA5-3A3E-424D-AC19-C9D8A71D2CA4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DapperAOTAPITest", "Asp.NetCoreExperiment\SourceGenerator\DapperAOTAPITest\DapperAOTAPITest.csproj", "{3D5064B8-263F-44A3-A780-99528DB21A5D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -3444,6 +3448,30 @@ Global
 		{701934A5-D5B6-4188-AA1D-441E6D0BF760}.Release|arm64.Build.0 = Release|Any CPU
 		{701934A5-D5B6-4188-AA1D-441E6D0BF760}.Release|x86.ActiveCfg = Release|Any CPU
 		{701934A5-D5B6-4188-AA1D-441E6D0BF760}.Release|x86.Build.0 = Release|Any CPU
+		{2FA55EA5-3A3E-424D-AC19-C9D8A71D2CA4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2FA55EA5-3A3E-424D-AC19-C9D8A71D2CA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2FA55EA5-3A3E-424D-AC19-C9D8A71D2CA4}.Debug|arm64.ActiveCfg = Debug|Any CPU
+		{2FA55EA5-3A3E-424D-AC19-C9D8A71D2CA4}.Debug|arm64.Build.0 = Debug|Any CPU
+		{2FA55EA5-3A3E-424D-AC19-C9D8A71D2CA4}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{2FA55EA5-3A3E-424D-AC19-C9D8A71D2CA4}.Debug|x86.Build.0 = Debug|Any CPU
+		{2FA55EA5-3A3E-424D-AC19-C9D8A71D2CA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2FA55EA5-3A3E-424D-AC19-C9D8A71D2CA4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2FA55EA5-3A3E-424D-AC19-C9D8A71D2CA4}.Release|arm64.ActiveCfg = Release|Any CPU
+		{2FA55EA5-3A3E-424D-AC19-C9D8A71D2CA4}.Release|arm64.Build.0 = Release|Any CPU
+		{2FA55EA5-3A3E-424D-AC19-C9D8A71D2CA4}.Release|x86.ActiveCfg = Release|Any CPU
+		{2FA55EA5-3A3E-424D-AC19-C9D8A71D2CA4}.Release|x86.Build.0 = Release|Any CPU
+		{3D5064B8-263F-44A3-A780-99528DB21A5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D5064B8-263F-44A3-A780-99528DB21A5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D5064B8-263F-44A3-A780-99528DB21A5D}.Debug|arm64.ActiveCfg = Debug|Any CPU
+		{3D5064B8-263F-44A3-A780-99528DB21A5D}.Debug|arm64.Build.0 = Debug|Any CPU
+		{3D5064B8-263F-44A3-A780-99528DB21A5D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{3D5064B8-263F-44A3-A780-99528DB21A5D}.Debug|x86.Build.0 = Debug|Any CPU
+		{3D5064B8-263F-44A3-A780-99528DB21A5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D5064B8-263F-44A3-A780-99528DB21A5D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D5064B8-263F-44A3-A780-99528DB21A5D}.Release|arm64.ActiveCfg = Release|Any CPU
+		{3D5064B8-263F-44A3-A780-99528DB21A5D}.Release|arm64.Build.0 = Release|Any CPU
+		{3D5064B8-263F-44A3-A780-99528DB21A5D}.Release|x86.ActiveCfg = Release|Any CPU
+		{3D5064B8-263F-44A3-A780-99528DB21A5D}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -3776,6 +3804,8 @@ Global
 		{53782EE0-DF23-401C-8E75-814067C5B5B9} = {F7BCE713-D368-49EF-BEBD-6904EC23DB66}
 		{154C230D-2132-4464-AA25-35100D719CC2} = {F7BCE713-D368-49EF-BEBD-6904EC23DB66}
 		{701934A5-D5B6-4188-AA1D-441E6D0BF760} = {F7BCE713-D368-49EF-BEBD-6904EC23DB66}
+		{2FA55EA5-3A3E-424D-AC19-C9D8A71D2CA4} = {F7BCE713-D368-49EF-BEBD-6904EC23DB66}
+		{3D5064B8-263F-44A3-A780-99528DB21A5D} = {F7BCE713-D368-49EF-BEBD-6904EC23DB66}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}

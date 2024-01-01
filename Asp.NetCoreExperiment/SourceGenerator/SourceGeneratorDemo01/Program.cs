@@ -2,7 +2,7 @@
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
-F2();
+F1();
 
 
 void F1()
@@ -22,6 +22,7 @@ namespace HelloWorld
         static void Main(string[] args)
         {
             Console.WriteLine(""Hello, World!"");
+            var line=Console.ReadLine();
         }
     }
 }";
@@ -67,6 +68,35 @@ namespace HelloWorld
 
     Console.WriteLine(argsParameter == argsParameter2);
 
+
+    Console.WriteLine("-----------------------");
+    Console.WriteLine(mainDeclaration.Body.OpenBraceToken.ValueText);
+
+    foreach (var item in mainDeclaration.Body.Statements)
+    {
+        if (item is ExpressionStatementSyntax expressionStatementSyntax)
+        {
+            Console.WriteLine(expressionStatementSyntax.Expression);
+
+            var compilation = CSharpCompilation.Create("t", new[] { tree });
+            var s = compilation.GetSemanticModel(tree);
+
+
+        }
+        else if (item is LocalDeclarationStatementSyntax localDeclarationStatementSyntax)
+        {
+            Console.WriteLine(localDeclarationStatementSyntax.Declaration);
+        }
+        else
+        {
+            Console.WriteLine(item.GetType().Name);
+        }
+
+        Console.WriteLine(item.ToFullString());
+    }
+
+
+    Console.WriteLine(mainDeclaration.Body.CloseBraceToken.ValueText);
 }
 
 void F2()
