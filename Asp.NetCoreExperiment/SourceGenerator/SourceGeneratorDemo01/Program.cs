@@ -1,6 +1,7 @@
 ﻿using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using System.ComponentModel.DataAnnotations;
 
 F1();
 
@@ -76,10 +77,34 @@ namespace HelloWorld
     {
         if (item is ExpressionStatementSyntax expressionStatementSyntax)
         {
-            Console.WriteLine(expressionStatementSyntax.Expression);
+            // Console.WriteLine(expressionStatementSyntax.Expression);
 
-            var compilation = CSharpCompilation.Create("t", new[] { tree });
-            var s = compilation.GetSemanticModel(tree);
+            if (expressionStatementSyntax.Expression is InvocationExpressionSyntax invocationExpressionSyntax)
+            {
+                Console.WriteLine("参数：");
+                foreach (var par in invocationExpressionSyntax.ArgumentList.Arguments)
+                {
+                    Console.WriteLine(par.GetText());
+                }
+
+                //Console.WriteLine(invocationExpressionSyntax.Expression);
+                if (invocationExpressionSyntax.Expression is MemberAccessExpressionSyntax memberAccessExpressionSyntax)
+                {
+                    //Console.WriteLine(memberAccessExpressionSyntax.Expression);
+                    Console.WriteLine(memberAccessExpressionSyntax.Expression.GetType().Name);
+                    if (memberAccessExpressionSyntax.Expression is IdentifierNameSyntax identifierNameSyntax)
+                    {
+                        Console.WriteLine(identifierNameSyntax.Identifier.GetType().Name);
+                        Console.WriteLine(identifierNameSyntax.Identifier.ValueText);
+                    }
+                    if (memberAccessExpressionSyntax.Name is IdentifierNameSyntax identifierNameSyntax1)
+                    {
+                        Console.WriteLine(identifierNameSyntax1.Identifier.GetType().Name);
+                        Console.WriteLine(identifierNameSyntax1.Identifier.ValueText);
+                    }
+
+                }
+            }
 
 
         }
