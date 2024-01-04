@@ -83,14 +83,16 @@ namespace HelloWorld
             {
                 Console.WriteLine("参数：");
                 foreach (var par in invocationExpressionSyntax.ArgumentList.Arguments)
-                {
-                    Console.WriteLine(par.GetText());
+                {               
+                    if (par.Expression is LiteralExpressionSyntax literalExpressionSyntax)
+                    {
+                        Console.WriteLine(literalExpressionSyntax.Kind());
+                        Console.WriteLine(literalExpressionSyntax.Token.Value);
+                    }
                 }
-
-                //Console.WriteLine(invocationExpressionSyntax.Expression);
+               
                 if (invocationExpressionSyntax.Expression is MemberAccessExpressionSyntax memberAccessExpressionSyntax)
-                {
-                    //Console.WriteLine(memberAccessExpressionSyntax.Expression);
+                {            
                     Console.WriteLine(memberAccessExpressionSyntax.Expression.GetType().Name);
                     if (memberAccessExpressionSyntax.Expression is IdentifierNameSyntax identifierNameSyntax)
                     {
