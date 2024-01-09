@@ -1,8 +1,9 @@
 ﻿using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using System.ComponentModel.DataAnnotations;
 
-F2();
+F1();
 
 
 void F1()
@@ -22,6 +23,7 @@ namespace HelloWorld
         static void Main(string[] args)
         {
             Console.WriteLine(""Hello, World!"");
+            var line=Console.ReadLine();
         }
     }
 }";
@@ -67,6 +69,61 @@ namespace HelloWorld
 
     Console.WriteLine(argsParameter == argsParameter2);
 
+
+    Console.WriteLine("-----------------------");
+    Console.WriteLine(mainDeclaration.Body.OpenBraceToken.ValueText);
+
+    foreach (var item in mainDeclaration.Body.Statements)
+    {
+        if (item is ExpressionStatementSyntax expressionStatementSyntax)
+        {
+            // Console.WriteLine(expressionStatementSyntax.Expression);
+
+            if (expressionStatementSyntax.Expression is InvocationExpressionSyntax invocationExpressionSyntax)
+            {
+                Console.WriteLine("参数：");
+                foreach (var par in invocationExpressionSyntax.ArgumentList.Arguments)
+                {               
+                    if (par.Expression is LiteralExpressionSyntax literalExpressionSyntax)
+                    {
+                        Console.WriteLine(literalExpressionSyntax.Kind());
+                        Console.WriteLine(literalExpressionSyntax.Token.Value);
+                    }
+                }
+               
+                if (invocationExpressionSyntax.Expression is MemberAccessExpressionSyntax memberAccessExpressionSyntax)
+                {            
+                    Console.WriteLine(memberAccessExpressionSyntax.Expression.GetType().Name);
+                    if (memberAccessExpressionSyntax.Expression is IdentifierNameSyntax identifierNameSyntax)
+                    {
+                        Console.WriteLine(identifierNameSyntax.Identifier.GetType().Name);
+                        Console.WriteLine(identifierNameSyntax.Identifier.ValueText);
+                    }
+                    if (memberAccessExpressionSyntax.Name is IdentifierNameSyntax identifierNameSyntax1)
+                    {
+                        Console.WriteLine(identifierNameSyntax1.Identifier.GetType().Name);
+                        Console.WriteLine(identifierNameSyntax1.Identifier.ValueText);
+                    }
+
+                }
+            }
+
+
+        }
+        else if (item is LocalDeclarationStatementSyntax localDeclarationStatementSyntax)
+        {
+            Console.WriteLine(localDeclarationStatementSyntax.Declaration);
+        }
+        else
+        {
+            Console.WriteLine(item.GetType().Name);
+        }
+
+        Console.WriteLine(item.ToFullString());
+    }
+
+
+    Console.WriteLine(mainDeclaration.Body.CloseBraceToken.ValueText);
 }
 
 void F2()

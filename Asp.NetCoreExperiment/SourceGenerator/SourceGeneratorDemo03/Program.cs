@@ -6,8 +6,8 @@ using static System.Console;
 using SourceGeneratorDemo03;
 using System.Collections;
 
-//F01();
-F02();
+F01();
+//F02();
 
 void F00()
 {
@@ -27,6 +27,7 @@ void F00()
 
 void F01()
 {
+    string s = "abc";
     NameSyntax name = IdentifierName("System");
     name = QualifiedName(name, IdentifierName("Collections"));  
     name = QualifiedName(name, IdentifierName("Generic"));
