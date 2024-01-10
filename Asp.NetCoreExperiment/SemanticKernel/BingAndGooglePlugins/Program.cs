@@ -40,7 +40,7 @@ static async Task RunAsync()
     //}
 
     // Load Google plugin
-    string googleApiKey = "AIzaSyDPhyCdpa-rbf4tH7tcQtvRsCoH-saKil8";
+    string googleApiKey = " ";
     string googleSearchEngineId = "My Project";
 
     if (googleApiKey == null || googleSearchEngineId == null)
