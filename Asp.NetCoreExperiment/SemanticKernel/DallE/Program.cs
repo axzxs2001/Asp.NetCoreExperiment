@@ -19,7 +19,8 @@ static async Task OpenAIDallEAsync()
     ITextToImageService dallE = kernel.GetRequiredService<ITextToImageService>();
     var width = 512;
 
-    var imageDescription = "画一个科技感十足的AI机器人，有ChatGPT标志。";
+    var imageDescription = @"请画一个卡通笔记本电脑。
+";
     var image = await dallE.GenerateImageAsync(imageDescription, width, width);
 
     Console.WriteLine(imageDescription);
