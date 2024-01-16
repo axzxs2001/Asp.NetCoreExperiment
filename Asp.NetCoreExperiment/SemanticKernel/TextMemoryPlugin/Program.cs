@@ -222,18 +222,18 @@ static async Task RunWithStoreAsync(IMemoryStore memoryStore, CancellationToken 
     Console.WriteLine("== 第 3 部分：使用 AI 嵌入进行Recall （相似性搜索） ==");
 
     Console.WriteLine("== 第 3a 部分：使用 ISemanticTextMemory 进行Recall （相似性搜索） ==");
-    Console.WriteLine("问：我在哪里长大？");
+    Console.WriteLine("问：什么是机器人？");
 
     await foreach (var answer in textMemory.SearchAsync(
         collection: MemoryCollectionName,
-        query: "我在哪里长大?",
+        query: "什么是机器人?",
         limit: 2,
         minRelevanceScore: 0.79,
         withEmbeddings: true,
         cancellationToken: cancellationToken))
-    {
+
         Console.WriteLine($"回答: {answer.Metadata.Text}");
-    }
+
 
     Console.WriteLine("==第 3b 部分：使用内核和 TextMemoryPlugin 的“Recall”功能进行 Recall（相似性搜索） ==");
     Console.WriteLine("问题:我住在哪里？");
