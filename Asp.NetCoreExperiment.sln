@@ -802,7 +802,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SourceGeneratorDemo02", "As
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SourceGeneratorDemo03", "Asp.NetCoreExperiment\SourceGenerator\SourceGeneratorDemo03\SourceGeneratorDemo03.csproj", "{701934A5-D5B6-4188-AA1D-441E6D0BF760}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PluginsDemo01", "Asp.NetCoreExperiment\SemanticKernel\PluginsDemo01\PluginsDemo01.csproj", "{38BC0C06-A8C2-49E9-ABB7-6FE7F4BC19D6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PluginsDemo01", "Asp.NetCoreExperiment\SemanticKernel\PluginsDemo01\PluginsDemo01.csproj", "{38BC0C06-A8C2-49E9-ABB7-6FE7F4BC19D6}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SemanticMemory.", "Asp.NetCoreExperiment\SemanticKernel\SemanticMemory\SemanticMemory..csproj", "{FBC87E93-17C9-4616-BC42-9170D6950000}"
 EndProject
@@ -812,17 +812,19 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DapperAOTAPITest", "Asp.Net
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DallE", "Asp.NetCoreExperiment\SemanticKernel\DallE\DallE.csproj", "{08EE3479-BF17-4ECF-8C51-70DA86623975}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FunctionFromPrompt", "Asp.NetCoreExperiment\SemanticKernel\FunctionFromPrompt\FunctionFromPrompt.csproj", "{0287A690-236C-4241-8EE8-5F83C7AB1A37}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FunctionFromPrompt", "Asp.NetCoreExperiment\SemanticKernel\FunctionFromPrompt\FunctionFromPrompt.csproj", "{0287A690-236C-4241-8EE8-5F83C7AB1A37}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TemplateLanguage", "Asp.NetCoreExperiment\SemanticKernel\TemplateLanguage\TemplateLanguage.csproj", "{96B3962E-6B74-44B6-ABD6-FC44D103D804}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TemplateLanguage", "Asp.NetCoreExperiment\SemanticKernel\TemplateLanguage\TemplateLanguage.csproj", "{96B3962E-6B74-44B6-ABD6-FC44D103D804}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BingAndGooglePlugins", "Asp.NetCoreExperiment\SemanticKernel\BingAndGooglePlugins\BingAndGooglePlugins.csproj", "{BBAD4C3C-9288-4BBF-B09D-0FD8B2AFF3E9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BingAndGooglePlugins", "Asp.NetCoreExperiment\SemanticKernel\BingAndGooglePlugins\BingAndGooglePlugins.csproj", "{BBAD4C3C-9288-4BBF-B09D-0FD8B2AFF3E9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FunctionTypes", "Asp.NetCoreExperiment\SemanticKernel\FunctionTypes\FunctionTypes.csproj", "{48B2BF7D-CA21-4135-BF6C-3865CBF094BB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FunctionTypes", "Asp.NetCoreExperiment\SemanticKernel\FunctionTypes\FunctionTypes.csproj", "{48B2BF7D-CA21-4135-BF6C-3865CBF094BB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextMemoryPlugin", "Asp.NetCoreExperiment\SemanticKernel\TextMemoryPlugin\TextMemoryPlugin.csproj", "{A818E049-2BF4-4D7E-921B-1BBD791421AB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TextMemoryPlugin", "Asp.NetCoreExperiment\SemanticKernel\TextMemoryPlugin\TextMemoryPlugin.csproj", "{A818E049-2BF4-4D7E-921B-1BBD791421AB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenAIPlugins", "Asp.NetCoreExperiment\SemanticKernel\OpenAIPlugins\OpenAIPlugins.csproj", "{B5783393-B7C4-414D-B8B0-0C67C860E1FC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenAIPlugins", "Asp.NetCoreExperiment\SemanticKernel\OpenAIPlugins\OpenAIPlugins.csproj", "{B5783393-B7C4-414D-B8B0-0C67C860E1FC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgentsDemo", "Asp.NetCoreExperiment\SemanticKernel\AgentsDemo\AgentsDemo.csproj", "{B987BE7F-3D28-4978-A525-A11552B90513}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -3598,6 +3600,18 @@ Global
 		{B5783393-B7C4-414D-B8B0-0C67C860E1FC}.Release|arm64.Build.0 = Release|Any CPU
 		{B5783393-B7C4-414D-B8B0-0C67C860E1FC}.Release|x86.ActiveCfg = Release|Any CPU
 		{B5783393-B7C4-414D-B8B0-0C67C860E1FC}.Release|x86.Build.0 = Release|Any CPU
+		{B987BE7F-3D28-4978-A525-A11552B90513}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B987BE7F-3D28-4978-A525-A11552B90513}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B987BE7F-3D28-4978-A525-A11552B90513}.Debug|arm64.ActiveCfg = Debug|Any CPU
+		{B987BE7F-3D28-4978-A525-A11552B90513}.Debug|arm64.Build.0 = Debug|Any CPU
+		{B987BE7F-3D28-4978-A525-A11552B90513}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B987BE7F-3D28-4978-A525-A11552B90513}.Debug|x86.Build.0 = Debug|Any CPU
+		{B987BE7F-3D28-4978-A525-A11552B90513}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B987BE7F-3D28-4978-A525-A11552B90513}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B987BE7F-3D28-4978-A525-A11552B90513}.Release|arm64.ActiveCfg = Release|Any CPU
+		{B987BE7F-3D28-4978-A525-A11552B90513}.Release|arm64.Build.0 = Release|Any CPU
+		{B987BE7F-3D28-4978-A525-A11552B90513}.Release|x86.ActiveCfg = Release|Any CPU
+		{B987BE7F-3D28-4978-A525-A11552B90513}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -3941,6 +3955,7 @@ Global
 		{48B2BF7D-CA21-4135-BF6C-3865CBF094BB} = {645151F0-78B2-4F12-B95D-34FD387F37A8}
 		{A818E049-2BF4-4D7E-921B-1BBD791421AB} = {645151F0-78B2-4F12-B95D-34FD387F37A8}
 		{B5783393-B7C4-414D-B8B0-0C67C860E1FC} = {645151F0-78B2-4F12-B95D-34FD387F37A8}
+		{B987BE7F-3D28-4978-A525-A11552B90513} = {645151F0-78B2-4F12-B95D-34FD387F37A8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
