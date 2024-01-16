@@ -13,18 +13,17 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.SemanticKernel" Version="1.0.1" />
-    <PackageReference Include="Microsoft.SemanticKernel.Experimental.Agents" Version="1.0.1-alpha" />
-    <PackageReference Include="SharpYaml" Version="2.1.0" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Include="ParrotAgent.yaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="ToolAgent.yaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.SemanticKernel" Version="1.0.1" />
+    <PackageReference Include="Microsoft.SemanticKernel.Experimental.Agents" Version="1.0.1-alpha" />
   </ItemGroup>
 
 </Project>

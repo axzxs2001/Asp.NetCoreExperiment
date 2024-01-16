@@ -8,23 +8,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="ParrotAgent.yaml" />
-    <None Remove="ToolAgent.yaml" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.SemanticKernel" Version="1.0.1" />
     <PackageReference Include="Microsoft.SemanticKernel.Experimental.Agents" Version="1.0.1-alpha" />
-    <PackageReference Include="SharpYaml" Version="2.1.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="ParrotAgent.yaml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ToolAgent.yaml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <PackageReference Include="Microsoft.SemanticKernel.Experimental.Orchestration.Flow" Version="1.0.0-beta8" />
+    <PackageReference Include="Microsoft.SemanticKernel.Plugins.Core" Version="1.0.1-alpha" />
+    <PackageReference Include="Microsoft.SemanticKernel.Plugins.Memory" Version="1.0.1-alpha" />
+    <PackageReference Include="Microsoft.SemanticKernel.Plugins.Web" Version="1.0.1-alpha" />
   </ItemGroup>
 
 </Project>

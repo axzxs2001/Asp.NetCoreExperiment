@@ -2,6 +2,7 @@
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.Experimental.Agents;
 using System.Reflection.Emit;
+using YamlDotNet.Serialization;
 
 var key = File.ReadAllText(@"C:\GPT\key.txt");
 var chatModelId = "gpt-4";
@@ -10,7 +11,7 @@ var OpenAIFunctionEnabledModel = "gpt-3.5-turbo-1106";
 
 
 // "Hello agent"
-await RunSimpleChatAsync();
+//await RunSimpleChatAsync();
 
 
 // Run agent with "method" tool/function
@@ -20,7 +21,7 @@ await RunSimpleChatAsync();
 //await RunWithPromptFunctionsAsync();
 
 //// Run agent as function
-//await RunAsFunctionAsync();
+await RunAsFunctionAsync();
 /// <summary>
 /// Common chat loop used for: RunSimpleChatAsync, RunWithMethodFunctionsAsync, and RunWithPromptFunctionsAsync.
 /// 1. Reads agent definition from"resourcePath" parameter.
@@ -33,7 +34,8 @@ static async Task ChatAsync(
    string resourcePath,
    KernelPlugin? plugin = null,
    KernelArguments? arguments = null,
-   params string[] messages){
+   params string[] messages)
+{
 
     var ApiKey = File.ReadAllText(@"C:\GPT\key.txt");
     var chatModelId = "gpt-4";
@@ -41,23 +43,30 @@ static async Task ChatAsync(
     // Read agent resource
     var definition = File.ReadAllText(resourcePath);
 #pragma warning disable SKEXP0101
+
+    var deserializer = new DeserializerBuilder().Build();
+
+    var agentKernelModel = deserializer.Deserialize<MyYamlConfig>(definition);
     // Create agent
     var agent =
         await new AgentBuilder()
             .WithOpenAIChatCompletion(chatModelId, ApiKey)
-            .FromTemplate(definition)
+            //.FromTemplate(definition)
             .WithPlugin(plugin)
-           
+            .WithInstructions(agentKernelModel.Instructions.Trim())
+            .WithName(agentKernelModel.Name.Trim())
+            .WithDescription(agentKernelModel.Description.Trim())
+
             .BuildAsync();
 
     // Create chat thread.  Note: Thread is not bound to a single agent.
 
-    var thread = await agent.NewThreadAsync();
+    var thread = (await agent.NewThreadAsync());
     try
     {
         // Display agent identifier.
-        Console.WriteLine($"[{agent.Id}]");       
-      
+        Console.WriteLine($"[{agent.Id}]");
+
         // Process each user message and agent response.
         foreach (var response in messages.Select(m => thread.InvokeAsync(agent, m)))
         {
@@ -90,9 +99,9 @@ static async Task RunSimpleChatAsync()
         "ParrotAgent.yaml", // Defined under ./Resources/Agents
         plugin: null, // No plugin
         arguments: new KernelArguments { { "count", 3 } },
-        "Fortune favors the bold.",
-        "I came, I saw, I conquered.",
-        "Practice makes perfect.");
+        "命运眷顾勇敢的人",
+        "我来了，我看见了，我征服了。",
+        "熟能生巧。");
 }
 
 /// <summary>
@@ -110,67 +119,68 @@ static async Task RunWithMethodFunctionsAsync()
         "ToolAgent.yaml", // Defined under ./Resources/Agents
         plugin,
         arguments: null,
-        "Hello",
-        "What is the special soup?",
-        "What is the special drink?",
-        "Thank you!");
+        "你好",
+"有什么特色汤品吗？",
+"有什么特色饮料吗？",
+"谢谢！");
 }
 
 
 
-///// <summary>
-///// Chat using the "Tool" agent and a prompt function.
-///// Tools/functions: spellChecker prompt function
-///// </summary>
-//static async Task RunWithPromptFunctionsAsync()
-//{
-//    Console.WriteLine("======== WithPromptFunctions ========");
+/// <summary>
+/// Chat using the "Tool" agent and a prompt function.
+/// Tools/functions: spellChecker prompt function
+/// </summary>
+static async Task RunWithPromptFunctionsAsync()
+{
+    Console.WriteLine("======== WithPromptFunctions ========");
 
-//    // Create a prompt function.
-//    var function = KernelFunctionFactory.CreateFromPrompt(
-//         "Correct any misspelling or gramatical errors provided in input: {{$input}}",
-//          functionName: "spellChecker",
-//          description: "Correct the spelling for the user input.");
+    // Create a prompt function.
+    var function = KernelFunctionFactory.CreateFromPrompt(
+         "更正输入中提供的任何拼写或语法错误: {{$input}}",
+          functionName: "spellChecker",
+          description: "更正用户输入的拼写。");
 
-//    var plugin = KernelPluginFactory.CreateFromFunctions("spelling", "Spelling functions", new[] { function });
+    var plugin = KernelPluginFactory.CreateFromFunctions("spelling", "Spelling functions", new[] { function });
 
-//    // Call the common chat-loop
-//    await ChatAsync(
-//        "Agents.ToolAgent.yaml", // Defined under ./Resources/Agents
-//        plugin,
-//        arguments: null,
-//        "Hello",
-//        "Is this spelled correctly: exercize",
-//        "What is the special soup?",
-//        "Thank you!");
-//}
+    // Call the common chat-loop
+    await ChatAsync(
+        "ToolAgent.yaml", // Defined under ./Resources/Agents
+        plugin,
+        arguments: null,
+        "你好",
+        "这个拼写正确吗： exercize",
+        "特色汤是什么？",
+        "谢谢");
+}
 
-///// <summary>
-///// Invoke agent just like any other <see cref="KernelFunction"/>.
-///// </summary>
-//async Task RunAsFunctionAsync()
-//{
-//    Console.WriteLine("======== Run:AsFunction ========");
+/// <summary>
+/// Invoke agent just like any other <see cref="KernelFunction"/>.
+/// </summary>
+async Task RunAsFunctionAsync()
+{
+    Console.WriteLine("======== Run:AsFunction ========");
+ 
+    // Create parrot agent, same as the other cases.
+    var agent =
+        await new AgentBuilder()
+            .WithOpenAIChatCompletion(chatModelId, key)
+            .FromTemplate(File.ReadAllText("ParrotAgent.yaml"))
+            .BuildAsync();
 
-//    // Create parrot agent, same as the other cases.
-//    var agent =
-//        await new AgentBuilder()
-//            .WithOpenAIChatCompletion(OpenAIFunctionEnabledModel, TestConfiguration.OpenAI.ApiKey)
-//            .FromTemplate(EmbeddedResource.Read("Agents.ParrotAgent.yaml"))
-//            .BuildAsync();
+    try
+    {
+        // Invoke agent plugin.
+        //var response = await agent.AsPlugin().InvokeAsync("熟能生巧。", new KernelArguments { { "count", 2 } });
+        var response = await agent.AsPlugin().InvokeAsync("熟能生巧。");
 
-//    try
-//    {
-//        // Invoke agent plugin.
-//        var response = await agent.AsPlugin().InvokeAsync("Practice makes perfect.", new KernelArguments { { "count", 2 } });
-
-//        // Display result.
-//        Console.WriteLine(response ?? $"No response from agent: {agent.Id}");
-//    }
-//    finally
-//    {
-//        // Clean-up (storage costs $)
-//        await agent.DeleteAsync();
-//    }
-//}
+        // Display result.
+        Console.WriteLine(response ?? $"No response from agent: {agent.Id}");
+    }
+    finally
+    {
+        // Clean-up (storage costs $)
+        await agent.DeleteAsync();
+    }
+}
 
