@@ -4,7 +4,7 @@ using Microsoft.SemanticKernel.Connectors.OpenAI;
 
 
 var key = File.ReadAllText(@"C:\GPT\key.txt");
-const string ImageUri = "https://github.com/axzxs2001/Asp.NetCoreExperiment/blob/master/Asp.NetCoreExperiment/SemanticKernel/GPTVision/a.png?raw=true";
+const string ImageUri = "https://github.com/axzxs2001/Asp.NetCoreExperiment/blob/master/Asp.NetCoreExperiment/SemanticKernel/GPTVision/lct.png?raw=true";
 
 var kernel = Kernel.CreateBuilder()
     .AddOpenAIChatCompletion("gpt-4-vision-preview", key)
@@ -12,11 +12,11 @@ var kernel = Kernel.CreateBuilder()
 
 var chatGPT = kernel.GetRequiredService<IChatCompletionService>();
 
-var chatHistory = new ChatHistory("You are a friendly assistant.");
+var chatHistory = new ChatHistory("你是一个流程图理解高手");
 
 chatHistory.AddUserMessage(new ChatMessageContentItemCollection
         {
-            new TextContent("请用是或不是回答，这张图片是日本的在留卡吗？"),
+            new TextContent("请描述一下上面流程图的步骤，以列表形式列举出来？"),
             new ImageContent(new Uri(ImageUri))
         });
 
