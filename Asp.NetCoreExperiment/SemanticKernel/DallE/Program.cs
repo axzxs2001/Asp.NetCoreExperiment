@@ -19,7 +19,7 @@ static async Task OpenAIDallEAsync()
     ITextToImageService dallE = kernel.GetRequiredService<ITextToImageService>();
     var width = 512;
 
-    var imageDescription = @"请画一个卡通笔记本电脑。
+    var imageDescription = @"为了在PPT上提供图片素材，请给我画一个电脑键盘上的键帽，产体，只画一个，从侧上方看的视觉效果，并且是空白的，不需要有字母或数字。
 ";
     var image = await dallE.GenerateImageAsync(imageDescription, width, width);
 
