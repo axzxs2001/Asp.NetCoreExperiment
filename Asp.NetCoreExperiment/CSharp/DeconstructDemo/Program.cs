@@ -9,7 +9,7 @@ Console.WriteLine(orderTime);
 
 Console.ReadLine();
 
-(string no, List<int> goodsIds) = new Order("T000001", DateTime.Now, "北京市海淀区")
+var (no, goodsIds) = new Order("T000001", DateTime.Now, "北京市海淀区")
 {
     Goodses = new List<Goods>
     {
@@ -62,11 +62,11 @@ class Order
         orderTime = OrderTime;
         address = Address;
     }
-    public void Deconstruct(out string no, out DateTime orderTime)
-    {
-        no = No;
-        orderTime = OrderTime;
-    }
+    //public void Deconstruct(out string no, out DateTime orderTime)
+    //{
+    //    no = No;
+    //    orderTime = OrderTime;
+    //}
 }
 class Goods
 {
