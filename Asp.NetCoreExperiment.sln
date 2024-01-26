@@ -826,15 +826,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenAIPlugins", "Asp.NetCor
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AgentsDemo", "Asp.NetCoreExperiment\SemanticKernel\AgentsDemo\AgentsDemo.csproj", "{B987BE7F-3D28-4978-A525-A11552B90513}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgentDelegation", "Asp.NetCoreExperiment\SemanticKernel\AgentDelegation\AgentDelegation.csproj", "{7C0C1CA8-D993-4A32-997C-E930901D1CB0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AgentDelegation", "Asp.NetCoreExperiment\SemanticKernel\AgentDelegation\AgentDelegation.csproj", "{7C0C1CA8-D993-4A32-997C-E930901D1CB0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgentCollaboration", "Asp.NetCoreExperiment\SemanticKernel\AgentCollaboration\AgentCollaboration.csproj", "{1555AE5D-3694-4885-B1AD-3CD757CD0B20}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AgentCollaboration", "Asp.NetCoreExperiment\SemanticKernel\AgentCollaboration\AgentCollaboration.csproj", "{1555AE5D-3694-4885-B1AD-3CD757CD0B20}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgentAuthoring", "Asp.NetCoreExperiment\SemanticKernel\AgentAuthoring\AgentAuthoring.csproj", "{594C464D-A4DB-4393-8178-83D525B3EC02}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AgentAuthoring", "Asp.NetCoreExperiment\SemanticKernel\AgentAuthoring\AgentAuthoring.csproj", "{594C464D-A4DB-4393-8178-83D525B3EC02}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgentTools", "Asp.NetCoreExperiment\SemanticKernel\AgentTools\AgentTools.csproj", "{EC191A28-05A1-4A3C-98A3-D5884BB55CFE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AgentTools", "Asp.NetCoreExperiment\SemanticKernel\AgentTools\AgentTools.csproj", "{EC191A28-05A1-4A3C-98A3-D5884BB55CFE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlowOrchestrator", "Asp.NetCoreExperiment\SemanticKernel\FlowOrchestrator\FlowOrchestrator.csproj", "{B9B4AFAE-C886-4B65-89E2-D95100FC4A3A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlowOrchestrator", "Asp.NetCoreExperiment\SemanticKernel\FlowOrchestrator\FlowOrchestrator.csproj", "{B9B4AFAE-C886-4B65-89E2-D95100FC4A3A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeconstructDemo", "Asp.NetCoreExperiment\CSharp\DeconstructDemo\DeconstructDemo.csproj", "{4CF6190D-B47C-4CF7-996E-633005AC6402}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -3682,6 +3684,18 @@ Global
 		{B9B4AFAE-C886-4B65-89E2-D95100FC4A3A}.Release|arm64.Build.0 = Release|Any CPU
 		{B9B4AFAE-C886-4B65-89E2-D95100FC4A3A}.Release|x86.ActiveCfg = Release|Any CPU
 		{B9B4AFAE-C886-4B65-89E2-D95100FC4A3A}.Release|x86.Build.0 = Release|Any CPU
+		{4CF6190D-B47C-4CF7-996E-633005AC6402}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4CF6190D-B47C-4CF7-996E-633005AC6402}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4CF6190D-B47C-4CF7-996E-633005AC6402}.Debug|arm64.ActiveCfg = Debug|Any CPU
+		{4CF6190D-B47C-4CF7-996E-633005AC6402}.Debug|arm64.Build.0 = Debug|Any CPU
+		{4CF6190D-B47C-4CF7-996E-633005AC6402}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{4CF6190D-B47C-4CF7-996E-633005AC6402}.Debug|x86.Build.0 = Debug|Any CPU
+		{4CF6190D-B47C-4CF7-996E-633005AC6402}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4CF6190D-B47C-4CF7-996E-633005AC6402}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4CF6190D-B47C-4CF7-996E-633005AC6402}.Release|arm64.ActiveCfg = Release|Any CPU
+		{4CF6190D-B47C-4CF7-996E-633005AC6402}.Release|arm64.Build.0 = Release|Any CPU
+		{4CF6190D-B47C-4CF7-996E-633005AC6402}.Release|x86.ActiveCfg = Release|Any CPU
+		{4CF6190D-B47C-4CF7-996E-633005AC6402}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -4031,6 +4045,7 @@ Global
 		{594C464D-A4DB-4393-8178-83D525B3EC02} = {645151F0-78B2-4F12-B95D-34FD387F37A8}
 		{EC191A28-05A1-4A3C-98A3-D5884BB55CFE} = {645151F0-78B2-4F12-B95D-34FD387F37A8}
 		{B9B4AFAE-C886-4B65-89E2-D95100FC4A3A} = {645151F0-78B2-4F12-B95D-34FD387F37A8}
+		{4CF6190D-B47C-4CF7-996E-633005AC6402} = {0C2286BE-F1F4-4E52-A9FA-1EF056CD9159}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
