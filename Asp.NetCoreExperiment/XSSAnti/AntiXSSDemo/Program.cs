@@ -9,9 +9,9 @@ var html = "test<script>alert(document.cookie)</script>";
 html = "test<a onclick='alert(document.cookie)'>pee</a>";
 
 
-Thread.CurrentThread.CurrentCulture = new CultureInfo("ja-JP", true);
-Thread.CurrentThread.CurrentUICulture = new CultureInfo("ja-JP", true);
-html = "<script></script><p>各位观众</p><p><br></p><p onclick='al' target='ss'></p>\r\n";
+//Thread.CurrentThread.CurrentCulture = new CultureInfo("ja-JP", true);
+//Thread.CurrentThread.CurrentUICulture = new CultureInfo("ja-JP", true);
+html = "<script>al()</script><p>各位观众</p><p><br></p><a target='_blank'></a>\r\n";
 var antiSamy = new AntiSamy();
 CleanResults results = antiSamy.Scan(html, policy);
 
