@@ -838,7 +838,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlowOrchestrator", "Asp.Net
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeconstructDemo", "Asp.NetCoreExperiment\CSharp\DeconstructDemo\DeconstructDemo.csproj", "{4CF6190D-B47C-4CF7-996E-633005AC6402}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EveryExtensions", "Asp.NetCoreExperiment\CSharp\EveryExtensions\EveryExtensions.csproj", "{9B2D2271-2A50-48A3-8EEE-38728D039956}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EveryExtensions", "Asp.NetCoreExperiment\CSharp\EveryExtensions\EveryExtensions.csproj", "{9B2D2271-2A50-48A3-8EEE-38728D039956}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "XSSAnti", "XSSAnti", "{789CD3FD-772D-42EC-8201-4F64C601255D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AntiXSSDemo", "Asp.NetCoreExperiment\XSSAnti\AntiXSSDemo\AntiXSSDemo.csproj", "{17B31BF0-1879-498B-AE96-8FE309F2474B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -3710,6 +3714,18 @@ Global
 		{9B2D2271-2A50-48A3-8EEE-38728D039956}.Release|arm64.Build.0 = Release|Any CPU
 		{9B2D2271-2A50-48A3-8EEE-38728D039956}.Release|x86.ActiveCfg = Release|Any CPU
 		{9B2D2271-2A50-48A3-8EEE-38728D039956}.Release|x86.Build.0 = Release|Any CPU
+		{17B31BF0-1879-498B-AE96-8FE309F2474B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17B31BF0-1879-498B-AE96-8FE309F2474B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17B31BF0-1879-498B-AE96-8FE309F2474B}.Debug|arm64.ActiveCfg = Debug|Any CPU
+		{17B31BF0-1879-498B-AE96-8FE309F2474B}.Debug|arm64.Build.0 = Debug|Any CPU
+		{17B31BF0-1879-498B-AE96-8FE309F2474B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{17B31BF0-1879-498B-AE96-8FE309F2474B}.Debug|x86.Build.0 = Debug|Any CPU
+		{17B31BF0-1879-498B-AE96-8FE309F2474B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17B31BF0-1879-498B-AE96-8FE309F2474B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{17B31BF0-1879-498B-AE96-8FE309F2474B}.Release|arm64.ActiveCfg = Release|Any CPU
+		{17B31BF0-1879-498B-AE96-8FE309F2474B}.Release|arm64.Build.0 = Release|Any CPU
+		{17B31BF0-1879-498B-AE96-8FE309F2474B}.Release|x86.ActiveCfg = Release|Any CPU
+		{17B31BF0-1879-498B-AE96-8FE309F2474B}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -4061,6 +4077,7 @@ Global
 		{B9B4AFAE-C886-4B65-89E2-D95100FC4A3A} = {645151F0-78B2-4F12-B95D-34FD387F37A8}
 		{4CF6190D-B47C-4CF7-996E-633005AC6402} = {0C2286BE-F1F4-4E52-A9FA-1EF056CD9159}
 		{9B2D2271-2A50-48A3-8EEE-38728D039956} = {0C2286BE-F1F4-4E52-A9FA-1EF056CD9159}
+		{17B31BF0-1879-498B-AE96-8FE309F2474B} = {789CD3FD-772D-42EC-8201-4F64C601255D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
