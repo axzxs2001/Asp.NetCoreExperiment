@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1" ?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 
 <!-- 
 W3C rules retrieved from:
@@ -112,11 +112,11 @@ http://www.w3.org/TR/html401/struct/global.html
 		<regexp name="absolute-size" value="(xx-small|x-small|small|medium|large|x-large|xx-large)"/>
 		<regexp name="relative-size" value="(larger|smaller)"/>
 
-    <!-- Used for CSS Color specifications (complex regexps expresses integer values of 0-255 and decimals from 0 to 1 with two decimal places for RGBA) -->
-    <regexp name="rgbCode" value="rgb\(([1]?[0-9]{1,2}|2[0-4][0-9]|25[0-5]),([1]?[0-9]{1,2}|2[0-4][0-9]|25[0-5]),([1]?[0-9]{1,2}|2[0-4][0-9]|25[0-5])\)"/>
-    <regexp name="rgbaCode" value="rgba\(([1]?[0-9]{1,2}|2[0-4][0-9]|25[0-5]),\s*([1]?[0-9]{1,2}|2[0-4][0-9]|25[0-5]),\s*([1]?[0-9]{1,2}|2[0-4][0-9]|25[0-5]),\s*(1|0(\.[0-9][0-9]?)?)\)"/>
-		
-    <!-- CSS2 Allowed System Color Values -->
+		<!-- Used for CSS Color specifications (complex regexps expresses integer values of 0-255 and decimals from 0 to 1 with two decimal places for RGBA) -->
+		<regexp name="rgbCode" value="rgb\(([1]?[0-9]{1,2}|2[0-4][0-9]|25[0-5]),([1]?[0-9]{1,2}|2[0-4][0-9]|25[0-5]),([1]?[0-9]{1,2}|2[0-4][0-9]|25[0-5])\)"/>
+		<regexp name="rgbaCode" value="rgba\(([1]?[0-9]{1,2}|2[0-4][0-9]|25[0-5]),\s*([1]?[0-9]{1,2}|2[0-4][0-9]|25[0-5]),\s*([1]?[0-9]{1,2}|2[0-4][0-9]|25[0-5]),\s*(1|0(\.[0-9][0-9]?)?)\)"/>
+
+		<!-- CSS2 Allowed System Color Values -->
 		<regexp name="systemColor" value="(activeborder|activecaption|appworkspace|background|buttonface|buttonhighlight|buttonshadow|buttontext|captiontext|graytext|highlight|highlighttext|inactiveborder|inactivecaption|inactivecaptiontext|infobackground|infotext|menu|menutext|scrollbar|threeddarkshadow|threedface|threedhighlight|threedlightshadow|threedshadow|window|windowframe|windowtext)"/>
 
 		<!-- This is where we specify what Flash src to allow -->
@@ -221,6 +221,8 @@ http://www.w3.org/TR/html401/struct/global.html
 				<regexp name="offsiteURL"/>
 			</regexp-list>
 		</attribute>
+
+
 
 		<attribute name="name">
 			<regexp-list>
@@ -776,6 +778,16 @@ http://www.w3.org/TR/html401/struct/global.html
 				</regexp-list>
 			</attribute>
 			<attribute name="name"/>
+
+			<attribute name="target">
+				<literal-list>
+					<literal value="_blank"/>
+					<literal value="_self"/>
+					<literal value="_parent"/>
+					<literal value="_top"/>
+				</literal-list>
+			</attribute>
+
 
 		</tag>
 
@@ -2719,6 +2731,9 @@ http://www.w3.org/TR/html401/struct/global.html
 			</literal-list>
 		</property>
 		<!--  end manual properties -->
+
+
+
 	</css-rules>
 
 	<allowed-empty-tags>
