@@ -1,0 +1,6 @@
+@RinDemo_HostAddress = http://localhost:5251
+
+GET {{RinDemo_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
