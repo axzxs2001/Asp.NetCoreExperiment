@@ -1,11 +1,7 @@
 var builder = WebApplication.CreateBuilder(args);
-
-
 builder.Logging.AddRinLogger();
 builder.Services.AddRin();
-
 builder.Services.AddHttpClient();
-
 var app = builder.Build();
 
 app.UseRin();
