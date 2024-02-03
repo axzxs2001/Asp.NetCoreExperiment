@@ -846,6 +846,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AntiXSSDemo", "Asp.NetCoreE
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RinDemo", "Asp.NetCoreExperiment\DOTNET8\RinDemo\RinDemo.csproj", "{26D7E98B-F9B1-439A-BF8A-D597CB6122BE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "schedulerdemo", "Asp.NetCoreExperiment\DOTNET8\schedulerdemo\schedulerdemo.csproj", "{7B1E67E0-31F6-44BC-B479-4A377C54CDDC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -3740,6 +3742,18 @@ Global
 		{26D7E98B-F9B1-439A-BF8A-D597CB6122BE}.Release|arm64.Build.0 = Release|Any CPU
 		{26D7E98B-F9B1-439A-BF8A-D597CB6122BE}.Release|x86.ActiveCfg = Release|Any CPU
 		{26D7E98B-F9B1-439A-BF8A-D597CB6122BE}.Release|x86.Build.0 = Release|Any CPU
+		{7B1E67E0-31F6-44BC-B479-4A377C54CDDC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B1E67E0-31F6-44BC-B479-4A377C54CDDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B1E67E0-31F6-44BC-B479-4A377C54CDDC}.Debug|arm64.ActiveCfg = Debug|Any CPU
+		{7B1E67E0-31F6-44BC-B479-4A377C54CDDC}.Debug|arm64.Build.0 = Debug|Any CPU
+		{7B1E67E0-31F6-44BC-B479-4A377C54CDDC}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7B1E67E0-31F6-44BC-B479-4A377C54CDDC}.Debug|x86.Build.0 = Debug|Any CPU
+		{7B1E67E0-31F6-44BC-B479-4A377C54CDDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B1E67E0-31F6-44BC-B479-4A377C54CDDC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B1E67E0-31F6-44BC-B479-4A377C54CDDC}.Release|arm64.ActiveCfg = Release|Any CPU
+		{7B1E67E0-31F6-44BC-B479-4A377C54CDDC}.Release|arm64.Build.0 = Release|Any CPU
+		{7B1E67E0-31F6-44BC-B479-4A377C54CDDC}.Release|x86.ActiveCfg = Release|Any CPU
+		{7B1E67E0-31F6-44BC-B479-4A377C54CDDC}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -4093,6 +4107,7 @@ Global
 		{9B2D2271-2A50-48A3-8EEE-38728D039956} = {0C2286BE-F1F4-4E52-A9FA-1EF056CD9159}
 		{17B31BF0-1879-498B-AE96-8FE309F2474B} = {789CD3FD-772D-42EC-8201-4F64C601255D}
 		{26D7E98B-F9B1-439A-BF8A-D597CB6122BE} = {19F3B3A9-5F42-4CC0-A96B-2D166D530856}
+		{7B1E67E0-31F6-44BC-B479-4A377C54CDDC} = {19F3B3A9-5F42-4CC0-A96B-2D166D530856}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
