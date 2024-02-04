@@ -8,8 +8,12 @@ var app = builder.Build();
 app.Services.UseScheduler(scheduler =>
 {
     scheduler.Schedule(
-        () => Console.WriteLine($"{DateTime.Now:HH:mm:ss.fffffff}")
-    )
-    .EverySeconds(2);
+        async () =>
+        {
+            await Task.Delay(3000);
+            Console.WriteLine($"{DateTime.Now:HH:mm:ss.fffffff}");
+
+        })
+        .EverySeconds(2);
 });
 app.Run();
