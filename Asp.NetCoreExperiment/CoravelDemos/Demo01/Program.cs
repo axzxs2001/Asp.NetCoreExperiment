@@ -5,62 +5,50 @@ using Coravel.Scheduling.Schedule;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddScheduler();
+//这里只注入无参的Invocable类
+builder.Services.AddTransient<MyInvocable2>();
 
 var app = builder.Build();
-
-//app.Services.UseScheduler(scheduler =>
-// {
-//     scheduler.Schedule(
-//         () => Console.WriteLine("每隔两2执行一次")
-//     )
-//     .EverySeconds(2);
-// });
 
 app.Services.UseScheduler(scheduler =>
  {
      scheduler
-     .ScheduleWithParams<MyInvocable>(2)
+     .Schedule<MyInvocable2>()
      .EverySeconds(2);
+
+     scheduler
+     .ScheduleWithParams<MyInvocable>(3)
+     .EverySeconds(3);
  });
-
-
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
-
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast = Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-});
 
 app.Run();
 
-internal record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
-
-
-
 public class MyInvocable : IInvocable
 {
+    readonly ILogger<MyInvocable> _logger;
     readonly int _seconds;
     public MyInvocable(ILogger<MyInvocable> logger, int seconds)
     {
+        _logger = logger;
         _seconds = seconds;
     }
     public Task Invoke()
     {
-        Console.WriteLine($"每隔两{_seconds}执行一次");
+        _logger.LogInformation("***每隔{int}秒执行一次", _seconds);
+        return Task.CompletedTask;
+    }
+}
+
+public class MyInvocable2 : IInvocable
+{
+    readonly ILogger<MyInvocable> _logger;
+    public MyInvocable2(ILogger<MyInvocable> logger)
+    {
+        _logger = logger;
+    }
+    public Task Invoke()
+    {
+        _logger.LogInformation("---每隔两秒执行一次");
         return Task.CompletedTask;
     }
 }
