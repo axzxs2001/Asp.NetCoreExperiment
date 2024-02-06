@@ -10,11 +10,12 @@
 
 
 	<ItemGroup>
-		<EmbeddedResource Include="AntiSamyPolicyExamples\antisamy.xml" />
+		<EmbeddedResource Include="AntiSamyPolicyExamples\antisamy.xml">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</EmbeddedResource>
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="HtmlSanitizer" Version="8.1.812-beta" />
 		<PackageReference Include="OWASP.AntiSamy" Version="1.2.1" />
 	</ItemGroup>
 

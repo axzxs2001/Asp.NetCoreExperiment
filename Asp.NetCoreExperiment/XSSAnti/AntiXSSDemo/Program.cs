@@ -1,17 +1,8 @@
-﻿using Ganss.Xss;
+﻿
 using OWASP.AntiSamy.Html;
 using System.Globalization;
 using System.Reflection;
 using System.Xml;
-
-List<int> subset = new List<int> { 1, 2, 3 ,0};
-List<int> superset = new List<int> { 1, 2, 3, 4, 5, 6 };
-
-// 使用LINQ判断subset是否是superset的子集
-bool isSubset = subset.All(element => superset.Contains(element));
-
-// 输出结果
-Console.WriteLine(isSubset ? "是子集" : "不是子集");
 
 
 
@@ -27,62 +18,68 @@ using (Stream stream = assembly.GetManifestResourceStream(resourceName))
     //Policy policy = Policy.GetInstance(TestConstants.DEFAULT_POLICY_PATH);
 
 
-    html = "test<script>alert(document.cookie)</script>";
-    html = "test<a onClick='alert(document.cookie)'>pee</a>";
+    //html = "test<script>alert(document.cookie)</script>";
+    //html = "test<a onClick='alert(document.cookie)'>pee</a>";
 
 
     //Thread.CurrentThread.CurrentCulture = new CultureInfo("ja-JP", true);
     //Thread.CurrentThread.CurrentUICulture = new CultureInfo("ja-JP", true);
-    html = "<script>al()</script><p>各位观众</p><p><br></p><a onClick='alert(document.cookie)' onFocus=\"alter()\" target=\"_blank\"></a>\r\n";
-    //    var antiSamy = new AntiSamy();
-    //    CleanResults results = antiSamy.Scan(html, stream);
+    html = """
+{"messageType":1,"messageTitle":"ddd","messageBody":"<p><span style=\"color: rgb(230, 0, 0);\">dddddddddddddddd</span></p>","edit":true,"sendEmail":false,"allUsers":false,"messageUsers":[{"userId":"59ce6835-9a2a-4edf-8edf-4ad058d355c1","userName":"saif"}]}
+""";
+    var messages = System.Text.Json.JsonSerializer.Deserialize<MessageBodeyEntity>(html,new System.Text.Json.JsonSerializerOptions {  PropertyNameCaseInsensitive=true});
+    var antiSamy = new AntiSamy();
+    CleanResults results = antiSamy.Scan(messages.MessageBody, stream);
 
-    //    Console.WriteLine(results.GetNumberOfErrors());
+    Console.WriteLine(results.GetNumberOfErrors());
 
-    //    foreach (var message in results.GetErrorMessages())
-    //    {
-    //        Console.WriteLine(message);
-    //    }
-
-
-    //    Console.WriteLine(results.GetCleanHtml()); // Some custom function
-    //}
-    //Console.ReadLine();
-
-    Console.WriteLine("-------------------------");
-    var sanitizer = new HtmlSanitizer();
-    sanitizer.RemovingAttribute += (s, e) =>
+    foreach (var message in results.GetErrorMessages())
     {
-        Console.WriteLine($"Removing attribute {e.Attribute} from element {e.Tag}");
-    };
-    sanitizer.RemovingTag += (s, e) =>
-    {
-        Console.WriteLine($"Removing tag {e.Tag}");
-    };
-    sanitizer.RemovingStyle += (s, e) =>
-    {
-        Console.WriteLine($"Removing style {e.Style}");
-    };
-    sanitizer.RemovingAtRule += (s, e) =>
-    {
-        Console.WriteLine($"Removing at-rule {e.Rule}");
-    };
-    sanitizer.RemovingComment += (s, e) =>
-    {
-        Console.WriteLine($"Removing comment {e.Comment}");
-    };
-    sanitizer.RemovingCssClass += (s, e) =>
-    {
-        Console.WriteLine($"Removing css class {e.CssClass}");
-    };
-
-    var formatter = AngleSharp.Xhtml.XhtmlMarkupFormatter.Instance;
-
-    Console.WriteLine(sanitizer.Sanitize(html, outputFormatter: formatter));
+        Console.WriteLine(message);
+    }
 
 
+    Console.WriteLine(results.GetCleanHtml()); // Some custom function
 }
+Console.ReadLine();
 
+Console.WriteLine("-------------------------");
+//var sanitizer = new HtmlSanitizer();
+//sanitizer.RemovingAttribute += (s, e) =>
+//{
+//    Console.WriteLine($"Removing attribute {e.Attribute} from element {e.Tag}");
+//};
+//sanitizer.RemovingTag += (s, e) =>
+//{
+//    Console.WriteLine($"Removing tag {e.Tag}");
+//};
+//sanitizer.RemovingStyle += (s, e) =>
+//{
+//    Console.WriteLine($"Removing style {e.Style}");
+//};
+//sanitizer.RemovingAtRule += (s, e) =>
+//{
+//    Console.WriteLine($"Removing at-rule {e.Rule}");
+//};
+//sanitizer.RemovingComment += (s, e) =>
+//{
+//    Console.WriteLine($"Removing comment {e.Comment}");
+//};
+//sanitizer.RemovingCssClass += (s, e) =>
+//{
+//    Console.WriteLine($"Removing css class {e.CssClass}");
+//};
+
+//var formatter = AngleSharp.Xhtml.XhtmlMarkupFormatter.Instance;
+
+//Console.WriteLine(sanitizer.Sanitize(html, outputFormatter: formatter));
+
+
+//}
+class MessageBodeyEntity
+{
+    public string MessageBody { get; set; }
+}
 public static class TestConstants
 {
     public static readonly string DEFAULT_POLICY_PATH = "AntiSamyPolicyExamples/antisamy.xml";

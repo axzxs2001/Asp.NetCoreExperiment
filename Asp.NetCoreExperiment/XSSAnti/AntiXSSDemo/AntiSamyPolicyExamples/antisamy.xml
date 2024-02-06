@@ -114,6 +114,7 @@ http://www.w3.org/TR/html401/struct/global.html
 
 		<!-- Used for CSS Color specifications (complex regexps expresses integer values of 0-255 and decimals from 0 to 1 with two decimal places for RGBA) -->
 		<regexp name="rgbCode" value="rgb\(([1]?[0-9]{1,2}|2[0-4][0-9]|25[0-5]),([1]?[0-9]{1,2}|2[0-4][0-9]|25[0-5]),([1]?[0-9]{1,2}|2[0-4][0-9]|25[0-5])\)"/>
+
 		<regexp name="rgbaCode" value="rgba\(([1]?[0-9]{1,2}|2[0-4][0-9]|25[0-5]),\s*([1]?[0-9]{1,2}|2[0-4][0-9]|25[0-5]),\s*([1]?[0-9]{1,2}|2[0-4][0-9]|25[0-5]),\s*(1|0(\.[0-9][0-9]?)?)\)"/>
 
 		<!-- CSS2 Allowed System Color Values -->
@@ -141,6 +142,13 @@ http://www.w3.org/TR/html401/struct/global.html
 	<common-attributes>
 
 		<!-- Common to all HTML tags  -->
+
+
+		<!--<attribute name="style">
+			<regexp-list>
+				<regexp name="anything" />
+			</regexp-list>
+		</attribute>-->
 
 		<attribute name="id" description="The 'id' of any HTML attribute should not contain anything besides letters and numbers">
 			<regexp-list>
@@ -721,6 +729,7 @@ http://www.w3.org/TR/html401/struct/global.html
 		<tag name="b" action="validate"/>
 		<tag name="u" action="validate"/>
 		<tag name="strong" action="validate"/>
+		<tag name="s" action="validate"/>
 
 		<tag name="em" action="validate"/>
 		<tag name="small" action="validate"/>
@@ -822,10 +831,12 @@ http://www.w3.org/TR/html401/struct/global.html
 		<tag name="img" action="validate">
 			<attribute name="src" onInvalid="removeTag">
 				<regexp-list>
-					<regexp name="onsiteURL"/>
-					<regexp name="offsiteURL"/>
+					<!--<regexp name="onsiteURL"/>
+					<regexp name="offsiteURL"/>-->
+					<regexp name="anything" />
 				</regexp-list>
 			</attribute>
+
 			<attribute name="name"/>
 			<attribute name="alt"/>
 			<attribute name="height"/>
