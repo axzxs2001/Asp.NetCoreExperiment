@@ -850,15 +850,19 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "schedulerdemo", "Asp.NetCor
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CoravelDemos", "CoravelDemos", "{94A33BEE-C8A4-466A-911D-848ADD4C3BA5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo01", "Asp.NetCoreExperiment\CoravelDemos\Demo01\Demo01.csproj", "{04F1321E-2777-4A27-8BD8-D27B0FC8456C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo01", "Asp.NetCoreExperiment\CoravelDemos\Demo01\Demo01.csproj", "{04F1321E-2777-4A27-8BD8-D27B0FC8456C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{46335439-26ED-4F1F-A863-F299A84D1B8A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo02", "Asp.NetCoreExperiment\CoravelDemos\Demo02\Demo02.csproj", "{943922CF-2BEC-4C00-8705-109D71C3FD71}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo02", "Asp.NetCoreExperiment\CoravelDemos\Demo02\Demo02.csproj", "{943922CF-2BEC-4C00-8705-109D71C3FD71}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextChunkerDemo", "Asp.NetCoreExperiment\SemanticKernel\TextChunkerDemo\TextChunkerDemo.csproj", "{545E7AF2-7A54-46AE-A40A-0CA6CDCF2FFB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TextChunkerDemo", "Asp.NetCoreExperiment\SemanticKernel\TextChunkerDemo\TextChunkerDemo.csproj", "{545E7AF2-7A54-46AE-A40A-0CA6CDCF2FFB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextEmbeddingDemo", "Asp.NetCoreExperiment\SemanticKernel\TextEmbeddingDemo\TextEmbeddingDemo.csproj", "{2271A143-FA9F-4574-B582-7CE6A663DBC2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TextEmbeddingDemo", "Asp.NetCoreExperiment\SemanticKernel\TextEmbeddingDemo\TextEmbeddingDemo.csproj", "{2271A143-FA9F-4574-B582-7CE6A663DBC2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TechnicalTranslator", "TechnicalTranslator", "{B07AC866-337F-4606-A258-071EE319B791}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechnicalTranslator", "Asp.NetCoreExperiment\SemanticKernel\TechnicalTranslator\TechnicalTranslator.csproj", "{F66468A4-C172-41C2-BB79-204950617315}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -3814,6 +3818,18 @@ Global
 		{2271A143-FA9F-4574-B582-7CE6A663DBC2}.Release|arm64.Build.0 = Release|Any CPU
 		{2271A143-FA9F-4574-B582-7CE6A663DBC2}.Release|x86.ActiveCfg = Release|Any CPU
 		{2271A143-FA9F-4574-B582-7CE6A663DBC2}.Release|x86.Build.0 = Release|Any CPU
+		{F66468A4-C172-41C2-BB79-204950617315}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F66468A4-C172-41C2-BB79-204950617315}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F66468A4-C172-41C2-BB79-204950617315}.Debug|arm64.ActiveCfg = Debug|Any CPU
+		{F66468A4-C172-41C2-BB79-204950617315}.Debug|arm64.Build.0 = Debug|Any CPU
+		{F66468A4-C172-41C2-BB79-204950617315}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F66468A4-C172-41C2-BB79-204950617315}.Debug|x86.Build.0 = Debug|Any CPU
+		{F66468A4-C172-41C2-BB79-204950617315}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F66468A4-C172-41C2-BB79-204950617315}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F66468A4-C172-41C2-BB79-204950617315}.Release|arm64.ActiveCfg = Release|Any CPU
+		{F66468A4-C172-41C2-BB79-204950617315}.Release|arm64.Build.0 = Release|Any CPU
+		{F66468A4-C172-41C2-BB79-204950617315}.Release|x86.ActiveCfg = Release|Any CPU
+		{F66468A4-C172-41C2-BB79-204950617315}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -4173,6 +4189,8 @@ Global
 		{943922CF-2BEC-4C00-8705-109D71C3FD71} = {46335439-26ED-4F1F-A863-F299A84D1B8A}
 		{545E7AF2-7A54-46AE-A40A-0CA6CDCF2FFB} = {645151F0-78B2-4F12-B95D-34FD387F37A8}
 		{2271A143-FA9F-4574-B582-7CE6A663DBC2} = {645151F0-78B2-4F12-B95D-34FD387F37A8}
+		{B07AC866-337F-4606-A258-071EE319B791} = {645151F0-78B2-4F12-B95D-34FD387F37A8}
+		{F66468A4-C172-41C2-BB79-204950617315} = {B07AC866-337F-4606-A258-071EE319B791}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
