@@ -7,6 +7,10 @@ using Microsoft.SemanticKernel.Planning.Handlebars;
 using System.ComponentModel;
 #pragma warning disable SKEXP0061
 #pragma warning disable SKEXP0060
+
+//https://github.com/MicrosoftDocs/semantic-kernel-docs/blob/main/samples/dotnet/11-Planner/Program.cs
+
+
 var chatModelId = "gpt-4";
 var key = File.ReadAllText(@"C:\GPT\key.txt");
 var builder = Kernel.CreateBuilder();
