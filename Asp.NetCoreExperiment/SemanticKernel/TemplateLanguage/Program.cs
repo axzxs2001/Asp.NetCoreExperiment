@@ -18,12 +18,12 @@ kernel.ImportPluginFromType<TimePlugin>("time");
 
 // Prompt Function invoking time.Date and time.Time method functions
 const string FunctionDefinition = @"
-Today is: {{time.Date}}
-Current time is: {{time.Time}}
+今天是: {{time.Date}}
+当前时间是: {{time.Time}}
 
-Answer to the following questions using JSON syntax, including the data used.
-Is it morning, afternoon, evening, or night (morning/afternoon/evening/night)?
-Is it weekend time (weekend/not weekend)?
+使用 JSON 语法回答以下问题，包括所使用的数据。
+是早上、下午、晚上还是晚上（早上/下午/晚上/晚上）？
+现在是周末时间（周末/非周末）吗？
 ";
 
 // This allows to see the prompt before it's sent to OpenAI
