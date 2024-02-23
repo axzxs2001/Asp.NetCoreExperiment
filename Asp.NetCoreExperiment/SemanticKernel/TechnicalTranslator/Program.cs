@@ -11,34 +11,61 @@ using System.Text;
 using System.Text.RegularExpressions;
 using static System.Net.Mime.MediaTypeNames;
 
-//Console.WriteLine("请输入一个Url");
-//var url = Console.ReadLine();// "https://mp.weixin.qq.com/s/U6nBt0V_cnjngOf0ZeXe5A";
-//var (title, content) = await GetArticleAsync(url);
-//Console.WriteLine("取得原文");
-//var translatorContent = await OpenAIChatSampleAsync(title, content);
-await PublishArticleAsync("gsw");
+Console.WriteLine("请输入一个Url");
+var url = Console.ReadLine();
+Console.WriteLine("开始获取原文……");
+var (title, content) = await GetArticleAsync(url);
+Console.WriteLine("获取取得原文成功！");
+Console.WriteLine($"标题：{title}");
+Console.WriteLine("正文");
+Console.WriteLine(content);
+Console.WriteLine("开始翻译……");
+var translatorContent = await OpenAIChatSampleAsync(title, content);
+
+await PublishArticleAsync(translatorContent);
+Console.WriteLine($"转换发布成功：{url}");
 Console.ReadLine();
+
+(string title, string content) SplitArticle(string article)
+{
+    File.WriteAllText(Directory.GetCurrentDirectory() + $"/{DateTime.Now.ToString("yyyyMMddHHmmss")}.txt", article, Encoding.UTF8);
+    var arr = article.Split(new string[] { "标题：", "内容：", "タイトル：" }, StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
+    if (arr.Length != 2)
+    {
+        throw new Exception("拆解不正确");
+    }
+    var title = arr[0];
+    var content = arr[1];
+    return (title, content);
+}
 
 async Task<bool> PublishArticleAsync(string translatorContent)
 {
+    var (title, content) = SplitArticle(translatorContent);
     using var playwright = await Playwright.CreateAsync();
     await using var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = false });
     var page = await browser.NewPageAsync();
     await page.GotoAsync("https://qiita.com/");
-
 
     await page.ClickAsync("a[href='/login?callback_action=login_or_signup&redirect_to=%2F&realm=qiita']");
     var userArr = File.ReadAllLines("C:/gpt/qiita_user.txt");
     await page.FillAsync("#identity", userArr[0]);
     await page.FillAsync("#password", userArr[1]);
     await page.ClickAsync("input[name='commit']");
-
-    //page.FillAsync("div[class='style-mpp8vq']", "翻訳");
     await page.GotoAsync("https://qiita.com/drafts/new");
-    // await page.ClickAsync("button[class='style-tyeip2']");
-    // await page.ClickAsync("a[href='/drafts/new']");
-    await page.FillAsync("input[placeholder='タグを入力してください。スペース区切りで5つまで入力できます。']", translatorContent);
-    await page.FillAsync("div[role='textbox']", translatorContent);
+    await page.FillAsync("input[placeholder='記事タイトル']", title);
+    await page.FillAsync("input[placeholder='タグを入力してください。スペース区切りで5つまで入力できます。']", "C# .NET");
+    await page.FillAsync("div[role='textbox']", content);
+    await page.ClickAsync("button[class='style-1pme5r3']");
+
+    Console.WriteLine("\r\n\r\n");
+    Console.ForegroundColor = ConsoleColor.Red;
+    Console.WriteLine("是否要发布？");
+    Console.ResetColor();
+    if (Console.ReadLine().ToLower() == "y")
+    {
+        await page.ClickAsync("button[class='style-4bw89i']");
+    }
     return true;
 }
 async Task<(string Title, string Content)> GetArticleAsync(string url)
