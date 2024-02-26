@@ -880,9 +880,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DescribeAllPluginsAndFuncti
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConversationSummaryPluginDemo", "Asp.NetCoreExperiment\SemanticKernel\ConversationSummaryPluginDemo\ConversationSummaryPluginDemo.csproj", "{15FE6761-4A75-49C5-BD3B-E002B793D307}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomLLM", "Asp.NetCoreExperiment\SemanticKernel\CustomLLM\CustomLLM.csproj", "{768039CA-8428-4A79-98D2-E51DA9738917}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomLLM", "Asp.NetCoreExperiment\SemanticKernel\CustomLLM\CustomLLM.csproj", "{768039CA-8428-4A79-98D2-E51DA9738917}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AudioDemo", "Asp.NetCoreExperiment\SemanticKernel\AudioDemo\AudioDemo.csproj", "{00366FE7-96F5-4CC3-A104-1BC20278F8DB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlannerDemo02", "Asp.NetCoreExperiment\SemanticKernel\PlannerDemo02\PlannerDemo02.csproj", "{C8F9AE6D-8312-4EB6-BAC1-CB0E2DEC5FBA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -3970,6 +3972,18 @@ Global
 		{00366FE7-96F5-4CC3-A104-1BC20278F8DB}.Release|arm64.Build.0 = Release|Any CPU
 		{00366FE7-96F5-4CC3-A104-1BC20278F8DB}.Release|x86.ActiveCfg = Release|Any CPU
 		{00366FE7-96F5-4CC3-A104-1BC20278F8DB}.Release|x86.Build.0 = Release|Any CPU
+		{C8F9AE6D-8312-4EB6-BAC1-CB0E2DEC5FBA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8F9AE6D-8312-4EB6-BAC1-CB0E2DEC5FBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8F9AE6D-8312-4EB6-BAC1-CB0E2DEC5FBA}.Debug|arm64.ActiveCfg = Debug|Any CPU
+		{C8F9AE6D-8312-4EB6-BAC1-CB0E2DEC5FBA}.Debug|arm64.Build.0 = Debug|Any CPU
+		{C8F9AE6D-8312-4EB6-BAC1-CB0E2DEC5FBA}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C8F9AE6D-8312-4EB6-BAC1-CB0E2DEC5FBA}.Debug|x86.Build.0 = Debug|Any CPU
+		{C8F9AE6D-8312-4EB6-BAC1-CB0E2DEC5FBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8F9AE6D-8312-4EB6-BAC1-CB0E2DEC5FBA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C8F9AE6D-8312-4EB6-BAC1-CB0E2DEC5FBA}.Release|arm64.ActiveCfg = Release|Any CPU
+		{C8F9AE6D-8312-4EB6-BAC1-CB0E2DEC5FBA}.Release|arm64.Build.0 = Release|Any CPU
+		{C8F9AE6D-8312-4EB6-BAC1-CB0E2DEC5FBA}.Release|x86.ActiveCfg = Release|Any CPU
+		{C8F9AE6D-8312-4EB6-BAC1-CB0E2DEC5FBA}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -4340,6 +4354,7 @@ Global
 		{15FE6761-4A75-49C5-BD3B-E002B793D307} = {645151F0-78B2-4F12-B95D-34FD387F37A8}
 		{768039CA-8428-4A79-98D2-E51DA9738917} = {645151F0-78B2-4F12-B95D-34FD387F37A8}
 		{00366FE7-96F5-4CC3-A104-1BC20278F8DB} = {645151F0-78B2-4F12-B95D-34FD387F37A8}
+		{C8F9AE6D-8312-4EB6-BAC1-CB0E2DEC5FBA} = {645151F0-78B2-4F12-B95D-34FD387F37A8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
