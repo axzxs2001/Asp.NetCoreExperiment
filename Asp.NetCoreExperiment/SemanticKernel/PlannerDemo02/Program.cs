@@ -1,9 +1,14 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Azure;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.ChatCompletion;
 using Microsoft.SemanticKernel.Connectors.OpenAI;
 using Microsoft.SemanticKernel.Planning;
 using Microsoft.SemanticKernel.Planning.Handlebars;
+using OpenTelemetry;
+using OpenTelemetry.Metrics;
+using OpenTelemetry.Trace;
 using System.ComponentModel;
 #pragma warning disable SKEXP0061
 #pragma warning disable SKEXP0060
@@ -13,11 +18,16 @@ using System.ComponentModel;
 
 var chatModelId = "gpt-4";
 var key = File.ReadAllText(@"C:\GPT\key.txt");
+
 var builder = Kernel.CreateBuilder();
+
+var meterProvider = Sdk.CreateMeterProviderBuilder()
+   .AddMeter("Microsoft.SemanticKernel*")
+   .AddPrometheusHttpListener(options => options.UriPrefixes = new string[] { "http://localhost:9184/" })
+   .Build();
 
 builder.Services.AddOpenAIChatCompletion(chatModelId, key);
 builder.Plugins.AddFromType<Dispatch>();
-
 var kernel = builder.Build();
 
 ChatHistory history = [];
@@ -67,7 +77,7 @@ class Dispatch
         kernelWithMath.Plugins.Remove(kernelWithMath.Plugins["Dispatch"]);
 
         kernelWithMath.Plugins.AddFromType<Work>();
-       
+
         var planner = new HandlebarsPlanner(new HandlebarsPlannerOptions() { AllowLoops = true });
 
         var plan = await planner.CreatePlanAsync(kernelWithMath, content);
