@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Azure;
+﻿
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.SemanticKernel;
@@ -21,10 +21,29 @@ var key = File.ReadAllText(@"C:\GPT\key.txt");
 
 var builder = Kernel.CreateBuilder();
 
+
+//var loggerFactory = LoggerFactory.Create(builder =>
+//{
+
+//    builder.AddOpenTelemetry(options =>
+//    {
+//        options.IncludeFormattedMessage = true;
+//    });
+//    builder.SetMinimumLevel(LogLevel.Warning);
+//});
+//builder.Services.AddSingleton(loggerFactory);
+
+
 var meterProvider = Sdk.CreateMeterProviderBuilder()
    .AddMeter("Microsoft.SemanticKernel*")
-   .AddPrometheusHttpListener(options => options.UriPrefixes = new string[] { "http://localhost:9184/" })
+   // .AddPrometheusExporter()
+   .AddPrometheusHttpListener(options => options.UriPrefixes = new string[] { "http://localhost:9465/" })
    .Build();
+
+//var traceProvider = Sdk.CreateTracerProviderBuilder()
+//           .AddSource("Microsoft.SemanticKernel*")
+//           .Build();
+
 
 builder.Services.AddOpenAIChatCompletion(chatModelId, key);
 builder.Plugins.AddFromType<Dispatch>();
