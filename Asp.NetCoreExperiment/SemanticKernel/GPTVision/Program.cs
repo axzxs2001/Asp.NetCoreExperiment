@@ -1,6 +1,9 @@
 ﻿using Microsoft.SemanticKernel.ChatCompletion;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.Connectors.OpenAI;
+using System.Reflection;
+using System.Xml.Linq;
+using System.Runtime.CompilerServices;
 
 
 var key = File.ReadAllText(@"C:\GPT\key.txt");
@@ -13,6 +16,16 @@ var kernel = Kernel.CreateBuilder()
 var chatGPT = kernel.GetRequiredService<IChatCompletionService>();
 
 var chatHistory = new ChatHistory("你是一个流程图理解高手");
+async static Task<ImageContent> ReadAllAsync(string fileName)
+{
+    using var fileStream = new FileStream(fileName, FileMode.Open, FileAccess.Read);
+    using var memoryStream = new MemoryStream();
+    await fileStream!.CopyToAsync(memoryStream);
+    var imageData = new ReadOnlyMemory<byte>(memoryStream.ToArray());
+    ImageContent imageContent = new(new BinaryData(imageData, "image/jpeg"));
+    return imageContent;
+}
+
 
 chatHistory.AddUserMessage(new ChatMessageContentItemCollection
         {
