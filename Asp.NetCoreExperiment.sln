@@ -789,6 +789,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "classlibTest", "Asp.NetCoreExperiment\aot\classlibTest\classlibTest.csproj", "{65B92017-666B-4FD5-9C1F-F2AF581C2670}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SemanticKernel", "SemanticKernel", "{645151F0-78B2-4F12-B95D-34FD387F37A8}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\Users\axzxs\Documents\WeChat Files\wxid_n6tqtf4lzrea12\FileStorage\Temp\5ef2f2de56df9bb374f64b2f8823269.jpg = ..\..\Users\axzxs\Documents\WeChat Files\wxid_n6tqtf4lzrea12\FileStorage\Temp\5ef2f2de56df9bb374f64b2f8823269.jpg
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo01", "Asp.NetCoreExperiment\SemanticKernel\Demo01\Demo01.csproj", "{86198C02-D326-4D76-87E7-033D3A00DCE8}"
 EndProject
@@ -878,13 +881,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InlineFunctionDefinition", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DescribeAllPluginsAndFunctions", "Asp.NetCoreExperiment\SemanticKernel\DescribeAllPluginsAndFunctions\DescribeAllPluginsAndFunctions.csproj", "{B4D2391D-6390-4F3D-A307-898818F8CB38}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConversationSummaryPluginDemo", "Asp.NetCoreExperiment\SemanticKernel\ConversationSummaryPluginDemo\ConversationSummaryPluginDemo.csproj", "{15FE6761-4A75-49C5-BD3B-E002B793D307}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConversationSummaryPluginDemo", "Asp.NetCoreExperiment\SemanticKernel\ConversationSummaryPluginDemo\ConversationSummaryPluginDemo.csproj", "{15FE6761-4A75-49C5-BD3B-E002B793D307}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomLLM", "Asp.NetCoreExperiment\SemanticKernel\CustomLLM\CustomLLM.csproj", "{768039CA-8428-4A79-98D2-E51DA9738917}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AudioDemo", "Asp.NetCoreExperiment\SemanticKernel\AudioDemo\AudioDemo.csproj", "{00366FE7-96F5-4CC3-A104-1BC20278F8DB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AudioDemo", "Asp.NetCoreExperiment\SemanticKernel\AudioDemo\AudioDemo.csproj", "{00366FE7-96F5-4CC3-A104-1BC20278F8DB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlannerDemo02", "Asp.NetCoreExperiment\SemanticKernel\PlannerDemo02\PlannerDemo02.csproj", "{C8F9AE6D-8312-4EB6-BAC1-CB0E2DEC5FBA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlannerDemo02", "Asp.NetCoreExperiment\SemanticKernel\PlannerDemo02\PlannerDemo02.csproj", "{C8F9AE6D-8312-4EB6-BAC1-CB0E2DEC5FBA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
