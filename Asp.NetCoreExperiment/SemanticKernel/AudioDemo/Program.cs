@@ -22,7 +22,7 @@ async Task TextToAudioAsync()
 
     var textToAudioService = kernel.GetRequiredService<ITextToAudioService>();
 
-    var sampleText = $"你好，你有什么问题吗？现在是{DateTime.Now.ToString("yyyy年MM月dd日HH时mm分")}";
+    var sampleText = $"老板，苹果多少钱一斤？";
 
     // Set execution settings (optional)
     var executionSettings = new OpenAITextToAudioExecutionSettings("alloy")
