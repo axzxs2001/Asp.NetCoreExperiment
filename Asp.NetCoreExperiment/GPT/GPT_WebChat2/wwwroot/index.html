@@ -31,6 +31,7 @@
                 var xhr = new $.ajaxSettings.xhr();
                 xhr.onreadystatechange = function () {
                     if (xhr.readyState == 3) {
+                        console.log(xhr.responseText)
                         var content = "";
                         var list = JSON.parse(xhr.responseText.replace(']', '') + ']');
                         $(list).each(function (index, item) {
