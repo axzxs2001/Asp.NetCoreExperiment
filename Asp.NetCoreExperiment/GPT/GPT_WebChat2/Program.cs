@@ -17,7 +17,7 @@ var app = builder.Build();
 app.UseStaticFiles();
 app.MapGet("/chat", AskAsync);
 app.Run();
-async IAsyncEnumerable<string> AskAsync(IMemoryCache cache, IChatCompletion chat, HttpRequest request, string ask)
+async IAsyncEnumerable<string> AskAsync( IMemoryCache cache, IChatCompletion chat, HttpRequest request, string ask)
 {
     var requestID = request.Headers["Request-ID"];
     if (!cache.TryGetValue(requestID,  out OpenAIChatHistory? history))
