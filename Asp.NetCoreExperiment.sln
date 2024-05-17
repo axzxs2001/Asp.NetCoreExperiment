@@ -789,9 +789,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "classlibTest", "Asp.NetCoreExperiment\aot\classlibTest\classlibTest.csproj", "{65B92017-666B-4FD5-9C1F-F2AF581C2670}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SemanticKernel", "SemanticKernel", "{645151F0-78B2-4F12-B95D-34FD387F37A8}"
-	ProjectSection(SolutionItems) = preProject
-		..\..\Users\axzxs\Documents\WeChat Files\wxid_n6tqtf4lzrea12\FileStorage\Temp\5ef2f2de56df9bb374f64b2f8823269.jpg = ..\..\Users\axzxs\Documents\WeChat Files\wxid_n6tqtf4lzrea12\FileStorage\Temp\5ef2f2de56df9bb374f64b2f8823269.jpg
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo01", "Asp.NetCoreExperiment\SemanticKernel\Demo01\Demo01.csproj", "{86198C02-D326-4D76-87E7-033D3A00DCE8}"
 EndProject
