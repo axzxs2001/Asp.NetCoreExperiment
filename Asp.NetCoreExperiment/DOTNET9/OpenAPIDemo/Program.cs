@@ -7,7 +7,6 @@ using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
 builder.Services.AddOpenApi("myapi", opt =>
 {
     opt.UseTransformer((oper, context, c) =>
@@ -48,6 +47,10 @@ builder.Services.AddOpenApi("myapi", opt =>
             new OpenApiTag
             {
                 Name = "tag1", Description = "tag1 description",
+            },
+            new OpenApiTag
+            {
+                Name = "tag2", Description = "tag2 description",
             }
         };
         return Task.CompletedTask;
@@ -57,30 +60,37 @@ builder.Services.AddOpenApi("myapi", opt =>
 var app = builder.Build();
 app.MapOpenApi("/openapi/{documentName}.json");
 
-var summaries = new[]
+app.MapGet("/order", () =>
 {
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
-
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast = Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
+    return new Order()
+    {
+        OrderNo = "20210901",
+        Amount = 100,
+        OrderDate = DateTime.Now
+    };
 });
-app.MapGet("/test", () =>
+app.MapPost("/order", (Order order) =>
 {
     return new OkResult();
 });
 app.Run();
 
-internal record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
+/// <summary>
+/// 订单
+/// </summary>
+public class Order
 {
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
+    /// <summary>
+    /// 订单编号
+    /// </summary>
+    public string OrderNo { get; set; }
+    /// <summary>
+    /// 订单金额
+    /// </summary>
+    public decimal Amount { get; set; }
+    /// <summary>
+    /// 订单日期
+    /// </summary>
+    public DateTime OrderDate { get; set; }
+
 }

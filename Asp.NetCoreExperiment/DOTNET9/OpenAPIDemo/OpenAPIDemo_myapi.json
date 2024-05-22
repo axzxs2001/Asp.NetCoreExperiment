@@ -1,0 +1,108 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "My API",
+    "description": "My API Description",
+    "termsOfService": "https://www.google.com",
+    "contact": {
+      "name": "My Name",
+      "email": "aaa@aa.com"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "version": "v1"
+  },
+  "paths": {
+    "/order": {
+      "get": {
+        "tags": [
+          "tag1",
+          "tag2"
+        ],
+        "summary": "gui su wei test summary",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "orderNo": {
+                      "type": "string"
+                    },
+                    "amount": {
+                      "type": "number",
+                      "format": "double"
+                    },
+                    "orderDate": {
+                      "type": "string",
+                      "format": "date-time"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-aspnetcore-id": "e8ba784f-bc44-4d62-9132-2e0ec46472ea"
+      },
+      "post": {
+        "tags": [
+          "tag1",
+          "tag2"
+        ],
+        "summary": "gui su wei test summary",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "orderNo": {
+                    "type": "string"
+                  },
+                  "amount": {
+                    "type": "number",
+                    "format": "double"
+                  },
+                  "orderDate": {
+                    "type": "string",
+                    "format": "date-time"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "statusCode": {
+                      "type": "integer",
+                      "format": "int32"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-aspnetcore-id": "ddb8949d-07dc-414a-99b0-a298aab0ecb8"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "OpenAPIDemo"
+    }
+  ]
+}
