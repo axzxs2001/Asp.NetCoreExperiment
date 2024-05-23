@@ -7,59 +7,52 @@ using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddOpenApi("myapi", opt =>
+builder.Services.AddOpenApi("openapidemo", opt =>
 {
-    opt.UseTransformer((oper, context, c) =>
+    opt.UseTransformer((openApiDoc, context, c) =>
     {
-        oper.Info = new OpenApiInfo
-        {
-            Version = "v1",
-            Title = "My API",
-            Description = "My API Description",
-            Contact = new OpenApiContact
-            {
-                Name = "My Name",
-                Email = "aaa@aa.com"
-            },
-            License = new OpenApiLicense
-            {
-                Name = "MIT",
-                Url = new Uri("https://opensource.org/licenses/MIT")
-            },
-            TermsOfService = new Uri("https://www.google.com"),
-        };
-        return Task.CompletedTask;
-    });
-    opt.ShouldInclude = (o) =>
-    {
-        Console.WriteLine("-----HttpMethod------" + o.HttpMethod);
-        Console.WriteLine("-----GroupName------" + o.GroupName);
-        Console.WriteLine("------RelativePath-----" + o.RelativePath);
-        Console.WriteLine("------ActionDescriptor-----" + o.ActionDescriptor.DisplayName);
-        return true;
-    };
-    opt.UseOperationTransformer((oper, context, c) =>
-    {
-        Console.WriteLine("======summary=======" + oper.Summary);
-        oper.Summary = "gui su wei test summary";
-        oper.Tags = new OpenApiTag[]
-        {
-            new OpenApiTag
-            {
-                Name = "tag1", Description = "tag1 description",
-            },
-            new OpenApiTag
-            {
-                Name = "tag2", Description = "tag2 description",
-            }
-        };
-        return Task.CompletedTask;
-    });
 
+        openApiDoc.Info = new OpenApiInfo
+        {
+            Version = "v1.1.1",
+            Title = "测试API",
+            Description = "本项是测试.NET自带的OpenAPI。"
+        };
+        return Task.CompletedTask;
+    });
+    opt.UseOperationTransformer((o, c, c1) =>
+    {
+        Console.WriteLine("DocumentName:" + opt.DocumentName);
+        return Task.CompletedTask;
+    });
 });
 var app = builder.Build();
-app.MapOpenApi("/openapi/{documentName}.json");
-
+app.MapOpenApi();
+app.MapGet("/scalar/{documentName}", (string documentName) => Results.Content($$"""
+              <!doctype html>
+              <html>
+              <head>
+                  <title>Scalar API Reference -- {{documentName}}</title>
+                  <meta charset="utf-8" />
+                  <meta
+                  name="viewport"
+                  content="width=device-width, initial-scale=1" />
+              </head>
+              <body>
+                  <script
+                  id="api-reference"
+                  data-url="/openapi/{{documentName}}.json"></script>
+                  <script>
+                  var configuration = {
+                      theme: 'purple',
+                  }              
+                  document.getElementById('api-reference').dataset.configuration =
+                      JSON.stringify(configuration)
+                  </script>
+                  <script src="https://cdn.jsdelivr.net/npm/@scalar/api-reference"></script>
+              </body>
+              </html>
+              """, "text/html")).ExcludeFromDescription();
 app.MapGet("/order", () =>
 {
     return new Order()
@@ -69,7 +62,7 @@ app.MapGet("/order", () =>
         OrderDate = DateTime.Now
     };
 });
-app.MapPost("/order", (Order order) =>
+app.MapPost("/order", ([FromBody]Order order) =>
 {
     return new OkResult();
 });

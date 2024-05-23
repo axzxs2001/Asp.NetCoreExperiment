@@ -1,27 +1,16 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "My API",
-    "description": "My API Description",
-    "termsOfService": "https://www.google.com",
-    "contact": {
-      "name": "My Name",
-      "email": "aaa@aa.com"
-    },
-    "license": {
-      "name": "MIT",
-      "url": "https://opensource.org/licenses/MIT"
-    },
-    "version": "v1"
+    "title": "测试API",
+    "description": "本项是测试.NET自带的OpenAPI。",
+    "version": "v1.1.1"
   },
   "paths": {
     "/order": {
       "get": {
         "tags": [
-          "tag1",
-          "tag2"
+          "OpenAPIDemo"
         ],
-        "summary": "gui su wei test summary",
         "responses": {
           "200": {
             "description": "OK",
@@ -47,14 +36,12 @@
             }
           }
         },
-        "x-aspnetcore-id": "e8ba784f-bc44-4d62-9132-2e0ec46472ea"
+        "x-aspnetcore-id": "ce4a7d1d-82ac-4961-80fd-fa0ddaf39850"
       },
       "post": {
         "tags": [
-          "tag1",
-          "tag2"
+          "OpenAPIDemo"
         ],
-        "summary": "gui su wei test summary",
         "requestBody": {
           "content": {
             "application/json": {
@@ -96,7 +83,7 @@
             }
           }
         },
-        "x-aspnetcore-id": "ddb8949d-07dc-414a-99b0-a298aab0ecb8"
+        "x-aspnetcore-id": "910a7a72-6f2b-4bfe-a496-802d05cb7018"
       }
     }
   },
