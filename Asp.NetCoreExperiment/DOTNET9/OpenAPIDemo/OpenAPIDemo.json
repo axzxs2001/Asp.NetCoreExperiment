@@ -1,0 +1,95 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "测试API",
+    "description": "本项是测试.NET自带的OpenAPI。",
+    "version": "v1.1.1"
+  },
+  "paths": {
+    "/order": {
+      "get": {
+        "tags": [
+          "OpenAPIDemo"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "orderNo": {
+                      "type": "string"
+                    },
+                    "amount": {
+                      "type": "number",
+                      "format": "double"
+                    },
+                    "orderDate": {
+                      "type": "string",
+                      "format": "date-time"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-aspnetcore-id": "ce4a7d1d-82ac-4961-80fd-fa0ddaf39850"
+      },
+      "post": {
+        "tags": [
+          "OpenAPIDemo"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "orderNo": {
+                    "type": "string"
+                  },
+                  "amount": {
+                    "type": "number",
+                    "format": "double"
+                  },
+                  "orderDate": {
+                    "type": "string",
+                    "format": "date-time"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "statusCode": {
+                      "type": "integer",
+                      "format": "int32"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-aspnetcore-id": "910a7a72-6f2b-4bfe-a496-802d05cb7018"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "OpenAPIDemo"
+    }
+  ]
+}
