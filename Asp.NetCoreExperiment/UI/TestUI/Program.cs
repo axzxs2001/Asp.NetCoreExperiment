@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FlaUI.UIA3;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -6,6 +7,10 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Automation;
+using FlaUI.Core.AutomationElements;
+using FlaUI.Core.Definitions;
+using System.Threading;
+using AutoIt;
 
 namespace TestUI
 {
@@ -15,43 +20,58 @@ namespace TestUI
         {
             F2();
         }
-
-
         static void F2()
         {
+            AutoItX.Run("calc.exe", "", AutoItX.SW_SHOW);
 
-            foreach (var pro in Process.GetProcesses())
+            AutoItX.WinWaitActive("Calculator");
+            var allControls = AutoItX.ControlListView("Calculator", "", "[CLASS:SysListView32]", "", "","");
+
+
+            foreach (var control in allControls)
             {
-                Console.WriteLine(pro.ProcessName);
+                Console.WriteLine($"Control: {control}");
             }
-            var process = Process.GetProcessesByName("voovmeetingapp")[0];
 
-            string windowTitle = "加入会议";
+            AutoItX.WinClose("Calculator");
+        }
 
-            // 找到目标窗口句柄
-            IntPtr hwnd = FindWindow(null, windowTitle);
-            // 获取目标窗体的自动化元素
-            var rootElement = AutomationElement.FromHandle(process.MainWindowHandle);
-
-            // 查找目标控件（例如文本框）
-            var textBox = rootElement.FindFirst(TreeScope.Descendants,
-                new PropertyCondition(AutomationElement.ControlTypeProperty, ControlType.Edit));
-
-            if (textBox != null)
+        static void F1()
+        {
+            using (var automation = new UIA3Automation())
             {
-                // 设置控件的值
-                var valuePattern = textBox.GetCurrentPattern(ValuePattern.Pattern) as ValuePattern;
-                if (valuePattern != null)
+                var list = Process.GetProcesses();
+                var app = FlaUI.Core.Application.Attach("CalculatorApp");
+
+                var mainWindow = app.GetMainWindow(automation);
+                Console.WriteLine("Calculator window found: " + mainWindow.Title);
+
+                var allControls = GetAllChildElements(mainWindow);
+                foreach (var control in allControls)
                 {
-                    valuePattern.SetValue("新的值");
+                    try
+                    {
+                        Console.WriteLine($"Control Type: {control.ControlType}, AutomationId: {control.AutomationId}");
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
                 }
             }
-            else
-            {
-                Console.WriteLine("未找到目标控件");
-            }
         }
-        [DllImport("user32.dll", SetLastError = true)]
-        static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
+        static List<FlaUI.Core.AutomationElements.AutomationElement> GetAllChildElements(FlaUI.Core.AutomationElements.AutomationElement parent)
+        {
+            var allChildElements = new List<FlaUI.Core.AutomationElements.AutomationElement>();
+            var children = parent.FindAllChildren();
+
+            foreach (var child in children)
+            {
+                allChildElements.Add(child);
+                allChildElements.AddRange(GetAllChildElements(child)); // Recursively get all children
+            }
+
+            return allChildElements;
+        }
     }
 }

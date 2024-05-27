@@ -8,8 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="FlaUI.Core" Version="4.0.0" />
-    <PackageReference Include="FlaUI.UIA3" Version="4.0.0" />
+    <PackageReference Include="Appium.WebDriver" Version="5.0.0-rc.8" />
+    <PackageReference Include="Selenium.WebDriver" Version="4.21.0" />
+    <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="125.0.6422.7800" />
   </ItemGroup>
 
 </Project>

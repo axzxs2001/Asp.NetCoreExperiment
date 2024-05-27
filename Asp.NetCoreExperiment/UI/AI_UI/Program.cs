@@ -1,16 +1,28 @@
 ﻿using System.Diagnostics;
 using System.Runtime.InteropServices;
+using FlaUI.Core;
+using FlaUI.UIA3;
+static void F2()
+{
+    using (var automation = new UIA3Automation())
+    {
+        var app = FlaUI.Core.Application.Launch("calc.exe");
+        var mainWindow = app.GetMainWindow(automation);
+        Console.WriteLine("Calculator window found: " + mainWindow.Title);
 
+        var buttonOne = mainWindow.FindFirstDescendant(cf => cf.ByAutomationId("num1Button"));
+        var buttonPlus = mainWindow.FindFirstDescendant(cf => cf.ByAutomationId("plusButton"));
+        var buttonTwo = mainWindow.FindFirstDescendant(cf => cf.ByAutomationId("num2Button"));
+        var buttonEquals = mainWindow.FindFirstDescendant(cf => cf.ByAutomationId("equalButton"));
 
+        buttonOne?.AsButton().Invoke();
+        buttonPlus?.AsButton().Invoke();
+        buttonTwo?.AsButton().Invoke();
+        buttonEquals?.AsButton().Invoke();
 
-
-
-F1();
-
-
-
-
-
+        Console.WriteLine("Performed 1 + 2 = operation.");
+    }
+}
 
 
 
@@ -26,7 +38,7 @@ static void F1()
 
     const int WM_SETTEXT = 0x000C;
 
-    string windowTitle = "加入会议";
+    string windowTitle = "新建 文本文档.txt - Notepad";
 
     // 找到目标窗口句柄
     IntPtr hwnd = FindWindow(null, windowTitle);
@@ -38,9 +50,9 @@ static void F1()
 
 
     // 替换为目标文本框的类名或标题，如果不确定，可以使用Spy++等工具查找
-    IntPtr hwndChild1 = FindWindowEx(hwnd, IntPtr.Zero, "atg__MainWidget__name", null);
+    IntPtr hwndChild1 = FindWindowEx(hwnd, IntPtr.Zero, "RichEditD2DPT", null);
 
-    IntPtr hwndChild = FindWindowEx(hwnd, IntPtr.Zero, null, "datg__MainWidget__name");
+    IntPtr hwndChild = FindWindowEx(hwnd, IntPtr.Zero, null, "RichEditD2DPT");
 
 
     if (hwndChild == IntPtr.Zero)
