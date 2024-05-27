@@ -11,4 +11,8 @@
     <PackageReference Include="Microsoft.SemanticKernel" Version="1.12.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\DOTNET9\OpenAPIDemo\OpenAPIDemo.csproj" />
+  </ItemGroup>
+
 </Project>
