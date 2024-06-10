@@ -24,20 +24,40 @@ var builder = Kernel.CreateBuilder()
 //builder.Services.AddSingleton<IAIServiceSelector>(new GptAIServiceSelector());
 builder.Services.AddScoped<IAIServiceSelector, GptAIServiceSelector>();
 builder.Services.AddScoped<IMyService, MyService>();
-builder.Services.AddLogging(c => c.AddConsole().SetMinimumLevel(LogLevel.Information));
+builder.Services.AddLogging(c => c
+.AddConsole()
+//.AddJsonConsole()
+.SetMinimumLevel(LogLevel.Information));
 Kernel kernel = builder.Build();
+
+var logger = kernel.LoggerFactory.CreateLogger("logger");
 var prompt = "你好，你能帮我做什么";
 var result = await kernel.InvokePromptAsync(prompt);
-Console.WriteLine(result.GetValue<string>());
+var usage = result.Metadata["Usage"] as Azure.AI.OpenAI.CompletionsUsage;
+if (usage != null)
+{
+    var tokenStr = @$"====================Tokens==================
+提示词Tokens数：{usage.PromptTokens}
+返回内容Tokens数：{usage.CompletionTokens}
+总Tokens数：{usage.TotalTokens}
+===========================================";
+    logger.LogInformation(tokenStr);
+}
+var message = @$"返回信息：
+{result.GetValue<string>()}";
+logger.LogInformation(message);
+
 
 
 
 class GptAIServiceSelector : IAIServiceSelector
 {
     private readonly IMyService _myService;
-    public GptAIServiceSelector(IMyService myService)
+    private readonly ILogger<GptAIServiceSelector> _logger;
+    public GptAIServiceSelector(IMyService myService, ILogger<GptAIServiceSelector> logger)
     {
         _myService = myService;
+        _logger = logger;
     }
     public bool TrySelectAIService<T>(
         Kernel kernel, KernelFunction function, KernelArguments arguments,
@@ -50,8 +70,8 @@ class GptAIServiceSelector : IAIServiceSelector
             var endpoint = serviceToCheck.GetEndpoint();
             if (!string.IsNullOrEmpty(serviceModelId))
             {
-                Console.WriteLine($"使用的模型: {serviceModelId} {endpoint}");
-                Console.WriteLine($"服务类型: {serviceToCheck.GetType().Name}");
+                _logger.LogInformation($"使用的模型: {serviceModelId} {endpoint}");
+                _logger.LogInformation($"服务类型: {serviceToCheck.GetType().Name}");
                 service = serviceToCheck;
                 serviceSettings = new OpenAIPromptExecutionSettings();
                 return true;
