@@ -48,8 +48,6 @@ var message = @$"返回信息：
 logger.LogInformation(message);
 
 
-
-
 class GptAIServiceSelector : IAIServiceSelector
 {
     private readonly IMyService _myService;
@@ -87,7 +85,6 @@ interface IMyService
 {
     void Print();
 }
-
 class MyService : IMyService
 {
     readonly ILogger<MyService> _logger;
