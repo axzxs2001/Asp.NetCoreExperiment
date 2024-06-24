@@ -912,7 +912,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WinAppDriverDemo", "Asp.Net
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HybridCacheDemo", "Asp.NetCoreExperiment\DOTNET9\HybridCacheDemo\HybridCacheDemo.csproj", "{5A6068C7-B104-412F-A5D8-791BEA940391}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo02-BuiltInService", "Asp.NetCoreExperiment\SemanticKernelArticle\Demo02-BuiltInService\Demo02-BuiltInService.csproj", "{F882BBEF-E9E8-4E8D-99BB-0FCC8D550452}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo02-BuiltInService", "Asp.NetCoreExperiment\SemanticKernelArticle\Demo02-BuiltInService\Demo02-BuiltInService.csproj", "{F882BBEF-E9E8-4E8D-99BB-0FCC8D550452}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo03-Chat", "Asp.NetCoreExperiment\SemanticKernelArticle\Demo03-Chat\Demo03-Chat.csproj", "{9B794530-1EA2-45A1-BA7D-AADB60116485}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -4144,6 +4146,18 @@ Global
 		{F882BBEF-E9E8-4E8D-99BB-0FCC8D550452}.Release|arm64.Build.0 = Release|Any CPU
 		{F882BBEF-E9E8-4E8D-99BB-0FCC8D550452}.Release|x86.ActiveCfg = Release|Any CPU
 		{F882BBEF-E9E8-4E8D-99BB-0FCC8D550452}.Release|x86.Build.0 = Release|Any CPU
+		{9B794530-1EA2-45A1-BA7D-AADB60116485}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B794530-1EA2-45A1-BA7D-AADB60116485}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B794530-1EA2-45A1-BA7D-AADB60116485}.Debug|arm64.ActiveCfg = Debug|Any CPU
+		{9B794530-1EA2-45A1-BA7D-AADB60116485}.Debug|arm64.Build.0 = Debug|Any CPU
+		{9B794530-1EA2-45A1-BA7D-AADB60116485}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{9B794530-1EA2-45A1-BA7D-AADB60116485}.Debug|x86.Build.0 = Debug|Any CPU
+		{9B794530-1EA2-45A1-BA7D-AADB60116485}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B794530-1EA2-45A1-BA7D-AADB60116485}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B794530-1EA2-45A1-BA7D-AADB60116485}.Release|arm64.ActiveCfg = Release|Any CPU
+		{9B794530-1EA2-45A1-BA7D-AADB60116485}.Release|arm64.Build.0 = Release|Any CPU
+		{9B794530-1EA2-45A1-BA7D-AADB60116485}.Release|x86.ActiveCfg = Release|Any CPU
+		{9B794530-1EA2-45A1-BA7D-AADB60116485}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -4528,6 +4542,7 @@ Global
 		{70AE62F7-8B4E-4299-89FC-A54BF0ED11C3} = {AA339017-2B53-4F96-9131-6681C0C20899}
 		{5A6068C7-B104-412F-A5D8-791BEA940391} = {1366C46D-D43D-42FB-9840-95632E9A4778}
 		{F882BBEF-E9E8-4E8D-99BB-0FCC8D550452} = {3918D839-4415-44C9-AD94-C78DB19EF9CE}
+		{9B794530-1EA2-45A1-BA7D-AADB60116485} = {3918D839-4415-44C9-AD94-C78DB19EF9CE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
