@@ -7,72 +7,10 @@
 <body>
     <div class="container" id="mydiv">
     </div>
-
-    <script>
-
-        function XHR() {
-
-            var jsonContent = ''
-            var xhr = new XMLHttpRequest();
-            xhr.timeout = 30000;
-            xhr.open("POST", "/chat");
-            //xhr.setRequestHeader("Request-ID", _this.requestID);
-            xhr.setRequestHeader("Content-Type", "application/json");
-
-            function handleJsonSnip(xhr) {
-                if (!xhr.response.endsWith("]")) {
-                    jsonContent += xhr.response;
-                    document.getElementById("mydiv").innerHTML += jsonContent + '</br>';
-                    console.log(jsonContent)
-
-                } else {
-                    jsonContent += xhr.response;
-                    document.getElementById("mydiv").innerHTML += jsonContent + '</br>';
-                    console.log(jsonContent)
-                }
-            }
-
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState === 3) {
-                    // 处理正在接收的数据
-                    //console.log("xhr.readyState", 3);
-                    //console.log(xhr);
-                    if (xhr.status === 200) {
-                        handleJsonSnip(xhr);
-                    }
-                } else if (xhr.readyState === 4) {
-                    //console.log(xhr);
-                    //console.log("xhr.readyState", 4);
-                    if (xhr.status === 200) {
-                        handleJsonSnip(xhr);
-                    }
-                }
-            };
-
-            xhr.onload = function () {
-                // 处理响应完成的情况
-                if (xhr.status === 200) {
-                    // 处理成功的响应
-                } else {
-                    // 处理错误的响应
-                }
-            };
-
-            xhr.onerror = function () {
-                // 处理网络错误
-            };
-
-            xhr.ontimeout = function () {
-                // 处理超时错误
-            };
-
-            var requestData = JSON.stringify({ ask: '请给我生成1到5如下格式的json返回，格式如下：[{"index":1,"value":"1"},{"index":2,"value":"2"}……]。要求只返回json信息，要求完整，不能省略。' });
-            xhr.send(requestData);
-        }
-        //XHR()
-
-
+    <script> 
+        var arr = []
         function loadFeachAPI() {
+            arr = []
             async function fetchStream(url, data) {
                 const response = await fetch(url, {
                     method: 'POST',
@@ -106,7 +44,7 @@
 
             // 使用函数，你需要提供流的URL
             var jsonContent = '';
-            var allString = "";      
+            var allString = "";
             const postData = { ask: '请给我生成1到5如下格式的json返回，格式如下：[{"index":1,"value":"1"},{"index":2,"value":"2"}……]。要求只返回json信息，要求完整，不能省略。' };
             fetchStream('/chat', postData).then(stream => {
                 const reader = stream.getReader();
@@ -114,36 +52,33 @@
                     if (done) {
                         return;
                     }
+                    //console.log(value)
                     jsonContent += value
-                    allString = ''
-                    var list = JSON.parse(jsonContent + (value.endsWith("]") ? "" : "]"));
-                    list.forEach(item => {
-                        allString += item; // 访问元素属性
-                    });                   
-                    document.getElementById("mydiv").innerHTML += allString + '</br>';
+                    allString = JSON.parse(jsonContent + (value.endsWith("]") ? "" : "]")).join('');
+                    //document.getElementById("mydiv").innerHTML += allString + '</br>';
                     processOutput(allString)
-                   
-                    allString = ''
                     return reader.read().then(processChunk);
                 };
                 reader.read().then(processChunk);
             }).catch(e => console.error('There was a problem:', e));
         }
-
         var buffer = ""
         function processOutput(output) {
             buffer += output; // 将新的输出添加到缓冲区
-            const pattern = /\[?{"index":\d+, "value": "\d+"}(, {"index":\d+, "value": "\d+"})*\]?/g;
-
+            const pattern = /\[?{"index":\d+, "value": "\S+"}(, {"index":\d+, "value": "\S+"})*\]?/g;
             let match;
-            let lastIndex = 0;            
+            let lastIndex = 0;
             // 循环查找和处理完整的对象
             while ((match = pattern.exec(buffer)) !== null) {
-                console.log('处理对象：', match[0]); // 处理匹配的对象
-                lastIndex = match.index + match[0].length;              
+                var index = JSON.parse(match[0]).index;
+                if (!arr.includes(index)) {
+                    arr.push(JSON.parse(match[0]).index)
+                    console.log('处理对象：', match[0]); // 处理匹配的对象
+                }
+                lastIndex = match.index + match[0].length;
             }
             // 保留未完成部分在缓冲区中
-            buffer = buffer.substring(lastIndex);            
+            buffer = buffer.substring(lastIndex);
         }
         loadFeachAPI()
     </script>
