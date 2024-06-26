@@ -6,11 +6,14 @@
 </head>
 <body>
     <div class="container" id="mydiv">
+        <button type="button" id="ask">获取</button>
     </div>
-    <script> 
-        var arr = []
-        function loadFeachAPI() {
-            arr = []
+    <script>
+        document.getElementById('ask').addEventListener('click', () => {
+            streamAsk('请给我生成1到5如下格式的json返回，格式如下：[{"index":1,"value":"1"},{"index":2,"value":"2"}……]。要求只返回json信息，要求完整，不能省略。')
+        })
+
+        function streamAsk(message) {
             async function fetchStream(url, data) {
                 const response = await fetch(url, {
                     method: 'POST',
@@ -19,7 +22,6 @@
                     },
                     body: JSON.stringify(data)
                 });
-
                 if (!response.ok) {
                     throw new Error('Network response was not ok.');
                 }
@@ -30,10 +32,9 @@
                         while (true) {
                             const { done, value } = await reader.read();
                             if (done) {
-                                break; // When no more data needs to be consumed, break the loop
+                                break;
                             }
                             const chunk = decoder.decode(value, { stream: true });
-                            //console.log(chunk);
                             controller.enqueue(chunk);
                         }
                         reader.releaseLock();
@@ -41,46 +42,45 @@
                     }
                 });
             }
-
             // 使用函数，你需要提供流的URL
             var jsonContent = '';
-            var allString = "";
-            const postData = { ask: '请给我生成1到5如下格式的json返回，格式如下：[{"index":1,"value":"1"},{"index":2,"value":"2"}……]。要求只返回json信息，要求完整，不能省略。' };
+            const postData = { ask: message };
             fetchStream('/chat', postData).then(stream => {
                 const reader = stream.getReader();
                 const processChunk = async ({ done, value }) => {
                     if (done) {
                         return;
                     }
-                    //console.log(value)
-                    jsonContent += value
-                    allString = JSON.parse(jsonContent + (value.endsWith("]") ? "" : "]")).join('');
-                    //document.getElementById("mydiv").innerHTML += allString + '</br>';
-                    processOutput(allString)
+                    jsonContent += JSON.parse('[' + handleValue(value) + ']').join('')
+                    jsonContent = getElementValue(jsonContent)
                     return reader.read().then(processChunk);
                 };
                 reader.read().then(processChunk);
             }).catch(e => console.error('There was a problem:', e));
-        }
-        var buffer = ""
-        function processOutput(output) {
-            buffer += output; // 将新的输出添加到缓冲区
-            const pattern = /\[?{"index":\d+, "value": "\S+"}(, {"index":\d+, "value": "\S+"})*\]?/g;
-            let match;
-            let lastIndex = 0;
-            // 循环查找和处理完整的对象
-            while ((match = pattern.exec(buffer)) !== null) {
-                var index = JSON.parse(match[0]).index;
-                if (!arr.includes(index)) {
-                    arr.push(JSON.parse(match[0]).index)
-                    console.log('处理对象：', match[0]); // 处理匹配的对象
+            function handleValue(value) {
+                value = value.replace('[', '').replace(',', '')
+                if (value.endsWith(']')) {
+                    return value.slice(0, -1);
                 }
-                lastIndex = match.index + match[0].length;
+                return value;
             }
-            // 保留未完成部分在缓冲区中
-            buffer = buffer.substring(lastIndex);
+            function getElementValue(content) {
+                const regexGlobal = /\{[^}]*\}/g;
+                const results = content.match(regexGlobal);
+                if (Array.isArray(results)) {
+                    results.forEach((result) => {
+                        console.log("完整实体：" + result);
+                    })
+                } else {
+                    if (results) {
+                        console.log("完整实体：" + results);
+                    }
+                }
+                const lastIndex = content.lastIndexOf('}');
+                return content.substring(lastIndex);
+            }
         }
-        loadFeachAPI()
+
     </script>
 </body>
 </html>

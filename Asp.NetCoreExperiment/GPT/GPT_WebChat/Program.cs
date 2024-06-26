@@ -35,8 +35,6 @@ async IAsyncEnumerable<string> AskAsync(IChatCompletion chat, OpenAIChatHistory 
 }
 async IAsyncEnumerable<string> AskPostAsync(HttpContext context, IChatCompletion chat, OpenAIChatHistory history, [FromBody]Req req)
 {
-    context.Response.Headers["Content-Type"]= "text/plain";
-   // history.AddUserMessage(req.Ask);
    var history1 = new OpenAIChatHistory();
     history1.AddUserMessage(req.Ask);
     var reply = chat.GenerateMessageStreamAsync(history1, new ChatRequestSettings() { MaxTokens = 2048 });
