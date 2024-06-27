@@ -7,7 +7,6 @@ using System.Text.Json;
 var chatModelId = "gpt-3.5-turbo-instruct";
 var key = File.ReadAllText(@"C:\GPT\key.txt");
 
-var textGenerationService = new OpenAITextGenerationService(chatModelId, key);
 Console.WriteLine("---------------非流式---------------");
 /*
 这些参数是用来精细控制OpenAI GPT模型在文本生成过程中的行为的：
