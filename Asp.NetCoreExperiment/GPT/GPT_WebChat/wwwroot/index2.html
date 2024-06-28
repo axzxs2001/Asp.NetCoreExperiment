@@ -10,55 +10,73 @@
     </div>
     <script>
         document.getElementById('ask').addEventListener('click', () => {
-            streamAsk('请给我生成1到70如下格式的json返回，格式如下：[{"index":1,"value":"1"},{"index":2,"value":"2"}……]。要求只返回json信息，要求完整，不能省略。')
+            streamAsk2('请给我生成1到5如下格式的json返回，格式如下：[{"index":1,"value":"1"},{"index":2,"value":"2"}……]。要求只返回json信息，要求完整，不能省略。')
         })
 
-        function streamAsk(message) {
-            async function fetchStream(url, data) {
-                const response = await fetch(url, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(data)
-                });
-                if (!response.ok) {
-                    throw new Error('Network response was not ok.');
-                }
-                const reader = response.body.getReader();
-                const decoder = new TextDecoder();
-                return new ReadableStream({
-                    async start(controller) {
-                        while (true) {
-                            const { done, value } = await reader.read();
-                            if (done) {
-                                break;
-                            }
-                            const chunk = decoder.decode(value, { stream: true });
-                            controller.enqueue(chunk);
-                        }
-                        reader.releaseLock();
-                        controller.close();
-                    }
-                });
+
+        function streamAsk2(message) {
+            var xhr = new XMLHttpRequest();
+            xhr.timeout = 990000;
+            xhr.open("POST", "/chat");
+            // xhr.setRequestHeader("Request-ID", _this.requestID);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            var jsonContent = ""
+            var oldString = "";
+            function dealRes(xhr) {
+                var value = xhr.response.substring(oldString.length)
+                oldString += value
+                jsonContent += JSON.parse('[' + handleValue(value) + ']').join('')
+                jsonContent = getElementValue(jsonContent)
             }
-            // 使用函数，你需要提供流的URL
-            var jsonContent = '';
-            const postData = { ask: message };
-            fetchStream('/chat', postData).then(stream => {
-                const reader = stream.getReader();
-                const processChunk = async ({ done, value }) => {
-                    if (done) {
-                        return;
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 3) {
+                    if (xhr.status === 200) {
+                        dealRes(xhr);
                     }
-                    jsonContent += JSON.parse('[' + handleValue(value) + ']').join('')
-                    jsonContent = getElementValue(jsonContent)
-                    return reader.read().then(processChunk);
-                };
-                reader.read().then(processChunk);
-            }).catch(e => console.error('There was a problem:', e));
+                } else if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+
+                        dealRes(xhr);
+
+                    }
+                }
+            };
+
+            xhr.onload = function () {
+                // 处理响应完成的情况
+                if (xhr.status === 200) {
+                    // 处理成功的响应
+                } else {
+                    // 处理错误的响应
+
+
+                }
+            };
+
+            xhr.onerror = function () {
+
+            };
+
+            xhr.ontimeout = function () {
+
+            };
+
+            // var requestData = {
+            //   question: str,
+            //   appKey: appKey,
+            // };
+            var postData = { ask: message };
+
+            xhr.send(JSON.stringify(postData));
+
+
             function handleValue(value) {
-                value = value.replace('[', '').replace(',', '')
+                value = value.replace('[', '')
+
+                if (value.startsWith(',')) {
+                    value = value.substring(1);
+                }
                 if (value.endsWith(']')) {
                     return value.slice(0, -1);
                 }
@@ -80,6 +98,8 @@
                 return content.substring(lastIndex);
             }
         }
+
+
 
     </script>
 </body>
