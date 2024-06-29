@@ -11,4 +11,11 @@
     <PackageReference Include="Microsoft.SemanticKernel" Version="0.15.230531.5-preview" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="wwwroot\index3.html">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>

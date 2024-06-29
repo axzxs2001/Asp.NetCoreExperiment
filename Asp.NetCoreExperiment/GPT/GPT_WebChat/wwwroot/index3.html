@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>小助手</title>
+
+</head>
+<body>
+    <div class="container" id="mydiv">
+        <button type="button" id="ask">获取</button>
+    </div>
+    <script>
+        document.getElementById('ask').addEventListener('click', () => {
+            streamAsk('请给我生成1到70如下格式的json返回，格式如下：[{"index":1,"value":"1"},{"index":2,"value":"2"}……]。要求只返回json信息，要求完整，不能省略。')
+        })
+
+        function streamAsk(message) {
+            async function fetchStream(url, data) {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+                if (!response.ok) {
+                    throw new Error('Network response was not ok.');
+                }
+                const reader = response.body.getReader();
+                const decoder = new TextDecoder();
+                return new ReadableStream({
+                    async start(controller) {
+                        while (true) {
+                            const { done, value } = await reader.read();
+                            if (done) {
+                                break;
+                            }
+                            const chunk = decoder.decode(value, { stream: true });
+                            controller.enqueue(chunk);
+                        }
+                        reader.releaseLock();
+                        controller.close();
+                    }
+                });
+            }
+            // 使用函数，你需要提供流的URL
+            var jsonContent = '';
+            const postData = { ask: message };
+            fetchStream('/chat', postData).then(stream => {
+                const reader = stream.getReader();
+                const processChunk = async ({ done, value }) => {
+                    if (done) {
+                        return;
+                    }
+                    jsonContent += JSON.parse('[' + handleValue(value) + ']').join('')
+                    jsonContent = getElementValue(jsonContent)
+                    return reader.read().then(processChunk);
+                };
+                reader.read().then(processChunk);
+            }).catch(e => console.error('There was a problem:', e));
+            function handleValue(value) {
+                value = value.replace('[', '').replace(',', '')
+                if (value.endsWith(']')) {
+                    return value.slice(0, -1);
+                }
+                return value;
+            }
+            function getElementValue(content) {
+                const regexGlobal = /\{[^}]*\}/g;
+                const results = content.match(regexGlobal);
+                if (Array.isArray(results)) {
+                    results.forEach((result) => {
+                        console.log("完整实体：" + result);
+                    })
+                } else {
+                    if (results) {
+                        console.log("完整实体：" + results);
+                    }
+                }
+                const lastIndex = content.lastIndexOf('}');
+                return content.substring(lastIndex);
+            }
+        }
+
+    </script>
+</body>
+</html>
