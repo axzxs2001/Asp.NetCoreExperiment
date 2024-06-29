@@ -8,7 +8,7 @@ using System.Text.Json;
 var chatModelId = "gpt-3.5-turbo-instruct";
 var key = File.ReadAllText(@"C:\GPT\key.txt");
 
-Console.WriteLine("---------------非流式---------------");
+
 /*
 这些参数是用来精细控制OpenAI GPT模型在文本生成过程中的行为的：
 max_tokens:这个参数定义了模型输出的最大词数（或者说是token数）。Token不仅仅是单词，还包括标点符号和空格等。这个限制帮助控制生成内容的长度。
@@ -17,40 +17,42 @@ top_p (Nucleus Sampling):这个参数控制模型在选择下一个词时考虑�
 presence_penalty 和 frequency_penalty:这两个参数用于增加输出的多样性和降低重复性。presence_penalty增加了已出现过的词再次出现的代价，有助于避免重复同一主题或词汇。frequency_penalty类似，但它是基于词出现的频率来增加代价，频繁出现的词在后续生成中被选中的概率将降低。
 这些参数的组合可以帮助调整生成文本的风格和质量，以适应不同的应用场景和需求。
  */
-//var settings = new PromptExecutionSettings
-//{
-//    ExtensionData = new Dictionary<string, object>
-//    {
-//        ["max_tokens"] = 1000,
-//        ["temperature"] = 0.2,
-//        ["top_p"] = 0.8,
-//        ["presence_penalty"] = 0.0,
-//        ["frequency_penalty"] = 0.0
-//    }
-//};
+var settings = new PromptExecutionSettings
+{
+    ExtensionData = new Dictionary<string, object>
+    {
+        ["max_tokens"] = 1000,
+        ["temperature"] = 0.2,
+        ["top_p"] = 0.8,
+        ["presence_penalty"] = 0.0,
+        ["frequency_penalty"] = 0.0
+    }
+};
+Console.WriteLine("---------------非流式---------------");
+var textGenerationService = new OpenAITextGenerationService(chatModelId, key);
+var textContents = await textGenerationService.GetTextContentsAsync("用50个字描述一下.NET", settings);
+foreach (var textContent in textContents)
+{
+    var usage = textContent?.Metadata?["Usage"] as Azure.AI.OpenAI.CompletionsUsage;
+    if (usage != null)
+    {
+        var tokenStr = @$"====================Tokens==================
+提示词Tokens数：{usage.PromptTokens}
+返回内容Tokens数：{usage.CompletionTokens}
+总Tokens数：{usage.TotalTokens}
 
-//var textContents = await textGenerationService.GetTextContentsAsync("用50个字描述一下.NET", settings);
-//foreach (var textContent in textContents)
-//{
-//    var usage = textContent?.Metadata?["Usage"] as Azure.AI.OpenAI.CompletionsUsage;
-//    if (usage != null)
-//    {
-//        var tokenStr = @$"====================Tokens==================
-//提示词Tokens数：{usage.PromptTokens}
-//返回内容Tokens数：{usage.CompletionTokens}
-//总Tokens数：{usage.TotalTokens}
-//===========================================";
-//        Console.WriteLine(tokenStr);
-//    }
-//    Console.WriteLine(textContent.Text);
-//}
+===========================================";
+        Console.WriteLine(tokenStr);
+    }
+    Console.WriteLine(textContent.Text);
+}
 
-//Console.WriteLine("---------------流式---------------");
-//var streamTextContents = textGenerationService.GetStreamingTextContentsAsync("用50个字描述一下C#");
-//await foreach (var textContent in streamTextContents)
-//{
-//    Console.Write(textContent.Text);
-//}
+Console.WriteLine("---------------流式---------------");
+var streamTextContents = textGenerationService.GetStreamingTextContentsAsync("用50个字描述一下C#");
+await foreach (var textContent in streamTextContents)
+{
+    Console.Write(textContent.Text);
+}
 
 
 chatModelId = "gpt-4o";
@@ -73,26 +75,26 @@ chatModelId = "gpt-4o";
 //}
 
 
-var chatCompletionService = new OpenAIChatCompletionService(chatModelId, key);
-var chatHistory = new ChatHistory("你是一位.NET专家，有深厚的.NET知识。");
-var userMessage = "用50个字描述一下.NET";
-Console.WriteLine("用户："+userMessage);
-chatHistory.AddUserMessage(userMessage);
-var messageContents = await chatCompletionService.GetChatMessageContentsAsync(chatHistory);
-foreach (var messageContent in messageContents)
-{
-    chatHistory.AddAssistantMessage(messageContent?.Content);
-    Console.WriteLine("专家：" + messageContent?.Content);
-}
-userMessage = "还有补充吗？";
-Console.WriteLine("用户：" + userMessage);
-chatHistory.AddUserMessage(userMessage);
-messageContents = await chatCompletionService.GetChatMessageContentsAsync(chatHistory);
-foreach (var messageContent in messageContents)
-{
-    chatHistory.AddAssistantMessage(messageContent?.Content);
-    Console.WriteLine("专家：" + messageContent?.Content);
-}
+//var chatCompletionService = new OpenAIChatCompletionService(chatModelId, key);
+//var chatHistory = new ChatHistory("你是一位.NET专家，有深厚的.NET知识。");
+//var userMessage = "用50个字描述一下.NET";
+//Console.WriteLine("用户："+userMessage);
+//chatHistory.AddUserMessage(userMessage);
+//var messageContents = await chatCompletionService.GetChatMessageContentsAsync(chatHistory);
+//foreach (var messageContent in messageContents)
+//{
+//    chatHistory.AddAssistantMessage(messageContent?.Content);
+//    Console.WriteLine("专家：" + messageContent?.Content);
+//}
+//userMessage = "还有补充吗？";
+//Console.WriteLine("用户：" + userMessage);
+//chatHistory.AddUserMessage(userMessage);
+//messageContents = await chatCompletionService.GetChatMessageContentsAsync(chatHistory);
+//foreach (var messageContent in messageContents)
+//{
+//    chatHistory.AddAssistantMessage(messageContent?.Content);
+//    Console.WriteLine("专家：" + messageContent?.Content);
+//}
 
 #pragma warning disable SKEXP0010
 //var textToImageService = new OpenAITextToImageService(key);

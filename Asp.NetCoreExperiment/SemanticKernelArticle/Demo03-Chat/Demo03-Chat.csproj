@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.SemanticKernel" Version="1.15.0" />
+    <PackageReference Include="Microsoft.SemanticKernel.Connectors.Google" Version="1.15.0-alpha" />
   </ItemGroup>
 
 </Project>
