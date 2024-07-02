@@ -914,7 +914,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HybridCacheDemo", "Asp.NetC
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo02-BuiltInService", "Asp.NetCoreExperiment\SemanticKernelArticle\Demo02-BuiltInService\Demo02-BuiltInService.csproj", "{F882BBEF-E9E8-4E8D-99BB-0FCC8D550452}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo03-Chat", "Asp.NetCoreExperiment\SemanticKernelArticle\Demo03-Chat\Demo03-Chat.csproj", "{9B794530-1EA2-45A1-BA7D-AADB60116485}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo03-Chat", "Asp.NetCoreExperiment\SemanticKernelArticle\Demo03-Chat\Demo03-Chat.csproj", "{9B794530-1EA2-45A1-BA7D-AADB60116485}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo05-PictureToText", "Asp.NetCoreExperiment\SemanticKernelArticle\Demo05-PictureToText\Demo05-PictureToText.csproj", "{490BDB30-A574-45AE-B76E-1F3907D7CD52}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo04-Embedding", "Asp.NetCoreExperiment\SemanticKernelArticle\Demo04-Embedding\Demo04-Embedding.csproj", "{9AF28917-729F-40C4-A18D-A3ADCC53E582}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -4158,6 +4162,30 @@ Global
 		{9B794530-1EA2-45A1-BA7D-AADB60116485}.Release|arm64.Build.0 = Release|Any CPU
 		{9B794530-1EA2-45A1-BA7D-AADB60116485}.Release|x86.ActiveCfg = Release|Any CPU
 		{9B794530-1EA2-45A1-BA7D-AADB60116485}.Release|x86.Build.0 = Release|Any CPU
+		{490BDB30-A574-45AE-B76E-1F3907D7CD52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{490BDB30-A574-45AE-B76E-1F3907D7CD52}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{490BDB30-A574-45AE-B76E-1F3907D7CD52}.Debug|arm64.ActiveCfg = Debug|Any CPU
+		{490BDB30-A574-45AE-B76E-1F3907D7CD52}.Debug|arm64.Build.0 = Debug|Any CPU
+		{490BDB30-A574-45AE-B76E-1F3907D7CD52}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{490BDB30-A574-45AE-B76E-1F3907D7CD52}.Debug|x86.Build.0 = Debug|Any CPU
+		{490BDB30-A574-45AE-B76E-1F3907D7CD52}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{490BDB30-A574-45AE-B76E-1F3907D7CD52}.Release|Any CPU.Build.0 = Release|Any CPU
+		{490BDB30-A574-45AE-B76E-1F3907D7CD52}.Release|arm64.ActiveCfg = Release|Any CPU
+		{490BDB30-A574-45AE-B76E-1F3907D7CD52}.Release|arm64.Build.0 = Release|Any CPU
+		{490BDB30-A574-45AE-B76E-1F3907D7CD52}.Release|x86.ActiveCfg = Release|Any CPU
+		{490BDB30-A574-45AE-B76E-1F3907D7CD52}.Release|x86.Build.0 = Release|Any CPU
+		{9AF28917-729F-40C4-A18D-A3ADCC53E582}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9AF28917-729F-40C4-A18D-A3ADCC53E582}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9AF28917-729F-40C4-A18D-A3ADCC53E582}.Debug|arm64.ActiveCfg = Debug|Any CPU
+		{9AF28917-729F-40C4-A18D-A3ADCC53E582}.Debug|arm64.Build.0 = Debug|Any CPU
+		{9AF28917-729F-40C4-A18D-A3ADCC53E582}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{9AF28917-729F-40C4-A18D-A3ADCC53E582}.Debug|x86.Build.0 = Debug|Any CPU
+		{9AF28917-729F-40C4-A18D-A3ADCC53E582}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9AF28917-729F-40C4-A18D-A3ADCC53E582}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9AF28917-729F-40C4-A18D-A3ADCC53E582}.Release|arm64.ActiveCfg = Release|Any CPU
+		{9AF28917-729F-40C4-A18D-A3ADCC53E582}.Release|arm64.Build.0 = Release|Any CPU
+		{9AF28917-729F-40C4-A18D-A3ADCC53E582}.Release|x86.ActiveCfg = Release|Any CPU
+		{9AF28917-729F-40C4-A18D-A3ADCC53E582}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -4543,6 +4571,8 @@ Global
 		{5A6068C7-B104-412F-A5D8-791BEA940391} = {1366C46D-D43D-42FB-9840-95632E9A4778}
 		{F882BBEF-E9E8-4E8D-99BB-0FCC8D550452} = {3918D839-4415-44C9-AD94-C78DB19EF9CE}
 		{9B794530-1EA2-45A1-BA7D-AADB60116485} = {3918D839-4415-44C9-AD94-C78DB19EF9CE}
+		{490BDB30-A574-45AE-B76E-1F3907D7CD52} = {3918D839-4415-44C9-AD94-C78DB19EF9CE}
+		{9AF28917-729F-40C4-A18D-A3ADCC53E582} = {3918D839-4415-44C9-AD94-C78DB19EF9CE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
