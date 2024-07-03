@@ -30,9 +30,22 @@ var database = connectionMultiplexer.GetDatabase();
 var store = new RedisMemoryStore(database, vectorSize: 1536);
 var embeddingGenerator = new OpenAITextEmbeddingGenerationService(embeddingId, key);
 var memory = new SemanticTextMemory(store, embeddingGenerator);
-await memory.SaveInformationAsync("key", id: $"", text: "");
+var dic = new Dictionary<string, string>
+{
+    {"name","我的名字是桂素伟" },
+    {"age","我今年30岁" },
+    {"job","我是一位.net高级讲师" },
+    {"experience","我有10年的.net开发经验" },
+    {"skill","我精通.net core、asp.net core、微服务、docker、k8s等技术" },
+    {"hobby","我喜欢阅读、写作、旅行" },
+    {"motto","我的座右铭是：行成于思，毁于随" }
+};
+foreach (var item in dic)
+{
+    await memory.SaveInformationAsync("ask", id: item.Key, text: item.Value);
+}
 
-var chatHistory = new ChatHistory(systemMessage: "你是一位.net高级讲师，回答问题言简意赅。");
+var chatHistory = new ChatHistory();
 var chat = kernel.GetRequiredService<IChatCompletionService>();
 
 var settings = new PromptExecutionSettings
@@ -44,16 +57,28 @@ var settings = new PromptExecutionSettings
         ["top_p"] = 0.8,
         ["presence_penalty"] = 0.0,
         ["frequency_penalty"] = 0.0
+
     }
 };
 while (true)
 {
     Console.ResetColor();
     Console.WriteLine("----------学生提问：----------");
-    chatHistory.AddUserMessage(Console.ReadLine());
+    var ask = Console.ReadLine();
+    chatHistory.Clear();
+    chatHistory.AddSystemMessage("基于下面的信息回复问题：");
+    await foreach (var answer in memory.SearchAsync(
+        collection: "ask",
+        query: ask,
+        limit: 3,
+        minRelevanceScore: 0.65d,
+        withEmbeddings: true))
+    {
+        chatHistory.AddSystemMessage(answer.Metadata.Text);
+    };
 
+    chatHistory.AddUserMessage(ask);
     Console.WriteLine();
-
     Console.ForegroundColor = ConsoleColor.Green;
     Console.WriteLine("==========讲师回答：==========");
     AuthorRole? role = AuthorRole.Assistant;
