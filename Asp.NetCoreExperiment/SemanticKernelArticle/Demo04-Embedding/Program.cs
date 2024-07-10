@@ -80,7 +80,7 @@ while (true)
     chatHistory.AddUserMessage(ask);
     Console.WriteLine();
     Console.ForegroundColor = ConsoleColor.Green;
-    Console.WriteLine("==========讲师回答：==========");
+    Console.WriteLine( "==========讲师回答：==========");
     AuthorRole? role = AuthorRole.Assistant;
     var contentBuilder = new StringBuilder();
     await foreach (var reply in chat.GetStreamingChatMessageContentsAsync(chatHistory, settings))

@@ -1,8 +1,10 @@
-﻿using Microsoft.SemanticKernel;
+﻿using Azure.AI.OpenAI;
+using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.ChatCompletion;
 using Microsoft.SemanticKernel.Connectors.OpenAI;
 using System.Runtime.CompilerServices;
 using System.Text;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 var chatModelId = "gpt-4o";
 //var geminiModelId = "gemini-1.5-flash-latest";
@@ -18,18 +20,23 @@ var kernel = Kernel.CreateBuilder()
    .AddOpenAIFiles(apiKey: key)
    .Build();
 
-var chatHistory = new ChatHistory();// new ChatHistory(systemMessage: "你是一位.net高级讲师，回答问题言简意赅。");
-
 var chat = kernel.GetRequiredService<IChatCompletionService>();
+var chatHistory = new ChatHistory();// new ChatHistory(systemMessage: "你是一位.net高级讲师，回答问题言简意赅。");
+var fileSev = kernel.GetRequiredService<OpenAIFileService>();
+var refFile = await fileSev.UploadContentAsync(new BinaryContent(File.ReadAllBytes(@"C:\GPT\202103121100.docx"), "application/octet-stream"), new OpenAIFileUploadExecutionSettings("202103121100.docx", OpenAIFilePurpose.Assistants));
 
-//var fileSev = kernel.GetRequiredService<OpenAIFileService>();
-//var refFile = await fileSev.UploadContentAsync(new BinaryContent(File.ReadAllBytes(@"C:\NetStars\短域名服务\短域名服务会访纪要_202103121100.docx"), "text/plain"), new OpenAIFileUploadExecutionSettings("短域名服务会访纪要_202103121100.docx", OpenAIFilePurpose.Assistants));
-chatHistory.AddUserMessage(new ChatMessageContentItemCollection()
+
+chatHistory.Add(new ChatMessageContent()
 {
-    //new FileReferenceContent(refFile.Id)
-   
-    new BinaryContent(File.ReadAllBytes(@"C:\NetStars\短域名服务\短域名服务会访纪要_202103121100.docx"),"application/msword")
+    Role = AuthorRole.User,
+    Items = [
+    new FileReferenceContent(refFile.Id) 
+    ]
 });
+
+
+
+
 var settings = new PromptExecutionSettings
 {
     ExtensionData = new Dictionary<string, object>
@@ -71,5 +78,5 @@ while (true)
     }
     chatHistory.AddMessage(role.Value, contentBuilder.ToString());
     Console.WriteLine();
-
+    Console.ReadLine();
 }
