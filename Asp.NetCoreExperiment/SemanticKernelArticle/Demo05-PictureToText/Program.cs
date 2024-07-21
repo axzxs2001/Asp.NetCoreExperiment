@@ -14,10 +14,35 @@ var kernel = Kernel.CreateBuilder()
 
 var chat = kernel.GetRequiredService<IChatCompletionService>();
 var chatHistory = new ChatHistory();
+//chatHistory.AddUserMessage(new ChatMessageContentItemCollection
+//{
+//     new TextContent("请说明这是那里，什么样的天气，大家在干什么?一共有多少人"),
+//     new ImageContent(File.ReadAllBytes("tam.jpg"),"image/jpeg")
+//});
+//var settings = new Dictionary<string, object>
+//{
+//    ["max_tokens"] = 1000,
+//    ["temperature"] = 0.2,
+//    ["top_p"] = 0.8,
+//    ["presence_penalty"] = 0.0,
+//    ["frequency_penalty"] = 0.0
+//};
+
+//var content = chat.GetStreamingChatMessageContentsAsync(chatHistory, new PromptExecutionSettings
+//{
+//    ExtensionData = settings
+//});
+//await foreach (var item in content)
+//{
+//    Console.Write(item.Content);
+//}
+//Console.ReadLine();
+
+
 chatHistory.AddUserMessage(new ChatMessageContentItemCollection
 {
-     new TextContent("请说明这是那里，什么样的天气，大家在干什么?一共有多少人"),
-     new ImageContent(File.ReadAllBytes("tam.jpg"),"image/jpeg")
+     new TextContent("请识别图片上的文字，并输出"),
+     new ImageContent(File.ReadAllBytes("mycard.jpg"),"image/jpeg")
 });
 var settings = new Dictionary<string, object>
 {
