@@ -17,7 +17,7 @@ var chatHistory = new ChatHistory();
 //chatHistory.AddUserMessage(new ChatMessageContentItemCollection
 //{
 //     new TextContent("请说明这是那里，什么样的天气，大家在干什么?一共有多少人"),
-//     new ImageContent(File.ReadAllBytes("tam.jpg"),"image/jpeg")
+//     new ImageContent(File.ReadAllBytes("tam.png"),"image/jpeg")
 //});
 //var settings = new Dictionary<string, object>
 //{
@@ -42,7 +42,7 @@ var chatHistory = new ChatHistory();
 chatHistory.AddUserMessage(new ChatMessageContentItemCollection
 {
      new TextContent("请识别图片上的文字，并输出"),
-     new ImageContent(File.ReadAllBytes("mycard.jpg"),"image/jpeg")
+     new ImageContent(File.ReadAllBytes("japancard.png"),"image/jpeg")
 });
 var settings = new Dictionary<string, object>
 {
