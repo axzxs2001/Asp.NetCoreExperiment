@@ -920,13 +920,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo05-PictureToText", "Asp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo04-Embedding", "Asp.NetCoreExperiment\SemanticKernelArticle\Demo04-Embedding\Demo04-Embedding.csproj", "{9AF28917-729F-40C4-A18D-A3ADCC53E582}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deom06-LMStudio", "Asp.NetCoreExperiment\SemanticKernelArticle\Deom06-LMStudio\Deom06-LMStudio.csproj", "{C262E736-0BAD-4BD7-B5CE-6BB438449ABE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Deom06-LMStudio", "Asp.NetCoreExperiment\SemanticKernelArticle\Deom06-LMStudio\Deom06-LMStudio.csproj", "{C262E736-0BAD-4BD7-B5CE-6BB438449ABE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo_guid", "Asp.NetCoreExperiment\DOTNET9\Demo_guid\Demo_guid.csproj", "{8780B659-84A7-4D50-9DC1-88D499BFE984}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo_guid", "Asp.NetCoreExperiment\DOTNET9\Demo_guid\Demo_guid.csproj", "{8780B659-84A7-4D50-9DC1-88D499BFE984}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "APIVersion", "APIVersion", "{2463C0AF-218B-434D-9536-B3BDD04ABA93}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo01", "Asp.NetCoreExperiment\APIVersion\Demo01\Demo01.csproj", "{88F98E67-AF44-43CB-9F28-03B99F386768}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo01", "Asp.NetCoreExperiment\APIVersion\Demo01\Demo01.csproj", "{88F98E67-AF44-43CB-9F28-03B99F386768}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParamsDemo", "Asp.NetCoreExperiment\CSharp\ParamsDemo\ParamsDemo.csproj", "{1AA34AAF-3351-4A49-8EB0-CEBDDFF1D5CB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -4230,6 +4232,18 @@ Global
 		{88F98E67-AF44-43CB-9F28-03B99F386768}.Release|arm64.Build.0 = Release|Any CPU
 		{88F98E67-AF44-43CB-9F28-03B99F386768}.Release|x86.ActiveCfg = Release|Any CPU
 		{88F98E67-AF44-43CB-9F28-03B99F386768}.Release|x86.Build.0 = Release|Any CPU
+		{1AA34AAF-3351-4A49-8EB0-CEBDDFF1D5CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1AA34AAF-3351-4A49-8EB0-CEBDDFF1D5CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1AA34AAF-3351-4A49-8EB0-CEBDDFF1D5CB}.Debug|arm64.ActiveCfg = Debug|Any CPU
+		{1AA34AAF-3351-4A49-8EB0-CEBDDFF1D5CB}.Debug|arm64.Build.0 = Debug|Any CPU
+		{1AA34AAF-3351-4A49-8EB0-CEBDDFF1D5CB}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{1AA34AAF-3351-4A49-8EB0-CEBDDFF1D5CB}.Debug|x86.Build.0 = Debug|Any CPU
+		{1AA34AAF-3351-4A49-8EB0-CEBDDFF1D5CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1AA34AAF-3351-4A49-8EB0-CEBDDFF1D5CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1AA34AAF-3351-4A49-8EB0-CEBDDFF1D5CB}.Release|arm64.ActiveCfg = Release|Any CPU
+		{1AA34AAF-3351-4A49-8EB0-CEBDDFF1D5CB}.Release|arm64.Build.0 = Release|Any CPU
+		{1AA34AAF-3351-4A49-8EB0-CEBDDFF1D5CB}.Release|x86.ActiveCfg = Release|Any CPU
+		{1AA34AAF-3351-4A49-8EB0-CEBDDFF1D5CB}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -4620,6 +4634,7 @@ Global
 		{C262E736-0BAD-4BD7-B5CE-6BB438449ABE} = {3918D839-4415-44C9-AD94-C78DB19EF9CE}
 		{8780B659-84A7-4D50-9DC1-88D499BFE984} = {1366C46D-D43D-42FB-9840-95632E9A4778}
 		{88F98E67-AF44-43CB-9F28-03B99F386768} = {2463C0AF-218B-434D-9536-B3BDD04ABA93}
+		{1AA34AAF-3351-4A49-8EB0-CEBDDFF1D5CB} = {0C2286BE-F1F4-4E52-A9FA-1EF056CD9159}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
