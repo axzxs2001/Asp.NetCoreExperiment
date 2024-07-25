@@ -11,6 +11,7 @@ var kernel = Kernel.CreateBuilder()
     .Build();
 var prompt1 = $"背景是白色，用墨水，画一匹腾空跃起的骏马。要求马位中图的中央，显示完整。";
 await CreateImageAsync(prompt1);
+
 async Task CreateImageAsync(string prompt)
 {
 #pragma warning disable SKEXP0001
