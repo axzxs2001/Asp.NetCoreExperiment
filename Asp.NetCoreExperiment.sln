@@ -932,7 +932,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ParamsDemo", "Asp.NetCoreEx
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo07-TextToPicture", "Asp.NetCoreExperiment\SemanticKernelArticle\Demo07-TextToPicture\Demo07-TextToPicture.csproj", "{EB0BACE5-B19C-4E0D-8681-9DC95F3C6C80}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo08-Agent", "Asp.NetCoreExperiment\SemanticKernelArticle\Demo08-Agent\Demo08-Agent.csproj", "{CCF66DD8-4E44-4D40-8E6F-07601953583A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo08-Agent", "Asp.NetCoreExperiment\SemanticKernelArticle\Demo08-Agent\Demo08-Agent.csproj", "{CCF66DD8-4E44-4D40-8E6F-07601953583A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Google", "Google", "{5D18FD86-AA9C-4105-8E7C-DC24AB57E190}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo01AudioAndImageToText", "Asp.NetCoreExperiment\Google\Demo01AudioAndImageToText\Demo01AudioAndImageToText.csproj", "{BA028818-8BC2-4498-815F-B505CD1A84F9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -4272,6 +4276,18 @@ Global
 		{CCF66DD8-4E44-4D40-8E6F-07601953583A}.Release|arm64.Build.0 = Release|Any CPU
 		{CCF66DD8-4E44-4D40-8E6F-07601953583A}.Release|x86.ActiveCfg = Release|Any CPU
 		{CCF66DD8-4E44-4D40-8E6F-07601953583A}.Release|x86.Build.0 = Release|Any CPU
+		{BA028818-8BC2-4498-815F-B505CD1A84F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA028818-8BC2-4498-815F-B505CD1A84F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA028818-8BC2-4498-815F-B505CD1A84F9}.Debug|arm64.ActiveCfg = Debug|Any CPU
+		{BA028818-8BC2-4498-815F-B505CD1A84F9}.Debug|arm64.Build.0 = Debug|Any CPU
+		{BA028818-8BC2-4498-815F-B505CD1A84F9}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{BA028818-8BC2-4498-815F-B505CD1A84F9}.Debug|x86.Build.0 = Debug|Any CPU
+		{BA028818-8BC2-4498-815F-B505CD1A84F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA028818-8BC2-4498-815F-B505CD1A84F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA028818-8BC2-4498-815F-B505CD1A84F9}.Release|arm64.ActiveCfg = Release|Any CPU
+		{BA028818-8BC2-4498-815F-B505CD1A84F9}.Release|arm64.Build.0 = Release|Any CPU
+		{BA028818-8BC2-4498-815F-B505CD1A84F9}.Release|x86.ActiveCfg = Release|Any CPU
+		{BA028818-8BC2-4498-815F-B505CD1A84F9}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -4665,6 +4681,7 @@ Global
 		{1AA34AAF-3351-4A49-8EB0-CEBDDFF1D5CB} = {0C2286BE-F1F4-4E52-A9FA-1EF056CD9159}
 		{EB0BACE5-B19C-4E0D-8681-9DC95F3C6C80} = {3918D839-4415-44C9-AD94-C78DB19EF9CE}
 		{CCF66DD8-4E44-4D40-8E6F-07601953583A} = {3918D839-4415-44C9-AD94-C78DB19EF9CE}
+		{BA028818-8BC2-4498-815F-B505CD1A84F9} = {5D18FD86-AA9C-4105-8E7C-DC24AB57E190}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
