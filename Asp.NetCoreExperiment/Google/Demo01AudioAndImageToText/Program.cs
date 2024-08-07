@@ -1,4 +1,4 @@
-﻿using Google.Apis.Services;
+using Google.Apis.Services;
 using Google.Cloud.Speech.V1;
 using Google.Protobuf;
 using Google.Apis.Discovery;
@@ -38,8 +38,8 @@ namespace Demo01AudioAndImageToText
             // Create the service.
             var service = new DiscoveryService(new BaseClientService.Initializer
             {
-                ApplicationName = "Discovery Sample",
-                ApiKey = "AIzaSyCdFdb23XPcSexB2HSrOPe9EQmzDR3GFzU",
+                ApplicationName = "",
+                ApiKey = "",
             });
 
             // Run the request.
