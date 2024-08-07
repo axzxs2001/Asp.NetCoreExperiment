@@ -16,7 +16,7 @@ namespace Demo01AudioAndImageToText
         static void Main(string[] args)
         {
             //GetToken().Wait();
-              //Run().Wait();
+              Run().Wait();
           AudioToText().Wait();
         }
 
