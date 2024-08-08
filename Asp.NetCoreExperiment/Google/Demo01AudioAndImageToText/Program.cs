@@ -28,8 +28,9 @@ namespace Demo01AudioAndImageToText
             //Speech().Wait();
             // CreateRec().Wait();
             //FileSpeech2().Wait();
-            FileSpeech1().Wait();
-            Vision1().Wait();
+            //FileSpeech1().Wait();
+            //Vision1().Wait();
+            CreateRecognizer().Wait();
         }
 
         static async Task Vision1()
@@ -81,7 +82,7 @@ namespace Demo01AudioAndImageToText
         }
 
 
-        static async Task CreateRec()
+        static async Task CreateRecognizer()
         {
             var apiKey = File.ReadAllText("C:\\GPT\\googlecloudkey.txt");
             var url = $"https://speech.googleapis.com/v2/projects/sre-common-test-379805/locations/global/recognizers?recognizerId=az19999991&key={apiKey}";
