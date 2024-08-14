@@ -4,9 +4,16 @@ using Microsoft.SemanticKernel.ChatCompletion;
 using Microsoft.SemanticKernel.Connectors.OpenAI;
 using System;
 #pragma warning disable SKEXP0010
+//var kernel = Kernel.CreateBuilder()
+//    .AddOpenAIChatCompletion(
+//        modelId: "phi-3",
+//        apiKey: "lm-studio",
+//        endpoint: new Uri("http://localhost:1234"))
+//    .Build();
+
 var kernel = Kernel.CreateBuilder()
     .AddOpenAIChatCompletion(
-        modelId: "phi-3",
+        modelId: "llama3",
         apiKey: "lm-studio",
         endpoint: new Uri("http://localhost:1234"))
     .Build();
@@ -31,7 +38,91 @@ var kernel = Kernel.CreateBuilder()
 
 
 var chat = kernel.GetRequiredService<IChatCompletionService>();
-var chatHistory = new ChatHistory();
+var systemPrompt = @"
+角色：你是一位高级文字信息分析专家，有很强的理解能力，数据提取能力，分类能力，格式转换能力。
+任务：
+1、你能从User输入的内容中，提取模版中对应的数据项，并组装成Json字符串，只组装有值的数据项，格式为[{""index"":1,""value"":值1},{""index"":2,""value"":""值2""}]。
+2、在组装Json信息时，要按照模版中每个数据项提供的的Prompt属性要求进行数据报取、转换、汇总。
+要求：
+1、请仔细分数用户数据，反复提取，找出更多的数据项内容。
+2、直接输出的结果是纯Json字符串，不要以```json，以```结束。
+------模版数据项-------
+{{subprompt}}
+";
+var subprompt = """
+    [
+  {
+    "Index": 0,
+    "Prompt": "名前，例：张三"
+  },
+  {
+    "Index": 1,
+    "Prompt": "名前を全角のカタカナに変換します（例: チョウサン）"
+  },
+  {
+    "Index": 2,
+    "Prompt": "名を半角カタカナに変換します（例：ﾁｮｳｻﾝ）"
+  },
+  {
+    "Index": 3,
+    "Prompt": "名を英語表記に変換します（例：ChoSan）"
+  },
+  {
+    "Index": 4,
+    "Prompt": "電話番号"
+  },
+  {
+    "Index": 5,
+    "Prompt": "メールアドレス"
+  },
+  {
+    "Index": 6,
+    "Prompt": "生年月日(格式：2022-02-02)"
+  },
+  {
+    "Index": 7,
+    "Prompt": "郵便番号（〒）"
+  },
+  {
+    "Index": 8,
+    "Prompt": "住所"
+  },
+  {
+    "Index": 9,
+    "Prompt": "職業[無職:0,技術者:1,教師:2,医師:3,芸術家:4,料理人:5,商人:6]"
+  },
+  {
+    "Index": 10,
+    "Prompt": "男性"
+  },
+  {
+    "Index": 11,
+    "Prompt": "女性"
+  },
+  {
+    "Index": 12,
+    "Prompt": "その他"
+  },
+  {
+    "Index": 13,
+    "Prompt": "スポーツ"
+  },
+  {
+    "Index": 14,
+    "Prompt": "音楽"
+  },
+  {
+    "Index": 15,
+    "Prompt": "芸術"
+  },
+  {
+    "Index": 16,
+    "Prompt": "其他：汇总信息，80字以内"
+  }
+]
+""";
+systemPrompt = systemPrompt.Replace("{{subprompt}}", subprompt);
+var chatHistory = new ChatHistory(systemPrompt);
 var html = """
     <div class="container mt-5">
         <h2>订单录入</h2>
@@ -257,11 +348,9 @@ var json = """
     """;
 chatHistory.AddUserMessage(new ChatMessageContentItemCollection
 {
-     new TextContent($@"{html}
----------------
-根据上面html，完善下面json对应的信息，并输出完整的json，如果有重复的项目，请用第一组，第二组区分
-json信息如下：
-{json}
+     new TextContent($@"私の名前は桂素偉です，男性で，1979年6月22日生まれ、千葉県習志野市津田沼出身です。現在、プログラムアーキテクトとして働いています。普段はあまりスポーツをしませんが、最近は登山とハイキングに興味があります。
+最近、生成AIの研究に力を入れており、これを活用して人々の日常生活を便利にすることを目指しています。また、コミュニティ活動にも参加し、AIに関する知識を共有しています。
+【連絡先】住所: 千葉県習志野市津田沼2-17-1, 〒275-0016携帯電話: 070-9065-7186電子メール: axxs2018@gmail.comFAX: 043-123-4567Line ID: suwei1979
 ")
 });
 var settings = new Dictionary<string, object>
