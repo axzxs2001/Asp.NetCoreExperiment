@@ -3,18 +3,8 @@ using Google.Cloud.Speech.V1;
 using Google.Protobuf;
 using Google.Apis.Discovery;
 using Google.Apis.Discovery.v1;
-using Google.Apis.Discovery.v1.Data;
-using Google.Apis.Auth.OAuth2;
-using Google.Apis.Auth.OAuth2.Flows;
-using Google.Apis.Util.Store;
-using Grpc.Auth;
-using Grpc.Core;
-using System.ComponentModel.DataAnnotations;
-using System.Net;
-using Google.Apis.Drive.v3;
 using System.Text;
-using Google.Cloud.Vision.V1;
-using Newtonsoft.Json.Linq;
+
 
 namespace Demo01AudioAndImageToText
 {
@@ -27,10 +17,11 @@ namespace Demo01AudioAndImageToText
             //AudioToText().Wait();
             //Speech().Wait();
             // CreateRec().Wait();
-            //FileSpeech2().Wait();
-            //FileSpeech1().Wait();
-            //Vision1().Wait();
-            CreateRecognizer().Wait();
+             FileSpeech2().Wait();
+            // FileSpeech1().Wait();
+            // Vision1().Wait();
+            //CreateRecognizer().Wait();
+           // ImageToText().Wait();
         }
 
         static async Task Vision1()
@@ -40,7 +31,7 @@ namespace Demo01AudioAndImageToText
             string imageContent = Convert.ToBase64String(System.IO.File.ReadAllBytes(imagePath));
 
             // 创建HTTP客户端
-            HttpClient client = new HttpClient();
+            var client = new HttpClient();
             string url = $"https://vision.googleapis.com/v1/images:annotate?key={apiKey}";
 
             // 构建请求内容
@@ -65,56 +56,36 @@ namespace Demo01AudioAndImageToText
             }
             };
 
-            string jsonRequestBody = Newtonsoft.Json.JsonConvert.SerializeObject(requestBody);
+            string jsonRequestBody = System.Text.Json.JsonSerializer.Serialize(requestBody);
             var content = new StringContent(jsonRequestBody, Encoding.UTF8, "application/json");
 
             // 发送POST请求
-            HttpResponseMessage response = await client.PostAsync(url, content);
+            var response = await client.PostAsync(url, content);
             response.EnsureSuccessStatusCode();
             // 解析响应内容
             string jsonResponse = await response.Content.ReadAsStringAsync();
-            //Console.WriteLine(jsonResponse);
-            JObject responseObject = JObject.Parse(jsonResponse);
-            // 输出识别到的文本
-            var fullTextAnnotation = responseObject["responses"][0]["fullTextAnnotation"];
-            Console.WriteLine($"Text: {fullTextAnnotation["text"]}");
+            Console.WriteLine(jsonResponse);
+            //JObject responseObject = JObject.Parse(jsonResponse);
+            //// 输出识别到的文本
+            //var fullTextAnnotation = responseObject["responses"][0]["fullTextAnnotation"];
+            //Console.WriteLine($"Text: {fullTextAnnotation["text"]}");
 
         }
-
-
-        static async Task CreateRecognizer()
+        static async Task ImageToText()
         {
-            var apiKey = File.ReadAllText("C:\\GPT\\googlecloudkey.txt");
-            var url = $"https://speech.googleapis.com/v2/projects/sre-common-test-379805/locations/global/recognizers?recognizerId=az19999991&key={apiKey}";
-            var json = $@"{{
-  ""name"": ""speechrecognizer"",
-  ""model"": ""long"",
-  ""languageCodes"": ['cmn-Hans-CN', 'ja-JP', 'en-US'],
-  ""defaultRecognitionConfig"":  {{
-                'model':'long',
-                'languageCodes':['cmn-Hans-CN', 'ja-JP', 'en-US'],
-                'explicitDecodingConfig': {{
-                    'encoding':'LINEAR16',
-                    'sampleRateHertz':48000,
-                    'audioChannelCount':1
-                }}
-            }}
-}}";
-            using (var client = new HttpClient())
+            var json = File.ReadAllText("C:\\GPT\\test.txt");
+            var client = new Google.Cloud.Vision.V1.ImageAnnotatorClientBuilder
             {
-                var response = await client.PostAsync(url, new StringContent(json, Encoding.UTF8, "application/json"));
-                Console.WriteLine(response.StatusCode);
-                var content = await response.Content.ReadAsStringAsync();
-                Console.WriteLine(content);
-            }
-
+                //JsonCredentials = json
+            }.Build();
+            var image = Google.Cloud.Vision.V1.Image.FromFile("gsw.jpg");
+            var text = await client.DetectDocumentTextAsync(image);
+            Console.WriteLine(text.Text);
         }
+
         static async Task FileSpeech2()
         {
             var apiKey = File.ReadAllText("C:\\GPT\\googlecloudkey.txt");
-
-
-
 
             var url = $"https://speech.googleapis.com/v2/projects/sre-common-test-379805/locations/global/recognizers/speechrecognizer:recognize?key={apiKey}";
 
@@ -125,13 +96,9 @@ namespace Demo01AudioAndImageToText
             var json = $@"
             {{
             'config':{{
-                'model':'default',
+                'model':'long',
                 'languageCodes':['cmn-Hans-CN', 'ja-JP', 'en-US'],
-                'explicitDecodingConfig': {{
-                    'encoding':'LINEAR16',
-                    'sampleRateHertz':48000,
-                    'audioChannelCount':1
-                }}
+                'autoDecodingConfig':null   
             }},
             'content': '{audioBase64}'           
         }}";
@@ -172,68 +139,13 @@ namespace Demo01AudioAndImageToText
                 Console.WriteLine(content);
             }
         }
-        static async Task GetToken()
-        {
-            var credential = await GoogleCredential.GetApplicationDefaultAsync();
-            if (credential.IsCreateScopedRequired)
-            {
-                credential = credential.CreateScoped(new[] { "https://www.googleapis.com/auth/cloud-platform" });
-            }
 
-            ITokenAccess tokenAccess = credential;
-            var token = await tokenAccess.GetAccessTokenForRequestAsync();
-            Console.WriteLine(token);
-        }
-        static async Task Run()
-        {
-            var apiKey = File.ReadAllText("C:\\GPT\\googlecloudkey.txt");
-
-            var service = new DiscoveryService(new BaseClientService.Initializer
-            {
-                ApplicationName = "qa-test",
-                ApiKey = apiKey,
-            });
-
-
-            Console.WriteLine("Executing a list request...");
-            var result = await service.Apis.List().ExecuteAsync();
-
-
-            if (result.Items != null)
-            {
-                foreach (DirectoryList.ItemsData api in result.Items)
-                {
-
-                    Console.WriteLine(api.Id + " - " + api.Title + " -----  " + api.DiscoveryRestUrl);
-                }
-            }
-        }
         static async Task AudioToText(CancellationToken cancellationToken = default)
         {
-
-
-            //var clientSecrets = await GoogleClientSecrets.FromFileAsync("C:\\GPT\\speech_auth.json");
-
-            //var credential = await GoogleWebAuthorizationBroker.AuthorizeAsync(
-            //     clientSecrets.Secrets,
-            //     new[] { DriveService.ScopeConstants.DriveFile },
-            //     "user",
-            //     CancellationToken.None);
-
-            //var driveService = new DriveService(new BaseClientService.Initializer()
-            //{
-            //    HttpClientInitializer = credential
-            //});
-
-
-
-
-            var apiKey = File.ReadAllText("C:\\GPT\\googlecloudkey.txt");
+            var json = File.ReadAllText("C:\\GPT\\test.txt");
             var speech = new Google.Cloud.Speech.V2.SpeechClientBuilder
             {
-
-                // Credential = credential
-                //JsonCredentials = $"{{\"type\":\"api_key\",\"api_key\":\"{apiKey}\"}}"
+                // JsonCredentials = json
 
             }.Build();
             var response = speech.RecognizeAsync(new Google.Cloud.Speech.V2.RecognizeRequest
@@ -241,11 +153,11 @@ namespace Demo01AudioAndImageToText
                 Config = new Google.Cloud.Speech.V2.RecognitionConfig
                 {
                     LanguageCodes = { "cmn-Hans-CN", "ja-JP", "en-US" },
-                    Model = "short",
+                    Model = "long",
                     AutoDecodingConfig = new Google.Cloud.Speech.V2.AutoDetectDecodingConfig(),
                 },
                 Content = ByteString.CopyFrom(File.ReadAllBytes("audio.wav")),
-                Recognizer = "qa-test"
+                Recognizer = "projects/sre-common-test-379805/locations/global/recognizers/speechrecognizer"
             }, cancellationToken);
             response.Result.Results.ToList().ForEach(x =>
             {
@@ -256,45 +168,6 @@ namespace Demo01AudioAndImageToText
                 });
             });
         }
-
-        static async Task Speech()
-        {
-            string jsonPath = "C:\\GPT\\speech_auth.json";
-            string audioFilePath = "audio.wav";
-            var apiKey = File.ReadAllText("C:\\GPT\\googlecloudkey.txt");
-            // 从 JSON 文件中加载服务账号凭证
-            // var credential = GoogleCredential.FromFile(jsonPath);
-            var json = $$"""{"type":"api_key","api_key":"{{apiKey}}"}""";
-            // 使用凭证创建 SpeechClient
-            var speechClient = new SpeechClientBuilder
-            {
-                JsonCredentials = json
-            }.Build();
-
-            var response = await RecognizeAsync(speechClient, audioFilePath);
-            foreach (var result in response.Results)
-            {
-                foreach (var alternative in result.Alternatives)
-                {
-                    Console.WriteLine($"Transcript: {alternative.Transcript}");
-                }
-            }
-        }
-
-        static async Task<RecognizeResponse> RecognizeAsync(SpeechClient speechClient, string filePath)
-        {
-            var config = new RecognitionConfig
-            {
-                Encoding = RecognitionConfig.Types.AudioEncoding.Linear16,
-                SampleRateHertz = 16000,
-                LanguageCode = "en-US",
-            };
-
-            var audio = RecognitionAudio.FromFile(filePath);
-            return await speechClient.RecognizeAsync(config, audio);
-        }
-
-
 
     }
 }
