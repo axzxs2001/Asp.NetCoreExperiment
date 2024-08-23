@@ -4,19 +4,19 @@ using Microsoft.SemanticKernel.ChatCompletion;
 using Microsoft.SemanticKernel.Connectors.OpenAI;
 using System;
 #pragma warning disable SKEXP0010
-//var kernel = Kernel.CreateBuilder()
-//    .AddOpenAIChatCompletion(
-//        modelId: "phi-3",
-//        apiKey: "lm-studio",
-//        endpoint: new Uri("http://localhost:1234"))
-//    .Build();
-
 var kernel = Kernel.CreateBuilder()
     .AddOpenAIChatCompletion(
-        modelId: "llama3",
+        modelId: "phi-3.5",
         apiKey: "lm-studio",
         endpoint: new Uri("http://localhost:1234"))
     .Build();
+
+//var kernel = Kernel.CreateBuilder()
+//    .AddOpenAIChatCompletion(
+//        modelId: "llama3",
+//        apiKey: "lm-studio",
+//        endpoint: new Uri("http://localhost:1234"))
+//    .Build();
 
 //var prompt = @"将三个反引号之间的文本重写为商务邮件。使用专业语气，清晰简洁。
 //以 AI 助手身份签名邮件。
@@ -50,10 +50,10 @@ var systemPrompt = @"
 {{subprompt}}
 ";
 var subprompt = """
-    [
+[
   {
     "Index": 0,
-    "Prompt": "名前，例：张三"
+    "Prompt": "名前（例：张三）"
   },
   {
     "Index": 1,
@@ -69,11 +69,11 @@ var subprompt = """
   },
   {
     "Index": 4,
-    "Prompt": "電話番号"
+    "Prompt": "電話番号（例：030-1234-5678）"
   },
   {
     "Index": 5,
-    "Prompt": "メールアドレス"
+    "Prompt": "メールアドレス または email"
   },
   {
     "Index": 6,
@@ -81,7 +81,7 @@ var subprompt = """
   },
   {
     "Index": 7,
-    "Prompt": "郵便番号（〒）"
+    "Prompt": "郵便番号または〒で始まる郵便番号、〒は不要です（例：111-0032）"
   },
   {
     "Index": 8,
@@ -93,27 +93,27 @@ var subprompt = """
   },
   {
     "Index": 10,
-    "Prompt": "男性"
+    "Prompt": "性別-男性"
   },
   {
     "Index": 11,
-    "Prompt": "女性"
+    "Prompt": "性別-女性"
   },
   {
     "Index": 12,
-    "Prompt": "その他"
+    "Prompt": "性別-その他"
   },
   {
     "Index": 13,
-    "Prompt": "スポーツ"
+    "Prompt": "趣味-スポーツ"
   },
   {
     "Index": 14,
-    "Prompt": "音楽"
+    "Prompt": "趣味-音楽"
   },
   {
     "Index": 15,
-    "Prompt": "芸術"
+    "Prompt": "趣味-芸術"
   },
   {
     "Index": 16,
@@ -123,229 +123,229 @@ var subprompt = """
 """;
 systemPrompt = systemPrompt.Replace("{{subprompt}}", subprompt);
 var chatHistory = new ChatHistory(systemPrompt);
-var html = """
-    <div class="container mt-5">
-        <h2>订单录入</h2>
-        <form>
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label for="orderNumber">订单编号</label>
-                    <input type="text" class="form-control" id="orderNumber" placeholder="订单编号">
-                </div>
-                <div class="form-group col-md-6">
-                    <label for="orderDate">订单日期</label>
-                    <input type="date" class="form-control" id="orderDate">
-                </div>
-            </div>
+//var html = """
+//    <div class="container mt-5">
+//        <h2>订单录入</h2>
+//        <form>
+//            <div class="form-row">
+//                <div class="form-group col-md-6">
+//                    <label for="orderNumber">订单编号</label>
+//                    <input type="text" class="form-control" id="orderNumber" placeholder="订单编号">
+//                </div>
+//                <div class="form-group col-md-6">
+//                    <label for="orderDate">订单日期</label>
+//                    <input type="date" class="form-control" id="orderDate">
+//                </div>
+//            </div>
 
-            <h4>客户信息</h4>
-            <div class="form-row">
-                <div class="form-group col-md-4">
-                    <label for="customerNumber">客户编号</label>
-                    <input type="text" class="form-control" id="customerNumber" placeholder="客户编号">
-                </div>
-                <div class="form-group col-md-4">
-                    <label for="customerName">客户姓名</label>
-                    <input type="text" class="form-control" id="customerName" placeholder="客户姓名">
-                </div>
-                <div class="form-group col-md-4">
-                    <label for="customerContact">客户联系方式</label>
-                    <input type="text" class="form-control" id="customerContact" placeholder="客户联系方式">
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group col-md-12">
-                    <label for="customerAddress">客户地址</label>
-                    <input type="text" class="form-control" id="customerAddress" placeholder="客户地址">
-                </div>
-            </div>
+//            <h4>客户信息</h4>
+//            <div class="form-row">
+//                <div class="form-group col-md-4">
+//                    <label for="customerNumber">客户编号</label>
+//                    <input type="text" class="form-control" id="customerNumber" placeholder="客户编号">
+//                </div>
+//                <div class="form-group col-md-4">
+//                    <label for="customerName">客户姓名</label>
+//                    <input type="text" class="form-control" id="customerName" placeholder="客户姓名">
+//                </div>
+//                <div class="form-group col-md-4">
+//                    <label for="customerContact">客户联系方式</label>
+//                    <input type="text" class="form-control" id="customerContact" placeholder="客户联系方式">
+//                </div>
+//            </div>
+//            <div class="form-row">
+//                <div class="form-group col-md-12">
+//                    <label for="customerAddress">客户地址</label>
+//                    <input type="text" class="form-control" id="customerAddress" placeholder="客户地址">
+//                </div>
+//            </div>
 
-            <h4>明细信息</h4>
-            <div id="medicineContainer">
-                <div class="form-row align-items-end medicine-row">
-                    <div class="form-group col-md-2">
-                        <label for="medicineCode">药品编号</label>
-                    </div>
-                    <div class="form-group col-md-3">
-                        <label for="medicineName">药品名称</label>
-                    </div>
-                    <div class="form-group col-md-2">
-                        <label for="medicineSpec">药品规格</label>
-                    </div>
-                    <div class="form-group col-md-1">
-                        <label for="medicineQuantity">数量</label>
-                    </div>
-                    <div class="form-group col-md-2">
-                        <label for="medicinePrice">单价</label>
-                    </div>
-                    <div class="form-group col-md-2">
-                        <label for="totalPrice">总价</label>
-                    </div>
-                </div>
-                <div class="form-row align-items-end medicine-row">
-                    <div class="form-group col-md-2">
-                        <input type="text" class="form-control" id="medicineCode" placeholder="药品编号">
-                    </div>
-                    <div class="form-group col-md-3">
-                        <input type="text" class="form-control" id="medicineName" placeholder="药品名称">
-                    </div>
-                    <div class="form-group col-md-2">
-                        <input type="text" class="form-control" id="medicineSpec" placeholder="药品规格">
-                    </div>
-                    <div class="form-group col-md-1">
-                        <input type="number" class="form-control" id="medicineQuantity" placeholder="数量">
-                    </div>
-                    <div class="form-group col-md-2">
+//            <h4>明细信息</h4>
+//            <div id="medicineContainer">
+//                <div class="form-row align-items-end medicine-row">
+//                    <div class="form-group col-md-2">
+//                        <label for="medicineCode">药品编号</label>
+//                    </div>
+//                    <div class="form-group col-md-3">
+//                        <label for="medicineName">药品名称</label>
+//                    </div>
+//                    <div class="form-group col-md-2">
+//                        <label for="medicineSpec">药品规格</label>
+//                    </div>
+//                    <div class="form-group col-md-1">
+//                        <label for="medicineQuantity">数量</label>
+//                    </div>
+//                    <div class="form-group col-md-2">
+//                        <label for="medicinePrice">单价</label>
+//                    </div>
+//                    <div class="form-group col-md-2">
+//                        <label for="totalPrice">总价</label>
+//                    </div>
+//                </div>
+//                <div class="form-row align-items-end medicine-row">
+//                    <div class="form-group col-md-2">
+//                        <input type="text" class="form-control" id="medicineCode" placeholder="药品编号">
+//                    </div>
+//                    <div class="form-group col-md-3">
+//                        <input type="text" class="form-control" id="medicineName" placeholder="药品名称">
+//                    </div>
+//                    <div class="form-group col-md-2">
+//                        <input type="text" class="form-control" id="medicineSpec" placeholder="药品规格">
+//                    </div>
+//                    <div class="form-group col-md-1">
+//                        <input type="number" class="form-control" id="medicineQuantity" placeholder="数量">
+//                    </div>
+//                    <div class="form-group col-md-2">
 
-                        <input type="number" class="form-control" id="medicinePrice" placeholder="单价">
-                    </div>
-                    <div class="form-group col-md-2">
-                        <input type="number" class="form-control" id="totalPrice" placeholder="总价" readonly="">
-                    </div>
-                </div>
+//                        <input type="number" class="form-control" id="medicinePrice" placeholder="单价">
+//                    </div>
+//                    <div class="form-group col-md-2">
+//                        <input type="number" class="form-control" id="totalPrice" placeholder="总价" readonly="">
+//                    </div>
+//                </div>
 
-                  <div class="form-row align-items-end medicine-row">
-                    <div class="form-group col-md-2">                   
-                        <input type="text" class="form-control" id="medicineCode" placeholder="药品编号">
-                    </div>
-                    <div class="form-group col-md-3">                      
-                        <input type="text" class="form-control" id="medicineName" placeholder="药品名称">
-                    </div>
-                    <div class="form-group col-md-2">                 
-                        <input type="text" class="form-control" id="medicineSpec" placeholder="药品规格">
-                    </div>
-                    <div class="form-group col-md-1">                      
-                        <input type="number" class="form-control" id="medicineQuantity" placeholder="数量">
-                    </div>
-                    <div class="form-group col-md-2">
+//                  <div class="form-row align-items-end medicine-row">
+//                    <div class="form-group col-md-2">                   
+//                        <input type="text" class="form-control" id="medicineCode" placeholder="药品编号">
+//                    </div>
+//                    <div class="form-group col-md-3">                      
+//                        <input type="text" class="form-control" id="medicineName" placeholder="药品名称">
+//                    </div>
+//                    <div class="form-group col-md-2">                 
+//                        <input type="text" class="form-control" id="medicineSpec" placeholder="药品规格">
+//                    </div>
+//                    <div class="form-group col-md-1">                      
+//                        <input type="number" class="form-control" id="medicineQuantity" placeholder="数量">
+//                    </div>
+//                    <div class="form-group col-md-2">
 
-                        <input type="number" class="form-control" id="medicinePrice" placeholder="单价">
-                    </div>
-                    <div class="form-group col-md-2">                     
-                        <input type="number" class="form-control" id="totalPrice" placeholder="总价" readonly="">
-                    </div>
-                </div>
-                  <div class="form-row align-items-end medicine-row">
-                    <div class="form-group col-md-2">                   
-                        <input type="text" class="form-control" id="medicineCode" placeholder="药品编号">
-                    </div>
-                    <div class="form-group col-md-3">                      
-                        <input type="text" class="form-control" id="medicineName" placeholder="药品名称">
-                    </div>
-                    <div class="form-group col-md-2">                 
-                        <input type="text" class="form-control" id="medicineSpec" placeholder="药品规格">
-                    </div>
-                    <div class="form-group col-md-1">                      
-                        <input type="number" class="form-control" id="medicineQuantity" placeholder="数量">
-                    </div>
-                    <div class="form-group col-md-2">
+//                        <input type="number" class="form-control" id="medicinePrice" placeholder="单价">
+//                    </div>
+//                    <div class="form-group col-md-2">                     
+//                        <input type="number" class="form-control" id="totalPrice" placeholder="总价" readonly="">
+//                    </div>
+//                </div>
+//                  <div class="form-row align-items-end medicine-row">
+//                    <div class="form-group col-md-2">                   
+//                        <input type="text" class="form-control" id="medicineCode" placeholder="药品编号">
+//                    </div>
+//                    <div class="form-group col-md-3">                      
+//                        <input type="text" class="form-control" id="medicineName" placeholder="药品名称">
+//                    </div>
+//                    <div class="form-group col-md-2">                 
+//                        <input type="text" class="form-control" id="medicineSpec" placeholder="药品规格">
+//                    </div>
+//                    <div class="form-group col-md-1">                      
+//                        <input type="number" class="form-control" id="medicineQuantity" placeholder="数量">
+//                    </div>
+//                    <div class="form-group col-md-2">
 
-                        <input type="number" class="form-control" id="medicinePrice" placeholder="单价">
-                    </div>
-                    <div class="form-group col-md-2">                     
-                        <input type="number" class="form-control" id="totalPrice" placeholder="总价" readonly="">
-                    </div>
-                </div>
-                  <div class="form-row align-items-end medicine-row">
-                    <div class="form-group col-md-2">                   
-                        <input type="text" class="form-control" id="medicineCode" placeholder="药品编号">
-                    </div>
-                    <div class="form-group col-md-3">                      
-                        <input type="text" class="form-control" id="medicineName" placeholder="药品名称">
-                    </div>
-                    <div class="form-group col-md-2">                 
-                        <input type="text" class="form-control" id="medicineSpec" placeholder="药品规格">
-                    </div>
-                    <div class="form-group col-md-1">                      
-                        <input type="number" class="form-control" id="medicineQuantity" placeholder="数量">
-                    </div>
-                    <div class="form-group col-md-2">
+//                        <input type="number" class="form-control" id="medicinePrice" placeholder="单价">
+//                    </div>
+//                    <div class="form-group col-md-2">                     
+//                        <input type="number" class="form-control" id="totalPrice" placeholder="总价" readonly="">
+//                    </div>
+//                </div>
+//                  <div class="form-row align-items-end medicine-row">
+//                    <div class="form-group col-md-2">                   
+//                        <input type="text" class="form-control" id="medicineCode" placeholder="药品编号">
+//                    </div>
+//                    <div class="form-group col-md-3">                      
+//                        <input type="text" class="form-control" id="medicineName" placeholder="药品名称">
+//                    </div>
+//                    <div class="form-group col-md-2">                 
+//                        <input type="text" class="form-control" id="medicineSpec" placeholder="药品规格">
+//                    </div>
+//                    <div class="form-group col-md-1">                      
+//                        <input type="number" class="form-control" id="medicineQuantity" placeholder="数量">
+//                    </div>
+//                    <div class="form-group col-md-2">
 
-                        <input type="number" class="form-control" id="medicinePrice" placeholder="单价">
-                    </div>
-                    <div class="form-group col-md-2">                     
-                        <input type="number" class="form-control" id="totalPrice" placeholder="总价" readonly="">
-                    </div>
-                </div></div>
-            <button type="button" class="btn btn-secondary mt-3" id="addMedicine">添加药品</button>
-            <button type="submit" class="btn btn-primary mt-3">提交订单</button>
-        </form>
-        <div class="form-row">
-            <div class="form-group col-md-6">
-                <label for="orderNumber">总金额</label>
-                <input type="text" class="form-control" readonly="" id="amount" placeholder="0.00">
-            </div>
-            <div class="form-group col-md-6">
-                <label for="orderDate">总数量</label>
-                <input type="date" class="form-control" readonly="" id="quantity">
-            </div>
-        </div>
-    </div>
-    """;
-var json = """
-    [
-      {
-        "Index": 0,
-        "Prompt": "订单编号",
-        "IsRepeat": false
-      },
-      {
-        "Index": 1,
-        "Prompt": "订单日期",
-        "IsRepeat": false
-      },
-      {
-        "Index": 2,
-        "Prompt": "客户编号",
-        "IsRepeat": false
-      },
-      {
-        "Index": 3,
-        "Prompt": "客户姓名",
-        "IsRepeat": false
-      },
-      {
-        "Index": 4,
-        "Prompt": "客户联系方式",
-        "IsRepeat": false
-      },
-      {
-        "Index": 5,
-        "Prompt": "客户地址",
-        "IsRepeat": false
-      },
-      {
-        "Index": 6,
-        "Prompt": "药品编号",
-        "IsRepeat": true
-      },
-      {
-        "Index": 7,
-        "Prompt": "药品名称",
-        "IsRepeat": true
-      },
-      {
-        "Index": 8,
-        "Prompt": " 药品规格",
-        "IsRepeat": true
-      },
-      {
-        "Index": 9,
-        "Prompt": " 数量",
-        "IsRepeat": true
-      },
-      {
-        "Index": 10,
-        "Prompt": "单价",
-        "IsRepeat": true
-      },
-      {
-        "Index": 11,
-        "Prompt": "总价= 数量*单价",
-        "IsRepeat": true
-      }
-    ]
-    """;
+//                        <input type="number" class="form-control" id="medicinePrice" placeholder="单价">
+//                    </div>
+//                    <div class="form-group col-md-2">                     
+//                        <input type="number" class="form-control" id="totalPrice" placeholder="总价" readonly="">
+//                    </div>
+//                </div></div>
+//            <button type="button" class="btn btn-secondary mt-3" id="addMedicine">添加药品</button>
+//            <button type="submit" class="btn btn-primary mt-3">提交订单</button>
+//        </form>
+//        <div class="form-row">
+//            <div class="form-group col-md-6">
+//                <label for="orderNumber">总金额</label>
+//                <input type="text" class="form-control" readonly="" id="amount" placeholder="0.00">
+//            </div>
+//            <div class="form-group col-md-6">
+//                <label for="orderDate">总数量</label>
+//                <input type="date" class="form-control" readonly="" id="quantity">
+//            </div>
+//        </div>
+//    </div>
+//    """;
+//var json = """
+//    [
+//      {
+//        "Index": 0,
+//        "Prompt": "订单编号",
+//        "IsRepeat": false
+//      },
+//      {
+//        "Index": 1,
+//        "Prompt": "订单日期",
+//        "IsRepeat": false
+//      },
+//      {
+//        "Index": 2,
+//        "Prompt": "客户编号",
+//        "IsRepeat": false
+//      },
+//      {
+//        "Index": 3,
+//        "Prompt": "客户姓名",
+//        "IsRepeat": false
+//      },
+//      {
+//        "Index": 4,
+//        "Prompt": "客户联系方式",
+//        "IsRepeat": false
+//      },
+//      {
+//        "Index": 5,
+//        "Prompt": "客户地址",
+//        "IsRepeat": false
+//      },
+//      {
+//        "Index": 6,
+//        "Prompt": "药品编号",
+//        "IsRepeat": true
+//      },
+//      {
+//        "Index": 7,
+//        "Prompt": "药品名称",
+//        "IsRepeat": true
+//      },
+//      {
+//        "Index": 8,
+//        "Prompt": " 药品规格",
+//        "IsRepeat": true
+//      },
+//      {
+//        "Index": 9,
+//        "Prompt": " 数量",
+//        "IsRepeat": true
+//      },
+//      {
+//        "Index": 10,
+//        "Prompt": "单价",
+//        "IsRepeat": true
+//      },
+//      {
+//        "Index": 11,
+//        "Prompt": "总价= 数量*单价",
+//        "IsRepeat": true
+//      }
+//    ]
+//    """;
 chatHistory.AddUserMessage(new ChatMessageContentItemCollection
 {
      new TextContent($@"私の名前は桂素偉です，男性で，1979年6月22日生まれ、千葉県習志野市津田沼出身です。現在、プログラムアーキテクトとして働いています。普段はあまりスポーツをしませんが、最近は登山とハイキングに興味があります。
@@ -356,8 +356,8 @@ chatHistory.AddUserMessage(new ChatMessageContentItemCollection
 var settings = new Dictionary<string, object>
 {
     ["max_tokens"] = 1000,
-    ["temperature"] = 0.2,
-    ["top_p"] = 0.8,
+    ["temperature"] = 0,
+    ["top_p"] = 1,
     ["presence_penalty"] = 0.0,
     ["frequency_penalty"] = 0.0
 };
