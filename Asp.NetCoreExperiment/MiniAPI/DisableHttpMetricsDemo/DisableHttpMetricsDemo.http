@@ -1,0 +1,6 @@
+@DisableHttpMetricsDemo_HostAddress = http://localhost:5189
+
+GET {{DisableHttpMetricsDemo_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
