@@ -952,6 +952,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinFormsDemo18", "Asp.NetCo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DisableHttpMetricsDemo", "Asp.NetCoreExperiment\MiniAPI\DisableHttpMetricsDemo\DisableHttpMetricsDemo.csproj", "{3EF4C571-7535-45ED-B326-B55628577066}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartUI", "Asp.NetCoreExperiment\MiniAPI\SmartUI\SmartUI.csproj", "{C3FC4CE5-09AB-43EB-8C9B-5476B5D3A2F3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -4374,6 +4376,18 @@ Global
 		{3EF4C571-7535-45ED-B326-B55628577066}.Release|arm64.Build.0 = Release|Any CPU
 		{3EF4C571-7535-45ED-B326-B55628577066}.Release|x86.ActiveCfg = Release|Any CPU
 		{3EF4C571-7535-45ED-B326-B55628577066}.Release|x86.Build.0 = Release|Any CPU
+		{C3FC4CE5-09AB-43EB-8C9B-5476B5D3A2F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3FC4CE5-09AB-43EB-8C9B-5476B5D3A2F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3FC4CE5-09AB-43EB-8C9B-5476B5D3A2F3}.Debug|arm64.ActiveCfg = Debug|Any CPU
+		{C3FC4CE5-09AB-43EB-8C9B-5476B5D3A2F3}.Debug|arm64.Build.0 = Debug|Any CPU
+		{C3FC4CE5-09AB-43EB-8C9B-5476B5D3A2F3}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C3FC4CE5-09AB-43EB-8C9B-5476B5D3A2F3}.Debug|x86.Build.0 = Debug|Any CPU
+		{C3FC4CE5-09AB-43EB-8C9B-5476B5D3A2F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3FC4CE5-09AB-43EB-8C9B-5476B5D3A2F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3FC4CE5-09AB-43EB-8C9B-5476B5D3A2F3}.Release|arm64.ActiveCfg = Release|Any CPU
+		{C3FC4CE5-09AB-43EB-8C9B-5476B5D3A2F3}.Release|arm64.Build.0 = Release|Any CPU
+		{C3FC4CE5-09AB-43EB-8C9B-5476B5D3A2F3}.Release|x86.ActiveCfg = Release|Any CPU
+		{C3FC4CE5-09AB-43EB-8C9B-5476B5D3A2F3}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -4774,6 +4788,7 @@ Global
 		{4A70A249-AB19-400B-AFA2-F95165A560AF} = {BE4888EC-30BC-43EE-A49D-15E861D6D4B3}
 		{12B860AA-84D2-4A9B-B7F0-9C856060486C} = {1854E8D2-3AD0-4341-B513-775243F22C52}
 		{3EF4C571-7535-45ED-B326-B55628577066} = {8A78305E-BFFF-4F09-BE2F-3BAB7088C3FE}
+		{C3FC4CE5-09AB-43EB-8C9B-5476B5D3A2F3} = {8A78305E-BFFF-4F09-BE2F-3BAB7088C3FE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
