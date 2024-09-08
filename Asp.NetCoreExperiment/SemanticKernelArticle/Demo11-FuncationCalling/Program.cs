@@ -3,13 +3,161 @@ using Microsoft.Extensions.Logging;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.ChatCompletion;
 using Microsoft.SemanticKernel.Connectors.OpenAI;
+using System;
+using System.Globalization;
 using System.Text;
 #pragma warning disable SKEXP0001
 
 
+var chatModelId = "gpt-4o";
+var key = File.ReadAllText(@"C:\GPT\key.txt");
+
+var builder = Kernel.CreateBuilder();
+builder.AddOpenAIChatCompletion(chatModelId, key);
+Kernel kernel = builder.Build();
+
+kernel.ImportPluginFromFunctions("HelperFunctions",
+[
+    kernel.CreateFunctionFromMethod(GetChineseDay, "GetChineseDay", "返回中国的农历")
+]);
+
+
+//await Call1();
+//await Call2();
+//await Call3();
+await Call4();
+
+async Task Call1()
+{
+    Console.WriteLine("-----------------Call1 开始---------------------");
+    var settings = new OpenAIPromptExecutionSettings() { ToolCallBehavior = ToolCallBehavior.AutoInvokeKernelFunctions };
+    await foreach (StreamingKernelContent update in kernel.InvokePromptStreamingAsync("现在离吃月饼还有多少天？", new(settings)))
+    {
+        Console.Write(update);
+    }
+    Console.WriteLine();
+    Console.WriteLine("-----------------Call1 结束---------------------");
+}
+async Task Call2()
+{
+    Console.WriteLine("-----------------Call2 开始---------------------");
+    var settings = new OpenAIPromptExecutionSettings() { ToolCallBehavior = ToolCallBehavior.AutoInvokeKernelFunctions };
+    var chat = kernel.GetRequiredService<IChatCompletionService>();
+    var chatHistory = new ChatHistory("中国农历的表示方式是：九月初三，十二月二十三，请用这种表示方式表求农历日期。");
+    chatHistory.AddUserMessage("现在离吃月饼还有多少天？");
+    var contentBuilder = new StringBuilder();
+    await foreach (var streamingContent in chat.GetStreamingChatMessageContentsAsync(chatHistory, settings, kernel))
+    {
+        if (streamingContent.Content is not null)
+        {
+            Console.Write(streamingContent.Content);
+            contentBuilder.Append(streamingContent.Content);
+        }
+    }
+    chatHistory.AddAssistantMessage(contentBuilder.ToString());
+    Console.WriteLine();
+    Console.WriteLine("-----------------Call2 结束---------------------");
+}
+async Task Call3()
+{
+    Console.WriteLine("-----------------Call3 开始---------------------");
+    var settings = new OpenAIPromptExecutionSettings() { ToolCallBehavior = ToolCallBehavior.AutoInvokeKernelFunctions };
+    IChatCompletionService chat = kernel.GetRequiredService<IChatCompletionService>();
+    ChatHistory chatHistory = new();
+    chatHistory.AddUserMessage("中秋节吃月饼，现在离吃月饼还有多少天？");
+    while (true)
+    {
+        AuthorRole? authorRole = null;
+        var fccBuilder = new FunctionCallContentBuilder();
+        await foreach (var streamingContent in chat.GetStreamingChatMessageContentsAsync(chatHistory, settings, kernel))
+        {
+            if (streamingContent.Content is not null)
+            {
+                Console.Write(streamingContent.Content);
+            }
+            authorRole ??= streamingContent.Role;
+            fccBuilder.Append(streamingContent);
+        }
+        Console.WriteLine();
+        var functionCalls = fccBuilder.Build();
+        if (!functionCalls.Any())
+        {
+            break;
+        }
+        var fcContent = new ChatMessageContent(role: authorRole ?? default, content: null);
+        chatHistory.Add(fcContent);
+
+        foreach (var functionCall in functionCalls)
+        {
+            fcContent.Items.Add(functionCall);
+            var functionResult = await functionCall.InvokeAsync(kernel);
+            Console.WriteLine($"FunctionName：{functionResult.FunctionName}，Return：{functionResult.InnerContent}");
+            chatHistory.Add(functionResult.ToChatMessage());
+        }
+        Console.WriteLine();
+    }
+    Console.WriteLine();
+    Console.WriteLine("-----------------Call3 结束---------------------");
+}
+async Task Call4()
+{
+    Console.WriteLine("-----------------Call4 开始---------------------");
+    IChatCompletionService chat = kernel.GetRequiredService<IChatCompletionService>();
+    OpenAIPromptExecutionSettings settings = new() { ToolCallBehavior = ToolCallBehavior.EnableKernelFunctions };
+    ChatHistory chatHistory = new();
+    chatHistory.AddUserMessage("中秋节吃月饼，现在离吃月饼还有多少天？");
+    while (true)
+    {
+        AuthorRole? authorRole = null;
+        var fccBuilder = new FunctionCallContentBuilder();
+        await foreach (var streamingContent in chat.GetStreamingChatMessageContentsAsync(chatHistory, settings, kernel))
+        {
+            if (streamingContent.Content is not null)
+            {
+                Console.Write(streamingContent.Content);
+            }
+            authorRole ??= streamingContent.Role;
+            fccBuilder.Append(streamingContent);
+        }
+        Console.WriteLine();
+        var functionCalls = fccBuilder.Build();
+        if (!functionCalls.Any())
+        {
+            break;
+        }
+        var fcContent = new ChatMessageContent(role: authorRole ?? default, content: null);
+        chatHistory.Add(fcContent);
+
+        foreach (var functionCall in functionCalls)
+        {
+            fcContent.Items.Add(functionCall);
+            var functionResult = await functionCall.InvokeAsync(kernel);
+            Console.WriteLine($"FunctionName：{functionResult.FunctionName}，Return：{functionResult.InnerContent}");
+            chatHistory.Add(functionResult.ToChatMessage());
+        }
+        Console.WriteLine();
+    }
+    Console.WriteLine();
+    Console.WriteLine("-----------------Call4 结束---------------------");
+}
+
+string GetChineseDay()
+{
+    var chineseCalendar = new ChineseLunisolarCalendar();
+    var today = DateTime.Now;
+    int lunarYear = chineseCalendar.GetYear(today);
+    int lunarMonth = chineseCalendar.GetMonth(today);
+    int lunarDay = chineseCalendar.GetDayOfMonth(today);
+    bool isLeapMonth = chineseCalendar.IsLeapMonth(lunarYear, lunarMonth);
+    Console.WriteLine("-------GetChineseDay--------");
+    return $"农历日期: {lunarYear}年 {(isLeapMonth ? "闰" : "")}{lunarMonth}月 {lunarDay}日";
+}
+
+Console.WriteLine();
+
 //await RunNonStreamingPromptWithAutoFunctionCallingAsync();
 //await RunStreamingPromptAutoFunctionCallingAsync();
-await RunNonStreamingChatAPIWithManualFunctionCallingAsync();
+//await RunNonStreamingChatAPIWithManualFunctionCallingAsync();
 //await RunStreamingChatAPIWithManualFunctionCallingAsync();
 //await RunNonStreamingPromptWithSimulatedFunctionAsync();
 //await RunStreamingChatWithAutoFunctionCallingAsync();
@@ -224,7 +372,7 @@ Kernel CreateKernel()
 
     kernel.ImportPluginFromFunctions("HelperFunctions",
     [
-        kernel.CreateFunctionFromMethod(() => DateTime.UtcNow.ToString("R"), "GetCurrentUtcTime", "Retrieves the current time in UTC."),
+       // kernel.CreateFunctionFromMethod(() => DateTime.UtcNow.ToString("R"), "GetCurrentUtcTime", "Retrieves the current time in UTC."),
             kernel.CreateFunctionFromMethod((string cityName) =>
                 cityName switch
                 {
