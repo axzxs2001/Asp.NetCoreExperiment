@@ -66,6 +66,8 @@ app.MapPost("/order", ([FromBody]Order order) =>
 {
     return new OkResult();
 });
+
+app.MapGet("/aaa", () => { return "ok"; });
 app.Run();
 
 /// <summary>

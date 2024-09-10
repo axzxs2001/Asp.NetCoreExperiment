@@ -968,6 +968,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebScraping", "WebScraping"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrawlerLibDemo", "Asp.NetCoreExperiment\WebScraping\CrawlerLibDemo\CrawlerLibDemo.csproj", "{FD30579B-6F46-40F7-82FF-9F823CEA1B97}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YarpDemo", "Asp.NetCoreExperiment\YARP\YarpDemo\YarpDemo.csproj", "{C61C16EF-A80B-494B-B612-A1B90A842755}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -4462,6 +4464,18 @@ Global
 		{FD30579B-6F46-40F7-82FF-9F823CEA1B97}.Release|arm64.Build.0 = Release|Any CPU
 		{FD30579B-6F46-40F7-82FF-9F823CEA1B97}.Release|x86.ActiveCfg = Release|Any CPU
 		{FD30579B-6F46-40F7-82FF-9F823CEA1B97}.Release|x86.Build.0 = Release|Any CPU
+		{C61C16EF-A80B-494B-B612-A1B90A842755}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C61C16EF-A80B-494B-B612-A1B90A842755}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C61C16EF-A80B-494B-B612-A1B90A842755}.Debug|arm64.ActiveCfg = Debug|Any CPU
+		{C61C16EF-A80B-494B-B612-A1B90A842755}.Debug|arm64.Build.0 = Debug|Any CPU
+		{C61C16EF-A80B-494B-B612-A1B90A842755}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C61C16EF-A80B-494B-B612-A1B90A842755}.Debug|x86.Build.0 = Debug|Any CPU
+		{C61C16EF-A80B-494B-B612-A1B90A842755}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C61C16EF-A80B-494B-B612-A1B90A842755}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C61C16EF-A80B-494B-B612-A1B90A842755}.Release|arm64.ActiveCfg = Release|Any CPU
+		{C61C16EF-A80B-494B-B612-A1B90A842755}.Release|arm64.Build.0 = Release|Any CPU
+		{C61C16EF-A80B-494B-B612-A1B90A842755}.Release|x86.ActiveCfg = Release|Any CPU
+		{C61C16EF-A80B-494B-B612-A1B90A842755}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -4868,6 +4882,7 @@ Global
 		{83E94C2A-7544-4380-AC3E-C263B0721270} = {3918D839-4415-44C9-AD94-C78DB19EF9CE}
 		{D6ECCEDA-B742-4765-8B23-644B9ED69593} = {81240DAF-191C-4245-A4A2-445032C9CBB9}
 		{FD30579B-6F46-40F7-82FF-9F823CEA1B97} = {D00CAC03-68B0-4455-9A41-CB9D9A64E5B7}
+		{C61C16EF-A80B-494B-B612-A1B90A842755} = {0F1AF5D0-ACAE-4F81-9E88-DED8B06A95B5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
