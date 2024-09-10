@@ -16,11 +16,34 @@ using iText.Kernel.Pdf.Canvas.Parser.Data;
 string src = "C:\\GPT\\Form_Template.pdf";
 string dest = "C:\\GPT\\output.pdf";
 
+WritePDF();
+//ExtractObjectsFromPage();
 
-ExtractObjectsFromPage();
-
-
-
+//填写表单数据
+void WritePDF()
+{
+    var inputPdfPath = "C:\\GPT\\test01.pdf";
+    var outputPdfPath = "C:\\GPT\\test01_result.pdf";
+    using (PdfReader pdfReader = new PdfReader(inputPdfPath))
+    using (PdfWriter pdfWriter = new PdfWriter(outputPdfPath))
+    using (PdfDocument pdfDoc = new PdfDocument(pdfReader, pdfWriter))
+    {
+        // 获取PDF中的表单对象
+        PdfAcroForm form = PdfAcroForm.GetAcroForm(pdfDoc, true);
+        // 获取所有的表单字段
+        IDictionary<string, PdfFormField> fields = form.GetAllFormFields();
+        // 输出所有的表单字段名称（用于调试）
+        foreach (var field in fields)
+        {
+            fields[field.Key].SetValue("Test");
+            Console.WriteLine("Field Name: " + field.Key);
+        }      
+        // 可选：将表单平面化以防止进一步编辑
+        form.FlattenFields();
+        // 保存并关闭PDF文件
+        pdfDoc.Close();
+    }
+}
 
 void ExtractObjectsFromPage(string filePath = "C:\\GPT\\bbb.pdf", int pageNumber = 1)
 {
@@ -240,9 +263,9 @@ public class MyObjectExtractionStrategy : IEventListener
                 break;
 
             case EventType.RENDER_PATH:
-                var pathRenderInfo = (PathRenderInfo)data;                
-                var path = pathRenderInfo.GetPath(); 
-                var point = path.GetCurrentPoint();               
+                var pathRenderInfo = (PathRenderInfo)data;
+                var path = pathRenderInfo.GetPath();
+                var point = path.GetCurrentPoint();
                 Objects.Add(new PdfObjectInfo
                 {
                     ObjectType = "Path",
