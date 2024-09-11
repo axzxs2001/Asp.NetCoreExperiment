@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Markdown-it Mermaid Example</title>
+    <!-- 引入 Markdown-it 和 Mermaid -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/13.0.2/markdown-it.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.4.0/dist/mermaid.min.js"></script>
+    <style>
+        .mermaid {
+            text-align: center;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="content"></div>
+
+    <script>
+        // 初始化 Mermaid
+        mermaid.initialize({ startOnLoad: false });
+        // 创建自定义 Mermaid 渲染规则
+        function markdownItMermaid(md) {
+            const defaultFence = md.renderer.rules.fence || function(tokens, idx, options, env, self) {
+                return self.renderToken(tokens, idx, options);
+            };
+            md.renderer.rules.fence = function(tokens, idx, options, env, self) {
+                const token = tokens[idx];
+                if (token.info === 'mermaid') {
+                    return `<div class="mermaid">${token.content}</div>`;
+                }
+                return defaultFence(tokens, idx, options, env, self);
+            };
+        }
+        // 初始化 markdown-it 并使用自定义 Mermaid 插件
+        const md = window.markdownit();
+        md.use(markdownItMermaid);
+        // Markdown 内容，包含 Mermaid 图表
+        const markdownContent = `
+# Markdown-it Mermaid Example
+这是一个简单的示例，展示如何使用 **Markdown-it** 渲染 Mermaid 图表。
+\`\`\`mermaid
+sequenceDiagram
+    participant 利用者
+    participant 決済アプリ
+    participant 決済アプリサービス
+    participant アクワイアラ事業者・決済ゲートウェイ
+
+    利用者 ->> 決済アプリ: アプリ開く
+    決済アプリ ->> アクワイアラ事業者・決済ゲートウェイ: 加盟店の静的なコードを読み取る
+    利用者 ->> 決済アプリ: 支払金額入力
+    決済アプリ ->> 決済アプリサービス: 決済を行う
+    決済アプリサービス ->> アクワイアラ事業者・決済ゲートウェイ: 取引の合法性確認
+    アクワイアラ事業者・決済ゲートウェイ -->> 決済アプリサービス: 認証成功
+    決済アプリサービス ->> 決済アプリ: 利用者の承認依頼
+    決済アプリ ->> 利用者: 支払パスワード入力要求
+    利用者 ->> 決済アプリ: パスワード入力と決済承認
+    決済アプリ ->> 決済アプリサービス: 決済承認
+    決済アプリサービス ->> アクワイアラ事業者・決済ゲートウェイ: 決済結果を通知
+    アクワイアラ事業者・決済ゲートウェイ ->> アクワイアラ事業者・決済ゲートウェイ: スマートコントラクトを通して、加盟店の受取るアドレスに記帳
+    アクワイアラ事業者・決済ゲートウェイ ->> 決済アプリサービス: 受取る加盟店のアカウントへ記帳
+    決済アプリサービス ->> 決済アプリ: 決済結果を通知
+    決済アプリ ->> 利用者: 決済結果を表示
+
+\`\`\`
+//把上面的内容转成泰语，要全部转成泰文，格式不改变
+\`\`\`mermaid
+sequenceDiagram
+    participant ผู้ใช้
+    participant แอปพลิเคชันการชำระเงิน
+    participant บริการแอปพลิเคชันการชำระเงิน
+    participant ผู้ให้บริการเก็บเงินและเกตเวย์การชำระเงิน
+
+    ผู้ใช้ ->> แอปพลิเคชันการชำระเงิน: เปิดแอปพลิเคชัน
+    แอปพลิเคชันการชำระเงิน ->> ผู้ให้บริการเก็บเงินและเกตเวย์การชำระเงิน: อ่านรหัสสถิติของร้านค้า
+    ผู้ใช้ ->> แอปพลิเคชันการชำระเงิน: ป้อนจำนวนเงินที่ต้องชำระ
+    แอปพลิเคชันการชำระเงิน ->> บริการแอปพลิเคชันการชำระเงิน: ทำการชำระเงิน
+    บริการแอปพลิเคชันการชำระเงิน ->> ผู้ให้บริการเก็บเงินและเกตเวย์การชำระเงิน: ยืนยันความถูกต้องของธุรกรรม
+    ผู้ให้บริการเก็บเงินและเกตเวย์การชำระเงิน -->> บริการแอปพลิเคชันการชำระเงิน: การรับรองสำเร็จ
+    บริการแอปพลิเคชันการชำระเงิน ->> แอปพลิเคชันการชำระเงิน: ขออนุมัติจากผู้ใช้
+    แอปพลิเคชันการชำระเงิน ->> ผู้ใช้: ขอให้ป้อนรหัสผ่านการชำระเงิน
+    ผู้ใช้ ->> แอปพลิเคชันการชำระเงิน: ป้อนรหัสผ่านและอนุมัติการชำระเงิน
+    แอปพลิเคชันการชำระเงิน ->> บริการแอปพลิเคชันการชำระเงิน: อนุมัติการชำระเงิน
+    บริการแอปพลิเคชันการชำระเงิน ->> ผู้ให้บริการเก็บเงินและเกตเวย์การชำระเงิน: แจ้งผลการชำระเงิน
+    ผู้ให้บริการเก็บเงินและเกตเวย์การชำระเงิน ->> ผู้ให้บริการเก็บเงินและเกตเวย์การชำระเงิน: ผ่านสัญญาอัจฉริยะ บันทึกไปยังที่อยู่การรับเงินของร้านค้า
+    ผู้ให้บริการเก็บเงินและเกตเวย์การชำระเงิน ->> บริการแอปพลิเคชันการชำระเงิน: บันทึกไปยังบัญชีของร้านค้า
+    บริการแอปพลิเคชันการชำระเงิน ->> แอปพลิเคชันการชำระเงิน: แจ้งผลการชำระเงิน
+\`\`\`
+
+//把上面的内容转成英文，格式不改变
+\`\`\`mermaid
+sequenceDiagram
+    participant User
+    participant Payment App
+    participant Payment App Service
+    participant Acquirer & Payment Gateway
+
+    User ->> Payment App: Open the app
+    Payment App ->> Acquirer & Payment Gateway: Read the static code of the merchant
+    User ->> Payment App: Enter the payment amount
+    Payment App ->> Payment App Service: Make a payment
+    Payment App Service ->> Acquirer & Payment Gateway: Confirm the legality of the transaction
+    Acquirer & Payment Gateway -->> Payment App Service: Authentication successful
+    Payment App Service ->> Payment App: Request user approval
+    Payment App ->> User: Request to enter payment password
+    User ->> Payment App: Enter password and approve payment
+    Payment App ->> Payment App Service: Approve payment
+    Payment App Service ->> Acquirer & Payment Gateway: Notify payment result
+    Acquirer & Payment Gateway ->> Acquirer & Payment Gateway: Through smart contracts, book to the merchant's receiving address
+    Acquirer & Payment Gateway ->> Payment App Service: Book to the merchant's account
+    Payment App Service ->> Payment App: Notify payment result
+
+\`\`\`
+
+//把上面的内容转成中文，要全部转成中文，格式不改变
+\`\`\`mermaid
+sequenceDiagram
+    participant 用户
+    participant 支付应用
+    participant 支付应用服务
+    participant 收单机构&支付网关
+
+    用户 ->> 支付应用: 打开应用
+    支付应用 ->> 收单机构&支付网关: 读取商家的静态码
+    用户 ->> 支付应用: 输入支付金额
+    支付应用 ->> 支付应用服务: 进行支付
+    支付应用服务 ->> 收单机构&支付网关: 确认交易的合法性
+    收单机构&支付网关 -->> 支付应用服务: 认证成功
+    支付应用服务 ->> 支付应用: 请求用户批准
+    支付应用 ->> 用户: 请求输入支付密码
+    用户 ->> 支付应用: 输入密码并批准支付
+    支付应用 ->> 支付应用服务: 批准支付
+    支付应用服务 ->> 收单机构&支付网关: 通知支付结果
+    收单机构&支付网关 ->> 收单机构&支付网关: 通过智能合约，记账到商家的收款地址
+    收单机构&支付网关 ->> 支付应用服务: 记账到商家的账户
+    支付应用服务 ->> 支付应用: 通知支付结果
+
+\`\`\`
+`;
+
+        // 渲染 Markdown 内容为 HTML
+        const htmlContent = md.render(markdownContent);
+        // 插入到页面中
+        document.getElementById('content').innerHTML = htmlContent;
+        // 使用 Mermaid 渲染图表
+        mermaid.init();
+    </script>
+</body>
+</html>

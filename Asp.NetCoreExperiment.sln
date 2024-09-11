@@ -970,6 +970,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrawlerLibDemo", "Asp.NetCo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YarpDemo", "Asp.NetCoreExperiment\YARP\YarpDemo\YarpDemo.csproj", "{C61C16EF-A80B-494B-B612-A1B90A842755}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MarkDown", "MarkDown", "{E1878819-F01F-4B16-AD0F-40B39335B9F6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
