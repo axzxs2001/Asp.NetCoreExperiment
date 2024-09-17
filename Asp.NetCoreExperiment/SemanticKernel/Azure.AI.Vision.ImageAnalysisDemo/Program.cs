@@ -13,12 +13,13 @@ string subscriptionKey = File.ReadAllText("C://GPT/visionkey.txt");
 string endpoint = "https://gswtestvision.cognitiveservices.azure.com/";
 
 // 图片URL
-string imageUrl = "https://ak-d.tripcdn.com/images/100310000000om1k74D93_C_1200_800_Q70.jpg?proc=source%2ftrip";
+string imageUrl1 = "https://raw.githubusercontent.com/axzxs2001/Asp.NetCoreExperiment/master/Asp.NetCoreExperiment/SemanticKernel/Azure.AI.Vision.ImageAnalysisDemo/A.png";
+var imageUrl2 = "https://raw.githubusercontent.com/axzxs2001/Asp.NetCoreExperiment/master/Asp.NetCoreExperiment/SemanticKernel/Azure.AI.Vision.ImageAnalysisDemo/B.png";
 
 // 调用提取图片特征的函数
-var vectorize1 = await VectorizeImageAsync(imageUrl);
+var vectorize1 = await VectorizeImageAsync(imageUrl1);
 var vectorize2 = await VectorizeText("故宫，蓝天，建筑");
-var vectorize3 = await VectorizeImageAsync("https://thumbs.dreamstime.com/z/%E6%95%85%E5%AE%AB%E5%85%A5%E5%8F%A3%E9%97%A8-31870117.jpg?ct=jpeg");
+var vectorize3 = await VectorizeImageAsync(imageUrl2);
 // 计算两个向量的余弦相似度
 Console.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fffffff"));
 var similarity = GetCosineSimilarity(vectorize1.Vector, vectorize3.Vector);
