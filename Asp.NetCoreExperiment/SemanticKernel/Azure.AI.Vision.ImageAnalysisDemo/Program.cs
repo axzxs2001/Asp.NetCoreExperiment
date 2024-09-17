@@ -18,7 +18,7 @@ var imageUrl2 = "https://raw.githubusercontent.com/axzxs2001/Asp.NetCoreExperime
 var imageUrl3 = "https://raw.githubusercontent.com/axzxs2001/Asp.NetCoreExperiment/master/Asp.NetCoreExperiment/SemanticKernel/Azure.AI.Vision.ImageAnalysisDemo/C.png";
 // 调用提取图片特征的函数
 Console.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fffffff"));
-var vectorize0 = await VectorizeText("微糖，深味，咖啡，棕色");
+var vectorize0 = await VectorizeText("微糖，深味，棕色，Wondn，金色盖子");
 var vectorizeA = await VectorizeImageAsync(imageUrl1);
 var vectorizeB = await VectorizeImageAsync(imageUrl2);
 var vectorizeC = await VectorizeImageAsync(imageUrl3);
