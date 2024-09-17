@@ -1,9 +1,12 @@
 ﻿using Azure.AI.Vision.ImageAnalysis;
+using Dapper;
 using Microsoft.Azure.Cosmos;
 using Microsoft.Azure.Cosmos.Serialization.HybridRow;
 using Microsoft.SemanticKernel.Connectors.AzureOpenAI;
+using Npgsql;
 using OpenAI.Embeddings;
 using System.ComponentModel;
+using System.Data;
 using System.Net.Http.Headers;
 using System.Numerics;
 using System.Security.Policy;
@@ -17,30 +20,63 @@ var imageUrl1 = "https://raw.githubusercontent.com/axzxs2001/Asp.NetCoreExperime
 var imageUrl2 = "https://raw.githubusercontent.com/axzxs2001/Asp.NetCoreExperiment/master/Asp.NetCoreExperiment/SemanticKernel/Azure.AI.Vision.ImageAnalysisDemo/B.png";
 var imageUrl3 = "https://raw.githubusercontent.com/axzxs2001/Asp.NetCoreExperiment/master/Asp.NetCoreExperiment/SemanticKernel/Azure.AI.Vision.ImageAnalysisDemo/C.png";
 // 调用提取图片特征的函数
-Console.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fffffff"));
-var vectorize0 = await VectorizeText("微糖，深味，棕色，Wondn，金色盖子");
-var vectorizeA = await VectorizeImageAsync(imageUrl1);
-var vectorizeB = await VectorizeImageAsync(imageUrl2);
-var vectorizeC = await VectorizeImageAsync(imageUrl3);
-Console.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fffffff"));
+//Console.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fffffff"));
+var vectorize0 = await VectorizeText("这是一个咖啡罐，黑咖啡，biztime");
+//var vectorizeA = await VectorizeImageAsync(imageUrl1);
+//var vectorizeB = await VectorizeImageAsync(imageUrl2);
+//var vectorizeC = await VectorizeImageAsync(imageUrl3);
+//Console.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fffffff"));
 
 
-// 计算两个向量的余弦相似度
-var similarityAB = GetCosineSimilarity(vectorizeA.Vector, vectorizeB.Vector);
-Console.WriteLine("A和B相似度是：" + similarityAB);
-var similarityAC = GetCosineSimilarity(vectorizeA.Vector, vectorizeC.Vector);
-Console.WriteLine("A和C相似度是：" + similarityAC);
-var similarityBC = GetCosineSimilarity(vectorizeB.Vector, vectorizeC.Vector);
-Console.WriteLine("B和C相似度是：" + similarityBC);
-Console.WriteLine("===================================");
-var similarityA0 = GetCosineSimilarity(vectorizeA.Vector, vectorize0.Vector);
-Console.WriteLine("A和0相似度是：" + similarityA0);
-var similarityB0 = GetCosineSimilarity(vectorizeB.Vector, vectorize0.Vector);
-Console.WriteLine("B和0相似度是：" + similarityB0);
-var similarityC0 = GetCosineSimilarity(vectorizeC.Vector, vectorize0.Vector);
-Console.WriteLine("C和0相似度是：" + similarityC0);
+//InsertImageVector(new DataVector { Name = "A", Embedding = vectorizeA.Vector });
+//InsertImageVector(new DataVector { Name = "B", Embedding = vectorizeB.Vector });
+//InsertImageVector(new DataVector { Name = "C", Embedding = vectorizeC.Vector });
+InsertImageVector(new DataVector { Name = "0", Embedding = vectorize0.Vector });
 
 
+/* 向量余弦相似度查询
+ select id,name,1-(
+(select embedding from imagevector where id=8)
+	<=>
+embedding 
+) as result	 from imagevector
+ 
+ 
+ */
+
+//// 计算两个向量的余弦相似度
+//var similarityAB = GetCosineSimilarity(vectorizeA.Vector, vectorizeB.Vector);
+//Console.WriteLine("A和B相似度是：" + similarityAB);
+//var similarityAC = GetCosineSimilarity(vectorizeA.Vector, vectorizeC.Vector);
+//Console.WriteLine("A和C相似度是：" + similarityAC);
+//var similarityBC = GetCosineSimilarity(vectorizeB.Vector, vectorizeC.Vector);
+//Console.WriteLine("B和C相似度是：" + similarityBC);
+//Console.WriteLine("===================================");
+//var similarityA0 = GetCosineSimilarity(vectorizeA.Vector, vectorize0.Vector);
+//Console.WriteLine("A和0相似度是：" + similarityA0);
+//var similarityB0 = GetCosineSimilarity(vectorizeB.Vector, vectorize0.Vector);
+//Console.WriteLine("B和0相似度是：" + similarityB0);
+//var similarityC0 = GetCosineSimilarity(vectorizeC.Vector, vectorize0.Vector);
+//Console.WriteLine("C和0相似度是：" + similarityC0);
+void InsertImageVector(DataVector imageVector)
+{
+    using (IDbConnection db = new NpgsqlConnection(File.ReadAllText("C://GPT/just-agi-db.txt")))
+    {
+        string sqlQuery = @"
+                INSERT INTO public.imagevector (name, embedding) 
+                VALUES (@Name, @Embedding) 
+                RETURNING id;"; // Use RETURNING id to get the auto-generated id back
+
+        var parameters = new
+        {
+            Name = imageVector.Name,
+            Embedding = imageVector.Embedding // This assumes Dapper will map the float[] properly, otherwise custom mapping is needed
+        };
+
+        var id = db.ExecuteScalar<int>(sqlQuery, parameters); // ExecuteScalar returns the inserted id
+        imageVector.Id = id; // Assign the generated id back to the entity
+    }
+}
 
 double GetCosineSimilarity(double[] vector1, double[] vector2)
 {
@@ -102,4 +138,13 @@ public class VectorResult
     public double[] Vector { get; set; }
 
     public string ModelVersion { get; set; }
+}
+
+class DataVector
+{
+    public int Id { get; set; } // This property should match the table's primary key
+    public string Name { get; set; } // Match the 'name' column, which is a VARCHAR(128)
+    public double[] Embedding { get; set; } // Assuming 'vector' is represented as a float array in C#
+
+
 }
