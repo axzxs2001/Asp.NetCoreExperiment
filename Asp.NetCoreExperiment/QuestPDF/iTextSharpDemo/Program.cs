@@ -16,8 +16,8 @@ using iText.Kernel.Pdf.Canvas.Parser.Data;
 string src = "C:\\GPT\\Form_Template.pdf";
 string dest = "C:\\GPT\\output.pdf";
 
-WritePDF();
-//ExtractObjectsFromPage();
+//WritePDF();
+ExtractObjectsFromPage();
 
 //填写表单数据
 void WritePDF()
@@ -37,7 +37,7 @@ void WritePDF()
         {
             fields[field.Key].SetValue("Test");
             Console.WriteLine("Field Name: " + field.Key);
-        }      
+        }
         // 可选：将表单平面化以防止进一步编辑
         form.FlattenFields();
         // 保存并关闭PDF文件
@@ -54,18 +54,24 @@ void ExtractObjectsFromPage(string filePath = "C:\\GPT\\bbb.pdf", int pageNumber
         // 创建自定义对象提取策略
         var strategy = new MyObjectExtractionStrategy();
         var processor = new PdfCanvasProcessor(strategy);
-
         // 处理指定页码的内容
         processor.ProcessPageContent(pdfDocument.GetPage(pageNumber));
-
         // 输出提取的对象信息
         foreach (var obj in strategy.Objects)
         {
-            Console.WriteLine($"Object Type: {obj.ObjectType}");
-            if (!string.IsNullOrEmpty(obj.Content))
-                Console.WriteLine($"Content: {obj.Content}");
-            Console.WriteLine($"Position: (x: {obj.X}, y: {obj.Y}), Size: (width: {obj.Width}, height: {obj.Height})");
-            Console.WriteLine("-------------");
+            if (obj.ObjectType.ToLower() == "text")
+            {
+                Console.WriteLine($"Text: {obj.Content}");
+            }
+            if(obj.ObjectType.ToLower() == "image")
+            {
+                Console.WriteLine("Image");
+            }
+            //Console.WriteLine($"Object Type: {obj.ObjectType}");
+            //if (!string.IsNullOrEmpty(obj.Content))
+            //    Console.WriteLine($"Content: {obj.Content}");
+            //Console.WriteLine($"Position: (x: {obj.X}, y: {obj.Y}), Size: (width: {obj.Width}, height: {obj.Height})");
+            //Console.WriteLine("-------------");
         }
     }
 }
@@ -250,6 +256,20 @@ public class MyObjectExtractionStrategy : IEventListener
 
             case EventType.RENDER_IMAGE:
                 var imageRenderInfo = (ImageRenderInfo)data;
+
+                // 获取图像数据
+                var image = imageRenderInfo.GetImage();
+
+                // 将图像数据保存为文件
+                byte[] imgData = image.GetImageBytes(true);
+                using (var ms = new MemoryStream(imgData))
+                {
+                    // 使用ImageData保存图片（PNG或其他格式）
+                    ImageData imageData = ImageDataFactory.Create(ms.ToArray());
+                    File.WriteAllBytes($"image_{Guid.NewGuid()}.png", imageData.GetData());
+                }
+
+
                 var imageRect = imageRenderInfo.GetImageCtm();
 
                 Objects.Add(new PdfObjectInfo
