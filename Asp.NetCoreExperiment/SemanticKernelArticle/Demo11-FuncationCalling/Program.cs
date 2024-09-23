@@ -31,9 +31,9 @@ async Task Call1()
 {
     Console.WriteLine("-----------------Call1 开始---------------------");
     var settings = new OpenAIPromptExecutionSettings() { ToolCallBehavior = ToolCallBehavior.AutoInvokeKernelFunctions };
-    await foreach (StreamingKernelContent update in kernel.InvokePromptStreamingAsync("现在离吃月饼还有多少天？", new(settings)))
+    await foreach (var content in kernel.InvokePromptStreamingAsync("现在离吃月饼还有多少天？", new(settings)))
     {
-        Console.Write(update);
+        Console.Write(content);
     }
     Console.WriteLine();
     Console.WriteLine("-----------------Call1 结束---------------------");
@@ -62,9 +62,9 @@ async Task Call3()
 {
     Console.WriteLine("-----------------Call3 开始---------------------");
     var settings = new OpenAIPromptExecutionSettings() { ToolCallBehavior = ToolCallBehavior.AutoInvokeKernelFunctions };
-    IChatCompletionService chat = kernel.GetRequiredService<IChatCompletionService>();
-    ChatHistory chatHistory = new();
-    chatHistory.AddUserMessage("中秋节吃月饼，现在离吃月饼还有多少天？");
+    var chat = kernel.GetRequiredService<IChatCompletionService>();
+    var chatHistory = new ChatHistory();
+    chatHistory.AddUserMessage("现在离吃月饼还有多少天？");
     while (true)
     {
         AuthorRole? authorRole = null;
@@ -102,10 +102,10 @@ async Task Call3()
 async Task Call4()
 {
     Console.WriteLine("-----------------Call4 开始---------------------");
-    IChatCompletionService chat = kernel.GetRequiredService<IChatCompletionService>();
-    OpenAIPromptExecutionSettings settings = new() { ToolCallBehavior = ToolCallBehavior.EnableKernelFunctions };
-    ChatHistory chatHistory = new();
-    chatHistory.AddUserMessage("中秋节吃月饼，现在离吃月饼还有多少天？");
+    var chat = kernel.GetRequiredService<IChatCompletionService>();
+    var settings = new OpenAIPromptExecutionSettings() { ToolCallBehavior = ToolCallBehavior.EnableKernelFunctions };
+    var chatHistory = new ChatHistory();
+    chatHistory.AddUserMessage("现在离吃月饼还有多少天？");
     while (true)
     {
         AuthorRole? authorRole = null;
