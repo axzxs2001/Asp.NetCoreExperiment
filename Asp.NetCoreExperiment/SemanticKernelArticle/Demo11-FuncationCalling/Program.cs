@@ -23,9 +23,9 @@ kernel.ImportPluginFromFunctions("HelperFunctions",
 
 
 //await Call1();
-//await Call2();
+await Call2();
 //await Call3();
-await Call4();
+//await Call4();
 
 async Task Call1()
 {
