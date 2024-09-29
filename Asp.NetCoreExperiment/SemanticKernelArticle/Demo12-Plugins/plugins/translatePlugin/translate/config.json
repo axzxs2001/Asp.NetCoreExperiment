@@ -1,0 +1,21 @@
+{
+  "schema": 1,
+  "description": "把给定的内容翻译成日文",
+  "execution_settings": {
+    "default": {
+      "max_tokens": 512,
+      "temperature": 0.0,
+      "top_p": 0.0,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0
+    }
+  },
+  "input_variables": [
+    {
+      "name": "input",
+      "description": "翻译内容",
+      "default": "",
+      "is_required": true
+    }
+  ]
+}
