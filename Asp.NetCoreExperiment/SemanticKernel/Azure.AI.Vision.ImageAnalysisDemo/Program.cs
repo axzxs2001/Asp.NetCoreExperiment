@@ -31,8 +31,12 @@ var vectorize0 = await VectorizeText("这是一个咖啡罐，黑咖啡，biztim
 //InsertImageVector(new DataVector { Name = "A", Embedding = vectorizeA.Vector });
 //InsertImageVector(new DataVector { Name = "B", Embedding = vectorizeB.Vector });
 //InsertImageVector(new DataVector { Name = "C", Embedding = vectorizeC.Vector });
-InsertImageVector(new DataVector { Name = "0", Embedding = vectorize0.Vector });
+//InsertImageVector(new DataVector { Name = "0", Embedding = vectorize0.Vector });
 
+foreach (var item in QueryImageVector(vectorize0.Vector))
+{
+    Console.WriteLine(item.Id + "  " + item.Name + "  " + item.Result);
+}
 
 /* 向量余弦相似度查询
  select id,name,1-(
@@ -43,6 +47,15 @@ embedding
  
  
  */
+IEnumerable<QueryVectorResult> QueryImageVector(double[] imageVector)
+{
+    using (IDbConnection db = new NpgsqlConnection(File.ReadAllText("C://GPT/just-agi-db.txt")))
+    {
+        string sqlQuery = "select id,name,1-(cast(@embedding as vector) <=> embedding) as result from public.imagevector ";
+        return db.Query<QueryVectorResult>(sqlQuery, new { embedding = imageVector });
+
+    }
+}
 
 //// 计算两个向量的余弦相似度
 //var similarityAB = GetCosineSimilarity(vectorizeA.Vector, vectorizeB.Vector);
@@ -65,12 +78,12 @@ void InsertImageVector(DataVector imageVector)
         string sqlQuery = @"
                 INSERT INTO public.imagevector (name, embedding) 
                 VALUES (@Name, @Embedding) 
-                RETURNING id;"; // Use RETURNING id to get the auto-generated id back
+                RETURNING id;"; 
 
         var parameters = new
         {
             Name = imageVector.Name,
-            Embedding = imageVector.Embedding // This assumes Dapper will map the float[] properly, otherwise custom mapping is needed
+            Embedding = imageVector.Embedding 
         };
 
         var id = db.ExecuteScalar<int>(sqlQuery, parameters); // ExecuteScalar returns the inserted id
@@ -142,9 +155,13 @@ public class VectorResult
 
 class DataVector
 {
-    public int Id { get; set; } // This property should match the table's primary key
-    public string Name { get; set; } // Match the 'name' column, which is a VARCHAR(128)
-    public double[] Embedding { get; set; } // Assuming 'vector' is represented as a float array in C#
-
-
+    public int Id { get; set; }
+    public string Name { get; set; }
+    public double[] Embedding { get; set; }
+}
+class QueryVectorResult
+{
+    public int Id { get; set; }
+    public string Name { get; set; }
+    public double Result { get; set; }
 }
