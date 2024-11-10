@@ -1,0 +1,6 @@
+@ProblemDemo_HostAddress = http://localhost:5042
+
+GET {{ProblemDemo_HostAddress}}/test/
+Accept: application/json
+
+###
