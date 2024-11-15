@@ -100,7 +100,7 @@ var movies = vectorStore.GetCollection<string, Movie>("movies");
 await movies.CreateCollectionIfNotExistsAsync();
 var key = File.ReadAllText("c://GPT/key.txt");
 IEmbeddingGenerator<string, Embedding<float>> generator =
- new OpenAIEmbeddingGenerator(new OpenAI.OpenAIClient(key), "text-embedding-3-small");
+ new OpenAIEmbeddingGenerator(new OpenAI.OpenAIClient(key), "text-embedding-3-large");
 
 
 
@@ -137,8 +137,6 @@ while (true)
 }
 
 
-
-
 public class Movie
 {
 
@@ -154,6 +152,6 @@ public class Movie
     [VectorStoreRecordData]
     public string Description { get; set; }
 
-    [VectorStoreRecordVector(1536, DistanceFunction.CosineSimilarity)]
+    [VectorStoreRecordVector(3072, DistanceFunction.CosineSimilarity)]
     public ReadOnlyMemory<float> Vector { get; set; }
 }
