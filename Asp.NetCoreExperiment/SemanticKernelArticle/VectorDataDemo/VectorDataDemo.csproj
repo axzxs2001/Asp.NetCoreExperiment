@@ -14,6 +14,7 @@
     <PackageReference Include="Microsoft.Extensions.VectorData.Abstractions" Version="9.0.0-preview.1.24523.1" />
     <PackageReference Include="Microsoft.SemanticKernel" Version="1.28.0" />
     <PackageReference Include="Microsoft.SemanticKernel.Connectors.InMemory" Version="1.28.0-preview" />
+    <PackageReference Include="Microsoft.SemanticKernel.Connectors.Redis" Version="1.28.0-preview" />
   </ItemGroup>
 
 </Project>

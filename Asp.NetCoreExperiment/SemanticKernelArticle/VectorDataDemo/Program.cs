@@ -1,12 +1,14 @@
 ﻿using Microsoft.Extensions.AI;
 using Microsoft.Extensions.VectorData;
 using Microsoft.SemanticKernel.Connectors.InMemory;
+using Microsoft.SemanticKernel.Connectors.Redis;
+using StackExchange.Redis;
 
 var movieData = new List<Movie>()
 {
     new Movie
         {
-            Key=0,
+            ID="0",
             Title="狮子王",
             Description=@"《狮子王》是一部经典的迪士尼动画电影，讲述了一只名叫辛巴的小狮子在其父亲不幸去世后，踏上征程，夺回自己作为荣耀大地之王的王位的故事。
 《狮子王》是一部由迪士尼在1994年制作的经典动画电影，讲述了一只名叫辛巴的幼狮从幼年到成年的成长历程，经历自我发现、责任和复仇的故事。这部电影通过非洲大草原上的动物们的故事展现了生命的循环主题，感人至深，并融合了亲情、友情、爱情和勇气等元素。
@@ -21,7 +23,7 @@ var movieData = new List<Movie>()
         },
     new Movie
         {
-            Key=1,
+            ID="1",
             Title="盗梦空间",
             Description=@"《盗梦空间》是一部由克里斯托弗·诺兰执导的科幻电影，讲述了一群窃贼进入目标的梦境以窃取信息的故事。《盗梦空间》（Inception）是一部由克里斯托弗·诺兰执导的科幻悬疑电影，于2010年上映。这部电影以复杂的梦境世界和层层嵌套的梦中梦结构为特点，讲述了一群“盗梦者”通过潜入他人梦境来窃取或植入信息的惊险故事。影片的主题涉及潜意识、现实与梦境的边界、心理创伤以及自我救赎，成为电影史上极具创意和影响力的作品之一。
 故事的主角多姆·柯布（由莱昂纳多·迪卡普里奥饰演）是一名技术高超的“盗梦师”，他擅长通过潜入他人梦境来窃取秘密。然而，这项技术是一种非法行为，使得柯布成为全球通缉的逃犯，并因此无法回到家人身边。柯布的团队中还包括阿瑟（约瑟夫·高登-莱维特饰）、艾姆斯（汤姆·哈迪饰）、尤瑟夫（迪利普·拉奥饰）等人，他们各自拥有特殊技能，在梦境行动中发挥不同作用。
@@ -35,7 +37,7 @@ var movieData = new List<Movie>()
         },
     new Movie
         {
-            Key=2,
+            ID="2",
             Title="黑客帝国",
             Description=@"《黑客帝国》是一部由沃卓斯基姐妹执导的科幻电影，讲述了一名叫尼奥的电脑黑客发现自己所处的世界其实是由机器制造的虚拟现实的故事。
 《黑客帝国》（The Matrix）是一部1999年由沃卓斯基姐妹（原为沃卓斯基兄弟）执导的科幻动作电影，它探索了现实与虚拟之间的界限，通过惊人的视觉特效和深刻的哲学思想震撼了观众。影片讲述了主角尼奥（基努·里维斯饰）发现自己所处的世界是一个计算机生成的虚拟现实，并在觉醒后加入人类反抗机器统治的斗争。
@@ -56,7 +58,7 @@ var movieData = new List<Movie>()
         },
     new Movie
         {
-            Key=3,
+            ID="3",
             Title="怪物史瑞克",
             Description=@"《怪物史瑞克》是一部动画电影，讲述了一只名叫史瑞克的食人魔踏上征程，去解救被龙困住的菲奥娜公主，并将她带回杜洛克王国的故事。
 《怪物史瑞克》（Shrek）是一部由梦工厂于2001年出品的动画电影，讲述了一个绿色食人魔史瑞克的幽默冒险故事。电影颠覆了传统的童话故事，将英雄设定为一个外表粗犷、性格古怪的食人魔，通过有趣的情节和出人意料的角色设定，展现了友情、爱情、自我接受和反偏见的主题。
@@ -81,15 +83,34 @@ var movieData = new List<Movie>()
 };
 #pragma warning disable SKEXP0020
 #pragma warning disable SKEXP0070
-var vectorStore = new InMemoryVectorStore();
-var movies = vectorStore.GetCollection<int, Movie>("movies");
+//var vectorStore = new InMemoryVectorStore();
+
+var redisConfiguration = new ConfigurationOptions
+{
+    EndPoints = { "localhost:6379" },
+    User = "",
+    Password = "",
+    ConnectTimeout = 1000,
+    ConnectRetry = 3
+};
+var connectionMultiplexer = await ConnectionMultiplexer.ConnectAsync(redisConfiguration);
+var database = connectionMultiplexer.GetDatabase();
+var vectorStore = new RedisVectorStore(database);
+var movies = vectorStore.GetCollection<string, Movie>("movies");
 await movies.CreateCollectionIfNotExistsAsync();
 var key = File.ReadAllText("c://GPT/key.txt");
 IEmbeddingGenerator<string, Embedding<float>> generator =
  new OpenAIEmbeddingGenerator(new OpenAI.OpenAIClient(key), "text-embedding-3-small");
 
+
+
 foreach (var movie in movieData)
 {
+    var cacheMovie = await movies.GetAsync(movie.Key);
+    if (cacheMovie != null)
+    {
+        continue;
+    }
     movie.Vector = await generator.GenerateEmbeddingVectorAsync(movie.Description);
     await movies.UpsertAsync(movie);
 }
@@ -102,12 +123,10 @@ while (true)
 
     var searchOptions = new VectorSearchOptions()
     {
-        Top = 4,
-        VectorPropertyName = "Vector"
+        Top = 1,
+        VectorPropertyName = "Vector",
     };
-
     var results = await movies.VectorizedSearchAsync(queryEmbedding, searchOptions);
-
     await foreach (var result in results.Results)
     {
         Console.WriteLine($"Title: {result.Record.Title}");
@@ -115,7 +134,6 @@ while (true)
         Console.WriteLine($"Score: {result.Score}");
         Console.WriteLine();
     }
-
 }
 
 
@@ -123,8 +141,12 @@ while (true)
 
 public class Movie
 {
+
     [VectorStoreRecordKey]
-    public int Key { get; set; }
+    public string Key { get => ID + "_" + Title; }
+
+    [VectorStoreRecordData]
+    public string ID { get; set; }
 
     [VectorStoreRecordData]
     public string Title { get; set; }
