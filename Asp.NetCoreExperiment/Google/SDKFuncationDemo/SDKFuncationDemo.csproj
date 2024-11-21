@@ -9,6 +9,14 @@
 
   <ItemGroup>
     <PackageReference Include="Google.Cloud.Functions.V2" Version="1.7.0" />
+    <PackageReference Include="Google.Cloud.Run.V2" Version="2.11.0" />
+    <PackageReference Include="Google.Cloud.Storage.V1" Version="4.10.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="code.zip">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
