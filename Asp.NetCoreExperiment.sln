@@ -1002,6 +1002,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FuncationDemo01", "Asp.NetC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewAgentDemo", "Asp.NetCoreExperiment\SemanticKernelArticle\NewAgentDemo\NewAgentDemo.csproj", "{80812D32-A622-4135-8CD0-BC6CB36E21AA}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HtmlAgilityPackDemo", "HtmlAgilityPackDemo", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo01", "Asp.NetCoreExperiment\HtmlAgilityPackDemo\Demo01\Demo01.csproj", "{77C02893-9EF7-454B-903E-98B836E95414}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -4676,6 +4680,18 @@ Global
 		{80812D32-A622-4135-8CD0-BC6CB36E21AA}.Release|arm64.Build.0 = Release|Any CPU
 		{80812D32-A622-4135-8CD0-BC6CB36E21AA}.Release|x86.ActiveCfg = Release|Any CPU
 		{80812D32-A622-4135-8CD0-BC6CB36E21AA}.Release|x86.Build.0 = Release|Any CPU
+		{77C02893-9EF7-454B-903E-98B836E95414}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77C02893-9EF7-454B-903E-98B836E95414}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77C02893-9EF7-454B-903E-98B836E95414}.Debug|arm64.ActiveCfg = Debug|Any CPU
+		{77C02893-9EF7-454B-903E-98B836E95414}.Debug|arm64.Build.0 = Debug|Any CPU
+		{77C02893-9EF7-454B-903E-98B836E95414}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{77C02893-9EF7-454B-903E-98B836E95414}.Debug|x86.Build.0 = Debug|Any CPU
+		{77C02893-9EF7-454B-903E-98B836E95414}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77C02893-9EF7-454B-903E-98B836E95414}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77C02893-9EF7-454B-903E-98B836E95414}.Release|arm64.ActiveCfg = Release|Any CPU
+		{77C02893-9EF7-454B-903E-98B836E95414}.Release|arm64.Build.0 = Release|Any CPU
+		{77C02893-9EF7-454B-903E-98B836E95414}.Release|x86.ActiveCfg = Release|Any CPU
+		{77C02893-9EF7-454B-903E-98B836E95414}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -5097,6 +5113,7 @@ Global
 		{C6A42B73-EE06-0A47-40DB-63A6ED85D30A} = {6B6C4049-28C8-4EC0-B31F-D7BE9ECE67F1}
 		{CBF74047-190A-4D74-81DB-C30325F1435D} = {6B6C4049-28C8-4EC0-B31F-D7BE9ECE67F1}
 		{80812D32-A622-4135-8CD0-BC6CB36E21AA} = {3918D839-4415-44C9-AD94-C78DB19EF9CE}
+		{77C02893-9EF7-454B-903E-98B836E95414} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
