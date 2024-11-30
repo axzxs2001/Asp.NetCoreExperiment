@@ -1,121 +1,118 @@
-﻿using Microsoft.SemanticKernel.Agents.Chat;
-using Microsoft.SemanticKernel.Agents.OpenAI;
-using Microsoft.SemanticKernel.Agents;
-using Microsoft.SemanticKernel.ChatCompletion;
-using Microsoft.SemanticKernel;
-using System.ClientModel;
-using System.Collections.ObjectModel;
+﻿//using Microsoft.SemanticKernel.Agents.Chat;
+//using Microsoft.SemanticKernel.Agents.OpenAI;
+//using Microsoft.SemanticKernel.Agents;
+//using Microsoft.SemanticKernel.ChatCompletion;
+//using Microsoft.SemanticKernel;
+//using System.ClientModel;
+//using System.Collections.ObjectModel;
 
-#pragma warning disable 
+//#pragma warning disable 
 
-string ReviewerName = "ArtDirector";
-string ReviewerInstructions =
-   """
-        你是一位热爱大卫·奥格威（David Ogilvy）的艺术总监，对文案撰写有独到见解。
-        目标是判断给定的文案是否可以用于印刷。
-        如果可以，请说明“已批准”。
-        如果不可以，请提供如何改进建议文案的见解，但不提供具体例子。
-        """;
+//string ReviewerName = "翻译审核员";
+//string ReviewerInstructions =
+//   """
+//        你是一位中日文翻译的翻译审核员，你有丰富的翻译和审核经验，对翻译质量有较高的要求，总是严格要求，反复琢磨，以求得到更为准确的翻译。
+//        目标是确定给定翻译否符合要求，是否采用。如果不符合要求，提出你的建议给翻译家，但不要把翻译内容给对方。
+//        如果翻译内容可以接受并且符合您的标准，请说：采用它。
+//        """;
 
-string CopyWriterName = "CopyWriter";
-string CopyWriterInstructions =
-   """
-        你是一位拥有十年经验的文案撰写专家，以简洁和冷幽默著称。
-        目标是以专家的角度改进并确定唯一最佳的文案。
-        每次回应只提供一个提案。
-        专注于手头的目标，不浪费时间闲聊。
-        在改进创意时，请考虑提出的建议。
-        """;
-var modelID = "gpt-4o";
-var openAIKey = File.ReadAllText("c://gpt/key.txt");
+//string CopyWriterName = "翻译家";
+//string CopyWriterInstructions =
+//   """
+//        您是一位中文日文的翻译家，以严谨闻名。
+//        你会把用户的输入，全神贯注于手头的目标，翻译成准确，高质量的译文。
+//        完善翻译内容时，请考虑翻译审核员的建议。
+//        """;
+//var modelID = "gpt-4o";
+//var openAIKey = File.ReadAllText("c://gpt/key.txt");
 
-var kernel = Kernel.CreateBuilder()
-           .AddOpenAIChatCompletion(modelID, openAIKey).Build();
+//var kernel = Kernel.CreateBuilder()
+//           .AddOpenAIChatCompletion(modelID, openAIKey).Build();
 
-var agentReviewer = new ChatCompletionAgent()
-{
-    Instructions = ReviewerInstructions,
-    Name = ReviewerName,
-    Kernel = kernel,
-};
+//var agentReviewer = new ChatCompletionAgent()
+//{
+//    Instructions = ReviewerInstructions,
+//    Name = ReviewerName,
+//    Kernel = kernel,
+//};
 
 
-ReadOnlyDictionary<string, string> AssistantSampleMetadata =
-        new(new Dictionary<string, string>
-        {
-            {  "sksample", bool.TrueString }
-        });
+//ReadOnlyDictionary<string, string> AssistantSampleMetadata =
+//        new(new Dictionary<string, string>
+//        {
+//            {  "sksample", bool.TrueString }
+//        });
 
-var agentWriter =
-    await OpenAIAssistantAgent.CreateAsync(
-        clientProvider: OpenAIClientProvider.ForOpenAI(new ApiKeyCredential(openAIKey)),
-        definition: new OpenAIAssistantDefinition(modelID)
-        {
-            Instructions = CopyWriterInstructions,
-            Name = CopyWriterName,
-            Metadata = AssistantSampleMetadata
-        },
-        kernel: kernel);
+//var agentWriter =
+//    await OpenAIAssistantAgent.CreateAsync(
+//        clientProvider: OpenAIClientProvider.ForOpenAI(new ApiKeyCredential(openAIKey)),
+//        definition: new OpenAIAssistantDefinition(modelID)
+//        {
+//            Instructions = CopyWriterInstructions,
+//            Name = CopyWriterName,
+//            Metadata = AssistantSampleMetadata
+//        },
+//        kernel: kernel);
 
-// Create a chat for agent interaction.
-AgentGroupChat chat =
-    new(agentWriter, agentReviewer)
-    {
-        ExecutionSettings =
-            new()
-            {
-                // Here a TerminationStrategy subclass is used that will terminate when
-                // an assistant message contains the term "approve".
-                TerminationStrategy = new ApprovalTerminationStrategy()
-                {
-                    // Only the art-director may approve.
-                    Agents = [agentReviewer],
-                    // Limit total number of turns
-                    MaximumIterations = 10,
-                }
-            }
-    };
+//// Create a chat for agent interaction.
+//AgentGroupChat chat =
+//    new(agentWriter, agentReviewer)
+//    {
+//        ExecutionSettings =
+//            new()
+//            {
+//                // Here a TerminationStrategy subclass is used that will terminate when
+//                // an assistant message contains the term "approve".
+//                TerminationStrategy = new ApprovalTerminationStrategy()
+//                {
+//                    // Only the art-director may approve.
+//                    Agents = [agentReviewer],
+//                    // Limit total number of turns
+//                    MaximumIterations = 10,
+//                }
+//            }
+//    };
 
-// Invoke chat and display messages.
-ChatMessageContent input = new(AuthorRole.User, "concept:用鸡蛋盒制作的地图。");
-chat.AddChatMessage(input);
-Console.WriteLine(input);
+//// Invoke chat and display messages.
+//ChatMessageContent input = new(AuthorRole.User, File.ReadAllText("content.txt"));
+//chat.AddChatMessage(input);
+//Console.WriteLine(input);
 
-string lastAgent = string.Empty;
-await foreach (StreamingChatMessageContent response in chat.InvokeStreamingAsync())
-{
-    if (string.IsNullOrEmpty(response.Content))
-    {
-        continue;
-    }
+//string lastAgent = string.Empty;
+//await foreach (StreamingChatMessageContent response in chat.InvokeStreamingAsync())
+//{
+//    if (string.IsNullOrEmpty(response.Content))
+//    {
+//        continue;
+//    }
 
-    if (!lastAgent.Equals(response.AuthorName, StringComparison.Ordinal))
-    {
-        Console.WriteLine($"\n# {response.Role} - {response.AuthorName ?? "*"}:");
-        lastAgent = response.AuthorName ?? string.Empty;
-    }
+//    if (!lastAgent.Equals(response.AuthorName, StringComparison.Ordinal))
+//    {
+//        Console.WriteLine($"\n# {response.Role} - {response.AuthorName ?? "*"}:");
+//        lastAgent = response.AuthorName ?? string.Empty;
+//    }
 
-    Console.WriteLine($"\t > streamed: '{response.Content}'");
-}
+//    Console.WriteLine($"\t > streamed: '{response.Content}'");
+//}
 
-// Display the chat history.
-Console.WriteLine("================================");
-Console.WriteLine("CHAT HISTORY");
-Console.WriteLine("================================");
+//// Display the chat history.
+//Console.WriteLine("================================");
+//Console.WriteLine("CHAT HISTORY");
+//Console.WriteLine("================================");
 
-ChatMessageContent[] history = await chat.GetChatMessagesAsync().Reverse().ToArrayAsync();
+//ChatMessageContent[] history = await chat.GetChatMessagesAsync().Reverse().ToArrayAsync();
 
-for (int index = 0; index < history.Length; index++)
-{
-    Console.WriteLine(history[index]);
-}
+//for (int index = 0; index < history.Length; index++)
+//{
+//    Console.WriteLine(history[index]);
+//}
 
-Console.WriteLine($"\n[IS COMPLETED: {chat.IsComplete}]");
+//Console.WriteLine($"\n[IS COMPLETED: {chat.IsComplete}]");
 
 
-sealed class ApprovalTerminationStrategy : TerminationStrategy
-{
-    // Terminate when the final message contains the term "approve"
-    protected override Task<bool> ShouldAgentTerminateAsync(Agent agent, IReadOnlyList<ChatMessageContent> history, CancellationToken cancellationToken)
-        => Task.FromResult(history[history.Count - 1].Content?.Contains("approve", StringComparison.OrdinalIgnoreCase) ?? false);
-}
+//sealed class ApprovalTerminationStrategy : TerminationStrategy
+//{
+//    // Terminate when the final message contains the term "approve"
+//    protected override Task<bool> ShouldAgentTerminateAsync(Agent agent, IReadOnlyList<ChatMessageContent> history, CancellationToken cancellationToken)
+//        => Task.FromResult(history[history.Count - 1].Content?.Contains("采用它", StringComparison.OrdinalIgnoreCase) ?? false);
+//}

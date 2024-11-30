@@ -10,8 +10,8 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.SemanticKernel" Version="1.18.0-rc" />
-		<PackageReference Include="Microsoft.SemanticKernel.Experimental.Agents" Version="1.18.0-alpha" />
+		<PackageReference Include="Microsoft.SemanticKernel" Version="1.31.0" />
+		<PackageReference Include="Microsoft.SemanticKernel.Experimental.Agents" Version="1.18.2-alpha" />
 	</ItemGroup>
 
 	<ItemGroup>
