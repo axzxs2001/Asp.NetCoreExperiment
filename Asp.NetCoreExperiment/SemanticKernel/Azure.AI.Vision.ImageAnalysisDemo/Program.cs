@@ -21,17 +21,17 @@ var imageUrl1 = "https://raw.githubusercontent.com/axzxs2001/Asp.NetCoreExperime
 //var imageUrl3 = "https://raw.githubusercontent.com/axzxs2001/Asp.NetCoreExperiment/master/Asp.NetCoreExperiment/SemanticKernel/Azure.AI.Vision.ImageAnalysisDemo/C.png";
 // 调用提取图片特征的函数
 //Console.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fffffff"));
-var vectorize0 = await VectorizeText("这是一个咖啡罐，黑咖啡，biztime");
+var vectorize0 = await VectorizeText("歯科助手");
 //var vectorizeA = await VectorizeImageAsync(imageUrl1);
 //var vectorizeB = await VectorizeImageAsync(imageUrl2);
 //var vectorizeC = await VectorizeImageAsync(imageUrl3);
 //Console.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fffffff"));
 
 
-//InsertImageVector(new DataVector { Name = "A", Embedding = vectorizeA.Vector });
+//InsertImageVector(new DataVector { Name = "FFF", Embedding = vectorizeA.Vector });
 //InsertImageVector(new DataVector { Name = "B", Embedding = vectorizeB.Vector });
 //InsertImageVector(new DataVector { Name = "C", Embedding = vectorizeC.Vector });
-//InsertImageVector(new DataVector { Name = "0", Embedding = vectorize0.Vector });
+//InsertImageVector(new DataVector { Name = "FFF", Embedding = vectorize0.Vector });
 
 foreach (var item in QueryImageVector(vectorize0.Vector))
 {
