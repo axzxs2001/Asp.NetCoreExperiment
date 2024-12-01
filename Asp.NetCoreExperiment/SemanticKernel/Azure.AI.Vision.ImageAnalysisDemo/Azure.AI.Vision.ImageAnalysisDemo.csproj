@@ -16,4 +16,10 @@
     <PackageReference Include="Npgsql" Version="8.0.4" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="FFF.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
