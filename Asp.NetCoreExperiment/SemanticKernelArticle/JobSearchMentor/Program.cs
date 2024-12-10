@@ -1,11 +1,11 @@
 ﻿#pragma warning disable SKEXP0080 
 using Microsoft.SemanticKernel;
+using Microsoft.SemanticKernel.ChatCompletion;
+using Microsoft.SemanticKernel.Connectors.OpenAI;
 using System.Reflection;
 using System.Text.Json.Serialization;
 
-
-
-
+#region 流程定义
 var process = new ProcessBuilder("Trip");
 var getCustomerStep = process.AddStepFromType<GetCustomerStep>();
 var tripAirStep = process.AddStepFromType<TripAirTicketProcessStep>();
@@ -14,13 +14,15 @@ var tripCarStep = process.AddStepFromType<TripCarProcessStep>();
 var mailServiceStep = process.AddStepFromType<MailServiceStep>();
 var tripCompleteStep = process.AddStepFromType<TripCompleteStep>();
 var stopProcessStep = process.AddStepFromType<StopProcessStep>();
+#endregion
 
+#region 组织流程
 process.OnInputEvent(TripEvents.StartProcess)
           .SendEventTo(new ProcessFunctionTargetBuilder(getCustomerStep, GetCustomerStep.Functions.GetCustomer));
 
 getCustomerStep
     .OnEvent(TripEvents.GetCustomer)
-    .SendEventTo(new ProcessFunctionTargetBuilder(tripAirStep, TripAirTicketProcessStep.Functions.TripAirTicket,parameterName: "customer"));
+    .SendEventTo(new ProcessFunctionTargetBuilder(tripAirStep, TripAirTicketProcessStep.Functions.TripAirTicket, parameterName: "customer"));
 
 tripAirStep
     .OnEvent(TripEvents.TripAirTicketSuccess)
@@ -54,30 +56,23 @@ stopProcessStep
     .OnEvent(TripEvents.StopProcess)
     .StopProcess();
 
+#endregion
+
 var kernelProcess = process.Build();
-
-
-Kernel kernel = CreateKernelWithChatCompletion();
-while (true)
-{
-    Console.WriteLine("请输入用户id:");
-    var id=int.Parse(Console.ReadLine());
-    using var runningProcess = await kernelProcess.StartAsync(kernel, new KernelProcessEvent() { Id = TripEvents.StartProcess, Data = id });
-}
-
-
-
-Kernel CreateKernelWithChatCompletion()
-{
-    Kernel kernel = Kernel.CreateBuilder()
+Kernel kernel = Kernel.CreateBuilder()
         .AddOpenAIChatCompletion(
             modelId: "gpt-4o",
             apiKey: File.ReadAllText("c:/gpt/key.txt"))
         .Build();
-    return kernel;
+while (true)
+{
+    Console.WriteLine("请输入用户id:");
+    var id = int.Parse(Console.ReadLine());
+    //开始流程
+    using var runningProcess = await kernelProcess.StartAsync(kernel, new KernelProcessEvent() { Id = TripEvents.StartProcess, Data = id });
 }
 
-
+#region 定义事件
 public static class TripEvents
 {
     //开始Process
@@ -102,7 +97,8 @@ public static class TripEvents
     public static readonly string TripCompleted = nameof(TripCompleted);
     public static readonly string StopProcess = nameof(StopProcess);
 }
-
+#endregion
+#region 各个Step
 //public class BaseProcessStep : KernelProcessStep<InputState>
 //{
 //    public override ValueTask ActivateAsync(KernelProcessStepState<InputState> state)
@@ -140,8 +136,8 @@ public class GetCustomerStep : KernelProcessStep
             },
             new CustomerForm()
             {
-                UserFirstName = "张",
-                UserLastName = "三",
+                UserFirstName = "李",
+                UserLastName = "四",
                 UserDateOfBirth = "1990-01-01",
                 UserState = "上海",
                 UserPhoneNumber = "13800000000",
@@ -151,8 +147,8 @@ public class GetCustomerStep : KernelProcessStep
             },
             new CustomerForm()
             {
-                UserFirstName = "张",
-                UserLastName = "三",
+                UserFirstName = "王",
+                UserLastName = "五",
                 UserDateOfBirth = "1990-01-01",
                 UserState = "上海",
                 UserPhoneNumber = "13800000000",
@@ -162,8 +158,8 @@ public class GetCustomerStep : KernelProcessStep
             },
             new CustomerForm()
             {
-                UserFirstName = "张",
-                UserLastName = "三",
+                UserFirstName = "赵",
+                UserLastName = "六",
                 UserDateOfBirth = "1990-01-01",
                 UserState = "上海",
                 UserPhoneNumber = "13800000000",
@@ -172,8 +168,9 @@ public class GetCustomerStep : KernelProcessStep
                 State = "4"
             }
         };
-        Console.WriteLine($"【查询客户】成功");
-        await context.EmitEventAsync(new() { Id = TripEvents.GetCustomer, Data = customers.SingleOrDefault(s => s.UserId == id), Visibility = KernelProcessEventVisibility.Public });
+        var customer = customers.SingleOrDefault(s => s.UserId == id);
+        Console.WriteLine($"【查询客户】成功:{customer}");     
+        await context.EmitEventAsync(new() { Id = TripEvents.GetCustomer, Data = customer, Visibility = KernelProcessEventVisibility.Public });
     }
 }
 public class TripAirTicketProcessStep : KernelProcessStep
@@ -187,6 +184,15 @@ public class TripAirTicketProcessStep : KernelProcessStep
     public async Task TripAirTicketAsync(KernelProcessStepContext context, CustomerForm customer, Kernel _kernel)
     {
         Console.WriteLine($"【机票预订】开始，姓名：{customer.UserFirstName}{customer.UserLastName}");
+        var chat = _kernel.GetRequiredService<IChatCompletionService>();
+        var chatHistory = new ChatHistory();
+        chatHistory.AddUserMessage("生成一个国际航班的时刻表，标题是“| 航班号 | 出发地 | 目的地 | 出发时间 | 到达时间 | 航空公司 |”，只返回表格，不返回其他任何信息");
+        var chatResult = chat.GetStreamingChatMessageContentsAsync(chatHistory);
+        await foreach (var item in chatResult)
+        {
+            Console.Write(item);
+        }
+        Console.WriteLine();
         if (customer.State == "1")
         {
             Console.WriteLine("【机票预订】失败");
@@ -298,7 +304,8 @@ public class MailServiceStep : KernelProcessStep
         await context.EmitEventAsync(new() { Id = TripEvents.StopProcess, Data = false });
     }
 }
-
+#endregion
+#region 各Step中传输的实体类
 public class CustomerForm
 {
     [JsonPropertyName("userFirstName")]
@@ -326,4 +333,10 @@ public class CustomerForm
     [JsonPropertyName("state")]
     public string State { get; set; } = string.Empty;
 
+    public override string ToString()
+    {
+        return $"姓名：{UserFirstName}{UserLastName}，生日：{UserDateOfBirth}，电话：{UserPhoneNumber}，邮箱：{UserEmail}，状态：{State}";
+    }
+
 }
+#endregion
