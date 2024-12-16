@@ -502,15 +502,14 @@ async Task PGVector()
     //};
     while (true)
     {
-        Console.WriteLine("请输入搜索内容");
         Console.ForegroundColor = ConsoleColor.Yellow;
-        var search = @"- **编程语言**: Python, Java, C++, JavaScript/TypeScript, Go
-- **前端**: HTML, CSS, React, Vue.js
-- **后端**: Node.js, Django, Spring Boot, Flask
-- **数据库和云服务**: MySQL, PostgreSQL, MongoDB, AWS, Azure
-- **工具和基础设施**: Git, Docker, Kubernetes, Jenkins, Linux
-- **大数据和人工智能**: Pandas, NumPy, TensorFlow, PyTorch, Spark
-- **其他**: RESTful API, GraphQL, WebSocket, Agile/Scrum
+        var search = @"编程语言: Python, Java, C++, JavaScript/TypeScript, Go
+前端: HTML, CSS, React, Vue.js
+后端: Node.js, Django, Spring Boot, Flask
+数据库和云服务: MySQL, PostgreSQL, MongoDB, AWS, Azure
+工具和基础设施: Git, Docker, Kubernetes, Jenkins, Linux
+大数据和人工智能: Pandas, NumPy, TensorFlow, PyTorch, Spark
+其他: RESTful API, GraphQL, WebSocket, Agile/Scrum
 能打电话把产品卖出去
 管理公司的整体销售状况";
         var arr = search.Split("\n").ToList();
@@ -519,7 +518,9 @@ async Task PGVector()
         {
             Console.WriteLine($"{sn++}、{item}");
         }
+        Console.WriteLine("请输入序号：");
         var no = Console.ReadLine();
+        Console.WriteLine("------------------------------------------------------------");
         switch (no)
         {
             case "1":
@@ -549,19 +550,23 @@ async Task PGVector()
             case "9":
                 search = "管理公司的整体销售状况";
                 break;
+            default:
+                search = Console.ReadLine();
+                break;
         }
-
-
         Console.ResetColor();
         var sw = Stopwatch.StartNew();
         var searchVector = await generator.GenerateEmbeddingVectorAsync(search);
         sw.Stop();
-        Console.WriteLine(sw.ElapsedMilliseconds);
+        Console.WriteLine($"搜索用时：{sw.ElapsedMilliseconds}毫秒");
+        Console.WriteLine("=======================搜索结果排序========================");
         foreach (var item in QueryImageVector(searchVector.ToArray()))
         {
-            Console.WriteLine(item.Id + "  " + item.Name + " " + item.Result);
+            Console.WriteLine("职位：" + item.Name + "   匹配得分值：" + item.Result);
         }
-        Console.WriteLine("===============================================");
+        Console.WriteLine("======================================================");
+        Console.WriteLine("\n\n");
+        Thread.Sleep(2000);
     }
     IEnumerable<QueryResult> QueryImageVector(float[] imageVector)
     {
