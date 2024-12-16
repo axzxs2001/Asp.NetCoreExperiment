@@ -1014,6 +1014,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProcessesDemo03", "Asp.NetC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JobSearchMentor", "Asp.NetCoreExperiment\SemanticKernelArticle\JobSearchMentor\JobSearchMentor.csproj", "{C65B3558-0416-8384-5572-6089375B2248}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Phi4_demo", "Asp.NetCoreExperiment\SemanticKernelArticle\Phi4_demo\Phi4_demo.csproj", "{B88847F3-CFB0-4ADB-8A2B-C5FE931C37AD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -4748,6 +4750,18 @@ Global
 		{C65B3558-0416-8384-5572-6089375B2248}.Release|arm64.Build.0 = Release|Any CPU
 		{C65B3558-0416-8384-5572-6089375B2248}.Release|x86.ActiveCfg = Release|Any CPU
 		{C65B3558-0416-8384-5572-6089375B2248}.Release|x86.Build.0 = Release|Any CPU
+		{B88847F3-CFB0-4ADB-8A2B-C5FE931C37AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B88847F3-CFB0-4ADB-8A2B-C5FE931C37AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B88847F3-CFB0-4ADB-8A2B-C5FE931C37AD}.Debug|arm64.ActiveCfg = Debug|Any CPU
+		{B88847F3-CFB0-4ADB-8A2B-C5FE931C37AD}.Debug|arm64.Build.0 = Debug|Any CPU
+		{B88847F3-CFB0-4ADB-8A2B-C5FE931C37AD}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B88847F3-CFB0-4ADB-8A2B-C5FE931C37AD}.Debug|x86.Build.0 = Debug|Any CPU
+		{B88847F3-CFB0-4ADB-8A2B-C5FE931C37AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B88847F3-CFB0-4ADB-8A2B-C5FE931C37AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B88847F3-CFB0-4ADB-8A2B-C5FE931C37AD}.Release|arm64.ActiveCfg = Release|Any CPU
+		{B88847F3-CFB0-4ADB-8A2B-C5FE931C37AD}.Release|arm64.Build.0 = Release|Any CPU
+		{B88847F3-CFB0-4ADB-8A2B-C5FE931C37AD}.Release|x86.ActiveCfg = Release|Any CPU
+		{B88847F3-CFB0-4ADB-8A2B-C5FE931C37AD}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -5174,6 +5188,7 @@ Global
 		{D72575CD-078B-42C8-B2F3-319A63F863F3} = {3918D839-4415-44C9-AD94-C78DB19EF9CE}
 		{B7505E2F-DE27-4B30-A073-745ACFF79A26} = {3918D839-4415-44C9-AD94-C78DB19EF9CE}
 		{C65B3558-0416-8384-5572-6089375B2248} = {3918D839-4415-44C9-AD94-C78DB19EF9CE}
+		{B88847F3-CFB0-4ADB-8A2B-C5FE931C37AD} = {3918D839-4415-44C9-AD94-C78DB19EF9CE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}

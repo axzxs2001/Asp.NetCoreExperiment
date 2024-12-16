@@ -107,7 +107,7 @@ async Task RedisVector()
     //var vectorStore = new RedisVectorStore(database);
     #endregion
     var vectorStore = new RedisVectorStore(ConnectionMultiplexer.Connect("localhost:6379").GetDatabase());
-    var jobStore = vectorStore.GetCollection<string, Job>("1234565");
+    var jobStore = vectorStore.GetCollection<string, Job>("vector");
 
     var generator = new OllamaEmbeddingGenerator(new Uri("http://localhost:11434/"), "mxbai-embed-large");
     foreach (var job in jobDescriptions)
@@ -120,7 +120,7 @@ async Task RedisVector()
     };
     Console.WriteLine("开始搜索");
     var vectorSearchOptions = new VectorSearchOptions
-    {
+    {        
         VectorPropertyName = nameof(Job.DescriptionEmbedding),
         Top = 3
     };
