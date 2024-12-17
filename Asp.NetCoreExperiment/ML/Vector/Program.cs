@@ -518,7 +518,8 @@ async Task PGVector()
         {
             Console.WriteLine($"{sn++}、{item}");
         }
-        Console.WriteLine("请输入序号：");
+        Console.WriteLine("------------------------------------------------------------");
+        Console.WriteLine("请输入序号，自定义输入搜索内容，请按回车：");
         var no = Console.ReadLine();
         Console.WriteLine("------------------------------------------------------------");
         switch (no)
@@ -551,6 +552,7 @@ async Task PGVector()
                 search = "管理公司的整体销售状况";
                 break;
             default:
+                Console.WriteLine("请输入搜索内容：");
                 search = Console.ReadLine();
                 break;
         }
@@ -560,9 +562,14 @@ async Task PGVector()
         sw.Stop();
         Console.WriteLine($"搜索用时：{sw.ElapsedMilliseconds}毫秒");
         Console.WriteLine("=======================搜索结果排序========================");
+        var first = 0d;
         foreach (var item in QueryImageVector(searchVector.ToArray()))
         {
-            Console.WriteLine("职位：" + item.Name + "   匹配得分值：" + item.Result);
+            if (first == 0)
+            {
+                first = double.Parse(item.Result);
+            }
+            Console.WriteLine("职位：" + item.Name + "   匹配得分值：" + Math.Round((double.Parse(item.Result) / first) * 100).ToString("0") + "%");
         }
         Console.WriteLine("======================================================");
         Console.WriteLine("\n\n");
