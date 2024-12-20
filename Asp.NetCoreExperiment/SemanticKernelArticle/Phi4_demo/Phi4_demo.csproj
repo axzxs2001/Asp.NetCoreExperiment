@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.SemanticKernel" Version="1.32.0" />
+    <PackageReference Include="Microsoft.SemanticKernel.Connectors.AzureOpenAI" Version="1.32.0" />
     <PackageReference Include="Microsoft.SemanticKernel.Connectors.Ollama" Version="1.32.0-alpha" />
   </ItemGroup>
 
