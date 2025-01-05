@@ -1,0 +1,6 @@
+@OpenAPIDemoForAI_HostAddress = http://localhost:5274
+
+GET {{OpenAPIDemoForAI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
