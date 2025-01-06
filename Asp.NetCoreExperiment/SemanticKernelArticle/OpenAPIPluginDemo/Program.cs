@@ -34,8 +34,7 @@ foreach (var pluginItem in pluginArr)
             IgnoreNonCompliantErrors = true,
             EnableDynamicPayload = false,
             AuthCallback = authenticationProvider.AuthenticateRequestAsync,
-            ServerUrlOverride=new Uri("http://localhost:5000"),           
-
+            ServerUrlOverride=new Uri("http://localhost:5000"), 
         });
     kernel.Plugins.Add(plugin);
 }
