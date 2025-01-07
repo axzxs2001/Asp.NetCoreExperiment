@@ -23,7 +23,7 @@ var pluginArr = new List<PluginSetting>
 {
     new PluginSetting{PluginName="OrderService",UriString="http://localhost:5000/openapi/v1.json"}
 };
-var token = "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJhQGEuY29tIiwibmJmIjoxNzM2MTU0NDk5LCJleHAiOjE3NTk0ODc4MzIsImlzcyI6Imh0dHBzOi8vd3d3Lmp1c3QtYWdpLmNvbS9zbWFydGZpbGwiLCJhdWQiOiJodHRwczovL3d3dy5qdXN0LWFnaS5jb20vc21hcnRmaWxsIn0.EBMRXykDdekFdW9-YACL3x5sSo4lbtPQ7eHr7K7fhxKN3D79bA_JSfKreK65-xuRXNsf94Wta3W0EcBIhpggcw";
+var token = "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJhQGEuY29tIiwibmJmIjoxNzM2MjMwODI1LCJleHAiOjE3NTk1NjQxNTgsImlzcyI6Imh0dHBzOi8vd3d3Lmp1c3QtYWdpLmNvbS9zbWFydGZpbGwiLCJhdWQiOiJodHRwczovL3d3dy5qdXN0LWFnaS5jb20vc21hcnRmaWxsIn0.TxhOMBkwWADihneRnx_OI7rwz_y9vEGMnO8ZjJgL5nwmji8hrlb8GhXKPEQX2Ueol2kCFApcKhoF2kYTKaUwvQ";
 BearerAuthenticationProviderWithCancellationToken authenticationProvider = new(() => Task.FromResult(token));
 foreach (var pluginItem in pluginArr)
 {
@@ -32,6 +32,7 @@ foreach (var pluginItem in pluginArr)
         executionParameters: new OpenApiFunctionExecutionParameters(httpClient)
         {
             IgnoreNonCompliantErrors = true,
+            //OperationsToExclude = new List<string> { "GET /token" },
             EnableDynamicPayload = false,
             AuthCallback = authenticationProvider.AuthenticateRequestAsync,
             ServerUrlOverride=new Uri("http://localhost:5000"), 
