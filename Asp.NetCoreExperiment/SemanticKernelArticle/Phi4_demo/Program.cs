@@ -18,7 +18,7 @@ async Task Call2()
 {
 
     var builder = Kernel.CreateBuilder();
-    var modelId = "vanilj/Phi-4:latest";
+    var modelId = "phi4:latest";
     var endpoint = new Uri("http://localhost:11434");
 
     builder.Services.AddOllamaChatCompletion(modelId, endpoint);
@@ -54,13 +54,15 @@ async Task Call2()
 
 async Task Call1()
 {
-    var ollamaApiClient = new OllamaApiClient(new Uri("http://localhost:11434"), "vanilj/Phi-4:latest");
+    var ollamaApiClient = new OllamaApiClient(new Uri("http://localhost:11434"), "phi4:latest");
     var builder = Kernel.CreateBuilder();
     builder.Services.AddScoped<IChatCompletionService>(_ => ollamaApiClient.AsChatCompletionService());
     var kernel = builder.Build();
     var chatService = kernel.GetRequiredService<IChatCompletionService>();
-    var settings = new OllamaPromptExecutionSettings { FunctionChoiceBehavior = FunctionChoiceBehavior.Auto() };
-    kernel.Plugins.AddFromType<TimePlugin>();
+    //var settings = new OllamaPromptExecutionSettings { FunctionChoiceBehavior = FunctionChoiceBehavior.Auto() };
+    //kernel.Plugins.AddFromType<TimePlugin>();
+   
+    
     //kernel.Plugins.AddFromFunctions("time_plugin",
     //[
     //    KernelFunctionFactory.CreateFromMethod(
@@ -70,8 +72,8 @@ async Task Call1()
     //),
     //]);
 
-    var history = new ChatHistory();
-    history.AddSystemMessage("你是一个知识渊博的助手");
+    //var history = new ChatHistory();
+    //history.AddSystemMessage("你是一个知识渊博的助手");
     while (true)
     {
         Console.Write("用户：");
@@ -80,9 +82,9 @@ async Task Call1()
         {
             break;
         }
-        history.AddUserMessage(input);
-        //var response = chatService.GetStreamingChatMessageContentsAsync(history);
-        var response = chatService.GetStreamingChatMessageContentsAsync(history, settings, kernel);
+        //history.AddUserMessage(input);
+        var response = chatService.GetStreamingChatMessageContentsAsync(input);
+        //var response = chatService.GetStreamingChatMessageContentsAsync(history, settings, kernel);
         var content = "";
         var role = AuthorRole.Assistant;
         Console.ForegroundColor = ConsoleColor.Green;
@@ -95,7 +97,7 @@ async Task Call1()
         }
         Console.WriteLine();
         Console.ResetColor();
-        history.AddMessage(role, content);
+        //history.AddMessage(role, content);
     }
 }
 public class TimePlugin
