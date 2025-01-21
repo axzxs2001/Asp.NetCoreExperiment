@@ -1,0 +1,16 @@
+@OptionDemo_HostAddress = http://localhost:5064
+
+GET {{OptionDemo_HostAddress}}/opt1
+Accept: application/json
+
+###
+
+GET {{OptionDemo_HostAddress}}/opt2
+Accept: application/json
+
+###
+
+GET {{OptionDemo_HostAddress}}/opt3
+Accept: application/json
+
+###

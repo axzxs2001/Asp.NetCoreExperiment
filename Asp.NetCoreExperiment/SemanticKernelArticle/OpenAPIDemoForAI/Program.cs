@@ -57,7 +57,7 @@ app.MapPost("/order", ([FromBody] Order order) =>
     return order;
 }).WithName("order").WithDescription("添加订单").RequireAuthorization("permission"); ;
 
-app.MapGet(pattern: "/token", (string email) =>
+app.MapGet(pattern: "/gettoken", (string email) =>
 {
     return new JwtSecurityTokenHandler().WriteToken(new JwtSecurityToken(
 issuer: "https://www.just-agi.com/smartfill",
@@ -71,8 +71,29 @@ signingCredentials: new SigningCredentials(new SymmetricSecurityKey(Encoding.ASC
     SecurityAlgorithms.HmacSha512)));
 }).WithName("token").WithDescription("获取token"); ;
 
-app.Run();
+app.MapPost( "/login", (UserModel login) =>
+{
+    var token = new JwtSecurityTokenHandler().WriteToken(new JwtSecurityToken(
+issuer: "https://www.just-agi.com/smartfill",
+audience: "https://www.just-agi.com/smartfill",
+claims: new Claim[] {
+                new Claim(ClaimTypes.Email, login.UserName)
+},
+notBefore: DateTime.UtcNow,
+expires: DateTime.UtcNow.AddSeconds(23333333),
+signingCredentials: new SigningCredentials(new SymmetricSecurityKey(Encoding.ASCII.GetBytes("1234567890abcdefg1234567890abcdefg1234567890abcdefg1234567890abcdefg")),
+    SecurityAlgorithms.HmacSha512)));
 
+    return new { Token = token };
+}).WithName("login").WithDescription("获取token"); ;
+
+
+app.Run();
+class UserModel
+{
+    public string UserName { get; set; }
+    public string Password { get; set; }
+}
 class Order
 {
     public Order(string id, string product, int quantity, decimal price)
