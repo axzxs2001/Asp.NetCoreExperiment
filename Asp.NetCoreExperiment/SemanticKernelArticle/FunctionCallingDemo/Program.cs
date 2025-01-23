@@ -9,6 +9,12 @@ var key = File.ReadAllText(@"C:\GPT\key.txt");
 var builder = Kernel.CreateBuilder();
 builder.Services.AddOpenAIChatCompletion("gpt-4o", key);
 
+//connectionString
+//SQL
+//QueryParameterJsonSchema
+//FunctionPrompt
+//ResultPrompt
+
 const string p1Schema = """
             {
               "$schema": "http://json-schema.org/draft-07/schema#",
@@ -32,14 +38,21 @@ var function = KernelFunctionFactory.CreateFromMethod(
            functionName: "QueryOrder",
            description: "查询订单",
            parameters: new KernelParameterMetadata[] {
-               new KernelParameterMetadata("pars"){               
-               Schema = KernelJsonSchema.Parse(p1Schema)               
-              }             
+               new KernelParameterMetadata("pars")
+               {
+                   Schema = KernelJsonSchema.Parse(p1Schema)
+               },
+               new KernelParameterMetadata("appkey")
+               {
+                   Description = "appkey",
+                   ParameterType = typeof(string),
+                   DefaultValue="123"
+               }
            },
            returnParameter: new KernelReturnParameterMetadata()
            {
                Description = "订单结果",
-               ParameterType = typeof(string)              
+               ParameterType = typeof(string)
            });
 
 builder.Plugins.AddFromFunctions("QueryOrder", new KernelFunction[] { function });
@@ -74,14 +87,15 @@ while (true)
         contents += item.Content;
         Console.Write(item.Content);
     }
-    Console.WriteLine();    
+    Console.WriteLine();
     history.AddMessage(role, contents);
 }
 
-async Task<string> Select(string pars)
+async Task<string> Select(string pars, string appkey)
 {
+    Console.WriteLine($"APPKey={appkey}");
     await Task.Delay(10);
-   // Console.WriteLine(pars);
+    // Console.WriteLine(pars);
     var dic = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, string>>(pars);
     if (dic != null)
     {
