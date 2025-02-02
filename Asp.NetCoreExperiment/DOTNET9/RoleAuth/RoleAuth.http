@@ -1,0 +1,18 @@
+@RoleAuth_HostAddress = http://localhost:5070
+
+# @name getToken
+POST {{RoleAuth_HostAddress}}/login/
+Accept: application/json
+Content-Type: application/json
+{
+  "username": "gsw",
+  "password": "111111"
+}
+
+###
+
+# 使用令牌获取数据
+GET {{RoleAuth_HostAddress}}/index
+Accept: application/json
+Authorization: Bearer {{getToken.response.body.$.token}}
+
