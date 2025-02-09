@@ -17,7 +17,7 @@
 
   <ItemGroup>
     <PackageReference Include="Grpc.AspNetCore.Server" Version="0.1.20-pre1" />
-    <PackageReference Include="Google.Protobuf" Version="3.7.0" />
+    <PackageReference Include="Google.Protobuf" Version="3.15.0" />
 
     <PackageReference Include="Grpc.Tools" Version="1.20.0-pre3" PrivateAssets="All" />
   </ItemGroup>
