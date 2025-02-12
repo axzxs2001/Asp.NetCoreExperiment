@@ -1,0 +1,6 @@
+@ChannelDemo_HostAddress = http://localhost:5170
+
+GET {{ChannelDemo_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
