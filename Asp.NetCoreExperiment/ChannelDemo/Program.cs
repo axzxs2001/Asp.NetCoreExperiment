@@ -7,9 +7,16 @@ builder.Services.AddHostedService<Processor>();
 builder.Services.AddSingleton<Channel<ChannelRequest>>(_ =>
 {
 
-    return Channel.CreateUnbounded<ChannelRequest>(new UnboundedChannelOptions
+    //return Channel.CreateUnbounded<ChannelRequest>(new UnboundedChannelOptions
+    //{
+    //    SingleReader = true,
+    //    AllowSynchronousContinuations = false,
+    //});
+    return Channel.CreateBounded<ChannelRequest>(new BoundedChannelOptions(1)
     {
+        Capacity = 1,
         SingleReader = true,
+        FullMode = BoundedChannelFullMode.Wait,
         AllowSynchronousContinuations = false,
     });
 });
@@ -41,7 +48,7 @@ public class Processor : BackgroundService
         while (await _channel.Reader.WaitToReadAsync(stoppingToken))
         {
             var request = await _channel.Reader.ReadAsync(stoppingToken);
-            await Task.Delay(2000,stoppingToken);
+            await Task.Delay(2000, stoppingToken);
             Console.WriteLine(request.Message);
         }
     }
