@@ -3,18 +3,16 @@ using System.Threading.Channels;
 var builder = WebApplication.CreateBuilder(args);
 
 
-builder.Services.AddHostedService<Processor>();
-builder.Services.AddSingleton<Channel<ChannelRequest>>(_ =>
+builder.Services.AddHostedService<VectorService>();
+builder.Services.AddSingleton<Channel<VectorData>>(_ =>
 {
-
-    //return Channel.CreateUnbounded<ChannelRequest>(new UnboundedChannelOptions
+    //return Channel.CreateUnbounded<VectorData>(new UnboundedChannelOptions
     //{
     //    SingleReader = true,
     //    AllowSynchronousContinuations = false,
     //});
-    return Channel.CreateBounded<ChannelRequest>(new BoundedChannelOptions(1)
+    return Channel.CreateBounded<VectorData>(new BoundedChannelOptions(10)
     {
-        Capacity = 1,
         SingleReader = true,
         FullMode = BoundedChannelFullMode.Wait,
         AllowSynchronousContinuations = false,
@@ -23,22 +21,19 @@ builder.Services.AddSingleton<Channel<ChannelRequest>>(_ =>
 var app = builder.Build();
 
 
-
-
-app.MapGet("/send", async (Channel<ChannelRequest> channel) =>
+app.MapGet("/vector", async (Channel<VectorData> channel) =>
 {
-    await channel.Writer.WriteAsync(new ChannelRequest($"Hello {DateTime.Now}"));
+    await channel.Writer.WriteAsync(new VectorData($"这里是用户内容类信息，{DateTime.Now.ToString("yyyyMMddHHmmssfff")}"));
     return Results.Ok();
 });
 
 app.Run();
-
-public record ChannelRequest(string Message);
-public class Processor : BackgroundService
+public record VectorData(string content);
+public class VectorService : BackgroundService
 {
-    private readonly Channel<ChannelRequest> _channel;
+    private readonly Channel<VectorData> _channel;
 
-    public Processor(Channel<ChannelRequest> channel)
+    public VectorService(Channel<VectorData> channel)
     {
         _channel = channel;
     }
@@ -47,9 +42,10 @@ public class Processor : BackgroundService
     {
         while (await _channel.Reader.WaitToReadAsync(stoppingToken))
         {
-            var request = await _channel.Reader.ReadAsync(stoppingToken);
-            await Task.Delay(2000, stoppingToken);
-            Console.WriteLine(request.Message);
+            var vectorData = await _channel.Reader.ReadAsync(stoppingToken);
+            Console.WriteLine($"开始向量化处理：{vectorData.content}");
+            await Task.Delay(3000, stoppingToken);
+            Console.WriteLine($"向量化处理结束");
         }
     }
 }
