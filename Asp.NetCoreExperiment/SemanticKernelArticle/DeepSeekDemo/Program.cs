@@ -1,6 +1,8 @@
+using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.ChatCompletion;
 using Microsoft.SemanticKernel.Connectors.AzureOpenAI;
 using Microsoft.SemanticKernel.Connectors.OpenAI;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Net.Http.Headers;
@@ -8,7 +10,9 @@ using System.Net.Http.Headers;
 #pragma warning disable
 var apiKey = File.ReadAllText("C:/gpt/deepseekkey.txt");
 //await HttpInvockAsync();
-await SKInvockAsync();
+//await SKInvockAsync();
+await SKStreamInvockAsync();
+//await FCInvockAsync();
 async Task HttpInvockAsync()
 {
 
@@ -42,7 +46,7 @@ async Task HttpInvockAsync()
         if (response.IsSuccessStatusCode)
         {
             string result = await response.Content.ReadAsStringAsync();
-            var ent = System.Text.Json.JsonSerializer.Deserialize<ChatCompletionResponse>(result,new System.Text.Json.JsonSerializerOptions { PropertyNameCaseInsensitive=true});
+            var ent = System.Text.Json.JsonSerializer.Deserialize<ChatCompletionResponse>(result, new System.Text.Json.JsonSerializerOptions { PropertyNameCaseInsensitive = true });
             foreach (var choice in ent.Choices)
             {
                 Console.WriteLine("Result: {0}", choice.Message.Content);
@@ -52,26 +56,65 @@ async Task HttpInvockAsync()
         {
             Console.WriteLine(string.Format("The request failed with status code: {0}", response.StatusCode));
             Console.WriteLine(response.Headers.ToString());
-         
+
             Console.WriteLine("错误");
         }
     }
 }
 async Task SKInvockAsync()
 {
-    var chatCompletionService = new AzureOpenAIChatCompletionService(
-       deploymentName: "DeepSeek-R1-iwztj",
-       endpoint: "https://DeepSeek-R1-iwztj.eastus2.models.ai.azure.com/chat/",
+    var chatCompletionService = new OpenAIChatCompletionService(
+        endpoint: new Uri("https://DeepSeek-R1-iwztj.eastus2.models.ai.azure.com/"),
         apiKey: apiKey,
-        modelId: "DeepSeek-R1"
+        modelId: "deepseek-chat"
     );
-
     var chatHistory = new ChatHistory();
     chatHistory.AddUserMessage("你好，你是谁?");
-
     var reply = await chatCompletionService.GetChatMessageContentAsync(chatHistory);
     Console.WriteLine(reply);
-
+}
+async Task SKStreamInvockAsync()
+{
+    //不能实现
+    var chatCompletionService = new OpenAIChatCompletionService(
+        endpoint: new Uri("https://DeepSeek-R1-iwztj.eastus2.models.ai.azure.com/"),
+        apiKey: apiKey,
+        modelId: "deepseek-chat"
+    );
+    var chatHistory = new ChatHistory();
+    chatHistory.AddUserMessage("你好，你是谁?");
+    var content = chatCompletionService.GetStreamingChatMessageContentsAsync(chatHistory);
+    await foreach (var reply in content)
+    {
+        Console.WriteLine(reply.Content);
+    }  
+}
+async Task FCInvockAsync()
+{
+    var builder = Kernel.CreateBuilder();
+    var modelId = "deepseek-chat";
+    var endpoint = new Uri("https://DeepSeek-R1-iwztj.eastus2.models.ai.azure.com/");
+    builder.Services.AddOpenAIChatCompletion(modelId, endpoint, apiKey: apiKey);
+    builder.Plugins.AddFromType<TimePlugin>();
+    var kernel = builder.Build();
+    var chatCompletionService = kernel.GetRequiredService<IChatCompletionService>();
+    var settings = new PromptExecutionSettings
+    {
+        FunctionChoiceBehavior = FunctionChoiceBehavior.Auto(),
+    };
+    var prompt = "当前时间是什么";
+    var chatResult = await chatCompletionService.GetChatMessageContentAsync(prompt, settings, kernel);
+    Console.Write(chatResult);
+}
+public class TimePlugin
+{
+    [KernelFunction("getCurrentTime")]
+    [Description("获取当前时间")]
+    [return: Description("An array of lights")]
+    public async Task<string> GetCurrentTime()
+    {
+        return DateTime.Now.ToString("yyyy年MM月dd日HH时mm分ss秒");
+    }
 }
 
 
