@@ -1,11 +1,16 @@
+using Azure;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.ChatCompletion;
 using Microsoft.SemanticKernel.Connectors.AzureOpenAI;
 using Microsoft.SemanticKernel.Connectors.OpenAI;
+using OpenAI.Chat;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Net.Http.Headers;
+using Azure;
+using Azure.AI.Inference;
+using OllamaSharp;
 
 #pragma warning disable
 var apiKey = File.ReadAllText("C:/gpt/deepseekkey.txt");
@@ -13,6 +18,41 @@ var apiKey = File.ReadAllText("C:/gpt/deepseekkey.txt");
 //await SKInvockAsync();
 await SKStreamInvockAsync();
 //await FCInvockAsync();
+//await HttpStreamAshnc();
+
+async Task HttpStreamAshnc()
+{
+
+
+    var endpoint = new Uri("https://DeepSeek-R1-iwztj.eastus2.models.ai.azure.com");
+    var credential = new AzureKeyCredential(apiKey);
+    var model = "DeepSeek-R1";
+
+    var client = new ChatCompletionsClient(
+        endpoint,
+        credential,
+        new AzureAIInferenceClientOptions());
+
+    var requestOptions = new ChatCompletionsOptions()
+    {
+        Messages =
+    {
+        new ChatRequestUserMessage("出几道勾股定理的题")
+    },
+        MaxTokens = 2048,
+        Model = model
+    };
+
+    StreamingResponse<StreamingChatCompletionsUpdate> response = await client.CompleteStreamingAsync(requestOptions);
+    await foreach (StreamingChatCompletionsUpdate chatUpdate in response)
+    {
+        if (!string.IsNullOrEmpty(chatUpdate.ContentUpdate))
+        {
+            System.Console.Write(chatUpdate.ContentUpdate);
+        }
+    }
+    System.Console.WriteLine("");
+}
 async Task HttpInvockAsync()
 {
 
@@ -79,7 +119,7 @@ async Task SKStreamInvockAsync()
     var chatCompletionService = new OpenAIChatCompletionService(
         endpoint: new Uri("https://DeepSeek-R1-iwztj.eastus2.models.ai.azure.com/"),
         apiKey: apiKey,
-        modelId: "deepseek-chat"
+        modelId: "deepseek-r1"
     );
     var chatHistory = new ChatHistory();
     chatHistory.AddUserMessage("你好，你是谁?");
@@ -87,10 +127,12 @@ async Task SKStreamInvockAsync()
     await foreach (var reply in content)
     {
         Console.WriteLine(reply.Content);
-    }  
+    }
 }
+
 async Task FCInvockAsync()
 {
+    //不支持
     var builder = Kernel.CreateBuilder();
     var modelId = "deepseek-chat";
     var endpoint = new Uri("https://DeepSeek-R1-iwztj.eastus2.models.ai.azure.com/");
