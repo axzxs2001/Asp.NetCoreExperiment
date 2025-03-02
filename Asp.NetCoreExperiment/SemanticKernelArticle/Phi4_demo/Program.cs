@@ -1,10 +1,11 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.ChatCompletion;
 using Microsoft.SemanticKernel.Connectors.Ollama;
 using Microsoft.SemanticKernel.Connectors.OpenAI;
 using OllamaSharp;
+using OllamaSharp.Models;
 using OpenAI.RealtimeConversation;
 using System;
 using System.ComponentModel;
@@ -13,12 +14,12 @@ using System.ComponentModel;
 #pragma warning disable SKEXP0010
 #pragma warning disable SKEXP0070
 
-await Call1();
+await Call2();
 async Task Call2()
 {
 
     var builder = Kernel.CreateBuilder();
-    var modelId = "phi4:latest";
+    var modelId = "phi4-mini:latest";
     var endpoint = new Uri("http://localhost:11434");
 
     builder.Services.AddOllamaChatCompletion(modelId, endpoint);
@@ -36,8 +37,9 @@ async Task Call2()
     Console.Write("> ");
 
     string? input = null;
-    while ((input = Console.ReadLine()) is not null)
+    // while ((input = Console.ReadLine()) is not null)
     {
+        input = "当前时间";
         Console.WriteLine();
 
         try
@@ -54,26 +56,26 @@ async Task Call2()
 
 async Task Call1()
 {
-    var ollamaApiClient = new OllamaApiClient(new Uri("http://localhost:11434"), "phi4:latest");
+    var ollamaApiClient = new OllamaApiClient(new Uri("http://localhost:11434"), "phi4-mini:latest");
     var builder = Kernel.CreateBuilder();
     builder.Services.AddScoped<IChatCompletionService>(_ => ollamaApiClient.AsChatCompletionService());
     var kernel = builder.Build();
     var chatService = kernel.GetRequiredService<IChatCompletionService>();
-    //var settings = new OllamaPromptExecutionSettings { FunctionChoiceBehavior = FunctionChoiceBehavior.Auto() };
-    //kernel.Plugins.AddFromType<TimePlugin>();
-   
-    
-    //kernel.Plugins.AddFromFunctions("time_plugin",
-    //[
-    //    KernelFunctionFactory.CreateFromMethod(
-    //    method: () => DateTime.Now,
-    //    functionName: "get_time",
-    //    description: "得到当前时间"
-    //),
-    //]);
+    var settings = new OllamaPromptExecutionSettings { FunctionChoiceBehavior = FunctionChoiceBehavior.Auto() };
+    kernel.Plugins.AddFromType<TimePlugin>();
 
-    //var history = new ChatHistory();
-    //history.AddSystemMessage("你是一个知识渊博的助手");
+
+    kernel.Plugins.AddFromFunctions("time_plugin",
+    [
+        KernelFunctionFactory.CreateFromMethod(
+        method: () => DateTime.Now,
+        functionName: "get_time",
+        description: "得到当前时间"
+    ),
+    ]);
+
+    var history = new ChatHistory();
+    history.AddSystemMessage("你是一个知识渊博的助手");
     while (true)
     {
         Console.Write("用户：");
