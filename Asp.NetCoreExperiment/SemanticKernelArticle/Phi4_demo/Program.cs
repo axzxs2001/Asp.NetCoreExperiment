@@ -9,6 +9,7 @@ using OllamaSharp.Models;
 using OpenAI.RealtimeConversation;
 using System;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 #pragma warning disable SKEXP0001
 #pragma warning disable SKEXP0010
@@ -24,15 +25,13 @@ async Task Call2()
 
     builder.Services.AddOllamaChatCompletion(modelId, endpoint);
 
-    builder.Plugins
-        .AddFromType<TimePlugin>()
-        ;
-
+    builder.Plugins.AddFromType<TimePlugin>();
     var kernel = builder.Build();
-    var chatCompletionService = kernel.GetRequiredService<IChatCompletionService>();
-    var settings = new OllamaPromptExecutionSettings { FunctionChoiceBehavior = FunctionChoiceBehavior.Auto() };
 
-    Console.Write("> ");
+    var chatCompletionService = kernel.GetRequiredService<IChatCompletionService>();
+    var settings = new OllamaPromptExecutionSettings { FunctionChoiceBehavior = FunctionChoiceBehavior.None()};
+
+    Console.Write(">>> ");
 
     string? input = null;
     // while ((input = Console.ReadLine()) is not null)
@@ -47,6 +46,8 @@ async Task Call2()
             //{
             //    Console.Write($"\n>>> Result: {message.Content}\n\n> ");
             //}
+      
+     
             ChatMessageContent chatResult = await chatCompletionService.GetChatMessageContentAsync(input, settings, kernel);
             Console.Write($"\n>>> Result: {chatResult}\n\n> ");
         }
@@ -88,8 +89,8 @@ async Task Call1()
             break;
         }
         //history.AddUserMessage(input);
-       var response = chatService.GetStreamingChatMessageContentsAsync(input);
-         //var response = chatService.GetStreamingChatMessageContentsAsync(history, settings, kernel);
+        var response = chatService.GetStreamingChatMessageContentsAsync(input);
+        //var response = chatService.GetStreamingChatMessageContentsAsync(history, settings, kernel);
         var content = "";
         var role = AuthorRole.Assistant;
         Console.ForegroundColor = ConsoleColor.Green;
@@ -105,11 +106,12 @@ async Task Call1()
         //history.AddMessage(role, content);
     }
 }
+
 public class TimePlugin
 {
-    [KernelFunction("GetCurrentTime")]
+    [KernelFunction]
     [Description("获取当前时间")]
-    public async Task<string> GetCurrentTime()
+    public string GetCurrentTime()
     {
         return DateTime.Now.ToString("yyyy年MM月dd日HH时mm分ss秒");
     }
