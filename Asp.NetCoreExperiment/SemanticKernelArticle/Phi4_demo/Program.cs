@@ -19,7 +19,7 @@ async Task Call2()
 {
 
     var builder = Kernel.CreateBuilder();
-    var modelId = "phi4-mini:latest";
+    var modelId = "phi4-mini:3.8b";
     var endpoint = new Uri("http://localhost:11434");
 
     builder.Services.AddOllamaChatCompletion(modelId, endpoint);
@@ -32,18 +32,21 @@ async Task Call2()
     var chatCompletionService = kernel.GetRequiredService<IChatCompletionService>();
     var settings = new OllamaPromptExecutionSettings { FunctionChoiceBehavior = FunctionChoiceBehavior.Auto() };
 
-
-
     Console.Write("> ");
 
     string? input = null;
     // while ((input = Console.ReadLine()) is not null)
     {
-        input = "当前时间";
-        Console.WriteLine();
+        input = "现在是什么时间";
+        Console.WriteLine(input);
 
         try
         {
+            //var result = chatCompletionService.GetStreamingChatMessageContentsAsync(input, settings, kernel);
+            //await foreach (var message in result)
+            //{
+            //    Console.Write($"\n>>> Result: {message.Content}\n\n> ");
+            //}
             ChatMessageContent chatResult = await chatCompletionService.GetChatMessageContentAsync(input, settings, kernel);
             Console.Write($"\n>>> Result: {chatResult}\n\n> ");
         }
@@ -70,7 +73,7 @@ async Task Call1()
         KernelFunctionFactory.CreateFromMethod(
         method: () => DateTime.Now,
         functionName: "get_time",
-        description: "得到当前时间"
+        description: "获取当前时间"
     ),
     ]);
 
@@ -85,8 +88,8 @@ async Task Call1()
             break;
         }
         //history.AddUserMessage(input);
-        var response = chatService.GetStreamingChatMessageContentsAsync(input);
-        //var response = chatService.GetStreamingChatMessageContentsAsync(history, settings, kernel);
+       var response = chatService.GetStreamingChatMessageContentsAsync(input);
+         //var response = chatService.GetStreamingChatMessageContentsAsync(history, settings, kernel);
         var content = "";
         var role = AuthorRole.Assistant;
         Console.ForegroundColor = ConsoleColor.Green;
@@ -104,9 +107,8 @@ async Task Call1()
 }
 public class TimePlugin
 {
-    [KernelFunction("getCurrentTime")]
+    [KernelFunction("GetCurrentTime")]
     [Description("获取当前时间")]
-    [return: Description("An array of lights")]
     public async Task<string> GetCurrentTime()
     {
         return DateTime.Now.ToString("yyyy年MM月dd日HH时mm分ss秒");
