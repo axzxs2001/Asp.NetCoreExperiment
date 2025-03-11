@@ -1,4 +1,4 @@
-﻿//using Microsoft.SemanticKernel.Agents.Chat;
+//using Microsoft.SemanticKernel.Agents.Chat;
 //using Microsoft.SemanticKernel.Agents.OpenAI;
 //using Microsoft.SemanticKernel.Agents;
 //using Microsoft.SemanticKernel.ChatCompletion;
