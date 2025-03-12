@@ -11,51 +11,84 @@ using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-#pragma warning disable SKEXP0001
-#pragma warning disable SKEXP0010
-#pragma warning disable SKEXP0070
+#pragma warning disable
 
-await Call2();
-async Task Call2()
+await ImageCall();
+Console.ReadLine();
+
+
+async Task ImageCall()
 {
 
     var builder = Kernel.CreateBuilder();
-    var modelId = "phi4-mini:3.8b";
+    var modelId = "llama3.2-vision";
     var endpoint = new Uri("http://localhost:11434");
-
     builder.Services.AddOllamaChatCompletion(modelId, endpoint);
 
-    builder.Plugins.AddFromType<TimePlugin>();
     var kernel = builder.Build();
 
     var chatCompletionService = kernel.GetRequiredService<IChatCompletionService>();
-    var settings = new OllamaPromptExecutionSettings { FunctionChoiceBehavior = FunctionChoiceBehavior.None()};
+    var chatHistory = new ChatHistory();
+    chatHistory.AddUserMessage(new ChatMessageContentItemCollection{
+         new TextContent("Does this image contain violence, gore, or adult content? Please answer with 'yes' or 'no' only."),
+         new ImageContent(File.ReadAllBytes("pig1.jpg"),"image/jpeg")
+    });
+
+    try
+    {
+        var result = chatCompletionService.GetStreamingChatMessageContentsAsync(chatHistory);
+        await foreach (var message in result)
+        {
+            Console.Write($"{message.Content}");
+        }
+        //ChatMessageContent chatResult = await chatCompletionService.GetChatMessageContentAsync(input, settings, kernel);
+        //Console.Write($"\n>>> Result: {chatResult}\n\n> ");
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Error: {ex.Message}\n\n> ");
+    }
+
+}
+
+
+async Task Call()
+{
+
+    var builder = Kernel.CreateBuilder();
+    var modelId = "llama3.2";
+    var endpoint = new Uri("http://localhost:11434");
+    builder.Services.AddOllamaChatCompletion(modelId, endpoint);
+
+    builder.Plugins.AddFromType<TimePlugin>();
+    builder.Plugins.AddFromType<OrderPlugin>();
+    var kernel = builder.Build();
+
+    var chatCompletionService = kernel.GetRequiredService<IChatCompletionService>();
+    var settings = new OllamaPromptExecutionSettings { FunctionChoiceBehavior = FunctionChoiceBehavior.None() };
 
     Console.Write(">>> ");
 
-    string? input = null;
-    // while ((input = Console.ReadLine()) is not null)
-    {
-        input = "现在是什么时间";
-        Console.WriteLine(input);
+    // string? input = "获取订单编号为SN0000111的订单总额？";
+    //  var input = "获取当前时间的订单总额？";
+    var input = "获取当前时间";
+    Console.WriteLine(input);
 
-        try
-        {
-            //var result = chatCompletionService.GetStreamingChatMessageContentsAsync(input, settings, kernel);
-            //await foreach (var message in result)
-            //{
-            //    Console.Write($"\n>>> Result: {message.Content}\n\n> ");
-            //}
-      
-     
-            ChatMessageContent chatResult = await chatCompletionService.GetChatMessageContentAsync(input, settings, kernel);
-            Console.Write($"\n>>> Result: {chatResult}\n\n> ");
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Error: {ex.Message}\n\n> ");
-        }
+    try
+    {
+        //var result = chatCompletionService.GetStreamingChatMessageContentsAsync(input, settings, kernel);
+        //await foreach (var message in result)
+        //{
+        //    Console.Write($"\n>>> Result: {message.Content}\n\n> ");
+        //}
+        ChatMessageContent chatResult = await chatCompletionService.GetChatMessageContentAsync(input, settings, kernel);
+        Console.Write($"\n>>> Result: {chatResult}\n\n> ");
     }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Error: {ex.Message}\n\n> ");
+    }
+
 }
 
 async Task Call1()
@@ -111,10 +144,27 @@ public class TimePlugin
 {
     [KernelFunction]
     [Description("获取当前时间")]
-    public string GetCurrentTime()
+    public DateTime GetCurrentTime()
     {
-        return DateTime.Now.ToString("yyyy年MM月dd日HH时mm分ss秒");
+        Console.WriteLine(DateTime.Now);
+        return DateTime.Now;
     }
 }
-
+public class OrderPlugin
+{
+    [KernelFunction]
+    [Description("按单号获取订单总额")]
+    public decimal GetOrderAmountByNo([Description("订单编号")] string orderNo)
+    {
+        Console.WriteLine($"订单编号：{orderNo}，订单：12345.67");
+        return 12345.67m;
+    }
+    [KernelFunction]
+    [Description("按时间获取订单总额")]
+    public decimal GetOrderAmountByTime([Description("时间")] DateTime time)
+    {
+        Console.WriteLine($"订单时间：{time}，订单：76543.21");
+        return 76543.21m;
+    }
+}
 
