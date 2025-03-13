@@ -140,7 +140,7 @@ async Task NestedChatWithAggregatorAgentAsync()
 
     // Invoke chat and display messages.
     Console.WriteLine("\n######################################");
-    Console.WriteLine("# DYNAMIC CHAT");
+    Console.WriteLine("# 动态聊天");
     Console.WriteLine("######################################");
 
     await InvokeChatAsync("你能提供三个独特的生日礼物创意吗？我不想要别人也会挑选的礼物。");
