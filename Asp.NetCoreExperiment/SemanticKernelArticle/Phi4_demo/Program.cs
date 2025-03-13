@@ -12,8 +12,8 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 #pragma warning disable
-
-await ImageCall();
+await Call();
+//await ImageCall();
 Console.ReadLine();
 
 
@@ -56,7 +56,7 @@ async Task Call()
 {
 
     var builder = Kernel.CreateBuilder();
-    var modelId = "llama3.2";
+    var modelId = "qwen2.5";
     var endpoint = new Uri("http://localhost:11434");
     builder.Services.AddOllamaChatCompletion(modelId, endpoint);
 
@@ -65,13 +65,14 @@ async Task Call()
     var kernel = builder.Build();
 
     var chatCompletionService = kernel.GetRequiredService<IChatCompletionService>();
-    var settings = new OllamaPromptExecutionSettings { FunctionChoiceBehavior = FunctionChoiceBehavior.None() };
+    var settings = new OllamaPromptExecutionSettings { FunctionChoiceBehavior = FunctionChoiceBehavior.Auto() };
 
     Console.Write(">>> ");
 
-    // string? input = "获取订单编号为SN0000111的订单总额？";
-    //  var input = "获取当前时间的订单总额？";
-    var input = "获取当前时间";
+    string? input = "获取订单编号为SN0000111的订单总额？";
+     // var input = "获取当前时间的订单总额？";
+    //var input = "获取当前时间";
+    //input = "介绍一下自己吧";
     Console.WriteLine(input);
 
     try
