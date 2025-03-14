@@ -15,7 +15,7 @@ var writerAgent =
    new ChatCompletionAgent()
    {
        Name = WriterName,
-       Instructions = "你是一个黑色笑话的作者，能写出简短的黑色笑话。如果ReviewerName提出意见，你会采纳。",
+       Instructions = "你是一个中式的黑色笑话的作者，能写出简短的黑色笑话。如果Reviewer提出意见，你会采纳。",
        Kernel = kernel
    };
 
@@ -23,7 +23,7 @@ var reviewerAgent =
     new ChatCompletionAgent()
     {
         Name = ReviewerName,
-        Instructions = "你是一个黑色笑话的评论师，有很严格的要求，当不够好笑时，会作出评价，要求重写。",
+        Instructions = "你是一个黑色笑话的评论师，有很严格的要求，你总会吹毛求疵，当不够好笑时，会作出评价，要求重写。",
         Kernel = kernel
     };
 
@@ -37,12 +37,12 @@ var selectionFunction =
 
         只能从以下参与者中选择：
 
-        {{{ReviewerName}}}
-        {{{WriterName}}}
+        {{{Reviewer}}}
+        {{{Writer}}}
         选择下一位参与者时，始终遵循以下规则：
 
-        在{{{WriterName}}}之后，轮到{{{ReviewerName}}}发言。
-        在{{{ReviewerName}}}之后，轮到{{{WriterName}}}发言。
+        在{{{Writer}}}之后，轮到{{{Reviewer}}}发言。
+        在{{{Reviewer}}}之后，轮到{{{Writer}}}发言。
 
         History:
         {{$history}}
@@ -56,11 +56,15 @@ var selectionStrategy =
      // Always start with the writer agent.
      InitialAgent = writerAgent,
      // Parse the function response.
-     ResultParser = (result) => result.GetValue<string>() ?? WriterName,
+     ResultParser = (result) =>
+     {
+         Console.WriteLine(result.GetValue<string>());
+         return result.GetValue<string>() ?? WriterName;
+     },
      // The prompt variable name for the history argument.
      HistoryVariableName = "history",
      // Save tokens by not including the entire history in the prompt
-     HistoryReducer = new ChatHistoryTruncationReducer(3),
+     HistoryReducer = new ChatHistoryTruncationReducer(5),
  };
 
 // Create a chat using the defined selection strategy.
@@ -69,14 +73,27 @@ var chat =
     {
         ExecutionSettings = new() { SelectionStrategy = selectionStrategy }
     };
-AuthorRole? role = null;
-chat.AddChatMessage(new ChatMessageContent { Role=AuthorRole.User, Content="开始对话" });
-await foreach (var content in chat.InvokeStreamingAsync())
+
+
+chat.AddChatMessage(new ChatMessageContent { Role = AuthorRole.User, Content = "开始分享你的黑色笑话：" });
+bool isComplete = false;
+do
 {
-    if(role != content.Role)
+    AuthorRole? role = null;
+    var input = "";
+    await foreach (var content in chat.InvokeStreamingAsync())
     {
-        role = content.Role;
-        Console.WriteLine(role+":");
+        if (role != content.Role)
+        {
+            role = content.Role;
+            Console.WriteLine(role + ":");
+        }
+        Console.Write(content.Content);
+        input += content.Content;
     }
-    Console.Write(content.Content);
-}
+    Console.WriteLine();
+    chat.AddChatMessage(new ChatMessageContent(role.Value, input));
+} while (!isComplete);
+
+Console.WriteLine("   End");
+Console.ReadLine();
