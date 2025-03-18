@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Azure.Identity" Version="1.14.0-beta.2" />
     <PackageReference Include="Microsoft.SemanticKernel" Version="1.41.0" />
     <PackageReference Include="Microsoft.SemanticKernel.Agents.Abstractions" Version="1.41.0-preview" />
     <PackageReference Include="Microsoft.SemanticKernel.Agents.Core" Version="1.41.0-preview" />
