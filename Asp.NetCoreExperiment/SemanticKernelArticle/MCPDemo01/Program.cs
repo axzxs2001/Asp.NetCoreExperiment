@@ -9,53 +9,90 @@ using ModelContextProtocol.Configuration;
 using ModelContextProtocol.Protocol.Transport;
 using ModelContextProtocol.Protocol.Types;
 using ModelContextProtocol.SemanticKernel.Extensions;
+using ModelContextProtocol.SemanticKernel.Options;
 using ModelContextProtocol.Server;
 using OpenAI;
+using System.ComponentModel;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
 var key = File.ReadAllText("c:/gpt/key.txt");
 
-Console.WriteLine("回车开始运行：");
-Console.ReadLine();
-//await MCPClientDemoAsync();
-await SKMCPDemoAsync();
-Console.ReadLine();
+while (true)
+{
+    Console.WriteLine("===========================================================");
+    Console.WriteLine("1、获取工具列表  2、Client调用工具  3、SK调用工具  0、退出");
+    Console.WriteLine("===========================================================");
+    var no = Console.ReadLine();
+    switch (no)
+    {
+        case "1":
+            await MCPClientToolsListAsync();
+            break;
+        case "2":
 
-async Task MCPClientDemoAsync()
-{ 
-    Console.WriteLine("客户端连接服务端中……");
-      
+            await MCPClientAsync();
+            break;
+        case "3":
+            await SKClientAsync();
+            break;
+        case "0":
+            return;
+    }
+}
+
+async Task MCPClientToolsListAsync()
+{
     var serverConfig = new McpServerConfig
     {
-        Id = "test",
-        Name = "test",
+        Id = "QueryOrder",
+        Name = "QueryOrder",
         TransportType = TransportTypes.Sse,
         Location = "http://localhost:3001/sse"
     };
-    var opt = new McpClientOptions
+    var clientOptions = new McpClientOptions
     {
         ClientInfo = new()
         {
-            Name = "echo-client",
-            Version = "1.0.0",
+            Name = "QueryOrderClient",
+            Version = "0.0.1",
         }
-    }; 
-    var mcpClient = await McpClientFactory.CreateAsync(serverConfig, opt);
+    };
+    var mcpClient = await McpClientFactory.CreateAsync(serverConfig, clientOptions);
+    Console.WriteLine("获取Tools:");
+    var tools = await mcpClient.GetAIFunctionsAsync();
+    
+    foreach (var tool in tools)
+    {
 
-    //Console.WriteLine("当前工具:");
-    //var tools = mcpClient.ListToolsAsync();
-    //await foreach (var tool in tools)
-    //{     
-    //    Console.WriteLine($"  {tool.Name}");
-    //}
-    //Console.WriteLine();
+        Console.WriteLine($"{tool.Name},{tool.Description}");
+    }
+    Console.WriteLine();
+}
 
-    IList<AIFunction> functions = await mcpClient.GetAIFunctionsAsync();
+async Task MCPClientAsync()
+{
+    var serverConfig = new McpServerConfig
+    {
+        Id = "QueryOrder",
+        Name = "MCPOrderTool",
+        TransportType = TransportTypes.Sse,
+        Location = "http://localhost:3001/sse"
+    };
+    var clientOptions = new McpClientOptions
+    {
+        ClientInfo = new()
+        {
+            Name = "QueryOrderClient",
+            Version = "0.0.1",
+        }
+    };
+    var mcpClient = await McpClientFactory.CreateAsync(serverConfig, clientOptions);
+    var functions = await mcpClient.GetAIFunctionsAsync();
     IChatClient chatClient = new OpenAIClient(key).AsChatClient("gpt-4o-mini")
     .AsBuilder().UseFunctionInvocation().Build();
     var response = chatClient.GetStreamingResponseAsync(
-     "调用 echo tool 参数用 'Hello Gui SuWei!'，然后把response返回",
+     "查询本周的订单",
      new()
      {
          Tools = [.. functions],
@@ -64,9 +101,10 @@ async Task MCPClientDemoAsync()
     {
         Console.Write(item.Text);
     }
+    Console.WriteLine();
 }
 
-async Task SKMCPDemoAsync()
+async Task SKClientAsync()
 {
     var builder = Kernel.CreateBuilder();
     builder.Services.AddLogging(c => c.AddDebug().SetMinimumLevel(LogLevel.Trace));
@@ -77,29 +115,26 @@ async Task SKMCPDemoAsync()
         apiKey: key);
 
     var kernel = builder.Build();
-    //var transportOptions = new Dictionary<string, string>
-    //{
-    //    ["command"] = "npx",
-    //    ["arguments"] = "-y --verbose @modelcontextprotocol/server-everything"
-    //};
-    //// 💡 Add this line to enable MCP functions from a Stdio server named "Everything"
-    //await kernel.Plugins.AddMcpFunctionsFromStdioServerAsync("Everything", transportOptions);
-    try
-    {
-        await kernel.Plugins.AddMcpFunctionsFromSseServerAsync("echo", "http://localhost:3001/sse");
-    }
-    catch
-    {
-
-    }
-
+    kernel.Plugins.AddFromType<TimeInformationPlugin>();
+    await kernel.Plugins.AddMcpFunctionsFromSseServerAsync("MCPOrderTool", "http://localhost:3001/sse");
     var executionSettings = new OpenAIPromptExecutionSettings
     {
         Temperature = 0,
         FunctionChoiceBehavior = FunctionChoiceBehavior.Auto()
     };
+    var prompt = "请查询本月的订单";
+    var result = kernel.InvokePromptStreamingAsync(prompt, new(executionSettings));
+    await foreach (var item in result)
+    {
+        Console.Write(item.ToString());
+    }
+    Console.WriteLine();
+}
 
-    var prompt = "调用 echo tool 参数用 'Hello Gui SuWei!'，然后把response返回";
-    var result = await kernel.InvokePromptAsync(prompt, new(executionSettings)).ConfigureAwait(false);
-    Console.WriteLine($"\n\n{prompt}\n{result}");
+
+public class TimeInformationPlugin
+{
+    [KernelFunction, Description("获取当前的 UTC 时间。")]
+    public string GetCurrentUtcTime()
+        => DateTime.UtcNow.ToString("R");
 }

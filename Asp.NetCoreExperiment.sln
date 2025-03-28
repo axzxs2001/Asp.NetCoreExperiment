@@ -1064,9 +1064,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinForms10_P2", "Asp.NetCor
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BedrockDemo", "Asp.NetCoreExperiment\SemanticKernelArticle\BedrockDemo\BedrockDemo.csproj", "{DF8943FD-B99D-4F98-BB20-6D0891733DD1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MCPDemo01", "Asp.NetCoreExperiment\SemanticKernelArticle\MCPDemo01\MCPDemo01.csproj", "{EBE4742F-AB83-9643-0E4B-F463A356C9E1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MCPClientDemo01", "Asp.NetCoreExperiment\SemanticKernelArticle\MCPDemo01\MCPClientDemo01.csproj", "{EBE4742F-AB83-9643-0E4B-F463A356C9E1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNetCoreSseServer", "Asp.NetCoreExperiment\SemanticKernelArticle\AspNetCoreSseServer\AspNetCoreSseServer.csproj", "{0726A101-0A8B-C5DD-0B9F-07DA924C5806}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MCPOrderTool", "Asp.NetCoreExperiment\SemanticKernelArticle\AspNetCoreSseServer\MCPOrderTool.csproj", "{0726A101-0A8B-C5DD-0B9F-07DA924C5806}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
