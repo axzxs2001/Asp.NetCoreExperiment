@@ -60,7 +60,7 @@ async Task MCPClientToolsListAsync()
     };
     var mcpClient = await McpClientFactory.CreateAsync(serverConfig, clientOptions);
     Console.WriteLine("获取Tools:");
-    var tools = await mcpClient.GetAIFunctionsAsync();
+    var tools = await mcpClient.ListToolsAsync();// ..GetAIFunctionsAsync();
     
     foreach (var tool in tools)
     {
@@ -88,7 +88,7 @@ async Task MCPClientAsync()
         }
     };
     var mcpClient = await McpClientFactory.CreateAsync(serverConfig, clientOptions);
-    var functions = await mcpClient.GetAIFunctionsAsync();
+    var functions = await mcpClient.ListToolsAsync();//.GetAIFunctionsAsync();
     IChatClient chatClient = new OpenAIClient(key).AsChatClient("gpt-4o-mini")
     .AsBuilder().UseFunctionInvocation().Build();
     var response = chatClient.GetStreamingResponseAsync(

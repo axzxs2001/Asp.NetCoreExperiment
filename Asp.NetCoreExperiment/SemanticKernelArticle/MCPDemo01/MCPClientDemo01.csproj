@@ -12,8 +12,8 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="10.0.0-preview.2.25163.2" />
     <PackageReference Include="Microsoft.SemanticKernel" Version="1.44.0" />
     <PackageReference Include="Microsoft.SemanticKernel.Plugins.Core" Version="1.44.0-alpha" />
-    <PackageReference Include="ModelContextProtocol" Version="0.1.0-preview.1.25171.12" />
-    <PackageReference Include="ModelContextProtocol-SemanticKernel" Version="0.0.1-preview-02" />
+    <PackageReference Include="ModelContextProtocol" Version="0.1.0-preview.2" />
+    <PackageReference Include="ModelContextProtocol-SemanticKernel" Version="0.0.1-preview-03" />
 
   </ItemGroup>
 
