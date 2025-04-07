@@ -1,4 +1,4 @@
-﻿#pragma warning disable SKEXP0020 
+#pragma warning disable SKEXP0020 
 #pragma warning disable SKEXP0001 
 
 using Microsoft.Extensions.AI;
@@ -15,7 +15,6 @@ using Npgsql;
 using Dapper;
 using System.Diagnostics;
 using Microsoft.SemanticKernel.Data;
-
 
 var jobDescriptions = new List<Job>
 {
@@ -432,74 +431,97 @@ new Job
 
 };
 
-
-
-
+await MatchingJobsAsync();
+//await PGVector();
 //await RedisVector();
-await PGVector();
-async Task RedisVector()
+
+async Task MatchingJobsAsync()
 {
-    #region
-    //var redisConfiguration = new ConfigurationOptions
-    //{
-    //    EndPoints = { "localhost:6379" },
-    //    User = "",
-    //    Password = "",
-    //    ConnectTimeout = 1000,
-    //    ConnectRetry = 3
-    //};
-    //var connectionMultiplexer = await ConnectionMultiplexer.ConnectAsync(redisConfiguration);
-    //var database = connectionMultiplexer.GetDatabase();
-    //var vectorStore = new RedisVectorStore(database);
-    #endregion
-    var vectorStore = new RedisVectorStore(ConnectionMultiplexer.Connect("localhost:6379").GetDatabase());
-    var jobStore = vectorStore.GetCollection<string, Job>("vector");
-
-    var generator = new OllamaEmbeddingGenerator(new Uri("http://localhost:11434/"), "mxbai-embed-large");
-    foreach (var job in jobDescriptions)
-    {
-        job.DescriptionEmbedding = await generator.GenerateEmbeddingVectorAsync(job.JobTitle + "。"
-             + job.Tags + "。"
-            + job.Description);
-
-        await jobStore.UpsertAsync(job);
-    };
-    Console.WriteLine("开始搜索");
-    var vectorSearchOptions = new VectorSearchOptions
-    {
-        VectorPropertyName = nameof(Job.DescriptionEmbedding),
-        Top = 3
-    };
-
+    var generator = new OllamaEmbeddingGenerator(new Uri("http://localhost:11434/"), "snowflake-arctic-embed2");
     while (true)
     {
-        Console.WriteLine("请输入搜索内容");
-        Console.ForegroundColor = ConsoleColor.Yellow;
-        var search = Console.ReadLine();
-        Console.ResetColor();
-        var sw = Stopwatch.StartNew();
-        var searchVector = await generator.GenerateEmbeddingVectorAsync(search);
-        sw.Stop();
-        Console.WriteLine(sw.ElapsedMilliseconds);
-        var results = await jobStore.VectorizedSearchAsync(searchVector, vectorSearchOptions);
-
-        await foreach (var result in results.Results)
+        try
         {
-            Console.WriteLine($"Title: {result.Record.JobTitle}");
-            Console.WriteLine($"Description: {result.Record.Description}");
-            Console.WriteLine($"Score: {result.Score}");
-            Console.WriteLine();
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("请输简历路径：");
+            var arr = File.ReadLines(Console.ReadLine()).ToArray()[5..];
+            var search = string.Join('\n', arr);
+            Console.ResetColor();
+            var sw = Stopwatch.StartNew();
+            var searchVector = await generator.GenerateEmbeddingVectorAsync(search);
+            sw.Stop();
+            Console.WriteLine($"搜索用时：{sw.ElapsedMilliseconds}毫秒");
+            Console.WriteLine("=======================搜索结果排序========================");
+            var first = 0d;
+            foreach (var item in QueryImageVector(searchVector.ToArray()).Take(3))
+            {
+                if (first == 0)
+                {
+                    first = double.Parse(item.Result);
+                }
+                Console.WriteLine("职位：" + item.Name + "   匹配得分值：" + Math.Round((double.Parse(item.Result) / first) * 100).ToString("0") + "%");
+            }
+            Console.WriteLine("======================================================");
+            Console.WriteLine("\n\n");
+            Thread.Sleep(2000);
+        }
+        catch (Exception exc)
+        {
+            Console.WriteLine(exc.Message);
+        }
+    }
+    IEnumerable<QueryResult> QueryImageVector(float[] imageVector)
+    {
+        var ds = new List<double>();
+        foreach (var item in imageVector)
+        {
+            ds.Add((double)item);
+        }
+        using (IDbConnection db = new NpgsqlConnection(File.ReadAllText("C://GPT/just-agi-db.txt")))
+        {
+            string sqlQuery = $@"select id,name,1-(cast(@embedding as vector) <=> embedding) as result from public.imagevector 
+-- where createtime>'2024-12-06'
+order by 1-(cast(@embedding as vector) <=> embedding) desc ";
+            return db.Query<QueryResult>(sqlQuery, new { embedding = ds });
+        }
+    }
+    void InsertImageVector(Job imageVector)
+    {
+        using (IDbConnection db = new NpgsqlConnection(File.ReadAllText("C://GPT/just-agi-db.txt")))
+        {
+            string sqlQuery = @"
+                INSERT INTO public.imagevector (name, embedding,createtime) 
+                VALUES (@Name, @Embedding,@CreateTime) 
+                RETURNING id;";
+            var ds = new List<double>();
+            foreach (var item in imageVector.DescriptionEmbedding.Value.ToArray())
+            {
+                ds.Add((double)item);
+            }
+            var parameters = new
+            {
+                Name = imageVector.JobTitle,
+                Embedding = ds.AsReadOnly<double>(),
+                CreateTime = DateTime.Now
+            };
+
+            var id = db.ExecuteScalar<int>(sqlQuery, parameters); // ExecuteScalar returns the inserted id
+
         }
     }
 }
+
+#region 
 async Task PGVector()
 {
     var generator = new OllamaEmbeddingGenerator(new Uri("http://localhost:11434/"), "snowflake-arctic-embed2");
+    #region
     //foreach (var hotel in jobDescriptions)
     //{
     //    hotel.DescriptionEmbedding = await generator.GenerateEmbeddingVectorAsync(hotel.Description);
     //    InsertImageVector(hotel);
     //};
+    #endregion
     while (true)
     {
         Console.ForegroundColor = ConsoleColor.Yellow;
@@ -615,6 +637,64 @@ order by 1-(cast(@embedding as vector) <=> embedding) desc ";
         }
     }
 }
+async Task RedisVector()
+{
+    #region
+    //var redisConfiguration = new ConfigurationOptions
+    //{
+    //    EndPoints = { "localhost:6379" },
+    //    User = "",
+    //    Password = "",
+    //    ConnectTimeout = 1000,
+    //    ConnectRetry = 3
+    //};
+    //var connectionMultiplexer = await ConnectionMultiplexer.ConnectAsync(redisConfiguration);
+    //var database = connectionMultiplexer.GetDatabase();
+    //var vectorStore = new RedisVectorStore(database);
+    #endregion
+    var vectorStore = new RedisVectorStore(ConnectionMultiplexer.Connect("localhost:6379").GetDatabase());
+    var jobStore = vectorStore.GetCollection<string, Job>("vector");
+
+    var generator = new OllamaEmbeddingGenerator(new Uri("http://localhost:11434/"), "mxbai-embed-large");
+    foreach (var job in jobDescriptions)
+    {
+        job.DescriptionEmbedding = await generator.GenerateEmbeddingVectorAsync(job.JobTitle + "。"
+             + job.Tags + "。"
+            + job.Description);
+
+        await jobStore.UpsertAsync(job);
+    }
+    ;
+    Console.WriteLine("开始搜索");
+    var vectorSearchOptions = new VectorSearchOptions
+    {
+        VectorPropertyName = nameof(Job.DescriptionEmbedding),
+        Top = 3
+    };
+
+    while (true)
+    {
+        Console.WriteLine("请输入搜索内容");
+        Console.ForegroundColor = ConsoleColor.Yellow;
+        var search = Console.ReadLine();
+        Console.ResetColor();
+        var sw = Stopwatch.StartNew();
+        var searchVector = await generator.GenerateEmbeddingVectorAsync(search);
+        sw.Stop();
+        Console.WriteLine(sw.ElapsedMilliseconds);
+        var results = await jobStore.VectorizedSearchAsync(searchVector, vectorSearchOptions);
+
+        await foreach (var result in results.Results)
+        {
+            Console.WriteLine($"Title: {result.Record.JobTitle}");
+            Console.WriteLine($"Description: {result.Record.Description}");
+            Console.WriteLine($"Score: {result.Score}");
+            Console.WriteLine();
+        }
+    }
+}
+#endregion
+
 class QueryResult
 {
     public int Id { get; set; }
