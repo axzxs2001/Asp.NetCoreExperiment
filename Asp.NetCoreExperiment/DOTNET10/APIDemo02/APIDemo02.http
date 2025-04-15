@@ -1,0 +1,94 @@
+@APIDemo02_HostAddress = http://localhost:5014
+
+POST {{APIDemo02_HostAddress}}/order
+Content-Type: application/json
+Accept: application/json
+
+{
+  "OrderNo":"NO001",
+  "Amount":3000,
+  "OrderUser":{
+    "UserID":1, 
+    "UserName":""
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+###
+GET {{APIDemo02_HostAddress}}/person/0
+Accept: application/json
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+###
+
+POST {{APIDemo02_HostAddress}}/person?name=&age=50
+Accept: application/json
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
