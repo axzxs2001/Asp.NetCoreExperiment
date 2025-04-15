@@ -1,0 +1,5 @@
+@SSEDemo_HostAddress = http://localhost:5092
+
+GET {{SSEDemo_HostAddress}}/performance
+
+###
