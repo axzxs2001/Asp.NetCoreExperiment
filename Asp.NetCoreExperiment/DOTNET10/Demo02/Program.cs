@@ -1,15 +1,13 @@
-// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
 
 
-void SetPerson(Person? per, string name, int age)
+
+public static class Extensions
 {
-    per.Name = name;
-    per?.Age = age;
-}
+    extension(IEnumerable<int> source)
+    {
+        public IEnumerable<int> WhereGreaterThan(int threshold)
+            => source.Where(x => x > threshold);
 
-public class Person
-{
-    public string Name { get; set; }
-    public int Age { get; set; }
+    public bool IsEmpty
+        => !source.Any();
 }
