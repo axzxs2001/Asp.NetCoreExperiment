@@ -101,7 +101,7 @@ async Task NestedChatWithAggregatorAgentAsync()
     Console.WriteLine($"! GPT-4o");
 
     OpenAIPromptExecutionSettings jsonSettings = new() { ResponseFormat = ChatResponseFormat.CreateJsonObjectFormat() };
-    PromptExecutionSettings autoInvokeSettings = new() { FunctionChoiceBehavior = FunctionChoiceBehavior.Auto() };
+   // PromptExecutionSettings autoInvokeSettings = new() { FunctionChoiceBehavior = FunctionChoiceBehavior.Auto() };
 
     ChatCompletionAgent internalLeaderAgent = CreateAgent(InternalLeaderName, InternalLeaderInstructions);
     ChatCompletionAgent internalGiftIdeaAgent = CreateAgent(InternalGiftIdeaAgentName, InternalGiftIdeaAgentInstructions);
