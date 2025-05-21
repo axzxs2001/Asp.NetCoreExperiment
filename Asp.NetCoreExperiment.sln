@@ -1088,6 +1088,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewAgetnDemo02", "Asp.NetCo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModelContextProtocol", "Asp.NetCoreExperiment\SemanticKernelArticle\MCP\ModelContextProtocol\ModelContextProtocol.csproj", "{A58BE65B-822B-9BDE-7872-0926BEC44BB5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MCPOrderTool", "Asp.NetCoreExperiment\SemanticKernelArticle\MCP\AspNetCoreSseServer\MCPOrderTool.csproj", "{B4D687F4-14ED-E9B3-2C29-EE028A5FBD6F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -5206,6 +5208,18 @@ Global
 		{A58BE65B-822B-9BDE-7872-0926BEC44BB5}.Release|arm64.Build.0 = Release|Any CPU
 		{A58BE65B-822B-9BDE-7872-0926BEC44BB5}.Release|x86.ActiveCfg = Release|Any CPU
 		{A58BE65B-822B-9BDE-7872-0926BEC44BB5}.Release|x86.Build.0 = Release|Any CPU
+		{B4D687F4-14ED-E9B3-2C29-EE028A5FBD6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4D687F4-14ED-E9B3-2C29-EE028A5FBD6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4D687F4-14ED-E9B3-2C29-EE028A5FBD6F}.Debug|arm64.ActiveCfg = Debug|Any CPU
+		{B4D687F4-14ED-E9B3-2C29-EE028A5FBD6F}.Debug|arm64.Build.0 = Debug|Any CPU
+		{B4D687F4-14ED-E9B3-2C29-EE028A5FBD6F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B4D687F4-14ED-E9B3-2C29-EE028A5FBD6F}.Debug|x86.Build.0 = Debug|Any CPU
+		{B4D687F4-14ED-E9B3-2C29-EE028A5FBD6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4D687F4-14ED-E9B3-2C29-EE028A5FBD6F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4D687F4-14ED-E9B3-2C29-EE028A5FBD6F}.Release|arm64.ActiveCfg = Release|Any CPU
+		{B4D687F4-14ED-E9B3-2C29-EE028A5FBD6F}.Release|arm64.Build.0 = Release|Any CPU
+		{B4D687F4-14ED-E9B3-2C29-EE028A5FBD6F}.Release|x86.ActiveCfg = Release|Any CPU
+		{B4D687F4-14ED-E9B3-2C29-EE028A5FBD6F}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -5667,6 +5681,7 @@ Global
 		{F27760F5-FE98-EB99-150F-909C4F9A4EFE} = {13A2AC73-B676-49FB-8140-53EE1B1A88C2}
 		{2F55F769-003C-DF91-7E86-3887FD3C71E3} = {13A2AC73-B676-49FB-8140-53EE1B1A88C2}
 		{A58BE65B-822B-9BDE-7872-0926BEC44BB5} = {E507F048-12A4-4148-B387-505B568BCF25}
+		{B4D687F4-14ED-E9B3-2C29-EE028A5FBD6F} = {E507F048-12A4-4148-B387-505B568BCF25}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
