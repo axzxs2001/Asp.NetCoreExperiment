@@ -1,4 +1,3 @@
-#pragma warning disable
 
 using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.SemanticKernel;
@@ -8,6 +7,7 @@ using Microsoft.SemanticKernel.Agents.Orchestration.Sequential;
 using Microsoft.SemanticKernel.Agents.Runtime.InProcess;
 using Microsoft.SemanticKernel.ChatCompletion;
 
+#pragma warning disable
 var modelID = "gpt-4.1";
 var openAIKey = File.ReadAllText("c://gpt/key.txt");
 
