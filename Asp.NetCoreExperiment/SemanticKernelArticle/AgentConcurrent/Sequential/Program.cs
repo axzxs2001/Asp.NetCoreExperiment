@@ -19,7 +19,7 @@ ChatCompletionAgent analystAgent =
          CreateAgent(
              name: "Analyst",
              instructions:
-             """
+                """
                 你是一名市场分析师。根据产品描述，识别以下内容：
                 -主要特征
                 -目标受众
@@ -31,7 +31,7 @@ ChatCompletionAgent writerAgent =
     CreateAgent(
         name: "copywriter",
         instructions:
-        """
+                """
                 你是一名市场文案撰写人。根据一段描述产品特征、目标受众和独特卖点的文字，撰写一段引人注目的营销文案（例如新闻简报中的一个版块）。
                 输出应简短（约150字），只输出一段完整的文案文本。
                 """,
@@ -41,7 +41,7 @@ ChatCompletionAgent editorAgent =
     CreateAgent(
         name: "editor",
         instructions:
-        """
+                """
                 你是一名编辑。根据提供的文案草稿，完成以下工作：
                 -纠正语法错误
                 -提高表达的清晰度
@@ -55,22 +55,20 @@ ChatCompletionAgent editorAgent =
 
 
 var monitor = new OrchestrationMonitor();
-// Define the orchestration
 var orchestration =
    new SequentialOrchestration(analystAgent, writerAgent, editorAgent)
    {
        ResponseCallback = monitor.ResponseCallback,
-       //LoggerFactory = NullLoggerFactory.Instance,
+       LoggerFactory = NullLoggerFactory.Instance,
    };
 
-// Start the runtime
 InProcessRuntime runtime = new();
 await runtime.StartAsync();
 
-// Run the orchestration
 string input = "一款环保型不锈钢水瓶，可使饮品保持冷却状态长达24小时。";
 Console.WriteLine($"\n# INPUT: {input}\n");
 OrchestrationResult<string> result = await orchestration.InvokeAsync(input, runtime);
+
 string text = await result.GetValueAsync(TimeSpan.FromSeconds(30));
 Console.WriteLine($"\n# RESULT: {text}");
 

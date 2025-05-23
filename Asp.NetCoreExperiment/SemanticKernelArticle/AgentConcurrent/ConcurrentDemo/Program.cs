@@ -35,6 +35,7 @@ var monitor = new OrchestrationMonitor();
 var orchestration =
    new ConcurrentOrchestration(physicist, chemist)
    {
+         
        ResponseCallback = monitor.ResponseCallback,
        LoggerFactory = NullLoggerFactory.Instance
    };
@@ -44,6 +45,9 @@ await runtime.StartAsync();
 
 string input = "什么是温度？简短说明";
 Console.WriteLine($"\n# 输入: {input}\n");
+
+
+
 OrchestrationResult<string[]> result = await orchestration.InvokeAsync(input, runtime);
 
 string[] output = await result.GetValueAsync(TimeSpan.FromSeconds(ResultTimeoutInSeconds));
@@ -56,8 +60,6 @@ foreach (Microsoft.SemanticKernel.ChatMessageContent message in monitor.History)
 {
     Console.WriteLine($"{message.AuthorName}:{message.Content}");
 }
-
-
 
 ChatCompletionAgent CreateAgent(string instructions, string? description = null, string? name = null, Kernel? kernel = null)
 {
@@ -82,6 +84,7 @@ sealed class OrchestrationMonitor
 
     public ValueTask ResponseCallback(Microsoft.SemanticKernel.ChatMessageContent response)
     {
+        //Console.WriteLine($"ResponseCallback: {response.AuthorName}:{response.Content}");
         this.History.Add(response);
         return ValueTask.CompletedTask;
     }
