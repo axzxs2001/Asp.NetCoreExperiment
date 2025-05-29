@@ -51,7 +51,15 @@ var monitor = new OrchestrationMonitor();
 var orchestration =
     new GroupChatOrchestration(new RoundRobinGroupChatManager()
     {
-        MaximumInvocationCount = 15
+        MaximumInvocationCount = 15,
+         //InteractiveCallback = () =>
+         //{
+         //    Console.WriteLine("请用户输入内容：");
+         //   var userContent = Console.ReadLine();
+         //   ChatMessageContent input = new(AuthorRole.User, userContent);
+         //   Console.WriteLine($"\n# INPUT: {input.Content}\n");
+         //   return ValueTask.FromResult(input);
+         //}
     },
     writer,
     editor)

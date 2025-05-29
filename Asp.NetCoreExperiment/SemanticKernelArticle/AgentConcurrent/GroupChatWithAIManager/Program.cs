@@ -1,3 +1,4 @@
+using Azure;
 using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.Agents;
@@ -121,7 +122,7 @@ var orchestration =
             kernel.GetRequiredService<IChatCompletionService>())
         {
             MaximumInvocationCount = 5,
-           
+
         },
         farmer,
         developer,
@@ -143,7 +144,7 @@ await runtime.StartAsync();
 // Run the orchestration
 Console.WriteLine($"\n# INPUT: {topic}\n");
 OrchestrationResult<string> result = await orchestration.InvokeAsync(topic, runtime);
-string text = await result.GetValueAsync(TimeSpan.FromSeconds(30 * 3));
+string text = await result.GetValueAsync(TimeSpan.FromSeconds(300 * 3));
 Console.WriteLine($"\n# RESULT: {text}");
 
 await runtime.RunUntilIdleAsync();
@@ -165,7 +166,7 @@ class OrchestrationMonitor
 
     public ValueTask ResponseCallback(Microsoft.SemanticKernel.ChatMessageContent response)
     {
-        Console.WriteLine(response.Role);
+        Console.WriteLine($"{response.AuthorName}({response.Role})：");
         Console.WriteLine(response?.Content);
         this.History.Add(response);
         return ValueTask.CompletedTask;
@@ -204,8 +205,15 @@ class AIGroupChatManager(string topic, IChatCompletionService chatCompletion) : 
         this.GetResponseAsync<string>(history, Prompts.Filter(topic), cancellationToken);
 
     /// <inheritdoc/>
-    public override ValueTask<GroupChatManagerResult<string>> SelectNextAgent(ChatHistory history, GroupChatTeam team, CancellationToken cancellationToken = default) =>
-        this.GetResponseAsync<string>(history, Prompts.Selection(topic, team.FormatList()), cancellationToken);
+    public override ValueTask<GroupChatManagerResult<string>> SelectNextAgent(ChatHistory history, GroupChatTeam team, CancellationToken cancellationToken = default)
+    {
+        var response= this.GetResponseAsync<string>(history, Prompts.Selection(topic, team.FormatList()), cancellationToken);
+        Console.ForegroundColor = ConsoleColor.Yellow;
+        Console.WriteLine($"选择下一个发言者:{response.Result.Value}");
+        Console.WriteLine($"选择原因:{response.Result.Reason}");
+        Console.ResetColor();
+        return response;
+    }
 
     /// <inheritdoc/>
     public override ValueTask<GroupChatManagerResult<bool>> ShouldRequestUserInput(ChatHistory history, CancellationToken cancellationToken = default) =>
@@ -226,6 +234,8 @@ class AIGroupChatManager(string topic, IChatCompletionService chatCompletion) : 
     {
         OpenAIPromptExecutionSettings executionSettings = new() { ResponseFormat = typeof(GroupChatManagerResult<TValue>) };
         ChatHistory request = [.. history, new ChatMessageContent(AuthorRole.System, prompt)];
+     
+       
         ChatMessageContent response = await chatCompletion.GetChatMessageContentAsync(request, executionSettings, kernel: null, cancellationToken);
         string responseText = response.ToString();
         return
