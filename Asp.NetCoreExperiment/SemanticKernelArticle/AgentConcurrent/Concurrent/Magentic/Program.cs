@@ -1,45 +1,52 @@
+using Azure;
 using Azure.AI.Agents.Persistent;
+using Azure.Identity;
+using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.Agents;
+using Microsoft.SemanticKernel.Agents.AzureAI;
+using Microsoft.SemanticKernel.Agents.Magentic;
 using Microsoft.SemanticKernel.Agents.Orchestration;
 using Microsoft.SemanticKernel.Agents.Runtime.InProcess;
 using Microsoft.SemanticKernel.ChatCompletion;
 using Microsoft.SemanticKernel.Connectors.OpenAI;
 using OpenAI.Assistants;
-
- string ManagerModel = "o3-mini";
- string ResearcherModel = "gpt-4o-search-preview";
+using CodeInterpreterToolDefinition = Azure.AI.Agents.Persistent.CodeInterpreterToolDefinition;
 
 
- bool ForceOpenAI => true;
+#pragma warning disable
+string ManagerModel = "o3-mini";
+string ResearcherModel = "gpt-4o-search-preview";
 
-
-
-// Define the agents
+bool ForceOpenAI = true;
+// 定义代理
 Kernel researchKernel = CreateKernelWithOpenAIChatCompletion(ResearcherModel);
 ChatCompletionAgent researchAgent =
     CreateAgent(
         name: "ResearchAgent",
-        description: "A helpful assistant with access to web search. Ask it to perform web searches.",
-        instructions: "You are a Researcher. You find information without additional computation or quantitative analysis.",
+        description: "一个可以访问网络搜索的有用助手。请要求它执行网络搜索。",
+        instructions: "你是一个研究员。你查找信息，不进行额外的计算或定量分析。",
         kernel: researchKernel);
 
-PersistentAgentsClient agentsClient = AzureAIAgent.CreateAgentsClient(TestConfiguration.AzureAI.Endpoint, new AzureCliCredential());
-PersistentAgent definition =
-    await agentsClient.Administration.CreateAgentAsync(
-        TestConfiguration.AzureAI.ChatModelId,
-        name: "CoderAgent",
-        description: "Write and executes code to process and analyze data.",
-        instructions: "You solve questions using code. Please provide detailed analysis and computation process.",
-        tools: [new CodeInterpreterToolDefinition()]);
-AzureAIAgent coderAgent = new(definition, agentsClient);
 
-// Create a monitor to capturing agent responses (via ResponseCallback)
-// to display at the end of this sample. (optional)
-// NOTE: Create your own callback to capture responses in your application or service.
+
+
+// 定义代理
+Kernel researchKernel1 = CreateKernelWithAzureOpenAIChatCompletion(ResearcherModel);
+ChatCompletionAgent coderAgent =
+    CreateAgent(
+        name: "CoderAgent",
+        description: "编写并执行代码以处理和分析数据。",
+        instructions: "你使用代码解决问题。请提供详细的分析和计算过程。",
+        kernel: researchKernel);
+
+
+// 创建一个监视器来捕获代理响应（通过ResponseCallback）
+// 以在此示例结束时显示。（可选）
+// 注意：创建您自己的回调以在您的应用程序或服务中捕获响应。
 OrchestrationMonitor monitor = new();
-// Define the orchestration
-Kernel managerKernel = CreateKernelWithChatCompletion(ManagerModel);
+// 定义编排
+Kernel managerKernel = CreateKernelWithOpenAIChatCompletion(ManagerModel);
 StandardMagenticManager manager =
     new(managerKernel.GetRequiredService<IChatCompletionService>(), new OpenAIPromptExecutionSettings())
     {
@@ -49,10 +56,10 @@ MagenticOrchestration orchestration =
     new(manager, researchAgent, coderAgent)
     {
         ResponseCallback = monitor.ResponseCallback,
-        LoggerFactory = this.LoggerFactory,
+        LoggerFactory = NullLoggerFactory.Instance,
     };
 
-// Start the runtime
+// 启动运行时
 InProcessRuntime runtime = new();
 await runtime.StartAsync();
 
@@ -64,14 +71,14 @@ string input =
             请使用表格呈现结果，以便更清晰。
             最后，请针对每种任务类型（图像分类、文本分类、文本生成）推荐最节能高效的模型。
             """;
-Console.WriteLine($"\n# INPUT:\n{input}\n");
+Console.WriteLine($"\n# 输入:\n{input}\n");
 OrchestrationResult<string> result = await orchestration.InvokeAsync(input, runtime);
 string text = await result.GetValueAsync(TimeSpan.FromSeconds(30 * 10));
-Console.WriteLine($"\n# RESULT: {text}");
+Console.WriteLine($"\n# 结果: {text}");
 
 await runtime.RunUntilIdleAsync();
 
-Console.WriteLine("\n\nORCHESTRATION HISTORY");
+Console.WriteLine("\n\n编排历史");
 foreach (ChatMessageContent message in monitor.History)
 {
     Console.WriteLine($"{message.Role}:{message.Content}");
@@ -98,4 +105,30 @@ Kernel CreateKernelWithOpenAIChatCompletion(string model)
         File.ReadAllText("c://gpt/key.txt"));
 
     return builder.Build();
+}
+
+Kernel CreateKernelWithAzureOpenAIChatCompletion(string model)
+{
+    IKernelBuilder builder = Kernel.CreateBuilder();
+
+    builder.AddAzureOpenAIChatCompletion(
+        "gpt-4.1",
+      "https://smartfill-20241007.openai.azure.com/",
+
+        File.ReadAllText("c://gpt/azure_key.txt"));
+
+    return builder.Build();
+}
+
+sealed class OrchestrationMonitor
+{
+    public ChatHistory History { get; } = [];
+
+    public ValueTask ResponseCallback(Microsoft.SemanticKernel.ChatMessageContent response)
+    {
+        Console.WriteLine(response.Role);
+        Console.WriteLine(response?.Content);
+        this.History.Add(response);
+        return ValueTask.CompletedTask;
+    }
 }

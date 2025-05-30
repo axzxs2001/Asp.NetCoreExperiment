@@ -1,4 +1,5 @@
 
+using Azure;
 using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.Agents;
@@ -10,7 +11,7 @@ using OpenAI.Assistants;
 using OpenAI.Chat;
 #pragma warning disable
 
-const int ResultTimeoutInSeconds = 30;
+
 var modelID = "gpt-4.1";
 var openAIKey = File.ReadAllText("c://gpt/key.txt");
 
@@ -30,36 +31,39 @@ ChatCompletionAgent chemist =
         name: "chemist",
         kernel);
 
-var monitor = new OrchestrationMonitor();
+//var monitor = new OrchestrationMonitor();
 
 var orchestration =
-   new ConcurrentOrchestration(physicist, chemist)
-   {
-         
-       ResponseCallback = monitor.ResponseCallback,
+   new ConcurrentOrchestration(chemist, physicist)
+   {          
+       ResponseCallback = (response) =>
+       {
+           Console.WriteLine($"ResponseCallback: {response.AuthorName}:{response.Content}");
+           return ValueTask.CompletedTask;
+       },
        LoggerFactory = NullLoggerFactory.Instance
    };
 
 var runtime = new InProcessRuntime();
 await runtime.StartAsync();
 
-string input = "什么是温度？简短说明";
+string input = "什么是温度？";
 Console.WriteLine($"\n# 输入: {input}\n");
 
 
 
 OrchestrationResult<string[]> result = await orchestration.InvokeAsync(input, runtime);
 
-string[] output = await result.GetValueAsync(TimeSpan.FromSeconds(ResultTimeoutInSeconds));
-Console.WriteLine($"\n# 结果:\n{string.Join("\n\n", output.Select(text => $"{text}"))}");
+string[] output = await result.GetValueAsync(TimeSpan.FromSeconds(30));
+//Console.WriteLine($"\n# 结果:\n{string.Join("\n\n", output.Select(text => $"{text}"))}");
 
 await runtime.RunUntilIdleAsync();
 
-Console.WriteLine("\n\n编排历史");
-foreach (Microsoft.SemanticKernel.ChatMessageContent message in monitor.History)
-{
-    Console.WriteLine($"{message.AuthorName}:{message.Content}");
-}
+//Console.WriteLine("\n\n编排历史");
+//foreach (Microsoft.SemanticKernel.ChatMessageContent message in monitor.History)
+//{
+//    Console.WriteLine($"{message.AuthorName}:{message.Content}");
+//}
 
 ChatCompletionAgent CreateAgent(string instructions, string? description = null, string? name = null, Kernel? kernel = null)
 {
@@ -73,19 +77,14 @@ ChatCompletionAgent CreateAgent(string instructions, string? description = null,
         };
 }
 
+//sealed class OrchestrationMonitor
+//{
+//    public ChatHistory History { get; } = [];
 
-
-
-
-
-sealed class OrchestrationMonitor
-{
-    public ChatHistory History { get; } = [];
-
-    public ValueTask ResponseCallback(Microsoft.SemanticKernel.ChatMessageContent response)
-    {
-        //Console.WriteLine($"ResponseCallback: {response.AuthorName}:{response.Content}");
-        this.History.Add(response);
-        return ValueTask.CompletedTask;
-    }
-}
+//    public ValueTask ResponseCallback(Microsoft.SemanticKernel.ChatMessageContent response)
+//    {
+//        Console.WriteLine($"ResponseCallback: {response.AuthorName}:{response.Content}");
+//        this.History.Add(response);
+//        return ValueTask.CompletedTask;
+//    }
+//}

@@ -8,10 +8,14 @@
 	</PropertyGroup>
 	<ItemGroup>
 		<PackageReference Include="Azure.AI.Agents.Persistent" Version="1.1.0-beta.1" />
-		<PackageReference Include="Microsoft.SemanticKernel" Version="1.53.1" />
-		<PackageReference Include="Microsoft.SemanticKernel.Agents.Abstractions" Version="1.53.1" />
-		<PackageReference Include="Microsoft.SemanticKernel.Agents.Core" Version="1.53.1" />
-		<PackageReference Include="Microsoft.SemanticKernel.Agents.Orchestration" Version="1.53.1-preview" />
-		<PackageReference Include="Microsoft.SemanticKernel.Agents.Runtime.InProcess" Version="1.53.1-preview" />
+		<PackageReference Include="Azure.Identity" Version="1.14.0" />
+		<PackageReference Include="Azure.Monitor.OpenTelemetry.Exporter" Version="1.4.0" />
+		<PackageReference Include="Microsoft.SemanticKernel" Version="1.54.0" />
+		<PackageReference Include="Microsoft.SemanticKernel.Agents.Abstractions" Version="1.54.0" />
+		<PackageReference Include="Microsoft.SemanticKernel.Agents.AzureAI" Version="1.54.0-preview" />
+		<PackageReference Include="Microsoft.SemanticKernel.Agents.Core" Version="1.54.0" />
+		<PackageReference Include="Microsoft.SemanticKernel.Agents.Magentic" Version="1.54.0-preview" />
+		<PackageReference Include="Microsoft.SemanticKernel.Agents.Orchestration" Version="1.54.0-preview" />
+		<PackageReference Include="Microsoft.SemanticKernel.Agents.Runtime.InProcess" Version="1.54.0-preview" />
 	</ItemGroup>
 </Project>

@@ -22,26 +22,32 @@ ChatCompletionAgent triageAgent =
              instructions: "一个负责分流问题的客户支持代理。",
              name: "TriageAgent",
              description: "处理客户请求。");
+
 ChatCompletionAgent statusAgent =
     CreateAgent(
         kernel: kernel,
         name: "OrderStatusAgent",
         instructions: "处理订单状态请求。",
         description: "一个负责查询订单状态的客户支持代理。");
+
 statusAgent.Kernel.Plugins.Add(KernelPluginFactory.CreateFromObject(new OrderStatusPlugin()));
+
 ChatCompletionAgent returnAgent =
     CreateAgent(
         kernel: kernel,
         name: "OrderReturnAgent",
         instructions: "处理订单退货请求。",
         description: "一个负责处理订单退货的客户支持代理。");
+
 returnAgent.Kernel.Plugins.Add(KernelPluginFactory.CreateFromObject(new OrderReturnPlugin()));
+
 ChatCompletionAgent refundAgent =
     CreateAgent(
         kernel: kernel,
         name: "OrderRefundAgent",
         instructions: "处理订单退款请求。",
         description: "一个负责处理订单退款的客户支持代理。");
+
 refundAgent.Kernel.Plugins.Add(KernelPluginFactory.CreateFromObject(new OrderRefundPlugin()));
 
 // Create a monitor to capturing agent responses (via ResponseCallback)
@@ -87,18 +93,22 @@ await runtime.StartAsync();
 
 // Run the orchestration
 Console.WriteLine($"\n# INPUT:\n{task}\n");
-OrchestrationResult<string> result = await orchestration.InvokeAsync(task, runtime);
 
-string text = await result.GetValueAsync(TimeSpan.FromSeconds(300));
-Console.WriteLine($"\n# RESULT: {text}");
+while (responses.Count > 0)
+{
+
+    OrchestrationResult<string> result = await orchestration.InvokeAsync(task, runtime);
+    string text = await result.GetValueAsync(TimeSpan.FromSeconds(3000));
+    Console.WriteLine($"\n# RESULT: {text}");
+}
 
 await runtime.RunUntilIdleAsync();
 
-Console.WriteLine("\n\nORCHESTRATION HISTORY");
-foreach (ChatMessageContent message in monitor.History)
-{
-    Console.WriteLine($"{message.AuthorName}:{message.Content}");
-}
+//Console.WriteLine("\n\nORCHESTRATION HISTORY");
+//foreach (ChatMessageContent message in monitor.History)
+//{
+//    Console.WriteLine($"{message.AuthorName}:{message.Content}");
+//}
 
 
 ChatCompletionAgent CreateAgent(string instructions, string? description = null, string? name = null, Kernel? kernel = null)
@@ -110,7 +120,7 @@ ChatCompletionAgent CreateAgent(string instructions, string? description = null,
             Description = description,
             Instructions = instructions,
             Kernel = kernel,
-             
+
         };
 }
 
@@ -120,7 +130,7 @@ sealed class OrchestrationMonitor
 
     public ValueTask ResponseCallback(Microsoft.SemanticKernel.ChatMessageContent response)
     {
-        Console.WriteLine(response.Role);
+        Console.WriteLine(response.AuthorName);
         Console.WriteLine(response?.Content);
         this.History.Add(response);
         return ValueTask.CompletedTask;
