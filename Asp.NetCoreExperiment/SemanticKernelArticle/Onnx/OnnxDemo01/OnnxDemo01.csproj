@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BERTTokenizers" Version="1.2.0" />
+    <PackageReference Include="Microsoft.ML.OnnxRuntime" Version="1.22.0" />
+    <PackageReference Include="Microsoft.ML.OnnxRuntimeGenAI" Version="0.8.2" />
+    <PackageReference Include="Tokenizers.DotNet" Version="1.2.0" />
+    <PackageReference Include="Tokenizers.DotNet.runtime.win-x64" Version="1.2.0" />
+  </ItemGroup>
+
+</Project>
