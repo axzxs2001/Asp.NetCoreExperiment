@@ -1124,6 +1124,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnnxDemo01", "Asp.NetCoreEx
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenAIAssistant_ChartMaker", "Asp.NetCoreExperiment\SemanticKernelArticle\OpenAIAssistant_ChartMaker\OpenAIAssistant_ChartMaker.csproj", "{504AB29A-0433-41B7-A989-917685C868A8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenAIResponseAgent_Whiteboard", "Asp.NetCoreExperiment\SemanticKernelArticle\OpenAIResponseAgent_Whiteboard\OpenAIResponseAgent_Whiteboard.csproj", "{50922713-3123-4766-B36D-FED9F820DC6F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -5422,6 +5424,18 @@ Global
 		{504AB29A-0433-41B7-A989-917685C868A8}.Release|arm64.Build.0 = Release|Any CPU
 		{504AB29A-0433-41B7-A989-917685C868A8}.Release|x86.ActiveCfg = Release|Any CPU
 		{504AB29A-0433-41B7-A989-917685C868A8}.Release|x86.Build.0 = Release|Any CPU
+		{50922713-3123-4766-B36D-FED9F820DC6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50922713-3123-4766-B36D-FED9F820DC6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50922713-3123-4766-B36D-FED9F820DC6F}.Debug|arm64.ActiveCfg = Debug|Any CPU
+		{50922713-3123-4766-B36D-FED9F820DC6F}.Debug|arm64.Build.0 = Debug|Any CPU
+		{50922713-3123-4766-B36D-FED9F820DC6F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{50922713-3123-4766-B36D-FED9F820DC6F}.Debug|x86.Build.0 = Debug|Any CPU
+		{50922713-3123-4766-B36D-FED9F820DC6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50922713-3123-4766-B36D-FED9F820DC6F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50922713-3123-4766-B36D-FED9F820DC6F}.Release|arm64.ActiveCfg = Release|Any CPU
+		{50922713-3123-4766-B36D-FED9F820DC6F}.Release|arm64.Build.0 = Release|Any CPU
+		{50922713-3123-4766-B36D-FED9F820DC6F}.Release|x86.ActiveCfg = Release|Any CPU
+		{50922713-3123-4766-B36D-FED9F820DC6F}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -5901,6 +5915,7 @@ Global
 		{E4C4B237-35C6-4A16-99A6-9F996EC3E38D} = {3918D839-4415-44C9-AD94-C78DB19EF9CE}
 		{4B1060AA-BB12-413F-B3BD-2BC1219E0469} = {3918D839-4415-44C9-AD94-C78DB19EF9CE}
 		{504AB29A-0433-41B7-A989-917685C868A8} = {3918D839-4415-44C9-AD94-C78DB19EF9CE}
+		{50922713-3123-4766-B36D-FED9F820DC6F} = {3918D839-4415-44C9-AD94-C78DB19EF9CE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
