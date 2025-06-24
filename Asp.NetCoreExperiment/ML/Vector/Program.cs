@@ -1,20 +1,20 @@
-#pragma warning disable SKEXP0020 
-#pragma warning disable SKEXP0001 
+#pragma warning disable 
 
+
+using Dapper;
 using Microsoft.Extensions.AI;
 using Microsoft.Extensions.VectorData;
+using Microsoft.ML.OnnxRuntime;
+using Microsoft.ML.OnnxRuntime.Tensors;
 using Microsoft.SemanticKernel.Connectors.InMemory;
 using Microsoft.SemanticKernel.Connectors.Redis;
-using Microsoft.SemanticKernel.Embeddings;
-
-using StackExchange.Redis;
-using System.Text.Json.Serialization;
-using System.Text.Json;
-using System.Data;
 using Npgsql;
-using Dapper;
+using StackExchange.Redis;
+using System.Data;
 using System.Diagnostics;
-using Microsoft.SemanticKernel.Data;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+
 
 var jobDescriptions = new List<Job>
 {
@@ -430,10 +430,153 @@ new Job
 },
 
 };
+var modelPath = @"C:\GPT\ONNX\jina-reranker-v2-base-multilingual\onnx\model.onnx";
+var tokenizerPath = @"C:\GPT\ONNX\jina-reranker-v2-base-multilingual\tokenizer.json";
 
-await MatchingJobsAsync();
+var tokenizer = Tokenizers.HuggingFace.Tokenizer.Tokenizer.FromFile(tokenizerPath);
+
+
+using var session = new InferenceSession(modelPath);
+await MatchingJobsRerankerAsync();
+//await MatchingJobsAsync();
 //await PGVector();
 //await RedisVector();
+
+void Reranker(string query, List<Job> jobs)
+{
+    query = query.Length >= 1024 ? query[..1023] : query;
+    var newlist = new List<(string Title, float Score)>();
+    foreach (var job in jobs)
+    {
+        //Console.WriteLine(job.JobTitle);
+        var encodingResult = tokenizer.Encode(
+            query.Replace(" ", ""),
+            add_special_tokens: true,
+            input2: job.Description,
+            include_type_ids: true,
+            include_attention_mask: true
+        );
+        var enc = encodingResult.Encodings[0];
+        int seqLen = enc.Ids.Count;
+        var inputIdsTensor = new DenseTensor<long>(enc.Ids.Select(i => (long)i).ToArray(), new[] { 1, seqLen });
+        var attentionMaskTensor = new DenseTensor<long>(enc.AttentionMask.Select(i => (long)i).ToArray(), new[] { 1, seqLen });
+        var inputs = new List<NamedOnnxValue>
+            {
+                NamedOnnxValue.CreateFromTensor("input_ids",     inputIdsTensor),
+                NamedOnnxValue.CreateFromTensor("attention_mask",attentionMaskTensor)
+            };
+
+        using var results = session.Run(inputs);
+        var logitsArr = results.First(x => x.Name == "logits")
+                                .AsTensor<float>()
+                                .ToArray();
+        float posLogit = logitsArr.Length == 1
+            ? logitsArr[0]
+            : logitsArr[1];
+
+        float prob = 1f / (1f + MathF.Exp(-posLogit));
+
+        newlist.Add((Title: job.JobTitle, Socre: prob));
+
+    }
+    Console.WriteLine("=======================Reranker 搜索结果排序========================");
+    foreach (var item in newlist.OrderByDescending(s => s.Score))
+    {
+        Console.WriteLine($"{item.Title}:{item.Score}");
+    }
+    Console.WriteLine("======================================================");
+}
+
+
+
+
+async Task MatchingJobsRerankerAsync()
+{
+    var generator = new OllamaEmbeddingGenerator(new Uri("http://localhost:11434/"), "snowflake-arctic-embed2");
+    while (true)
+    {
+        try
+        {
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("请输简历路径：");
+            var arr = File.ReadLines(Console.ReadLine()).ToArray()[5..];
+            var search = string.Join("", arr);
+            search = search.Replace(" ", "");
+
+            Console.ResetColor();
+            var sw = Stopwatch.StartNew();
+            Console.WriteLine($"=======================简历 {search.Length}========================");
+            Console.WriteLine(search);
+            var searchVector = await generator.GenerateVectorAsync(search);
+            sw.Stop();
+            Console.WriteLine($"搜索用时：{sw.ElapsedMilliseconds}毫秒");
+            Console.WriteLine("=======================Vector 搜索结果排序========================");
+            var first = 0d;
+            var vectorResult = QueryImageVector(searchVector.ToArray()).Take(15);
+            var list = new List<Job>();
+            foreach (var item in vectorResult)
+            {
+                if (first == 0)
+                {
+                    first = double.Parse(item.Result);
+                }
+                Console.WriteLine("职位：" + item.Name + "   匹配得分值：" + Math.Round((double.Parse(item.Result) / first) * 100).ToString("0") + "%");
+                list.Add(jobDescriptions.SingleOrDefault(s => s.JobTitle == item.Name));
+            }
+            Console.WriteLine("======================================================");
+            Console.WriteLine("\n\n");
+            Thread.Sleep(2000);
+
+            Reranker(search, list);
+        }
+        catch (Exception exc)
+        {
+            Console.WriteLine(exc.Message);
+        }
+    }
+    IEnumerable<QueryResult> QueryImageVector(float[] imageVector)
+    {
+        var ds = new List<double>();
+        foreach (var item in imageVector)
+        {
+            ds.Add((double)item);
+        }
+        using (IDbConnection db = new NpgsqlConnection(File.ReadAllText("C://GPT/just-agi-db.txt")))
+        {
+            string sqlQuery = $@"select id,name,1-(cast(@embedding as vector) <=> embedding) as result from public.imagevector 
+-- where createtime>'2024-12-06'
+order by 1-(cast(@embedding as vector) <=> embedding) desc ";
+            return db.Query<QueryResult>(sqlQuery, new { embedding = ds });
+        }
+    }
+    void InsertImageVector(Job imageVector)
+    {
+        using (IDbConnection db = new NpgsqlConnection(File.ReadAllText("C://GPT/just-agi-db.txt")))
+        {
+            string sqlQuery = @"
+                INSERT INTO public.imagevector (name, embedding,createtime) 
+                VALUES (@Name, @Embedding,@CreateTime) 
+                RETURNING id;";
+            var ds = new List<double>();
+            foreach (var item in imageVector.DescriptionEmbedding.Value.ToArray())
+            {
+                ds.Add((double)item);
+            }
+            var parameters = new
+            {
+                Name = imageVector.JobTitle,
+                Embedding = ds.AsReadOnly<double>(),
+                CreateTime = DateTime.Now
+            };
+
+            var id = db.ExecuteScalar<int>(sqlQuery, parameters); // ExecuteScalar returns the inserted id
+
+        }
+    }
+}
+
+
+
 
 async Task MatchingJobsAsync()
 {
@@ -448,7 +591,7 @@ async Task MatchingJobsAsync()
             var search = string.Join('\n', arr);
             Console.ResetColor();
             var sw = Stopwatch.StartNew();
-            var searchVector = await generator.GenerateEmbeddingVectorAsync(search);
+            var searchVector = await generator.GenerateVectorAsync(search);
             sw.Stop();
             Console.WriteLine($"搜索用时：{sw.ElapsedMilliseconds}毫秒");
             Console.WriteLine("=======================搜索结果排序========================");
@@ -580,7 +723,7 @@ async Task PGVector()
         }
         Console.ResetColor();
         var sw = Stopwatch.StartNew();
-        var searchVector = await generator.GenerateEmbeddingVectorAsync(search);
+        var searchVector = await generator.GenerateVectorAsync(search);
         sw.Stop();
         Console.WriteLine($"搜索用时：{sw.ElapsedMilliseconds}毫秒");
         Console.WriteLine("=======================搜索结果排序========================");
@@ -658,7 +801,7 @@ async Task RedisVector()
     var generator = new OllamaEmbeddingGenerator(new Uri("http://localhost:11434/"), "mxbai-embed-large");
     foreach (var job in jobDescriptions)
     {
-        job.DescriptionEmbedding = await generator.GenerateEmbeddingVectorAsync(job.JobTitle + "。"
+        job.DescriptionEmbedding = await generator.GenerateVectorAsync(job.JobTitle + "。"
              + job.Tags + "。"
             + job.Description);
 
@@ -666,10 +809,9 @@ async Task RedisVector()
     }
     ;
     Console.WriteLine("开始搜索");
-    var vectorSearchOptions = new VectorSearchOptions
+    var vectorSearchOptions = new VectorSearchOptions<Job>
     {
-        VectorPropertyName = nameof(Job.DescriptionEmbedding),
-        Top = 3
+
     };
 
     while (true)
@@ -679,18 +821,18 @@ async Task RedisVector()
         var search = Console.ReadLine();
         Console.ResetColor();
         var sw = Stopwatch.StartNew();
-        var searchVector = await generator.GenerateEmbeddingVectorAsync(search);
+        var searchVector = await generator.GenerateVectorAsync(search);
         sw.Stop();
         Console.WriteLine(sw.ElapsedMilliseconds);
-        var results = await jobStore.VectorizedSearchAsync(searchVector, vectorSearchOptions);
+        //var results = await jobStore.SearchAsync(searchVector,3);
 
-        await foreach (var result in results.Results)
-        {
-            Console.WriteLine($"Title: {result.Record.JobTitle}");
-            Console.WriteLine($"Description: {result.Record.Description}");
-            Console.WriteLine($"Score: {result.Score}");
-            Console.WriteLine();
-        }
+        //await foreach (var result in results.Results)
+        //{
+        //    Console.WriteLine($"Title: {result.Record.JobTitle}");
+        //    Console.WriteLine($"Description: {result.Record.Description}");
+        //    Console.WriteLine($"Score: {result.Score}");
+        //    Console.WriteLine();
+        //}
     }
 }
 #endregion
@@ -703,19 +845,19 @@ class QueryResult
 }
 public class Job
 {
-    [VectorStoreRecordKey]
+    [VectorStoreKey]
     public string JobId { get; set; }
 
-    [VectorStoreRecordData(IsFilterable = true)]
+    [VectorStoreData(IsIndexed = true)]
     public string JobTitle { get; set; }
 
-    [VectorStoreRecordData(IsFullTextSearchable = true)]
+    [VectorStoreData(IsFullTextIndexed = true)]
     public string Description { get; set; }
 
-    [VectorStoreRecordVector(1024, DistanceFunction.CosineSimilarity)]
+    [VectorStoreVector(1024, DistanceFunction = DistanceFunction.CosineSimilarity)]
     public ReadOnlyMemory<float>? DescriptionEmbedding { get; set; }
 
-    [VectorStoreRecordData(IsFilterable = true)]
+    [VectorStoreData(IsIndexed = true)]
     public string Tags { get; set; }
 }
 

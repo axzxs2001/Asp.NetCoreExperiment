@@ -13,6 +13,7 @@
     <PackageReference Include="Microsoft.ML.OnnxRuntimeGenAI" Version="0.8.2" />
     <PackageReference Include="Tokenizers.DotNet" Version="1.2.0" />
     <PackageReference Include="Tokenizers.DotNet.runtime.win-x64" Version="1.2.0" />
+    <PackageReference Include="Tokenizers.HuggingFace" Version="1.0.0" />
   </ItemGroup>
 
 </Project>
