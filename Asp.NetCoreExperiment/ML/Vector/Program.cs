@@ -430,11 +430,18 @@ new Job
 },
 
 };
-var modelPath = @"C:\GPT\ONNX\jina-reranker-v2-base-multilingual\onnx\model.onnx";
-var tokenizerPath = @"C:\GPT\ONNX\jina-reranker-v2-base-multilingual\tokenizer.json";
+//var modelPath = @"C:\GPT\ONNX\jina-reranker-v2-base-multilingual\onnx\model.onnx";
+//var tokenizerPath = @"C:\GPT\ONNX\jina-reranker-v2-base-multilingual\tokenizer.json";
 
+//var modelPath = @"C:\GPT\ONNX\bge-reranker-v2-m3\model.onnx";
+//var tokenizerPath = @"C:\GPT\ONNX\bge-reranker-v2-m3\tokenizer.json";
+
+//var modelPath = @"C:\GPT\ONNX\gte-multilingual-reranker-base\onnx\model.onnx";
+//var tokenizerPath = @"C:\GPT\ONNX\gte-multilingual-reranker-base\tokenizer.json";
+
+var modelPath = @"C:\GPT\ONNX\gte-multilingual-reranker-base-onnx-op14-opt-gpu\model.onnx";
+var tokenizerPath = @"C:\GPT\ONNX\gte-multilingual-reranker-base-onnx-op14-opt-gpu\tokenizer.json";
 var tokenizer = Tokenizers.HuggingFace.Tokenizer.Tokenizer.FromFile(tokenizerPath);
-
 
 using var session = new InferenceSession(modelPath);
 await MatchingJobsRerankerAsync();
@@ -444,13 +451,13 @@ await MatchingJobsRerankerAsync();
 
 void Reranker(string query, List<Job> jobs)
 {
-    query = query.Length >= 1024 ? query[..1023] : query;
+   // query = query.Length >= 1024 ? query[..1023] : query;
     var newlist = new List<(string Title, float Score)>();
     foreach (var job in jobs)
     {
         //Console.WriteLine(job.JobTitle);
         var encodingResult = tokenizer.Encode(
-            query.Replace(" ", ""),
+            query,//.Replace(" ", ""),
             add_special_tokens: true,
             input2: job.Description,
             include_type_ids: true,
@@ -459,13 +466,17 @@ void Reranker(string query, List<Job> jobs)
         var enc = encodingResult.Encodings[0];
         int seqLen = enc.Ids.Count;
         var inputIdsTensor = new DenseTensor<long>(enc.Ids.Select(i => (long)i).ToArray(), new[] { 1, seqLen });
+        var typeIdsTensor = new DenseTensor<long>(enc.TypeIds.Select(i => (long)i).ToArray(), new[] { 1, seqLen });
         var attentionMaskTensor = new DenseTensor<long>(enc.AttentionMask.Select(i => (long)i).ToArray(), new[] { 1, seqLen });
         var inputs = new List<NamedOnnxValue>
             {
                 NamedOnnxValue.CreateFromTensor("input_ids",     inputIdsTensor),
                 NamedOnnxValue.CreateFromTensor("attention_mask",attentionMaskTensor)
             };
-
+        if (session.InputMetadata.ContainsKey("token_type_ids"))
+        {
+            inputs.Add(NamedOnnxValue.CreateFromTensor("token_type_ids", typeIdsTensor));
+        }
         using var results = session.Run(inputs);
         var logitsArr = results.First(x => x.Name == "logits")
                                 .AsTensor<float>()
@@ -479,12 +490,12 @@ void Reranker(string query, List<Job> jobs)
         newlist.Add((Title: job.JobTitle, Socre: prob));
 
     }
-    Console.WriteLine("=======================Reranker 搜索结果排序========================");
+
     foreach (var item in newlist.OrderByDescending(s => s.Score))
     {
         Console.WriteLine($"{item.Title}:{item.Score}");
     }
-    Console.WriteLine("======================================================");
+   
 }
 
 
@@ -498,18 +509,35 @@ async Task MatchingJobsRerankerAsync()
         try
         {
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("请输简历路径：");
-            var arr = File.ReadLines(Console.ReadLine()).ToArray()[5..];
+            Console.WriteLine("请选择简历：");
+            Console.WriteLine("1、cv1.md   2、cv2.md    3、cv3.md");
+            var cvPath = "";
+            var cvNo = Console.ReadLine();
+            switch (cvNo)
+            {
+                case "1":
+                    cvPath = "cv1.md";
+                    break;
+                case "2":
+                    cvPath = "cv2.md";
+                    break;
+                case "3":
+                    cvPath = "cv3.md";
+                    break;
+                default:
+                    Console.WriteLine("请输入简历路径：");
+                    cvPath = Console.ReadLine();
+                    break;
+            }
+            var arr = File.ReadLines(cvPath).ToArray()[5..];
             var search = string.Join("", arr);
-            search = search.Replace(" ", "");
-
+           // search = search.Replace(" ", "");
             Console.ResetColor();
             var sw = Stopwatch.StartNew();
-            Console.WriteLine($"=======================简历 {search.Length}========================");
+            Console.WriteLine($"=======================简历 {search.Length}个字========================");
             Console.WriteLine(search);
             var searchVector = await generator.GenerateVectorAsync(search);
-            sw.Stop();
-            Console.WriteLine($"搜索用时：{sw.ElapsedMilliseconds}毫秒");
+          
             Console.WriteLine("=======================Vector 搜索结果排序========================");
             var first = 0d;
             var vectorResult = QueryImageVector(searchVector.ToArray()).Take(15);
@@ -523,11 +551,13 @@ async Task MatchingJobsRerankerAsync()
                 Console.WriteLine("职位：" + item.Name + "   匹配得分值：" + Math.Round((double.Parse(item.Result) / first) * 100).ToString("0") + "%");
                 list.Add(jobDescriptions.SingleOrDefault(s => s.JobTitle == item.Name));
             }
-            Console.WriteLine("======================================================");
-            Console.WriteLine("\n\n");
-            Thread.Sleep(2000);
-
+            sw.Stop();    
+            Console.WriteLine($"========================Vector 搜索用时：{sw.ElapsedMilliseconds}毫秒==============================");
+            sw = Stopwatch.StartNew();
+            Console.WriteLine("=======================Reranker 搜索结果排序========================");
             Reranker(search, list);
+            sw.Stop();
+            Console.WriteLine($"==========================Reranker 搜索用时：{sw.ElapsedMilliseconds}毫秒============================");
         }
         catch (Exception exc)
         {
