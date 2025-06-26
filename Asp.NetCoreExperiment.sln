@@ -1126,6 +1126,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenAIAssistant_ChartMaker"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenAIResponseAgent_Whiteboard", "Asp.NetCoreExperiment\SemanticKernelArticle\OpenAIResponseAgent_Whiteboard\OpenAIResponseAgent_Whiteboard.csproj", "{50922713-3123-4766-B36D-FED9F820DC6F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartWinForms", "Asp.NetCoreExperiment\DOTNET10\SmartWinForms\SmartWinForms.csproj", "{E659B33D-3997-44EE-94D1-830BEE9A9253}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -5436,6 +5438,18 @@ Global
 		{50922713-3123-4766-B36D-FED9F820DC6F}.Release|arm64.Build.0 = Release|Any CPU
 		{50922713-3123-4766-B36D-FED9F820DC6F}.Release|x86.ActiveCfg = Release|Any CPU
 		{50922713-3123-4766-B36D-FED9F820DC6F}.Release|x86.Build.0 = Release|Any CPU
+		{E659B33D-3997-44EE-94D1-830BEE9A9253}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E659B33D-3997-44EE-94D1-830BEE9A9253}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E659B33D-3997-44EE-94D1-830BEE9A9253}.Debug|arm64.ActiveCfg = Debug|Any CPU
+		{E659B33D-3997-44EE-94D1-830BEE9A9253}.Debug|arm64.Build.0 = Debug|Any CPU
+		{E659B33D-3997-44EE-94D1-830BEE9A9253}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{E659B33D-3997-44EE-94D1-830BEE9A9253}.Debug|x86.Build.0 = Debug|Any CPU
+		{E659B33D-3997-44EE-94D1-830BEE9A9253}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E659B33D-3997-44EE-94D1-830BEE9A9253}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E659B33D-3997-44EE-94D1-830BEE9A9253}.Release|arm64.ActiveCfg = Release|Any CPU
+		{E659B33D-3997-44EE-94D1-830BEE9A9253}.Release|arm64.Build.0 = Release|Any CPU
+		{E659B33D-3997-44EE-94D1-830BEE9A9253}.Release|x86.ActiveCfg = Release|Any CPU
+		{E659B33D-3997-44EE-94D1-830BEE9A9253}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -5916,6 +5930,7 @@ Global
 		{4B1060AA-BB12-413F-B3BD-2BC1219E0469} = {E4C4B237-35C6-4A16-99A6-9F996EC3E38D}
 		{504AB29A-0433-41B7-A989-917685C868A8} = {3918D839-4415-44C9-AD94-C78DB19EF9CE}
 		{50922713-3123-4766-B36D-FED9F820DC6F} = {3918D839-4415-44C9-AD94-C78DB19EF9CE}
+		{E659B33D-3997-44EE-94D1-830BEE9A9253} = {966C5587-E460-4572-9C9D-899AB0A8FDF0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
