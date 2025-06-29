@@ -33,12 +33,12 @@ namespace SmartWinForms
             // 
             // aiChat1
             // 
-            aiChat1.DefaultModelId = "phi4-mini-reasoning";
+            aiChat1.DefaultModelId = "phi4-mini";
             aiChat1.Dock = DockStyle.Fill;
             aiChat1.Location = new Point(0, 0);
             aiChat1.Name = "aiChat1";
             aiChat1.Size = new Size(1217, 890);
-            aiChat1.SystemPrompt = null;
+            aiChat1.SystemPrompt = "你是一个AI助理，用简练的语言回答问题";
             aiChat1.TabIndex = 0;
             // 
             // Form1

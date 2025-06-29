@@ -15,7 +15,6 @@ namespace SmartWinForms
 {
     public partial class AIChat : UserControl
     {
-
         private readonly IChatCompletionService _chatService;
         private readonly ChatHistory _history;
         public AIChat()
@@ -30,8 +29,16 @@ namespace SmartWinForms
             _history.AddSystemMessage(SystemPrompt);
 
         }
+        [Category("AI属性")]
+        [Description("系统提示词")]
         public string SystemPrompt
-        { get; set; } = "你是一个AI助理，用简练的语言回答问题";
+        { 
+            get;
+            set; 
+        } = "你是一个AI助理，用简练的语言回答问题";
+
+        [Category("AI属性")]
+        [Description("模型ID")]
         public string DefaultModelId
         {
             get;
@@ -74,8 +81,8 @@ namespace SmartWinForms
         {
             if (e.KeyChar == (char)Keys.Enter)
             {
-                e.Handled = true; // 阻止默认的换行行为
-                sendBut.PerformClick(); // 模拟点击发送按钮
+                e.Handled = true; 
+                sendBut.PerformClick();
             }
         }
     }
