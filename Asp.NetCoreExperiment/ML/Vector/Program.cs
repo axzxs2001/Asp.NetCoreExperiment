@@ -444,7 +444,10 @@ var tokenizerPath = @"C:\GPT\ONNX\gte-multilingual-reranker-base-onnx-op14-opt-g
 var tokenizer = Tokenizers.HuggingFace.Tokenizer.Tokenizer.FromFile(tokenizerPath);
 
 using var session = new InferenceSession(modelPath);
-await MatchingJobsRerankerAsync();
+while (true)
+{
+    await MatchingJobsRerankerAsync();
+}
 //await MatchingJobsAsync();
 //await PGVector();
 //await RedisVector();
@@ -553,6 +556,7 @@ async Task MatchingJobsRerankerAsync()
             }
             sw.Stop();    
             Console.WriteLine($"========================Vector 搜索用时：{sw.ElapsedMilliseconds}毫秒==============================");
+       
             sw = Stopwatch.StartNew();
             Console.WriteLine("=======================Reranker 搜索结果排序========================");
             Reranker(search, list);
