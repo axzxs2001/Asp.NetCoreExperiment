@@ -1091,6 +1091,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MCPOrderTool", "Asp.NetCoreExperiment\SemanticKernelArticle\MCP\AspNetCoreSseServer\MCPOrderTool.csproj", "{B4D687F4-14ED-E9B3-2C29-EE028A5FBD6F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AgentConcurrent", "AgentConcurrent", "{92F8B154-EC41-4224-AAB2-4CDAE4C8AA26}"
+	ProjectSection(SolutionItems) = preProject
+		Asp.NetCoreExperiment\SemanticKernelArticle\AgentConcurrent\readme.md = Asp.NetCoreExperiment\SemanticKernelArticle\AgentConcurrent\readme.md
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConcurrentDemo", "Asp.NetCoreExperiment\SemanticKernelArticle\AgentConcurrent\ConcurrentDemo\ConcurrentDemo.csproj", "{757B7EF2-F8B7-4B1B-B855-D86B3009BFA2}"
 EndProject

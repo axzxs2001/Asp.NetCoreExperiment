@@ -38,7 +38,7 @@ ChatCompletionAgent coderAgent =
         name: "CoderAgent",
         description: "编写并执行代码以处理和分析数据。",
         instructions: "你使用代码解决问题。请提供详细的分析和计算过程。",
-        kernel: researchKernel);
+        kernel: researchKernel1);
 
 
 // 创建一个监视器来捕获代理响应（通过ResponseCallback）
