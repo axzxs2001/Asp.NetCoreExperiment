@@ -11,9 +11,11 @@ using Microsoft.SemanticKernel.ChatCompletion;
 var modelID = "gpt-4.1";
 var openAIKey = File.ReadAllText("c://gpt/key.txt");
 
-var kernel = Kernel.CreateBuilder()
-           .AddOpenAIChatCompletion(modelID, openAIKey).Build();
+var azureParams = File.ReadAllLines("C://gpt/azure_key.txt");
 
+var kernel = Kernel.CreateBuilder()
+           //.AddOpenAIChatCompletion(modelID, openAIKey).Build();
+           .AddAzureOpenAIChatCompletion(azureParams[0], azureParams[1], azureParams[2]).Build();
 
 ChatCompletionAgent writer =
     CreateAgent(
