@@ -9,7 +9,10 @@ using System.ClientModel;
 using System.Diagnostics;
 
 var key = File.ReadAllText("C:/gpt/key.txt");
-var Client = OpenAIAssistantAgent.CreateOpenAIClient(new ApiKeyCredential(key));
+//var Client = OpenAIAssistantAgent.CreateOpenAIClient(new ApiKeyCredential(key));
+var lines = File.ReadAllLines("c:/gpt/azure_key.txt");
+var Client = OpenAIAssistantAgent.CreateAzureOpenAIClient(
+    new ApiKeyCredential(lines[2]),new Uri(lines[1]));
 
 var AssistantClient = Client.GetAssistantClient();
 
