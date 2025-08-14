@@ -51,6 +51,7 @@ StandardMagenticManager manager =
     new(managerKernel.GetRequiredService<IChatCompletionService>(), new OpenAIPromptExecutionSettings())
     {
         MaximumInvocationCount = 5,
+         
     };
 MagenticOrchestration orchestration =
     new(manager, researchAgent, coderAgent)

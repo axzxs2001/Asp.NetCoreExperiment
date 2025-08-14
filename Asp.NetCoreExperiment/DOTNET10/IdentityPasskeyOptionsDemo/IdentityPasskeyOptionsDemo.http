@@ -1,0 +1,6 @@
+@IdentityPasskeyOptionsDemo_HostAddress = http://localhost:5038
+
+GET {{IdentityPasskeyOptionsDemo_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
