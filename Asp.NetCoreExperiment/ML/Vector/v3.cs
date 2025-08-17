@@ -1,5 +1,13 @@
+using Dapper;
 using Microsoft.ML.OnnxRuntime;
 using Microsoft.ML.OnnxRuntime.Tensors;
+using NetTopologySuite.Index.HPRtree;
+using Npgsql;
+using OllamaSharp.Models;
+using System.Collections.Generic;
+using System.Data;
+using System.Diagnostics;
+using System.Reflection.Emit;
 using System.Text.Json;
 
 namespace Vector;
@@ -11,11 +19,41 @@ public static class v3
     /// </summary>
     public static void Example(List<Job> jobs)
     {
+        var modelPath = @"C:\GPT\ONNX\jina-embeddings-v3\onnx\model.onnx";
+        var tokenizerPath = @"C:\GPT\ONNX\jina-embeddings-v3\tokenizer.json";
+        var vectorGenerator = new TextVectorGenerator(modelPath, tokenizerPath);
+
+        //foreach (var job in jobs)
+        //{
+        //    job.DescriptionEmbedding = vectorGenerator.GenerateVector(job.Description);
+        //    using (IDbConnection db = new NpgsqlConnection(File.ReadAllText("C://GPT/just-agi-db.txt")))
+        //    {
+        //        string sqlQuery = @"
+        //        INSERT INTO public.imagevector1 (name, embedding,createtime) 
+        //        VALUES (@Name, @Embedding,@CreateTime) 
+        //        RETURNING id;";
+        //        var ds = new List<double>();
+        //        foreach (var item in job.DescriptionEmbedding.Value.ToArray())
+        //        {
+        //            ds.Add((double)item);
+        //        }
+        //        var parameters = new
+        //        {
+        //            Name = job.JobTitle,
+        //            Embedding = ds.AsReadOnly<double>(),
+        //            CreateTime = DateTime.Now
+        //        };
+        //        var id = db.ExecuteScalar<int>(sqlQuery, parameters); 
+        //    }
+        //}
+        //return;
+
+
         Console.WriteLine("=== 文本向量生成示例 ===");
 
         // 模型和分词器路径
-        var modelPath = @"C:\GPT\ONNX\jina-embeddings-v3\onnx\model.onnx";
-        var tokenizerPath = @"C:\GPT\ONNX\jina-embeddings-v3\tokenizer.json";
+        //var modelPath = @"C:\GPT\ONNX\jina-embeddings-v3\onnx\model.onnx";
+        //var tokenizerPath = @"C:\GPT\ONNX\jina-embeddings-v3\tokenizer.json";
 
         // 检查文件是否存在
         if (!File.Exists(modelPath) || !File.Exists(tokenizerPath))
@@ -26,19 +64,6 @@ public static class v3
 
         try
         {
-            // 创建文本向量生成器
-            var vectorGenerator = new TextVectorGenerator(modelPath, tokenizerPath);
-
-            var list = new Dictionary<string, float[]?>();
-            foreach (var text in jobs)
-            {
-                Console.WriteLine($"向量化: {text.JobTitle}");
-                var vector = vectorGenerator.GenerateVector(text.JobTitle + "|||" + text.Description);
-                list.Add(text.JobTitle + "|||" + text.Description, vector);                
-                //Console.WriteLine($"向量维度: {vector.Length}");
-                //Console.WriteLine($"向量前5个值: [{string.Join(", ", vector.Take(5).Select(x => x.ToString("F4")))}...]");
-                //Console.WriteLine();
-            }
             while (true)
             {
                 Console.WriteLine("请选择简历：");
@@ -62,21 +87,26 @@ public static class v3
                 var arr = File.ReadLines(cvPath).ToArray()[5..];
                 var search = string.Join("", arr);
                 Console.WriteLine($"简历: {search}");
-                var vector1 = vectorGenerator.GenerateVector(search);
-                var result = new SortedDictionary<float, string>();
-                foreach (var v in list)
-                {
-                    var similarity = CosineSimilarity(vector1, v.Value);
-                    result.Add(similarity, v.Key);
-                    //Console.WriteLine($"职位: {v.Key}");
-                    //Console.WriteLine($"相似度: {similarity:F4}");
-                }
-                foreach (var r in result.Reverse())
+
+                var sw = Stopwatch.StartNew();
+                var searchVector = vectorGenerator.GenerateVector(search);
+                Console.WriteLine("=======================Vector 搜索结果排序========================");
+                var list = new List<Job>();
+                foreach (var item in QueryVector(searchVector))
                 {
                     Console.WriteLine("--------------------------------");
-                    Console.WriteLine($"职位: {r.Value}");
-                    Console.WriteLine($"相似度: {r.Key:F4}");
+                    Console.WriteLine($"职位: {item.Name}");
+                    Console.WriteLine($"相似度: {item.Result}");
+                    list.Add(jobs.SingleOrDefault(s => s.JobTitle == item.Name));
                 }
+                sw.Stop();
+                Console.WriteLine($"========================Vector 搜索用时：{sw.ElapsedMilliseconds}毫秒==============================");
+
+                sw = Stopwatch.StartNew();
+                Console.WriteLine("=======================Reranker 搜索结果排序========================");
+                Reranker(search, list);
+                sw.Stop();
+                Console.WriteLine($"==========================Reranker 搜索用时：{sw.ElapsedMilliseconds}毫秒============================");
             }
             vectorGenerator.Dispose();
         }
@@ -85,7 +115,74 @@ public static class v3
             Console.WriteLine($"❌ 错误: {ex.Message}");
         }
     }
+    static void Reranker(string query, List<Job> jobs)
+    {
+        var modelPath = @"C:\GPT\ONNX\gte-multilingual-reranker-base-onnx-op14-opt-gpu\model.onnx";
+        var tokenizerPath = @"C:\GPT\ONNX\gte-multilingual-reranker-base-onnx-op14-opt-gpu\tokenizer.json";
+        var tokenizer = Tokenizers.HuggingFace.Tokenizer.Tokenizer.FromFile(tokenizerPath);
 
+        using var session = new InferenceSession(modelPath);
+        // query = query.Length >= 1024 ? query[..1023] : query;
+        var newlist = new List<(string Title, float Score)>();
+        foreach (var job in jobs)
+        {
+            //Console.WriteLine(job.JobTitle);
+            var encodingResult = tokenizer.Encode(
+                query,//.Replace(" ", ""),
+                add_special_tokens: true,
+                input2: job.Description,
+                include_type_ids: true,
+                include_attention_mask: true
+            );
+            var enc = encodingResult.Encodings[0];
+            int seqLen = enc.Ids.Count;
+            var inputIdsTensor = new DenseTensor<long>(enc.Ids.Select(i => (long)i).ToArray(), new[] { 1, seqLen });
+            var typeIdsTensor = new DenseTensor<long>(enc.TypeIds.Select(i => (long)i).ToArray(), new[] { 1, seqLen });
+            var attentionMaskTensor = new DenseTensor<long>(enc.AttentionMask.Select(i => (long)i).ToArray(), new[] { 1, seqLen });
+            var inputs = new List<NamedOnnxValue>
+            {
+                NamedOnnxValue.CreateFromTensor("input_ids",     inputIdsTensor),
+                NamedOnnxValue.CreateFromTensor("attention_mask",attentionMaskTensor)
+            };
+            if (session.InputMetadata.ContainsKey("token_type_ids"))
+            {
+                inputs.Add(NamedOnnxValue.CreateFromTensor("token_type_ids", typeIdsTensor));
+            }
+            using var results = session.Run(inputs);
+            var logitsArr = results.First(x => x.Name == "logits")
+                                    .AsTensor<float>()
+                                    .ToArray();
+            float posLogit = logitsArr.Length == 1
+                ? logitsArr[0]
+                : logitsArr[1];
+
+            float prob = 1f / (1f + MathF.Exp(-posLogit));
+
+            newlist.Add((Title: job.JobTitle, Socre: prob));
+
+        }
+
+        foreach (var item in newlist.OrderByDescending(s => s.Score))
+        {
+            Console.WriteLine($"{item.Title}:{item.Score}");
+        }
+
+    }
+
+
+    static IEnumerable<QueryResult> QueryVector(float[] vector)
+    {
+        var ds = new List<double>();
+        foreach (var item in vector)
+        {
+            ds.Add((double)item);
+        }
+        using (IDbConnection db = new NpgsqlConnection(File.ReadAllText("C://GPT/just-agi-db.txt")))
+        {
+            string sqlQuery = $@"select id,name,1-(cast(@embedding as vector) <=> embedding) as result from public.imagevector1 order by 1-(cast(@embedding as vector) <=> embedding) desc ";
+            return db.Query<QueryResult>(sqlQuery, new { embedding = ds });
+        }
+    }
     /// <summary>
     /// 计算余弦相似度
     /// </summary>

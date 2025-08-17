@@ -434,9 +434,6 @@ new Job
 
 };
 
-v3.Example(jobDescriptions);
-
-return;
 
 //var modelPath = @"C:\GPT\ONNX\jina-reranker-v2-base-multilingual\onnx\model.onnx";
 //var tokenizerPath = @"C:\GPT\ONNX\jina-reranker-v2-base-multilingual\tokenizer.json";
@@ -447,14 +444,13 @@ return;
 //var modelPath = @"C:\GPT\ONNX\gte-multilingual-reranker-base\onnx\model.onnx";
 //var tokenizerPath = @"C:\GPT\ONNX\gte-multilingual-reranker-base\tokenizer.json";
 
-var modelPath = @"C:\GPT\ONNX\gte-multilingual-reranker-base-onnx-op14-opt-gpu\model.onnx";
-var tokenizerPath = @"C:\GPT\ONNX\gte-multilingual-reranker-base-onnx-op14-opt-gpu\tokenizer.json";
-var tokenizer = Tokenizers.HuggingFace.Tokenizer.Tokenizer.FromFile(tokenizerPath);
 
-using var session = new InferenceSession(modelPath);
 while (true)
 {
+    Console.WriteLine("******************Ollam****************");
     await MatchingJobsRerankerAsync();
+    Console.WriteLine("*****************Onnx*****************");
+    // await MatchingJobsReranker1Async();
 }
 //await MatchingJobsAsync();
 //await PGVector();
@@ -462,7 +458,12 @@ while (true)
 
 void Reranker(string query, List<Job> jobs)
 {
-   // query = query.Length >= 1024 ? query[..1023] : query;
+    var modelPath = @"C:\GPT\ONNX\gte-multilingual-reranker-base-onnx-op14-opt-gpu\model.onnx";
+    var tokenizerPath = @"C:\GPT\ONNX\gte-multilingual-reranker-base-onnx-op14-opt-gpu\tokenizer.json";
+    var tokenizer = Tokenizers.HuggingFace.Tokenizer.Tokenizer.FromFile(tokenizerPath);
+
+    using var session = new InferenceSession(modelPath);
+    // query = query.Length >= 1024 ? query[..1023] : query;
     var newlist = new List<(string Title, float Score)>();
     foreach (var job in jobs)
     {
@@ -506,7 +507,7 @@ void Reranker(string query, List<Job> jobs)
     {
         Console.WriteLine($"{item.Title}:{item.Score}");
     }
-   
+
 }
 
 
@@ -515,8 +516,7 @@ void Reranker(string query, List<Job> jobs)
 async Task MatchingJobsRerankerAsync()
 {
     var client = new OllamaApiClient(new Uri("http://localhost:11434/"), "snowflake-arctic-embed2");
-    //var generator = new OllamaEmbeddingGenerator(new Uri("http://localhost:11434/"), "snowflake-arctic-embed2");
-    while (true)
+    //while (true)
     {
         try
         {
@@ -543,16 +543,15 @@ async Task MatchingJobsRerankerAsync()
             }
             var arr = File.ReadLines(cvPath).ToArray()[5..];
             var search = string.Join("", arr);
-           // search = search.Replace(" ", "");
             Console.ResetColor();
             var sw = Stopwatch.StartNew();
             Console.WriteLine($"=======================简历 {search.Length}个字========================");
             Console.WriteLine(search);
             var searchVector = await client.GenerateVectorAsync(search);
-          
+
             Console.WriteLine("=======================Vector 搜索结果排序========================");
             var first = 0d;
-            var vectorResult = QueryImageVector(searchVector.ToArray()).Take(15);
+            var vectorResult = QueryVector(searchVector.ToArray()).Take(15);
             var list = new List<Job>();
             foreach (var item in vectorResult)
             {
@@ -562,10 +561,13 @@ async Task MatchingJobsRerankerAsync()
                 }
                 Console.WriteLine("职位：" + item.Name + "   匹配得分值：" + Math.Round((double.Parse(item.Result) / first) * 100).ToString("0") + "%");
                 list.Add(jobDescriptions.SingleOrDefault(s => s.JobTitle == item.Name));
+
+                //Console.WriteLine($"职位: {item.Name},相似度: {item.Result}");
+                //list.Add(jobDescriptions.SingleOrDefault(s => s.JobTitle == item.Name));
             }
-            sw.Stop();    
+            sw.Stop();
             Console.WriteLine($"========================Vector 搜索用时：{sw.ElapsedMilliseconds}毫秒==============================");
-       
+
             sw = Stopwatch.StartNew();
             Console.WriteLine("=======================Reranker 搜索结果排序========================");
             Reranker(search, list);
@@ -577,56 +579,107 @@ async Task MatchingJobsRerankerAsync()
             Console.WriteLine(exc.Message);
         }
     }
-    IEnumerable<QueryResult> QueryImageVector(float[] imageVector)
+
+}
+IEnumerable<QueryResult> QueryVector(float[] imageVector)
+{
+    var ds = new List<double>();
+    foreach (var item in imageVector)
     {
-        var ds = new List<double>();
-        foreach (var item in imageVector)
-        {
-            ds.Add((double)item);
-        }
-        using (IDbConnection db = new NpgsqlConnection(File.ReadAllText("C://GPT/just-agi-db.txt")))
-        {
-            string sqlQuery = $@"select id,name,1-(cast(@embedding as vector) <=> embedding) as result from public.imagevector 
+        ds.Add((double)item);
+    }
+    using (IDbConnection db = new NpgsqlConnection(File.ReadAllText("C://GPT/just-agi-db.txt")))
+    {
+        string sqlQuery = $@"select id,name,1-(cast(@embedding as vector) <=> embedding) as result from public.imagevector 
 -- where createtime>'2024-12-06'
 order by 1-(cast(@embedding as vector) <=> embedding) desc ";
-            return db.Query<QueryResult>(sqlQuery, new { embedding = ds });
-        }
+        return db.Query<QueryResult>(sqlQuery, new { embedding = ds });
     }
-    void InsertImageVector(Job imageVector)
+}
+void InsertImageVector(Job imageVector)
+{
+    using (IDbConnection db = new NpgsqlConnection(File.ReadAllText("C://GPT/just-agi-db.txt")))
     {
-        using (IDbConnection db = new NpgsqlConnection(File.ReadAllText("C://GPT/just-agi-db.txt")))
-        {
-            string sqlQuery = @"
+        string sqlQuery = @"
                 INSERT INTO public.imagevector (name, embedding,createtime) 
                 VALUES (@Name, @Embedding,@CreateTime) 
                 RETURNING id;";
-            var ds = new List<double>();
-            foreach (var item in imageVector.DescriptionEmbedding.Value.ToArray())
-            {
-                ds.Add((double)item);
-            }
-            var parameters = new
-            {
-                Name = imageVector.JobTitle,
-                Embedding = ds.AsReadOnly<double>(),
-                CreateTime = DateTime.Now
-            };
-
-            var id = db.ExecuteScalar<int>(sqlQuery, parameters); // ExecuteScalar returns the inserted id
-
+        var ds = new List<double>();
+        foreach (var item in imageVector.DescriptionEmbedding.Value.ToArray())
+        {
+            ds.Add((double)item);
         }
+        var parameters = new
+        {
+            Name = imageVector.JobTitle,
+            Embedding = ds.AsReadOnly<double>(),
+            CreateTime = DateTime.Now
+        };
+
+        var id = db.ExecuteScalar<int>(sqlQuery, parameters); // ExecuteScalar returns the inserted id
+
     }
 }
+async Task MatchingJobsReranker1Async()
+{
+    var modelPath = @"C:\GPT\ONNX\jina-embeddings-v3\onnx\model.onnx";
+    var tokenizerPath = @"C:\GPT\ONNX\jina-embeddings-v3\tokenizer.json";
+    var vectorGenerator = new TextVectorGenerator(modelPath, tokenizerPath);
 
+    //while (true)
+    {
+        Console.WriteLine("请选择简历：");
+        Console.WriteLine("1、cv1.md   2、cv2.md    3、cv3.md");
+        var cvPath = "";
+        var cvNo = Console.ReadLine();
+        switch (cvNo)
+        {
+            case "1":
+                cvPath = "cv1.md";
+                break;
+            case "2":
+                cvPath = "cv2.md";
+                break;
+            case "3":
+                cvPath = "cv3.md";
+                break;
+            default:
+                return;
+        }
+        var arr = File.ReadLines(cvPath).ToArray()[5..];
+        var search = string.Join("", arr);
+        Console.WriteLine($"简历: {search}");
+
+        var sw = Stopwatch.StartNew();
+        var searchVector = vectorGenerator.GenerateVector(search);
+        Console.WriteLine("=======================Vector 搜索结果排序========================");
+        var list = new List<Job>();
+        foreach (var item in QueryVector(searchVector))
+        {
+            //Console.WriteLine("--------------------------------");
+            Console.WriteLine($"职位: {item.Name},相似度: {item.Result}");
+            list.Add(jobDescriptions.SingleOrDefault(s => s.JobTitle == item.Name));
+        }
+        sw.Stop();
+        Console.WriteLine($"========================Vector 搜索用时：{sw.ElapsedMilliseconds}毫秒==============================");
+
+        //sw = Stopwatch.StartNew();
+        //Console.WriteLine("=======================Reranker 搜索结果排序========================");
+        //Reranker(search, list);
+        //sw.Stop();
+        //Console.WriteLine($"==========================Reranker 搜索用时：{sw.ElapsedMilliseconds}毫秒============================");
+    }
+    vectorGenerator.Dispose();
+}
 
 
 
 async Task MatchingJobsAsync()
 {
-    var client= new OllamaApiClient(new Uri("http://localhost:11434/"), "snowflake-arctic-embed2");
-    
+    var client = new OllamaApiClient(new Uri("http://localhost:11434/"), "snowflake-arctic-embed2");
+
     //IEmbeddingGenerator<string, Embedding<float>>
-   // var generator = new OllamaEmbeddingGenerator(new Uri("http://localhost:11434/"), "snowflake-arctic-embed2");
+    // var generator = new OllamaEmbeddingGenerator(new Uri("http://localhost:11434/"), "snowflake-arctic-embed2");
     while (true)
     {
         try
@@ -845,7 +898,7 @@ async Task RedisVector()
     var vectorStore = new RedisVectorStore(ConnectionMultiplexer.Connect("localhost:6379").GetDatabase());
     var jobStore = vectorStore.GetCollection<string, Job>("vector");
     var client = new OllamaApiClient(new Uri("http://localhost:11434/"), "snowflake-arctic-embed2");
-   // var generator = new OllamaEmbeddingGenerator(new Uri("http://localhost:11434/"), "mxbai-embed-large");
+    // var generator = new OllamaEmbeddingGenerator(new Uri("http://localhost:11434/"), "mxbai-embed-large");
     foreach (var job in jobDescriptions)
     {
         job.DescriptionEmbedding = await client.GenerateVectorAsync(job.JobTitle + "。"
