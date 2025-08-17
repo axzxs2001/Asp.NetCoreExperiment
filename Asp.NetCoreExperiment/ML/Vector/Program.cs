@@ -9,11 +9,14 @@ using Microsoft.ML.OnnxRuntime.Tensors;
 using Microsoft.SemanticKernel.Connectors.InMemory;
 using Microsoft.SemanticKernel.Connectors.Redis;
 using Npgsql;
+using OllamaSharp;
 using StackExchange.Redis;
 using System.Data;
 using System.Diagnostics;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using Vector;
+
 
 
 var jobDescriptions = new List<Job>
@@ -430,6 +433,11 @@ new Job
 },
 
 };
+
+v3.Example(jobDescriptions);
+
+return;
+
 //var modelPath = @"C:\GPT\ONNX\jina-reranker-v2-base-multilingual\onnx\model.onnx";
 //var tokenizerPath = @"C:\GPT\ONNX\jina-reranker-v2-base-multilingual\tokenizer.json";
 
@@ -506,7 +514,8 @@ void Reranker(string query, List<Job> jobs)
 
 async Task MatchingJobsRerankerAsync()
 {
-    var generator = new OllamaEmbeddingGenerator(new Uri("http://localhost:11434/"), "snowflake-arctic-embed2");
+    var client = new OllamaApiClient(new Uri("http://localhost:11434/"), "snowflake-arctic-embed2");
+    //var generator = new OllamaEmbeddingGenerator(new Uri("http://localhost:11434/"), "snowflake-arctic-embed2");
     while (true)
     {
         try
@@ -539,7 +548,7 @@ async Task MatchingJobsRerankerAsync()
             var sw = Stopwatch.StartNew();
             Console.WriteLine($"=======================简历 {search.Length}个字========================");
             Console.WriteLine(search);
-            var searchVector = await generator.GenerateVectorAsync(search);
+            var searchVector = await client.GenerateVectorAsync(search);
           
             Console.WriteLine("=======================Vector 搜索结果排序========================");
             var first = 0d;
@@ -614,7 +623,10 @@ order by 1-(cast(@embedding as vector) <=> embedding) desc ";
 
 async Task MatchingJobsAsync()
 {
-    var generator = new OllamaEmbeddingGenerator(new Uri("http://localhost:11434/"), "snowflake-arctic-embed2");
+    var client= new OllamaApiClient(new Uri("http://localhost:11434/"), "snowflake-arctic-embed2");
+    
+    //IEmbeddingGenerator<string, Embedding<float>>
+   // var generator = new OllamaEmbeddingGenerator(new Uri("http://localhost:11434/"), "snowflake-arctic-embed2");
     while (true)
     {
         try
@@ -625,7 +637,7 @@ async Task MatchingJobsAsync()
             var search = string.Join('\n', arr);
             Console.ResetColor();
             var sw = Stopwatch.StartNew();
-            var searchVector = await generator.GenerateVectorAsync(search);
+            var searchVector = await client.GenerateVectorAsync(search);
             sw.Stop();
             Console.WriteLine($"搜索用时：{sw.ElapsedMilliseconds}毫秒");
             Console.WriteLine("=======================搜索结果排序========================");
@@ -691,7 +703,8 @@ order by 1-(cast(@embedding as vector) <=> embedding) desc ";
 #region 
 async Task PGVector()
 {
-    var generator = new OllamaEmbeddingGenerator(new Uri("http://localhost:11434/"), "snowflake-arctic-embed2");
+    var client = new OllamaApiClient(new Uri("http://localhost:11434/"), "snowflake-arctic-embed2");
+    //var generator = new OllamaEmbeddingGenerator(new Uri("http://localhost:11434/"), "snowflake-arctic-embed2");
     #region
     //foreach (var hotel in jobDescriptions)
     //{
@@ -757,7 +770,7 @@ async Task PGVector()
         }
         Console.ResetColor();
         var sw = Stopwatch.StartNew();
-        var searchVector = await generator.GenerateVectorAsync(search);
+        var searchVector = await client.GenerateVectorAsync(search);
         sw.Stop();
         Console.WriteLine($"搜索用时：{sw.ElapsedMilliseconds}毫秒");
         Console.WriteLine("=======================搜索结果排序========================");
@@ -831,11 +844,11 @@ async Task RedisVector()
     #endregion
     var vectorStore = new RedisVectorStore(ConnectionMultiplexer.Connect("localhost:6379").GetDatabase());
     var jobStore = vectorStore.GetCollection<string, Job>("vector");
-
-    var generator = new OllamaEmbeddingGenerator(new Uri("http://localhost:11434/"), "mxbai-embed-large");
+    var client = new OllamaApiClient(new Uri("http://localhost:11434/"), "snowflake-arctic-embed2");
+   // var generator = new OllamaEmbeddingGenerator(new Uri("http://localhost:11434/"), "mxbai-embed-large");
     foreach (var job in jobDescriptions)
     {
-        job.DescriptionEmbedding = await generator.GenerateVectorAsync(job.JobTitle + "。"
+        job.DescriptionEmbedding = await client.GenerateVectorAsync(job.JobTitle + "。"
              + job.Tags + "。"
             + job.Description);
 
@@ -855,7 +868,7 @@ async Task RedisVector()
         var search = Console.ReadLine();
         Console.ResetColor();
         var sw = Stopwatch.StartNew();
-        var searchVector = await generator.GenerateVectorAsync(search);
+        var searchVector = await client.GenerateVectorAsync(search);
         sw.Stop();
         Console.WriteLine(sw.ElapsedMilliseconds);
         //var results = await jobStore.SearchAsync(searchVector,3);
