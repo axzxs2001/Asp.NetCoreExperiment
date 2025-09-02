@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="A2A.AspNetCore" Version="0.1.0-preview.2" />
+		<PackageReference Include="Microsoft.SemanticKernel" Version="1.64.0" />
+		<PackageReference Include="Microsoft.SemanticKernel.Agents.A2A" Version="1.64.0-alpha" />
+		<PackageReference Include="Microsoft.SemanticKernel.Agents.Abstractions" Version="1.64.0" />
+		<PackageReference Include="Microsoft.SemanticKernel.Agents.AzureAI" Version="1.64.0-preview" />
+		<PackageReference Include="Microsoft.SemanticKernel.Agents.Core" Version="1.64.0" />
+	</ItemGroup>
+</Project>

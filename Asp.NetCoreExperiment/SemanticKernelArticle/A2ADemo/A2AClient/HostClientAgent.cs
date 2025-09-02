@@ -25,8 +25,7 @@ internal sealed class HostClientAgent
             var agents = await Task.WhenAll(createAgentTasks);
             var agentFunctions = agents.Select(agent => AgentKernelFunctionFactory.CreateFromAgent(agent)).ToList();
             var agentPlugin = KernelPluginFactory.CreateFromFunctions("AgentPlugin", agentFunctions);
-
-            // Define the Host agent
+      
             var builder = Kernel.CreateBuilder();
             builder.AddAzureOpenAIChatCompletion(modelId, endpoint, apiKey);
             builder.Plugins.Add(agentPlugin);

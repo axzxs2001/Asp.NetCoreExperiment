@@ -1,0 +1,6 @@
+@BlogA2AServer2_HostAddress = http://localhost:5161
+
+GET {{BlogA2AServer2_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

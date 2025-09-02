@@ -17,15 +17,16 @@ string modelId = arr[0];
 
 IEnumerable<KernelPlugin> invoicePlugins = [KernelPluginFactory.CreateFromType<StoreSystemPlugin>()];
 
-A2AHostAgent? hostAgent =  CreateChatCompletionHostAgent(
+A2AHostAgent? shopHostAgent = CreateChatCompletionHostAgent(
             modelId, endpoint, apiKey, "ShopAgent",
             """
             您专门处理与商店进销存的相关的请求。
             """, invoicePlugins);
 
-app.MapA2A(hostAgent!.TaskManager!, "/");
+app.MapA2A(shopHostAgent!.TaskManager!, "/");
 
-await app.RunAsync();
+
+app.Run();
 
 
 A2AHostAgent CreateChatCompletionHostAgent(string modelId, string endpoint, string apiKey, string name, string instructions, IEnumerable<KernelPlugin>? plugins = null)
@@ -48,12 +49,9 @@ A2AHostAgent CreateChatCompletionHostAgent(string modelId, string endpoint, stri
         Instructions = instructions,
         Arguments = new KernelArguments(new PromptExecutionSettings() { FunctionChoiceBehavior = FunctionChoiceBehavior.Auto() }),
     };
-
     var agentCard = GetShopAgentCard();
-
     return new A2AHostAgent(agent, agentCard);
 }
-
 AgentCard GetShopAgentCard()
 {
     var capabilities = new AgentCapabilities()
@@ -67,7 +65,7 @@ AgentCard GetShopAgentCard()
         Id = "id_shop_agent",
         Name = "ShopAgent",
         Description = "处理与商店进销存的相关的请求。",
-        Tags = ["发票", "semantic-kernel"],
+        Tags = ["水果", "semantic-kernel"],
         Examples =
         [
            "按照水果名称(Name)查询水果",

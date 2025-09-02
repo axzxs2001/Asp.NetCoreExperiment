@@ -8,9 +8,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="A2A" Version="0.1.0-preview.2" />
-		<PackageReference Include="Microsoft.SemanticKernel" Version="1.64.0" />
-		<PackageReference Include="Microsoft.SemanticKernel.Agents.A2A" Version="1.64.0-alpha" />
-		<PackageReference Include="Microsoft.SemanticKernel.Agents.Core" Version="1.64.0" />
+		<PackageReference Include="A2A" Version="0.1.0-preview.2" />	
 	</ItemGroup>
 </Project>
