@@ -445,14 +445,14 @@ new Job
 //var tokenizerPath = @"C:\GPT\ONNX\gte-multilingual-reranker-base\tokenizer.json";
 
 
-while (true)
-{
-    Console.WriteLine("******************Ollam****************");
-    await MatchingJobsRerankerAsync();
-    Console.WriteLine("*****************Onnx*****************");
-    // await MatchingJobsReranker1Async();
-}
-//await MatchingJobsAsync();
+//while (true)
+//{
+//    Console.WriteLine("******************Ollam****************");
+//    await MatchingJobsRerankerAsync();
+//    Console.WriteLine("*****************Onnx*****************");
+//    // await MatchingJobsReranker1Async();
+//}
+await MatchingJobsAsync();
 //await PGVector();
 //await RedisVector();
 
@@ -470,12 +470,12 @@ void Reranker(string query, List<Job> jobs)
         //Console.WriteLine(job.JobTitle);
         var encodingResult = tokenizer.Encode(
             query,//.Replace(" ", ""),
-            add_special_tokens: true,
+            addSpecialTokens: true,
             input2: job.Description,
-            include_type_ids: true,
-            include_attention_mask: true
+            includeTypeIds: true,
+            includeAttentionMask: true
         );
-        var enc = encodingResult.Encodings[0];
+        var enc = encodingResult.First();
         int seqLen = enc.Ids.Count;
         var inputIdsTensor = new DenseTensor<long>(enc.Ids.Select(i => (long)i).ToArray(), new[] { 1, seqLen });
         var typeIdsTensor = new DenseTensor<long>(enc.TypeIds.Select(i => (long)i).ToArray(), new[] { 1, seqLen });
@@ -695,64 +695,91 @@ async Task MatchingJobsAsync()
             Console.WriteLine($"搜索用时：{sw.ElapsedMilliseconds}毫秒");
             Console.WriteLine("=======================搜索结果排序========================");
             var first = 0d;
-            foreach (var item in QueryImageVector(searchVector.ToArray()).Take(3))
+            foreach (var item in QueryImageVector1(searchVector.ToArray()))
             {
                 if (first == 0)
                 {
                     first = double.Parse(item.Result);
                 }
-                Console.WriteLine("职位：" + item.Name + "   匹配得分值：" + Math.Round((double.Parse(item.Result) / first) * 100).ToString("0") + "%");
+                //Console.WriteLine("职位：" + item.Name + "   匹配得分值：" + Math.Round((double.Parse(item.Result) / first) * 100).ToString("0") + "%");
+                Console.WriteLine("职位：" + item.Name + "   匹配得分值：" +item.Result);
             }
             Console.WriteLine("======================================================");
             Console.WriteLine("\n\n");
             Thread.Sleep(2000);
+            Console.WriteLine("======================================================");
+            first = 0d;
+            foreach (var item in QueryImageVector(searchVector.ToArray()))
+            {
+                if (first == 0)
+                {
+                    first = double.Parse(item.Result);
+                }
+                Console.WriteLine("职位：" + item.Name + "   匹配得分值：" + item.Result);
+            }
+            Console.WriteLine("======================================================");
+            Console.WriteLine("\n\n");
         }
         catch (Exception exc)
         {
             Console.WriteLine(exc.Message);
         }
-    }
-    IEnumerable<QueryResult> QueryImageVector(float[] imageVector)
-    {
-        var ds = new List<double>();
-        foreach (var item in imageVector)
+
+        IEnumerable<QueryResult> QueryImageVector1(float[] imageVector)
         {
-            ds.Add((double)item);
-        }
-        using (IDbConnection db = new NpgsqlConnection(File.ReadAllText("C://GPT/just-agi-db.txt")))
-        {
-            string sqlQuery = $@"select id,name,1-(cast(@embedding as vector) <=> embedding) as result from public.imagevector 
--- where createtime>'2024-12-06'
-order by 1-(cast(@embedding as vector) <=> embedding) desc ";
-            return db.Query<QueryResult>(sqlQuery, new { embedding = ds });
-        }
-    }
-    void InsertImageVector(Job imageVector)
-    {
-        using (IDbConnection db = new NpgsqlConnection(File.ReadAllText("C://GPT/just-agi-db.txt")))
-        {
-            string sqlQuery = @"
-                INSERT INTO public.imagevector (name, embedding,createtime) 
-                VALUES (@Name, @Embedding,@CreateTime) 
-                RETURNING id;";
             var ds = new List<double>();
-            foreach (var item in imageVector.DescriptionEmbedding.Value.ToArray())
+            foreach (var item in imageVector)
             {
                 ds.Add((double)item);
             }
-            var parameters = new
+            using (IDbConnection db = new NpgsqlConnection(File.ReadAllText("C://GPT/just-agi-db.txt")))
             {
-                Name = imageVector.JobTitle,
-                Embedding = ds.AsReadOnly<double>(),
-                CreateTime = DateTime.Now
-            };
+                string sqlQuery = $@"select id,name, inner_product(embedding , cast(@embedding as vector) ) as result from public.imagevector 
+order by result desc  ";
+                return db.Query<QueryResult>(sqlQuery, new { embedding = ds });
+            }
+        }
+        IEnumerable<QueryResult> QueryImageVector(float[] imageVector)
+        {
+            var ds = new List<double>();
+            foreach (var item in imageVector)
+            {
+                ds.Add((double)item);
+            }
+            using (IDbConnection db = new NpgsqlConnection(File.ReadAllText("C://GPT/just-agi-db.txt")))
+            {
+                string sqlQuery = $@"select id,name,1-(cast(@embedding as vector) <=> embedding) as result from public.imagevector 
+-- where createtime>'2024-12-06'
+order by result desc ";
+                return db.Query<QueryResult>(sqlQuery, new { embedding = ds });
+            }
+        }
+        void InsertImageVector(Job imageVector)
+        {
+            using (IDbConnection db = new NpgsqlConnection(File.ReadAllText("C://GPT/just-agi-db.txt")))
+            {
+                string sqlQuery = @"
+                INSERT INTO public.imagevector (name, embedding,createtime) 
+                VALUES (@Name, @Embedding,@CreateTime) 
+                RETURNING id;";
+                var ds = new List<double>();
+                foreach (var item in imageVector.DescriptionEmbedding.Value.ToArray())
+                {
+                    ds.Add((double)item);
+                }
+                var parameters = new
+                {
+                    Name = imageVector.JobTitle,
+                    Embedding = ds.AsReadOnly<double>(),
+                    CreateTime = DateTime.Now
+                };
 
-            var id = db.ExecuteScalar<int>(sqlQuery, parameters); // ExecuteScalar returns the inserted id
+                var id = db.ExecuteScalar<int>(sqlQuery, parameters); // ExecuteScalar returns the inserted id
 
+            }
         }
     }
 }
-
 #region 
 async Task PGVector()
 {

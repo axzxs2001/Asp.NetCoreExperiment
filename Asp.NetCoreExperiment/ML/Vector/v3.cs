@@ -129,12 +129,12 @@ public static class v3
             //Console.WriteLine(job.JobTitle);
             var encodingResult = tokenizer.Encode(
                 query,//.Replace(" ", ""),
-                add_special_tokens: true,
+                addSpecialTokens: true,
                 input2: job.Description,
-                include_type_ids: true,
-                include_attention_mask: true
+                includeTypeIds: true,
+                includeAttentionMask: true
             );
-            var enc = encodingResult.Encodings[0];
+            var enc = encodingResult.First();
             int seqLen = enc.Ids.Count;
             var inputIdsTensor = new DenseTensor<long>(enc.Ids.Select(i => (long)i).ToArray(), new[] { 1, seqLen });
             var typeIdsTensor = new DenseTensor<long>(enc.TypeIds.Select(i => (long)i).ToArray(), new[] { 1, seqLen });
@@ -252,12 +252,12 @@ public class TextVectorGenerator : IDisposable
             // 使用分词器对文本进行编码
             var encodingResult = _tokenizer.Encode(
                 text,
-                add_special_tokens: true,
-                include_attention_mask: true
+                addSpecialTokens: true,
+                includeAttentionMask: true
             );
 
             // 获取第一个编码对象
-            var enc = encodingResult.Encodings[0];
+            var enc = encodingResult.First();
             var tokens = enc.Ids;
             var attentionMask = enc.AttentionMask;
 
