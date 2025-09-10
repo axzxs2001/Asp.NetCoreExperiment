@@ -69,9 +69,6 @@ async Task TextToImageAsync()
     }
 }
 
-
-
-
 async Task ImageToImageAsync()
 {
     string ApiKey = File.ReadAllText("C:/gpt/googlecloudkey.txt");
