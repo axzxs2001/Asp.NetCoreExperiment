@@ -8,8 +8,8 @@ using System.Text;
 using System.Text.Json;
 
 
-await ImageToImageAsync();
-//await TextToImageAsync();
+//await ImageToImageAsync();
+await TextToImageAsync();
 async Task TextToImageAsync()
 {
 
@@ -19,7 +19,7 @@ async Task TextToImageAsync()
        "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-image-preview:generateContent";
 
 
-    var prompt = "在柔和的晨光下，在木桌上生成逼真的西瓜";
+    var prompt = "今天9月10日，是中国的“教师节”，请生成一张祝福教师节的图片，温情，祝福";
 
     using var http = new HttpClient();
     http.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -60,7 +60,7 @@ async Task TextToImageAsync()
             {
                 var b64 = inline.GetProperty("data").GetString();
                 var bytes = Convert.FromBase64String(b64!);
-                var file = $"output_{imageIndex++:00}.png";
+                var file = $"output_{DateTime .Now.ToString("yyyyMMddHHmmss")}.png";
                 await File.WriteAllBytesAsync(file, bytes);
                 Console.WriteLine($"Saved: {file}");
             }
