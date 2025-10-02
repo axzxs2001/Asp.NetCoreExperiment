@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.14.36414.22 d17.14
+# Visual Studio Version 18
+VisualStudioVersion = 18.0.11026.189 d18.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CSharp", "CSharp", "{0C2286BE-F1F4-4E52-A9FA-1EF056CD9159}"
 EndProject
@@ -1158,6 +1158,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoreTechs", "Asp.NetCoreExperiment\DOTNET10\MoreTechs\MoreTechs.csproj", "{19C6C349-BF5B-45FF-AC10-9EDA2BE490B0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NanoBananaDemo", "Asp.NetCoreExperiment\SemanticKernelArticle\NanoBananaDemo\NanoBananaDemo.csproj", "{34BCC8CC-59AF-46C3-A6B1-B1D112C5C116}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MSAgentsAI", "MSAgentsAI", "{D7A2C8C2-CAEE-469C-9501-1D1AB00FE1DB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgentDemo01", "Asp.NetCoreExperiment\MSAgentsAI\AgentDemo01\AgentDemo01.csproj", "{5D993B2C-7515-49B6-8280-4C611F91F329}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -5637,6 +5641,18 @@ Global
 		{34BCC8CC-59AF-46C3-A6B1-B1D112C5C116}.Release|arm64.Build.0 = Release|Any CPU
 		{34BCC8CC-59AF-46C3-A6B1-B1D112C5C116}.Release|x86.ActiveCfg = Release|Any CPU
 		{34BCC8CC-59AF-46C3-A6B1-B1D112C5C116}.Release|x86.Build.0 = Release|Any CPU
+		{5D993B2C-7515-49B6-8280-4C611F91F329}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D993B2C-7515-49B6-8280-4C611F91F329}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D993B2C-7515-49B6-8280-4C611F91F329}.Debug|arm64.ActiveCfg = Debug|Any CPU
+		{5D993B2C-7515-49B6-8280-4C611F91F329}.Debug|arm64.Build.0 = Debug|Any CPU
+		{5D993B2C-7515-49B6-8280-4C611F91F329}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{5D993B2C-7515-49B6-8280-4C611F91F329}.Debug|x86.Build.0 = Debug|Any CPU
+		{5D993B2C-7515-49B6-8280-4C611F91F329}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D993B2C-7515-49B6-8280-4C611F91F329}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D993B2C-7515-49B6-8280-4C611F91F329}.Release|arm64.ActiveCfg = Release|Any CPU
+		{5D993B2C-7515-49B6-8280-4C611F91F329}.Release|arm64.Build.0 = Release|Any CPU
+		{5D993B2C-7515-49B6-8280-4C611F91F329}.Release|x86.ActiveCfg = Release|Any CPU
+		{5D993B2C-7515-49B6-8280-4C611F91F329}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -6132,6 +6148,7 @@ Global
 		{08D3A3E4-D7F8-4F72-8025-81338DB029CB} = {58F8BDD3-9D43-46EA-993B-AF8AEF7590AD}
 		{19C6C349-BF5B-45FF-AC10-9EDA2BE490B0} = {966C5587-E460-4572-9C9D-899AB0A8FDF0}
 		{34BCC8CC-59AF-46C3-A6B1-B1D112C5C116} = {3918D839-4415-44C9-AD94-C78DB19EF9CE}
+		{5D993B2C-7515-49B6-8280-4C611F91F329} = {D7A2C8C2-CAEE-469C-9501-1D1AB00FE1DB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA8C3962-E813-4879-BBAA-6DCA13FAC0B8}
