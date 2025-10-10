@@ -1,8 +1,11 @@
 ﻿using Azure.AI.OpenAI;
 using Azure.Identity;
+using Azure.Monitor.OpenTelemetry.Exporter;
 using Microsoft.Agents.AI;
 using Microsoft.Extensions.AI;
 using OpenAI;
+using OpenTelemetry;
+using OpenTelemetry.Trace;
 using System.ClientModel;
 using System.ComponentModel;
 using System.Text.Json;
@@ -17,10 +20,47 @@ var deploymentName = arr[0];
 var key = arr[2];
 var credential = new ApiKeyCredential(key);
 
-await F5();
+await F6();
 
 
 Console.ReadLine();
+
+async Task F6()
+{
+    var applicationInsightsConnectionString = File.ReadAllText("C://gpt/IngestionConnStr.txt");
+
+    const string JokerName = "Joker";
+    const string JokerInstructions = "You are good at telling jokes.";
+
+    // Create TracerProvider with console exporter
+    // This will output the telemetry data to the console.
+    string sourceName = Guid.NewGuid().ToString("N");
+    var tracerProviderBuilder = Sdk.CreateTracerProviderBuilder()
+        .AddSource(sourceName)
+        .AddConsoleExporter();
+    if (!string.IsNullOrWhiteSpace(applicationInsightsConnectionString))
+    {
+        tracerProviderBuilder.AddAzureMonitorTraceExporter(options => options.ConnectionString = applicationInsightsConnectionString);
+    }
+    using var tracerProvider = tracerProviderBuilder.Build();
+
+    // Create the agent, and enable OpenTelemetry instrumentation.
+    AIAgent agent = new AzureOpenAIClient(new Uri(endpoint), credential)
+        .GetChatClient(deploymentName)
+        .CreateAIAgent(JokerInstructions, JokerName)
+        .AsBuilder()
+        .UseOpenTelemetry(sourceName: sourceName)
+        .Build();
+
+    // Invoke the agent and output the text result.
+    Console.WriteLine(await agent.RunAsync("Tell me a joke about a pirate."));
+
+    // Invoke the agent with streaming support.
+    await foreach (var update in agent.RunStreamingAsync("Tell me a joke about a pirate."))
+    {
+        Console.WriteLine(update);
+    }
+}
 
 async Task F5()
 {
