@@ -8,8 +8,8 @@ using System.Text;
 using System.Text.Json;
 
 
-//await ImageToImageAsync();
-await TextToImageAsync();
+await ImageToImageAsync1();
+//await TextToImageAsync();
 async Task TextToImageAsync()
 {
 
@@ -19,7 +19,7 @@ async Task TextToImageAsync()
        "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-image-preview:generateContent";
 
 
-    var prompt = "今天9月10日，是中国的“教师节”，请生成一张祝福教师节的图片，温情，祝福";
+    var prompt = "保留人物面部特征，表情平和，把衣服换成西装领带，";
 
     using var http = new HttpClient();
     http.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -147,12 +147,12 @@ async Task ImageToImageAsync1()
     string Endpoint =
        "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-image-preview:generateContent";
     // 准备两张输入图：前景人物 + 海滩背景
-    var fgBytes = await File.ReadAllBytesAsync("person.jpg");
+    var fgBytes = await File.ReadAllBytesAsync("gsw.jpg");
 
     string fgB64 = Convert.ToBase64String(fgBytes);
   
 
-    var instruction = "根据用户提供的照片，转换成一张证件照，要求白底，人物清晰。";
+    var instruction = "根据用户提供的照片，把胡子除掉，人物清晰。";
 
     var requestBody = new
     {
