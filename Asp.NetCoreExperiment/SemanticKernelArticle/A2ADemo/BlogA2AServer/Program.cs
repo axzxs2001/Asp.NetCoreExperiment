@@ -17,10 +17,12 @@ string modelId = arr[0];
 IEnumerable<KernelPlugin> invoicePlugins = [KernelPluginFactory.CreateFromType<StoreSystemPlugin>()];
 
 A2AHostAgent? shopHostAgent = CreateChatCompletionHostAgent(
-            modelId, endpoint, apiKey, "ShopAgent",
-            """
-            您专门处理与商店进销存的相关的请求。
-            """, invoicePlugins);
+            modelId,
+            endpoint,
+            apiKey,
+            "ShopAgent",
+            "您专门处理与商店进销存的相关的请求",
+            invoicePlugins);
 
 app.MapA2A(shopHostAgent!.TaskManager!, "/");
 
@@ -51,14 +53,20 @@ A2AHostAgent CreateChatCompletionHostAgent(string modelId, string endpoint, stri
     var agentCard = GetShopAgentCard();
     return new A2AHostAgent(agent, agentCard);
 }
+/// <summary>
+/// 获取商店代理的代理卡片配置
+/// </summary>
+/// <returns>返回配置好的 <see cref="AgentCard"/> 实例，包含代理的能力、技能和基本信息</returns>
 AgentCard GetShopAgentCard()
 {
+    // 定义代理的能力配置
     var capabilities = new AgentCapabilities()
     {
-        Streaming = false,
-        PushNotifications = false,
+        Streaming = false,           // 不支持流式响应
+        PushNotifications = false,   // 不支持推送通知
     };
 
+    // 定义代理的技能配置
     var invoiceQuery = new AgentSkill()
     {
         Id = "id_shop_agent",
@@ -71,13 +79,14 @@ AgentCard GetShopAgentCard()
         ],
     };
 
+    // 返回代理卡片配置
     return new()
     {
         Name = "ShopAgent",
         Description = "处理与商店进销存的相关的请求。",
         Version = "1.0.0",
-        DefaultInputModes = ["text"],
-        DefaultOutputModes = ["text"],
+        DefaultInputModes = ["text"],    // 默认输入模式为文本
+        DefaultOutputModes = ["text"],   // 默认输出模式为文本
         Capabilities = capabilities,
         Skills = [invoiceQuery],
     };
