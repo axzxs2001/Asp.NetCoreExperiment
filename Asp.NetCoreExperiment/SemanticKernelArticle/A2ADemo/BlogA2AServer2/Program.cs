@@ -1,5 +1,6 @@
 using A2A;
 using A2A.AspNetCore;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.Agents;
 using Microsoft.SemanticKernel.Agents.A2A;
@@ -8,6 +9,7 @@ using System.ComponentModel;
 var builder = WebApplication.CreateBuilder(args);
 
 var app = builder.Build();
+
 var arr = File.ReadAllLines("C:/gpt/azure_key.txt");
 string? apiKey = arr[2];
 string? endpoint = arr[1];
@@ -21,7 +23,7 @@ A2AHostAgent? translateHostAgent = CreateChatCompletionHostAgent(
             "你能把用户输入的准确的翻译成日语和英语。",
             new KernelPlugin[0]);
 
-app.MapA2A(translateHostAgent!.TaskManager!, "/");
+app.MapA2A(translateHostAgent!.TaskManager!, "/TranslateAgent");
 
 app.Run();
 

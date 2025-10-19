@@ -7,7 +7,13 @@ using System.ComponentModel;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// 添加 OpenAPI 支持
+
+
+
 var app = builder.Build();
+
+
 
 var arr = File.ReadAllLines("C:/gpt/azure_key.txt");
 string? apiKey = arr[2];

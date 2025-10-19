@@ -37,7 +37,7 @@ async Task ShopAgentAsync()
     Console.WriteLine("正在请求：“给出单价大于10块的水果”……");
     var a2aResponse = await client.SendMessageAsync(new MessageSendParams
     {
-        Message = new Message
+        Message = new AgentMessage
         {
             Role = MessageRole.User,
             Parts = [new TextPart { Text = "给出单价大于10块的水果!" }]
@@ -51,7 +51,7 @@ async Task ShopAgentAsync()
 }
 async Task TranslateAgentAsync()
 {
-    var cardResolver = new A2ACardResolver(new Uri("http://localhost:6000/"));
+    var cardResolver = new A2ACardResolver(new Uri("http://localhost:6000/TranslateAgent"));
     var agentCard = await cardResolver.GetAgentCardAsync();
     var options = new JsonSerializerOptions
     {
@@ -65,7 +65,7 @@ async Task TranslateAgentAsync()
     var client = new A2AClient(new Uri(agentCard.Url));
     var a2aResponse = await client.SendMessageAsync(new MessageSendParams
     {
-        Message = new Message
+        Message = new AgentMessage
         {
             Role = MessageRole.User,
             Parts = [new TextPart { Text = "把我输入的内容翻译成日语：明天是个好日子" }]
