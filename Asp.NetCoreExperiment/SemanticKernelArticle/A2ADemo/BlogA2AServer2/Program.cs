@@ -22,8 +22,8 @@ A2AHostAgent? translateHostAgent = CreateChatCompletionHostAgent(
             "TranslateAgent",
             "你能把用户输入的准确的翻译成日语和英语。",
             new KernelPlugin[0]);
-
-app.MapA2A(translateHostAgent!.TaskManager!, "/TranslateAgent");
+app.MapWellKnownAgentCard(translateHostAgent!.TaskManager, "/");
+app.MapA2A(translateHostAgent!.TaskManager!, "/");
 
 app.Run();
 

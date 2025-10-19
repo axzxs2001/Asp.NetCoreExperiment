@@ -21,7 +21,7 @@ while (true)
     }
 }
 async Task ShopAgentAsync()
-{
+{ 
     var cardResolver = new A2ACardResolver(new Uri("http://localhost:5000/"));
     var agentCard = await cardResolver.GetAgentCardAsync();
     var options = new JsonSerializerOptions
@@ -51,10 +51,11 @@ async Task ShopAgentAsync()
 }
 async Task TranslateAgentAsync()
 {
-    var cardResolver = new A2ACardResolver(new Uri("http://localhost:6000/TranslateAgent"));
+    var cardResolver = new A2ACardResolver(new Uri("http://localhost:6000/"));
     var agentCard = await cardResolver.GetAgentCardAsync();
     var options = new JsonSerializerOptions
     {
+        WriteIndented = true,
         Encoder = JavaScriptEncoder.Create(UnicodeRanges.All)
     };
     Console.WriteLine("Card信息：");

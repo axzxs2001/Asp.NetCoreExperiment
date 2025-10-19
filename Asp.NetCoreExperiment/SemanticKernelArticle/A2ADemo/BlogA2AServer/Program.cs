@@ -7,13 +7,7 @@ using System.ComponentModel;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// 添加 OpenAPI 支持
-
-
-
 var app = builder.Build();
-
-
 
 var arr = File.ReadAllLines("C:/gpt/azure_key.txt");
 string? apiKey = arr[2];
@@ -30,8 +24,11 @@ A2AHostAgent? shopHostAgent = CreateChatCompletionHostAgent(
             "您专门处理与商店进销存的相关的请求",
             invoicePlugins);
 
-app.MapA2A(shopHostAgent!.TaskManager!, "/");
 
+
+
+app.MapWellKnownAgentCard(shopHostAgent!.TaskManager, "/");
+app.MapA2A(shopHostAgent!.TaskManager!, "/");
 
 app.Run();
 
