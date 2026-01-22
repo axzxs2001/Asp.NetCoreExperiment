@@ -9,7 +9,7 @@
     <PackageReference Include="HotChocolate.AspNetCore.Authorization" Version="11.1.0-preview.2" />
     <PackageReference Include="HotChocolate.Data" Version="11.1.0-preview.2" />
     <PackageReference Include="HotChocolate.Data.EntityFramework" Version="11.1.0-preview.2" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
